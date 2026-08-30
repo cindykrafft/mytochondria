@@ -1,0 +1,117 @@
+pmcid	doi	journal	year	versions	findings	title
+PMC11087753	10.1073/pnas.2313568121	PNAS	2024	5.3,7.3.0	B11-island-relabel;B13-modefilter-ratchet;B14-v7-medialwall-thickness;B14x-version-mix-thickness-shifts;B4-projfrac-endpoint;B5-fov-edge-zeros;B6-roi-thickavg-zeros;B9-brainvolstats-v6-hires;RN-fsfast-seed-rescale	Impact of repeated blast exposure on active-duty United States Special Operations Forces.
+PMC13017517	10.1038/s41586-025-10059-1	Nature	2026	6.0.0	B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros;B9-brainvolstats-v6-hires;RN-fsfast-seed-rescale	Parkinson's disease as a somato-cognitive action network disorder.
+PMC12207422	10.1073/pnas.2422281122	PNAS	2025	7.1	B1-volcluster-connectivity(if volume-corrected);B11-island-relabel;B13-modefilter-ratchet;B14-v7-medialwall-thickness;B3-csd-pvalue-convention;B6-roi-thickavg-zeros	Linking pregnancy- and birth-related risk factors to a multivariate fusion of child cortical structure.
+PMC10945835	10.1073/pnas.2310044121	PNAS	2024	7.1.1	B1-volcluster-connectivity(if volume-corrected);B11-island-relabel;B13-modefilter-ratchet;B14-v7-medialwall-thickness;B3-csd-pvalue-convention;B6-roi-thickavg-zeros	Insights into hippocampal perfusion using high-resolution, multi-modal 7T MRI.
+PMC12711564	10.1038/s41586-025-09708-2	Nature	2025	7.0	B11-island-relabel;B13-modefilter-ratchet;B14-v7-medialwall-thickness;B6-roi-thickavg-zeros;RN-v7.0.0-recalled	A probabilistic histological atlas of the human brain for MRI segmentation.
+PMC10700136	10.1038/s41586-023-06802-1	Nature	2023	5.3	B1-volcluster-connectivity(if volume-corrected);B11-island-relabel;B13-modefilter-ratchet;B3-csd-pvalue-convention;B6-roi-thickavg-zeros	Organ aging signatures in the plasma proteome track health and disease.
+PMC8991999	10.1038/s41586-022-04492-9	Nature	2022		B1-volcluster-connectivity(if volume-corrected);B11-island-relabel;B13-modefilter-ratchet;B3-csd-pvalue-convention;B6-roi-thickavg-zeros	Reproducible brain-wide association studies require thousands of individuals.
+PMC9046077	10.1038/s41586-022-04569-5	Nature	2022		B1-volcluster-connectivity(if volume-corrected);B11-island-relabel;B13-modefilter-ratchet;B3-csd-pvalue-convention;B6-roi-thickavg-zeros	SARS-CoV-2 is associated with changes in brain structure in UK Biobank.
+PMC10083554	10.1073/pnas.2213880120	PNAS	2023		B1-volcluster-connectivity(if volume-corrected);B11-island-relabel;B13-modefilter-ratchet;B3-csd-pvalue-convention;B6-roi-thickavg-zeros	Large-scale analysis of structural brain asymmetries in schizophrenia via the ENIGMA consortium.
+PMC9271154	10.1073/pnas.2116673119	PNAS	2022		B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros;B6-roi-thickavg-zeros	Adolescent development of multiscale structural wiring and functional interactions in the human connectome.
+PMC8617418	10.1073/pnas.2113095118	PNAS	2021	6.0	B1-volcluster-connectivity(if volume-corrected);B11-island-relabel;B13-modefilter-ratchet;B3-csd-pvalue-convention;B6-roi-thickavg-zeros	Handedness and its genetic influences are associated with structural asymmetries of the cerebral cortex in 31,864 individuals.
+PMC13190288	10.1038/s41586-026-10345-6	Nature	2026	7.3.2	B11-island-relabel;B13-modefilter-ratchet;B14-v7-medialwall-thickness;B6-roi-thickavg-zeros	Population-scale repeat expansions elucidate disease risk and brain atrophy.
+PMC12367542	10.1038/s41586-025-09250-1	Nature	2025		B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	Longer scans boost prediction and cut costs in brain-wide association studies.
+PMC11410656	10.1038/s41586-024-07805-2	Nature	2024	4.3	B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	Frontostriatal salience network expansion in individuals in depression.
+PMC11291293	10.1038/s41586-024-07624-5	Nature	2024		B1-volcluster-connectivity(if volume-corrected);B11-island-relabel;B13-modefilter-ratchet;B3-csd-pvalue-convention	Psilocybin desynchronizes the human brain.
+PMC10172144	10.1038/s41586-023-05964-2	Nature	2023	6.2	B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros;B9-brainvolstats-v6-hires	A somato-cognitive action network alternates with effector regions in motor cortex.
+PMC12286656	10.1126/science.adt3971	Science	2025	6.0.0	B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	Conserved brain-wide emergence of emotional response from sensory experience in humans and mice.
+PMC13142984	10.1073/pnas.2526239123	PNAS	2026	7.4	B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	Quantitative assessment of flow between cerebrospinal and interstitial fluid compartments in humans.
+PMC12818569	10.1073/pnas.2503388123	PNAS	2026		B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	Distinct contributions of hippocampal pathways in learning regularities and exceptions revealed by functional footprints.
+PMC12595413	10.1073/pnas.2520067122	PNAS	2025	7.1.1	B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	Parallel systems for social and spatial cognition reaching the cortical apex.
+PMC12184337	10.1073/pnas.2414598122	PNAS	2025	7.3	B11-island-relabel;B13-modefilter-ratchet;B14-v7-medialwall-thickness;B6-roi-thickavg-zeros	Longitudinal trajectories of brain development from infancy to school age and their relationship with literacy development.
+PMC12002349	10.1073/pnas.2423785122	PNAS	2025	5.3.0	B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros;B9-brainvolstats-v6-hires	Neural basis for individual differences in the attention-enhancing effects of methylphenidate.
+PMC11929402	10.1073/pnas.2415508122	PNAS	2025		B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	Brain-wide dynamic coactivation states code for hand movements in the resting state.
+PMC11252731	10.1073/pnas.2321346121	PNAS	2024	7.1.1	B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	A familiar face and person processing area in the human temporal pole.
+PMC10962978	10.1073/pnas.2309232121	PNAS	2024		B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	The dorsomedial prefrontal cortex prioritizes social learning during rest.
+PMC10945772	10.1073/pnas.2310766121	PNAS	2024		B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	Diverging neural dynamics for syntactic structure building in naturalistic speaking and listening.
+PMC10068819	10.1073/pnas.2120288120	PNAS	2023	6.0.1	B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	Identifying causal subsequent memory effects.
+PMC10068756	10.1073/pnas.2218949120	PNAS	2023		B1-volcluster-connectivity(if volume-corrected);B11-island-relabel;B13-modefilter-ratchet;B3-csd-pvalue-convention	Human brain effects of DMT assessed via EEG-fMRI.
+PMC10089183	10.1073/pnas.2214834120	PNAS	2023	5.3	B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros;RN-xhemi-check	Larger cerebral cortex is genetically correlated with greater frontal area and dorsal thickness.
+PMC8670431	10.1073/pnas.2101403118	PNAS	2021		B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	Temporal self-compression: Behavioral and neural evidence that past and future selves are compressed as they move away from the present.
+PMC8285909	10.1073/pnas.2024448118	PNAS	2021		B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	Shifting gradients of macroscale cortical organization mark the transition from childhood to adolescence.
+PMC8307613	10.1073/pnas.2100522118	PNAS	2021		B11-island-relabel;B13-modefilter-ratchet;B4-projfrac-endpoint;B5-fov-edge-zeros	Altered sense of self during seizures in the posteromedial cortex.
+PMC8106299	10.1073/pnas.2101644118	PNAS	2021	7.1	B1-volcluster-connectivity(if volume-corrected);B11-island-relabel;B13-modefilter-ratchet;B3-csd-pvalue-convention	Educational attainment does not influence brain aging.
+PMC12834599	10.1016/j.cell.2025.11.039	Cell	2025		B1-volcluster-connectivity(if volume-corrected);B11-island-relabel;B13-modefilter-ratchet;B3-csd-pvalue-convention	Stimulant medications affect arousal and reward, not attention networks.
+PMC12727522	10.1038/s41586-025-09748-8	Nature	2026		B11-island-relabel;B13-modefilter-ratchet;RN-xhemi-check	Shared and language-specific phonological processing in the human temporal lobe.
+PMC12137136	10.1038/s41586-025-08888-1	Nature	2025	6.0.1	B11-island-relabel;B13-modefilter-ratchet;B9-brainvolstats-v6-hires	Adversarial testing of global neuronal workspace and integrated information theories of consciousness.
+PMC11655360	10.1038/s41586-024-08260-9	Nature	2024	6.0.1,6.1	B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Study design features increase replicability in brain-wide association studies.
+PMC13187733	10.1073/pnas.2521055123	PNAS	2026		B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Empirical validation of race-neutral normative brain morphometry models across ethnoracially diverse populations.
+PMC12146774	10.1073/pnas.2418176122	PNAS	2025		B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Longitudinal associations between birth-to-six cortical growth and childhood neurocognitive function.
+PMC12067213	10.1073/pnas.2412243122	PNAS	2025		B11-island-relabel;B13-modefilter-ratchet;RN-xhemi-check	A hierarchy of processing complexity and timescales for natural sounds in the human auditory cortex.
+PMC11912385	10.1073/pnas.2413442122	PNAS	2025		B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Deep learning to quantify the pace of brain aging in relation to neurocognitive changes.
+PMC11761675	10.1073/pnas.2421585122	PNAS	2025		B11-island-relabel;B13-modefilter-ratchet;RN-xhemi-check	Expansion of a conserved architecture drives the evolution of the primate visual cortex.
+PMC11494299	10.1073/pnas.2320805121	PNAS	2024	5.3.0	B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Adolescent alcohol consumption predicted by differences in electrophysiological functional connectivity and neuroanatomy.
+PMC11420155	10.1073/pnas.2403200121	PNAS	2024		B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	COVID-19 lockdown effects on adolescent brain structure suggest accelerated maturation that is more pronounced in females than in males.
+PMC11331068	10.1073/pnas.2314074121	PNAS	2024	5.3.0	B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Human adolescent brain similarity development is different for paralimbic versus neocortical zones.
+PMC11295051	10.1073/pnas.2403212121	PNAS	2024		B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Sex and mental health are related to subcortical brain microstructure.
+PMC11252739	10.1073/pnas.2317458121	PNAS	2024		B11-island-relabel;B13-modefilter-ratchet;RN-xhemi-check	Hemispheric functional organization, as revealed by naturalistic neuroimaging, in pediatric epilepsy patients with cortical resections.
+PMC11032474	10.1073/pnas.2304704121	PNAS	2024		B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Childhood maltreatment influences adult brain structure through its effects on immune, metabolic, and psychosocial factors.
+PMC10589642	10.1073/pnas.2306990120	PNAS	2023	6.0.0	B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Hemispheric asymmetry in cortical thinning reflects intrinsic organization of the neurotransmitter systems and homotopic functional connecti
+PMC10193926	10.1073/pnas.2218782120	PNAS	2023		B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Country-level gender inequality is associated with structural differences in the brains of women and men.
+PMC9992854	10.1073/pnas.2216399120	PNAS	2023	1.38	B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Robust machine learning segmentation for large-scale analysis of heterogeneous clinical brain MRI datasets.
+PMC9963327	10.1073/pnas.2215423120	PNAS	2023		B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Restricted language access during childhood affects adult brain structure in selective language regions.
+PMC9963219	10.1073/pnas.2212256120	PNAS	2023	5.3	B11-island-relabel;B13-modefilter-ratchet;B9-brainvolstats-v6-hires	Brain aerobic glycolysis and resilience in Alzheimer disease.
+PMC9926270	10.1073/pnas.2214634120	PNAS	2023	4.3	B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Anatomically interpretable deep learning of brain age captures domain-specific cognitive impairment.
+PMC9618092	10.1073/pnas.2206083119	PNAS	2022	5.0.3	B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Metabolome-wide association study on &lt;i&gt;ABCA7&lt;/i&gt; indicates a role of ceramide metabolism in Alzheimer's disease.
+PMC9564102	10.1073/pnas.2203039119	PNAS	2022	6.0.1	B11-island-relabel;B13-modefilter-ratchet;RN-xhemi-check	Hippocampus and temporal pole functional connectivity is associated with age and individual differences in autobiographical memory.
+PMC9546597	10.1073/pnas.2200638119	PNAS	2022		B11-island-relabel;B13-modefilter-ratchet;RN-xhemi-check	Using neuroimaging genomics to investigate the evolution of human brain structure.
+PMC9191681	10.1073/pnas.2204433119	PNAS	2022		B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Multiscale neural signatures of major depressive, anxiety, and stress-related disorders.
+PMC7936334	10.1073/pnas.2016271118	PNAS	2021		B11-island-relabel;B13-modefilter-ratchet;RN-xhemi-check	Heritability of individualized cortical network topography.
+PMC7826388	10.1073/pnas.2010211118	PNAS	2021	5.3	B11-island-relabel;B13-modefilter-ratchet;B6-roi-thickavg-zeros	Childhood self-control forecasts the pace of midlife aging and preparedness for old age.
+PMC11821539	10.1038/s41586-024-08361-5	Nature	2025		B11-island-relabel;B13-modefilter-ratchet	Specification of claustro-amygdalar and palaeocortical neurons and circuits.
+PMC10266981	10.1038/s41586-023-06098-1	Nature	2023		B11-island-relabel;B13-modefilter-ratchet	Geometric constraints on human brain function.
+PMC12595489	10.1073/pnas.2518523122	PNAS	2025	6.0.0	B11-island-relabel;B13-modefilter-ratchet	Automaticity speeds the retrieval of instances from the human hippocampus.
+PMC12595415	10.1073/pnas.2420188122	PNAS	2025	7.2.0	B11-island-relabel;B13-modefilter-ratchet	Decreased hippocampal neurite density in late-middle-aged adults following prenatal exposure to higher levels of maternal inflammation.
+PMC12377651	10.1073/pnas.2421528122	PNAS	2025		B4-projfrac-endpoint;B5-fov-edge-zeros	Familial transmission of neural representations for mental arithmetic across two generations.
+PMC12207432	10.1073/pnas.2423560122	PNAS	2025		B11-island-relabel;B13-modefilter-ratchet	The brain computes dynamic facial movements for emotion categorization using a third pathway.
+PMC12012540	10.1073/pnas.2413871122	PNAS	2025	6.0.1	B4-projfrac-endpoint;B5-fov-edge-zeros	The Beholder's Share: Bridging art and neuroscience to study individual differences in subjective experience.
+PMC12002251	10.1073/pnas.2406684122	PNAS	2025		B4-projfrac-endpoint;B5-fov-edge-zeros	Expectation-dependent stimulus selectivity in the ventral visual cortical pathway.
+PMC11873822	10.1073/pnas.2411098122	PNAS	2025	6.0.0	B11-island-relabel;B13-modefilter-ratchet	Temporal autocorrelation is predictive of age-An extensive MEG time-series analysis.
+PMC11760929	10.1073/pnas.2422083122	PNAS	2025		B11-island-relabel;B13-modefilter-ratchet	Specialization of the human hippocampal long axis revisited.
+PMC11725837	10.1073/pnas.2415102122	PNAS	2025		B11-island-relabel;B13-modefilter-ratchet	Human brain dynamics are shaped by rare long-range connections over and above cortical geometry.
+PMC11725871	10.1073/pnas.2410341121	PNAS	2025		B11-island-relabel;B13-modefilter-ratchet	A detailed spatiotemporal atlas of the white matter tracts for the fetal brain.
+PMC11648923	10.1073/pnas.2410445121	PNAS	2024		B4-projfrac-endpoint;B5-fov-edge-zeros	Sculpting new visual categories into the human brain.
+PMC11406239	10.1073/pnas.2321965121	PNAS	2024		B11-island-relabel;B13-modefilter-ratchet	Depressive symptoms during the transition to adolescence: Left hippocampal volume as a marker of social context sensitivity.
+PMC10998564	10.1073/pnas.2318528121	PNAS	2024		B11-island-relabel;B13-modefilter-ratchet	Causal functional maps of brain rhythms in working memory.
+PMC10962966	10.1073/pnas.2315758121	PNAS	2024	6.0.0	B11-island-relabel;B13-modefilter-ratchet	Changes in spatial self-consciousness elicit grid cell-like representation in the entorhinal cortex.
+PMC10907247	10.1073/pnas.2313831121	PNAS	2024		B11-island-relabel;B13-modefilter-ratchet	Evolutionary continuity and divergence of auditory dorsal and ventral pathways in primates revealed by ultra-high field diffusion MRI.
+PMC10756194	10.1073/pnas.2314596120	PNAS	2023		B1-volcluster-connectivity(if volume-corrected);B3-csd-pvalue-convention	Examining the role of dopamine in methylphenidate's effects on resting brain function.
+PMC10710032	10.1073/pnas.2309166120	PNAS	2023		B11-island-relabel;B13-modefilter-ratchet	Neural tracking measures of speech intelligibility: Manipulating intelligibility while keeping acoustics unchanged.
+PMC10589709	10.1073/pnas.2219666120	PNAS	2023		B11-island-relabel;B13-modefilter-ratchet	Whole-brain, gray, and white matter time-locked functional signal changes with simple tasks and model-free analysis.
+PMC10589651	10.1073/pnas.2300255120	PNAS	2023		B11-island-relabel;B13-modefilter-ratchet	Distributed feedforward and feedback cortical processing supports human speech production.
+PMC10410728	10.1073/pnas.2221122120	PNAS	2023		B4-projfrac-endpoint;B5-fov-edge-zeros	Functional modules for visual scene segmentation in macaque visual cortex.
+PMC10293846	10.1073/pnas.2212910120	PNAS	2023	6.0.0	B4-projfrac-endpoint;B5-fov-edge-zeros	Brain-to-brain mechanisms underlying pain empathy and social modulation of pain in the patient-clinician interaction.
+PMC10151604	10.1073/pnas.2300252120	PNAS	2023		B11-island-relabel;B13-modefilter-ratchet	Spatiotemporally distributed frontotemporal networks for sentence reading.
+PMC10089159	10.1073/pnas.2207831120	PNAS	2023		B11-island-relabel;B13-modefilter-ratchet	Propofol disrupts alpha dynamics in functionally distinct thalamocortical networks during loss of consciousness.
+PMC10013745	10.1073/pnas.2219635120	PNAS	2023		B11-island-relabel;B13-modefilter-ratchet	Transcranial magnetic stimulation to frontal but not occipital cortex disrupts endogenous attention.
+PMC9636913	10.1073/pnas.2123430119	PNAS	2022		B11-island-relabel;B13-modefilter-ratchet	Electrophysiological markers of memory consolidation in the human brain when memories are reactivated during sleep.
+PMC9564100	10.1073/pnas.2204900119	PNAS	2022	4.5	B11-island-relabel;B13-modefilter-ratchet	Human cerebellum and corticocerebellar connections involved in emotional memory enhancement.
+PMC9371745	10.1073/pnas.2201968119	PNAS	2022		B11-island-relabel;B13-modefilter-ratchet	A hierarchy of linguistic predictions during natural language comprehension.
+PMC9351497	10.1073/pnas.2201128119	PNAS	2022		B11-island-relabel;B13-modefilter-ratchet	Deep neural networks constrained by neural mass models improve electrophysiological source imaging of spatiotemporal brain dynamics.
+PMC8609633	10.1073/pnas.2108713118	PNAS	2021	7.1	B4-projfrac-endpoint;B5-fov-edge-zeros	Divisive normalization unifies disparate response signatures throughout the human visual hierarchy.
+PMC8403906	10.1073/pnas.2101743118	PNAS	2021	5.3	B11-island-relabel;B13-modefilter-ratchet	Parallel hippocampal-parietal circuits for self- and goal-oriented processing.
+PMC7812773	10.1073/pnas.2017032118	PNAS	2021		B11-island-relabel;B13-modefilter-ratchet	Topographic connectivity reveals task-dependent retinotopic processing throughout the human brain.
+PMC10589615	10.1073/pnas.2216942120	PNAS	2023		RN-xhemi-check	Different roles of response covariability and its attentional modulation in the sensory cortex and posterior parietal cortex.
+PMC13148990	10.1038/s41586-026-10267-3	Nature	2026			Rapid concerted switching of the neural code in the inferotemporal cortex.
+PMC11078732	10.1038/s41586-024-07309-z	Nature	2024			Control of working memory by phase-amplitude coupling of human hippocampal neurons.
+PMC10866697	10.1038/s41586-023-06982-w	Nature	2024	7.4.1		Single-neuronal elements of speech production in humans.
+PMC13321129	10.1073/pnas.2530123123	PNAS	2026			Individual differences in speech monitoring: Functional and structural correlates of delayed auditory feedback.
+PMC12745750	10.1073/pnas.2512665122	PNAS	2025			Cortical tracking of sign language: The role of language knowledge in tracking of different articulators.
+PMC12260544	10.1073/pnas.2502021122	PNAS	2025	6.2		Action-mode subnetworks for decision-making, action control, and feedback.
+PMC12088441	10.1073/pnas.2503569122	PNAS	2025			Early development of navigationally relevant location information in the retrosplenial complex.
+PMC11670218	10.1073/pnas.2405395121	PNAS	2024			Breathing orchestrates synchronization of sleep oscillations in the human hippocampus.
+PMC11665852	10.1073/pnas.2408871121	PNAS	2024			Intracortical recordings reveal the neuronal selectivity for bodies and body parts in the human visual cortex.
+PMC11573628	10.1073/pnas.2409345121	PNAS	2024			Secondary thalamic dysfunction underlies abnormal large-scale neural dynamics in chronic stroke.
+PMC11459139	10.1073/pnas.2405929121	PNAS	2024			Repetition dynamically and rapidly increases cortical, but not hippocampal, offline reactivation.
+PMC11295073	10.1073/pnas.2322869121	PNAS	2024			Beta and theta oscillations track effort and previous reward in the human basal ganglia and prefrontal cortex during decision making.
+PMC10334727	10.1073/pnas.2220523120	PNAS	2023	5.3.0		Subspace partitioning in the human prefrontal cortex resolves cognitive interference.
+PMC10235977	10.1073/pnas.2218565120	PNAS	2023			Human and chimpanzee shared and divergent neurobiological systems for general and specific cognitive brain functions.
+PMC10119997	10.1073/pnas.2222069120	PNAS	2023	5.2		Heterogeneity of depression across the socioeconomic spectrum.
+PMC9992778	10.1073/pnas.2215192120	PNAS	2023			Elevated dementia risk, cognitive decline, and hippocampal atrophy in multisite chronic pain.
+PMC9586323	10.1073/pnas.2205162119	PNAS	2022			Morphological similarity of amygdala-ventral prefrontal pathways represents trait anxiety in younger and older adults.
+PMC9173759	10.1073/pnas.2113778119	PNAS	2022	6.0		Diffusion MRI-guided theta burst stimulation enhances memory and functional connectivity along the inferior longitudinal fasciculus in mild 
+PMC9169932	10.1073/pnas.2120439119	PNAS	2022			The effect of prolonged spaceflight on cerebrospinal fluid and perivascular spaces of astronauts and cosmonauts.
+PMC8000197	10.1073/pnas.2023069118	PNAS	2021	6.0		Evidence supporting a time-limited hippocampal role in retrieving autobiographical memories.
+PMC7958181	10.1073/pnas.2021238118	PNAS	2021			Volitional learning promotes theta phase coding in the human hippocampus.
+PMC7896322	10.1073/pnas.2003926118	PNAS	2021			Hormone seasonality in medical records suggests circannual endocrine circuits.
