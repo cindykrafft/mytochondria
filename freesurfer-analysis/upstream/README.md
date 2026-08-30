@@ -15,6 +15,10 @@ Open each upstream PR from the compare link; the matching body is in
 | `fix/anatomical-stats-thickness-range` | -i silent no-op | https://github.com/freesurfer/freesurfer/compare/dev...cindykrafft:freesurfer:fix/anatomical-stats-thickness-range |
 | `fix/aparc2aseg-stale-state` | stale winner state / uninit read | https://github.com/freesurfer/freesurfer/compare/dev...cindykrafft:freesurfer:fix/aparc2aseg-stale-state |
 
+Each PR also has a **companion bug issue** (`issue-pr1-*.md` through
+`issue-pr5-*.md`): file the issue first, then reference it from the PR with
+"Fixes #N" so the pair is linked and the issue closes on merge.
+
 Issues without a PR (already fixed on dev, need a decision, or need a
 larger change): `issue-b1-*.md`, `issue-b3-*.md`, `issue-b6-*.md`, and the
 race half of `issue-b12-*.md`.
