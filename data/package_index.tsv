@@ -1,0 +1,271 @@
+package	category	n_papers	journals	years	top_versions	typical_pipeline_stages
+R	general	2959	PNAS=1847;Nature=786;Cell=161;Lancet=92;Science=50;NEJM=23	2021=346;2022=563;2023=542;2024=568;2025=697;2026=243	4.0=68;4.1=52;4.2.2=44;4.0.3=43;3.6=39	differential/statistical testing=821;dimensionality reduction/clustering=221;visualisation=203;quantification=124
+ImageJ	imaging	2443	PNAS=1748;Nature=550;Cell=108;Science=37	2021=211;2022=476;2023=461;2024=513;2025=598;2026=184	1.53=17;2.1.0=16;1.53t=14;1.53c=12;2.0.0=12	quantification=680;visualisation=89;normalisation=86;differential/statistical testing=28
+AlphaFold	structbio	1197	PNAS=842;Nature=268;Science=45;Cell=41;NEJM=1	2021=6;2022=109;2023=240;2024=295;2025=408;2026=139	2.0=7;2.2.0=4;2.3.2=4;3.0=4;2.3.1=3	structure determination=71;alignment/mapping=46;dimensionality reduction/clustering=38;machine learning=27
+UMAP	single-cell	1111	PNAS=544;Nature=453;Cell=77;Science=37	2021=87;2022=130;2023=181;2024=239;2025=338;2026=136	0.2.7.0=1;3.1=1;0.5.1=1	dimensionality reduction/clustering=1111;visualisation=282;normalisation=82;differential/statistical testing=20
+Python	general	964	PNAS=514;Nature=360;Cell=60;Science=16;Lancet=14	2021=77;2022=165;2023=160;2024=200;2025=260;2026=102	3.7=27;3.9=19;3.6=18;3.8=14;3.10=13	differential/statistical testing=78;simulation/modelling=61;visualisation=58;alignment/mapping=50
+PHENIX	structbio	905	PNAS=558;Nature=256;Cell=62;Science=29	2021=87;2022=184;2023=170;2024=176;2025=230;2026=58	1.20.1=33;1.19.2=14;1.21=11;1.20=8;1.19=8	structure determination=657;machine learning=10;visualisation=8;simulation/modelling=6
+DESeq2	genomics	886	PNAS=498;Nature=307;Cell=56;Science=24;NEJM=1	2021=76;2022=142;2023=138;2024=198;2025=229;2026=103	1.30.1=18;1.26.0=17;1.32.0=16;1.34.0=13;1.36.0=13	differential/statistical testing=586;normalisation=163;quantification=109;alignment/mapping=54
+Seurat	single-cell	767	Nature=377;PNAS=304;Cell=59;Science=27	2021=58;2022=96;2023=130;2024=169;2025=216;2026=98	4.3.0=37;4.1.0=24;5.1.0=18;4.1.1=18;5.0.1=12	dimensionality reduction/clustering=199;normalisation=109;quality control=51;visualisation=49
+GSEA	genomics	720	PNAS=469;Nature=199;Cell=35;Science=16;NEJM=1	2021=47;2022=105;2023=133;2024=158;2025=200;2026=77	4.3.2=7;4.0.3=6;4.1.0=6;4.2.3=3;2.2.3=2	differential/statistical testing=134;dimensionality reduction/clustering=66;normalisation=26;quantification=13
+PyMOL	structbio	700	PNAS=458;Nature=178;Cell=53;Science=11	2021=67;2022=141;2023=153;2024=135;2025=161;2026=43	2.5=15;2.5.2=9;2.5.4=7;2.4=7;2.5.0=6	visualisation=319;alignment/mapping=49;structure determination=21;simulation/modelling=12
+SAMtools	genomics	692	PNAS=316;Nature=313;Cell=50;Science=13	2021=71;2022=113;2023=109;2024=149;2025=172;2026=78	1.9=81;1.10=34;1.3.1=24;1.11=17;1.16.1=15	alignment/mapping=380;read trimming=40;variant calling=36;quality control=25
+ChimeraX	structbio	679	PNAS=370;Nature=236;Cell=49;Science=24	2021=39;2022=90;2023=126;2024=150;2025=210;2026=64	1.3=18;1.8=15;1.5=15;1.6.1=13;1.7=12	visualisation=272;structure determination=134;alignment/mapping=33;simulation/modelling=13
+ggplot2	general	587	PNAS=290;Nature=236;Cell=46;Science=12;Lancet=2;NEJM=1	2021=57;2022=96;2023=99;2024=121;2025=160;2026=54	3.3.5=23;3.5.1=22;3.4.2=20;3.3.3=17;3.4.4=14	visualisation=267;differential/statistical testing=78;dimensionality reduction/clustering=39;normalisation=14
+STAR	genomics	489	Nature=238;PNAS=198;Cell=36;Science=17	2021=42;2022=74;2023=99;2024=110;2025=108;2026=56	2.7.10a=26;2.7.9a=23;2.7.3a=19;2.5.2b=14;2.6.1d=13	alignment/mapping=474;read trimming=111;quantification=48;quality control=37
+Bowtie2	genomics	477	PNAS=239;Nature=190;Cell=37;Science=11	2021=44;2022=80;2023=91;2024=110;2025=101;2026=51	2.4.2=24;2.4.5=20;2.3.5.1=19;2.4.1=17;2.3.5=14	alignment/mapping=417;read trimming=125;quality control=25;quantification=20
+MACS2	genomics	475	PNAS=226;Nature=193;Cell=41;Science=15	2021=44;2022=72;2023=100;2024=92;2025=109;2026=58	2.2.7.1=27;2.2.6=11;2.1.1.20160309=10;2.1.1=8;2.1.2=7	alignment/mapping=32;differential/statistical testing=28;dimensionality reduction/clustering=9;read trimming=5
+SciPy	general	472	Nature=210;PNAS=207;Cell=36;Science=18;Lancet=1	2021=40;2022=68;2023=75;2024=111;2025=121;2026=57	1.10.1=14;1.4.1=7;1.11.4=6;1.6.3=5;1.9.3=5	differential/statistical testing=89;dimensionality reduction/clustering=40;visualisation=24;simulation/modelling=20
+RELION	structbio	466	PNAS=232;Nature=165;Cell=47;Science=22	2021=55;2022=106;2023=100;2024=88;2025=91;2026=26	3.1=99;3.0=38;4.0=32;5.0=13;3.1.1=8	structure determination=97;alignment/mapping=44;registration=39;dimensionality reduction/clustering=20
+BWA	genomics	418	Nature=195;PNAS=181;Cell=31;Science=10;NEJM=1	2021=45;2022=82;2023=71;2024=68;2025=103;2026=49	0.7.17=98;0.7.15=21;0.7.12=19;0.7.10=5;0.7.18=4	alignment/mapping=378;read trimming=80;variant calling=20;quality control=10
+Coot	structbio	373	PNAS=201;Nature=139;Cell=22;Science=11	2021=30;2022=79;2023=72;2024=69;2025=91;2026=32	0.9.8.1=10;0.9=7;0.9.8=6;0.9.6=6;0.8.9.2=5	structure determination=241;simulation/modelling=4;alignment/mapping=2;machine learning=2
+MAFFT	phylogenetics	346	PNAS=208;Nature=106;Cell=20;Science=11;Lancet=1	2021=39;2022=60;2023=63;2024=71;2025=83;2026=30	7.475=15;7.490=14;7.453=14;7.505=10;7.407=8	alignment/mapping=325;read trimming=40;structure determination=17;dimensionality reduction/clustering=16
+featureCounts	genomics	331	PNAS=164;Nature=143;Cell=19;Science=5	2021=28;2022=57;2023=62;2024=67;2025=81;2026=36	2.0.1=32;2.0.0=15;1.5.0=10;1.6.3=9;1.6.2=8	alignment/mapping=161;quantification=142;differential/statistical testing=31;read trimming=27
+Cutadapt	genomics	331	Nature=150;PNAS=145;Cell=28;Science=8	2021=35;2022=44;2023=56;2024=78;2025=80;2026=38	1.18=20;4.1=17;3.4=15;1.15=8;2.8=8	read trimming=261;alignment/mapping=78;quality control=50;quantification=10
+BLAST	phylogenetics	325	PNAS=219;Nature=80;Cell=20;Science=6	2021=33;2022=55;2023=47;2024=78;2025=79;2026=33	2.13.0=6;2.12.0=5;2.7.1=4;2.6.0=4;2.9.0=3	alignment/mapping=69;dimensionality reduction/clustering=16;read trimming=6;structure determination=4
+scikit-learn	general	322	Nature=156;PNAS=132;Cell=22;Science=12	2021=26;2022=43;2023=60;2024=72;2025=83;2026=38	1.0.2=8;1.2.2=5;0.21.3=5;0.24.2=4;0.22=3	dimensionality reduction/clustering=81;machine learning=65;differential/statistical testing=54;normalisation=19
+FastQC	genomics	322	PNAS=173;Nature=113;Cell=25;Science=11	2021=32;2022=44;2023=54;2024=59;2025=93;2026=40	0.11.9=52;0.11.8=27;0.11.5=21;0.12.1=12;0.11.7=10	quality control=322;read trimming=107;alignment/mapping=55;differential/statistical testing=12
+edgeR	genomics	318	PNAS=173;Nature=121;Cell=20;Science=4	2021=29;2022=61;2023=59;2024=60;2025=76;2026=33	3.36.0=6;3.32.1=6;3.26.8=6;3.30.3=5;3.40.2=4	differential/statistical testing=177;normalisation=98;quantification=46;read trimming=41
+GATK	genomics	312	PNAS=163;Nature=122;Cell=18;Science=9	2021=41;2022=59;2023=61;2024=50;2025=68;2026=33	3.7=12;3.8=10;4.1.4.1=8;3.5=6;3.6=5	variant calling=128;alignment/mapping=97;registration=40;quality control=7
+lme4	general	312	PNAS=239;Nature=64;Science=5;Lancet=2;Cell=2	2021=28;2022=61;2023=46;2024=73;2025=79;2026=25	1.1=28;3.1=5;1.1.27.1=2;1.1.26=2;1.1.35.3=1	differential/statistical testing=165;quantification=9;normalisation=4;visualisation=4
+UCSF Chimera	structbio	305	PNAS=166;Nature=91;Cell=38;Science=10	2021=40;2022=66;2023=74;2024=62;2025=54;2026=9	1.14=11;1.15=10;1.16=5;1.13.1=5;1.13=3	visualisation=72;structure determination=69;alignment/mapping=10;simulation/modelling=7
+BEDTools	genomics	302	Nature=148;PNAS=126;Cell=17;Science=11	2021=32;2022=39;2023=58;2024=62;2025=80;2026=31	2.30.0=42;2.29.2=11;2.26.0=9;2.25.0=8;2.27.1=6	alignment/mapping=53;normalisation=9;visualisation=8;quantification=7
+Trimmomatic	genomics	291	PNAS=184;Nature=92;Cell=13;Science=2	2021=36;2022=44;2023=57;2024=67;2025=67;2026=20	0.39=74;0.36=49;0.38=22;0.32=10;0.33=5	read trimming=291;alignment/mapping=60;quality control=59;quantification=8
+MotionCor2	structbio	290	PNAS=169;Nature=88;Cell=25;Science=8	2021=30;2022=76;2023=66;2024=54;2025=54;2026=10	1.4.0=9;1.1.0=2;1.5=2;1.6.4=2;1.3.0=1	registration=95;alignment/mapping=73;normalisation=11;structure determination=7
+Picard	genomics	289	Nature=144;PNAS=119;Cell=19;Science=7	2021=36;2022=44;2023=46;2024=66;2025=66;2026=31	2.2.4=4;2.9.4=3;2.23.4=3;2.18.7=2;2.27.4=2	alignment/mapping=93;read trimming=28;registration=14;variant calling=10
+IQ-TREE	phylogenetics	258	PNAS=156;Nature=82;Cell=13;Science=4;Lancet=3	2021=30;2022=36;2023=47;2024=43;2025=76;2026=26	1.6.12=25;2.0.3=11;2.1.2=9;2.1.4=8;2.0.6=7	alignment/mapping=77;structure determination=40;read trimming=13;differential/statistical testing=12
+Clustal Omega	phylogenetics	257	PNAS=167;Nature=67;Cell=19;Science=4	2021=23;2022=45;2023=47;2024=52;2025=67;2026=23	1.2.4=11;1.2.2=9;1.2.3=4;2.1=1;2.0.12=1	alignment/mapping=226;visualisation=15;dimensionality reduction/clustering=8;structure determination=2
+NumPy	general	253	Nature=127;PNAS=94;Cell=22;Science=9;Lancet=1	2021=22;2022=38;2023=37;2024=53;2025=69;2026=34	1.24.3=5;1.19.2=5;1.19.5=5;1.20.3=5;1.21.5=4	visualisation=29;differential/statistical testing=25;machine learning=9;dimensionality reduction/clustering=9
+GROMACS	md	249	PNAS=197;Nature=45;Cell=5;Science=2	2021=28;2022=38;2023=44;2024=59;2025=64;2026=16	2021.5=8;2020.1=6;2021.3=5;2018.8=5;5.1.4=5	simulation/modelling=214;normalisation=2;dimensionality reduction/clustering=2;structure determination=1
+clusterProfiler	genomics	244	PNAS=120;Nature=95;Cell=20;Science=9	2021=12;2022=37;2023=40;2024=44;2025=70;2026=41	4.10.1=6;4.6.2=6;3.14.3=5;4.2.2=5;4.0.5=4	dimensionality reduction/clustering=244;differential/statistical testing=55;visualisation=9;alignment/mapping=3
+Matplotlib	general	240	Nature=128;PNAS=85;Cell=19;Science=8	2021=19;2022=30;2023=41;2024=52;2025=61;2026=37	3.7.1=8;3.5.2=6;3.5.1=6;3.3.2=5;3.4.3=5	visualisation=97;differential/statistical testing=12;dimensionality reduction/clustering=11;normalisation=6
+tidyverse	general	238	PNAS=104;Nature=102;Cell=24;Science=4;Lancet=3;NEJM=1	2021=24;2022=31;2023=37;2024=53;2025=71;2026=22	2.0.0=12;1.1.4=9;1.3.1=8;1.3.0=8;1.1.2=7	visualisation=67;differential/statistical testing=49;dimensionality reduction/clustering=12;normalisation=8
+limma	genomics	234	Nature=115;PNAS=97;Cell=17;Science=4;NEJM=1	2021=22;2022=31;2023=46;2024=36;2025=65;2026=34	3.46.0=6;3.58.1=5;3.34.9=3;3.48.3=3;3.62.2=2	differential/statistical testing=143;normalisation=62;quantification=15;dimensionality reduction/clustering=12
+Bioconductor	general	216	PNAS=94;Nature=89;Cell=30;Science=3	2021=24;2022=38;2023=50;2024=39;2025=42;2026=23	3.14=3;3.8=3;3.15=2;3.19=2;3.11=2	differential/statistical testing=72;quantification=24;normalisation=23;alignment/mapping=19
+BCFtools	genomics	202	Nature=98;PNAS=86;Cell=13;Science=5	2021=23;2022=25;2023=36;2024=41;2025=52;2026=25	1.9=27;1.10.2=10;1.13=6;1.11=4;1.8=4	variant calling=65;alignment/mapping=42;normalisation=7;read trimming=6
+Scanpy	single-cell	200	Nature=129;PNAS=38;Cell=24;Science=9	2021=17;2022=19;2023=31;2024=36;2025=62;2026=35	1.9.1=13;1.6.0=7;1.8.2=4;1.9.3=4;1.10.0=4	dimensionality reduction/clustering=46;normalisation=31;quality control=16;visualisation=9
+Fiji	imaging	198	PNAS=108;Nature=75;Cell=11;Science=4	2021=24;2022=32;2023=37;2024=38;2025=39;2026=28	2.1.0=3;2.9.0=3;2.0.0=3;1.52p=3;2.3.0=2	quantification=34;visualisation=10;dimensionality reduction/clustering=5;differential/statistical testing=3
+HISAT2	genomics	185	PNAS=117;Nature=61;Cell=6;Science=1	2021=12;2022=36;2023=30;2024=32;2025=59;2026=16	2.1.0=38;2.2.1=33;2.0.5=6;2.0.4=4;2.1=3	alignment/mapping=171;read trimming=33;quality control=14;quantification=9
+PLINK	statgen	184	PNAS=88;Nature=83;Cell=8;Science=5	2021=19;2022=31;2023=24;2024=31;2025=49;2026=30	1.9=47;1.90b=18;2.0=9;1.90=9;2.00a=3	variant calling=30;dimensionality reduction/clustering=22;differential/statistical testing=20;quality control=11
+scDblFinder	single-cell	179	Nature=119;PNAS=33;Cell=18;Science=9	2021=9;2022=27;2023=32;2024=35;2025=53;2026=23	2.0.3=11;0.2.1=9;0.2.3=5;2.0=4;1.4.0=3	dimensionality reduction/clustering=17;quality control=9;normalisation=8;differential/statistical testing=4
+Cytoscape	genomics	178	PNAS=111;Nature=41;Cell=22;Science=4	2021=18;2022=38;2023=35;2024=28;2025=51;2026=8	3.9.1=18;3.7.2=7;3.7.1=6;3.10.1=5;3.8.0=5	visualisation=92;dimensionality reduction/clustering=16;differential/statistical testing=12;alignment/mapping=2
+ColabFold	structbio	177	PNAS=109;Nature=51;Cell=13;Science=4	2022=15;2023=36;2024=60;2025=53;2026=13	1.5.5=12;1.5.2=9;1.3=3;1.5.1=2;1.2=2	dimensionality reduction/clustering=8;alignment/mapping=8;structure determination=4;simulation/modelling=3
+minimap2	genomics	173	Nature=86;PNAS=71;Cell=11;Science=5	2021=15;2022=25;2023=30;2024=31;2025=50;2026=22	2.17=24;2.24=16;2.26=8;2.22=5;2.20=4	alignment/mapping=140;read trimming=10;variant calling=9;visualisation=5
+HOMER	genomics	171	PNAS=94;Nature=62;Cell=12;Science=3	2021=13;2022=28;2023=30;2024=38;2025=40;2026=22	4.11=16;4.10=7;4.11.1=4;5.1=3;4.1.1=1	differential/statistical testing=23;alignment/mapping=12;quantification=9;dimensionality reduction/clustering=7
+Trim Galore	genomics	169	PNAS=79;Nature=74;Cell=12;Science=4	2021=19;2022=16;2023=26;2024=39;2025=40;2026=29	0.6.6=16;0.6.7=13;0.6.10=8;0.4.1=5;0.4.5=4	read trimming=128;alignment/mapping=42;quality control=41;differential/statistical testing=4
+RAxML	phylogenetics	167	PNAS=122;Nature=36;Cell=7;Science=2	2021=30;2022=38;2023=26;2024=40;2025=30;2026=3	8.2.12=25;8.2.11=8;8.2.10=8;8.2.4=6;1.1.0=4	alignment/mapping=47;structure determination=14;read trimming=8;differential/statistical testing=7
+deepTools	genomics	167	PNAS=74;Nature=71;Cell=19;Science=3	2021=16;2022=15;2023=33;2024=39;2025=45;2026=19	3.5.1=19;3.5.0=5;3.3.1=5;3.5.4=3;3.3.2=3	normalisation=58;visualisation=36;alignment/mapping=32;quantification=18
+pheatmap	general	167	PNAS=84;Nature=67;Cell=15;Science=1	2021=18;2022=32;2023=22;2024=37;2025=41;2026=17	1.0.12=40	visualisation=52;dimensionality reduction/clustering=35;normalisation=17;differential/statistical testing=13
+BUSCO	phylogenetics	165	PNAS=119;Nature=44;Cell=2	2021=17;2022=33;2023=28;2024=29;2025=43;2026=15	5.2.2=11;3.0.2=8;4.0.5=4;5.1.2=4;5.4.7=3	alignment/mapping=11;machine learning=3;read trimming=2;variant calling=2
+VMD	md	165	PNAS=124;Nature=34;Cell=5;Science=2	2021=9;2022=30;2023=31;2024=38;2025=44;2026=13	1.9.3=9;1.9.4=6;1.9=2;1.94=2;1.9.4a=2	simulation/modelling=73;visualisation=49;structure determination=3;alignment/mapping=2
+HMMER	phylogenetics	162	PNAS=93;Nature=54;Cell=12;Science=3	2021=19;2022=22;2023=30;2024=38;2025=35;2026=18	3.1b=15;3.3.2=14;3.4=6;3.3=4;3.2.1=4	alignment/mapping=28;dimensionality reduction/clustering=6;machine learning=4;read trimming=2
+HTSeq	genomics	161	PNAS=89;Nature=61;Cell=9;Science=2	2021=20;2022=35;2023=31;2024=33;2025=31;2026=11	0.9.1=11;0.6.1=7;0.12.4=6;0.11.2=6;0.6.1p=4	alignment/mapping=82;quantification=73;normalisation=10;differential/statistical testing=6
+CTFFIND	structbio	152	PNAS=77;Nature=52;Cell=14;Science=9	2021=15;2022=41;2023=32;2024=30;2025=30;2026=4	4.1=14;1.06=14;1.18=5;4.1.14=3;4.1.8=3	registration=12;alignment/mapping=12;structure determination=3;normalisation=1
+seaborn	general	149	Nature=75;PNAS=40;Cell=23;Science=11	2021=13;2022=17;2023=28;2024=27;2025=48;2026=16	0.12.2=14;0.11.0=8;0.11.2=8;0.13.2=6;0.9.0=5	visualisation=62;differential/statistical testing=17;dimensionality reduction/clustering=16;normalisation=6
+QuPath	imaging	138	Nature=83;PNAS=44;Cell=8;Science=3	2021=4;2022=13;2023=21;2024=22;2025=46;2026=32	0.5.1=12;0.2.3=7;0.3.2=6;0.4.4=5;0.4.3=4	quantification=41;machine learning=5;visualisation=2;differential/statistical testing=2
+RepeatMasker	genomics	134	PNAS=75;Nature=51;Cell=6;Science=2	2021=20;2022=24;2023=25;2024=21;2025=37;2026=7	4.1.2=8;2.0.1=8;4.0.7=7;4.1.5=3;4.1.1=3	alignment/mapping=12;quantification=3;structure determination=2;dimensionality reduction/clustering=2
+RSEM	genomics	132	PNAS=62;Nature=56;Cell=12;Science=2	2021=17;2022=25;2023=27;2024=23;2025=25;2026=15	1.3.1=17;1.3.3=12;1.3.0=8;1.2.28=2;1.2.25=2	quantification=71;alignment/mapping=62;normalisation=29;differential/statistical testing=5
+LAMMPS	md	131	PNAS=117;Nature=11;Cell=3	2021=9;2022=20;2023=31;2024=33;2025=34;2026=4		simulation/modelling=114;machine learning=3;visualisation=1;alignment/mapping=1
+PyTorch	general	129	PNAS=72;Nature=53;Cell=3;Science=1	2021=6;2022=16;2023=24;2024=26;2025=42;2026=15	2.0.1=3;1.12.1=2;2.2.0=1;2.1.1=1;2.1.2=1	machine learning=55;simulation/modelling=5;normalisation=3;dimensionality reduction/clustering=2
+kallisto	genomics	125	PNAS=62;Nature=48;Cell=10;Science=5	2021=15;2022=25;2023=23;2024=17;2025=31;2026=14	0.46.1=11;0.46.0=7;0.44.0=6;0.46.2=6;0.48.0=4	alignment/mapping=74;quantification=57;read trimming=13;differential/statistical testing=9
+CCP4	structbio	124	PNAS=81;Nature=30;Cell=12;Science=1	2021=15;2022=31;2023=28;2024=22;2025=19;2026=9	7.0=2;6.5=1;7.1=1	normalisation=32;structure determination=15;alignment/mapping=2;machine learning=1
+CellProfiler	imaging	124	PNAS=71;Nature=35;Cell=11;Science=7	2021=17;2022=15;2023=18;2024=31;2025=25;2026=18	4.2.1=8;4.2.5=3;4.2.7=2;3.1.9=2;4.0.7=2	quantification=34;visualisation=3;normalisation=2;variant calling=1
+MUSCLE	phylogenetics	123	PNAS=77;Nature=38;Cell=6;Science=2	2021=13;2022=25;2023=23;2024=29;2025=23;2026=10	3.8.31=19;5.1=11;3.8.1551=8;3.8=4;3.8.425=2	alignment/mapping=119;structure determination=6;read trimming=6;dimensionality reduction/clustering=3
+fgsea	genomics	122	Nature=68;PNAS=38;Cell=12;Science=4	2021=11;2022=16;2023=19;2024=26;2025=32;2026=18	1.30.0=4;1.28.0=4;1.20.0=3;1.22.0=3;1.26.0=3	differential/statistical testing=21;dimensionality reduction/clustering=7;normalisation=6;visualisation=2
+ComplexHeatmap	general	119	Nature=57;PNAS=43;Cell=16;Science=3	2021=14;2022=18;2023=27;2024=18;2025=29;2026=13	2.6.2=6;2.14.0=4;2.11.1=4;2.16.0=3;2.4.3=3	visualisation=49;dimensionality reduction/clustering=25;normalisation=10;differential/statistical testing=8
+fastp	genomics	117	PNAS=65;Nature=44;Cell=8	2021=4;2022=17;2023=18;2024=23;2025=39;2026=16	0.20.0=9;0.20.1=8;0.23.4=7;0.23.2=6;0.21.0=6	read trimming=77;alignment/mapping=23;quality control=17;quantification=4
+FreeSurfer	neuroimaging	116	PNAS=96;Nature=18;Science=1;Cell=1	2021=13;2022=14;2023=27;2024=26;2025=28;2026=8	6.0.0=7;7.1.1=3;7.1=3;6.0.1=3;5.3.0=3	structure determination=23;registration=8;alignment/mapping=4;normalisation=3
+IMOD	structbio	115	PNAS=71;Nature=31;Cell=11;Science=2	2021=11;2022=21;2023=24;2024=28;2025=24;2026=7	4.11=3;4.10.49=2;4.11.7=1;4.12.35=1;4.10.25=1	alignment/mapping=68;structure determination=53;visualisation=8;registration=7
+FSL	neuroimaging	114	PNAS=92;Nature=19;Cell=2;Science=1	2021=9;2022=19;2023=22;2024=19;2025=33;2026=12	5.0.9=6;6.0=3;6.0.3=3;6.0.7.8=2;5.0=2	registration=24;differential/statistical testing=13;normalisation=7;alignment/mapping=4
+emmeans	general	114	PNAS=88;Nature=23;Science=2;Cell=1	2021=7;2022=13;2023=21;2024=17;2025=42;2026=14	1.10.6=2;1.5.2=1;1.10=1;1.10.3=1;1.8.5=1	differential/statistical testing=39;variant calling=3;normalisation=1;quantification=1
+VCFtools	genomics	112	PNAS=82;Nature=28;Cell=2	2021=13;2022=19;2023=19;2024=23;2025=29;2026=9	0.1.16=24;0.1.13=8;0.1.14=6;0.1.15=4;0.1.17=3	variant calling=21;alignment/mapping=5;differential/statistical testing=4;dimensionality reduction/clustering=4
+Jupyter	workflow	110	PNAS=52;Nature=50;Cell=7;Science=1	2021=6;2022=19;2023=30;2024=24;2025=24;2026=7	7.34.0=1;7.31=1;7.3.10=1;5.1=1	dimensionality reduction/clustering=9;visualisation=9;simulation/modelling=7;differential/statistical testing=6
+Enrichr	genomics	110	Nature=51;PNAS=48;Cell=8;Science=3	2021=5;2022=18;2023=22;2024=27;2025=26;2026=12	2.1=1	differential/statistical testing=20;dimensionality reduction/clustering=9;visualisation=3;normalisation=2
+ADMIXTURE	statgen	110	Nature=53;PNAS=50;Cell=5;Science=2	2021=20;2022=12;2023=14;2024=17;2025=36;2026=11	1.3.0=22;1.3=6;1.2=1	dimensionality reduction/clustering=44;differential/statistical testing=9;variant calling=5;machine learning=3
+igraph	general	107	PNAS=48;Nature=47;Cell=10;Science=2	2021=13;2022=19;2023=18;2024=20;2025=28;2026=9	1.2.6=7;1.2.10=2;1.5.1=2;2.0.3=2;0.11.6=1	dimensionality reduction/clustering=23;visualisation=18;differential/statistical testing=5;normalisation=3
+Monocle	single-cell	107	PNAS=58;Nature=41;Science=4;Cell=4	2021=10;2022=12;2023=24;2024=16;2025=32;2026=13	1.3.1=2;1.3.7=2;1.2.9=2;2.32.0=1;2.3.6=1	simulation/modelling=50;dimensionality reduction/clustering=28;differential/statistical testing=6;alignment/mapping=5
+Cellpose	imaging	93	Nature=51;PNAS=34;Cell=6;Science=2	2022=4;2023=9;2024=21;2025=45;2026=14	2.0=11;2.2.3=2;1.0.2=2;1.0=2;2.0.5=1	machine learning=20;quantification=5;dimensionality reduction/clustering=3;alignment/mapping=1
+phytools	phylogenetics	91	PNAS=80;Nature=11	2021=7;2022=23;2023=11;2024=16;2025=28;2026=6	0.7=4;2.3=2;2.4=1;1.5=1;1.9.1=1	structure determination=22;visualisation=9;alignment/mapping=8;differential/statistical testing=6
+STRING db	genomics	90	PNAS=57;Nature=25;Cell=6;Science=2	2021=4;2022=11;2023=17;2024=20;2025=25;2026=13	11.5=3;12.0=2;81.7=1	visualisation=6;dimensionality reduction/clustering=5;differential/statistical testing=5
+TensorFlow	general	90	PNAS=57;Nature=27;Science=3;Cell=3	2021=15;2022=12;2023=28;2024=16;2025=16;2026=3	2.0=3;1.10.0=2;2.7.0=2;2.18.0=1;1.14.0=1	machine learning=45;simulation/modelling=2;differential/statistical testing=1;normalisation=1
+statsmodels	general	83	Nature=43;PNAS=28;Cell=8;Science=4	2021=8;2022=8;2023=13;2024=13;2025=24;2026=17	0.12.2=5;0.14.4=3;0.14.0=3;0.13.2=3;0.13.5=3	differential/statistical testing=44;dimensionality reduction/clustering=4;quantification=3;machine learning=2
+ggpubr	general	83	Nature=42;PNAS=24;Cell=15;Science=2	2021=8;2022=9;2023=15;2024=12;2025=27;2026=12	0.4.0=18;0.6.0=12;0.5.0=2;0.4=1;0.4.0.999=1	differential/statistical testing=23;visualisation=22;dimensionality reduction/clustering=4;quality control=1
+WGCNA	genomics	81	PNAS=49;Nature=23;Cell=9	2021=12;2022=17;2023=14;2024=16;2025=12;2026=10	1.71=2;1.7.0=1;1.73=1;1.69=1	dimensionality reduction/clustering=16;differential/statistical testing=4;quantification=4;normalisation=3
+Topaz	structbio	81	PNAS=35;Nature=29;Science=9;Cell=8	2021=1;2022=2;2023=10;2024=25;2025=33;2026=10	0.2.4=2;0.3.0=1;0.2.5=1	machine learning=27;structure determination=10;visualisation=2;registration=2
+SnpEff	genomics	80	PNAS=45;Nature=26;Science=4;Cell=4;Lancet=1	2021=9;2022=14;2023=15;2024=10;2025=24;2026=8	5.1=6;4.3=5;4.3t=5;5.1d=4;4.2=2	variant calling=4;quality control=2;alignment/mapping=2;machine learning=1
+CellChat	single-cell	80	PNAS=40;Nature=34;Science=3;Cell=3	2021=2;2022=3;2023=10;2024=17;2025=37;2026=11	1.6.1=4;2.1.2=2;1.1.3=1;1.1.1=1;1.5=1	dimensionality reduction/clustering=10;differential/statistical testing=4;quantification=2;variant calling=2
+ANGSD	statgen	78	Nature=35;PNAS=34;Cell=8;Science=1	2021=14;2022=10;2023=11;2024=12;2025=25;2026=6	0.910=7;0.933=4;0.930=3;0.931=3;0.935=3	quality control=33;alignment/mapping=9;variant calling=7;differential/statistical testing=3
+SCENIC	single-cell	76	Nature=39;PNAS=29;Cell=5;Science=3	2021=5;2022=10;2023=17;2024=14;2025=21;2026=9	0.12.1=2;0.11.2=2;1.2.4=2;1.1.2=2;0.10.3=1	dimensionality reduction/clustering=16;quantification=2;alignment/mapping=2;normalisation=1
+Metascape	genomics	76	PNAS=60;Nature=11;Cell=4;Science=1	2021=4;2022=12;2023=14;2024=22;2025=16;2026=8	3.5=2;3.5.20230501=2	differential/statistical testing=14;visualisation=5;quantification=2;dimensionality reduction/clustering=2
+SPM	neuroimaging	76	PNAS=65;Nature=8;Cell=3	2021=8;2022=14;2023=13;2024=17;2025=19;2026=5		differential/statistical testing=35;alignment/mapping=29;normalisation=9;registration=7
+VEP	genomics	75	Nature=42;PNAS=29;Science=2;Cell=2	2021=6;2022=12;2023=14;2024=13;2025=18;2026=12	93.2=2;94.5=1;103.0=1;98.2=1	variant calling=3;normalisation=1
+NAMD	md	75	PNAS=63;Nature=10;Cell=2	2021=7;2022=18;2023=19;2024=15;2025=12;2026=4	2.14=10;2.13=5;2.12=4;3.0=2;2.9=2	simulation/modelling=66;normalisation=1;dimensionality reduction/clustering=1;alignment/mapping=1
+SPAdes	genomics	74	PNAS=50;Nature=21;Cell=2;Science=1	2021=10;2022=17;2023=12;2024=18;2025=8;2026=9	3.13.0=6;3.15.2=6;3.15.5=5;3.11.1=4;3.13.1=4	read trimming=18;alignment/mapping=7;normalisation=3;quality control=2
+OrthoFinder	phylogenetics	73	PNAS=51;Nature=19;Cell=3	2021=3;2022=9;2023=16;2024=14;2025=22;2026=9	2.5.4=12;2.5.5=8;2.2.7=4;2.5.2=3;2.4.0=2	dimensionality reduction/clustering=10;alignment/mapping=7;structure determination=3;visualisation=2
+GSVA	genomics	71	PNAS=36;Nature=30;Cell=4;Science=1	2021=5;2022=8;2023=9;2024=13;2025=27;2026=9	1.46.0=3;1.50.5=1;1.46=1;1.44.1=1;1.44.5=1	differential/statistical testing=7;quantification=4;dimensionality reduction/clustering=4;normalisation=3
+vegan	microbiome	71	PNAS=48;Nature=21;Cell=2	2021=3;2022=9;2023=10;2024=13;2025=29;2026=7	2.6=9;2.5=4;2.6.4=1;2.7=1	differential/statistical testing=14;dimensionality reduction/clustering=7;visualisation=7;quantification=4
+DeepLabCut	neuro-tools	71	Nature=34;PNAS=27;Cell=9;Science=1	2021=3;2022=10;2023=14;2024=19;2025=23;2026=2	2.2.0.6=1;2.2.3=1;2.3.8=1;2.2.1.1=1;2.2.0.2=1	machine learning=13;structure determination=2;dimensionality reduction/clustering=2;quantification=1
+brms	general	70	PNAS=53;Nature=14;Cell=2;Science=1	2021=8;2022=9;2023=15;2024=13;2025=22;2026=3	2.20.3=1;2.20.4=1;2.14.4=1;2.13.5=1	differential/statistical testing=47;simulation/modelling=3;normalisation=1;dimensionality reduction/clustering=1
+CESM	physical	70	PNAS=56;Nature=14	2021=4;2022=22;2023=13;2024=19;2025=10;2026=2	1.2=7;1.3=2;1.2.2=1;2.1.1=1;1.2.2.1=1	simulation/modelling=24;structure determination=3
+DADA2	microbiome	69	PNAS=43;Nature=25;Cell=1	2021=8;2022=9;2023=13;2024=16;2025=19;2026=4	1.10.0=2;1.30=1;1.21.0=1;1.26.0=1;1.24=1	read trimming=19;machine learning=3;differential/statistical testing=2;quantification=2
+TrackMate	imaging	68	PNAS=46;Nature=15;Cell=6;Science=1	2021=7;2022=9;2023=13;2024=13;2025=18;2026=8	6.0.1=1;6.0.3=1	simulation/modelling=8;quantification=5;dimensionality reduction/clustering=2;machine learning=1
+BEAST	phylogenetics	67	PNAS=41;Nature=20;Cell=4;Science=2	2021=15;2022=9;2023=8;2024=10;2025=17;2026=8	1.10.4=7;2.6.6=7;2.6.7=3;2.6=3;6.6=3	differential/statistical testing=25;structure determination=9;simulation/modelling=5;alignment/mapping=4
+QGIS	physical	67	PNAS=42;Nature=25	2021=5;2022=13;2023=18;2024=10;2025=14;2026=7	3.16=3;3.22=2;3.18=2;3.14=2;3.28.6=1	alignment/mapping=6;visualisation=5;differential/statistical testing=5;machine learning=2
+XGBoost	general	65	PNAS=43;Nature=18;Cell=4	2021=4;2022=10;2023=10;2024=10;2025=19;2026=12	2.0.3=1;1.7.3=1;1.5.0.1=1	machine learning=24;differential/statistical testing=18;dimensionality reduction/clustering=2;simulation/modelling=1
+Stan	general	64	PNAS=48;Nature=10;Cell=3;Science=2;Lancet=1	2021=10;2022=9;2023=12;2024=17;2025=13;2026=3	2.28.1=3;2.26.11=1;2.23.0=1;2.33.1=1;2.32.5=1	differential/statistical testing=29;simulation/modelling=14;normalisation=1
+scVelo	single-cell	64	Nature=38;PNAS=17;Cell=8;Science=1	2021=4;2022=11;2023=11;2024=18;2025=15;2026=5	0.2.4=7;0.2.5=4;0.24=2;0.2.2=2;0.3.2=1	dimensionality reduction/clustering=15;simulation/modelling=9;quantification=3;normalisation=2
+LDSC	statgen	62	Nature=34;PNAS=21;Science=4;Cell=3	2021=5;2022=14;2023=10;2024=10;2025=12;2026=11	1.0.1=4;1.0.0=1	differential/statistical testing=41;dimensionality reduction/clustering=2;quantification=2;variant calling=2
+InterProScan	phylogenetics	62	PNAS=42;Nature=18;Cell=2	2021=5;2022=12;2023=8;2024=19;2025=12;2026=6	5.34=2;5.59=2;5.52=2;5.66=1;5.47=1	dimensionality reduction/clustering=1;alignment/mapping=1
+MultiQC	genomics	61	PNAS=30;Nature=27;Cell=3;Science=1	2021=6;2022=8;2023=9;2024=15;2025=16;2026=7	1.9=7;1.8=5;1.12=3;1.11=3;1.23=2	quality control=61;alignment/mapping=11;read trimming=11;visualisation=6
+StringTie	genomics	61	PNAS=41;Nature=19;Cell=1	2021=6;2022=9;2023=13;2024=12;2025=16;2026=5	2.2.1=7;1.3.3b=5;2.2.3=3;1.3.4=2;1.3.6=2	alignment/mapping=28;quantification=18;read trimming=4;structure determination=2
+scikit-image	imaging	61	Nature=28;PNAS=27;Cell=4;Science=2	2021=3;2022=10;2023=10;2024=15;2025=14;2026=9	0.20.0=2;0.19.2=2;1.1.1=1;0.22.0=1;0.23.2=1	dimensionality reduction/clustering=6;alignment/mapping=5;visualisation=2;differential/statistical testing=2
+Kilosort	neuro-tools	60	Nature=39;PNAS=17;Cell=4	2021=2;2022=6;2023=10;2024=17;2025=18;2026=7	2.5=12;2.0=9;1.0=1;4.0=1	dimensionality reduction/clustering=14;registration=2;quality control=2;visualisation=1
+QIIME 2	microbiome	59	PNAS=39;Nature=16;Cell=4	2021=11;2022=10;2023=7;2024=14;2025=14;2026=3	2020.8=2;2018.11=2;2020.11=2;1.8.0=2;2021.2.0=1	read trimming=9;dimensionality reduction/clustering=5;quantification=4;quality control=3
+RoseTTAFold	structbio	59	PNAS=43;Nature=13;Science=3	2021=1;2022=7;2023=16;2024=13;2025=18;2026=4		machine learning=7;structure determination=3;dimensionality reduction/clustering=2;alignment/mapping=2
+AnnData	single-cell	58	Nature=39;Cell=9;PNAS=7;Science=3	2021=3;2022=3;2023=7;2024=12;2025=19;2026=14	0.8.0=4;0.7.4=2;0.11.4=1;0.10.7=1;0.9.1=1	dimensionality reduction/clustering=9;normalisation=7;visualisation=5;simulation/modelling=2
+Slingshot	single-cell	58	PNAS=28;Nature=27;Science=3	2021=3;2022=6;2023=13;2024=10;2025=17;2026=9	2.14.0=3;2.6.0=1;2.8.0=1;2.0.0=1;1.8.0=1	simulation/modelling=36;dimensionality reduction/clustering=17;visualisation=4;structure determination=3
+Signac	single-cell	57	Nature=41;PNAS=12;Science=2;Cell=2	2021=4;2022=2;2023=12;2024=13;2025=21;2026=5	1.14.0=4;1.12.0=3;1.8=2;1.9.0=2;1.6.0=2	dimensionality reduction/clustering=6;normalisation=6;visualisation=3;quality control=2
+ilastik	imaging	55	PNAS=27;Nature=21;Cell=6;Science=1	2021=7;2022=12;2023=9;2024=9;2025=14;2026=4	1.3.3=7;1.3.2=3;1.3.3b=1;1.3.3p=1;1.4.1r=1	machine learning=14;quantification=8;dimensionality reduction/clustering=3;registration=1
+ANTs	neuroimaging	55	PNAS=44;Nature=9;Science=1;Cell=1	2021=3;2022=17;2023=10;2024=6;2025=12;2026=7	2.2.0=3;2.1=1;2.1.0=1;2.3.3=1;2.3.5=1	normalisation=29;registration=15;alignment/mapping=9;dimensionality reduction/clustering=3
+Snakemake	workflow	54	Nature=24;PNAS=18;Cell=11;Science=1	2021=5;2022=9;2023=8;2024=10;2025=14;2026=8	7.21.0=2;5.5.4=2;8.18.2=1;7.24.0=1;7.15.1=1	alignment/mapping=6;dimensionality reduction/clustering=3;read trimming=3;variant calling=2
+TopHat	genomics	54	PNAS=33;Nature=17;Cell=4	2021=10;2022=16;2023=6;2024=10;2025=8;2026=4	2.1.1=7;2.0.7=4;2.1.0=3;2.0.13=3;2.0.9=3	alignment/mapping=51;read trimming=7;quality control=5;differential/statistical testing=4
+ArchR	single-cell	49	Nature=28;PNAS=14;Cell=4;Science=3	2021=4;2022=7;2023=7;2024=5;2025=18;2026=8	1.0.2=7;1.0.1=6;1.0.3=1;0.9.5=1	dimensionality reduction/clustering=9;quality control=7;visualisation=3;differential/statistical testing=3
+Pangolin	phylogenetics	49	Cell=15;Nature=14;PNAS=10;Science=8;Lancet=2	2021=18;2022=15;2023=5;2024=7;2025=2;2026=2	4.0.6=2;2.0=2;3.1.5=1;4.0=1;3.1.11=1	alignment/mapping=3;differential/statistical testing=1;dimensionality reduction/clustering=1
+Prokka	microbiome	48	PNAS=24;Nature=22;Cell=2	2021=5;2022=10;2023=9;2024=14;2025=5;2026=5	1.14.5=6;1.14.6=5;1.13=5;1.12=3;1.14.0=2	alignment/mapping=3;quality control=3;read trimming=2
+Cufflinks	genomics	47	PNAS=36;Nature=9;Cell=2	2021=8;2022=10;2023=11;2024=6;2025=7;2026=5	2.2.1=17;2.1.1=3;2.1.0=1;2.0.2=1;2.3.1=1	alignment/mapping=27;quantification=25;differential/statistical testing=10;normalisation=5
+Mutect2	genomics	47	Nature=31;PNAS=7;Cell=7;Science=1;Lancet=1	2021=6;2022=4;2023=12;2024=8;2025=12;2026=5	1.1.7=5;4.5=1;4.2.2.0=1;4.1.4.1=1;4.1.4=1	variant calling=14;alignment/mapping=6;registration=2;simulation/modelling=1
+Flye	genomics	47	Nature=24;PNAS=22;Cell=1	2021=1;2022=6;2023=4;2024=17;2025=10;2026=9	2.9=9;2.9.2=3;2.9.1=3;2.7=3;2.8.1=3	alignment/mapping=2;read trimming=1;variant calling=1
+eggNOG	phylogenetics	47	PNAS=31;Nature=14;Cell=2	2021=5;2022=12;2023=3;2024=10;2025=13;2026=4	5.0=2;4.5.1=2;4.5=2;5.0.2=1;5.0.0=1	alignment/mapping=6;dimensionality reduction/clustering=4
+CellPhoneDB	single-cell	46	Nature=27;PNAS=14;Cell=3;Science=2	2021=6;2022=10;2023=9;2024=11;2025=8;2026=2	2.0=3;4.0.0=1;3.0.0=1;2.0.0=1;2.1.1=1	differential/statistical testing=7;normalisation=2;visualisation=1;quantification=1
+EMAN2	structbio	46	PNAS=30;Nature=11;Cell=4;Science=1	2021=6;2022=17;2023=6;2024=11;2025=5;2026=1	2.91=2;2.99=1;2.31=1	machine learning=8;structure determination=6;alignment/mapping=4;visualisation=3
+velocyto	single-cell	46	Nature=26;PNAS=10;Cell=9;Science=1	2021=6;2022=9;2023=9;2024=11;2025=7;2026=4	0.17.17=7;0.17=5;0.17.16=1;0.6=1	alignment/mapping=8;quantification=7;dimensionality reduction/clustering=5;simulation/modelling=5
+PLUMED	md	46	PNAS=44;Nature=2	2021=3;2022=7;2023=9;2024=10;2025=13;2026=4	2.9=3;2.4=3;2.7=2;2.4.3=2;2.11.0=1	simulation/modelling=33;dimensionality reduction/clustering=2;quantification=1;machine learning=1
+metafor	general	45	PNAS=33;Nature=10;Lancet=2	2021=1;2022=5;2023=10;2024=11;2025=14;2026=4	4.6=2;4.6.0=1;4.0.0=1;3.8=1;3.0=1	differential/statistical testing=10
+OpenCV	imaging	45	PNAS=24;Nature=20;Science=1	2022=3;2023=7;2024=10;2025=19;2026=6	4.9.0=1;4.5.1.48=1	machine learning=5;differential/statistical testing=1;quantification=1;alignment/mapping=1
+Nextflow	workflow	45	Nature=29;PNAS=10;Cell=4;Science=2	2021=5;2022=5;2023=5;2024=4;2025=19;2026=7	19.10.0=3;21.10.6=2;24.04.2=1;24.10.5=1;24.04.4=1	alignment/mapping=10;quality control=7;read trimming=3;differential/statistical testing=2
+GCTA	statgen	44	Nature=20;PNAS=20;Cell=3;Science=1	2021=5;2022=10;2023=6;2024=8;2025=12;2026=3	1.25.3=1;1.9.3=1;1.26=1;1.91.7=1;1.94.1=1	dimensionality reduction/clustering=6;variant calling=3;differential/statistical testing=3;machine learning=1
+ANNOVAR	genomics	43	PNAS=21;Nature=14;Cell=6;Science=2	2021=7;2022=7;2023=2;2024=7;2025=16;2026=4	1.0.0=1	alignment/mapping=6;variant calling=4;simulation/modelling=1
+Bismark	genomics	43	PNAS=22;Nature=18;Cell=2;Lancet=1	2021=5;2022=6;2023=8;2024=11;2025=12;2026=1	0.22.3=6;0.23.0=2;0.22.1=2;0.24.0=2;0.20.0=1	alignment/mapping=35;read trimming=15;quality control=2;quantification=2
+FieldTrip	neuroimaging	42	PNAS=36;Nature=5;Cell=1	2021=9;2022=8;2023=5;2024=10;2025=8;2026=2	3.5=1	alignment/mapping=3;differential/statistical testing=2;simulation/modelling=1;visualisation=1
+survival (R)	general	41	Nature=20;PNAS=17;Cell=3;NEJM=1	2022=3;2023=10;2024=5;2025=18;2026=5	0.4.9=9;3.6.4=1;3.2.13=1;0.5.0=1	differential/statistical testing=12;visualisation=7;quantification=1;normalisation=1
+MDAnalysis	md	41	PNAS=28;Nature=10;Cell=3	2021=3;2022=5;2023=3;2024=12;2025=13;2026=5	2.7.0=1;2.0=1;2.4.3=1;0.20.1=1	simulation/modelling=24;visualisation=5;structure determination=1
+Psychtoolbox	neuro-tools	41	PNAS=24;Nature=15;Cell=2	2021=1;2022=2;2023=7;2024=14;2025=15;2026=2	3.0.9=1;3.0.18=1;3.0.16=1;3.0.11=1	dimensionality reduction/clustering=1;visualisation=1;differential/statistical testing=1
+MrBayes	phylogenetics	40	PNAS=25;Nature=15	2021=6;2022=8;2023=10;2024=8;2025=7;2026=1	3.2.7=11;3.2.7a=9;3.2.6=6;3.1.2=1;3.2.5=1	differential/statistical testing=27;simulation/modelling=3;alignment/mapping=3;structure determination=2
+Docker	workflow	40	Nature=18;PNAS=17;Cell=4;Science=1	2021=6;2022=7;2023=4;2024=8;2025=9;2026=6	23.0.1=1;1.1.0=1;1.12.6=1	dimensionality reduction/clustering=3;alignment/mapping=2;visualisation=1;machine learning=1
+AutoDock Vina	md	40	PNAS=31;Nature=7;Cell=2	2021=5;2022=5;2023=6;2024=8;2025=14;2026=2	1.1.2=5;4.2=2;1.2.5=1;1.5.7=1;4.2.6=1	simulation/modelling=5;structure determination=1
+Nextstrain	phylogenetics	40	Nature=15;PNAS=15;Cell=5;NEJM=3;Science=1;Lancet=1	2021=10;2022=6;2023=10;2024=7;2025=5;2026=2	1.0.0=2;3.12.036=1;1.0.3=1;21.0.1=1;0.15=1	alignment/mapping=7;visualisation=2;machine learning=1;structure determination=1
+AFNI	neuroimaging	39	PNAS=38;Nature=1	2021=7;2022=9;2023=6;2024=8;2025=9	21.1.10=1;2016.09.04.1341=1	registration=11;alignment/mapping=3;dimensionality reduction/clustering=3;normalisation=2
+GEMMA	statgen	38	PNAS=25;Nature=11;Science=1;Cell=1	2021=4;2022=6;2023=4;2024=8;2025=9;2026=7	0.98.5=4;0.98.1=3;0.98.3=2;0.94=2;0.93=1	differential/statistical testing=12;variant calling=3;dimensionality reduction/clustering=2;alignment/mapping=2
+OpenMM	md	38	PNAS=30;Nature=3;Cell=3;Science=2	2021=3;2022=7;2023=6;2024=9;2025=12;2026=1	7.5=1;7.3.1=1;8.1.0=1;7.4.1=1;7.8=1	simulation/modelling=29;machine learning=3;differential/statistical testing=1;structure determination=1
+NetworkX	general	37	PNAS=19;Nature=12;Science=3;Cell=3	2021=2;2022=3;2023=8;2024=8;2025=13;2026=3	2.0=1;2.6.2=1;2.5.1=1;2.6.3=1;2.8.3=1	visualisation=7;dimensionality reduction/clustering=3;normalisation=1;differential/statistical testing=1
+hifiasm	genomics	34	Nature=24;PNAS=10	2022=2;2023=7;2024=6;2025=14;2026=5	0.13=3;0.11=2;0.16.1=2;0.15.3=1;0.14.1=1	variant calling=6;alignment/mapping=2;read trimming=1
+data.table	general	34	Nature=21;PNAS=9;Cell=2;Science=1;Lancet=1	2021=5;2022=2;2023=9;2024=7;2025=9;2026=2	1.14.2=4;1.14.8=3;1.12.8=2;1.14.6=1;1.13.2=1	dimensionality reduction/clustering=2;visualisation=1;simulation/modelling=1;normalisation=1
+fMRIPrep	neuroimaging	34	PNAS=31;Nature=3	2021=4;2022=3;2023=7;2024=8;2025=10;2026=2	20.2.3=2;1.2.3=2;20.2.1=2;20.2.0=2;20.1.1=2	registration=3;dimensionality reduction/clustering=1;differential/statistical testing=1;quality control=1
+SoupX	single-cell	33	Nature=19;PNAS=9;Science=3;Cell=2	2021=1;2022=3;2023=4;2024=11;2025=7;2026=7	1.6.2=5;1.5.2=2;1.6.0=1;1.4.8=1;1.5.0=1	quality control=13;dimensionality reduction/clustering=4;normalisation=2;quantification=1
+MAGMA	statgen	33	Nature=19;PNAS=12;Cell=2	2021=2;2022=4;2023=4;2024=6;2025=11;2026=6	1.10=3;1.08=2	differential/statistical testing=9;alignment/mapping=2;dimensionality reduction/clustering=1
+Harmony	single-cell	32	Nature=23;PNAS=5;Cell=3;Science=1	2021=1;2022=2;2023=3;2024=8;2025=8;2026=10	0.1.1=5;1.2.3=2;1.2.0=2;1.2.1=2;1.0=2	dimensionality reduction/clustering=13;normalisation=10;visualisation=3;quality control=3
+Suite2p	neuro-tools	32	Nature=19;PNAS=10;Cell=2;Science=1	2022=7;2023=5;2024=5;2025=11;2026=4		registration=10;alignment/mapping=3
+Kraken2	microbiome	31	Nature=15;PNAS=13;Cell=3	2021=4;2022=3;2023=6;2024=6;2025=9;2026=3	2.1.1=3;2.0.8=2;2.1.3=2;2.1.2=2	alignment/mapping=6;quality control=3;quantification=2;read trimming=2
+phyloseq	microbiome	31	PNAS=17;Nature=11;Cell=3	2021=4;2022=4;2023=10;2024=5;2025=5;2026=3	1.20=1;1.28.0=1;1.46=1;1.32.0=1;1.34.0=1	visualisation=5;quantification=4;differential/statistical testing=3;dimensionality reduction/clustering=1
+Pilon	genomics	31	PNAS=20;Nature=10;Cell=1	2021=7;2022=7;2023=5;2024=6;2025=5;2026=1	1.23=9;1.22=4;1.24=2;1.18=2	alignment/mapping=4;read trimming=1;structure determination=1
+Keras	general	31	PNAS=16;Nature=13;Cell=2	2021=5;2022=4;2023=10;2024=5;2025=6;2026=1	2.3.1=2;2.2.4=1	machine learning=13;simulation/modelling=1
+AUGUSTUS	genomics	29	PNAS=20;Nature=9	2021=6;2022=4;2023=5;2024=6;2025=5;2026=3	3.2.3=3;3.1.0=2;3.4.0=2;3.3.3=2;3.3=2	machine learning=7;alignment/mapping=6;structure determination=1
+Canu	genomics	29	PNAS=17;Nature=9;Science=1;Lancet=1;Cell=1	2021=4;2022=7;2023=8;2024=2;2025=3;2026=5	2.1.1=5;1.8=3;1.6=3;2.2=2;2.0=1	alignment/mapping=2;read trimming=2;variant calling=2;structure determination=1
+freebayes	genomics	29	PNAS=19;Nature=8;Cell=2	2021=6;2022=5;2023=4;2024=4;2025=8;2026=2	1.3.1=3;1.1.0=3;1.3.2=3;1.2.0=1;1.0.2=1	variant calling=15;alignment/mapping=6;registration=2;differential/statistical testing=2
+emcee	physical	28	Nature=24;PNAS=4	2022=4;2023=10;2024=8;2025=5;2026=1		simulation/modelling=16;differential/statistical testing=2;quantification=1
+Quantum ESPRESSO	md	27	PNAS=22;Nature=5	2021=2;2022=4;2023=6;2024=6;2025=7;2026=2	6.4.1=1;6.3=1	simulation/modelling=6
+Conda	workflow	27	PNAS=14;Nature=10;Cell=3	2021=4;2022=5;2023=6;2024=3;2025=5;2026=4	2020.11=1;2020.02=1	visualisation=2;dimensionality reduction/clustering=1;simulation/modelling=1;machine learning=1
+REFMAC	structbio	26	PNAS=15;Nature=8;Cell=2;Science=1	2021=3;2022=7;2023=9;2024=4;2025=2;2026=1	5.8=2;5.8.0258=1	structure determination=21;machine learning=2;differential/statistical testing=1
+QUAST	genomics	25	PNAS=15;Nature=10	2022=2;2023=7;2024=2;2025=11;2026=3	5.0.2=4;5.2.0=3;5.2.0.2=1;5.0=1;5.0.0=1	alignment/mapping=3;differential/statistical testing=2;read trimming=2;quality control=1
+PsychoPy	neuro-tools	25	PNAS=19;Nature=6	2021=3;2022=3;2023=5;2024=4;2025=8;2026=2	2.22=1;2021.1.4=1;2021.2.3=1;1.90.3=1	
+Salmon	genomics	23	Nature=17;PNAS=6	2021=2;2022=3;2023=2;2024=4;2025=5;2026=7	0.14.1=3;1.10.1=3;1.4.0=3;1.10.2=2;1.5.1=2	quantification=16;alignment/mapping=13;read trimming=2;quality control=1
+StarDist	imaging	22	Nature=13;PNAS=7;Cell=2	2021=1;2022=2;2023=3;2024=5;2025=8;2026=3	0.3.0=1	machine learning=11;normalisation=1;quantification=1
+pandas	general	22	Nature=19;PNAS=2;Cell=1	2021=2;2022=2;2023=2;2024=5;2025=7;2026=4	2.0.3=2;1.5.3=2;1.5.1=2;1.0.1=1;2.2.3=1	differential/statistical testing=3;visualisation=2;quality control=2;normalisation=1
+EEGLAB	neuroimaging	22	PNAS=20;Nature=1;Cell=1	2021=3;2022=5;2023=3;2024=3;2025=6;2026=2	2019.1=1;2021.0=1;13.6.5b=1	
+REGENIE	statgen	21	Nature=21	2021=2;2022=2;2023=3;2024=3;2025=4;2026=7	3.5=2;3.2=1;4.1=1;3.4.1=1;3.2.9=1	differential/statistical testing=9;dimensionality reduction/clustering=3;variant calling=2
+napari	imaging	21	Nature=11;PNAS=6;Cell=3;Science=1	2023=2;2024=5;2025=8;2026=6	0.4.17=1	visualisation=5;machine learning=1;quantification=1
+SAIGE	statgen	21	Nature=17;PNAS=3;Science=1	2021=5;2022=5;2023=3;2024=5;2025=3	1.1.5=1;0.35.8.8=1;0.39=1	differential/statistical testing=8;alignment/mapping=2;dimensionality reduction/clustering=2;variant calling=1
+Galaxy	workflow	21	PNAS=12;Nature=7;Science=1;Cell=1	2021=3;2022=5;2023=2;2024=4;2025=7	2.11.40.7=1;24.2=1	alignment/mapping=3;read trimming=2;visualisation=1;quality control=1
+lavaan	general	21	PNAS=20;Nature=1	2021=3;2022=2;2023=4;2024=6;2025=3;2026=3	0.6=4;0.6.8=1	differential/statistical testing=3;machine learning=1
+TreeTime	phylogenetics	20	PNAS=9;Nature=6;Cell=3;Science=2	2021=3;2022=6;2023=4;2024=2;2025=4;2026=1	0.7.6=2;0.7.4=1;0.9.4=1;0.8.4=1;0.8.1=1	structure determination=4;normalisation=4;alignment/mapping=1;dimensionality reduction/clustering=1
+Strelka	genomics	20	Nature=15;PNAS=3;Science=1;Cell=1	2021=2;2022=4;2023=5;2024=3;2025=4;2026=2	2.9.10=4;2.4.7=3;1.0.15=2;2.0.15=1;2.8.2=1	variant calling=3;alignment/mapping=2;registration=1;normalisation=1
+JAGS	general	20	PNAS=18;Nature=1;Lancet=1	2021=1;2022=4;2023=6;2024=3;2025=6	4.3=1;4.2.0=1	differential/statistical testing=10;simulation/modelling=4;quantification=1
+Singularity	workflow	19	PNAS=9;Nature=8;Cell=2	2021=1;2022=3;2023=1;2024=4;2025=8;2026=2	1.1.8=1;3.2.1=1;3.8=1	
+Squidpy	single-cell	19	Nature=15;Science=2;PNAS=2	2022=1;2023=3;2024=2;2025=9;2026=4	1.1.2=2;1.2.3=1;1.3.0=1;1.6.2=1	dimensionality reduction/clustering=5;quantification=2;quality control=2;normalisation=2
+ape (R)	phylogenetics	19	Nature=13;PNAS=6	2021=1;2022=3;2023=2;2024=5;2025=4;2026=4	5.8=3;5.6=3;5.5=1;5.7=1;5.7.1=1	visualisation=4;alignment/mapping=2;structure determination=2;differential/statistical testing=1
+Connectome Workbench	neuroimaging	19	PNAS=12;Nature=5;Science=1;Cell=1	2021=1;2022=3;2023=2;2024=4;2025=7;2026=2	1.5=3;1.2.3=2;1.0=1	alignment/mapping=5;visualisation=5;machine learning=1;structure determination=1
+dynesty	physical	18	Nature=16;PNAS=2	2023=9;2024=5;2025=3;2026=1		differential/statistical testing=5;simulation/modelling=1;quantification=1
+DeepVariant	genomics	18	Nature=16;PNAS=2	2022=3;2023=2;2024=1;2025=7;2026=5	1.4.0=2;1.3.0=2;1.6.0=2;1.6=1;0.4=1	variant calling=9;alignment/mapping=7;machine learning=2;quality control=1
+FUMA	statgen	18	PNAS=11;Nature=5;Science=1;Cell=1	2021=1;2022=2;2023=3;2024=3;2025=6;2026=3	1.6.3=1;1.5.6=1;1.5.2=1	alignment/mapping=6;differential/statistical testing=4;visualisation=1
+RDKit	md	18	PNAS=14;Nature=4	2021=1;2022=1;2023=6;2024=2;2025=6;2026=2		simulation/modelling=2;dimensionality reduction/clustering=2;machine learning=1;structure determination=1
+MDTraj	md	18	PNAS=9;Nature=7;Science=1;Cell=1	2021=1;2022=3;2023=2;2024=7;2025=5	1.9.8=1	simulation/modelling=10;dimensionality reduction/clustering=1;visualisation=1;differential/statistical testing=1
+Geant4	physical	17	Nature=15;PNAS=2	2021=1;2022=4;2023=2;2024=2;2025=6;2026=2		simulation/modelling=15
+MOM6	physical	17	PNAS=14;Nature=3	2021=3;2022=2;2023=3;2024=5;2025=3;2026=1		simulation/modelling=8;dimensionality reduction/clustering=2;machine learning=1
+SHAPEIT	statgen	16	Nature=9;PNAS=4;Cell=3	2021=1;2022=6;2023=1;2024=2;2025=4;2026=2		variant calling=9
+Astropy	physical	16	Nature=14;PNAS=1;Cell=1	2021=2;2022=2;2023=5;2024=4;2025=3	2.0.2=1	
+WRF	physical	16	PNAS=13;Nature=3	2021=1;2022=3;2023=1;2024=2;2025=9	4.3.1=1	simulation/modelling=7;differential/statistical testing=1;normalisation=1;dimensionality reduction/clustering=1
+WhatsHap	genomics	15	Nature=10;PNAS=4;Cell=1	2022=3;2023=3;2024=2;2025=6;2026=1	1.1=2;1.4=1;1.0=1;1.5=1;1.6=1	variant calling=5;alignment/mapping=3;differential/statistical testing=1
+DELLY	genomics	15	Nature=10;PNAS=4;Science=1	2022=2;2023=2;2024=4;2025=4;2026=3	0.8.7=2;0.7.6=1;1.1.6=1;0.8.6=1;0.8.3=1	alignment/mapping=3;variant calling=1
+TwoSampleMR	statgen	14	Nature=9;PNAS=5	2021=2;2022=2;2023=2;2024=2;2025=3;2026=3	0.5.6=2;0.6.2=1;0.6.15=1;0.5.10=1;0.5.1=1	differential/statistical testing=6;dimensionality reduction/clustering=1
+Nilearn	neuroimaging	14	PNAS=11;Nature=2;Science=1	2021=3;2022=1;2023=2;2024=3;2025=5	0.4.2=1;0.5.2=1;0.6.2=1	differential/statistical testing=1
+CaImAn	neuro-tools	14	Nature=9;PNAS=5	2022=4;2023=3;2024=4;2025=3		machine learning=4;registration=2
+Medaka	genomics	13	PNAS=7;Nature=6	2022=3;2023=1;2024=4;2025=4;2026=1	1.7=1;1.5.0=1;1.11.3=1;1.9.1=1	alignment/mapping=1
+Nipype	neuroimaging	13	PNAS=12;Nature=1	2021=3;2022=1;2023=2;2024=3;2025=3;2026=1	1.5.1=3;1.6.1=2;1.2.0=2;1.1.1=1;1.1.7=1	alignment/mapping=1;differential/statistical testing=1;normalisation=1
+VarScan	genomics	13	PNAS=9;Nature=3;Cell=1	2021=1;2022=3;2023=4;2024=4;2025=1	2.3.8=2;2.4.3=1;2.4.2=1;2.3.9=1;2.4.1=1	variant calling=4;differential/statistical testing=2;alignment/mapping=2
+PyMC	general	12	Nature=8;PNAS=4	2022=2;2023=3;2024=2;2025=2;2026=3	5.17.0=1;3.11.5=1	simulation/modelling=4;differential/statistical testing=4
+CNVkit	genomics	12	Nature=6;PNAS=5;Cell=1	2021=1;2023=1;2024=3;2025=2;2026=5	0.9.8=2;0.9.10=1;0.9.9=1;0.9.6=1	visualisation=1;variant calling=1
+IMPUTE2	statgen	12	Nature=7;Cell=3;PNAS=2	2021=2;2022=4;2023=3;2025=2;2026=1	2.3.2=2;2.3.1=1	variant calling=4;quality control=1
+MRtrix3	neuroimaging	12	PNAS=12	2021=1;2022=4;2023=2;2024=1;2025=2;2026=2		normalisation=1;registration=1;machine learning=1
+MetaPhlAn	microbiome	11	Nature=8;PNAS=3	2022=1;2023=1;2024=2;2025=2;2026=5	4.0.6=2;4.1=1;3.0.7=1	alignment/mapping=3;quantification=3
+DIAMOND	phylogenetics	11	Nature=8;PNAS=2;Cell=1	2021=1;2022=2;2023=2;2024=1;2025=3;2026=2	2.0.15.153=1;2.1.8=1;2.0.13=1;2.1.7=1;0.9.22=1	alignment/mapping=8
+Bracken	microbiome	11	Nature=6;PNAS=3;Lancet=2	2021=1;2022=1;2023=2;2024=3;2025=4	2.9=2;2.6.2=1	quantification=5;alignment/mapping=1
+LightGBM	general	10	PNAS=7;Nature=3	2021=2;2022=1;2024=2;2025=3;2026=2		differential/statistical testing=5;machine learning=2
+SLEAP	neuro-tools	10	Nature=6;PNAS=3;Science=1	2023=1;2024=3;2025=5;2026=1	1.3.3=1;1.3.0=1	machine learning=2;structure determination=1;quantification=1
+jsPsych	neuro-tools	10	PNAS=7;Nature=3	2022=2;2023=3;2025=5	7.3.3=1	
+OpenFOAM	physical	10	PNAS=9;Nature=1	2023=4;2024=3;2025=2;2026=1	9.0=1	simulation/modelling=4
+NanoPlot	genomics	9	Nature=4;PNAS=4;Cell=1	2022=1;2023=2;2024=1;2025=2;2026=3	1.46.0=1;1.41.6=1;1.42.0=1;1.30.1=1;1.40.0=1	differential/statistical testing=3;quality control=1;alignment/mapping=1
+PyMC3	general	9	Nature=5;PNAS=4	2022=2;2023=3;2024=2;2025=1;2026=1	3.11.5=1	differential/statistical testing=3;simulation/modelling=2
+MNE-Python	neuroimaging	9	PNAS=6;Nature=3	2022=2;2023=2;2024=2;2025=3	0.22.0=2;0.24=1;0.23.0=1	
+cryoDRGN	structbio	9	PNAS=5;Nature=4	2022=2;2024=4;2025=3	3.2.0=1;0.3.4=1	machine learning=3;dimensionality reduction/clustering=2;structure determination=2;alignment/mapping=1
+pingouin	general	8	PNAS=4;Nature=3;Science=1	2022=1;2023=1;2024=2;2025=2;2026=2	0.5.4=1	differential/statistical testing=4
+afex	general	8	PNAS=6;Nature=2	2022=2;2023=1;2025=3;2026=2	0.28=1;1.2.1=1	differential/statistical testing=3
+Trinity	genomics	8	Nature=5;PNAS=2;Science=1	2021=1;2023=3;2024=1;2025=3	2.5.1=3;2.11.0=1;2.8.4=1;2.13.2=1	alignment/mapping=3;quality control=1;read trimming=1
+BigStitcher	imaging	8	Nature=4;Science=2;PNAS=1;Cell=1	2021=1;2023=1;2024=1;2025=5		structure determination=1;alignment/mapping=1;registration=1;visualisation=1
+Brian2	neuro-tools	8	Nature=4;PNAS=4	2022=3;2023=2;2024=2;2025=1	2.2.2.1=1	simulation/modelling=6;differential/statistical testing=1
+xarray	general	7	Nature=5;Cell=2	2021=1;2022=1;2023=2;2024=2;2025=1	2023.6.0=1	alignment/mapping=1;differential/statistical testing=1
+mothur	microbiome	7	PNAS=5;Nature=1;Cell=1	2022=3;2023=1;2024=2;2026=1	1.43.0=1;1.39=1;1.42=1	machine learning=1
+CONN toolbox	neuroimaging	7	PNAS=7	2021=2;2022=2;2025=1;2026=2		alignment/mapping=1;differential/statistical testing=1;normalisation=1
+Cartopy	physical	6	Nature=6	2021=1;2023=1;2024=2;2025=2	0.20.3=1	visualisation=1
+Beagle	statgen	6	Nature=5;PNAS=1	2022=2;2024=3;2025=1	5.1=2	variant calling=4;differential/statistical testing=1
+Rcpp	general	6	Nature=4;PNAS=2	2021=2;2023=1;2024=2;2025=1		differential/statistical testing=2;variant calling=1;dimensionality reduction/clustering=1
+Open Babel	md	6	PNAS=6	2022=1;2023=2;2025=3		machine learning=1;dimensionality reduction/clustering=1
+SUMA	neuroimaging	6	PNAS=6	2021=1;2022=1;2023=1;2025=3		structure determination=1;normalisation=1
+Manta	genomics	5	Nature=5	2022=1;2024=1;2025=2;2026=1	1.6.0=3;1.4.0=1;0.28.0=1	variant calling=1
+HUMAnN	microbiome	5	PNAS=3;Nature=2	2023=1;2024=1;2025=2;2026=1	3.0=3;3.0.0=1	quantification=2;read trimming=1;alignment/mapping=1
+Dask	workflow	5	Nature=2;PNAS=2;Cell=1	2021=1;2023=2;2024=1;2025=1	2022.4.1=1	alignment/mapping=1
+METAL	statgen	5	Nature=3;PNAS=2	2022=3;2023=1;2024=1	3.0=1	
+rstanarm	general	5	PNAS=4;Science=1	2021=2;2022=2;2024=1	2.21.1=1	differential/statistical testing=2
+CDO	physical	5	PNAS=5	2021=2;2022=1;2024=1;2025=1	1.9.9r=1	
+dcm2niix	neuroimaging	4	Nature=2;PNAS=2	2024=1;2025=2;2026=1		
+JAX	general	4	PNAS=3;Nature=1	2022=1;2024=1;2025=1;2026=1		
+NiBabel	neuroimaging	4	PNAS=2;Nature=1;Cell=1	2023=1;2024=1;2025=2	3.2.2=1;3.2.0=1	alignment/mapping=1;differential/statistical testing=1
+DIPY	neuroimaging	4	PNAS=3;Nature=1	2021=1;2023=3		registration=1;machine learning=1
+PySCF	md	4	PNAS=4	2023=1;2025=3		
+BrainNet Viewer	neuroimaging	4	PNAS=4	2021=1;2023=1;2024=1;2025=1		visualisation=2;alignment/mapping=1;simulation/modelling=1
+ASE	md	4	PNAS=4	2022=1;2024=2;2025=1		simulation/modelling=4;normalisation=1
+SpikeInterface	neuro-tools	3	Nature=3	2024=1;2025=1;2026=1		quality control=1
+MRIQC	neuroimaging	3	PNAS=2;Nature=1	2023=1;2025=2	0.16.1=1;0.15.1=1;0.15.0=1	quality control=3
+COLOC	statgen	3	Nature=2;PNAS=1	2022=1;2023=1;2025=1	5.2.3=1	differential/statistical testing=1
+Camino	neuroimaging	3	PNAS=2;Lancet=1	2021=1;2024=1;2025=1		
+healpy	physical	2	Nature=1;PNAS=1	2024=1;2025=1		
+AREPO	physical	2	Nature=1;PNAS=1	2023=1;2024=1		simulation/modelling=1
+QSIPrep	neuroimaging	2	PNAS=2	2025=2		registration=1
+ROOT	physical	1	Nature=1	2026=1		
+Hail	statgen	1	Nature=1	2026=1	0.1=1	quality control=1
+GDAL	physical	1	Nature=1	2025=1	2.2.3=1	
+SExtractor	physical	1	Nature=1	2022=1		
+Cloudy	physical	1	Nature=1	2022=1		normalisation=1
+Brainstorm	neuroimaging	1	PNAS=1	2025=1		structure determination=1
+yt	physical	1	PNAS=1	2025=1		
+NCO	physical	1	PNAS=1	2025=1		
+CIVET	neuroimaging	1	PNAS=1	2024=1		

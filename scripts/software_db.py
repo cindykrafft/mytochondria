@@ -366,3 +366,19 @@ PROPRIETARY = {
  "MATLAB", "Imaris", "VASP", "AMBER", "CHARMM", "Rosetta", "MEGA", "JASP",
  "DAVID", "Guppy", "Dorado", "XDS",
 }
+
+
+# Names that also denote organisms or common objects: require software context.
+for _n in ("Medaka", "Topaz"):
+    SAFE.pop(_n, None)
+AMBIGUOUS["Medaka"] = ("genomics",
+    r"medaka\s+(?:consensus|polish|_|v?\d)|nanoporetech/medaka|Medaka\s*\(v", None)
+AMBIGUOUS["Topaz"] = ("structbio",
+    r"Topaz\s*\(?v|Topaz\s+(?:Train|train|denois|pick)|"
+    r"(?:using|with|in)\s+Topaz\b|Topaz\s+(?:was|were)\s+used", None)
+
+
+# "Quantifoil R 1.2/1.3" is a cryo-EM grid hole spec, not the R language, but it
+# satisfies the `R <version>` context. Reject it explicitly.
+AMBIGUOUS["R"] = (AMBIGUOUS["R"][0], AMBIGUOUS["R"][1],
+                  r"[Qq]uantifoil|UltrAuFoil|holey|\d\.\d\s*/\s*\d\.\d")

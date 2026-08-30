@@ -96,8 +96,26 @@ def fetch(pmcid, tries=4):
     return None, "unknown"
 
 
+def _strip_refs(root):
+    """Remove bibliography from the tree.
+
+    Several of these journals emit <ref-list> *inside* <body> rather than in
+    <back>, so scanning the body text otherwise sweeps up the whole reference
+    list -- and a paper that merely cites a tool's methods paper would be
+    recorded as having used the tool.
+    """
+    parents = {c: p for p in root.iter() for c in p}
+    for tag in ("ref-list", "back"):
+        for node in list(root.iter(tag)):
+            p = parents.get(node)
+            if p is not None:
+                p.remove(node)
+    return root
+
+
 def sections(root):
     """Return (full_body_text, methods_text)."""
+    root = _strip_refs(root)
     body = root.find(".//body")
     if body is None:
         return "", ""
@@ -130,7 +148,7 @@ def detect(text):
                           "match": m.group(0), "amb": False}
     for name, (ctx, neg, cat) in AMB_RE.items():
         for m in ctx.finditer(text):
-            if neg and neg.search(text, max(0, m.start() - 20), m.end() + 20):
+            if neg and neg.search(text, max(0, m.start() - 60), m.end() + 40):
                 continue
             hits[name] = {"category": cat, "pos": m.start(), "end": m.end(),
                           "match": m.group(0), "amb": True}

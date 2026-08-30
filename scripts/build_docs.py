@@ -91,6 +91,8 @@ def main():
             disc[g] += 1
 
     yr = Counter(r["year"] for r in papers)
+    nver = sum(1 for r in papers for h in r["software"].values()
+               if h["license"] == "open-source" and h["version"])
 
     R = []
     A = R.append
@@ -134,6 +136,7 @@ def main():
         ["Distinct open-source packages detected", f"{all_pkgs:,}"],
         ["Total (paper × package) usage records", f"{total_mentions:,}"],
         ["Articles that could not be read (gap list)", f"{len(gap):,}"],
+        ["Usage records with a version captured", "%s (%.0f%%)" % (f"{nver:,}", 100.0*nver/max(1,total_mentions))],
     ]))
     A("\nArticles using open-source software, by year: %s\n"
       % ", ".join("**%s** %s" % (y, f"{n:,}") for y, n in sorted(yr.items()) if y))
@@ -169,6 +172,28 @@ def main():
         A("Most-cited GitHub repositories in the corpus. These are candidates for extending the\n"
           "dictionary — detection is dictionary-bounded, so this is where its blind spots show.\n")
         A(tbl(["GitHub repository", "Papers"], [[k, v] for k, v in disc.most_common(40)]))
+
+    # independent cross-check against Europe PMC's own full-text search
+    xc = os.path.join(HERE, "epmc_crosscheck.txt")
+    if os.path.exists(xc):
+        pk = {t: len(p["papers"]) for t, p in ranked}
+        lines = [l.split() for l in open(xc).read().splitlines()[1:] if l.strip()]
+        rowsx = []
+        for name, hits in [(a, b) for a, b in lines if b.isdigit()]:
+            mine = pk.get(name)
+            if mine is None:
+                continue
+            rowsx.append([name, f"{mine:,}", f"{int(hits):,}",
+                          "%.2f" % (mine / int(hits)) if int(hits) else "—"])
+        if rowsx:
+            A("\n## Cross-check against an independent source\n")
+            A("Europe PMC's own full-text search over the same six journals and years, compared with\n"
+              "this survey's counts. The two measure different things: EPMC searches the **whole**\n"
+              "article including its reference list, so a paper that merely *cites* a tool counts\n"
+              "there but not here. EPMC also searches articles this survey could not parse. Its\n"
+              "numbers are therefore an upper bound, and a ratio below 1 is expected and healthy —\n"
+              "a ratio near or above 1 would suggest this survey is over-counting.\n")
+            A(tbl(["Package", "This survey", "EPMC full-text hits", "Ratio"], rowsx))
 
     A("\n## Files\n")
     A(tbl(["File", "Contents"], [
@@ -220,6 +245,18 @@ def main():
       "  is included in every row precisely so this can be audited.\n")
     A("- **Presence ≠ dependence.** A named package may have produced one supplementary figure rather\n"
       "  than the central result. Read the evidence sentence before concluding a bug matters.\n")
+    A("- **Some names denote a method or a database as often as a program.** UMAP, GSEA and\n"
+      "  AlphaFold are recorded whenever named, but a paper may mean the algorithm, a published\n"
+      "  embedding, or the AlphaFold Protein Structure Database rather than a run of the software.\n"
+      "  AlphaFold is the one package whose cross-check ratio exceeds 1, which is the signature of\n"
+      "  exactly this effect — treat its count as an upper bound.\n")
+    A("- **A version is recorded only when it is stated adjacent to the package name** —\n"
+      "  `STAR (v2.7.5c)`, `Seurat v5.0.1`, `R version 4.1.2`. Where a paper separates the two\n"
+      "  (`AFNI, http://... ) software (v.23.1.06)`) the version field is left empty rather than\n"
+      "  guessed, because binding the wrong number would mismatch a bug's affected range in the\n"
+      "  next step. %d%% of usage records carry a version; for the rest, the evidence sentence is\n"
+      "  in `data/paper_software.tsv` and often contains it.\n"
+      % round(100.0*nver/max(1,total_mentions)))
     A("- **Counts are of papers, not of runs.** A paper naming a package once and a paper built\n"
       "  entirely on it both count as 1.\n")
 

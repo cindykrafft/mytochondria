@@ -1,0 +1,16 @@
+AFNI           49
+FreeSurfer     131
+fMRIPrep       38
+MRtrix3        12
+FSL            114
+SPM12          71
+Seurat         1241
+GROMACS        305
+DESeq2         1446
+Scanpy         317
+Bowtie2        657
+AlphaFold      1162
+RELION         670
+PyMOL          1117
+Nextflow       80
+Snakemake      102
