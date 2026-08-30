@@ -12,9 +12,10 @@ crashes. Source: `freesurfer/freesurfer` dev branch, with tags v6.0.0, v7.1.1, v
 via git for version comparisons; FreeSurfer's own release notes were used for documented bugs.
 
 **Epistemic status, stated plainly.** These are *code-level* findings: every CONFIRMED item
-was traced end-to-end in the source (one was additionally reproduced in a compiled test), but
-none has been reproduced against imaging data as part of this analysis, and per-paper
-magnitudes are estimates from the code, not measurements. "Paper is exposed" means the paper
+was traced end-to-end in the source. Three (B1, B4, B6) have since been reproduced
+numerically — see `reproductions/` — including one correction where reproduction *shrank*
+a finding (B6 does not fire on the standard aparc pipeline). The rest remain code-derived
+estimates, not measurements. "Paper is exposed" means the paper
 used the affected feature/version — not that its conclusions are wrong. Most of these biases
 are *systematic and shared across subjects*, which is exactly why they mostly attenuate or
 shift measurements without reversing well-powered group contrasts; the dangerous ones are
@@ -64,14 +65,18 @@ nsim≈1000. The exact convention exists but only behind an env var since 7.2.
 ### Tier 2 — systematic measurement bias present in ALL versions
 
 **B6. Per-ROI thickness means include frozen zero-thickness vertices.** CONFIRMED
-(independently by two reviewers). `mris_anatomical_stats` filters ROI thickness only by
-annotation label, not by `cortex.label` — vertices labeled e.g. entorhinal but outside the
-cortex label carry thickness exactly 0 and are averaged in, while the same row's GrayVol
-excludes them and the global mean-thickness measure excludes them. Result: ThickAvg biased
-down and ThickStd up in medial-wall-adjacent ROIs (entorhinal, parahippocampal, cingulate,
-insula, medial-orbitofrontal); the aparc↔cortex.label mismatch varies with atrophy, so this
-can masquerade as a group effect in aging/AD studies of exactly those regions. Exposure: all
-32 papers reporting ROI cortical thickness; the danger concentrates in medial-temporal ROIs.
+(independently by two reviewers). **Reproduction update (`reproductions/`): the standard
+aparc pipeline is exonerated** — `mris_ca_label -l cortex.label` force-relabels non-cortex
+vertices to unknown, so standard annotations nest inside the cortex label by construction;
+exposure is real on the *custom-parcellation* path (Schaefer/Glasser via `mri_surf2surf
+--sval-annot`), reproduced at up to −0.247 mm per parcel on FreeSurfer's own test subject.
+The mechanism: `mris_anatomical_stats` filters ROI thickness only by annotation label, not
+by `cortex.label` — labeled vertices outside the cortex label carry thickness exactly 0 and
+are averaged in, while the same row's GrayVol and the global mean-thickness measure both
+exclude them. Revised exposure: not the 32 standard-aparc thickness papers, but the subset
+using custom parcellations (Schaefer, Glasser/HCP-MMP, Yeo) transferred by surface
+registration — where the bias lands on cingulate/limbic/medial parcels and the
+annot↔cortex-label mismatch varies with atrophy, so it can masquerade as a group effect.
 
 **B15. A hidden 1 mm "look-ahead" in boundary acceptance rejects the true boundary in
 cortex thinner than ~1 mm and sulci tighter than ~1 mm.** PLAUSIBLE (mechanism confirmed;
@@ -180,9 +185,9 @@ Equally important for trust in the 116 papers:
 
 ## Suggested next steps
 
-1. **Numerical reproduction** of the highest-value findings on real data: B1 (re-run one
-   volume-corrected analysis with matched connectivity), B6 (recompute ROI ThickAvg with a
-   cortex-label mask and diff), B4 (count vol2surf samples at each depth).
+1. **Numerical reproduction — done, see `reproductions/`**: B1 achieved FWER up to 0.19
+   at nominal 0.05; B4 reproduced with the verbatim compiled loop; B6 reproduced on the
+   custom-parcellation path and exonerated for standard aparc.
 2. **Report upstream**: B2 (FFx /J), B7 (-i no-op), B12 (fall-through + race), B4 (float
    loop) are crisp, patchable defects; B1 is already fixed on dev but unreleased at 7.4 —
    worth flagging for backport/release-note.
