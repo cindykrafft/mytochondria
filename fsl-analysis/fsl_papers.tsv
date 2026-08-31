@@ -1,0 +1,115 @@
+pmcid	doi	journal	year	version	commands	features	title
+PMC13190288	10.1038/s41586-026-10345-6	Nature	2026	6.0.7.8	FAST;FLIRT;FNIRT	linear registration (FLIRT);nonlinear registration (FNIRT);tissue segmentation (FAST)	Population-scale repeat expansions elucidate disease risk and brain atrophy.
+PMC13148990	10.1038/s41586-026-10267-3	Nature	2026				Rapid concerted switching of the neural code in the inferotemporal cortex.
+PMC13017517	10.1038/s41586-025-10059-1	Nature	2026	6.0			Parkinson's disease as a somato-cognitive action network disorder.
+PMC12820784	10.1038/s41586-025-09907-x	Nature	2026				Bidirectional CRISPR screens decode a GLIS3-dependent fibrotic cell circuit.
+PMC12893911	10.1038/s41586-025-09854-7	Nature	2026				Gut micro-organisms associated with health, nutrition and dietary interventions.
+PMC12711564	10.1038/s41586-025-09708-2	Nature	2025				A probabilistic histological atlas of the human brain for MRI segmentation.
+PMC12137136	10.1038/s41586-025-08888-1	Nature	2025	6.0.2	FEAT	task fMRI GLM (FEAT/FILM)	Adversarial testing of global neuronal workspace and integrated information theories of consciousness.
+PMC12095069	10.1038/s41586-025-08845-y	Nature	2025				Phase I trial of hES cell-derived dopaminergic neurons for Parkinson's disease.
+PMC12074988	10.1038/s41586-025-08705-9	Nature	2025		FEAT;FILM;FLAME;MCFLIRT;MELODIC	GRF cluster correction;ICA (MELODIC);group mixed effects (FLAME);linear registration (FLIRT);motion correction (MCFLIRT);nonlinear registration (FNIRT);task fMRI GLM (FEAT/FILM)	Basis functions for complex social decisions in dorsomedial frontal cortex.
+PMC11540853	10.1038/s41586-024-07973-1	Nature	2024		flirt		Human hippocampal and entorhinal neurons encode the temporal structure of experience.
+PMC11410656	10.1038/s41586-024-07805-2	Nature	2024	6.0	ICA-AROMA;MCFLIRT;MELODIC;epi_reg;slicetimer;topup	ICA (MELODIC);ICA cleanup (FIX/AROMA);distortion correction (topup/eddy);fieldmap (FUGUE/epi_reg);linear registration (FLIRT);motion correction (MCFLIRT)	Frontostriatal salience network expansion in individuals in depression.
+PMC10620088	10.1038/s41586-023-06630-3	Nature	2023			permutation inference (randomise)	Normative spatiotemporal fetal brain maturation with satisfactory development at 2 years.
+PMC10550829	10.1038/s41586-023-06541-3	Nature	2023		fsl_anat	TBSS	Cingulate dynamics track depression recovery with deep brain stimulation.
+PMC10499606	10.1038/s41586-023-06459-w	Nature	2023		ICA-AROMA;topup	ICA cleanup (FIX/AROMA);diffusion fitting (dtifit/bedpostx);distortion correction (topup/eddy)	An orexigenic subnetwork within the human hippocampus.
+PMC10266981	10.1038/s41586-023-06098-1	Nature	2023				Geometric constraints on human brain function.
+PMC10172144	10.1038/s41586-023-05964-2	Nature	2023	6.0	FEAT	task fMRI GLM (FEAT/FILM)	A somato-cognitive action network alternates with effector regions in motor cortex.
+PMC9433326	10.1038/s41586-022-05118-w	Nature	2022			linear registration (FLIRT)	Brain-phenotype models fail for individuals who defy sample stereotypes.
+PMC9328018	10.1038/s41586-022-04985-7	Nature	2022				Akkermansia muciniphila phospholipid induces homeostatic immune responses.
+PMC8991999	10.1038/s41586-022-04492-9	Nature	2022		applywarp		Reproducible brain-wide association studies require thousands of individuals.
+PMC12286656	10.1126/science.adt3971	Science	2025		flirt;probtrackx;topup	distortion correction (topup/eddy);permutation inference (randomise);tractography (probtrackx/xtract)	Conserved brain-wide emergence of emotional response from sensory experience in humans and mice.
+PMC13321360	10.1073/pnas.2531706123	PNAS	2026			distortion correction (topup/eddy)	Metabolism-weighted brain connectome reveals synaptic integration and vulnerability to neurodegeneration.
+PMC13167725	10.1073/pnas.2537314123	PNAS	2026	24.0.1			Incentive valence differentially engages open- and closed-loop basal ganglia circuits during movement initiation.
+PMC13079981	10.1073/pnas.2528851123	PNAS	2026	6.0	BET;FILM;FLIRT;MCFLIRT;fsl_motion_outliers	GRF cluster correction;brain extraction (BET);linear registration (FLIRT);motion correction (MCFLIRT);task fMRI GLM (FEAT/FILM)	Sender-receiver subdivisions of the default mode network in perceptual and memory-guided cognition.
+PMC13012097	10.1073/pnas.2510731123	PNAS	2026			permutation inference (randomise)	Sleep alters neurovascular and hydrodynamic coupling in the human brain.
+PMC12867695	10.1073/pnas.2518217123	PNAS	2026				Medullary and C3-C4 propriospinal pathways underlying mammalian forelimb movement control.
+PMC12818569	10.1073/pnas.2503388123	PNAS	2026	5.0.9	flirt;fugue;mcflirt		Distinct contributions of hippocampal pathways in learning regularities and exceptions revealed by functional footprints.
+PMC12799151	10.1073/pnas.2426883123	PNAS	2026			distortion correction (topup/eddy)	Primate-informed neural network for visual decision-making.
+PMC12664012	10.1073/pnas.2505323122	PNAS	2025	6.0.7.8	BET;FAST;FLIRT	brain extraction (BET);linear registration (FLIRT);tissue segmentation (FAST)	Creatine kinase imaging (CKI) for in vivo whole-brain mapping of creatine kinase reaction kinetics.
+PMC12625820	10.1073/pnas.2512310122	PNAS	2025	6.0.7.4	FEAT;FLAME	GRF cluster correction;group mixed effects (FLAME);task fMRI GLM (FEAT/FILM)	The synergy of methylphenidate- and reconsolidation-based extinction normalizes ventromedial prefrontal function in drug addiction.
+PMC12595472	10.1073/pnas.2500815122	PNAS	2025		BET;FEAT;FNIRT;MCFLIRT;fslmeants	brain extraction (BET);linear registration (FLIRT);motion correction (MCFLIRT);nonlinear registration (FNIRT);task fMRI GLM (FEAT/FILM)	Habenula-ventral tegmental area functional coupling and risk aversion in humans.
+PMC12595413	10.1073/pnas.2520067122	PNAS	2025	6.0.3	FLIRT;MCFLIRT;slicetimer	distortion correction (topup/eddy);linear registration (FLIRT);motion correction (MCFLIRT);task fMRI GLM (FEAT/FILM)	Parallel systems for social and spatial cognition reaching the cortical apex.
+PMC12595446	10.1073/pnas.2518549122	PNAS	2025		bedpostx;probtrackx	diffusion fitting (dtifit/bedpostx);tractography (probtrackx/xtract)	In vivo parcellation of the human superior colliculus from brain-wide probabilistic connectivity.
+PMC12595415	10.1073/pnas.2420188122	PNAS	2025	6.0.5.1		distortion correction (topup/eddy)	Decreased hippocampal neurite density in late-middle-aged adults following prenatal exposure to higher levels of maternal inflammation.
+PMC12582319	10.1073/pnas.2520190122	PNAS	2025				Full interhemispheric integration sustained by a fraction of posterior callosal fibers.
+PMC12582272	10.1073/pnas.2507291122	PNAS	2025		topup	distortion correction (topup/eddy)	From retinotopic to ordinal coding: Dissecting the cortical stages of visual word recognition.
+PMC12557543	10.1073/pnas.2506243122	PNAS	2025		FEAT;fsl_anat	task fMRI GLM (FEAT/FILM)	Fundamental features of social environments determine rate of social affiliation.
+PMC12501135	10.1073/pnas.2506513122	PNAS	2025				Disentangling metabolic and neurovascular timescales supporting cognitive processes.
+PMC12435315	10.1073/pnas.2502269122	PNAS	2025		FEAT;SUSAN	smoothing (SUSAN);task fMRI GLM (FEAT/FILM)	Joint models reveal human subcortical underpinnings of choice and learning behavior.
+PMC12377651	10.1073/pnas.2421528122	PNAS	2025		mcflirt		Familial transmission of neural representations for mental arithmetic across two generations.
+PMC12337265	10.1073/pnas.2501578122	PNAS	2025	5.0.9	FEAT;FLIRT;MCFLIRT	brain extraction (BET);linear registration (FLIRT);motion correction (MCFLIRT);permutation inference (randomise);task fMRI GLM (FEAT/FILM)	Orexin effect on physiological pulsations of the human brain.
+PMC12327799	10.1073/pnas.2505965122	PNAS	2025		BET;MCFLIRT	brain extraction (BET);linear registration (FLIRT);motion correction (MCFLIRT);task fMRI GLM (FEAT/FILM)	Trauma-predictive brain network connectivity adaptively responds to mild acute stress.
+PMC12260544	10.1073/pnas.2502021122	PNAS	2025	6.0			Action-mode subnetworks for decision-making, action control, and feedback.
+PMC12184337	10.1073/pnas.2414598122	PNAS	2025		topup	distortion correction (topup/eddy);permutation inference (randomise)	Longitudinal trajectories of brain development from infancy to school age and their relationship with literacy development.
+PMC12167953	10.1073/pnas.2422396122	PNAS	2025	5.0	BET;FEAT	brain extraction (BET);task fMRI GLM (FEAT/FILM)	Shared disbelief and shared belief: Belief and disbelief as drivers of interpersonal neural synchronization during narrative processing.
+PMC12168018	10.1073/pnas.2412729122	PNAS	2025		FLIRT;bedpostx;probtrackx2	diffusion fitting (dtifit/bedpostx);distortion correction (topup/eddy);linear registration (FLIRT);tractography (probtrackx/xtract)	Structure-function coupling in the first month of life: Associations with age and attention.
+PMC12146774	10.1073/pnas.2418176122	PNAS	2025		FLAME	group mixed effects (FLAME)	Longitudinal associations between birth-to-six cortical growth and childhood neurocognitive function.
+PMC12037044	10.1073/pnas.2405706122	PNAS	2025				Mapping global brain reconfigurations following local targeted manipulations.
+PMC12012540	10.1073/pnas.2413871122	PNAS	2025	5.0.9	FEAT;FILM;mcflirt	GRF cluster correction;group mixed effects (FLAME);task fMRI GLM (FEAT/FILM)	The Beholder's Share: Bridging art and neuroscience to study individual differences in subjective experience.
+PMC12002349	10.1073/pnas.2423785122	PNAS	2025		FEAT	task fMRI GLM (FEAT/FILM)	Neural basis for individual differences in the attention-enhancing effects of methylphenidate.
+PMC11892684	10.1073/pnas.2411245122	PNAS	2025				Protective role of parenthood on age-related brain function in mid- to late-life.
+PMC11760929	10.1073/pnas.2422083122	PNAS	2025	5.0.4	FEAT;fslmaths	task fMRI GLM (FEAT/FILM)	Specialization of the human hippocampal long axis revisited.
+PMC11761675	10.1073/pnas.2421585122	PNAS	2025				Expansion of a conserved architecture drives the evolution of the primate visual cortex.
+PMC11725837	10.1073/pnas.2415102122	PNAS	2025		FEAT	task fMRI GLM (FEAT/FILM)	Human brain dynamics are shaped by rare long-range connections over and above cortical geometry.
+PMC11725914	10.1073/pnas.2400743122	PNAS	2025	5.0	BET;FEAT;FLAME	GRF cluster correction;brain extraction (BET);group mixed effects (FLAME);task fMRI GLM (FEAT/FILM)	Memory control deficits in the sleep-deprived human brain.
+PMC11670218	10.1073/pnas.2405395121	PNAS	2024		flirt		Breathing orchestrates synchronization of sleep oscillations in the human hippocampus.
+PMC11648631	10.1073/pnas.2405448121	PNAS	2024				Prenatal social disadvantage is associated with alterations in functional networks at birth.
+PMC11573628	10.1073/pnas.2409345121	PNAS	2024	6.0.4	dtifit;epi_reg;oxford_asl	brain extraction (BET);diffusion fitting (dtifit/bedpostx);distortion correction (topup/eddy);fieldmap (FUGUE/epi_reg)	Secondary thalamic dysfunction underlies abnormal large-scale neural dynamics in chronic stroke.
+PMC11572972	10.1073/pnas.2221623121	PNAS	2024				V1 neurons are tuned to perceptual borders in natural scenes.
+PMC11363287	10.1073/pnas.2400082121	PNAS	2024				High-level cognition is supported by information-rich but compressible brain activity patterns.
+PMC11363304	10.1073/pnas.2402813121	PNAS	2024		FLIRT;fslmaths	linear registration (FLIRT)	Evidence of association between higher cardiorespiratory fitness and higher cerebral myelination in aging.
+PMC11260090	10.1073/pnas.2307221121	PNAS	2024	6.0	FEAT;FLAME	group mixed effects (FLAME);permutation inference (randomise);task fMRI GLM (FEAT/FILM)	Callousness, exploitativeness, and tracking of cooperation incentives in the human default network.
+PMC11252731	10.1073/pnas.2321346121	PNAS	2024	6.0.3	FLIRT;MCFLIRT;slicetimer	distortion correction (topup/eddy);linear registration (FLIRT);motion correction (MCFLIRT);task fMRI GLM (FEAT/FILM)	A familiar face and person processing area in the human temporal pole.
+PMC11228479	10.1073/pnas.2402143121	PNAS	2024				Cholinergic macrophages promote the resolution of peritoneal inflammation.
+PMC11181088	10.1073/pnas.2317707121	PNAS	2024		fnirt		Natural scenes reveal diverse representations of 2D and 3D body pose in the human brain.
+PMC11145258	10.1073/pnas.2316117121	PNAS	2024			resting-state seed/dual regression	Characteristic BOLD signals are detectable in white matter of the spinal cord at rest and after a stimulus.
+PMC10998591	10.1073/pnas.2314918121	PNAS	2024				Subcallosal cingulate deep brain stimulation evokes two distinct cortical responses via differential white matter activation.
+PMC10962978	10.1073/pnas.2309232121	PNAS	2024	5.0.9	flirt;mcflirt		The dorsomedial prefrontal cortex prioritizes social learning during rest.
+PMC10945835	10.1073/pnas.2310044121	PNAS	2024		topup	distortion correction (topup/eddy)	Insights into hippocampal perfusion using high-resolution, multi-modal 7T MRI.
+PMC10907247	10.1073/pnas.2313831121	PNAS	2024		eddy_correct	diffusion fitting (dtifit/bedpostx);distortion correction (topup/eddy)	Evolutionary continuity and divergence of auditory dorsal and ventral pathways in primates revealed by ultra-high field diffusion MRI.
+PMC10895353	10.1073/pnas.2306936121	PNAS	2024				The central renin-angiotensin system: A genetic pathway, functional decoding, and selective target engagement characterization in humans.
+PMC10769837	10.1073/pnas.2306295121	PNAS	2024			brain extraction (BET);tissue segmentation (FAST)	Individuals who see the good in the bad engage distinctive default network coordination during post-encoding rest.
+PMC10723126	10.1073/pnas.2307884120	PNAS	2023		FEAT	task fMRI GLM (FEAT/FILM)	Hippocampal contributions to novel spatial learning are both age-related and age-invariant.
+PMC10723152	10.1073/pnas.2122178120	PNAS	2023	0.03		group mixed effects (FLAME)	The TLR2/TLR6 ligand FSL-1 mitigates radiation-induced hematopoietic injury in mice and nonhuman primates.
+PMC10655214	10.1073/pnas.2302655120	PNAS	2023	5.0.9	flirt;mcflirt		Rats respond to aversive emotional arousal of human handlers with the activation of the basolateral and central amygdala.
+PMC10589642	10.1073/pnas.2306990120	PNAS	2023	5.0.9			Hemispheric asymmetry in cortical thinning reflects intrinsic organization of the neurotransmitter systems and homotopic functional connecti
+PMC10589709	10.1073/pnas.2219666120	PNAS	2023		epi_reg	distortion correction (topup/eddy);fieldmap (FUGUE/epi_reg)	Whole-brain, gray, and white matter time-locked functional signal changes with simple tasks and model-free analysis.
+PMC10589678	10.1073/pnas.2307508120	PNAS	2023			distortion correction (topup/eddy)	The adaptive stochasticity hypothesis: Modeling equifinality, multifinality, and adaptation to adversity.
+PMC10438384	10.1073/pnas.2303491120	PNAS	2023			distortion correction (topup/eddy)	Human white matter myelinates faster in utero than ex utero.
+PMC10293846	10.1073/pnas.2212910120	PNAS	2023	6.0.0	BET;FILM;FLAME;FLIRT;FNIRT;MCFLIRT	GRF cluster correction;brain extraction (BET);group mixed effects (FLAME);linear registration (FLIRT);motion correction (MCFLIRT);nonlinear registration (FNIRT)	Brain-to-brain mechanisms underlying pain empathy and social modulation of pain in the patient-clinician interaction.
+PMC10235949	10.1073/pnas.2217232120	PNAS	2023			TBSS;permutation inference (randomise)	Brain imaging and neuropsychological assessment of individuals recovered from a mild to moderate SARS-CoV-2 infection.
+PMC10235977	10.1073/pnas.2218565120	PNAS	2023			distortion correction (topup/eddy)	Human and chimpanzee shared and divergent neurobiological systems for general and specific cognitive brain functions.
+PMC10193980	10.1073/pnas.2217635120	PNAS	2023		FLIRT;FNIRT	linear registration (FLIRT);nonlinear registration (FNIRT)	MWF of the corpus callosum is a robust measure of remyelination: Results from the ReBUILD trial.
+PMC10175835	10.1073/pnas.2218443120	PNAS	2023			GRF cluster correction;task fMRI GLM (FEAT/FILM)	Learning rules of engagement for social exchange within and between groups.
+PMC10068819	10.1073/pnas.2120288120	PNAS	2023	5.0.9	FLIRT;mcflirt	linear registration (FLIRT)	Identifying causal subsequent memory effects.
+PMC10068756	10.1073/pnas.2218949120	PNAS	2023		BET	brain extraction (BET);resting-state seed/dual regression	Human brain effects of DMT assessed via EEG-fMRI.
+PMC10089159	10.1073/pnas.2207831120	PNAS	2023			diffusion fitting (dtifit/bedpostx)	Propofol disrupts alpha dynamics in functionally distinct thalamocortical networks during loss of consciousness.
+PMC9992854	10.1073/pnas.2216399120	PNAS	2023				Robust machine learning segmentation for large-scale analysis of heterogeneous clinical brain MRI datasets.
+PMC9963219	10.1073/pnas.2212256120	PNAS	2023				Brain aerobic glycolysis and resilience in Alzheimer disease.
+PMC9907070	10.1073/pnas.2209307119	PNAS	2022				Information flow across the cortical timescale hierarchy during narrative construction.
+PMC9897479	10.1073/pnas.2208867119	PNAS	2022				Compulsive drug-taking is associated with habenula-frontal cortex connectivity.
+PMC9618143	10.1073/pnas.2200257119	PNAS	2022		FEAT;FLIRT	linear registration (FLIRT);task fMRI GLM (FEAT/FILM)	Neural event segmentation of continuous experience in human infants.
+PMC9586323	10.1073/pnas.2205162119	PNAS	2022	6.0	BET;FAST;FIRST;FLIRT;FNIRT;bedpostx;fslmerge;probtrackx2;topup	brain extraction (BET);diffusion fitting (dtifit/bedpostx);distortion correction (topup/eddy);linear registration (FLIRT);nonlinear registration (FNIRT);subcortical segmentation (FIRST);tissue segmentation (FAST);tractography (probtrackx/xtract)	Morphological similarity of amygdala-ventral prefrontal pathways represents trait anxiety in younger and older adults.
+PMC9586270	10.1073/pnas.2204135119	PNAS	2022	5.0.9	dtifit	diffusion fitting (dtifit/bedpostx);distortion correction (topup/eddy)	Prenatal exposure to maternal social disadvantage and psychosocial stress and neonatal white matter connectivity at birth.
+PMC9564098	10.1073/pnas.2200511119	PNAS	2022	6.0	BET	brain extraction (BET)	Mind blanking is a distinct mental state linked to a recurrent brain profile of globally positive connectivity during ongoing mentation.
+PMC9564102	10.1073/pnas.2203039119	PNAS	2022			brain extraction (BET)	Hippocampus and temporal pole functional connectivity is associated with age and individual differences in autobiographical memory.
+PMC9436370	10.1073/pnas.2205767119	PNAS	2022				An analysis of emotions and the prominence of positivity in #BlackLivesMatter tweets.
+PMC9371745	10.1073/pnas.2201968119	PNAS	2022			brain extraction (BET);permutation inference (randomise)	A hierarchy of linguistic predictions during natural language comprehension.
+PMC9282369	10.1073/pnas.2118295119	PNAS	2022	5.0.10	BET;eddy_correct;probtrackx;topup	brain extraction (BET);distortion correction (topup/eddy);tractography (probtrackx/xtract)	Comparing human and chimpanzee temporal lobe neuroanatomy reveals modifications to human language hubs beyond the frontotemporal arcuate fas
+PMC9271154	10.1073/pnas.2116673119	PNAS	2022			distortion correction (topup/eddy)	Adolescent development of multiscale structural wiring and functional interactions in the human connectome.
+PMC9214501	10.1073/pnas.2117234119	PNAS	2022		MELODIC	ICA (MELODIC);resting-state seed/dual regression	Dynamical differential covariance recovers directional network structure in multiscale neural systems.
+PMC9295807	10.1073/pnas.2120246119	PNAS	2022				Variants of the guanine riboswitch class exhibit altered ligand specificities for xanthine, guanine, or 2'-deoxyguanosine.
+PMC9295729	10.1073/pnas.2116944119	PNAS	2022		randomise	permutation inference (randomise)	Neural representations of others' traits predict social decisions.
+PMC9173759	10.1073/pnas.2113778119	PNAS	2022		FEAT	distortion correction (topup/eddy);resting-state seed/dual regression;task fMRI GLM (FEAT/FILM)	Diffusion MRI-guided theta burst stimulation enhances memory and functional connectivity along the inferior longitudinal fasciculus in mild 
+PMC9060497	10.1073/pnas.2118803119	PNAS	2022	6.0.3	FLIRT;FNIRT;ICA-AROMA;fslmeants	ICA cleanup (FIX/AROMA);group mixed effects (FLAME);linear registration (FLIRT);nonlinear registration (FNIRT)	The photobiology of the human circadian clock.
+PMC8670431	10.1073/pnas.2101403118	PNAS	2021	5.0.9	mcflirt		Temporal self-compression: Behavioral and neural evidence that past and future selves are compressed as they move away from the present.
+PMC8612212	10.1073/pnas.2111358118	PNAS	2021	5.0.9			The middle cingulate cortex and dorso-central insula: A mirror circuit encoding observation and execution of vitality forms.
+PMC8609633	10.1073/pnas.2108713118	PNAS	2021	5.0.9	mcflirt		Divisive normalization unifies disparate response signatures throughout the human visual hierarchy.
+PMC8609635	10.1073/pnas.2109380118	PNAS	2021		dtifit	diffusion fitting (dtifit/bedpostx);distortion correction (topup/eddy)	Modular origins of high-amplitude cofluctuations in fine-scale functional connectivity dynamics.
+PMC8285909	10.1073/pnas.2024448118	PNAS	2021		ICA-AROMA	ICA cleanup (FIX/AROMA)	Shifting gradients of macroscale cortical organization mark the transition from childhood to adolescence.
+PMC8271663	10.1073/pnas.2021913118	PNAS	2021		FEAT;randomise	permutation inference (randomise);task fMRI GLM (FEAT/FILM)	Dissociations between glucose metabolism and blood oxygenation in the human default mode network revealed by simultaneous PET-fMRI.
+PMC8237657	10.1073/pnas.2026099118	PNAS	2021	5.0.9	flirt;mcflirt		Attention, awareness, and the right temporoparietal junction.
+PMC7812773	10.1073/pnas.2017032118	PNAS	2021				Topographic connectivity reveals task-dependent retinotopic processing throughout the human brain.
+PMC12834599	10.1016/j.cell.2025.11.039	Cell	2025		FEAT	task fMRI GLM (FEAT/FILM)	Stimulant medications affect arousal and reward, not attention networks.
+PMC8357425	10.1016/j.cell.2021.06.012	Cell	2021				Impaired neural replay of inferred relationships in schizophrenia.
