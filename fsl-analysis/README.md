@@ -165,8 +165,10 @@ environment/invocation-dependent.
 ## Filing route (differs from FreeSurfer)
 
 FSL's GitLab has issues enabled but external signup appears closed; the sanctioned
-outside channel is the **FSL JISCMail mailing list**, monitored by the developers. Next
-step: ready-to-send list posts per finding (FSL's support page prescribes the report
-format), with `git format-patch` attachments for the crisp fixes (FS1 is a one-character
-change; FS2, FS4b, FS10 are small), plus GitLab-prefill links usable if the team grants
-an account.
+outside channel is the **FSL JISCMail mailing list**, monitored by the developers.
+
+The filing material itself — JISCMail-ready report per finding, `git format-patch`
+fixes for six of them (FS1 one-line; FS2, FS3, FS4b, FS10, FS12a small), verification
+harnesses, and the intro post — lives in its own dedicated repository, deliberately
+outside this one: **github.com/cindykrafft/fsl-bug-reports**. This directory keeps
+only the analysis (reviews, paper exposure); nothing here is sent upstream.
