@@ -2,8 +2,8 @@
 # usage: run_ft_test.sh <fieldtrip-tree> <testname> ; prints PASS/FAIL line
 T=$1; N=$2; S=/tmp/claude-0/-home-user-afni/dc02da2d-922b-53f2-854f-a80f44735787/scratchpad/ft-verify
 cat > /tmp/ftrun_$$.m <<M
-pkg load statistics
-addpath('$T'); ft_defaults; addpath('$T/test'); addpath('$S/corrshim');
+pkg load statistics signal
+addpath('$T'); ft_defaults; addpath('$T/test'); addpath('$T/external/signal/dpss_hack'); addpath('$S/corrshim');
 warning('off','all'); set(0,'DefaultFigureVisible','off');
 try
   $N;
