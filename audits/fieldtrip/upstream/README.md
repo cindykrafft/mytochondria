@@ -15,6 +15,15 @@ the issue. Recommended order:
 4. **FTR — depsamplesregrT typo** (`pr-ftr-depsamplesregrT.md`, PR only).
 5. **FT2 — two-sided warning** (`pr-ft2-twosided-warning.md`, PR only).
 
+## Filed PRs and their test scripts
+
+- FT1 → [fieldtrip/fieldtrip#2608](https://github.com/fieldtrip/fieldtrip/pull/2608) (fixes #2607); branch now carries `test/test_pull2608.m` (commit 1df1958)
+- FT11 → [fieldtrip/fieldtrip#2610](https://github.com/fieldtrip/fieldtrip/pull/2610) (fixes #2609); branch now carries `test/test_pull2610.m` (commit b260b08)
+
+Copies of both test scripts are in `tests/`. Each passes on its PR branch and
+fails on unpatched master (FieldTrip's `test_pullNNNN.m` convention: `DATA no`,
+runnable outside the DCCN).
+
 ## Live branches on the fork (cindykrafft/fieldtrip, each one commit on master @ 2e14f72)
 
 | finding | branch | head | compare page |
