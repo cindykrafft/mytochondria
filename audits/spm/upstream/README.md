@@ -33,7 +33,12 @@ one branch, if a combined submission is ever preferred.)
 
 ## Status
 
-**Nothing has been filed on `spm/spm` yet.** SP1's branch ships with the unit
+**SP1 and SP2 are filed and open upstream** — issue
+[#158](https://github.com/spm/spm/issues/158) / PR
+[#159](https://github.com/spm/spm/pull/159) (SP1) and issue
+[#160](https://github.com/spm/spm/issues/160) / PR
+[#161](https://github.com/spm/spm/pull/161) (SP2), all opened 2026-08-31.
+SP3-SP5 remain to file. SP1's branch ships with the unit
 test that would have caught the bug (pre-fix 12/23 assertions fail, fixed
 0/23 — `../reproductions/driver.m`); the `matlab.unittest` wrapper follows
 the repo's own `test_spm_Ncdf.m` pattern but has been executed only via the

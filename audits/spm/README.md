@@ -204,9 +204,13 @@ Five fixes plus a new unit test are implemented, pushed to the `cindykrafft/spm`
 and staged for filing — see `upstream/README.md` for the branch/compare table and the
 ready-to-paste issue and PR bodies. SP1's fix ships with
 `tests/test_spm_ECdensity.m` (the function previously had **no test coverage**), which
-fails 12/23 assertions on the pre-fix code and 0/23 on the fix. Nothing has been filed
-on `spm/spm` yet; SP2–SP5 should be exercised in real MATLAB first (SP1 was
-regression-tested in Octave only).
+fails 12/23 assertions on the pre-fix code and 0/23 on the fix. SP1 and SP2 are filed
+and open upstream (issues [#158](https://github.com/spm/spm/issues/158) /
+[#160](https://github.com/spm/spm/issues/160), PRs
+[#159](https://github.com/spm/spm/pull/159) /
+[#161](https://github.com/spm/spm/pull/161)); SP3–SP5 remain to file and
+should be exercised in real MATLAB first (SP1 was regression-tested in
+Octave only).
 
 ## Files
 

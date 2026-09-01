@@ -40,7 +40,7 @@ are read in proportion.
 |---|---|---|---|
 | [FreeSurfer](audits/freesurfer/) | 116 | 16, three reproduced numerically | 5 fix PRs + 9 issues filed on GitHub |
 | [FSL](audits/fsl/) | 114 | 12, six with patches | reports and patches ready; filing via the FSL mailing list |
-| [SPM](audits/spm/) | full-codebase audit (not survey-driven) | 83 confirmed + ~38 plausible; one fix regression-tested by executing the code | 5 fix branches + a new unit test staged on the fork; filing kit ready |
+| [SPM](audits/spm/) | full-codebase audit (not survey-driven) | 83 confirmed + ~38 plausible; one fix regression-tested by executing the code | 2 issue+PR pairs filed on GitHub (open); 3 more staged with filing kit ready |
 | [AFNI](audits/afni/) | 39 in the survey cohort; 57 adjudicated for the ReHo finding | 36 (9 high-impact, 15 narrower, 12 likely), one reproduced numerically | 1 fix PR merged upstream; 10 more written up |
 
 The survey itself covers **44,198 research articles**, of which **20,501** were openly
