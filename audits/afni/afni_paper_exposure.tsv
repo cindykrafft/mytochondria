@@ -1,0 +1,40 @@
+pmcid	doi	journal	year	versions	findings	title
+PMC10550829	10.1038/s41586-023-06541-3	Nature	2023		AF9 (if ACF FWHM quoted as kernel FWHM, or -acf -FWHM used)	Cingulate dynamics track depression recovery with deep brain stimulation.
+PMC12595413	10.1073/pnas.2520067122	PNAS	2025		AF6 (if sequential-descending NIfTI slice codes)	Parallel systems for social and spatial cognition reaching the cortical apex.
+PMC12377651	10.1073/pnas.2421528122	PNAS	2025			Familial transmission of neural representations for mental arithmetic across two generations.
+PMC12337265	10.1073/pnas.2501578122	PNAS	2025	18.0.05		Orexin effect on physiological pulsations of the human brain.
+PMC12304909	10.1073/pnas.2422742122	PNAS	2025			Dynamic neuroplasticity of language networks: The intersection of bilingualism and epilepsy.
+PMC12232412	10.1073/pnas.2417010122	PNAS	2025			Genetic contributions to brain criticality and its relationship with human cognitive functions.
+PMC12088441	10.1073/pnas.2503569122	PNAS	2025			Early development of navigationally relevant location information in the retrosplenial complex.
+PMC12012540	10.1073/pnas.2413871122	PNAS	2025		AF6 (if sequential-descending NIfTI slice codes)	The Beholder's Share: Bridging art and neuroscience to study individual differences in subjective experience.
+PMC12002251	10.1073/pnas.2406684122	PNAS	2025		AF6 (if sequential-descending NIfTI slice codes)	Expectation-dependent stimulus selectivity in the ventral visual cortical pathway.
+PMC11761675	10.1073/pnas.2421585122	PNAS	2025			Expansion of a conserved architecture drives the evolution of the primate visual cortex.
+PMC11648923	10.1073/pnas.2410445121	PNAS	2024			Sculpting new visual categories into the human brain.
+PMC11331068	10.1073/pnas.2314074121	PNAS	2024			Human adolescent brain similarity development is different for paralimbic versus neocortical zones.
+PMC11252731	10.1073/pnas.2321346121	PNAS	2024		AF6 (if sequential-descending NIfTI slice codes)	A familiar face and person processing area in the human temporal pole.
+PMC11252739	10.1073/pnas.2317458121	PNAS	2024	21.1.10		Hemispheric functional organization, as revealed by naturalistic neuroimaging, in pediatric epilepsy patients with cortical resections.
+PMC11067024	10.1073/pnas.2322157121	PNAS	2024		AF3 (if -missing_data, >1 group);AF17 (if raw un-demeaned data, mean >> sigma)	Evolutionarily conserved neural responses to affective touch in monkeys transcend consciousness and change with age.
+PMC10998591	10.1073/pnas.2314918121	PNAS	2024			Subcallosal cingulate deep brain stimulation evokes two distinct cortical responses via differential white matter activation.
+PMC10927510	10.1073/pnas.2316306121	PNAS	2024	18.3.01		Live music stimulates the affective brain and emotionally entrains listeners in real time.
+PMC10801883	10.1073/pnas.2309906121	PNAS	2024			Inactivation of face-selective neurons alters eye movements when free viewing faces.
+PMC10655214	10.1073/pnas.2302655120	PNAS	2023	20160207	AF6 (if sequential-descending NIfTI slice codes)	Rats respond to aversive emotional arousal of human handlers with the activation of the basolateral and central amygdala.
+PMC10589708	10.1073/pnas.2312462120	PNAS	2023		AF9 (if ACF FWHM quoted as kernel FWHM, or -acf -FWHM used)	Neural evidence of switch processes during semantic and phonetic foraging in human memory.
+PMC10151604	10.1073/pnas.2300252120	PNAS	2023			Spatiotemporally distributed frontotemporal networks for sentence reading.
+PMC10068819	10.1073/pnas.2120288120	PNAS	2023	20160207	AF9 (if ACF FWHM quoted as kernel FWHM, or -acf -FWHM used)	Identifying causal subsequent memory effects.
+PMC10068756	10.1073/pnas.2218949120	PNAS	2023		AF6 (if sequential-descending NIfTI slice codes)	Human brain effects of DMT assessed via EEG-fMRI.
+PMC9897479	10.1073/pnas.2208867119	PNAS	2022			Compulsive drug-taking is associated with habenula-frontal cortex connectivity.
+PMC9618143	10.1073/pnas.2200257119	PNAS	2022			Neural event segmentation of continuous experience in human infants.
+PMC9586296	10.1073/pnas.2207293119	PNAS	2022		AF9 (if ACF FWHM quoted as kernel FWHM, or -acf -FWHM used)	Language and developmental plasticity after perinatal stroke.
+PMC9564098	10.1073/pnas.2200511119	PNAS	2022			Mind blanking is a distinct mental state linked to a recurrent brain profile of globally positive connectivity during ongoing mentation.
+PMC9564102	10.1073/pnas.2203039119	PNAS	2022			Hippocampus and temporal pole functional connectivity is associated with age and individual differences in autobiographical memory.
+PMC9457296	10.1073/pnas.2206559119	PNAS	2022		AF6 (if sequential-descending NIfTI slice codes)	Brain-wide functional connectivity of face patch neurons during rest.
+PMC9271154	10.1073/pnas.2116673119	PNAS	2022			Adolescent development of multiscale structural wiring and functional interactions in the human connectome.
+PMC9231627	10.1073/pnas.2202491119	PNAS	2022			Multilevel atlas comparisons reveal divergent evolution of the primate brain.
+PMC8832989	10.1073/pnas.2108091119	PNAS	2022			Decoding the information structure underlying the neural representation of concepts.
+PMC8670431	10.1073/pnas.2101403118	PNAS	2021	20160207	AF6 (if sequential-descending NIfTI slice codes)	Temporal self-compression: Behavioral and neural evidence that past and future selves are compressed as they move away from the present.
+PMC8609633	10.1073/pnas.2108713118	PNAS	2021	20160207	AF6 (if sequential-descending NIfTI slice codes)	Divisive normalization unifies disparate response signatures throughout the human visual hierarchy.
+PMC8609335	10.1073/pnas.2110474118	PNAS	2021			Shared neural codes for visual and semantic information about familiar faces in a common representational space.
+PMC8285909	10.1073/pnas.2024448118	PNAS	2021			Shifting gradients of macroscale cortical organization mark the transition from childhood to adolescence.
+PMC8307613	10.1073/pnas.2100522118	PNAS	2021	2016.09.04.1341	AF18 (passband-edge bin differs between AFNI's own bandpass routes)	Altered sense of self during seizures in the posteromedial cortex.
+PMC8237657	10.1073/pnas.2026099118	PNAS	2021	16.2.07	AF2 (if -paired -zskip);AF6 (if sequential-descending NIfTI slice codes);AF10 (if -BminusA with -nomeans/-notests);AF11 (if -toz and |z| > 7.7);AF17 (if raw un-demeaned data, mean >> sigma)	Attention, awareness, and the right temporoparietal junction.
+PMC8000197	10.1073/pnas.2023069118	PNAS	2021		AF4b (if multiple -glfCode with differing DF)	Evidence supporting a time-limited hippocampal role in retrieving autobiographical memories.

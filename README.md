@@ -41,6 +41,7 @@ are read in proportion.
 | [FreeSurfer](audits/freesurfer/) | 116 | 16, three reproduced numerically | 5 fix PRs + 9 issues filed on GitHub |
 | [FSL](audits/fsl/) | 114 | 12, six with patches | reports and patches ready; filing via the FSL mailing list |
 | [SPM](audits/spm/) | full-codebase audit (not survey-driven) | 83 confirmed + ~38 plausible; one fix regression-tested by executing the code | 5 fix branches + a new unit test staged on the fork; filing kit ready |
+| [AFNI](audits/afni/) | 39 in the survey cohort; 57 adjudicated for the ReHo finding | 36 (9 high-impact, 15 narrower, 12 likely), one reproduced numerically | 1 fix PR merged upstream; 10 more written up |
 
 The survey itself covers **44,198 research articles**, of which **20,501** were openly
 readable; **10,364** name at least one open-source package, across **270 distinct
@@ -68,6 +69,8 @@ audits/
   spm/           eleven component reviews spanning the whole codebase,
                  verification harnesses incl. an Octave old-vs-new
                  regression, and the upstream filing kit
+  afni/          nine subsystem reviews, paper→feature exposure, the ReHo
+                 tie-handling reproduction, and the upstream filing queue
 ```
 
 ## Related repositories
@@ -91,7 +94,9 @@ audits/
   across subjects, which is exactly why they usually shift or attenuate measurements
   rather than reverse well-powered contrasts.
 - Reproduction sometimes *shrinks* a finding, and that is recorded too — one FreeSurfer
-  finding turned out not to fire on the standard pipeline at all once measured.
+  finding turned out not to fire on the standard pipeline at all once measured, and a
+  faithful port of AFNI's ReHo tie loop moved one published paper back out of the
+  exposed set.
 - Nothing here has been adjudicated by the upstream maintainers yet. Their reading wins.
 
 ## Reproducing the survey

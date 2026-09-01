@@ -1,0 +1,177 @@
+{
+ "config": {
+  "neighbourhood": 27,
+  "timepoints": 200,
+  "sims_per_point": 40,
+  "true_W_target": 0.6
+ },
+ "error_vs_scale": [
+  {
+   "sd": 0.05,
+   "true_W": 0.5958,
+   "buggy_W": 0.5958,
+   "rel_err_pct": 0.0
+  },
+  {
+   "sd": 0.1,
+   "true_W": 0.6013,
+   "buggy_W": 0.6013,
+   "rel_err_pct": 0.0
+  },
+  {
+   "sd": 0.25,
+   "true_W": 0.5975,
+   "buggy_W": 0.5965,
+   "rel_err_pct": 0.2
+  },
+  {
+   "sd": 0.5,
+   "true_W": 0.599,
+   "buggy_W": 0.2748,
+   "rel_err_pct": 54.1
+  },
+  {
+   "sd": 0.75,
+   "true_W": 0.5934,
+   "buggy_W": 0.4088,
+   "rel_err_pct": 31.1
+  },
+  {
+   "sd": 1,
+   "true_W": 0.5973,
+   "buggy_W": 0.4754,
+   "rel_err_pct": 20.4
+  },
+  {
+   "sd": 1.5,
+   "true_W": 0.593,
+   "buggy_W": 0.5432,
+   "rel_err_pct": 8.4
+  },
+  {
+   "sd": 2,
+   "true_W": 0.6018,
+   "buggy_W": 0.5775,
+   "rel_err_pct": 4.0
+  },
+  {
+   "sd": 3,
+   "true_W": 0.6009,
+   "buggy_W": 0.5927,
+   "rel_err_pct": 1.4
+  },
+  {
+   "sd": 5,
+   "true_W": 0.5947,
+   "buggy_W": 0.5923,
+   "rel_err_pct": 0.4
+  },
+  {
+   "sd": 10,
+   "true_W": 0.5955,
+   "buggy_W": 0.595,
+   "rel_err_pct": 0.1
+  },
+  {
+   "sd": 50,
+   "true_W": 0.5996,
+   "buggy_W": 0.5996,
+   "rel_err_pct": 0.0
+  },
+  {
+   "sd": 1000,
+   "true_W": 0.5975,
+   "buggy_W": 0.5975,
+   "rel_err_pct": 0.0
+  }
+ ],
+ "configurations": [
+  {
+   "config": "raw EPI, mean 1000, 1% fluctuation",
+   "true_W": 0.5992,
+   "buggy_W": 0.599,
+   "abs_err": 0.0004
+  },
+  {
+   "config": "grand-mean scaled to 10,000 (CCS/PhiPipe/HALFpipe/FSL)",
+   "true_W": 0.5883,
+   "buggy_W": 0.5883,
+   "abs_err": 0.0001
+  },
+  {
+   "config": "afni_proc.py scale block: mean 100, SD 1",
+   "true_W": 0.5967,
+   "buggy_W": 0.5566,
+   "abs_err": 0.0401
+  },
+  {
+   "config": "afni_proc.py errts residuals: mean 0, SD 1",
+   "true_W": 0.5935,
+   "buggy_W": 0.476,
+   "abs_err": 0.1174
+  },
+  {
+   "config": "z-scored time series (SD 1)",
+   "true_W": 0.6023,
+   "buggy_W": 0.484,
+   "abs_err": 0.1183
+  },
+  {
+   "config": "L2-normalised, 3dTproject -norm",
+   "true_W": 0.6,
+   "buggy_W": 0.6,
+   "abs_err": 0.0
+  }
+ ],
+ "amplitude_confound": [
+  {
+   "sd": 0.3,
+   "true_W": 0.5947,
+   "buggy_W": 0.5428
+  },
+  {
+   "sd": 0.5,
+   "true_W": 0.5996,
+   "buggy_W": 0.2654
+  },
+  {
+   "sd": 0.75,
+   "true_W": 0.5912,
+   "buggy_W": 0.4033
+  },
+  {
+   "sd": 1.0,
+   "true_W": 0.6004,
+   "buggy_W": 0.4803
+  },
+  {
+   "sd": 1.25,
+   "true_W": 0.5908,
+   "buggy_W": 0.516
+  },
+  {
+   "sd": 1.5,
+   "true_W": 0.596,
+   "buggy_W": 0.5478
+  },
+  {
+   "sd": 2.0,
+   "true_W": 0.5943,
+   "buggy_W": 0.5695
+  },
+  {
+   "sd": 3.0,
+   "true_W": 0.6039,
+   "buggy_W": 0.5952
+  }
+ ],
+ "spurious_group_difference": {
+  "note": "identical true ReHo, 25% difference in BOLD amplitude",
+  "group_A_sd": 1.0,
+  "group_B_sd": 0.75,
+  "buggy_W_A": 0.4802,
+  "buggy_W_B": 0.3991,
+  "cohens_d": 2.69,
+  "true_cohens_d": 0.0
+ }
+}
