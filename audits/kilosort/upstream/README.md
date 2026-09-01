@@ -12,22 +12,18 @@ PR directly, with "Fixes #1042" (already in the PR body).
 
 - Branch/patch: `0001-Fix-disabled-refractoriness-gate-in-swarmsplitter.ch.patch`
 - PR body: `pr-kl1-swarmsplitter-gate.md`
-- To push from a fork of MouseLand/Kilosort:
-
-  ```bash
-  git clone https://github.com/<you>/Kilosort
-  cd Kilosort
-  git checkout -b fix/swarmsplitter-ccg-guard origin/main
-  git am ../0001-Fix-disabled-refractoriness-gate-in-swarmsplitter.ch.patch
-  git push -u origin fix/swarmsplitter-ccg-guard
-  ```
+- Live branch on the fork: `cindykrafft/kilosort@fix/swarmsplitter-ccg-guard` (549ec32)
+  — open the PR from
+  https://github.com/MouseLand/Kilosort/compare/main...cindykrafft:Kilosort:fix/swarmsplitter-ccg-guard?expand=1
 
 ## 2. KL2 — ContamPct = 0 for tiny clusters (issue, then PR)
 
 - Issue body: `issue-kl2-contampct.md`
 - PR body: `pr-kl2-contampct.md` (insert the new issue number)
 - Branch/patch: `0001-Report-unevaluable-clusters-as-fully-contaminated-no.patch`
-  (same `git am` flow, branch name `fix/refract-contam-default`)
+- Live branch on the fork: `cindykrafft/kilosort@fix/refract-contam-default` (d536ee6)
+  — open the PR from
+  https://github.com/MouseLand/Kilosort/compare/main...cindykrafft:Kilosort:fix/refract-contam-default?expand=1
 
 ## 3. KM3 — KS2/2.5/3 whitening covariance off-by-one (issue)
 
