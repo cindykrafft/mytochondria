@@ -1,6 +1,6 @@
 # FSL bug analysis against 114 published papers (2021–2026)
 
-_Companion to `../freesurfer-analysis/`. Generated 2026-08-31._
+_Companion to `../freesurfer/`. Generated 2026-08-31._
 
 ## What this is
 

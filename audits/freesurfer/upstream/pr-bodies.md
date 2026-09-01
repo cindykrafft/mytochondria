@@ -144,7 +144,7 @@ two-pass/snapshot restructure and is filed as its own issue.
 ---
 
 _All five branches: authored with the audit documented in
-`doc/software-survey/freesurfer-analysis/` of the companion repo; each
+`audits/freesurfer/` of the companion repo (github.com/cindykrafft/research-software-audit); each
 commit message carries the full analysis._
 
 ---

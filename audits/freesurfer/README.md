@@ -1,6 +1,6 @@
 # FreeSurfer bug analysis against 116 published papers (2021–2026)
 
-_Follow-up to the six-journal software survey (`../README.md`). Generated 2026-08-30._
+_Follow-up to the six-journal software survey (`../../survey/README.md`). Generated 2026-08-30._
 
 ## What this is
 
