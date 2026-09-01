@@ -19,10 +19,11 @@ Ready-to-file material for the MACS audit findings (`../README.md`, review in
 1. File `issue-mc1-keepdup.md`; note its number N1.
 2. File `issue-mc2-pvalue-convention.md` (no PR; docs offer inside).
 3. File `issue-mc3-poisson-init.md`; note its number N3.
-4. Fork `macs3-project/MACS` (one click), tell Claude — the two fix branches
-   (`fix/keepdup-auto-control-threshold`, `fix/poisson-lower-tail-init`, one
-   commit each on current main) get pushed, and the PRs open from the compare
-   pages with the pr-*.md bodies, replacing `#NNN` with N1/N3.
+4. The fix branches are pushed to the fork (`cindykrafft/macs`), one commit
+   each on current main. Open each PR from its compare page with the pr-*.md
+   body, replacing `#NNN` with N1/N3:
+   - https://github.com/macs3-project/MACS/compare/main...cindykrafft:macs:fix/keepdup-auto-control-threshold
+   - https://github.com/macs3-project/MACS/compare/main...cindykrafft:macs:fix/poisson-lower-tail-init
 
 The filing console (artifact) has copy buttons and pre-filled links for all
 of these. Note: the fix branches were authored against MACS main, which
