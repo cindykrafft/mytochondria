@@ -24,10 +24,10 @@ and visibility for the lfcThreshold behavior change.
 2. Post `support-post-zinbwave.md` on the support site, linking the issue.
 3. File `issue-ds2-lfcthreshold-docs.md`.
 4. File `issue-pr1-replace-round.md`, note its number N.
-5. Fork `thelovelab/DESeq2` to `cindykrafft/DESeq2` (one click on GitHub), then
-   the fix branch `fix/replace-outliers-rounding` can be pushed and the PR
-   opened from the compare page with  `pr1-replace-round.md` as body, replacing
-   `#NNN` with N. Until the fork exists, the `.patch` file is the fix.
+5. The fix branch is pushed to the fork (`cindykrafft/deseq2`,
+   `fix/replace-outliers-rounding`, commit c0a7715). Open the PR from the
+   compare page with `pr1-replace-round.md` as body, replacing `#NNN` with N:
+   https://github.com/thelovelab/DESeq2/compare/devel...cindykrafft:deseq2:fix/replace-outliers-rounding
 
 The filing console (artifact) has copy buttons and pre-filled GitHub links for
 all of these.

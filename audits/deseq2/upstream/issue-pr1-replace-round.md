@@ -23,7 +23,8 @@ At typical bulk counts (hundreds) this is negligible; at low counts the
 replaced sample sits visibly below its fitted mean, which slightly inflates the
 post-replacement dispersion for exactly the genes that were flagged.
 
-A PR with the one-line fix is available: [link to compare after fork push].
+A PR with the one-line fix is available:
+https://github.com/thelovelab/DESeq2/compare/devel...cindykrafft:deseq2:fix/replace-outliers-rounding
 Output changes only for analyses where outlier replacement triggered, and only
 in the last integer digit of the replacement counts.
 
