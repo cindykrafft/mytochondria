@@ -63,9 +63,27 @@ p-values are systematically too small.
 `../verify/ft1b_cluster_ties.m` quantifies this on null data (single channel,
 60 samples, 12 paired subjects, 500 randomizations, 200 datasets):
 
-<!-- FT1B_RESULTS -->
-*(simulation running at the time of this commit; numbers follow in the next
-commit)*
+```
+clusterstatistic = maxsize | 200 null datasets, 500 randomizations each, 255 observed clusters
+randomizations tied with an observed cluster statistic: 20460 (mean 80.2 per cluster)
+mean (p_ge - p_ft) = 0.1602, max = 0.2894
+datasets with largest cluster p<=0.05: FieldTrip 11/200 (5.5%) vs tie-inclusive 6/200 (3.0%)
+clusterstatistic = maxsum  | 200 null datasets, 500 randomizations each, 260 observed clusters
+randomizations tied with an observed cluster statistic: 15 (mean 0.1 per cluster)
+mean (p_ge - p_ft) = 0.0001, max = 0.0040
+datasets with largest cluster p<=0.05: FieldTrip 11/200 (5.5%) vs tie-inclusive 11/200 (5.5%)
+```
+
+With `maxsize`, 80 of 500 randomizations tie the observed cluster on average
+and the reported p-value is 0.16 too small on average (up to 0.29). At
+alpha = 0.05 in this configuration FieldTrip rejects 5.5 % of null datasets
+against 3.0 % for the tie-inclusive p — the tie-inclusive p is the one that
+is guaranteed valid (Phipson & Smyth 2010), the strict one is not, and the
+size of the discrepancy in any given study depends on how discrete the
+cluster-size distribution is. The 15 `maxsum` ties are the identity
+permutation being drawn by chance among the 500 random samples (expected
+in ~12 % of datasets here); its exact tie is dropped too, though at
+negligible cost for continuous statistics.
 
 For the default `'maxsum'` on continuous t-values, ties are measure-zero
 and the two definitions agree — recorded as an exoneration in the same run.

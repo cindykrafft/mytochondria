@@ -36,7 +36,7 @@ for cs = {'maxsize', 'maxsum'}
     end
   end
   printf('\nclusterstatistic = %-7s | %d null datasets, %d randomizations each, %d observed clusters\n', cs{1}, ndata, nrand, nclus);
-  printf('  randomizations tied with an observed cluster statistic: %d (mean %.1f per cluster)\n', nties, nties/max(nclus,1));
-  printf('  mean (p_ge - p_ft) = %.4f, max = %.4f\n', mean(pdiff), max(pdiff));
-  printf('  datasets with largest cluster p<=0.05: FieldTrip %d/%d (%.1f%%) vs tie-inclusive %d/%d (%.1f%%)\n', rej_ft, ndata, 100*rej_ft/ndata, rej_ge, ndata, 100*rej_ge/ndata);
+  printf('randomizations tied with an observed cluster statistic: %d (mean %.1f per cluster)\n', nties, nties/max(nclus,1));
+  printf('mean (p_ge - p_ft) = %.4f, max = %.4f\n', mean(pdiff), max(pdiff));
+  printf('datasets with largest cluster p<=0.05: FieldTrip %d/%d (%.1f%%) vs tie-inclusive %d/%d (%.1f%%)\n', rej_ft, ndata, 100*rej_ft/ndata, rej_ge, ndata, 100*rej_ge/ndata);
 end

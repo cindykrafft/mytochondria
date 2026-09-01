@@ -33,7 +33,7 @@ The permutation p-value is the proportion of randomizations *at least as extreme
 
    This is the path `resampledesign` itself steers small paired designs onto ("better use cfg.numrandomization='all'").
 
-2. **Integer-valued cluster statistics (`cfg.clusterstatistic='maxsize'`).** Ties between the observed cluster size and the largest randomization cluster are frequent and are all excluded, so cluster p-values are systematically too small. <!-- FT1B --> For the default `'maxsum'` on continuous t-values ties do not occur and nothing changes.
+2. **Integer-valued cluster statistics (`cfg.clusterstatistic='maxsize'`).** Ties between the observed cluster size and the largest randomization cluster are frequent and are all excluded, so cluster p-values are systematically too small. Null simulation (single channel, 60 samples, 12 paired subjects, 500 randomizations, 200 datasets): 80 of 500 randomizations tie the observed `maxsize` cluster on average, the reported p is 0.16 too small on average (max 0.29), and the rejection rate at alpha 0.05 is 5.5% vs 3.0% for the tie-inclusive p. For the default `'maxsum'` on continuous t-values ties do not occur and nothing changes.
 
 **Suggested fix**
 
