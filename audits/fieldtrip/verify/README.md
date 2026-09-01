@@ -30,3 +30,16 @@ octave-cli -q ft1a_all_perms.m
   single-channel harness uses. On MATLAB with SPM12 nothing is needed.
 
 Expected outputs are quoted in `../component-reviews/statistics-core.md`.
+
+
+## Running FieldTrip's own test scripts under Octave
+
+`run_ft_test.sh <fieldtrip-tree> <test_name>` runs one `test/test_*.m` script
+and prints a `RESULT ... PASS|FAIL` line. It puts `shims/` on the path:
+`corr` (MATLAB `'type'` argument), `convertStringsToChars`, `strip`,
+`istable` (MATLAB-only functions used by `ft_checkconfig`/plotting), and an
+N-D `spm_bwlabel` stand-in (copy it over `external/spm*/spm_bwlabel.m` in the
+tree under test, since `ft_hastoolbox` prepends those directories at run
+time). Tests that need DCCN-private data, `websave`, or MATLAB numerics
+(`test_bug3048`) cannot run this way; compare against unpatched master to
+attribute any failure.
