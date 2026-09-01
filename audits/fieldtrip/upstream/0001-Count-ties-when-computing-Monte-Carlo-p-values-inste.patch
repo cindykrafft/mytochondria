@@ -1,0 +1,130 @@
+From 5b509ccdae163cc047aee6b81123eb21bba70a9f Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Tue, 1 Sep 2026 22:16:50 +0000
+Subject: [PATCH] Count ties when computing Monte Carlo p-values (>= instead of
+ >)
+
+ft_statistics_montecarlo and clusterstat compared the observed statistic
+with the randomization distribution using strict inequalities, so
+randomizations that reproduce the observed value exactly were not counted.
+Two consequences:
+
+- with cfg.numrandomization='all' the identity permutation is one of the
+  enumerated permutations and reproduces the observed statistic exactly; it
+  was excluded and no +1 is added on that path, so every reported p-value
+  is short by exactly 1/Nperm and the most extreme observed statistic gets
+  p = 0 instead of 1/Nperm (verified: depsamplesT, 10 subjects, 1024 sign
+  flips: FieldTrip 0.000000, exact 0.000977; a weaker effect: 783/1024 vs
+  784/1024).
+- with integer-valued cluster statistics (cfg.clusterstatistic='maxsize')
+  ties between the observed cluster and randomization clusters are common
+  and were all excluded, making cluster p-values anti-conservative.
+
+Use >= / <= throughout, which is the standard definition of the permutation
+p-value (proportion of randomizations at least as extreme as the observed
+statistic; e.g. Maris & Oostenveld 2007, Phipson & Smyth 2010) and is
+consistent with the existing +1/(N+1) convention for random subsets.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012d2sJAD5EUp4GqAStqoBX7
+---
+ ft_statistics_montecarlo.m |  8 ++++----
+ private/clusterstat.m      | 20 ++++++++++----------
+ 2 files changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/ft_statistics_montecarlo.m b/ft_statistics_montecarlo.m
+index dff5008..200355e 100644
+--- a/ft_statistics_montecarlo.m
++++ b/ft_statistics_montecarlo.m
+@@ -375,14 +375,14 @@ for i = 1:Nrand
+     % stat.statkeep(:,i) = statrand;
+     if strcmp(cfg.correctm, 'max') || strcmp(cfg.correctm, 'tfce')
+       % compare each data element with the maximum statistic
+-      prb_pos = prb_pos + (statobs<max(statrand(:)));
+-      prb_neg = prb_neg + (statobs>min(statrand(:)));
++      prb_pos = prb_pos + (statobs<=max(statrand(:)));
++      prb_neg = prb_neg + (statobs>=min(statrand(:)));
+       posdistribution(i) = max(statrand(:));
+       negdistribution(i) = min(statrand(:));
+     else
+       % compare each data element with its own statistic
+-      prb_pos = prb_pos + (statobs<statrand);
+-      prb_neg = prb_neg + (statobs>statrand);
++      prb_pos = prb_pos + (statobs<=statrand);
++      prb_neg = prb_neg + (statobs>=statrand);
+     end
+   end
+ end
+diff --git a/private/clusterstat.m b/private/clusterstat.m
+index 9157edc..05e58ac 100644
+--- a/private/clusterstat.m
++++ b/private/clusterstat.m
+@@ -411,7 +411,7 @@ if needpos
+     prob = 0;
+     for i=1:Nrand
+       % compare all clusters simultaneosuly
+-      prob = prob + any(posdistribution(:,i)>stat(:));
++      prob = prob + any(posdistribution(:,i)>=stat(:));
+     end
+     if isequal(cfg.numrandomization, 'all')
+       prob = prob/Nrand;
+@@ -430,9 +430,9 @@ if needpos
+     prob = zeros(1,Nobspos);
+     for j = 1:Nobspos
+       if isequal(cfg.numrandomization, 'all')
+-        prob(j) = sum(posdistribution(j,:)>stat(j))/Nrand;
++        prob(j) = sum(posdistribution(j,:)>=stat(j))/Nrand;
+       else % the minimum possible p-value should not be 0, but 1/N
+-        prob(j) = (sum(posdistribution(j,:)>stat(j)) + 1)/(Nrand + 1);
++        prob(j) = (sum(posdistribution(j,:)>=stat(j)) + 1)/(Nrand + 1);
+       end
+       % collect the probabilities in one large array
+       prb_pos(posclusobs==j) = prob(j);
+@@ -444,9 +444,9 @@ if needpos
+     prob = zeros(1,Nobspos);
+     for j = 1:Nobspos
+       if isequal(cfg.numrandomization, 'all')
+-        prob(j) = sum(posdistribution>stat(j))/Nrand;
++        prob(j) = sum(posdistribution>=stat(j))/Nrand;
+       else % the minimum possible p-value should not be 0, but 1/N
+-        prob(j) = (sum(posdistribution>stat(j)) + 1)/(Nrand + 1);
++        prob(j) = (sum(posdistribution>=stat(j)) + 1)/(Nrand + 1);
+       end
+       % collect the probabilities in one large array
+       prb_pos(posclusobs==j) = prob(j);
+@@ -491,7 +491,7 @@ if needneg
+     prob = 0;
+     for i=1:Nrand
+       % compare all clusters simultaneosuly
+-      prob = prob + any(negdistribution(:,i)<stat(:));
++      prob = prob + any(negdistribution(:,i)<=stat(:));
+     end
+     if isequal(cfg.numrandomization, 'all')
+       prob = prob/Nrand;
+@@ -510,9 +510,9 @@ if needneg
+     prob = zeros(1,Nobsneg);
+     for j = 1:Nobsneg
+       if isequal(cfg.numrandomization, 'all')
+-        prob(j) = sum(negdistribution(j,:)<stat(j))/Nrand;
++        prob(j) = sum(negdistribution(j,:)<=stat(j))/Nrand;
+       else % the minimum possible p-value should not be 0, but 1/N
+-        prob(j) = (sum(negdistribution(j,:)<stat(j)) + 1)/(Nrand + 1);
++        prob(j) = (sum(negdistribution(j,:)<=stat(j)) + 1)/(Nrand + 1);
+       end
+       % collect the probabilities in one large array
+       prb_neg(negclusobs==j) = prob(j);
+@@ -524,9 +524,9 @@ if needneg
+     prob = zeros(1,Nobsneg);
+     for j = 1:Nobsneg
+       if isequal(cfg.numrandomization, 'all')
+-        prob(j) = sum(negdistribution<stat(j))/Nrand;
++        prob(j) = sum(negdistribution<=stat(j))/Nrand;
+       else % the minimum possible p-value should not be 0, but 1/N
+-        prob(j) = (sum(negdistribution<stat(j)) + 1)/(Nrand + 1);
++        prob(j) = (sum(negdistribution<=stat(j)) + 1)/(Nrand + 1);
+       end
+       % collect the probabilities in one large array
+       prb_neg(negclusobs==j) = prob(j);
+-- 
+2.43.0
+

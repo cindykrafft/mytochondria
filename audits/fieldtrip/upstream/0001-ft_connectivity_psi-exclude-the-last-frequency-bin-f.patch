@@ -1,0 +1,46 @@
+From c892cbd7f468a3598e899155a48812b892d86e87 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Tue, 1 Sep 2026 22:16:51 +0000
+Subject: [PATCH] ft_connectivity_psi: exclude the last frequency bin from the
+ slope window
+
+phaseslope overwrites x(1:end-1) with the products conj(C(f)).*C(f+df) but
+leaves x(end) as the raw coherency at the highest frequency. Every window
+that reaches the top bin (the last nbin+1 output bins) therefore adds
+imag(C(fmax)) to the phase slope index. With normalize='yes' the situation
+is worse: coh(end) stays 0, so x(end)./coh(end) is infinite and the last
+nbin+1 bins of the PSI are -Inf/+Inf (verified with a 20-bin synthetic
+coherency, nbin=3: bins 17..20 = -Inf).
+
+Zero the last element after forming the products (and set its normalizer
+to 1) so those windows simply contain one fewer product, which is the
+behaviour of the Nolte et al. (2008) definition at the edge.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012d2sJAD5EUp4GqAStqoBX7
+---
+ connectivity/ft_connectivity_psi.m | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/connectivity/ft_connectivity_psi.m b/connectivity/ft_connectivity_psi.m
+index 2f5225e..2dada42 100644
+--- a/connectivity/ft_connectivity_psi.m
++++ b/connectivity/ft_connectivity_psi.m
+@@ -141,10 +141,14 @@ function [y] = phaseslope(x, n, norm)
+ m   = size(x, 1); % total number of frequency bins
+ y   = zeros(size(x));
+ x(1:end-1,:,:,:,:) = conj(x(1:end-1,:,:,:,:)).*x(2:end,:,:,:,:);
++% the last element holds no product (there is no bin above it); zero it so
++% that windows reaching the highest bin do not add the raw coherency there
++x(end,:,:,:,:) = 0;
+ 
+ if strcmp(norm, 'yes')
+   coh = zeros(size(x));
+   coh(1:end-1,:,:,:,:) = (abs(x(1:end-1,:,:,:,:)) .* abs(x(2:end,:,:,:,:))) + 1;
++  coh(end,:,:,:,:) = 1; % avoid 0/0 for the (zeroed) last element
+   %FIXME why the +1? get the coherence
+   for k = 1:m
+     begindx = max(1,k-n);
+-- 
+2.43.0
+

@@ -1,0 +1,35 @@
+From 2fff5bf987e5bfb9b0d3f3d860f08e4c382fe6a1 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Tue, 1 Sep 2026 22:16:50 +0000
+Subject: [PATCH] ft_statfun_correlationT: use n-2 degrees of freedom
+
+The t-statistic is computed as t = r*sqrt(n-2)/sqrt(1-r^2), which has n-2
+degrees of freedom, but df was set to n-1. The parametric critical value
+used as the cluster-forming threshold (and the optional parametric prob)
+was therefore computed with one degree of freedom too many, making the
+threshold slightly too liberal: at n=8 the two-sided 0.05 critical value
+was 2.365 instead of 2.447 (3.4% low). Both lines date from the same
+2015 overhaul commit.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012d2sJAD5EUp4GqAStqoBX7
+---
+ statfun/ft_statfun_correlationT.m | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/statfun/ft_statfun_correlationT.m b/statfun/ft_statfun_correlationT.m
+index 6d8325b..a706b34 100644
+--- a/statfun/ft_statfun_correlationT.m
++++ b/statfun/ft_statfun_correlationT.m
+@@ -68,7 +68,7 @@ if strcmp(cfg.computeprob, 'yes') && strcmp(cfg.computestat, 'no')
+ end
+ 
+ [nsmpl, nrepl] = size(dat);
+-df = nrepl - 1;
++df = nrepl - 2;
+ if df<1
+   ft_error('Insufficient degrees of freedom for this analysis.')
+ end
+-- 
+2.43.0
+

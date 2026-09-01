@@ -45,6 +45,7 @@ are read in proportion.
 | [DESeq2](audits/deseq2/) | 886 | 3 confirmed (one live 2017–2025, already fixed upstream but unannounced), 3 verified-negligible | erratum/NEWS request + docs note to file on GitHub |
 | [MACS2](audits/macs2/) | 475 | 3 confirmed (one live in current MACS3, reproduced on shipped binary), 4 notes, 2 withdrawn by own review | one-word fix PR + issues to file on GitHub |
 | [Kilosort](audits/kilosort/) | 60 | 3 new verified on shipped code (one disables KS4's refractory split veto since v4.1.5), 5 by code reading, plus exposure map for the known 2024 "spike holes" bug | 2 fix PRs + 2 issues to file on GitHub |
+| [FieldTrip](audits/fieldtrip/) | 42 | 4 verified by executing FieldTrip's own code under Octave (permutation p-values exclude ties, p = 0 with exhaustive permutations; correlationT df; PSI edge bins −Inf; a statfun branch that cannot run) + 1 by code reading | 5 fix patches with PR/issue bodies to file on GitHub |
 
 The survey itself covers **44,198 research articles**, of which **20,501** were openly
 readable; **10,364** name at least one open-source package, across **270 distinct

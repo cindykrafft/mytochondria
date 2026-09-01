@@ -1,0 +1,116 @@
+{
+ "PMC13017517": {
+  "correlation-based cluster test": "32 and in the superior frontal gyrus for post-stroke aphasia 101 . We specifically identified contiguous thalamic voxel clusters that exhibited the highest connectivity correlation with the SCAN regions. The centre of gravity of the largest such cluster was determined as the optimal target coordi",
+  "two-sided at 0.05 (per-tail caveat)": "et spot (VIM-SS). None of these analyses showed a significant correlation between the distances and clinical responses (two-tailed Spearman correlations, P > 0.05). The shaded areas represent 95% confidence intervals of the mean estimate. SCAN as the core circuit in PD The subcorti",
+  "FDR": "Extended Data Fig. 2 and Supplementary Figs. 1 and 2 ; all two-tailed paired t > 9.8, P < 0.0001, false-discovery rate (FDR) corrected). These results indicated that the cortico\u2013basal ganglia\u2013thalamic circuit that is important in PD is prefere"
+ },
+ "PMC11485236": {
+  "two-sided at 0.05 (per-tail caveat)": "essing. Nonetheless, a significant fraction of PC neurons was image modulated (35 neurons out of 277, P = 5.7 \u00d7 10 \u22127 , two-sided binomial test, n = 277 neurons, P chance = 0.05), that is, they changed firing based on the image identity (Fig. 5b ). The ability of PC neurons to encode odour-relate"
+ },
+ "PMC11078732": {
+  "two-sided at 0.05 (per-tail caveat)": "gnificant SFC differences between loads relative to the vmPFC LFP. For b \u2013 d , statistical analysis was performed using two-sided cluster-based permutation t -tests with a Bonferroni-corrected alpha-level for two MTL areas, three frontal areas and two cell populations. e , Hippocampal PAC cells ( n = 175, cyan line) ",
+  "explicit 0.025 per tail": "sing cluster-based permutation statistics as implemented in FieldTrip 80 with 10,000 permutations and an alpha level of 0.025 for each one-sided cluster, which was also Bonferroni corrected for the number of tests involved. Depending on whether ",
+  "FDR": "\u2013high-gamma PAC in load 3 compared with load 1 trials ( t 136 = \u22124.26, P < 0.001; Fig. 2c (left); false-discovery rate (FDR) corrected for the five brain regions of interest 33 ; Fig. 2d shows PAC for a single example channel in the hippocampu"
+ },
+ "PMC10866697": {},
+ "PMC10499606": {
+  "correlation-based cluster test": "the visual cue and the appetitive solution, as well as the taste of the solution as a function of trial number. Indeed, cluster power was significantly correlated with trial number for sweet-fat item anticipation ( R = 0.102, P = 0.0021) but not for the taste-neutral item ( R = 0",
+  "two-sided at 0.05 (per-tail caveat)": "pared with a null distribution. The outlined clusters (left) reflect significant contiguous time\u2013frequency voxels ( P < 0.05, two-sided paired nonparametric cluster-based permutation testing, 1,000 permutations, n = 34 channels) before correction for mult"
+ },
+ "PMC12956831": {},
+ "PMC12772211": {},
+ "PMC12745750": {
+  "maxsum / cluster-mass statistic": "t-values were computed for each permutation. A cluster was considered to have a statistically significant effect if the sum of t-values in the original dataset was greater than the 95th percentile ( P < 0.05) of the distribution of the corresponding value",
+  "explicit 0.025 per tail": "multiple comparisons among the high number of sensors. Briefly, clusters of channels with significant differences ( P < 0.025) were created by spatial adjacency (at least two neighboring channels). The neighborhood definition was based on the di"
+ },
+ "PMC12704728": {
+  "FDR": " Abbreviations: HEP: heartbeat-evoked potential, RT: reaction time, BF10: Bayes Factor in favor of a correlation, pFDR: false discovery rate\u2013corrected P -value. We also found significant evidence for a Self-related Facilitation effect, beginning at slight"
+ },
+ "PMC12107109": {
+  "two-sided at 0.05 (per-tail caveat)": "ients. In FO patients, cluster-based permutation statistical analysis indicated a significant effect of Condition ( P < 0.05, two-tailed) when comparing synch and asynch ( Fig. 2 A ). A spatiotemporal cluster of negative polarity extended from \u221299 to 47 ms"
+ },
+ "PMC11873822": {
+  "FDR": "ections for multiple comparisons, there was no confounding bias of sex or eTIV for any of the investigated features ( P FDR > 0.05). Hence, these two variables were not more strongly related to the predicted age values than what can be expecte"
+ },
+ "PMC11761305": {},
+ "PMC11745339": {},
+ "PMC11725837": {},
+ "PMC11670218": {
+  "FDR": "odulated the amplitude of hippocampal ripples in all participants ( n = 6 , P < 0.05, 25/36 contacts, permutation test, FDR corrected; Fig. 2 C ). Thus, during sleep, breathing drives a slow HRO and aligns the timing and modulates the amplitud"
+ },
+ "PMC11551340": {},
+ "PMC11494299": {
+  "maxsum / cluster-mass statistic": "in the same direction between the PLVs and SAUs. The Spearman rho values were transformed into Fisher Z values, and the cluster-mass statistics were computed as the sum of the Z values of all links within the cluster. The P value for each cluster was c",
+  "correlation-based cluster test": "ts should have a positive relationship. Partial correlations were controlled by age, sex, and data sample. We defined a cluster as a set of spatially adjacent links that presented a significant partial correlation (only links with a correlation significance less than 0.005 were considered) in the same direction between the PLVs "
+ },
+ "PMC11348099": {
+  "maxsum / cluster-mass statistic": "cluster that comprised the whole cerebellum ( SI Appendix , Fig. S1 ). This was the case for intelligible ( P = 0.0003, summed t = 136,410, 22,375 voxels in cluster) and unintelligible speech ( P = 0.0003, summed t = 141,530, 22,375 voxels in clust",
+  "FDR": "me 0 corresponds to the first omitted word in the sequence. The horizontal lines show time points with significant RSR (FDR-corrected) in the corresponding condition. Note that the main statistical results are shown in panels C and D . The sha"
+ },
+ "PMC11295073": {
+  "explicit 0.025 per tail": "oral dynamics of our neural results, we used LMMs to predict neural power averaged in 0.2 s sliding windows stepping by 0.025 s from 0 to 2 s after stimulus onset. Note that statistical testing of hypotheses regarding the relationships between t"
+ },
+ "PMC11287159": {
+  "maxsum / cluster-mass statistic": "re clustered based on their adjacency in space and time, and resultant t-values for all data points in each cluster are summed to produce cluster-level statistics. Participant averages are then randomly assigned to one of the two conditions 10,000 ",
+  "explicit 0.025 per tail": "cal words in the not-in-focus condition. This negativity extended from 285 ms to 690 ms after critical word onset ( P < 0.025; mean amplitude difference = \u22120.497 \u00b5V). It had a bilateral fronto-central maximum. This topographic distribution was n"
+ },
+ "PMC11032489": {
+  "phase slope index (PSI)": "s directionality of the connections (leading or lagging) and their potential changes over time (i.e., time course), the phase slope index (PSI) for the connections of ten ROIs with the other ROIs was calculated in each participant from stimulus onset over t",
+  "two-sided at 0.05 (per-tail caveat)": "metric permutation tests. These clusters contained spatio-temporo-spectral, i.e., three-dimensional (3D) data. We chose two-tailed cluster-based test statistics with a cluster-\u03b1 of 0.05 and a required minimum cluster size of two neighboring channels. This method has proven sufficient to correct for famil"
+ },
+ "PMC10666120": {},
+ "PMC10334727": {
+  "correlation-based cluster test": " = 0.039, r = 0.59, cluster from \u22120.12 to \u22120.027 s; task-history : P = 0.013, r = \u22120.57; cluster from \u22120.2 to \u22120.078 s; cluster-corrected correlation), but not in motor cortex ( predictive context : no cluster; task-history : P = 0.434). Furthermore, this associatio",
+  "FDR": "en predictive context and task-history for the PFC [ P = 0.028; cluster from \u22120.18 to \u22120.12 s; motor cortex: P = 0.854; FDR-corrected ( 26 ); black horizontal line in Fig. 2 E and Methods ]. Next, we quantified the link between information cod"
+ },
+ "PMC10265962": {
+  "two-sided at 0.05 (per-tail caveat)": "5 corrected; t test, one tailed). Horizontal lines with asterisks on top indicate a significant difference (n = 24, P < 0.05 corrected; paired t test, two tailed). In all conditions, information about both variables could be decoded after their respective instruction. When content",
+  "FDR": "n of content information in both production types and vice versa, we used two-tailed paired t tests. All P -values were false discovery rate (FDR) corrected for the number of tested time intervals ( 45 ). Potential Cue Confound. We identified the source o"
+ },
+ "PMC10068756": {
+  "FDR": "ils). Compared with placebo, DMT significantly decreased the within-network integrity of all canonical RSNs ( P < 0.05, FDR corrected), with the exception of the salience (SAL) and limbic (LIM) networks. Significant increases in GFC were found"
+ },
+ "PMC9636934": {
+  "two-sided at 0.05 (per-tail caveat)": "mutation tests using 1,000 permutations, a cluster threshold of P < 0.05, and a final threshold for significance of P < 0.05 ( 61 ) (all two tailed). To account for the inherent precue differences due to targeting opposing SO UP and DOWN states, the statistical evalu"
+ },
+ "PMC9636927": {
+  "explicit 0.025 per tail": "d the sleep-deprivation effect, while both No-D and Con-D showed above-chance performance ( Fig. 1 B , rmANOVA cond P = 0.025, F 2,10 = 5.42; t test to chance P = 0.025, P = 0.003). Therefore, both sleep and neural activity related to HPC-R are "
+ },
+ "PMC9618087": {
+  "maxsum / cluster-mass statistic": "scaled response that stretched or compressed to fill the interval. All three responses (cue, response, and scaled) were summed together at appropriate lags (short, medium, or long), with noise\u2014see Fig. 1 A . In total, we simulated 50 trials of each"
+ },
+ "PMC9371745": {
+  "two-sided at 0.05 (per-tail caveat)": "dorsolateral prefrontal cortex, bilaterally ( SI Appendix , Fig. S20 ). Statistical Testing. All statistical tests were two-tailed and used an alpha of 0.05. For all simple univariate tests performed to compare model performance within and between subjects, we first verified "
+ },
+ "PMC9173754": {
+  "correlation-based cluster test": "the related dispersion measures were expressed as median absolute deviation. Statistical analyses included the Spearman correlation coefficient, Friedman tests, and cluster-based permutation test. Spearman correlation was performed groupwise over individual electrodes to determine the relati"
+ },
+ "PMC9168456": {},
+ "PMC8740684": {},
+ "PMC8740757": {
+  "FDR": "ation, we conducted ROI-based functional connectivity analysis (followed by multiple comparison correction based on the false discovery rate [FDR]). The Active group demonstrated increases in vPCC-mPFC ( t = 2.87, P = 0.011) and vPCC-rANG ( t = 3.12, P = "
+ },
+ "PMC8685930": {
+  "two-sided at 0.05 (per-tail caveat)": "in cluster) served as cluster statistic and Monte Carlo simulations were used to calculate the cluster P value (alpha = 0.05, two-tailed) under the permutation distribution. Analyses were performed at the group level. Supplementary Material Supplementary F"
+ },
+ "PMC8639370": {},
+ "PMC8545486": {
+  "numrandomization 'all' / exhaustive": "OB neural signals and perceptual ratings; subsequent partial Pearson correlations were derived for each time point from all possible permutations. ( B ) Group mean perceived valence ratings of the six odors in Experiment 1. Individuals\u2019 mean ratings are indicated w",
+  "correlation-based cluster test": "tings ( Fig. 3 B ). On the neural data, we subsequently derived a modularity index ( Q ) for each of the gamma and beta correlation peaks given the three clusters determined by hierarchical clustering of valence ratings and normalized their values to a corresponding null model from 5,000 random rewirings ( 31 ). We "
+ },
+ "PMC8449322": {},
+ "PMC8237647": {
+  "maxsum / cluster-mass statistic": "burst was \u201con\u201d in one of the beta-frequencies, a TTL signal was sent to the Med Associates behavioral controller, which summed them during trials into burst occupancy. After the minimal holding duration (600 or 1,600 ms), we allowed an additional 1",
+  "correlation-based cluster test": "ing beta and low gamma (13 to 57 Hz), thus able to play a role as pacemakers ( 55 ). During the \u223c150-ms epochs of spike clusters, these cortical-projecting neurons are highly correlated, leading to spontaneous transient (\u223c200 ms) increases in cortical oscillation power ( 56 ). Since GABAergic BF projec"
+ },
+ "PMC8157983": {},
+ "PMC7958181": {
+  "maxsum / cluster-mass statistic": "sters of contiguous significant time windows (corresponding to P values <0.05) and selected the maximum cluster size of summed t values for every permutation. This resulted in a distribution of surrogate t values for every encoding time \u00d7 retrieval time p",
+  "correlation-based cluster test": "P < 0.05) in the comparison of correlation (rho) values against zero at the group level. This yielded a distribution of correlation clusters (across frequencies) that could be expected by chance. We tested whether the observed correlation cluster exceeded the"
+ },
+ "PMC7812746": {},
+ "PMC8357425": {
+  "maxsum / cluster-mass statistic": "ffect (regression weights) over participants, to obtain the evidence for an effect > 0 (i.e., t-value). We computed the sum of t-values within each continuous stretch of time points exhibiting a positive effect at p < 0.05. We then repeated this procedure",
+  "two-sided at 0.05 (per-tail caveat)": "ease in high-frequency oscillatory power at replay onsets (averaged across sensors) during post-learning rest (red: p < 0.05, mass-univariate two-tailed one-sample t test versus pre-onset baseline \u2212100 to \u221210 ms, n = 53 [26 patients and 27 controls], smoothed with 20 ms k"
+ }
+}

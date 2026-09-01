@@ -1,0 +1,32 @@
+From 3c3f005631a68108c3f17d8b2371e4271e40c784 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Tue, 1 Sep 2026 22:16:51 +0000
+Subject: [PATCH] Warn about uncorrected two-sided testing for any alpha
+
+The warning that a two-sided test with cfg.correcttail='no' evaluates each
+tail at the full alpha (doubling the nominal type-I rate) was only issued
+when cfg.alpha was exactly 0.05. A user who sets alpha to 0.01 or 0.1 is
+in the same situation and got no warning. Issue it for any alpha.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012d2sJAD5EUp4GqAStqoBX7
+---
+ ft_statistics_montecarlo.m | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ft_statistics_montecarlo.m b/ft_statistics_montecarlo.m
+index dff5008..50d8e13 100644
+--- a/ft_statistics_montecarlo.m
++++ b/ft_statistics_montecarlo.m
+@@ -219,7 +219,7 @@ if isfield(cfg,'correctp') && strcmp(cfg.correctp,'yes')
+ elseif isfield(cfg,'correctp') && strcmp(cfg.correctp,'no')
+   cfg = ft_checkconfig(cfg, 'renamed', {'correctp', 'correcttail'});
+ end
+-if strcmp(cfg.correcttail,'no') && cfg.tail==0 && cfg.alpha==0.05
++if strcmp(cfg.correcttail,'no') && cfg.tail==0
+   ft_warning('Doing a two-sided test without correcting p-values or alpha-level, p-values and alpha-level will reflect one-sided tests per tail. See http://bit.ly/2YQ1Hm8')
+ end
+ 
+-- 
+2.43.0
+

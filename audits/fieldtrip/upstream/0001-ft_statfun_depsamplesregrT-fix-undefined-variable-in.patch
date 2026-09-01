@@ -1,0 +1,33 @@
+From d6e1073269bd320f7f892f30e21722f96dd0aa8b Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Tue, 1 Sep 2026 22:16:51 +0000
+Subject: [PATCH] ft_statfun_depsamplesregrT: fix undefined variable in the
+ cvar branch
+
+The control-variable branch indexes design(cfg.cvar, unitselved), but the
+variable is named unitselvec, so any call with a non-empty cfg.cvar fails
+with 'unitselved undefined'. Verified on Octave: without cvar the statfun
+runs, with cvar = 3 it errors at line 98.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012d2sJAD5EUp4GqAStqoBX7
+---
+ statfun/ft_statfun_depsamplesregrT.m | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/statfun/ft_statfun_depsamplesregrT.m b/statfun/ft_statfun_depsamplesregrT.m
+index 5283073..7089c48 100644
+--- a/statfun/ft_statfun_depsamplesregrT.m
++++ b/statfun/ft_statfun_depsamplesregrT.m
+@@ -95,7 +95,7 @@ if strcmp(cfg.computestat,'yes')
+     else
+       designmat=zeros((nblocks+1),length(indvar));
+       for blockindx=1:nblocks
+-        blockselvec=find(design(cfg.cvar,unitselved)==condlabels(blockindx));
++        blockselvec=find(design(cfg.cvar,unitselvec)==condlabels(blockindx));
+         designmat(blockindx,blockselvec)=1;
+       end
+       designmat((nblocks+1),:)=indvar;
+-- 
+2.43.0
+

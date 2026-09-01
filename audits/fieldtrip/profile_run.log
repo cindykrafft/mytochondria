@@ -1,0 +1,28 @@
+cohort: 42
+profiled 42/42
+
+FEATURES (papers):
+  montecarlo/permutation stat          32
+  EEG                                  30
+  alpha / two-sided                    24
+  cluster-based permutation            19
+  n permutations                       19
+  time-frequency (wavelet/multitaper)  18
+  ICA artifact removal                 18
+  connectivity                         17
+  iEEG/ECoG/sEEG                       17
+  MEG                                  17
+  baseline correction                  16
+  LFP/animal ephys                     15
+  source reconstruction                14
+  decoding/MVPA                        13
+  head model / forward                 12
+  ERP/ERF timelock                     11
+  EEGLAB also used                     8
+  SPM also used                        7
+  phase-amplitude coupling             6
+  min cluster / neighbours             2
+  Brainstorm also used                 2
+  ft_freqstatistics                    1
+
+VERSIONS: {'20201205': 1, '20201229': 1, '20200128': 1}
