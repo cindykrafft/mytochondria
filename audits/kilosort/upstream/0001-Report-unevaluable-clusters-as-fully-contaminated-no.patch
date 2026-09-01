@@ -1,0 +1,52 @@
+From 94aa4d1d57bafb4c3304e08fffcb9ffca9b09326 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Tue, 1 Sep 2026 20:30:19 +0000
+Subject: [PATCH] Report unevaluable clusters as fully contaminated, not
+ ContamPct 0
+
+CCG.refract initialized est_contam_rate (R12) to zeros and only computed it
+for clusters with more than 10 spikes and a nonzero time span. Clusters
+below that floor were therefore exported by io.save_to_phy with
+ContamPct = 0.0 - the best possible score - indistinguishable from a
+genuinely clean unit. Any downstream selection of the form
+'ContamPct < x' without an additional minimum-spike-count criterion
+silently admits every such cluster.
+
+Initialize R12 to ones instead, so unevaluable clusters export as
+ContamPct = 100. This restores the Kilosort 2.5/3 convention
+(set_cutoff.m defaulted est_contam_rate to 1). is_refractory is unchanged
+(such clusters were already labeled mua).
+
+Demonstration on kilosort 4.1.7: a uniform-Poisson unit with 5000 spikes
+exports ContamPct 93.9 while an 8-spike junk cluster exports 0.0; with
+this change the junk cluster exports 100.0.
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012d2sJAD5EUp4GqAStqoBX7
+---
+ kilosort/CCG.py | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/kilosort/CCG.py b/kilosort/CCG.py
+index fd5d7fd..2aa90cb 100644
+--- a/kilosort/CCG.py
++++ b/kilosort/CCG.py
+@@ -107,9 +107,13 @@ def refract(iclust2, st0, acg_threshold=0.2, ccg_threshold=0.25):
+ 
+     is_refractory    = np.zeros(Nfilt, )
+     cross_refractory = np.zeros(Nfilt, )
+-    R12 = np.zeros(Nfilt, )
++    # Clusters that are too small (or too short-lived) to evaluate keep the
++    # default contamination of 1, so they export as ContamPct = 100 rather
++    # than 0 (the best possible score). This matches Kilosort 2.5/3, where
++    # est_contam_rate defaulted to 1 for units that could not be evaluated.
++    R12 = np.ones(Nfilt, )
+ 
+-    for kk in range(Nfilt):    
++    for kk in range(Nfilt):
+         ix = iclust2==kk
+         st1 = st0[ix]
+ 
+-- 
+2.43.0
+

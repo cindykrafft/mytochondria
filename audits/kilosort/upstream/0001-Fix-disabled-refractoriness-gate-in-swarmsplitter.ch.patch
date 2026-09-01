@@ -1,0 +1,53 @@
+From cb7fac3112290b4b472f4b736fea3e3cc3a727fc Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Tue, 1 Sep 2026 20:29:59 +0000
+Subject: [PATCH] Fix disabled refractoriness gate in swarmsplitter.check_CCG
+
+The guard added in v4.1.5 reads len(st2 == 0), which is the length of a
+boolean array and therefore truthy for every non-empty spike train. As a
+result check_CCG returned (False, False) on all real inputs and the
+refractory-CCG veto in swarmsplitter.split (via refractoriness()) has been
+dead code in v4.1.5 through v4.1.7: splits were decided purely by modularity
+and bimodality, allowing oversplits of units whose halves remain mutually
+refractory. Fixes #1042.
+
+Also move the empty-train check above the compute_CCG call: compute_CCG
+raises ValueError on .max() of an empty array, so the previous guard could
+never reach its empty-array case anyway.
+
+Verified against kilosort 4.1.7: a simulated refractory unit (3 ms
+refractory period, ~10 Hz, 20 min) split in half yields R12=0.0, Q12=0.0
+(cross_refractory=True under the pre-4.1.5 logic) yet check_CCG returned
+(False, False) before this fix; after the fix the veto fires again, and
+check_CCG on an empty second train returns (False, False) instead of
+raising.
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012d2sJAD5EUp4GqAStqoBX7
+---
+ kilosort/swarmsplitter.py | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/kilosort/swarmsplitter.py b/kilosort/swarmsplitter.py
+index fcd6cb0..762006b 100644
+--- a/kilosort/swarmsplitter.py
++++ b/kilosort/swarmsplitter.py
+@@ -53,8 +53,14 @@ def bimod_score(xproj):
+ def check_CCG(st1, st2=None, nbins = 500, tbin  = 1/1000):
+     if st2 is None:
+         st2 = st1.copy()
++    # Empty trains must be checked before compute_CCG (it calls .max() on
++    # both arrays). len(st2) == 0, not len(st2 == 0): the latter is the size
++    # of a boolean array, which is truthy for every non-empty st2 and made
++    # this guard fire on all real inputs, disabling the refractoriness gate.
++    if len(st1) == 0 or len(st2) == 0:
++        return False, False
+     K , T = compute_CCG(st1, st2, nbins = nbins, tbin = tbin)
+-    if len(st1) == 0 or len(st2 == 0) or T == 0:
++    if T == 0:
+         return False, False
+     R12, Q12, Q00 = CCG_metrics(st1, st2, K, T,  nbins = nbins, tbin = tbin)
+     is_refractory    = R12<.1  and (Q12<.2  or Q00<.25)
+-- 
+2.43.0
+

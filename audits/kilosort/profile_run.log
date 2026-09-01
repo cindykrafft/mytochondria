@@ -1,0 +1,23 @@
+cohort: 60
+profiled 60/60
+
+FEATURES (papers):
+  single/multi-unit criteria       46
+  Phy manual curation              33
+  Neuropixels                      33
+  tetrode/other probe              26
+  CatGT/TPrime (SpikeGLX)          21
+  KS2                              19
+  acute / chronic                  16
+  Open Ephys                       16
+  KS2.5                            12
+  quality metrics                  10
+  KS3                              9
+  cell-type classification         9
+  Neuropixels 2.0                  8
+  waveform amplitude analysis      6
+  KS4                              4
+  drift correction noted           4
+  SpikeInterface                   1
+
+VERSIONS: {'2.0': 13, '2.5': 12, '3': 9, '2': 8, '4.0': 3, '4': 2, '27': 1, '9': 1, '68': 1, '62': 1, '60': 1, '39': 1, '59': 1, '30': 1, '31': 1}
