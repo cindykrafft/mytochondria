@@ -43,6 +43,7 @@ are read in proportion.
 | [SPM](audits/spm/) | full-codebase audit (not survey-driven) | 83 confirmed + ~38 plausible; one fix regression-tested by executing the code | 2 issue+PR pairs filed on GitHub (open); 3 more staged with filing kit ready |
 | [AFNI](audits/afni/) | 39 in the survey cohort; 57 adjudicated for the ReHo finding | 36 (9 high-impact, 15 narrower, 12 likely), one reproduced numerically | 1 fix PR merged upstream; 10 more written up |
 | [DESeq2](audits/deseq2/) | 886 | 3 confirmed (one live 2017–2025, already fixed upstream but unannounced), 3 verified-negligible | erratum/NEWS request + docs note to file on GitHub |
+| [MACS2](audits/macs2/) | 475 | 3 confirmed (one live in current MACS3, reproduced on shipped binary), 4 notes, 2 withdrawn by own review | one-word fix PR + issues to file on GitHub |
 
 The survey itself covers **44,198 research articles**, of which **20,501** were openly
 readable; **10,364** name at least one open-source package, across **270 distinct

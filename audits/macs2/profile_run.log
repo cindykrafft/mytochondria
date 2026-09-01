@@ -1,0 +1,31 @@
+cohort: 475
+profiled 475/475
+
+FEATURES (papers):
+  ChIP-seq                     199
+  ATAC-seq                     181
+  HOMER/motif                  131
+  scATAC                       72
+  summits                      64
+  nomodel                      49
+  CUT&RUN / CUT&Tag            48
+  bedtools merge/consensus     44
+  DESeq2/edgeR on peaks        43
+  paired-end (BAMPE)           41
+  shift/extsize set            38
+  MACS3 named                  37
+  callpeak named               37
+  control/input used           32
+  DiffBind                     28
+  keep-dup                     26
+  broad peaks                  26
+  genome size set              26
+  narrow peaks                 21
+  q-value cutoff               18
+  ENCODE pipeline              13
+  IDR                          12
+  p-value cutoff               3
+  MACS1 (1.4)                  3
+  no control/input             2
+
+VERSIONS (top 15): {'2.2.7.1': 14, '0.05': 6, '2.1.2': 3, '2.1.1': 3, '3.0.0': 3, '2.1.1.20160309': 3, '2.2.9.1': 2, '2.2': 2, '0.01': 2, '2.0': 2, '2.1.0': 2, '1.4.2': 2, '2.2.6': 2, '2.2.7': 1, '1423.8': 1}
