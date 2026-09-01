@@ -15,6 +15,16 @@ the issue. Recommended order:
 4. **FTR — depsamplesregrT typo** (`pr-ftr-depsamplesregrT.md`, PR only).
 5. **FT2 — two-sided warning** (`pr-ft2-twosided-warning.md`, PR only).
 
+## Live branches on the fork (cindykrafft/fieldtrip, each one commit on master @ 2e14f72)
+
+| finding | branch | head | compare page |
+|---|---|---|---|
+| FT1 | `fix/permutation-pvalue-ties` | 3713810 | https://github.com/fieldtrip/fieldtrip/compare/master...cindykrafft:fieldtrip:fix/permutation-pvalue-ties?expand=1 |
+| FT11 | `fix/psi-edge-bin` | cf99d1d | https://github.com/fieldtrip/fieldtrip/compare/master...cindykrafft:fieldtrip:fix/psi-edge-bin?expand=1 |
+| FT7 | `fix/correlationT-df` | a65f5a6 | https://github.com/fieldtrip/fieldtrip/compare/master...cindykrafft:fieldtrip:fix/correlationT-df?expand=1 |
+| FTR | `fix/depsamplesregrT-cvar` | 684f26c | https://github.com/fieldtrip/fieldtrip/compare/master...cindykrafft:fieldtrip:fix/depsamplesregrT-cvar?expand=1 |
+| FT2 | `fix/twosided-warning` | 656e974 | https://github.com/fieldtrip/fieldtrip/compare/master...cindykrafft:fieldtrip:fix/twosided-warning?expand=1 |
+
 To push the branches from a fork of `fieldtrip/fieldtrip`:
 
 ```bash
