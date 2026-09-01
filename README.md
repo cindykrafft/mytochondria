@@ -40,6 +40,7 @@ are read in proportion.
 |---|---|---|---|
 | [FreeSurfer](audits/freesurfer/) | 116 | 16, three reproduced numerically | 5 fix PRs + 9 issues filed on GitHub |
 | [FSL](audits/fsl/) | 114 | 12, six with patches | reports and patches ready; filing via the FSL mailing list |
+| [SPM](audits/spm/) | full-codebase audit (not survey-driven) | 83 confirmed + ~38 plausible; one fix regression-tested by executing the code | 5 fix branches + a new unit test staged on the fork; filing kit ready |
 
 The survey itself covers **44,198 research articles**, of which **20,501** were openly
 readable; **10,364** name at least one open-source package, across **270 distinct
@@ -64,6 +65,9 @@ audits/
                  reproductions, and the upstream filing kit
   fsl/           component reviews and paper→feature exposure
                  (reports, patches and harnesses: separate repo, below)
+  spm/           eleven component reviews spanning the whole codebase,
+                 verification harnesses incl. an Octave old-vs-new
+                 regression, and the upstream filing kit
 ```
 
 ## Related repositories
@@ -74,6 +78,8 @@ audits/
   posts link to it directly.
 - **[cindykrafft/freesurfer](https://github.com/cindykrafft/freesurfer)** — fork
   carrying the five FreeSurfer fix branches submitted upstream.
+- **[cindykrafft/spm](https://github.com/cindykrafft/spm)** — fork carrying the five
+  SPM fix branches plus a new `tests/test_spm_ECdensity.m` (not yet filed upstream).
 
 ## Reading these findings fairly
 
