@@ -1,0 +1,61 @@
+From caed2c0b95dda6a5f65bff2c52f8f5127edb6849 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cindy.krafft@gmail.com>
+Date: Tue, 1 Sep 2026 18:13:44 +0000
+Subject: [PATCH] callpeak: filter the control with its own duplicate threshold
+
+With --keep-dup auto, cal_max_dup_tags() is called separately for the
+control and its result logged ("max_dup_tags based on binomial = N"),
+but the control was then filtered with the treatment's threshold;
+control_max_dup_tags was never used. The same slip is present in the
+xls-header lines, which reported the treatment's threshold as the
+control's.
+
+Reproduction (synthetic BEDs, treatment threshold 1, control threshold
+3, --keep-dup auto): the log prints "binomial = 3" for the control and
+then removes 10,000 of 60,000 control reads -- exactly the threshold-1
+outcome. Because the binomial threshold grows logarithmically with
+depth, the two thresholds differ only when treatment and control depths
+differ by roughly 5-10x; in that regime duplicated control positions
+lose real reads and the local lambda is distorted at exactly those loci.
+
+Behavior is unchanged for --keep-dup all and for explicit numeric
+--keep-dup values (both thresholds are equal there).
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012d2sJAD5EUp4GqAStqoBX7
+---
+ MACS3/Commands/callpeak_cmd.py | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/MACS3/Commands/callpeak_cmd.py b/MACS3/Commands/callpeak_cmd.py
+index 2c9a1ef..c6242a5 100644
+--- a/MACS3/Commands/callpeak_cmd.py
++++ b/MACS3/Commands/callpeak_cmd.py
+@@ -136,19 +136,19 @@ def run(args):
+                 info("#1 user defined the maximum %ss...", tag)
+                 control_max_dup_tags = int(options.keepduplicates)
+             if options.PE_MODE:
+-                info("#1 filter out redundant fragments by allowing at most %d identical fragment(s)", treatment_max_dup_tags)
++                info("#1 filter out redundant fragments by allowing at most %d identical fragment(s)", control_max_dup_tags)
+             else:
+-                info("#1 filter out redundant tags at the same location and the same strand by allowing at most %d tag(s)", treatment_max_dup_tags)
+-            control.filter_dup(treatment_max_dup_tags)
++                info("#1 filter out redundant tags at the same location and the same strand by allowing at most %d tag(s)", control_max_dup_tags)
++            control.filter_dup(control_max_dup_tags)
+             #control.separate_dups(treatment_max_dup_tags) # changed 5-29; changed back since we don't need to call addbackdup+refinepeak anymore
+             c1 = control.total
+ 
+             info("#1  %ss after filtering in control: %d", tag, c1)
+             tagsinfo += "# %ss after filtering in control: %d\n" % (tag, c1)
+             if options.PE_MODE:
+-                tagsinfo += "# maximum duplicate fragments in control = %d\n" % (treatment_max_dup_tags)
++                tagsinfo += "# maximum duplicate fragments in control = %d\n" % (control_max_dup_tags)
+             else:
+-                tagsinfo += "# maximum duplicate tags at the same position in control = %d\n" % (treatment_max_dup_tags)
++                tagsinfo += "# maximum duplicate tags at the same position in control = %d\n" % (control_max_dup_tags)
+ 
+             info("#1  Redundant rate of control: %.2f" % (float(c0-c1)/c0))
+             tagsinfo += "# Redundant rate in control: %.2f\n" % (float(c0-c1)/c0)
+-- 
+2.43.0
+

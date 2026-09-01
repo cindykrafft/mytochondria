@@ -1,0 +1,41 @@
+From 72edf8ec538407fed4bb204138b6482c35c2e72b Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cindy.krafft@gmail.com>
+Date: Tue, 1 Sep 2026 18:13:45 +0000
+Subject: [PATCH] Prob: restore the k=0 term in the large-lambda lower-tail
+ Poisson CDF
+
+__poisson_cdf_large_lambda accumulates the CDF starting from the i=1
+term; the i=0 term (nextcdf, the scaled exp(-lambda)) was dropped when
+the function was ported from MACS 1.4, which initialized cdf to it.
+The MACS2 2.x releases summed from an uninitialized C variable here;
+the current zero-initialization removed the garbage but still omits
+the first term. Numerically the term is negligible at the lambda > 700
+this branch requires, and no current CLI path reaches the function
+(peak calling uses the log-space branch) -- this restores correctness
+for any future caller and matches MACS 1.4.
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012d2sJAD5EUp4GqAStqoBX7
+---
+ MACS3/Signal/Prob.py | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/MACS3/Signal/Prob.py b/MACS3/Signal/Prob.py
+index 3d32e08..2cdecff 100644
+--- a/MACS3/Signal/Prob.py
++++ b/MACS3/Signal/Prob.py
+@@ -343,6 +343,11 @@ def __poisson_cdf_large_lambda(k: uint32_t, a: float64_t) -> float64_t:
+     num_parts = cython.cast(int32_t, (a / LSTEP))
+     lastexp = exp(-1 * (a % LSTEP))
+     nextcdf = EXPSTEP
++    # include the k=0 term of the sum; the loop below starts at i=1.
++    # (MACS 1.4 had `cdf = next` here; the initialization was lost in
++    # the MACS2 port, which summed from uninitialized memory, and the
++    # later zero-initialization still omitted this term.)
++    cdf = nextcdf
+ 
+     num_parts -= 1
+ 
+-- 
+2.43.0
+
