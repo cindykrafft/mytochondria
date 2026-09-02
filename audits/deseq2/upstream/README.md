@@ -12,7 +12,7 @@ this round got wrong.
 | `issue-ds2-lfcthreshold-docs.md` | [#133](https://github.com/thelovelab/DESeq2/issues/133) | closed: "already documented in NEWS" (it is, under 1.44.0, naming `greaterAbs2014`) |
 | `issue-pr1-replace-round.md` | [#131](https://github.com/thelovelab/DESeq2/issues/131) | closed: "will not be taken up for the same reason" |
 | `pr1-replace-round.md` + `0001-*.patch` | [#132](https://github.com/thelovelab/DESeq2/pull/132) | closed: "This PR would change DESeq2 results and so won't be taken on" |
-| `support-post-zinbwave.md` | not yet posted | the one item still worth sending, see below |
+| `support-post-zinbwave.md` | never posted, and will not be | see below |
 
 Each reply pointed to the project's pinned policy,
 [issue #1](https://github.com/thelovelab/DESeq2/issues/1) (2017): usage
@@ -44,14 +44,14 @@ The filing-process fix is recorded in the top-level README (step 4): read
 before filing; discuss non-minor or results-changing work in the project's
 preferred venue first; note in each kit which of those were read.
 
-## What is still worth doing
+## Nothing further is filed
 
-The 1.49.4 NEWS entry does not name the affected release range (1.16.0–1.49.x)
-or the weights/zinbwave workflow, so users of that path cannot easily learn
-that pre-1.49.4 numeric contrasts were mis-weighted. `support-post-zinbwave.md`
-is a support-site PSA for exactly those users. It should be edited to drop the
-"no NEWS entry" framing, cite the 1.49.4 entry, and link the reproduction
-script, then posted on support.bioconductor.org, which is the venue the
-project asks for. Nothing further goes to the GitHub issue tracker.
+`support-post-zinbwave.md` was drafted as a support-site notice for
+zinbwave/weights users and never posted. It stays unposted. The maintainer has
+reviewed the finding and judged the 1.49.4 NEWS entry sufficient; posting a
+notice on his package's support forum after that would be going around him in
+the venue his policy points to, and the cohort exposure (one paper naming
+zinbwave, from 2020) does not justify it. The reproduction script and analysis
+are public in this repository for anyone who needs to check an old analysis.
 
 The rounding change is withdrawn.

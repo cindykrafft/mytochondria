@@ -124,10 +124,10 @@ next audit does not repeat them:
   packages the support site is the primary channel; GitHub is for browsing and
   discussed PRs.
 
-What remains legitimately open is narrow: the 1.49.4 NEWS entry does not name
-the affected release range or the weights workflow, so users of the
-zinbwave/weights path have no easy way to learn their pre-1.49.4 numeric
-contrasts were mis-weighted. The right venue for that is a support-site post
-(`upstream/support-post-zinbwave.md`), not a GitHub issue. The rounding change
-is withdrawn: the effect was measured as negligible and the project's policy is
-to keep results stable.
+Nothing further is filed. A support-site notice for zinbwave/weights users was
+drafted (`upstream/support-post-zinbwave.md`) and stays unposted: the
+maintainer has reviewed the finding and judged the NEWS entry sufficient, and
+with one cohort paper naming zinbwave the exposure does not warrant going
+around that judgment. The reproduction script is public here for anyone who
+needs to check an old analysis. The rounding change is withdrawn: the effect
+was measured as negligible and the project's policy is to keep results stable.
