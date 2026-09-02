@@ -1,6 +1,9 @@
 # Scanpy upstream filing kit
 
-_Prepared 2026-09-02 against `scverse/scanpy` `main` @ `a656a33b`. Nothing filed yet._
+_Prepared 2026-09-02 against `scverse/scanpy` `main` @ `a656a33b`. Nothing filed yet.
+Both fix branches are pushed to the fork [cindykrafft/scanpy](https://github.com/cindykrafft/scanpy):
+[`fix/rank-genes-groups-ttest-log-space`](https://github.com/cindykrafft/scanpy/tree/fix/rank-genes-groups-ttest-log-space) (SC1, `08d3cc7`) and
+[`fix/score-genes-equal-frequency-bins`](https://github.com/cindykrafft/scanpy/tree/fix/score-genes-equal-frequency-bins) (SC2, `2b56eda`), each one commit on top of `a656a33b`._
 
 ## What was read before preparing this (step 4 of the method)
 
@@ -51,10 +54,10 @@ pushing.
 
 1. Open the SC1 issue, then the SC2 issue (texts above; paste the reproduction
    output from a fresh run).
-2. `git am 0001-*.patch` on a `fix/rank-genes-groups-ttest-log-space` branch from
-   `main`; rename the fragment to `<PR>.fix.md` once the PR number exists; open PR 1.
-3. `git am 0002-*.patch` on `fix/score-genes-equal-frequency-bins`; regenerate
+2. Open PR 1 from the fork's `fix/rank-genes-groups-ttest-log-space` (the patch is
+   already on it); rename the fragment to `<PR>.fix.md` once the PR number exists.
+3. On the fork's `fix/score-genes-equal-frequency-bins`, regenerate
    `tests/_data/score_genes_reference_paul2015.pkl` with the snippet in
-   `pr-bodies.md` and commit it on the same branch; rename the fragment; open PR 2.
+   `pr-bodies.md`, commit it, rename the fragment, open PR 2.
 4. Record issue and PR numbers, and every maintainer response, in
    `../README.md` and the top-level status table.
