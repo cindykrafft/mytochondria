@@ -1,6 +1,4 @@
-# Builds results/figure1.{png,pdf}. Inputs: NIfTI exports of one subject's pre/post ReHo maps, the group t-maps,
-# the 90 %-coverage group mask, the MNI template resampled to 3 mm, and results/subjects_summary_v2.tsv,
-# placed in ./fig_inputs/ (see README "Reproducing").
+# Builds results/figure1.{png,pdf} from NIfTI exports placed in ./fig_inputs/ (see README "Reproducing").
 import numpy as np, nibabel as nib, csv
 import matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -10,7 +8,7 @@ def load(n):
     im=nib.as_closest_canonical(nib.load(F+n)); return np.asarray(im.dataobj, float)
 mni=load('mni_3mm.nii.gz'); gm=load('gmask90.nii.gz')>0
 tpre=load('t90_pre.nii.gz'); tpost=load('t90_post.nii.gz')
-rpre=load('reho_pre_sub-10159.nii.gz'); rpost=load('reho_post_sub-10159.nii.gz')
+rpre=np.nan_to_num(load('reho_pre_sub-10159.nii.gz')); rpost=load('reho_post_sub-10159.nii.gz'); msk=load('mask_sub-10159.nii.gz')>0
 # crop to brain bounding box (in-plane)
 xs=np.where(mni.max(axis=(1,2))>0)[0]; ys=np.where(mni.max(axis=(0,2))>0)[0]
 x0,x1,y0,y1=xs[0]-1,xs[-1]+2,ys[0]-1,ys[-1]+2
@@ -28,14 +26,14 @@ def underlay(ax,z):
 # ---- A: one subject, same slice, old vs fixed
 gA=top[0].subgridspec(1,2,wspace=0.03)
 z=32; vmax=0.9
-for i,(v,lab) in enumerate([(rpre,'Old 3dReHo'),(rpost,'Fixed 3dReHo')]):
+for i,(v,lab) in enumerate([(rpre,'Before fix'),(rpost,'After fix')]):
     ax=fig.add_subplot(gA[i]); underlay(ax,z)
-    m=slab(v,z); m=np.ma.masked_where(m<=0,m)
+    m=slab(v,z); mm=slab(msk.astype(float),z); m=np.ma.masked_where(mm==0,m)
     im=ax.imshow(m,cmap=seq,vmin=0,vmax=vmax,interpolation='nearest')
     ax.set_title(lab,color=INK,pad=3)
-    ax.text(0.5,-0.04,'whole-brain mean %.2f'%np.mean(v[v>0]),transform=ax.transAxes,color=INK2,fontsize=7,ha='center',va='top')
+    ax.text(0.5,-0.04,'whole-brain mean %.2f'%np.mean(v[msk]),transform=ax.transAxes,color=INK2,fontsize=7,ha='center',va='top')
 axA=[a for a in fig.axes]; fig.canvas.draw(); p0=axA[0].get_position(); p1=axA[1].get_position()
-cax=fig.add_axes([p0.x0,p0.y0-0.075,p1.x1-p0.x0,0.011]); cb=fig.colorbar(im,cax=cax,orientation='horizontal'); cb.set_label('ReHo (Kendall W), one subject, identical input',color=INK2,fontsize=7); cb.ax.tick_params(labelsize=6.5,colors=INK2); cb.outline.set_edgecolor(RULE)
+cax=fig.add_axes([p0.x0,p0.y0-0.075,p1.x1-p0.x0,0.011]); cb=fig.colorbar(im,cax=cax,orientation='horizontal'); cb.set_label('ReHo (Kendall W), one participant, identical input',color=INK2,fontsize=7); cb.ax.tick_params(labelsize=6.5,colors=INK2); cb.outline.set_edgecolor(RULE)
 fig.text(0.02,0.955,'A',fontsize=12,fontweight='bold',color=INK)
 # ---- B: spatial correlation vs residual SD
 rows=list(csv.DictReader(open(F+'subjects_summary_v2.tsv'),delimiter='\t'))
@@ -43,7 +41,7 @@ ax=fig.add_subplot(top[1])
 for grp,col,lab in [('CONTROL',BLUE,'Control (n = 20)'),('SCHZ',ORANGE,'Schizophrenia (n = 20)')]:
     x=[float(r['errts_sd']) for r in rows if r['group']==grp]; y=[float(r['spatial_corr_nan_as_zero']) for r in rows if r['group']==grp]
     ax.scatter(x,y,s=26,c=col,edgecolors='white',linewidths=0.8,label=lab,zorder=3)
-ax.set_xlabel('SD of residual time series (% signal)'); ax.set_ylabel('Correlation of old and fixed ReHo maps')
+ax.set_xlabel('SD of residual time series (% signal)'); ax.set_ylabel('Correlation of before- and after-fix maps')
 ax.set_ylim(0.2,0.85); ax.set_xlim(0.1,0.56)
 for s in ['top','right']: ax.spines[s].set_visible(False)
 for s in ['left','bottom']: ax.spines[s].set_color(RULE)
@@ -56,7 +54,7 @@ fig.text(0.53,0.955,'B',fontsize=12,fontweight='bold',color=INK)
 zs=[24,30,36,42]
 gC=gs[1].subgridspec(2,len(zs),wspace=0.03,hspace=0.04)
 lim=4.5
-for r,(t,lab) in enumerate([(tpre,'Old 3dReHo'),(tpost,'Fixed 3dReHo')]):
+for r,(t,lab) in enumerate([(tpre,'Before fix'),(tpost,'After fix')]):
     for c,z in enumerate(zs):
         ax=fig.add_subplot(gC[r,c]); underlay(ax,z)
         m=slab(t*gm,z); m=np.ma.masked_where(np.abs(m)<1.96,m)
