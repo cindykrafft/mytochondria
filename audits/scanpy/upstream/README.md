@@ -17,10 +17,12 @@ Both fix branches are pushed to the fork [cindykrafft/scanpy](https://github.com
 - `.github/pull_request_template.md`: "Closes #", tests included or why not, release
   note or why not.
 - `NEWS`/release notes 1.12.3 (PR #4204), 1.13.0a1 (PR #4037), 1.13.0a2.
-- The bug-report form links Matthew Rocklin's "minimal bug reports" guide (blocked from this
-  environment, so applied from memory): both code samples are self-contained scripts on
-  synthetic or bundled data, state expected vs got, and end in an assertion or error that
-  a maintainer sees by running them; each was run on `main` (fails) and on 1.12.4.
+- Matthew Rocklin's "Craft Minimal Bug Reports" (linked from the bug-report form; read
+  from a copy supplied by the user): both samples use random data made in the script,
+  contain no line that is not needed to reproduce, end in an assertion or error, carry
+  the complete traceback, state expected vs got, and record what shrinking the example
+  revealed (SC1: any log1p matrix reproduces it, wilcoxon unaffected; SC2: the exact
+  rounding condition on N). Each was run on `main` and on 1.12.4.
 - Issue tracker searched 2026-09-02 for both findings (`mean_in_log_space`, t-test /
   exponentiation; `score_genes` bins / controls / top genes): no prior report of
   either. Nearest: #1454, #967 (log-input assumption), #3169, #2153 (other
