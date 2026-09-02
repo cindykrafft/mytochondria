@@ -14,6 +14,10 @@ found independently turned out to be already reported and are credited, not clai
 
 ## Findings
 
+Twenty-four findings, 22 of them verified by executing code and 2 established by reading
+it. The fifteen rows below are the ones worth a maintainer's time; the rest are listed
+under them.
+
 Detail with file:line citations in [`component-reviews/`](component-reviews/); runnable
 reproductions in [`verify/`](verify/); patches and filing order in
 [`upstream/`](upstream/).
@@ -36,10 +40,13 @@ reproductions in [`verify/`](verify/); patches and filing order in
 | **A5** | `model/protein_data_processing.py` | DNA rows of the backbone-frame index table select the base nitrogen instead of `C1'`, because the indices are resolved once against RNA adenosine. Latent: the only consumer sees protein aatypes today. | verified; patch |
 | **N5/I2** | `model/params.py` | A stray `]` in a regex makes uncompressed multi-part parameter files unloadable. | verified; one-character patch |
 
-Lower-severity items (alt-loc run grouping, the `_entity_poly_seq` fallback keys, CIF
-tokenizer quoting, per-residue pLDDT rows merging for branched ligands, the documented
-pTM floor, an unpopulated `seen_entities`, the ignored gating `bias_init`, and a
-`SEEK_END` sign error) are in the component reviews with their evidence.
+Eight lower-severity findings are in the component reviews with the same evidence:
+alt-loc resolution grouping by consecutive runs (S3, verified), the `_entity_poly_seq`
+fallback's colliding keys (S4, verified), CIF tokenizer quoting (S5, verified),
+per-residue pLDDT rows merging for branched ligand chains (C2, verified), the documented
+pTM floor for short chains (C3, verified), a `SEEK_END` sign error that can hang a read
+(N3, verified), an unpopulated `seen_entities` (A6, code-read, latent), and
+`bias_init=1.0` silently ignored on all five gating projections (N4, code-read).
 
 ## Already reported, and credited
 
