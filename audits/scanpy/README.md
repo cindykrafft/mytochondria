@@ -79,9 +79,12 @@ access to replace them with full-text records.
   wants "Closes #", tests included or a reason, release note or a reason. Ruff
   formatting via `hatch check fmt --fix`.
 - Both SC1 and SC2 are small, crisp, and change numbers; file each as an issue with the
-  reproduction, then a PR with a test (SC1: assert `scores` in
-  `test_mean_in_log_space`; SC2: assert bin sizes) and a release note. Neither has a
-  prior issue (tracker searched 2026-09-02).
+  reproduction, then a PR with a test and a release note. Neither has a prior issue
+  (tracker searched 2026-09-02). **The kit is in [`upstream/`](upstream/)**: two issue
+  texts in the bug-report template's fields with reproductions run on `main`, two
+  `git am`-able patches (fix + test + towncrier fragment; each new test fails on
+  unmodified `main` and the affected test file passes with the patch, except the
+  `paul15` reference pickle that PR 2 must regenerate), and the PR bodies.
 
 ## Files
 
@@ -93,14 +96,16 @@ access to replace them with full-text records.
 | `verify/sc2_score_genes_bins.py` (+ `.out`) | SC2: closed-form bin sizes; shipped `score_genes` vs an equal-frequency patch on 20,000-gene data |
 | `verify/note_wilcoxon_tie_correct.py` (+ `.out`) | SC3: |z| shrinkage by sparsity, null and DE discoveries |
 | `verify/heldup_wilcoxon_vs_scipy.py` (+ `.out`) | held-up: Wilcoxon vs scipy, rankdata/tiecorrect ports, CSR vs dense `normalize_total` |
+| `upstream/` | filing kit: issue texts, patches 0001 (SC1) and 0002 (SC2) with tests and release-note fragments, PR bodies, checklist |
 
 Harnesses need the master install: `uv venv --python 3.12 venv && uv pip install -e
 <scanpy clone> scikit-misc igraph leidenalg`.
 
 ## Next steps
 
-1. File SC1 and SC2 upstream (`upstream/` kit to be written: issue texts with the
-   `pbmc68k_reduced` reproductions, patches, tests, release-note fragments).
+1. File SC1 and SC2 upstream from the kit in `upstream/` (issue first, then PR; PR 2
+   needs the `paul15` reference pickle regenerated, which this environment could not
+   download). Record numbers and maintainer responses here.
 2. Extend the review to `pp.pca` and `pp.neighbors`, the two remaining core paths every
    cohort paper runs.
 3. Full-text profiling rerun when Europe PMC is reachable.
