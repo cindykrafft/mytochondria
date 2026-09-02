@@ -3,7 +3,7 @@
 _Prepared 2026-09-02 against `scverse/scanpy` `main` @ `a656a33b`. Nothing filed yet.
 Both fix branches are pushed to the fork [cindykrafft/scanpy](https://github.com/cindykrafft/scanpy):
 [`fix/rank-genes-groups-ttest-log-space`](https://github.com/cindykrafft/scanpy/tree/fix/rank-genes-groups-ttest-log-space) (SC1, `08d3cc7`) and
-[`fix/score-genes-equal-frequency-bins`](https://github.com/cindykrafft/scanpy/tree/fix/score-genes-equal-frequency-bins) (SC2, `2b56eda`), each one commit on top of `a656a33b`._
+[`fix/score-genes-equal-frequency-bins`](https://github.com/cindykrafft/scanpy/tree/fix/score-genes-equal-frequency-bins) (SC2, `a49d862`), each one commit on top of `a656a33b`._
 
 ## What was read before preparing this (step 4 of the method)
 
@@ -47,8 +47,8 @@ pooch`):
 | 0001 | `test_mean_in_log_space_does_not_change_ttest`: **2 failed** (both methods) | `tests/test_rank_genes_groups.py`: 40 passed, 35 skipped, 1 xfailed (the skips need optional deps: dask, illico) |
 | 0002 | `test_bins_are_equal_frequency`: not run on main (it would fail: 1-gene top bin at N = 18,000) | `tests/test_score_genes.py`: 30 passed, **1 failed** — `test_score_with_reference`, whose pinned pickle must be regenerated (see `pr-bodies.md`); the `paul15` download is blocked from this environment, so it could not be regenerated here |
 
-Ruff (`hatch check fmt`) was not run: `hatch` is not installed here. Run it before
-pushing.
+Ruff: `ruff check` and `ruff format --check` pass on the changed files of both
+branches (the project's `pyproject.toml` configuration).
 
 ## Order of operations
 

@@ -1,4 +1,4 @@
-From 2b56edaa13cdfac546972db1a5cb9f706641cd40 Mon Sep 17 00:00:00 2001
+From a49d86214e153f250a042f73a41ef205770057b8 Mon Sep 17 00:00:00 2001
 From: Cindy Krafft <cynthiacondra@gmail.com>
 Date: Wed, 2 Sep 2026 22:56:25 +0000
 Subject: [PATCH] fix: build n_bins equal-frequency expression bins in
@@ -18,9 +18,9 @@ code (test_score_with_reference), and test_gene_list_is_control now pins the
 seed its ctrl_as_ref=True case relies on.
 ---
  docs/release-notes/+score-genes-bins.fix.md |  1 +
- src/scanpy/tools/_score_genes.py            |  7 +++-
- tests/test_score_genes.py                   | 41 ++++++++++++++++++++-
- 3 files changed, 46 insertions(+), 3 deletions(-)
+ src/scanpy/tools/_score_genes.py            |  7 ++--
+ tests/test_score_genes.py                   | 40 ++++++++++++++++++++-
+ 3 files changed, 45 insertions(+), 3 deletions(-)
  create mode 100644 docs/release-notes/+score-genes-bins.fix.md
 
 diff --git a/docs/release-notes/+score-genes-bins.fix.md b/docs/release-notes/+score-genes-bins.fix.md
@@ -49,18 +49,10 @@ index 774ef0e..e69a99f 100644
  
      # now pick `ctrl_size` genes from every cut
 diff --git a/tests/test_score_genes.py b/tests/test_score_genes.py
-index 5878f90..c6fd0af 100644
+index 5878f90..ac59a52 100644
 --- a/tests/test_score_genes.py
 +++ b/tests/test_score_genes.py
-@@ -8,6 +8,7 @@ from functools import partial
- from typing import TYPE_CHECKING
- 
- import numpy as np
-+import pandas as pd
- import pytest
- from anndata import AnnData
- from fast_array_utils import conv
-@@ -287,6 +288,44 @@ def test_gene_list_is_control(*, ctrl_as_ref: bool):
+@@ -287,6 +287,44 @@ def test_gene_list_is_control(*, ctrl_as_ref: bool):
          if ctrl_as_ref
          else nullcontext()
      ):
@@ -91,7 +83,7 @@ index 5878f90..c6fd0af 100644
 +    top_genes = adata.var_names[np.argsort(avg)[-5:]]
 +    controls = list(
 +        _score_genes_bins(
-+            pd.Index(top_genes),
++            top_genes,
 +            adata.var_names.astype("string"),
 +            ctrl_as_ref=False,
 +            ctrl_size=ctrl_size,
