@@ -39,6 +39,7 @@ one branch, if a combined submission is ever preferred.)
 | SP2 — `spm_nlsi_GN` log-det × n_q | [#160](https://github.com/spm/spm/issues/160) / [PR #161](https://github.com/spm/spm/pull/161) | open (filed 2026-08-31) |
 | SP3 — `@meeg/badsamples` baseline double-count | [PR #163](https://github.com/spm/spm/pull/163) | **merged 2026-09-02** (vlitvak) |
 | SP4 — `spm_eeg_downsample` achieved fsample | [PR #165](https://github.com/spm/spm/pull/165) | **merged 2026-09-02** (vlitvak) |
+| `spm_design_contrasts` parametric-modulation padding ignores basis-function expansion | [#167](https://github.com/spm/spm/issues/167) / [PR #168](https://github.com/spm/spm/pull/168) | open (filed 2026-09-02) |
 | SP5 — `spm_design_contrasts` modulator padding | — | to file |
 
 SP1's branch ships with the unit test that would have caught the bug (pre-fix
