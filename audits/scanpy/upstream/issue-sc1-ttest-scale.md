@@ -4,7 +4,7 @@ Title: BUG: `rank_genes_groups(method="t-test", mean_in_log_space=False)` runs t
 
 **Please make sure these conditions are met**
 - [x] I have checked that this issue has not already been reported.
-- [x] I have confirmed this bug exists on the latest version of scanpy. (1.12.3 and later; not in 1.11.x)
+- [ ] I have confirmed this bug exists on the latest version of scanpy. (NOT in 1.12.4, the latest stable release; present in 1.13.0a1/a2 pre-releases and main)
 - [x] (optional) I have confirmed this bug exists on the main branch of scanpy. (`a656a33b`, 1.14.0.dev1)
 
 **What happened?**
@@ -70,8 +70,8 @@ None (silent).
 **Versions**
 
 scanpy 1.14.0.dev1+ga656a33b0 (main @ a656a33b), anndata 0.12.x, numpy 2.x, scipy 1.x, Python 3.12.
-Also reproduced on the 1.12.3 code path by reading the diff of #4204; 1.11.5 computes
-`_basic_stats` on `X` only.
+Executed on 1.12.4 (latest release): the t-test stays on the log values for both settings (1.12.x
+accepts `mean_in_log_space` only via `**kwds`). Executed on 1.13.0a2: affected. 1.11.5 has no such parameter.
 
 **Proposed fix**
 

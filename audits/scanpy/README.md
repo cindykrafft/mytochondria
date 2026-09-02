@@ -21,7 +21,7 @@ diffed.
 
 | id | status | finding |
 |---|---|---|
-| **SC1** | **CONFIRMED on master**, since 1.12.3 (2026-07-24) | `rank_genes_groups(method="t-test", mean_in_log_space=False)` runs Welch's t-test on `expm1` of the log-normalized values, not on the values themselves. The parameter is documented and release-noted as controlling only the fold change; the change came in with a performance refactor (PR #4204) and the package's test for the parameter checks only the fold change. Reproduced on master: scores match Welch on `expm1(X)` to 5e-5 and differ from Welch on `X` by up to 5.5; 181 vs 259 significant genes on the same data. Reached by an explicit `mean_in_log_space=False` (the docstring's "accurate" option) or by the `ScanpyV2Preview` preset with a t-test method. |
+| **SC1** | **CONFIRMED on master and 1.13.0a2**; 1.12.4 (latest release) unaffected | `rank_genes_groups(method="t-test", mean_in_log_space=False)` runs Welch's t-test on `expm1` of the log-normalized values, not on the values themselves. The parameter is documented and release-noted as controlling only the fold change; the change came in with a performance refactor (PR #4204) and the package's test for the parameter checks only the fold change. Reproduced on master: scores match Welch on `expm1(X)` to 5e-5 and differ from Welch on `X` by up to 5.5; 181 vs 259 significant genes on the same data. Reached by an explicit `mean_in_log_space=False` (the docstring's "accurate" option) or by the `ScanpyV2Preview` preset with a t-test method. |
 | **SC2** | **CONFIRMED on master and 1.11.5**, present since the function was written | `score_genes` builds its expression bins as `rank // round(N/(n_bins−1))`, so the top bin holds 1–12 genes (or none), not N/`n_bins`; the docstring promises Seurat's `cut_number` behaviour. Gene lists containing the most-expressed genes get a handful of matched controls (4 for five top genes on 20,000-gene data) or fail with `RuntimeError: No control genes found in any cut`. Lists that avoid the top handful are unaffected (scores agree to 3 decimals with equal-frequency bins). Two-line fix. |
 | SC3 | note, documented, quantified | Default Wilcoxon has no tie correction: on genes with > 95 % zeros |z| is shrunk to 0.24 of the corrected value; 128 vs 201 discoveries on the same data. Conservative and a one-flag choice; recorded because 14 cohort papers name a Wilcoxon test and Seurat's presto tie-corrects by default. |
 | SC4 | note, cosmetic | `normalize_total(exclude_highly_expressed=True)` on CSR builds `gene_subset` as a bitwise-negated index array; only logged, numbers correct (CSR vs dense agree to 2e-5). |
@@ -58,8 +58,8 @@ Louvain, UMAP, Pearson residuals, dask paths, `illico` internals.
 | `regress_out` / `scale` | 4 / 2 |
 | version stated | 35 (1.9.x 30, 1.8.x 11, 1.6.x 11, 1.10.x 8, 1.4.x 7, 1.7.x 6, 1.11.x 2) |
 
-Versions pinned run 1.4 to 1.11; SC1 (1.12.3+) therefore has no published exposure
-yet, and SC2 is present in every version the cohort names.
+Versions pinned run 1.4 to 1.11; SC1 has no published exposure (no stable release
+carries it), and SC2 is present in every version the cohort names and in 1.12.4.
 
 **Profiling caveat.** As for the Seurat audit, this session had no route to Europe PMC,
 so `scanpy_profile.py` ran in `--offline` mode over the survey's stored evidence

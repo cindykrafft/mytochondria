@@ -4,7 +4,7 @@ Title: BUG: `score_genes` expression bins are not `n_bins` equal-frequency bins;
 
 **Please make sure these conditions are met**
 - [x] I have checked that this issue has not already been reported.
-- [x] I have confirmed this bug exists on the latest version of scanpy. (1.11.5; identical code in 1.4.6, 1.7.2, 1.9.1)
+- [x] I have confirmed this bug exists on the latest version of scanpy. (executed on 1.12.4, the latest release; identical code in 1.11.5, 1.9.1, 1.7.2, 1.4.6)
 - [x] (optional) I have confirmed this bug exists on the main branch of scanpy. (`a656a33b`)
 
 **What happened?**

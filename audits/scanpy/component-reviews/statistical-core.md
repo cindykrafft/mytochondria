@@ -14,7 +14,7 @@ Cohort exposure numbers are lower bounds from the survey cache (see `../README.m
 
 ## Findings
 
-### SC1 — CONFIRMED on master (introduced 1.12.3, 2026-07-24): `rank_genes_groups(method="t-test", mean_in_log_space=False)` runs the t-test on exponentiated values
+### SC1 — CONFIRMED on master and the 1.13 pre-releases (1.12.4, the latest stable release, is unaffected): `rank_genes_groups(method="t-test", mean_in_log_space=False)` runs the t-test on exponentiated values
 
 **Code.** `compute_statistics` (`tools/_rank_genes_groups.py:655-658`):
 
@@ -32,10 +32,13 @@ counts, not on the log1p values the function documents as its input ("Expects
 logarithmized data"). The parameter's own documentation (lines 828-833) describes only
 the fold change: "Whether to do log(mean(e^x)) (False) or log(e^mean(x)) (True)". The
 release note that introduced the parameter (1.13.0a1, PR #4037) says "for customizing
-how log-fold-change is calculated". The exponentiation of the *test* input arrived in
-PR #4204 ("perf: optimization of rank_genes_groups", 2026-07-17, released in 1.12.3 as
-a performance change), which routed both the fold change and the test through one
-aggregation pass. The package's own test for the parameter (`tests/
+how log-fold-change is calculated". The exponentiation of the *test* input entered `main` with PR #4204 ("perf: optimization
+of rank_genes_groups", 2026-07-17), which routed both the fold change and the test
+through one aggregation pass. **Executed on the released wheels:** 1.12.4 (the latest
+stable release, which carries a 1.12-branch version of #4204) keeps the t-test on the
+log values for both settings and only accepts `mean_in_log_space` through `**kwds`;
+1.13.0a2 reproduces the defect exactly as `main` does. An earlier draft of this review
+said "since 1.12.3" from the release notes alone; that was wrong. The package's own test for the parameter (`tests/
 test_rank_genes_groups.py::test_mean_in_log_space`) asserts only `logfoldchanges`.
 
 **Verified** (`../verify/sc1_ttest_scale.py`; NB counts, 300 vs 1,700 cells, 3,000
@@ -58,9 +61,8 @@ docstring recommends as "accurate", or (b) uses `sc.settings.preset =
 Preset.ScanpyV2Preview` — whose default is `False` — together with `method="t-test"` or
 `"t-test_overestim_var"`. Under the V2 preset the default method is `wilcoxon`, which
 is unaffected (ranks are always taken on `X`; only its fold change exponentiates).
-No cohort paper can have been exposed yet: 1.12.3 is from July 2026 and the cohort's
-newest stated version is 1.11.2. This is a defect at master that will reach the 2.0
-defaults.
+No cohort paper can have been exposed: no stable release carries it. It is a defect at
+master and in the 1.13 pre-releases that will reach the 2.0 defaults.
 
 **Fix shape.** In `compute_statistics`, compute the t-test statistics on `X` and the
 fold-change means separately when `mean_in_log_space=False` (a second mean-only
