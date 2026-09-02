@@ -1,0 +1,167 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx,booktabs,amsmath,amssymb,url,microtype,xcolor,caption}
+\usepackage[hidelinks]{hyperref}
+\usepackage{times}
+\captionsetup{font=small,labelfont=bf}
+\newcommand{\code}[1]{\texttt{#1}}
+\title{\textbf{Exhaustive AI-assisted auditing of research software:\\ a survey-driven method, nine packages, and the reanalysis of a thirteen-year-old defect in AFNI's regional homogeneity}}
+\author{Cindy Krafft\\ \small [Affiliation] \quad \texttt{[email]}}
+\date{September 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Research software is mathematically intricate, decades old, and read far less often than it is run. We describe a method for auditing it at the depth every line deserves, and what the method found. First, a full-text survey of five years of research articles in six high-impact journals (44{,}198 articles; 20{,}501 openly readable) established which open-source packages published work uses and, for each package, which components carry published numbers. Second, an AI coding agent working under human direction read those components adversarially and every suspected defect was verified by executing code (compiling the routine against high-precision arithmetic, porting it and testing against ground truth, or running the shipped binary) before it was written up as a patch-ready report. Across nine packages (FreeSurfer, FSL, SPM, AFNI, FieldTrip, Kilosort, Suite2p, DESeq2, MACS) the method produced verified defects with fixes, of which several have been merged by upstream maintainers. We then quantify one of them end to end. AFNI's \code{3dReHo} decided whether two time-series values were tied for ranking after truncating them to integers, a choice that is harmless for raw scanner units but not for percent-signal-change or z-scored input, where nearly every value lies between $-1$ and $1$. Re-running AFNI's standard resting-state pipeline on 40 participants of the open UCLA CNP dataset (20 controls, 20 with schizophrenia) and computing ReHo on identical residuals with the code immediately before and after the fix, the before-fix build returned about 0.3 of the correct value on average and exactly zero in 17\% of brain voxels (range 2--69\%); the before- and after-fix maps correlated only $r = 0.60$. Because the error scales with each participant's residual amplitude, it does not cancel in group contrasts: schizophrenia-versus-control $t$-maps from the two builds correlated 0.66, changed sign in a fifth of voxels, and their $p<0.001$ sets did not overlap. Five published papers, including one in \emph{The Journal of Neuroscience}, sit in the affected regime. We argue that exhaustive machine-assisted review, coupled to numerical verification and ordinary upstream pull requests, is now cheap enough to be a standard component of reproducibility infrastructure, and we release the survey, the reviews, every harness and the reanalysis pipeline.
+\end{abstract}
+
+\section{Introduction}
+Almost every quantitative result in modern neuroscience and genomics passes through open-source software that a handful of people maintain. The packages are excellent: they encode decades of methodological care and are exercised daily by thousands of users. But size and age work against complete review. A code path that is correct for the inputs its author had in mind can be wrong for inputs that became common later, and a test suite cannot cover a regime nobody thought to test. When such a defect is discovered it tends to be treated as a singular event, as with the inflated false-positive rates of cluster inference \cite{eklund2016} or the platform-dependent chemical-shift scripts in organic chemistry \cite{neupane2019}, rather than as one instance of a class that could be searched for systematically.
+
+Large language models capable of reading and executing code make that search practical. This paper describes a method built around them and reports what it found. The method has three parts: a survey that determines what the literature actually runs, so that review effort lands where published numbers come from; an adversarial line-by-line read of those components by an AI agent; and a verification step in which nothing is reported that has not been reproduced by executing code. Its output is not a list of suspicions but a set of ordinary pull requests, several of which upstream maintainers have already merged.
+
+We then take one merged fix and ask the question that matters to readers of the affected literature: how much did the results change? We answer it by re-running the published design on open data with the pre-fix and post-fix binaries and nothing else different.
+
+\section{Methods}
+\subsection{Survey: what does the literature run?}
+We harvested metadata for every research article published in \emph{Nature}, \emph{Science}, \emph{PNAS}, \emph{NEJM}, \emph{The Lancet} and \emph{Cell} between January 2021 and August 2026 through the Europe PMC REST API (44{,}198 research articles after excluding news, editorial and correction items), fetched machine-readable full text where it existed (20{,}501 articles, 46\%), and extracted from each Methods section the open-source packages named, with the evidence sentence and version where stated. Coverage is very uneven by journal (PNAS 78\%, \emph{Science} 5\%) and every count in this work inherits that bias; the 23{,}697 unreadable articles are listed individually rather than silently dropped. Of the readable articles, 10{,}364 name at least one of 270 distinct packages, giving 36{,}424 paper--package usage records. The survey scripts run against the public API without credentials.
+
+\subsection{Targeting: which components carry published numbers?}
+For each package selected for audit we re-mined the papers that used it for the commands, options and versions they report. This determines, for example, that ReHo users of AFNI overwhelmingly run \code{afni\_proc.py} with its default blocks and then \code{3dReHo} with a 27-voxel neighbourhood, so that the ranking code inside \code{3dReHo} and the scaling block of \code{afni\_proc.py} are the components to read.
+
+\subsection{Adversarial review}
+An AI coding agent (Claude, Anthropic), operating in a sandboxed environment with the package source checked out and the ability to compile and run code, read the targeted components with an explicit adversarial brief: for each routine, what inputs are legal but unanticipated, what happens at boundaries, where do numeric types change, where are conventions assumed rather than checked. The agent was directed by a human at the level of which package and which components to read and when a candidate finding was worth verifying; it wrote the reviews, harnesses and patches. Candidates were recorded with file and line evidence.
+
+\subsection{Verification}
+No candidate was reported without one of three kinds of execution: (i) compiling the routine under test, verbatim, against a high-precision or independent reference implementation; (ii) porting the routine faithfully to Python, including its idiosyncrasies, and testing it against ground truth on synthetic data; or (iii) running the shipped program and observing the defect on real or synthetic data. Where a fix was proposed, the same harness was run on the patched code. Several candidates shrank or disappeared at this step, and those outcomes are recorded alongside the confirmed findings: for example, an earlier pass had classified sum-of-squares-normalised ReHo input as maximally affected, and the faithful port showed it to be exactly unaffected, which moved one published paper out of the exposed set.
+
+\subsection{Upstream filing}
+Confirmed findings were filed with the maintainers in the form each project uses (GitHub issues and pull requests, or a mailing-list report), each with the harness and, where the fix is crisp, a patch. Maintainers' review is the final adjudication; nothing here claims to override it.
+
+\subsection{Reanalysis of the ReHo defect on open data}
+\paragraph{Data.} Resting-state fMRI and T1-weighted images for participants of the UCLA Consortium for Neuropsychiatric Phenomics dataset, OpenNeuro ds000030 \cite{poldrack2016} (3\,T, TR 2\,s, 152 volumes). We attempted the first 20 eligible CONTROL and 20 eligible SCHZ participants by identifier, then drew from a spare pool until 20 of each had passed the pipeline.
+
+\paragraph{Pipeline.} \code{afni\_proc.py} (AFNI 26.2.06) with blocks despike, tshift, align, tlrc, volreg, blur (4\,mm), mask, \textbf{scale}, regress; MNI152 2009 template; band-pass 0.01--0.1\,Hz; censoring at 0.3\,mm motion and 5\% outliers; demeaned motion parameters and derivatives as regressors. The default \code{scale} block converts data to percent signal change, so the residual time series (\code{errts}) handed to \code{3dReHo} have SD of order 0.3--0.5. Twelve of 52 attempted participants failed the pipeline's own regression step because censoring left fewer time points than the 108 nuisance regressors (4 of 24 CONTROL, 8 of 28 SCHZ); they were replaced from the spare pool. This exclusion is a property of a 148-volume run with band-pass regressors and is identical for both arms.
+
+\paragraph{The two binaries.} The fix landed in two commits on consecutive days: the tie-detection change itself (\code{94ee52b}, pull request 944) and a guard that returns $W = 0$ when the tie correction exactly cancels the denominator (\code{74a90ac}). To isolate the tie-detection change we compare the source immediately before it (\code{4c2bd54}) with the guard applied, against AFNI master at \code{d202535} (AFNI 26.2.06, verified bit-identical to AFNI's distributed build on test data), so that the only difference between arms is whether ties are detected on truncated integers or on the floating-point values. \code{3dReHo -nneigh 27} from each build was run on the identical \code{errts} and mask of each participant; nothing upstream of \code{3dReHo} differs between arms. A faithful Python port of the routine reproduces both builds voxel for voxel to four decimals on synthetic volumes. One further detail matters for reading older results: AFNI releases before 26.2.04 (August 2026) did not close a tie run that reached the end of the sorted series, so in those releases a voxel whose entire series lies inside one integer bin is returned uncorrected and therefore correct, rather than as zero; the integer-truncation defect itself is common to every release.
+
+\paragraph{Analysis.} Per participant: the ratio and relative error of before-fix to after-fix ReHo over all in-mask voxels, the fraction of voxels the before-fix build returns as exactly zero, and the voxelwise correlation of the two maps. Group level: \code{3dttest++} two-sample SCHZ versus CONTROL on the before-fix maps and on the after-fix maps, in two group masks (the intersection of all 40 participants' masks, 8{,}657 voxels, and voxels present in at least 90\% of participants, 25{,}227 voxels); the \code{3dttest++} output was reproduced to the last digit by an independent $t$-test. All scripts, subject lists, per-participant tables and group maps are in the repository.
+
+\section{Results}
+\subsection{The audit across nine packages}
+Table~\ref{tab:audit} summarises the audits. Each row rests on a component review with file:line evidence, a verification harness, and where applicable a patch; the repository records what held up under the same scrutiny as well as what did not, so that findings are read in proportion.
+
+\begin{table}[t]
+\centering\small
+\caption{Status of the nine audits at the time of writing. ``Papers exposed'' is the number of survey articles that used the package (for SPM a full-codebase audit was run instead). Verified means reproduced by executing code, as in Methods.}
+\label{tab:audit}
+\begin{tabular}{@{}lrp{6.2cm}p{4.6cm}@{}}
+\toprule
+Package & Papers & Findings & Upstream \\
+\midrule
+FreeSurfer & 116 & 16, three reproduced numerically & 5 fix PRs and 9 issues filed \\
+FSL & 114 & 12, six with patches & reports and patches prepared for the FSL list \\
+SPM & -- & 83 confirmed, $\sim$38 plausible; one fix regression-tested by executing the code & 2 issue/PR pairs filed (open); 3 staged \\
+AFNI & 39 (57 adjudicated for ReHo) & 36 (9 high-impact), one reproduced numerically & 2 fix PRs merged (ReHo ties; NIfTI slice timing); 10 written up \\
+DESeq2 & 886 & 3 confirmed (one live 2017--2025, since fixed upstream but unannounced) & erratum/NEWS request prepared \\
+MACS & 475 & 3 confirmed (one live in current MACS3, reproduced on the shipped binary) & one-word fix PR and issues prepared \\
+Kilosort & 60 & 3 verified on shipped code (one disables KS4's refractory split veto since v4.1.5), 5 by reading & 2 fix PRs and 2 issues \\
+FieldTrip & 42 & 4 verified by executing FieldTrip under Octave, 1 by reading & 5 fix PRs filed \\
+Suite2p & 32 & 2 verified on the shipped 1.1.0 wheel, 1 limit verified, 2 by reading & 3 fix patches and 2 issues \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The defect: integer truncation in tie detection}
+Regional homogeneity \cite{zang2004} is Kendall's coefficient of concordance $W$ computed over the ranked time series of a voxel and its neighbours. Kendall's $W$ requires a correction term when ranks are tied, $\sum_i (t_i^3 - t_i)$ over tie runs of length $t_i$, subtracted from the denominator. In AFNI's implementation \cite{cox1996,taylor2013} (\code{src/ptaylor/rsfc.c}, lines 63--118) ranks are derived from a true floating-point sort, but tie \emph{detection} compares values that have been stored into an integer array, so any two samples sharing an integer part are declared tied. For raw scanner units, in the hundreds or thousands, this almost never happens. For percent-signal-change residuals or z-scored series, nearly every sample lies in $(-1, 1)$ and truncates to zero: almost the entire series is declared one tie run, the correction term approaches the denominator, and $W$ collapses toward zero, reaching exactly zero in voxels whose whole series lies inside one integer bin.
+
+Figure~\ref{fig:mech} shows the behaviour of a faithful Python port of the routine against input scale, with the 40 participants of the reanalysis overlaid at the scale of their own residuals. Two properties of the curve matter for the literature. The error is not a constant factor: it depends on the amplitude of each voxel's own series, so the pre-fix statistic is partly a measure of BOLD variance. And the affected regime, SD roughly 0.2--3 in the units handed to \code{3dReHo}, is exactly where \code{afni\_proc.py}'s default \code{scale} block and every ``normalized to unit variance'' preprocessing step put the data. The fix (AFNI pull request 944, merged 28 August 2026 \cite{afni944}) compares the floating-point values.
+
+\begin{figure}[t]
+\centering\includegraphics[width=\textwidth]{figures/mechanism.pdf}
+\caption{\textbf{The defect as a function of input scale.} \textbf{A}, Ratio of before-fix to after-fix ReHo against the SD of the time series handed to \code{3dReHo}, from a faithful port of the routine on Gaussian input (blue: white; green: band-passed 0.01--0.1\,Hz at TR 2\,s, as the pipeline produces), 27-voxel neighbourhoods, 148 time points, 60 simulations per point. Orange: the whole-brain mean ratio for each of the 40 ds000030 participants, placed at the SD of their own pipeline residuals. \textbf{B}, The same as relative error. Shaded band: the range occupied by percent-signal-change and z-scored data. Raw scanner units (SD $\gtrsim 5$) are unaffected.}
+\label{fig:mech}
+\end{figure}
+
+\subsection{Exposure in the literature}
+A full-text search for \code{3dReHo} and for ReHo used with AFNI (398 unique records, 310 full texts retrieved, plus all 205 works citing \cite{taylor2013}) yielded 57 papers that computed ReHo with AFNI, each adjudicated by the single question the mechanism poses: in what units was the file passed to \code{3dReHo}? Five are exposed (Table~\ref{tab:exposed}). Two normalised each voxel's series to zero mean and unit variance, the worst case; three ran \code{afni\_proc.py} with its default scaling, the regime of the reanalysis below. Fifty-two are not, and most of the field is cleared at once by the scaling conventions of the large wrapper pipelines: XCP-D keeps native units, HALFpipe, PhiPipe and CCS grand-mean scale to 10{,}000, and C-PAC and DPABI do not call \code{3dReHo}. One paper that L2-normalised its input was initially classified as exposed and moved out when the faithful port showed that regime to be exactly correct. Eleven papers could not be read. We note that the exposure threshold used in that adjudication (SD $\approx 0.4$--3) was conservative: the ds000030 residuals sit mostly below 0.4 and are among the worst hit (Fig.~\ref{fig:mech}), so the cleared set deserves a second pass.
+
+\begin{table}[t]
+\centering\small
+\caption{Published papers whose ReHo input sits in the affected regime. ``Inferred'' means the regime follows from \code{afni\_proc.py} defaults rather than an explicit statement.}
+\label{tab:exposed}
+\begin{tabular}{@{}llp{6.8cm}l@{}}
+\toprule
+Paper & Journal & Evidence & Regime \\
+\midrule
+Huang et al. 2018 \cite{huang2018} & J Neurosci & ``normalized to zero mean and unit variance'' $\rightarrow$ \code{3dReHo} & SD = 1 \\
+Campbell et al. 2020 \cite{campbell2020} & NeuroImage & same pipeline, same wording & SD = 1 \\
+Grannis et al. 2022 \cite{grannis2022} & NeuroImage: Clin & ``scaled to a mean value of 100'' $\rightarrow$ \code{3dReHo} & percent signal \\
+Holla et al. 2020 \cite{holla2020} & Hum Brain Mapp & \code{afni\_proc.py} pipeline + \code{3dReHo} & percent signal (inferred) \\
+Sanvicente-Vieira et al. 2022 \cite{sanvicente2022} & Addict Biol & \code{afni\_proc.py} pipeline, ReHo the primary outcome & percent signal (inferred) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Reanalysis on open data}
+\paragraph{Per participant.} Across the 40 participants the residual SD handed to \code{3dReHo} averaged 0.35 (range 0.14--0.52). The before-fix build returned on average 0.28 of the after-fix whole-brain mean ReHo (0.134 versus 0.481), a mean relative error over all voxels of 75\% (range 61--92\%); it returned exactly zero in a mean 17\% of in-mask voxels (range 2--69\%) and about 0.31 of the correct value in the rest. The error tracks residual amplitude across participants ($r = -0.89$ between relative error and residual SD). The before- and after-fix maps correlated $r = 0.60$ across voxels (range 0.31--0.76), the correlation rising with residual SD ($r = 0.68$; Fig.~\ref{fig:re}B). The defect therefore reorders voxels rather than rescaling them, and it does so to a degree that varies with each participant's signal amplitude.
+
+\paragraph{Between groups.} Residual amplitude and censoring differed between the clinical groups (SCHZ residual SD $0.334 \pm 0.082$ versus CONTROL $0.370 \pm 0.057$; zeroed voxels 20\% versus 14\%; censored volumes 8.8\% versus 5.0\%), so the bias is group-dependent. Table~\ref{tab:group} and Figure~\ref{fig:re}C give the schizophrenia-versus-control contrasts. The $t$-maps from the two builds correlated 0.66--0.68, disagreed in sign in 18--21\% of voxels, and their $p<0.001$ voxel sets did not overlap (0 of 12 in the intersection mask; 2 of 104 in the 90\%-coverage mask). Even at $p<0.05$ the two builds agreed on only a quarter of their union (Jaccard 0.24 and 0.29). The whole-brain mean reduction of ReHo in schizophrenia, the simplest statistic such papers report, was $t(38) = -2.25$, $p = 0.031$, Cohen's $d = -0.71$ with the after-fix build and $t = -1.74$, $p = 0.090$, $d = -0.55$ with the before-fix build.
+
+\begin{table}[t]
+\centering\small
+\caption{SCHZ versus CONTROL (20 vs 20, \code{3dttest++}), same participants and residuals, the only difference being which \code{3dReHo} produced the input maps.}
+\label{tab:group}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+ & Intersection mask (8{,}657 vox) & 90\%-coverage mask (25{,}227 vox) \\
+\midrule
+Voxels $|t|>3.57$ ($p<.001$), before / after & 0 / 12 & 49 / 57 \\
+\quad overlap (before $\cap$ after / before $\cup$ after) & 0 / 12 & 2 / 104 \\
+Voxels $|t|>1.96$ ($p<.05$), before / after & 767 / 920 & 2{,}849 / 4{,}470 \\
+\quad overlap (Jaccard) & 324 / 1{,}363 (0.24) & 1{,}632 / 5{,}687 (0.29) \\
+Spatial correlation of $t$-maps & 0.66 & 0.68 \\
+Voxels where $t$ changes sign & 21\% & 18\% \\
+Mean $|t_{\mathrm{before}} - t_{\mathrm{after}}|$ & 0.66 & 0.69 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[p]
+\centering\includegraphics[width=0.92\textwidth]{figures/reanalysis.pdf}
+\caption{\textbf{One defect, before and after, on identical data.} \textbf{A}, ReHo for one control participant computed from the same residual time series by the before-fix \code{3dReHo} (left) and the after-fix build (right), same slice and colour scale. The before-fix values are about one third of the correct ones, exactly zero in 7.5\% of this participant's mask (the palest regions), and differently arranged. \textbf{B}, For each of 40 participants, the voxelwise correlation between before- and after-fix maps against the SD of that participant's residuals. \textbf{C}, SCHZ-versus-CONTROL $t$-maps (20 vs 20) from the before- and after-fix maps, $|t|>1.96$ shown, four axial slices, 90\%-coverage mask.}
+\label{fig:re}
+\end{figure}
+
+\section{Discussion}
+\paragraph{What the case study establishes.} Every ReHo map computed by AFNI on percent-signal-change or standardised input before 27 August 2026 was affected, and the effect is not the benign one of a wrong scale factor. In a typical participant the before-fix map was a third of the correct value with a different spatial arrangement and a sixth of the brain at zero; between groups whose signal amplitude differs, as clinical groups typically do, the before-fix statistic mixes a true synchrony difference with an amplitude difference, and the voxels that reach significance are largely different ones. We make no claim about the conclusions of the five exposed papers; none shares its data, and only reruns by the authors can settle what changes. The reanalysis is of their design, on open data, with nothing but the fix varied, and it says the reruns are worth doing. Its own limits are those of a pilot: 40 participants, one dataset, one pipeline configuration, and a $p = 0.05$ crossing that is illustrative rather than evidential. It isolates the tie-detection change given the concurrent divide-by-zero guard; earlier releases left the lowest-amplitude voxels uncorrected rather than zeroed, which changes the size of the error in those voxels but not the mechanism or the amplitude dependence that drives the group-level result.
+
+\paragraph{Why the defect survived.} The routine was correct for the data its author tested it on, and the regime in which it fails was created later by a different program's default. No unit test exercised small-valued input; no user could see a defect whose signature is ``lower ReHo everywhere, more so in noisier participants''. This is the general shape of the findings across the nine audits: not carelessness but the combinatorics of large, old codebases and evolving conventions, which no team can read exhaustively with the question ``what if the input is small, or tied, or sequentially numbered'' in mind for every line.
+
+\paragraph{What machine-assisted auditing changes.} That question is now cheap to ask. An adversarial read of a codebase and a numerical check of each suspicion cost days of compute rather than years of expert time, and the output can be delivered in the form maintainers already accept. Two features of the method are essential and we would caution against dropping either. Verification by execution is what separates a finding from a plausible story; a substantial fraction of the agent's candidates did not survive it, and one that did (the L2-normalised regime) reversed on faithful reproduction. And upstream review is the adjudication: the merged fixes are the deliverable, and the maintainers' reading of a patch, not ours, is what makes it trustworthy.
+
+\paragraph{Recommendations.} Funders and journals should treat audits of the software behind published results as reproducibility infrastructure rather than as one-off events. Authors should state the numeric scale of what they pass to each tool; in every case adjudicated here that single sentence decided exposure. Maintainers should be resourced to receive and review such reports, because a verified finding has value only once it is a merged fix and a corrected literature.
+
+\paragraph{Limitations of the survey and audit.} The survey reads only openly available full text, so its counts reflect what is readable rather than what is used, and a paywalled paper that says only ``ReHo was computed in AFNI'' is invisible to every route used here. The audits are of the most-used components, not of whole packages (SPM excepted), and ``confirmed'' means traced end to end and verified as stated, not adjudicated by the maintainers. Where maintainers disagree, their reading wins.
+
+\section*{Data and code availability}
+The survey, every component review, all verification harnesses, the patches and issue texts, the reanalysis pipeline (\code{run\_subject.sh}, \code{group\_analysis.sh}, \code{subject\_stats\_v2.py}), subject lists, per-participant table, group $t$-maps and figures are at \url{https://github.com/cindykrafft/research-software-audit}. Imaging data are OpenNeuro ds000030. The two \code{3dReHo} builds are reproducible from \code{afni/afni} at \code{4c2bd54} and \code{d202535}.
+
+\section*{Disclosure of AI use}
+The audits described here were carried out by an AI coding agent (Claude, Anthropic) operating under the author's direction; every reported finding was verified by executing code, and every upstream filing was reviewed by the author before submission. The same system assisted in drafting this manuscript and producing its figures from the checked-in results. The author has no financial interest in any software named.
+
+\begin{thebibliography}{99}
+\bibitem{eklund2016} Eklund A, Nichols TE, Knutsson H. Cluster failure: why fMRI inferences for spatial extent have inflated false-positive rates. \emph{Proc Natl Acad Sci USA} 113:7900--7905 (2016).
+\bibitem{neupane2019} Bhandari Neupane J, Neupane RP, Luo Y, Yoshida WY, Sun R, Williams PG. Characterization of leptazolines A--D, polar oxazolines from the cyanobacterium \emph{Leptolyngbya} sp., reveals a glitch with the ``Willoughby--Hoye'' scripts for calculating NMR chemical shifts. \emph{Org Lett} 21:8449--8453 (2019).
+\bibitem{poldrack2016} Poldrack RA, Congdon E, Triplett W, et al. A phenome-wide examination of neural and cognitive function. \emph{Sci Data} 3:160110 (2016). OpenNeuro ds000030.
+\bibitem{zang2004} Zang Y, Jiang T, Lu Y, He Y, Tian L. Regional homogeneity approach to fMRI data analysis. \emph{NeuroImage} 22:394--400 (2004).
+\bibitem{cox1996} Cox RW. AFNI: software for analysis and visualization of functional magnetic resonance neuroimages. \emph{Comput Biomed Res} 29:162--173 (1996).
+\bibitem{taylor2013} Taylor PA, Saad ZS. FATCAT: (an efficient) functional and tractographic connectivity analysis toolbox. \emph{Brain Connect} 3:523--535 (2013).
+\bibitem{afni944} AFNI pull request 944: 3dReHo tie handling. \url{https://github.com/afni/afni/pull/944}, merged 28 August 2026.
+\bibitem{huang2018} Huang Z, Liu X, Mashour GA, Hudetz AG. Timescales of intrinsic BOLD signal dynamics and functional connectivity in pharmacologic and neuropathologic states of unconsciousness. \emph{J Neurosci} 38:2304--2317 (2018).
+\bibitem{campbell2020} Campbell JM, Huang Z, Zhang J, et al. Pharmacologically informed machine learning approach for identifying pathological states of unconsciousness via resting-state fMRI. \emph{NeuroImage} 206:116316 (2020).
+\bibitem{grannis2022} Grannis C, Hung A, French RC, et al. Multimodal classification of extremely preterm and term adolescents using the fusiform gyrus: a machine learning approach. \emph{NeuroImage Clin} 35:103078 (2022).
+\bibitem{holla2020} Holla B, Taylor PA, Glen DR, et al. A series of five population-specific Indian brain templates and atlases spanning ages 6--60 years. \emph{Hum Brain Mapp} 41:5164--5175 (2020).
+\bibitem{sanvicente2022} Sanvicente-Vieira B, Rothmann LM, Esper NB, et al. Sex differences in brain regional homogeneity during acute abstinence in cocaine use disorder. \emph{Addict Biol} 27:e13177 (2022).
+\end{thebibliography}
+\end{document}
