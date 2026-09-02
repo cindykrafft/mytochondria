@@ -1,0 +1,114 @@
+{
+ "PMC12681312": {
+  "title": "Advancing whole\u2010brain ",
+  "uses_3dReHo": true,
+  "afni_proc": false,
+  "scale": [
+   "68 Volume\u2010based spatial normalization to one standard space (MNI152NLin2009cAsym) was performed through nonlinear registration with antsRegistration ( ANTs 2.",
+   "The following template was selected for spatial normalization and accessed with TemplateFlow 69 (24.",
+   "Using outputs from the sMRIPrep pipeline, the fMRI preprocessing with the fMRIPrep pipeline was carried out as follows for functional data alignment and normalization.",
+   "The amplitude of low\u2010frequency fluctuation (ALFF) 82 was computed by transforming the mean\u2010centered, standard deviation\u2013normalized, denoised BOLD time series to the frequency domain.",
+   "For the subcortical, volumetric data, ReHo was computed with neighborhood voxels using 3dReHo from AFNI ."
+  ],
+  "da": "",
+  "repos": [
+   "HCP",
+   "GitHub"
+  ]
+ },
+ "PMC13151178": {
+  "title": "The neural, neurotransmitter, and transcriptomic mechanisms underlying dispositional greed",
+  "uses_3dReHo": true,
+  "afni_proc": false,
+  "scale": [
+   ", susceptibility distortion correction, head-motion correction, co-registration to T1w, and normalization to MNI space) and generated confound regressors.",
+   "Finally, regional homogeneity (ReHo) maps were computed from the denoised residual BOLD time series using AFNI\u2019s 3dReHo [ 24 ].",
+   "Using normalized PLS1 weights and performing 10,000 permutation tests, we identified 294 significantly upregulated genes (PLSR+; Table S3) and 106 significantly downregulated genes (PLSR\u2212; Table S4) (all FDR-corrected ps < 0."
+  ],
+  "da": "",
+  "repos": []
+ },
+ "PMC12352161": {
+  "title": "Linking intrinsic brain dysfunction to behavioral outcomes in combat-exposed males with PT",
+  "uses_3dReHo": true,
+  "afni_proc": false,
+  "scale": [
+   "ic Stress Disorder Checklist Fifth Edition; WAIS-IV, Wechsler Adult Intelligence Scale fourth edition (scaled score); DKEFS, Delis\u2013Kaplan Executive Function System (scaled scores); CVLT, California Verbal Learning Test (z-scores).",
+   "ReHo was calculated using Kendall\u2019s coefficient of concordance KCC of the time series of a given cluster to the neighboring voxels ( 24 ).",
+   "Using the AFNI program 3dReHo ( 67 ), a ReHo value was assigned to the central voxel of every cubic cluster, using the default cubic cluster size of 27 voxels in 3dReHo.",
+   "Then fALFF was computed as the ALFF scaled by the sum of the power spectrum component estimated across the entire frequency range.",
+   "Separate group comparisons were also conducted for regions of interest that have been implicated in PTSD including hippocampus and amygdala volumes, which were normalized by total intracranial volume to account for individual differences in head size."
+  ],
+  "da": "Data availability statement The data are not publicly available due to privacy or ethical restrictions imposed by VA San Diego Healthcare System. The data that support the findings of this study are available on request from the corresponding author. Ethics statement The studies involving humans were approved by Institutional Review Board of the VA San Diego Healthcare System. The studies were conducted in accordance with the local legislation and institutional re",
+  "repos": [
+   "on request"
+  ]
+ },
+ "PMC12014571": {
+  "title": "Functional network reorganization and memory impairment in unruptured brain arteriovenous ",
+  "uses_3dReHo": true,
+  "afni_proc": false,
+  "scale": [
+   "4), briefly including head-motion correction, slice-time correction, registration, and spatial normalization to Montreal Neurological Institute (MNI) space ( Esteban et al.",
+   "Lesion images was normalized into the MNI152 space using the Advanced Normalization Tools (ANTs) and consequently generated the overlapping lesion map using nilearn.",
+   "Lesion volumes were calculated using normalized lesion masks in MNI152 space.",
+   "08 Hz) before ReHo calculation using the 3dReHo tool in AFNI, based on the Kendall\u2019s coefficient of concordance (KCC), which quantifies the similarity of the time series of each voxel with its 27 nearest neighbors.",
+   "Normalized lesion masks were used to create seeds in fMRI data of HCs to compute the Pearson correlations between lesion region and whole brain ROIs."
+  ],
+  "da": "Data availability statement The datasets presented in this article are not readily available because the data supporting this study\u2019s findings are available from the corresponding author upon reasonable request. The data from the BMB dataset are available following the requirements of CoRR. Requests to access the datasets should be directed to Xiaolin Chen, cxl_bjtth@163.com . Ethics statement The studies involving humans were approved by the Institutional Review ",
+  "repos": [
+   "on request"
+  ]
+ },
+ "PMC12560163": {
+  "title": "Hypoperfusion-related functional abnormalities of middle cerebral artery stenotic-occlusiv",
+  "uses_3dReHo": true,
+  "afni_proc": false,
+  "scale": [
+   "30 Preprocessing steps for T1-weighted images included intensity non-uniformity correction, skull stripping, tissue segmentation and normalization via the DARTEL algorithm.",
+   "ReHo analysis, conducted with AFNI's 3dReHo (nneigh = 27), quantified local connectivity of low-frequency BOLD signals (0."
+  ],
+  "da": "Data availability The data that support the findings of this study are available from the corresponding author upon reasonable request. Analysis scripts used in the manuscript are available at: https://github.com/yinxi-zou/MCAso-hypoperfusion-functional-abnormality-code . References Associated Data Supplementary Materials fcaf393_Supplementary_Data Data Availability Statement The data that support the findings of this study are available from the corresponding aut",
+  "repos": [
+   "GitHub",
+   "on request"
+  ]
+ },
+ "PMC11966481": {
+  "title": "Functional vs Structural Cortical Deficit Pattern Biomarkers for Major Depressive Disorder",
+  "uses_3dReHo": true,
+  "afni_proc": false,
+  "scale": [
+   "19 Considering 27 nearest voxel time series, voxelwise KCC values and hence participant-wise ReHo map was computed in 3-D volumetric space using the AFNI-command 3dReHo."
+  ],
+  "da": "",
+  "repos": []
+ },
+ "PMC13268368": null,
+ "PMC12860718": {
+  "title": "\u03bc Opioid Modulation of Sensorimotor Functional Connectivity in Autism: Insights From a Pha",
+  "uses_3dReHo": false,
+  "afni_proc": false,
+  "scale": [
+   "07) ( 57 ) and consisted of the following steps: removal of non\u2013steady-state volumes, despiking, slice time correction, registration of the rs-fMRI image to the structural image, normalization to standard (i.",
+   ", MNI152_T1_2009c) space, tissue segmentation, optimal combination of echoes and motion correction using multi-echo independent component analysis ( 58 , 59 ), smoothing (6 mm 3 ), scaling (to percent signal change with \u03bc = 0), regression of white matter and cerebrospinal fluid signal, and bandpass ",
+   "Specifically, data were inspected for artifact-free structural and functional images; adequate skull stripping; goodness of fit of the registration and the Montreal Neurological Institute normalization; presence of defined default mode, visual, and auditory networks following seed-based rsFC estimat"
+  ],
+  "da": "",
+  "repos": []
+ },
+ "PMC12842157": {
+  "title": "Through Massage to the Brain\u2014Neuronal and Neuroplastic Mechanisms of Massage Based on Vari",
+  "uses_3dReHo": false,
+  "afni_proc": false,
+  "scale": [
+   "Resting-state studies in chronic pain reported normalization of regional homogeneity and/or connectivity within default-mode and salience/interoceptive networks after multi-session tuina or osteopathic interventions, paralleling symptom improvement; some task-based effects persisted at delayed follo",
+   "Evidence supports (i) rapid induction of relaxed/analgesic states (alpha increases, network rebalancing) and (ii) longer-horizon changes\u2014network normalization in chronic pain, EEG maturation in preterm infants, and neurotrophic up-shifts\u2014consistent with trait-level recalibration of stress, interocep",
+   "Several pain and rehabilitation studies emphasized complexity/entropy: ApEn, SampEn, Permutation Entropy, Wavelet Entropy, Fuzzy/Intrinsic Fuzzy Entropy, and HHT marginal spectrum entropy, often complemented by normalized band energy, wavelet packet band extraction, and a permutation disalignment in",
+   "opy (ApEn), sample entropy (SampEn), wavelet entropy (WaveEn), Hilbert\u2013Huang transform marginal spectrum entropy (HHTMSEn), permutation entropy (PE), fuzzy entropy (FuzzyEn), and inherent fuzzy entropy (IFE), as well as normalized energy measures.",
+   "SPM8 preprocessing (realignment; co-registration; segmentation-based MNI normalization; 8 mm smoothing) fed a first-level GLM with 5 s blocks for R(correct), R(pseudo), L(correct), L(pseudo); global intensity normalization; 128 s high-pass."
+  ],
+  "da": "",
+  "repos": []
+ }
+}

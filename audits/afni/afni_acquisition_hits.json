@@ -1,0 +1,598 @@
+{
+ "PMC10550829": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": true,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "was skull stripped and normalized to the MNI152 template using the fsl_anat toolbox. The standard preprocessing pipeline, including de-spiked and corrected for slice time acquisition differences and head motion, implemented in the AFNI was used for resting-state fMRI preprocessing. The remaining effect of noise signals, includin"
+  }
+ },
+ "PMC12595413": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": true,
+   "ascending acquisition": false,
+   "multiband/SMS": true,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "e maintaining high spatial resolution. Motion parameters were first estimated using MCFLIRT ( 94 ). Intensity outliers were removed using AFNI\u2019s 3dDespike, and slice timing correction was performed using FSL\u2019s slicetimer. Motion correction was then applied, in combination with topup-based distortion correction ( 95 ), and rigid re"
+  }
+ },
+ "PMC12377651": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": true,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "First, fMRIPrep generated a reference volume and its skull-stripped version, which was used to estimate head motion using the mcflirt algorithm in FSL. Second, slice-timing correction was performed using the 3dTShift algorithm in AFNI ( 103 ), and time series were resampled in their native space. Third, functional images were core"
+  }
+ },
+ "PMC12337265": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": true,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ },
+ "PMC12304909": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": true,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": ". fMRI data processing was carried out using AFNI ( 52 ) and SUMA ( 53 ). Preprocessing was carried out using defaults in afni_proc.py with some modifications: slice-time correction, nonlinear warping of BOLD and participant EPI template to a MNI EPI template using a validated approach ( 54 ) (i.e., \u201cEPInorm\u201d approach), motion c"
+  }
+ },
+ "PMC12232412": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": true,
+   "interleaved acquisition": false,
+   "ascending acquisition": true,
+   "multiband/SMS": true,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "descending acquisition": "ing us to calculate SE for each gene weight. The corrected weights were obtained by dividing the empirical weights by their SE. Next, genes were ranked in both descending and ascending order based on their corrected weights and then imported into GOrilla to search for enriched GO terms for PLSR components. The significance of GO"
+  }
+ },
+ "PMC12088441": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": true,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ },
+ "PMC12012540": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": true,
+   "ascending acquisition": false,
+   "multiband/SMS": true,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": " six corresponding rotation and translation parameters) are estimated before any spatiotemporal filtering using mcflirt (FSL 5.0.9) ( 57 , 58 ). BOLD runs were slice-time corrected using 3dTshift from AFNI. The BOLD time-series (including slice-timing correction when applied) were resampled onto their original, native space by a"
+  }
+ },
+ "PMC12002251": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "harvard.edu/ ) with custom Linux shell as well as custom MATLAB scripts for fMRI analysis. We preprocessed raw image volumes through slice-by-slice motion- and slice-time correction (AFNI), which were aligned to MRI anatomical images and unwarped with JIP Analysis Toolkit ( https://www.nmr.mgh.harvard.edu/~jbm/jip/ ). We then ca"
+  }
+ },
+ "PMC11761675": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "e matter were segmented and a mesh of each human and macaque cortical surface was generated. For functional images, standard preprocessing including motion and slice time correction and spatial smoothing with a 2 to 4 mm full-width-at-half-max Gaussian kernel was performed. Polar angle and eccentricity representations were extra"
+  }
+ },
+ "PMC11648923": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": true,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": true,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ },
+ "PMC11331068": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ },
+ "PMC11252731": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": true,
+   "ascending acquisition": false,
+   "multiband/SMS": true,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "e maintaining high spatial resolution. Motion parameters were first estimated using MCFLIRT ( 53 ). Intensity outliers were removed using AFNI\u2019s 3dDespike, and slice timing correction was performed using FSL\u2019s slicetimer. Motion correction was then applied, in combination with topup-based distortion correction ( 54 ), and rigid re"
+  }
+ },
+ "PMC11252739": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": true,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": true,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "I to the anatomical image using the volume with the minimum outlier fraction as the alignment base. The timecourse of each voxel was despiked and corrected for slice-timing alignment. Motion parameters for 6 directions, mean and motion derivatives of each direction, and the mean signal from white matter voxels were all regressed o"
+  }
+ },
+ "PMC11067024": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "sion of the AFNI NHP preprocessing pipeline ( 106 , 109 ). Left and right leg stimulation data were processed separately using the same parameters. Images were slice time corrected, motion corrected, and aligned with the T1-weighted image and warped to the standard space. Distortion correction was accomplished using EPI data fro"
+  }
+ },
+ "PMC10998591": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": true,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ },
+ "PMC10927510": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "ion.ucl.ac.uk/spm ). Functional images were first manually realigned to the anterior\u2013posterior commissure plane. The pre-processing steps included realignment, slice timing correction, coregistration of the structural image to the mean functional image, segmentation of the anatomical image to allow estimation of normalization para"
+  }
+ },
+ "PMC10801883": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": true,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "he data collected in a single session were corrected for static magnetic field inhomogeneities using the PLACE algorithm ( 70 ). The time series data were then slice time\u2013corrected and realigned to the volume with the minimum outliers. All the data for a given animal were aligned to the corresponding high-resolution template for"
+  }
+ },
+ "PMC10655214": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": true,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "rresponding rotation and translation parameters, using mcflirt from FSL 5.0.9 ( 65 ). Slice-time correction was performed on the functional scanning runs using 3dTshift from AFNI 20160207 ( 66 ). Subsequently, the functional images were resampled into MNI space with a voxel size of 2 \u00d7 2 \u00d7 2 mm postnormalization. To accomplish"
+  }
+ },
+ "PMC10589708": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "data were processed using Statistical Parametric Mapping (SPM) version 12 (Wellcome Imaging Department, University College, London, UK). Functional images were slice time corrected, realigned, and co-registered to their corresponding anatomical image. Scans were warped to the Montreal Neurological Institute (MNI152) brain templa"
+  }
+ },
+ "PMC10151604": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ },
+ "PMC10068819": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": true,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ },
+ "PMC10068756": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "rubbed volumes for the full 28 min of scanning. Preprocessing steps consisted of 1) despiking [3dDespike, Analysis of Functional NeuroImages (AFNI) ( 73 )]; 2) slice time correction [3dTshift, AFNI ( 73 )]; 3) motion correction [3dvolreg, AFNI ( 73 )] by registering each volume to the most similar volume, in the least squares se"
+  }
+ },
+ "PMC9897479": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "l.fmrib.ox.ac.uk ) and Analysis of Functional NeuroImages (AFNI) ( 74 ) were used in fMRI data preprocessing, which included discarding the first four volumes, slice timing correction, motion correction, and spatial smoothing (blurred to a full width at half-maximum of 0.8 mm). Independent component analysis (ICA) was applied to d"
+  }
+ },
+ "PMC9618143": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": true,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "the Euclidean distance between all volumes and choosing the volume that minimized the distance to all other volumes. Slices in each volume were realigned using slice-timing correction. Timepoints with greater than 3 mm of translational motion were excluded and temporally interpolated so as not to bias linear detrending. The vast m"
+  }
+ },
+ "PMC9586296": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": true,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ },
+ "PMC9564098": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ },
+ "PMC9564102": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ },
+ "PMC9457296": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": true,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "were first converted into AFNI data file format (BRIK and HEAD files). Slice timing was corrected to be alternating in the z+ direction using the AFNI function 3dTshift with an option of using the quintic (fifth-order) Lagrange polynomial interpolation. Motion correction algorithms were applied to each EPI time course with the"
+  }
+ },
+ "PMC9271154": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "omponent analysis pipeline ( https://github.com/ME-ICA/me-ica ) ( 114 , 115 ). The first six volumes were discarded to allow for magnetic field saturation, and slice timing was corrected. Motion correction parameters were estimated from the middle TE data by aligning all volumes to the first volume using rigid-body transformation."
+  }
+ },
+ "PMC9231627": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ },
+ "PMC8832989": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": true,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": ", slice thickness = 2.0 mm, axial acquisition, 72 slices, field-of-view = 208 mm, voxel size = 2 \u00d7 2 \u00d7 2 mm). Data analysis. The fMRI images were preprocessed (slice timing correction, motion correction, distortion correction, volume alignment, and scaling) using the software package Analysis of Functional NeuroImages (AFNI) ( 65 "
+  }
+ },
+ "PMC8670431": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": true,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "ding rotation and translation parameters) are estimated before any spatiotemporal filtering using mcflirt (FMRIB Software Library 5.0.9) ( 90 ). BOLD runs were slice-time corrected using 3dTshift from Analysis of Functional NeuroImages (AFNI 20160207) (ref. 91 ; RRID: SCR_005927). The BOLD time series were resampled into standar"
+  }
+ },
+ "PMC8609633": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "ix corresponding rotation and translation parameters) were estimated before any spatiotemporal filtering by using mcflirt (ref. 82 ; FSL 5.0.9). BOLD runs were slice-time-corrected by using 3dTshift from AFNI 20160207 (ref. 83 ; Research Resource Identifier [RRID]: SCR_005927). A B0-nonuniformity map (or fieldmap) was estimated "
+  }
+ },
+ "PMC8609335": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": true,
+   "ascending acquisition": true,
+   "multiband/SMS": true,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "min 21 s total acquisition time. Data Preprocessing. Anatomical and functional data were preprocessed using fMRIPrep version 1.0.3 ( 40 ). Functional data were slice-time corrected, motion corrected, distortion corrected, and projected to the standard surface template fsaverage6 , consisting of 40,962 nodes for each hemisphere. "
+  }
+ },
+ "PMC8285909": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": true,
+   "ascending acquisition": true,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ },
+ "PMC8307613": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": false,
+   "ascending acquisition": true,
+   "multiband/SMS": true,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ },
+ "PMC8237657": {
+  "hits": {
+   "slice timing correction": true,
+   "descending acquisition": false,
+   "interleaved acquisition": true,
+   "ascending acquisition": false,
+   "multiband/SMS": true,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {
+   "slice timing correction": "racted T1w using fast ( 37 ) (Functional Magnetic Resonance Imaging of the Brain Software Library [FSL] version 5.0.9, RRID: SCR_002823 ). Functional data were slice time corrected using 3dTshift from Analysis of Functional Neuroimages (AFNI) version 16.2.07 ( 38 ) (RRID: SCR_005927 ) and motion corrected using mcflirt ( 39 ) (F"
+  }
+ },
+ "PMC8000197": {
+  "hits": {
+   "slice timing correction": false,
+   "descending acquisition": false,
+   "interleaved acquisition": true,
+   "ascending acquisition": false,
+   "multiband/SMS": false,
+   "ReHo": false,
+   "Kendall's W": false,
+   "afni_proc.py": false,
+   "NIfTI mentioned": false
+  },
+  "ctx": {}
+ }
+}

@@ -1,0 +1,235 @@
+{
+ "PMC10550829": {
+  "hits": [],
+  "data_availability": "data and code availability are available at 10.1038/s41586-023-06541-3. Supplementary information Reporting Summary "
+ },
+ "PMC12595413": {
+  "hits": [
+   "OpenNeuro",
+   "HCP",
+   "OSF",
+   "GitHub data"
+  ],
+  "data_availability": "Data Availability Statement Raw data are available at https://openneuro.org/datasets/ds003814 ( 88 ). Stimulus materials are available at https://osf.io/5yjgh/ . Analysis code is available at https://github.com/bmdeen/fmriPermPipe/releases/tag/v2.0.2 (generic analysis tools) and https://github.com/bmdeen/identAnalysis (dataset-specific wrapper scripts)."
+ },
+ "PMC12377651": {
+  "hits": [
+   "Zenodo"
+  ],
+  "data_availability": "Data Availability Statement The analysis scripts, anonymized behavioral data, and individual beta maps for each participant are available from Zenodo ( https://doi.org/10.5281/zenodo.15098113 ) ( 93 )."
+ },
+ "PMC12337265": {
+  "hits": [
+   "GitHub data",
+   "available upon request only"
+  ],
+  "data_availability": "Data Availability Statement All computations were conducted with preexisting FSL, AFNI, MATLAB, and RStudio functions as described in Materials and Methods section. https://github.com/mattijar/OFNI/blob/main/Orexin_Effect_on_Physiological_Pulsations_of_the_Human_Brain/code_combined Code available at GitHub ( 83 ). The individual data from this study cannot be shared because of privacy issues of clinical data. Data available upon request from the corresponding author for research only after ethical approval for the specific study."
+ },
+ "PMC12304909": {
+  "hits": [],
+  "data_availability": ""
+ },
+ "PMC12232412": {
+  "hits": [
+   "HCP",
+   "Zenodo",
+   "Allen"
+  ],
+  "data_availability": "Data Availability Statement All original code has been deposited at Zenodo and is publicly available as of the date of publication ( https://doi.org/10.5281/zenodo.14416318 ) ( 113 ). Raw and preprocessed rs-fMRI data of the HCP dataset are available at https://www.humanconnectome.org/ ( 115 )."
+ },
+ "PMC12088441": {
+  "hits": [
+   "OSF"
+  ],
+  "data_availability": "Data Availability Statement The datasets generated during the current study will be available at https://osf.io/btk5c ( 55 )."
+ },
+ "PMC12012540": {
+  "hits": [],
+  "data_availability": "Data Availability Statement Some study data have been deposited in OSF ( 65 ). All other study data are included in the article and/or SI Appendix ."
+ },
+ "PMC12002251": {
+  "hits": [
+   "Dryad"
+  ],
+  "data_availability": "Data Availability Statement Spike trains data have been deposited in https://doi.org/10.5061/dryad.fttdz091d ( 47 )."
+ },
+ "PMC11761675": {
+  "hits": [
+   "HCP",
+   "GitHub data"
+  ],
+  "data_availability": "Data Availability Statement Matlab matrices data have been deposited in https://github.com/arcaro-lab/ExpansionofPrimateCortex ( 131 )."
+ },
+ "PMC11648923": {
+  "hits": [],
+  "data_availability": ""
+ },
+ "PMC11331068": {
+  "hits": [
+   "HCP",
+   "ABCD",
+   "Zenodo",
+   "GitHub data"
+  ],
+  "data_availability": "Data Availability Statement The NSPN raw data is publicly available at https://nspn.org.uk ( 52 ) and the processed data can be downloaded from https://doi.org/10.5281/zenodo.11175459 ( 53 ). The HCP-D data are publicly available at https://www.humanconnectome.org ( 54 ). The code can be accessed at https://github.com/LenaDorfschmidt/morphometric-similarity-adolescence ( 55 )."
+ },
+ "PMC11252731": {
+  "hits": [
+   "OpenNeuro",
+   "HCP",
+   "OSF",
+   "GitHub data"
+  ],
+  "data_availability": ""
+ },
+ "PMC11252739": {
+  "hits": [
+   "HCP"
+  ],
+  "data_availability": "Data Availability Statement Deidentified raw and preprocessed structural and functional MRI data and analysis scripts will be made publicly available upon publication on Kilthub (CMU; reserved digital object identifier: https://doi.org/10.1184/R1/26026603 ) ( 65 )."
+ },
+ "PMC11067024": {
+  "hits": [
+   "OSF",
+   "GitHub data",
+   "available upon request only"
+  ],
+  "data_availability": "Data Availability Statement Data from all ROI-based analyses are available on the Open Science Framework at https://osf.io/4thgf/ ( 120 ). Raw imaging data will be publicly available via the PRIME-DE website ( https://fcon_1000.projects.nitrc.org/indi/indiPRIME.html ) after all data analyses are complete for this dataset and are available upon request."
+ },
+ "PMC10998591": {
+  "hits": [
+   "HCP",
+   "GitHub data"
+  ],
+  "data_availability": "Data Availability Statement All code utilized for analysis is available on GitHub and can be found at this link: https://github.com/AndreasSeas/SCC_DBS_EP ( 67 ). Subjects\u2019 medical images and EEG can be shared in a deidentified/anonymized form with a data use agreement upon request."
+ },
+ "PMC10927510": {
+  "hits": [],
+  "data_availability": ""
+ },
+ "PMC10801883": {
+  "hits": [
+   "Zenodo"
+  ],
+  "data_availability": "Data Availability Statement All data and codes referenced in this article, whether in the main text or SI Appendix , are accessible on Zenodo at https://doi.org/10.5281/zenodo.10426591 ( 74 )."
+ },
+ "PMC10655214": {
+  "hits": [
+   "OSF",
+   "GitHub data"
+  ],
+  "data_availability": "Data Availability Statement Raw data and code for the analysis data have been deposited in OSF and GitHub ( https://osf.io/gx3jv/ ; https://github.com/nencki-lobi/emocon-humans-rats ) ( 70 , 71 )."
+ },
+ "PMC10589708": {
+  "hits": [],
+  "data_availability": ""
+ },
+ "PMC10151604": {
+  "hits": [],
+  "data_availability": ""
+ },
+ "PMC10068819": {
+  "hits": [
+   "OSF",
+   "GitHub data"
+  ],
+  "data_availability": "Data Availability Statement Anonymized Behavioral and preprocessed fMRI data. Data have been deposited in OSF ( https://osf.io/hrac5/ )."
+ },
+ "PMC10068756": {
+  "hits": [
+   "GitHub data"
+  ],
+  "data_availability": ""
+ },
+ "PMC9897479": {
+  "hits": [],
+  "data_availability": ""
+ },
+ "PMC9618143": {
+  "hits": [
+   "Dryad",
+   "GitHub data"
+  ],
+  "data_availability": ""
+ },
+ "PMC9586296": {
+  "hits": [
+   "OSF"
+  ],
+  "data_availability": "Data Availability Statement The MRI and behavioral data reported in this paper have been deposited at the Open Science Framework ( https://osf.io/dp23q ) ( 73 ). All other study data are included in the article and/or SI Appendix ."
+ },
+ "PMC9564098": {
+  "hits": [
+   "OpenNeuro",
+   "OSF"
+  ],
+  "data_availability": "Data Availability Statement Preprocessed functional data at the level of ROI time series can be freely downloaded from: https://osf.io/3vqb6/download . The raw data are also freely available in BIDS format from: https://openneuro.org/datasets/ds004134/versions/1.0.0 . All the preprocessing and analysis codes are freely available on GitLab: https://gitlab.uliege.be/S.Mortaheb/mind_blanking . Anonymized data (raw data; preprocessed functional data; preprocessing and analysis codes) have been deposited in OpenNeuro, OSF, and GitLab ( 10.18112/openneuro.ds004134.v1.0.0 ; https://osf.io/3vqb6/download ; https://gitlab.uliege.be/S.Mortaheb/mind_blanking ) ( 61 , 62 )."
+ },
+ "PMC9564102": {
+  "hits": [
+   "OpenNeuro",
+   "OSF"
+  ],
+  "data_availability": "Data Availability Statement Behavioral data have been deposited in the Open Science Framework ( https://doi.org/10.17605/OSF.IO/YHZXE ) ( 98 ), and neuroimaging data have been deposited in OpenNeuro ( https://doi.org/10.18112/openneuro.ds003592.v1.0.3 ) ( 99 )."
+ },
+ "PMC9457296": {
+  "hits": [],
+  "data_availability": "Data Availability Statement All study data are included in the article or SI Appendix ."
+ },
+ "PMC9271154": {
+  "hits": [
+   "HCP",
+   "GitHub data"
+  ],
+  "data_availability": "Data Availability Codes for multimodal connectome manifold generation and codes for structural differentiation calculation have been deposited in GitHub [ https://github.com/MICA-MNI/micaopen/tree/master/structural_manifold ( 133 ), https://github.com/MICA-MNI/BrainSpace ( 134 ), and https://github.com/MICA-MNI/micaopen/tree/master/manifold_features ( 135 )]. The imaging and phenotypic data were provided by the NSPN 2400 cohort, and openly available at https://nspn.org.uk/ ( 103 ). References Associated Data Supplementary Materials Supplementary File Data Availability Statement Codes for multimodal connectome manifold generation and codes for structural differentiation calculation have been deposited in GitHub [ https://github.com/MICA-MNI/micaopen/tree/master/structural_manifold ( 133 ), https://github.com/MICA-MNI/BrainSpace ( 134 ), and https://github.com/MICA-MNI/micaopen/tree/master/manifold_features"
+ },
+ "PMC9231627": {
+  "hits": [],
+  "data_availability": ""
+ },
+ "PMC8832989": {
+  "hits": [
+   "OSF",
+   "GitHub data"
+  ],
+  "data_availability": "Data Availability Anonymized blood oxygen level\u2013dependent MRI data have been deposited in the Open Science Framework ( 67 ) ( http://osf.io/HB6DE ). Previously published data were used for this work ( https://code.google.com/archive/p/word2vec ; https://github.com/doomlab/Word-Norms-2 ). References Associated Data Supplementary Materials Supplementary File Data Availability Statement Anonymized blood oxygen level\u2013dependent MRI data have been deposited in the Open Science Framework ( 67 ) ( http://osf.io/HB6DE ). Previously published data were used for this work ( https://code.google.com/archive/p/word2vec ; https://github.com/doomlab/Word-Norms-2 )."
+ },
+ "PMC8670431": {
+  "hits": [],
+  "data_availability": ""
+ },
+ "PMC8609633": {
+  "hits": [],
+  "data_availability": ""
+ },
+ "PMC8609335": {
+  "hits": [
+   "HCP",
+   "GitHub data"
+  ],
+  "data_availability": ""
+ },
+ "PMC8285909": {
+  "hits": [
+   "GitHub data"
+  ],
+  "data_availability": ""
+ },
+ "PMC8307613": {
+  "hits": [
+   "HCP"
+  ],
+  "data_availability": ""
+ },
+ "PMC8237657": {
+  "hits": [],
+  "data_availability": ""
+ },
+ "PMC8000197": {
+  "hits": [
+   "OpenNeuro",
+   "available upon request only"
+  ],
+  "data_availability": "Data Availability Anonymized MRI data and associated analysis code have been deposited in OpenNeuro, https://openneuro.org/ (DOI: 10.18112/openneuro.ds003511.v1.0.0 ) ( 78 ). Behavioral recall data are available upon request. References Associated Data Supplementary Materials Supplementary File Data Availability Statement Anonymized MRI data and associated analysis code have been deposited in OpenNeuro, https://openneuro.org/ (DOI: 10.18112/openneuro.ds003511.v1.0.0 ) ( 78 ). Behavioral recall data are available upon request."
+ }
+}
