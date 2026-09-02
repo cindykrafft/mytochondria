@@ -38,8 +38,10 @@ Expected outputs are quoted in `../component-reviews/statistics-core.md`.
 and prints a `RESULT ... PASS|FAIL` line. It puts `shims/` on the path:
 `corr` (MATLAB `'type'` argument), `convertStringsToChars`, `strip`,
 `istable` (MATLAB-only functions used by `ft_checkconfig`/plotting), and an
-N-D `spm_bwlabel` stand-in (copy it over `external/spm*/spm_bwlabel.m` in the
-tree under test, since `ft_hastoolbox` prepends those directories at run
-time). Tests that need DCCN-private data, `websave`, or MATLAB numerics
+N-D `spm_bwlabel` stand-in for the mex that FieldTrip bundles in
+`external/spm12` (precompiled for MATLAB on Linux/macOS/Windows; no separate
+SPM install is needed in MATLAB, but a mex cannot load under Octave). Copy the
+stand-in over `external/spm*/spm_bwlabel.m` in the tree under test, since
+`ft_hastoolbox` prepends those directories at run time. Tests that need DCCN-private data, `websave`, or MATLAB numerics
 (`test_bug3048`) cannot run this way; compare against unpatched master to
 attribute any failure.
