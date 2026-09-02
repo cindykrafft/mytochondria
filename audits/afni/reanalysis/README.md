@@ -61,6 +61,34 @@ arm as NIfTI, the group masks, and `figure1.png`.
 > is now reported explicitly. The qualitative conclusions did not change; most
 > numbers did.
 
+### The three builds, and which comparison isolates PR #944
+
+`src/ptaylor/rsfc.c` changed three times in 2026:
+
+| build | source | tie detection | trailing tie run | zero denominator |
+|---|---|---|---|---|
+| `3dReHo_hist` | `29384a2^` — every AFNI release through 26.2.03 | integer-truncated | never closed | cannot occur |
+| `3dReHo_prefix` | `4c2bd54` — master for one day (2026-08-27) | integer-truncated | closed (`29384a2`, authored 2023, merged 2026-08-27) | NaN |
+| `3dReHo_preguard` | `4c2bd54` + `74a90ac` | integer-truncated | closed | **W = 0** |
+| `3dReHo_postfix` | `d202535` = AFNI 26.2.06 | float (`94ee52b`, **PR #944**) | closed | W = 0 (`74a90ac`) |
+
+The comparison that isolates PR #944 alone is **`3dReHo_preguard` vs `3dReHo_postfix`**:
+same tail handling, same divide-by-zero guard, the only difference being whether ties
+are detected on truncated integers or on the floats. On the synthetic volumes
+(`scripts/synth_arm_check.py`) `3dReHo_preguard` is identical, to the last bit, to
+`3dReHo_prefix` with NaN replaced by 0 — which is also exactly how every AFNI program
+reads a NaN. **The results below are therefore that comparison**: "pre-fix (NaN as 0)"
+= `3dReHo_preguard` = arm A, "post-fix" = arm B, and the per-subject table for it is
+`results/subjects_summary_AB.tsv`.
+
+What the published papers ran is `3dReHo_hist` (no release before 26.2.04 closes the
+trailing run). In that build a series lying inside one integer bin gets no tie
+correction and comes out exactly right, so the error curve is non-monotonic and there
+are no zeroed voxels; on band-passed synthetic input it returns 0.77 of the correct
+value at SD 0.35 and 0.38 at SD 0.5 (`../reproductions/README.md`). A `hist` vs
+`postfix` pass on the same 40 subjects was started and stopped after three subjects;
+`scripts/run_subject.sh` now runs all four builds so it can be resumed.
+
 **Exclusions.** 52 subjects were attempted to reach 20 per group. Twelve
 failed the pipeline's own regression step because motion/outlier censoring
 (0.3 mm / 5 % outliers) left fewer time points than the 108 nuisance
@@ -69,15 +97,16 @@ regressors — 4 of 24 CONTROL and 8 of 28 SCHZ attempted
 bandpass regressors, not of either 3dReHo build; it is noted because it makes
 the SCHZ group the more-censored one, which matters below.
 
-### Per subject: the pre-fix build returns NaN in a sixth of the brain, and a third of the correct value elsewhere
+### Per subject (arm A vs B): a sixth of the brain zeroed, a third of the correct value elsewhere
 
 | quantity (mean over 40 subjects, range) | value |
 |---|---|
 | errts SD in mask (the units 3dReHo saw) | 0.35 (0.14 – 0.52) |
-| **voxels where pre-fix 3dReHo returned NaN** | **17 %** (2 % – 69 %) |
-| in the remaining voxels: pre/post ratio | 0.33 (0.26 – 0.42) |
-| in the remaining voxels: relative error, pre vs post | **70 %** (60 % – 76 %) |
-| spatial correlation of pre-fix and post-fix maps (NaN read as 0, as AFNI does) | **0.60** (0.31 – 0.76) |
+| **voxels where arm A returns 0** (NaN before the guard commit) | **17 %** (2 % – 69 %) |
+| in the remaining voxels: A/B ratio | 0.31 (0.24 – 0.40) |
+| in the remaining voxels: relative error | **70 %** (60 % – 76 %) |
+| relative error over all voxels (zeros count as 100 %) | 75 % (61 % – 92 %) |
+| spatial correlation of A and B maps | **0.60** (0.31 – 0.76) |
 
 The pre-fix tie correction can zero its own denominator; when it does, the
 voxel is NaN. Every AFNI program that reads such a map converts NaN to 0

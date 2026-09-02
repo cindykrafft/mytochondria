@@ -22,7 +22,9 @@ afni_proc.py -subj_id $SUB -script proc.$SUB -scr_overwrite \
 cd $SUB.results
 ERRTS=$(ls errts.${SUB}.tproject+tlrc.HEAD errts.${SUB}+tlrc.HEAD 2>/dev/null | head -1); ERRTS=${ERRTS%.HEAD}
 MASK=$(ls mask_epi_anat.${SUB}+tlrc.HEAD 2>/dev/null | head -1); MASK=${MASK%.HEAD}
-$ROOT/bin/3dReHo_prefix  -overwrite -prefix reho_prefix  -inset $ERRTS -mask $MASK -nneigh 27
+$ROOT/bin/3dReHo_hist    -overwrite -prefix reho_hist    -inset $ERRTS -mask $MASK -nneigh 27   # code before 2023-09-27 (29384a2^)
+$ROOT/bin/3dReHo_prefix  -overwrite -prefix reho_prefix  -inset $ERRTS -mask $MASK -nneigh 27   # 4c2bd54: master for one day, 2026-08-27
+$ROOT/bin/3dReHo_preguard -overwrite -prefix reho_preguard -inset $ERRTS -mask $MASK -nneigh 27  # 4c2bd54 + 74a90ac guard: arm A
 $ROOT/bin/3dReHo_postfix -overwrite -prefix reho_postfix -inset $ERRTS -mask $MASK -nneigh 27
 3dTstat -overwrite -stdev -prefix errts_sd $ERRTS      # per-voxel SD in the units 3dReHo saw
 # keep only what the group analysis needs (each results dir is ~1.4 GB otherwise)
