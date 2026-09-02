@@ -26,6 +26,19 @@ with `git show 530ec52:spm_ECdensity.m`, and follow the comments in
 `driver.m`. Octave 8.4 suffices — the code path is pure MATLAB
 (`gammaln`/`gammainc`/`betainc` only).
 
+## Real-data reproductions of the two merged fixes (`mmn_realdata/`)
+
+SPM's own MMN tutorial dataset (`eeg_mmn/subject1.bdf`) processed with the
+**actual SPM M/EEG functions executed in GNU Octave 8.4** (SPM's MEX files
+rebuilt with `make PLATFORM=octave`; FieldTrip's 24-bit BDF reader replaced by
+`octave_shims/read_24bit.m`, verified against MNE-Python to 4 decimals; a few
+MATLAB-only string helpers shimmed — all in `octave_shims/`).
+
+| File | Finding | Result |
+|---|---|---|
+| `sp4_result.md`, `sp4_demo.py` | SP4 (`spm_eeg_downsample`, PR #165) | with `method='decimate'`, 512→200 Hz: pre-fix **prints 170.7 Hz and stamps 200 Hz** — a 915 s recording reported as 781 s; a real 275 ms MMN peak reported at 235 ms. Fires only for explicit `decimate`/`downsample` (default `resample` and the no-toolbox `fft` fallback are exact). |
+| `sp3_result.md`, `sp3_pipeline.m`, `sp3_compare.py`, `sp3_run.log` | SP3 (`@meeg/badsamples`, PR #163) | SPM's own mark-mode + robust-averaging chapter on this dataset: bad windows shifted by exactly the 100 ms baseline; pre-fix excluded only 24 % of true artefact samples and 71 % of what it excluded was clean; **yet the final robust-averaged MMN changes by ≈1.5 % RMS** — robust weights cushion the mask. Uncushioned exposure: mark-mode bad-channel/trial classification and direct mask consumers. |
+
 ## Other findings verified numerically during the audit
 
 | File | Finding | Result |
@@ -44,7 +57,6 @@ above were retained; results are recorded in `../component-reviews/` with
 the numbers they produced. Re-deriving any of them from the file:line
 evidence is mechanical.
 
-**Status note:** SP1 is the only fix executed against real MATLAB code so
-far (in Octave). SP2-SP5's fixes are verified by tracing and the offline
-numerics above but have not been run in MATLAB — do that before filing
-their PRs (see `../upstream/`).
+**Status note:** SP1 (unit test), SP3 and SP4 (real data, above) have been
+executed against real SPM code in Octave. SP2 and SP5 are verified by tracing
+and offline numerics only and have not been run in MATLAB.

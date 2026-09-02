@@ -1,0 +1,75 @@
+=== prefix: badsamples fixed-form lines: 0 === Wed Sep  2 17:52:53 UTC 2026
+warning: called from
+    ft_defaults at line 253 column 7
+    spm at line 438 column 9
+warning: called from
+    ft_defaults at line 263 column 7
+    spm at line 438 column 9
+warning: called from
+    ft_defaults at line 263 column 7
+    spm at line 438 column 9
+warning: called from
+    ft_defaults at line 263 column 7
+    spm at line 438 column 9
+warning: called from
+    ft_defaults at line 273 column 7
+    spm at line 438 column 9
+warning: called from
+    ft_hastoolbox>myaddpath at line 645 column 5
+    ft_hastoolbox at line 517 column 12
+    ft_defaults at line 319 column 62
+    spm at line 438 column 9
+warning: called from
+    ft_hastoolbox>myaddpath at line 645 column 5
+    ft_hastoolbox at line 517 column 12
+    ft_defaults at line 319 column 62
+    spm at line 438 column 9
+Completed                               :          18:18:42 - 02/09/2026
+Completed                               :          18:18:49 - 02/09/2026
+Completed                               :          18:18:55 - 02/09/2026
+event values present: [65024 65152 65216]
+        SPM26: spm_eeg_definetrial                 18:18:55 - 02/09/2026
+        ----------------------------------------------------------------
+Completed                               :          18:19:02 - 02/09/2026
+epoched: 600 trials, 101 samples/trial, timeOnset=-0.1, fs=200
+        SPM26: spm_eeg_artefact_zscorediff         18:19:05 - 02/09/2026
+        ----------------------------------------------------------------
+Completed                               :          18:20:53 - 02/09/2026
+[prefix] artefact events written: 600; bad samples total=7584; trials with any bad=84; channels flagged bad=0
+[prefix] trial 5: detector wrote sample idx 30 (dur 130 ms); badsamples marks 51..77 (shift +21 samples; timeOnset*fs = -20)
+Completed                               :          18:21:54 - 02/09/2026
+[prefix] MMN GFP peak 255.0 ms; max chan A14 -10.91 uV; GFP@peak 2.771
+=== merged: badsamples fixed-form lines: 2 === Wed Sep  2 18:21:55 UTC 2026
+warning: called from
+    ft_defaults at line 253 column 7
+    spm at line 438 column 9
+warning: called from
+    ft_defaults at line 263 column 7
+    spm at line 438 column 9
+warning: called from
+    ft_defaults at line 263 column 7
+    spm at line 438 column 9
+warning: called from
+    ft_defaults at line 263 column 7
+    spm at line 438 column 9
+warning: called from
+    ft_defaults at line 273 column 7
+    spm at line 438 column 9
+warning: called from
+    ft_hastoolbox>myaddpath at line 645 column 5
+    ft_hastoolbox at line 517 column 12
+    ft_defaults at line 319 column 62
+    spm at line 438 column 9
+warning: called from
+    ft_hastoolbox>myaddpath at line 645 column 5
+    ft_hastoolbox at line 517 column 12
+    ft_defaults at line 319 column 62
+    spm at line 438 column 9
+        SPM26: spm_eeg_artefact_zscorediff         18:22:01 - 02/09/2026
+        ----------------------------------------------------------------
+Completed                               :          18:23:42 - 02/09/2026
+[merged] artefact events written: 600; bad samples total=9017; trials with any bad=94; channels flagged bad=0
+[merged] trial 5: detector wrote sample idx 30 (dur 130 ms); badsamples marks 31..57 (shift +1 samples; timeOnset*fs = -20)
+Completed                               :          18:24:43 - 02/09/2026
+[merged] MMN GFP peak 255.0 ms; max chan A14 -10.91 uV; GFP@peak 2.778
+=== SP3 DONE Wed Sep  2 18:24:44 UTC 2026 ===

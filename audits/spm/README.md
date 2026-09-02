@@ -30,7 +30,10 @@ Monte-Carlo simulation of smooth chi-squared random fields, and its fix has sinc
 test fails 12/23 assertions on the pre-fix code, 0/23 on the fixed code — see
 `reproductions/`). The KL/tensor/distribution findings were verified against
 scipy/closed forms; the `spm_nlsi_GN` finding is confirmed by internal inconsistency
-with its own M-step gradient. Fixes 2–5 have **not** been executed in MATLAB.
+with its own M-step gradient. The SP3 and SP4 fixes have since been **reproduced on
+SPM's own MMN tutorial dataset by executing the real M/EEG code** in Octave
+(`reproductions/mmn_realdata/`), which also *shrank* both findings' reach — recorded
+there rather than papered over. Fixes 2 and 5 have **not** been executed in MATLAB.
 "Exposed" means a study ran the affected code path — not that its conclusions are
 wrong.
 
@@ -77,18 +80,25 @@ artefact events to samples.** CONFIRMED. The detectors write event times relativ
 trial onset *without* `timeOnset` (the terms cancel in `D.time(idx+1)-D.time(1)`); the
 reader adds `time(this)`, which *includes* it. Every bad-sample window on epoched data
 is shifted by the baseline length (e.g. 25 samples for a 100 ms baseline at 250 Hz):
-clean data excluded, artefact partially retained, silently. Reaches automatic artefact
-classification (`spm_eeg_artefact`), `removebad` averaging masks, CFC weighting, DAiSS
-robust covariance. Exposure anchor: Litvak et al. 2011 (the SPM8 M/EEG reference
-paper, ~1000 cites, documents this exact machinery).
+clean data excluded, artefact partially retained, silently. Reaches artefact `'mark'`
+mode (bad-channel classification), `removebad` averaging masks, CFC weighting and other
+epoched-data consumers; **not** the default `'reject'` mode, and not continuous data
+(timeOnset = 0). **Reproduced on SPM's MMN tutorial data with the real code**
+(`reproductions/mmn_realdata/`): masks shifted by exactly the 100 ms baseline, pre-fix
+excluding only 24 % of true artefact samples while 71 % of what it excluded was clean —
+yet the final robust-averaged MMN moved only ≈1.5 % RMS, because robust weights cushion
+the mask. Exposure anchor: Litvak et al. 2011 (the SPM8 M/EEG reference paper, ~1000
+cites, documents this exact machinery). Merged upstream as PR #163.
 
 **SP4. `spm_eeg_downsample` stamps the requested, not the achieved, sampling rate.**
 CONFIRMED. The achieved rate is computed and *printed* (lines 52-61) but line 115
-stores `S.fsample_new`. `ft_preproc_resample` rounds the decimation factor, so for
-non-integer ratios (1000→180 Hz actually yields 166.7 Hz) every downstream time axis,
-latency and filter cutoff is silently ~8% wrong. Integer ratios — including the
-tutorial's 1000→200 — are safe, which is why no specific impacted paper could be
-certified from published metadata.
+stores `S.fsample_new`. Fires only when the user explicitly selects `method='decimate'`
+or `'downsample'` with a non-integer ratio (`ft_preproc_resample` then rounds the
+factor); the default `'resample'` and the no-toolbox `'fft'` fallback are exact, which
+narrows the reach from the audit's first framing. **Reproduced with the real code on
+SPM's MMN tutorial data** (`reproductions/mmn_realdata/`): 512→200 Hz with `decimate`,
+pre-fix prints 170.7 Hz and stamps 200 Hz, so the 915 s recording is reported as 781 s
+and a real 275 ms MMN peak would be reported at 235 ms; merged upstream as PR #165.
 
 **SP5. `spm_design_contrasts` pads parametric-modulation columns without the
 basis-function factor.** CONFIRMED (numerically). Line 63 inserts `sum(h)` zero
