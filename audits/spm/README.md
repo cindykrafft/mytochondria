@@ -143,7 +143,7 @@ by √(1−h): no observation is ever down-weighted and "robust" GLM degenerates
 CONFIRMED numerically — but scoped: only `toolbox/mixture/spm_glm.m` calls it;
 mainstream robust averaging uses `spm_robust_average`, which verified correct.
 **SP20.** Mode-breaking crashes (loud, so lower urgency): hierarchical `spm_MDP_VB_XX`
-(cell/scalar collision), `spm_MDP_size` (case typo, likelihood-only path dead),
+(cell/scalar collision), `toolbox/DEM/spm_MDP_size` (case typo, likelihood-only path dead),
 `spm_eeg_cfc` confound output (`sig_conf` undefined; double-incremented counter),
 documented `excwin==0` artefact option, `spm_eeg_average_TF` missing default.
 All CONFIRMED.

@@ -47,7 +47,7 @@ checked against closed forms and Monte Carlo (`../reproductions/audit.py`).
    against `a{g}` of [No,3,1,4]; implicit expansion silently reshapes the
    concentration tensor with wrong counts that propagate across trials.
    **Moderate.**
-7. **`spm_MDP_size.m:30`** — `size(a{1},2:ndims(A))`: `A` undefined (case
+7. **`toolbox/DEM/spm_MDP_size.m:31`** — `size(a{1},2:ndims(A))`: `A` undefined (case
    typo for `a{1}`); the likelihood-only fallback path (models with `a` but no
    `b`/`B`) always crashes. (Part of SP20.)
 8. **`spm_MDP_VB.m:475`** — habit exclusion `p(1:end-1)` assumes the habit is
