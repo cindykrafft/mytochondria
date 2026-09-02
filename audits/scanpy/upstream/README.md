@@ -1,6 +1,11 @@
 # Scanpy upstream filing kit
 
-_Prepared 2026-09-02 against `scverse/scanpy` `main` @ `a656a33b`. Nothing filed yet.
+_Prepared 2026-09-02 against `scverse/scanpy` `main` @ `a656a33b`. Filed so far: PR #4337
+(SC1, 2026-09-02, from `fix/rank-genes-groups-ttest-log-space`); its release-note fragment was
+renamed to `docs/release-notes/4337.fix.md` in a follow-up commit on the branch once the number
+existed, because the project's "Check for release notes" workflow looks for exactly that file.
+The workflow's other job, "Check title, milestone, and labels", fails on every external PR until
+a maintainer assigns a milestone or the `no milestone` label; that one is not ours to fix.
 Both fix branches are pushed to the fork [cindykrafft/scanpy](https://github.com/cindykrafft/scanpy):
 [`fix/rank-genes-groups-ttest-log-space`](https://github.com/cindykrafft/scanpy/tree/fix/rank-genes-groups-ttest-log-space) (SC1, `08d3cc7`) and
 [`fix/score-genes-equal-frequency-bins`](https://github.com/cindykrafft/scanpy/tree/fix/score-genes-equal-frequency-bins) (SC2, `a49d862`), each one commit on top of `a656a33b`._
