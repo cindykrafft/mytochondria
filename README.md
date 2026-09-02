@@ -31,6 +31,17 @@ Python and test against ground truth, or simulate the full pipeline. Only then d
 finding get written up, with file:line evidence, a runnable harness, and a patch where
 the fix is crisp.
 
+**4. File upstream, on the project's terms.** Before anything is sent, read the
+project's `CONTRIBUTING.md`, any pinned policy issue, the NEWS/changelog, and the
+existing issue and PR history for the component. A finding that upstream has already
+fixed and announced is not a finding to file. Non-minor changes, and anything that
+changes numerical output, go to the project's preferred discussion venue first
+(for Bioconductor packages that is the support site, not a cold PR). Each filing kit
+records which documents were read and where the ask is being made. This step was
+added after the DESeq2 round, where the audit filed four items without reading the
+project's pinned policy or CONTRIBUTING.md, claimed a NEWS entry was missing when it
+was not, and had all four closed by the maintainer within two hours.
+
 What *held up* under the same scrutiny is recorded alongside what didn't, so findings
 are read in proportion.
 
@@ -42,7 +53,7 @@ are read in proportion.
 | [FSL](audits/fsl/) | 114 | 12, six with patches | reports and patches ready; filing via the FSL mailing list |
 | [SPM](audits/spm/) | full-codebase audit (not survey-driven) | 83 confirmed + ~38 plausible; three verified by executing the code (one unit-tested, two reproduced on SPM's tutorial data) | 2 fix PRs merged upstream (M/EEG artefact-window baseline; downsample sampling rate); 2 issue+PR pairs open (χ² EC densities with new unit test; DCM free energy); 1 staged |
 | [AFNI](audits/afni/) | 39 in the survey cohort; 57 adjudicated for the ReHo finding | 36 (9 high-impact, 15 narrower, 12 likely), one reproduced numerically | 12 PRs + 14 issues filed on GitHub: 4 PRs merged (ReHo tie handling, NIfTI slice timing, two test-suite repairs), 8 open. [Reanalysis](audits/afni/reanalysis/) of the published ReHo design on open data (ds000030, 40 subjects): the pre-fix build returns NaN in 17 % of brain voxels and a third of the correct value elsewhere, and the SCZ-vs-control p < .001 maps from the two builds do not overlap |
-| [DESeq2](audits/deseq2/) | 886 | 3 confirmed (one live 2017–2025, already fixed upstream but unannounced), 3 verified-negligible | erratum/NEWS request + docs note to file on GitHub |
+| [DESeq2](audits/deseq2/) | 886 | 3 confirmed (one live 2017–2025, fixed upstream in 1.49.4 with a NEWS entry), 3 verified-negligible | 3 issues + 1 PR filed on GitHub 2026-09-01; all four closed by the maintainer the same day (the two NEWS requests were already met, the PR was declined under the project's results-stability policy). The filing skipped DESeq2's contribution guidelines and misread its NEWS; see the [filing kit](audits/deseq2/upstream/) for the correction |
 | [MACS2](audits/macs2/) | 475 | 3 confirmed (one live in current MACS3, reproduced on shipped binary), 4 notes, 2 withdrawn by own review | one-word fix PR + issues to file on GitHub |
 | [Kilosort](audits/kilosort/) | 60 | 3 new verified on shipped code (one disables KS4's refractory split veto since v4.1.5), 5 by code reading, plus exposure map for the known 2024 "spike holes" bug | 2 fix PRs + 2 issues to file on GitHub |
 | [FieldTrip](audits/fieldtrip/) | 42 | 4 verified by executing FieldTrip's own code under Octave (permutation p-values exclude ties, p = 0 with exhaustive permutations; correlationT df; PSI edge bins −Inf; a statfun branch that cannot run) + 1 by code reading | 5 fix patches with PR/issue bodies to file on GitHub |
@@ -102,7 +113,10 @@ audits/
   finding turned out not to fire on the standard pipeline at all once measured, and a
   faithful port of AFNI's ReHo tie loop moved one published paper back out of the
   exposed set.
-- Nothing here has been adjudicated by the upstream maintainers yet. Their reading wins.
+- Upstream maintainers' reading wins. Where they have adjudicated, the outcome is
+  recorded next to the finding: SPM and AFNI have merged fixes and left others open;
+  DESeq2's maintainer closed all four filings, and on the central factual point (whether
+  the weights fix had been announced) he was right and this audit was wrong.
 
 ## Reproducing the survey
 
