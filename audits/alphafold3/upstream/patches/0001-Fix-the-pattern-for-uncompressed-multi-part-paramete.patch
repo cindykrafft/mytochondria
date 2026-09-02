@@ -1,0 +1,30 @@
+From 9aaeb54e78d3311d024046321aac10bdbd68036d Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 06:14:57 +0000
+Subject: [PATCH] Fix the pattern for uncompressed multi-part parameter files
+
+The pattern for uncompressed split parameters was
+
+    r'(?P<model_name>.*)\.bin]\.[0-9]+$'
+
+with a stray ']', so it matched only file names containing a literal ']' after
+'.bin'. Files named model.bin.0, model.bin.1, ... matched no pattern at all and
+select_model_files raised FileNotFoundError('No models matched'), while the
+compressed counterpart .bin.zst.N and the other layout .N.bin both worked.
+---
+ src/alphafold3/model/params.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/alphafold3/model/params.py b/src/alphafold3/model/params.py
+index 3d20564..05307e4 100644
+--- a/src/alphafold3/model/params.py
++++ b/src/alphafold3/model/params.py
+@@ -204,7 +204,7 @@ def select_model_files(
+       (r'(?P<model_name>.*)\.[0-9]+\.bin\.zst$', True),
+       (r'(?P<model_name>.*)\.bin\.zst\.[0-9]+$', True),
+       (r'(?P<model_name>.*)\.[0-9]+\.bin$', False),
+-      (r'(?P<model_name>.*)\.bin]\.[0-9]+$', False),
++      (r'(?P<model_name>.*)\.bin\.[0-9]+$', False),
+       (r'(?P<model_name>.*)\.bin\.zst$', True),
+       (r'(?P<model_name>.*)\.bin$', False),
+   ):

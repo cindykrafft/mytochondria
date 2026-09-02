@@ -1,0 +1,29 @@
+From 9a4d79ca53e7011fb8e9a2d6379839c3b4f86ba6 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 06:16:53 +0000
+Subject: [PATCH] Rename a lone arginine HH22 to HH12, not HH21
+
+FixArginine swaps the two guanidinium branches, handling the case where only one
+of a pair is present by renaming it to its partner: HH11 <-> HH21 and
+HH12 <-> HH22. The last branch renamed a lone HH22 to HH21 instead of HH12,
+which is the HH11 pair's name, so the residue came out with the wrong atom name
+and, when an HH21 was also present, with two atoms called HH21.
+---
+ src/alphafold3/structure/cpp/mmcif_utils_pybind.cc | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/alphafold3/structure/cpp/mmcif_utils_pybind.cc b/src/alphafold3/structure/cpp/mmcif_utils_pybind.cc
+index 967e0f7..d1b4aa7 100644
+--- a/src/alphafold3/structure/cpp/mmcif_utils_pybind.cc
++++ b/src/alphafold3/structure/cpp/mmcif_utils_pybind.cc
+@@ -337,8 +337,8 @@ class FixArginine : public ProcessResidue {
+       atom_ids[hh12_index] = hh22_.get();
+     } else if (hh22_index >= 0) {
+       Py_DECREF(atom_ids[hh22_index]);
+-      Py_INCREF(hh21_.get());
+-      atom_ids[hh22_index] = hh21_.get();
++      Py_INCREF(hh12_.get());
++      atom_ids[hh22_index] = hh12_.get();
+     }
+   }
+ 

@@ -47,6 +47,7 @@ are read in proportion.
 | [Kilosort](audits/kilosort/) | 60 | 3 new verified on shipped code (one disables KS4's refractory split veto since v4.1.5), 5 by code reading, plus exposure map for the known 2024 "spike holes" bug | 2 fix PRs + 2 issues to file on GitHub |
 | [FieldTrip](audits/fieldtrip/) | 42 | 4 verified by executing FieldTrip's own code under Octave (permutation p-values exclude ties, p = 0 with exhaustive permutations; correlationT df; PSI edge bins −Inf; a statfun branch that cannot run) + 1 by code reading | 5 fix patches with PR/issue bodies to file on GitHub |
 | [Suite2p](audits/suite2p/) | 32 | 2 verified on the shipped 1.1.0 wheel (bidirectional-phase correction corrupts odd scan lines since v1.0; classifier bins values at the training minimum into the top bin) + 1 limit verified, 2 by code reading | 3 fix patches + 2 issues to file on GitHub |
+| [AlphaFold 3](audits/alphafold3/) | 176 name AF3 (evidence-sentence level; Europe PMC unreachable for the full re-read) | 15 verified, 2 more reproduced but already reported upstream and credited | 14 patches + questions, filing kit ready |
 
 The survey itself covers **44,198 research articles**, of which **20,501** were openly
 readable; **10,364** name at least one open-source package, across **270 distinct
@@ -76,6 +77,9 @@ audits/
                  regression, and the upstream filing kit
   afni/          nine subsystem reviews, paper→feature exposure, the ReHo
                  tie-handling reproduction, and the upstream filing queue
+  alphafold3/    seven component reviews spanning the whole codebase, ten
+                 verification scripts, the known-issues cross-check, and
+                 fourteen patches in the upstream filing kit
 ```
 
 ## Related repositories

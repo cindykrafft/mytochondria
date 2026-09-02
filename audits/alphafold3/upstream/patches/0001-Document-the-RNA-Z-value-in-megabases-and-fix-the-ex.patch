@@ -1,0 +1,51 @@
+From 18c99acca8cbecef036a25abaf1cca7317cdd59b Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 06:17:08 +0000
+Subject: [PATCH] Document the RNA Z-value in megabases and fix the example's
+ line continuation
+
+Two problems in the sharded-databases section:
+
+The text asks for "the total number of nucleic bases in the RNA databases".
+Jackhmmer's -Z is a count of sequences, but Nhmmer's -Z is a database size in
+megabases ("set database size (Megabases) to <x> for E-value calculations"), and
+msa_config documents the parameter correctly as megabases. The example values on
+the same page are already megabase-scale (--rna_central_z_value=13271.415730 for
+a database of about 13.3 Gb), so the prose and the example disagreed by a factor
+of a million. Following the prose inflates E-values by that factor and silently
+truncates the RNA MSA.
+
+The --rna_central_z_value line of the example also lacked its trailing
+backslash, so the four flags after it were parsed as a separate command and
+silently dropped.
+---
+ docs/performance.md | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/docs/performance.md b/docs/performance.md
+index d8ac9f4..03fd72a 100644
+--- a/docs/performance.md
++++ b/docs/performance.md
+@@ -116,8 +116,11 @@ shards should be:
+ The file spec for these files is `uniprot.fasta@3`.
+ 
+ Save the total number of sequences in the protein databases, and the total
+-number of nucleic bases in the RNA databases – these will be needed later as a
+-flag to Jackhmmer/Nhmmer to correctly scale e-values across all shards.
++number of **megabases** in the RNA databases – these will be needed later as a
++flag to Jackhmmer/Nhmmer to correctly scale e-values across all shards. The
++units differ between the two tools: Jackhmmer's `-Z` is a number of sequences,
++while Nhmmer's `-Z` is a database size in megabases, so an RNA Z-value given in
++bases is a factor of a million too large and silently shrinks the MSA.
+ 
+ Save the sharded databases on a fast SSD or in a RAM-backed filesystem, then
+ launch AlphaFold with the sharded paths instead of normal paths and set the
+@@ -140,7 +143,7 @@ python run_alphafold.py \
+     --rfam_database_path="rfam_14_9_clust_seq_id_90_cov_80_rep_seq.fasta@16" \
+     --rfam_z_value=138.115553 \
+     --rna_central_database_path="rnacentral_active_seq_id_90_cov_80_linclust.fasta@64" \
+-    --rna_central_z_value=13271.415730
++    --rna_central_z_value=13271.415730 \
+     --jackhmmer_n_cpu=2 \
+     --jackhmmer_max_parallel_shards=16 \
+     --nhmmer_n_cpu=2 \

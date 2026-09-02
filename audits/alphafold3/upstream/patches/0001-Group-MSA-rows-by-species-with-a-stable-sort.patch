@@ -1,0 +1,40 @@
+From b1a600e1703e9c610578bf5f8498fa6e797e4b63 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 06:06:12 +0000
+Subject: [PATCH] Group MSA rows by species with a stable sort
+
+_align_species documents that 'Within a species, MSAs are aligned based on
+their original order (the first sequence for a species in the first chain's MSA
+is aligned to the first sequence for the same species in the second chain's
+MSA)', and crops each species to the smallest per-chain hit count for that
+species. Both depend on the grouping preserving MSA order.
+
+The grouping used species_ids.argsort(), whose default kind is quicksort and is
+not stable, so rows within a species emerged in an arbitrary order. a3m rows
+arrive best hit first, so the crop kept arbitrary homologs rather than the
+best-ranked ones, and paired rows that the docstring says should not be paired.
+
+On a 2-chain heteromer with 8000/3000-row uniprot MSAs, 400 of 401 species came
+out of the grouping in a different order from the MSA's own; rows kept from the
+MSA's top 100 fell from 99 to 30, and 2853 of 2995 chain-A rows paired against
+a different chain-B row than documented.
+---
+ src/alphafold3/model/msa_pairing.py | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/alphafold3/model/msa_pairing.py b/src/alphafold3/model/msa_pairing.py
+index ae81c6d..db85e7d 100644
+--- a/src/alphafold3/model/msa_pairing.py
++++ b/src/alphafold3/model/msa_pairing.py
+@@ -134,7 +134,10 @@ def create_paired_features(
+     row_indices = np.arange(len(species_ids))
+     # The grouping np.split code requires that the input is already clustered
+     # by species id.
+-    sort_idxs = species_ids.argsort()
++    # Stable, so that rows stay in their original MSA order within a species:
++    # _align_species pairs and crops row i of one chain against row i of the
++    # next, and documents that ordering. a3m rows are ordered best hit first.
++    sort_idxs = species_ids.argsort(kind='stable')
+     species_ids = species_ids[sort_idxs]
+     row_indices = row_indices[sort_idxs]
+ 

@@ -1,0 +1,40 @@
+From 837226af4ca2ed57d4aff499909cb9d47b468802 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 06:15:09 +0000
+Subject: [PATCH] Handle ref_max_modified_date=None when reading CCD reference
+ positions
+
+_get_reference_positions_from_ccd_cif compares the component's modified date
+against ref_max_modified_date, which is annotated datetime.date but is None all
+the way down the public path: data.featurisation.featurise_input defaults it to
+None, as does WholePdbPipeline.Config. The comparison then raises
+
+    TypeError: '<' not supported between instances of 'datetime.date' and
+    'NoneType'
+
+The branch is reached whenever a component's CCD ideal coordinates contain '?',
+which is exactly what sends get_reference down this fallback in the first place,
+so any input containing such a component crashes featurisation. run_alphafold.py
+always passes max_template_date, so the CLI is unaffected; library callers of
+featurise_input are not.
+
+Guard the comparison.
+---
+ src/alphafold3/model/features.py | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/alphafold3/model/features.py b/src/alphafold3/model/features.py
+index e83b1aa..6b4a691 100644
+--- a/src/alphafold3/model/features.py
++++ b/src/alphafold3/model/features.py
+@@ -1527,7 +1527,9 @@ def _get_reference_positions_from_ccd_cif(
+         for date in ccd_cif['_chem_comp.pdbx_modified_date']
+     ]
+     max_modified_date = max(modified_dates)
+-    if max_modified_date < ref_max_modified_date:
++    if ref_max_modified_date is not None and (
++        max_modified_date < ref_max_modified_date
++    ):
+       atom_x = ccd_cif['_chem_comp_atom.model_Cartn_x']
+       atom_y = ccd_cif['_chem_comp_atom.model_Cartn_y']
+       atom_z = ccd_cif['_chem_comp_atom.model_Cartn_z']

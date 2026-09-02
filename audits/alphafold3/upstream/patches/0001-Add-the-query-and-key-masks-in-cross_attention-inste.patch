@@ -1,0 +1,52 @@
+From a1544f5b17253f41f663873669b791df102bb364 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 06:12:18 +0000
+Subject: [PATCH] Add the query and key masks in cross_attention instead of
+ multiplying them
+
+The attention bias multiplied the two mask terms:
+
+    bias = 1e9 * (mask_q - 1.0)[..., None, :, None]
+               * (mask_k - 1.0)[..., None, None, :]
+
+(m - 1) is 0 for a valid position and -1 for a padded one, so the product is 0
+whenever either side is valid. A valid query therefore received bias 0 on every
+key, padded keys included, and no key was ever masked; the only non-zero entries
+were +1e9 on fully padded pairs. self_attention in the same file builds its bias
+correctly, by adding.
+
+Padded key slots carry zeroed keys and values, but they still take softmax mass
+from the real keys, and the pair bias on those slots is non-zero, so it steers
+that mass. The window packing in AtomCrossAtt.compute_features only clamps
+windows back inside the real-atom range when there are at least 128 real heavy
+atoms, so this fires on smaller inputs: for a 5-residue peptide 98 of the 128
+key slots are padding and unmasked, taking a mean 0.76 of the softmax mass for
+every valid query. The atom transformer runs in the diffusion encoder and
+decoder at every denoising step, so this moves predicted coordinates.
+
+Add the two terms. The query term is redundant, since padded query rows are
+zeroed afterwards, but keeping it makes the intent explicit and matches the
+shape comment.
+---
+ src/alphafold3/model/network/diffusion_transformer.py | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/src/alphafold3/model/network/diffusion_transformer.py b/src/alphafold3/model/network/diffusion_transformer.py
+index 2148f26..61b2e8c 100644
+--- a/src/alphafold3/model/network/diffusion_transformer.py
++++ b/src/alphafold3/model/network/diffusion_transformer.py
+@@ -285,11 +285,9 @@ def cross_attention(
+   assert len(mask_q.shape) == len(x_q.shape) - 1, f'{mask_q.shape}, {x_q.shape}'
+   assert len(mask_k.shape) == len(x_k.shape) - 1, f'{mask_k.shape}, {x_k.shape}'
+   # bias: ... x heads (1) x query x key
+-  bias = (
+-      1e9
+-      * (mask_q - 1.0)[..., None, :, None]
+-      * (mask_k - 1.0)[..., None, None, :]
+-  )
++  bias = (1e9 * (mask_q - 1.0))[..., None, :, None] + (
++      1e9 * (mask_k - 1.0)
++  )[..., None, None, :]
+ 
+   x_q = adaptive_layernorm(x_q, single_cond_q, name=f'{name}q')
+   x_k = adaptive_layernorm(x_k, single_cond_k, name=f'{name}k')

@@ -1,0 +1,49 @@
+From e838f880b841a4b24301025541f327c9a12f7fd9 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 06:05:48 +0000
+Subject: [PATCH] Do not let a user CCD mutate the shared cached CCD dictionary
+
+_load_ccd_pickle_cached is memoised, so every Ccd built from the same pickle
+path receives the same dict object. Ccd.__init__ then applied the user CCD with
+dict.update, mutating that shared object in place.
+
+run_alphafold.py builds a fresh Ccd per fold input in one process, so a userCCD
+supplied by one input stayed visible to every later input, and an entry that
+deliberately overrides a standard CCD code (a documented use of userCCD) kept
+overriding it for inputs that supplied no userCCD at all. The class docstring
+already promises the opposite: 'Wraps the dict to prevent accidental mutation.'
+
+Overlay onto a copy instead. Only the top-level dict is copied, so the memory
+win of caching the parsed CCD is preserved.
+---
+ src/alphafold3/constants/chemical_components.py | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/src/alphafold3/constants/chemical_components.py b/src/alphafold3/constants/chemical_components.py
+index d219ff5..b86f882 100644
+--- a/src/alphafold3/constants/chemical_components.py
++++ b/src/alphafold3/constants/chemical_components.py
+@@ -70,7 +70,7 @@ class Ccd(Mapping[str, Mapping[str, Sequence[str]]]):
+         be used to override specific entries in the CCD if desired.
+     """
+     self._ccd_pickle_path = ccd_pickle_path or _CCD_PICKLE_FILE
+-    self._dict = _load_ccd_pickle_cached(self._ccd_pickle_path)
++    shared_dict = _load_ccd_pickle_cached(self._ccd_pickle_path)
+ 
+     if user_ccd is not None:
+       if not user_ccd:
+@@ -79,7 +79,13 @@ class Ccd(Mapping[str, Mapping[str, Sequence[str]]]):
+           key: value.to_dict()
+           for key, value in cif_dict.parse_multi_data_cif(user_ccd).items()
+       }
+-      self._dict.update(user_ccd_cifs)
++      # Copy before overlaying: the cached dict is shared by every Ccd built
++      # from the same pickle path, so updating it in place would leak this
++      # user CCD into unrelated Ccd instances (and override real CCD codes for
++      # them). Only the top-level dict is copied; the values are shared.
++      self._dict = {**shared_dict, **user_ccd_cifs}
++    else:
++      self._dict = shared_dict
+ 
+   def __getitem__(self, key: object) -> Mapping[str, Sequence[str]]:
+     if not isinstance(key, str):

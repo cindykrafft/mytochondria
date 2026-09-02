@@ -1,0 +1,44 @@
+From bbbb41452d4349266c1a144929bc8ed3ff4f12fc Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 06:10:40 +0000
+Subject: [PATCH] Catch AlignmentError from the is_valid check in Hit.keep
+
+Hit.keep wraps the align_ratio check in try/except AlignmentError so that a hit
+that cannot be realigned is skipped with a warning rather than failing the run.
+The is_valid check one statement above it sits outside that try, and it is what
+actually forces the realignment: is_valid reads query_to_hit_mapping, whose
+cached property calls template_realign.realign_hit_to_structure whenever the
+hit's full_length differs from len(structure_sequence). realign raises
+AlignmentError when the structure sequence is longer than the seqres length.
+
+So for a realign failure the handler could never fire. The exception escaped
+keep(), propagated through _filter_hits, and aborted template featurisation for
+the whole input instead of dropping the one bad hit.
+
+Move both checks inside the existing try.
+---
+ src/alphafold3/data/templates.py | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/alphafold3/data/templates.py b/src/alphafold3/data/templates.py
+index 76e7a99..ad25091 100644
+--- a/src/alphafold3/data/templates.py
++++ b/src/alphafold3/data/templates.py
+@@ -353,12 +353,12 @@ class Hit:
+     ):
+       return False
+ 
+-    # Exclude hits with unresolved residues.
+-    if not self.is_valid:
+-      return False
+-
+-    # Exclude hits with too few alignments.
+     try:
++      # Exclude hits with unresolved residues.
++      if not self.is_valid:
++        return False
++
++      # Exclude hits with too few alignments.
+       if min_align_ratio is not None and self.align_ratio <= min_align_ratio:
+         return False
+     except template_realign.AlignmentError as e:

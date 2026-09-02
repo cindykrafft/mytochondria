@@ -1,0 +1,40 @@
+From 636fef20e35489f350c5202c5fa8f05a73c704b1 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 06:06:12 +0000
+Subject: [PATCH] Stop dropping ligand bonds to atoms whose name starts with H
+
+The ligand-ligand bond filter removed every bond whose atom NAME starts with
+'H', intending to drop bonds to hydrogens. Atom names here are the uppercased
+element symbol plus a counter (rdkit_utils.assign_atom_names_from_graph, which
+notes 'Cl' becomes 'CL'), so mercury is HG1, hafnium HF1 and holmium HO1, and
+their bonds were dropped too. A C[Hg]Cl ligand reached token_bonds with none of
+its two covalent bonds, leaving the metal unconnected to the rest of the ligand.
+
+The filter cannot do the job its comment describes in any case: the keep_mask
+immediately above it keeps only bonds whose two endpoints appear in the flat
+atom layout, and that layout already drops hydrogens by ELEMENT
+(make_flat_atom_layout: e != 'H' and e != 'D'). By this point no hydrogen bond
+can remain, so the name test can only produce false positives on heavy atoms.
+
+Remove it.
+---
+ src/alphafold3/model/features.py | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/src/alphafold3/model/features.py b/src/alphafold3/model/features.py
+index e83b1aa..f77b9c8 100644
+--- a/src/alphafold3/model/features.py
++++ b/src/alphafold3/model/features.py
+@@ -1292,12 +1292,6 @@ class LigandLigandBondInfo:
+           keep_mask.append(False)
+       keep_mask = np.array(keep_mask).astype(bool)
+       bond_layout = bond_layout[keep_mask]
+-      # Remove any bonds to Hydrogen atoms.
+-      bond_layout = bond_layout[
+-          ~np.char.startswith(bond_layout.atom_name.astype(str), 'H').any(
+-              axis=1
+-          )
+-      ]
+       atom_names = bond_layout.atom_name
+       adjusted_bond_layout = atom_layout.AtomLayout(
+           atom_name=atom_names,

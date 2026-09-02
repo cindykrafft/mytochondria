@@ -1,0 +1,38 @@
+From 8cc427245c34e3a335d663230b9e225013d14b49 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 06:07:34 +0000
+Subject: [PATCH] Look up MSE residues by key, not by position
+
+fix_mse_residues masked selenium atoms with (residues.name == 'MET')
+[atom_res_key]. atom_res_key holds residue KEYS, while the boolean array is
+indexed positionally, so the two agree only while every key equals its row
+index. make_residues_table sorts the residues table, and when the _atom_site
+chain order differs from the order of the scheme tables the keys stop matching
+positions. The mask then lands on the wrong residues, and the selenium atoms of
+a selenomethionine keep the name SE and element SE inside a residue that has
+already been renamed MET.
+
+SE is not an ATOM37 atom name, so the affected residue silently loses its SD
+atom. fix_mse_residues is enabled for user-provided template mmCIFs and for
+Input.from_mmcif.
+
+Use apply_array_to_column, which maps keys to values.
+---
+ src/alphafold3/structure/parsing.py | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/alphafold3/structure/parsing.py b/src/alphafold3/structure/parsing.py
+index c3f72f4..ab6bed8 100644
+--- a/src/alphafold3/structure/parsing.py
++++ b/src/alphafold3/structure/parsing.py
+@@ -1628,7 +1628,9 @@ def get_tables(
+   atom_res_key = np.repeat(atom_res_key_per_res, repeats=res_lengths)
+ 
+   if fix_mse_residues:
+-    met_residues_mask = (residues.name == 'MET')[atom_res_key]
++    met_residues_mask = (
++        residues.apply_array_to_column('name', atom_res_key) == 'MET'
++    )
+     unfixed_mse_selenium_mask = met_residues_mask & (label_atom_ids == 'SE')
+     label_atom_ids[unfixed_mse_selenium_mask] = 'SD'
+     type_symbols[unfixed_mse_selenium_mask] = 'S'

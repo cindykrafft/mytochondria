@@ -1,0 +1,45 @@
+From 1766d2f410e3282209e1b93f06129e6e1ad1bca3 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 06:15:47 +0000
+Subject: [PATCH] Resolve nucleic backbone frame atoms per residue type
+
+The nucleic rows of RESTYPE_RIGIDGROUP_DENSE_ATOM_IDX resolved C1'/C3'/C4' once
+against RNA adenosine and wrote the same indices for all eight nucleic residue
+types. DNA rows of DENSE_ATOM have no O2', so every atom from C1' onwards sits
+one slot earlier, and the DNA rows selected the base nitrogen instead:
+
+    DA, DG  -> N9, C3', C4'
+    DC, DT  -> N1, C3', C4'
+
+The sibling _make_restype_pseudobeta_idx already resolves per residue type.
+
+The table's only consumer is indexed by template aatype, and template features
+currently carry protein aatypes only, so this is not reachable today; the table
+is shipped wrong regardless and the nucleic rows were clearly meant to be used.
+---
+ src/alphafold3/model/protein_data_processing.py | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/src/alphafold3/model/protein_data_processing.py b/src/alphafold3/model/protein_data_processing.py
+index 84009ca..801825a 100644
+--- a/src/alphafold3/model/protein_data_processing.py
++++ b/src/alphafold3/model/protein_data_processing.py
+@@ -66,11 +66,13 @@ def _make_restype_rigidgroup_dense_atom_idx() -> np.ndarray:
+         base_atom_indices[restype, chi_idx + 4, :] = [
+             dense_atom_names.index(atom) for atom in atom_names[1:]
+         ]
+-  dense_atom_names = atom_types.DENSE_ATOM['A']
+-  nucleic_rigid_atoms = [
+-      dense_atom_names.index(atom) for atom in ["C1'", "C3'", "C4'"]
+-  ]
+-  for nanum, _ in enumerate(residue_names.NUCLEIC_TYPES):
++  for nanum, resname in enumerate(residue_names.NUCLEIC_TYPES):
++    # Resolve per residue type: DNA rows have no O2', so the dense indices from
++    # C1' onwards differ from the RNA ones.
++    dense_atom_names = atom_types.DENSE_ATOM[resname]
++    nucleic_rigid_atoms = [
++        dense_atom_names.index(atom) for atom in ["C1'", "C3'", "C4'"]
++    ]
+     # 0: backbone frame only.
+     # we have aa + unk + gap, so we want to start after those
+     resnum = nanum + NUM_AA_WITH_UNK_AND_GAP

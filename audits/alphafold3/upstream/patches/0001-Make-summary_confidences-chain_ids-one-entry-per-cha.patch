@@ -1,0 +1,42 @@
+From 07505f9f1cfce13302a3449af784e25351a99291 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 06:08:33 +0000
+Subject: [PATCH] Make summary_confidences chain_ids one entry per chain
+
+chain_ids was built directly from token_chain_ids, so it carried one entry per
+TOKEN, with each chain repeated once per token it owns. docs/output.md describes
+it as a [num_chains] array "with chain IDs in the same order as all the other
+chain-based fields", and the neighbouring fields (chain_ptm, chain_iptm,
+chain_pair_pae_min, chain_pair_iptm) really are per chain, so anything zipping
+chain_ids against them misaligned silently.
+
+On the run output shipped in test_data the field holds 150 entries against 2 for
+chain_ptm, and starts ['P','P','P','P','P','P'].
+
+De-duplicate, preserving first-appearance order, which is the asym order the
+chain-based fields use.
+---
+ src/alphafold3/model/confidence_types.py | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/src/alphafold3/model/confidence_types.py b/src/alphafold3/model/confidence_types.py
+index a5d7c05..58ab836 100644
+--- a/src/alphafold3/model/confidence_types.py
++++ b/src/alphafold3/model/confidence_types.py
+@@ -191,7 +191,15 @@ class StructureConfidenceSummary:
+       cls, inference_result: model.InferenceResult
+   ) -> Self:
+     """Returns a new instance based on a given inference result."""
+-    chain_ids = [str(c) for c in inference_result.metadata['token_chain_ids']]  # pyrefly: ignore[not-iterable]
++    # One entry per chain, in the order the chain-based fields below use, not
++    # one per token: dict.fromkeys keeps first-appearance order, which is the
++    # asym order those fields are built in.
++    chain_ids = list(
++        dict.fromkeys(
++            str(c)
++            for c in inference_result.metadata['token_chain_ids']  # pyrefly: ignore[not-iterable]
++        )
++    )
+     return cls(
+         ptm=float(inference_result.metadata['ptm']),
+         iptm=float(inference_result.metadata['iptm']),

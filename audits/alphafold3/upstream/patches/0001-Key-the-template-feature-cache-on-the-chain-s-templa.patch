@@ -1,0 +1,53 @@
+From 57bd3ae35ad7468167006a3656229572133f54ee Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 06:16:28 +0000
+Subject: [PATCH] Key the template feature cache on the chain's templates, not
+ just its sequence
+
+Template features were computed once per sequence entity and cached, and
+templates_by_chain_id[chain_id] was read only on a cache miss. Two chains with
+the same sequence but different templates are representable (Input keeps them
+distinct, hash_without_id covers the templates) and are built per chain by the
+data pipeline, but the second such chain silently reused the first chain's
+template mmCIFs, coordinates and query-to-template mapping.
+
+The MSA path deliberately does not do this: Msa.compute_features uses
+seen_entities only to label entity_id and reads unpaired/paired MSAs per chain.
+
+Include the chain's templates in the cache key. Homomers whose chains carry the
+same templates still share one computation.
+---
+ src/alphafold3/model/features.py | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/src/alphafold3/model/features.py b/src/alphafold3/model/features.py
+index e83b1aa..edb6338 100644
+--- a/src/alphafold3/model/features.py
++++ b/src/alphafold3/model/features.py
+@@ -773,7 +773,12 @@ class Templates:
+       else:
+         entity_id = len(seen_entities) + 1
+ 
+-      if entity_id not in polymer_entity_features[skip_chain]:
++      # Cache on the templates too, not just the sequence: two chains can share
++      # a sequence and still be given different templates, and each chain's own
++      # templates_by_chain_id entry is only read on a cache miss.
++      cache_key = (entity_id, tuple(templates_by_chain_id.get(chain_id, ())))
++
++      if cache_key not in polymer_entity_features[skip_chain]:
+         if skip_chain:
+           template_features = data3.empty_template_features(chain_num_tokens)
+         else:
+@@ -809,10 +814,10 @@ class Templates:
+         template_features = _reduce_template_features(
+             template_features, max_templates
+         )
+-        polymer_entity_features[skip_chain][entity_id] = template_features
++        polymer_entity_features[skip_chain][cache_key] = template_features
+ 
+       seen_entities[three_letter_sequence] = entity_id
+-      feats = polymer_entity_features[skip_chain][entity_id].copy()
++      feats = polymer_entity_features[skip_chain][cache_key].copy()
+       feats['chain_id'] = chain_id
+       np_chains_list.append(feats)
+ 
