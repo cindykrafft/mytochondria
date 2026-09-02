@@ -29,43 +29,50 @@ to `False`, so `method="t-test"` under the v2 preset silently changes test.
 **Minimal code sample**
 
 ```python
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#   "scanpy@git+https://github.com/scverse/scanpy.git@main",
+#   "scipy",
+# ]
+# ///
 import numpy as np
 import scanpy as sc
 from scipy import stats
 
-adata = sc.datasets.pbmc68k_reduced()
-raw = adata.raw.to_adata()  # log1p-normalized values
-is_b = (raw.obs["bulk_labels"] == "CD19+ B").to_numpy()
-X = raw.X.toarray() if hasattr(raw.X, "toarray") else raw.X
-x_b, x_rest = X[is_b], X[~is_b]
-
-welch_log = stats.ttest_ind(x_b, x_rest, equal_var=False).statistic
-welch_lin = stats.ttest_ind(np.expm1(x_b), np.expm1(x_rest), equal_var=False).statistic
-
+adata = sc.datasets.pbmc68k_reduced()  # bundled; .raw holds log1p-normalized values
+scores = {}
 for mean_in_log_space in (True, False):
     sc.tl.rank_genes_groups(
-        adata, "bulk_labels", groups=["CD19+ B"], method="t-test",
-        n_genes=raw.n_vars, mean_in_log_space=mean_in_log_space,
+        adata, "bulk_labels", groups=["CD19+ B"], reference="rest",
+        method="t-test", n_genes=adata.raw.n_vars, mean_in_log_space=mean_in_log_space,
     )
-    df = sc.get.rank_genes_groups_df(adata, "CD19+ B").set_index("names").loc[raw.var_names]
-    s = df["scores"].to_numpy()
-    print(
-        f"mean_in_log_space={mean_in_log_space}: "
-        f"max |score - Welch on log1p| = {np.nanmax(np.abs(s - np.nan_to_num(welch_log))):.2g}, "
-        f"max |score - Welch on expm1| = {np.nanmax(np.abs(s - np.nan_to_num(welch_lin))):.2g}"
-    )
-```
+    df = sc.get.rank_genes_groups_df(adata, "CD19+ B").set_index("names")
+    scores[mean_in_log_space] = df.loc[adata.raw.var_names, "scores"].to_numpy()
 
-Output on `main`:
-
-```
-mean_in_log_space=True: max |score - Welch on log1p| = 5.1e-05, max |score - Welch on expm1| = 27
-mean_in_log_space=False: max |score - Welch on log1p| = 27, max |score - Welch on expm1| = 4e-05
+# Expected: identical t statistics (the parameter is documented as a fold-change option).
+# Got on main: they differ by up to ~27, and the mean_in_log_space=False values equal
+# Welch's t computed on expm1(X), i.e. the test ran on linear-scale values.
+X = adata.raw.X.toarray()
+is_b = (adata.obs["bulk_labels"] == "CD19+ B").to_numpy()
+welch_on_expm1 = stats.ttest_ind(np.expm1(X[is_b]), np.expm1(X[~is_b]), equal_var=False).statistic
+print("max |t(True) - t(False)|        =", np.nanmax(np.abs(scores[True] - scores[False])))
+print("max |t(False) - Welch on expm1| =", np.nanmax(np.abs(scores[False] - np.nan_to_num(welch_on_expm1))))
+np.testing.assert_allclose(scores[True], scores[False], atol=1e-3)
 ```
 
 **Error output**
 
-None (silent).
+```
+max |t(True) - t(False)|        = 26.637714
+max |t(False) - Welch on expm1| = 4.005432e-05
+Traceback (most recent call last):
+  File "sc1.py", line 30, in <module>
+    np.testing.assert_allclose(scores[True], scores[False], atol=1e-3)
+AssertionError:
+Not equal to tolerance rtol=1e-07, atol=0.001
+(on 1.12.4 the same script prints max |t(True) - t(False)| = 0.0 and exits cleanly)
+```
 
 **Versions**
 

@@ -46,35 +46,40 @@ Bin sizes from the formula:
 **Minimal code sample**
 
 ```python
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#   "scanpy@git+https://github.com/scverse/scanpy.git@main",
+# ]
+# ///
 import numpy as np
-import pandas as pd
 import scanpy as sc
 from anndata import AnnData
 
 rng = np.random.default_rng(0)
-n_obs, n_vars = 500, 20_000
-adata = AnnData(rng.lognormal(0, 1, (n_obs, n_vars)).astype(np.float32))
-adata.var_names = [f"g{i}" for i in range(n_vars)]
-avg = pd.Series(adata.X.mean(axis=0), index=adata.var_names).sort_values()
+adata = AnnData(rng.lognormal(0, 1, (100, 20_000)).astype(np.float32))  # synthetic, 20,000 genes
+adata.var_names = [f"g{i}" for i in range(adata.n_vars)]
+top9 = adata.var_names[np.argsort(adata.X.mean(axis=0))[-9:]]  # the 9 most-expressed genes
 
-# bin sizes as computed inside _score_genes_bins (n_bins=25)
-n_items = int(np.round(n_vars / 24))
-obs_cut = avg.rank(method="min") // n_items
-print(obs_cut.value_counts().sort_index().tail(3).to_dict())   # {22.0: 833, 23.0: 833, 24.0: 9}
-
-top = list(avg.index[-9:])                # the 9 genes in the top bin
+# Expected (n_bins=25): the top genes share an expression bin of 20000/25 = 800 genes,
+# so 50 control genes are drawn for them. Got: the top bin holds only these 9 genes,
+# 4 controls are used for five of them, and scoring all nine raises RuntimeError.
 sc.settings.verbosity = 4
-sc.tl.score_genes(adata, top[-5:], rng=0)  # "4 total control genes are used."
-sc.tl.score_genes(adata, top, rng=0)       # RuntimeError: No control genes found in any cut.
+sc.tl.score_genes(adata, top9[-5:])  # logs "4 total control genes are used."
+sc.tl.score_genes(adata, top9)       # RuntimeError: No control genes found in any cut.
 ```
 
 **Error output**
 
 ```
+    4 total control genes are used. (0:00:00)
+Traceback (most recent call last):
+  File "sc2.py", line 22, in <module>
+    sc.tl.score_genes(adata, top9)       # RuntimeError: No control genes found in any cut.
+  File ".../scanpy/tools/_score_genes.py", line 200, in score_genes
+    raise RuntimeError(msg)
 RuntimeError: No control genes found in any cut. Try setting `ctrl_as_ref=False`.
 ```
-
-(`ctrl_as_ref=False` raises the same error.)
 
 **Versions**
 
