@@ -16,8 +16,13 @@ import numpy as np
 rng = np.random.default_rng(0)
 
 
-def ranks_and_ties(ts, truncate):
+CLOSE_TAIL = False   # True models commit 29384a2 (merged 2026-08-27), which closes a tie run at the end
+
+
+def ranks_and_ties(ts, truncate, close_tail=None):
     """rsfc.c:79-118. Returns (ranks, T) with T = sum len*(len^2-1)."""
+    if close_tail is None:
+        close_tail = CLOSE_TAIL
     N = len(ts)
     P = np.argsort(ts, kind="stable")          # gsl_sort_vector_index
     IND = np.empty(N)
@@ -37,18 +42,27 @@ def ranks_and_ties(ts, truncate):
             for mm in range(lentie):
                 IND[P[istie + mm]] = tr + 1
             istie, lentie = -1, 0
-    # AF1b: a run reaching the end of the array is never finalized. Faithfully
-    # omitted here -- do not "fix" this, it is what the C code does.
+    # AF1b: in the code shipped in every AFNI release through 26.2.03 a run reaching
+    # the end of the array is never finalized. Commit 29384a2 (authored 2023-09-27,
+    # merged to master only on 2026-08-27, one day before the float fix) closes it;
+    # with integer truncation still in place that makes every series lying inside one
+    # integer bin a single full-length tie, the denominator becomes exactly zero and
+    # ReHo is NaN. close_tail=True models that one-day state.
+    if close_tail and lentie > 0:
+        tr = istie + 0.5 * (lentie - 1)
+        T += lentie * (lentie * lentie - 1)
+        for mm in range(lentie):
+            IND[P[istie + mm]] = tr + 1
     return IND, T
 
 
-def reho(block, truncate):
+def reho(block, truncate, close_tail=None):
     """rsfc.c:164-199 (ReHoIt). block is M voxels x N time points."""
     M, N = block.shape
     R = np.empty((M, N))
     Tfac = 0
     for i in range(M):
-        r, T = ranks_and_ties(block[i], truncate)
+        r, T = ranks_and_ties(block[i], truncate, close_tail)
         R[i] = r
         Tfac += T
     bigR = ((R.sum(axis=0)) ** 2).sum()

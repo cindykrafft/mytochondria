@@ -23,10 +23,24 @@ Two implementation details are deliberate and must not be "tidied":
 
 1. `sorted` is truncated with `np.trunc` — C's `int` cast truncates toward zero, it
    does not round.
-2. The trailing tie run is **not** finalized, because the C loop at `rsfc.c:99-118`
-   only closes a run when a different value appears. This is AF1b, and it is what
-   makes the error curve non-monotonic: input that fits entirely inside one integer
-   bin gets no tie correction at all and therefore comes out exactly right.
+2. The trailing tie run is **not** finalized by default, because the C loop at
+   `rsfc.c:99-118` in every AFNI release through 26.2.03 only closes a run when a
+   different value appears. This is AF1b, and it is what makes the error curve
+   non-monotonic: input that fits entirely inside one integer bin gets no tie
+   correction at all and therefore comes out exactly right.
+
+   `CLOSE_TAIL = True` (or `reho(block, True, close_tail=True)`) models commit
+   `29384a2` (authored 2023-09-27, merged to master only on 2026-08-27, one day
+   before the float fix `94ee52b`), which closes the trailing run. With integer
+   truncation still in place that turns every series lying inside one integer bin
+   into one full-length tie, the denominator becomes exactly zero, and ReHo is
+   NaN — which every AFNI program then reads as 0. That state shipped for about a
+   day and is not what any published paper ran; it is modelled because the first
+   pass of `../reanalysis/` accidentally used it as the "pre-fix" arm.
+
+   Both regimes were verified voxel-for-voxel (four decimals) against 3dReHo
+   binaries built from `29384a2^` and from `4c2bd54` on synthetic volumes
+   (`../reanalysis/README.md`, "Three builds").
 
 That second point corrected an earlier pass of this audit, which had classified
 sum-of-squares-normalised input (`3dTproject -norm`) as the maximal-tie, maximal-bias
