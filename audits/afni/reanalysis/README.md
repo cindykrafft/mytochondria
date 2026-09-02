@@ -97,6 +97,22 @@ regressors — 4 of 24 CONTROL and 8 of 28 SCHZ attempted
 bandpass regressors, not of either 3dReHo build; it is noted because it makes
 the SCHZ group the more-censored one, which matters below.
 
+### Who the 40 are
+
+`results/demographics_qc.tsv` (age and sex from `participants.tsv`; motion = mean
+Euclidean norm of the frame-to-frame motion derivative from `motion_*_enorm.1D`):
+
+| | CONTROL (n = 20) | SCHZ (n = 20) | p |
+|---|---|---|---|
+| age, years (range) | 32.4 ± 8.6 (21–49) | 36.0 ± 9.7 (22–49) | 0.21 |
+| sex F / M | 8 / 12 | 6 / 14 | 0.74 (Fisher) |
+| motion, all volumes (mm) | 0.103 ± 0.036 | 0.123 ± 0.045 | 0.11 |
+| motion, retained volumes | 0.093 ± 0.028 | 0.105 ± 0.034 | 0.24 |
+| volumes censored | 5.0 % | 8.8 % | 0.10 |
+
+No significant group difference, but SCHZ moves more and loses more volumes, which
+is what makes the amplitude-dependent bias below group-dependent.
+
 ### Per subject (arm A vs B): a sixth of the brain zeroed, a third of the correct value elsewhere
 
 | quantity (mean over 40 subjects, range) | value |
@@ -148,6 +164,17 @@ difference flips in about one voxel in five; **the p < .001 sets have
 essentially no overlap** (0 of 12; 2 of 104), and even the liberal p < .05
 sets agree on only a quarter of their union.
 
+**Cluster-level inference.** To mirror a published design, `3dttest++ -Clustsim`
+(sign-flip randomisation, 10,000 iterations, NN1, bi-sided) gave cluster-size
+thresholds at α = 0.05 for cluster-forming p = 0.001 and 0.01 under each build and
+mask, and `3dClusterize` extracted survivors (`results/cluster_inference/`). **No
+cluster survives under either build** at n = 20 + 20: in the 90 %-coverage mask the
+largest p < .001 clusters are 21 (before) and 20 (after) voxels against thresholds of
+24, and the largest p < .01 clusters 114 and 138 against 151 and 179. The pilot is
+underpowered for a corrected whole-brain finding in either arm, so the fix's effect
+here is on the content of the maps, not on whether a corrected result exists; the
+uncorrected comparisons above are the appropriate description of that effect.
+
 Whole-brain mean ReHo, the simplest ReHo statistic papers report:
 
 | SCZ − CONTROL, global mean ReHo | pre-fix (NaN as 0) | pre-fix (valid voxels only) | post-fix |
@@ -186,6 +213,7 @@ S3 bucket (no credentials needed, ~9 min/subject on 4 cores);
 `scripts/supervisor.sh` runs the batch and top-up;
 `scripts/group_analysis.sh` produces the group maps and logs;
 `scripts/subject_stats_v2.py` the per-subject table (nibabel, NaN-aware);
+`scripts/cluster_inference.sh` + `scripts/cluster_extract.sh` the cluster-level inference;
 `scripts/make_figure1.py` the summary figure `results/figure1.png` (panel A: one
 subject's before/after maps; B: per-subject map fidelity vs residual SD; C: the
 SCZ-vs-CONTROL t-maps under each build); `scripts/make_mechanism_figure.py` the

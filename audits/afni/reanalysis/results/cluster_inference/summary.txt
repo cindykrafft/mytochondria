@@ -1,0 +1,8 @@
+mask90 p=0.001 pre: cluster-size threshold 24 voxels; surviving clusters 0; surviving voxels 0
+mask90 p=0.001 post: cluster-size threshold 24 voxels; surviving clusters 0; surviving voxels 0
+mask90 p=0.01 pre: cluster-size threshold 151 voxels; surviving clusters 0; surviving voxels 0
+mask90 p=0.01 post: cluster-size threshold 179 voxels; surviving clusters 0; surviving voxels 0
+inter p=0.001 pre: cluster-size threshold 14 voxels; surviving clusters 0; surviving voxels 0
+inter p=0.001 post: cluster-size threshold 16 voxels; surviving clusters 0; surviving voxels 0
+inter p=0.01 pre: cluster-size threshold 93 voxels; surviving clusters 0; surviving voxels 0
+inter p=0.01 post: cluster-size threshold 88 voxels; surviving clusters 0; surviving voxels 0
