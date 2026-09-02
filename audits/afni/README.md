@@ -256,6 +256,18 @@ every route used here. "Zero confirmed" for the other findings means zero *docum
 affected configurations, not zero uses — command flags are rarely written into methods
 sections at all.
 
+## AF1 on open data: the published design, re-run under both builds
+
+With PR #944 merged, `reanalysis/` re-runs the exposed papers' design —
+`afni_proc.py` with the default `scale` block, `3dReHo`, a two-sample group
+contrast — on OpenNeuro ds000030 (20 CONTROL + 20 SCHZ) with the pre-fix and
+post-fix 3dReHo on identical residuals. Pre-fix ReHo maps carry a 57 % mean
+error (range 23–65 %, tracking each subject's residual SD at r = 0.78) and
+correlate only r = 0.60 with the correct maps; the SCZ-vs-CONTROL t-maps from
+the two builds correlate 0.66, disagree in sign at 19 % of voxels, and their
+p < .001 sets share one voxel in 44. Details, per-subject table, t-maps and
+scripts in [`reanalysis/README.md`](reanalysis/README.md).
+
 ## Files
 
 | File | Contents |
@@ -267,6 +279,7 @@ sections at all.
 | `build_tables.py` | joins the profiles into the two tables above |
 | `reproductions/` | the AF1 harness and its checked-in results |
 | `upstream/` | what has been filed, and what is ready to file |
+| `reanalysis/` | the ds000030 pre-fix vs post-fix 3dReHo pilot: scripts, subject lists, results |
 
 ## Filing route
 

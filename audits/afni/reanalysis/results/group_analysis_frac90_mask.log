@@ -1,0 +1,9 @@
+SCZ n=20, CONTROL n=20, df=38, |t| threshold p<.001 two-sided = 3.566; group-mask voxels 25227
+pre: voxels |t|>3.566: 25 ; |t|>1.96: 2848
+post: voxels |t|>3.566: 82 ; |t|>1.96: 3415
+t-map spatial correlation pre vs post: 0.6846
+mean-difference map (SCZ-CONTROL) spatial correlation pre vs post: 0.6911
+mean |t_pre - t_post| in mask: 0.654345
+sign disagreements of t (pre vs post): 4692 
+overlap of |t|>3.566 sets (pre∩post / pre∪post): 1 / 106
+subject	group	errts_sd	reho_pre	reho_post	rel_err_mean	rel_err_max	spatial_corr	censor_frac
