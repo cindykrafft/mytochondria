@@ -1,0 +1,33 @@
+scanpy 1.14.0.dev1+ga656a33b0
+
+PART A  bin sizes from the formula, ranks 1..N, obs_cut = rank // round(N/(n_bins-1))
+ N genes  n_bins | n_items  n bins    typical  top bin
+    2000      25 |      83      25         83        9
+    2000      10 |     222      10        222        3
+   18000      25 |     750      25        750        1
+   18000      10 |    2000      10       2000        1
+   20000      25 |     833      25        833        9
+   20000      10 |    2222      10       2222        3
+   25000      25 |    1042      24       1042     1035
+   25000      10 |    2778       9       2778     2777
+   30000      25 |    1250      25       1250        1
+   30000      10 |    3333      10       3333        4
+   33000      25 |    1375      25       1375        1
+   33000      10 |    3667       9       3667     3665
+        Seurat cut_number(): every bin holds N/n_bins genes (800 for N=20,000, n_bins=25).
+
+PART B  shipped score_genes on simulated 10x-like data, 20,000 genes, no module structure
+  1 top-9 gene + 4 mid-ranked genes      controls used =   58   score mean = +0.389  sd = 0.184
+  5 of the top-9 genes                   controls used =    4   score mean = +0.613  sd = 0.567
+  all top-9 genes                        RuntimeError: No control genes found in any cut. Try setting `ctrl_as_ref=False`.
+  all top-9 genes, ctrl_as_ref=False     RuntimeError: No control genes found in any cut.
+  5 genes ranked ~10,000 (control)       controls used =   50   score mean = -0.004  sd = 0.091
+  50 random genes (control)              controls used = 1047   score mean = +0.002  sd = 0.040
+
+PART C  same calls after replacing the two binning lines with n_bins equal-frequency bins
+  1 top-9 gene + 4 mid-ranked genes      controls used =   99   score mean = +0.190  sd = 0.193
+  5 of the top-9 genes                   controls used =   49   score mean = +3.149  sd = 0.384
+  all top-9 genes                        controls used =   49   score mean = +2.876  sd = 0.302
+  all top-9 genes, ctrl_as_ref=False     controls used =   50   score mean = +2.934  sd = 0.303
+  5 genes ranked ~10,000 (control)       controls used =   49   score mean = +0.000  sd = 0.091
+  50 random genes (control)              controls used = 1046   score mean = +0.002  sd = 0.040
