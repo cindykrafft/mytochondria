@@ -20,6 +20,8 @@ the issue. Recommended order:
 - FT1 → [fieldtrip/fieldtrip#2608](https://github.com/fieldtrip/fieldtrip/pull/2608) (fixes #2607); branch now carries `test/test_pull2608.m` (commit 1df1958)
 - FT11 → [fieldtrip/fieldtrip#2610](https://github.com/fieldtrip/fieldtrip/pull/2610) (fixes #2609); branch now carries `test/test_pull2610.m` (commit b260b08) and an updated `test/test_ft_connectivity_psi.m` (commit 2f59b90: the existing test used `rpt_chan_chan` input, i.e. a single frequency bin, whose only nonzero output was the very contamination the fix removes; it now uses a 10-bin frequency axis and passes on both master and the branch)
 
+- FT7 → [fieldtrip/fieldtrip#2611](https://github.com/fieldtrip/fieldtrip/pull/2611); FTR → [#2612](https://github.com/fieldtrip/fieldtrip/pull/2612); FT2 → [#2613](https://github.com/fieldtrip/fieldtrip/pull/2613) (all filed 2026-09-02, open)
+
 Copies of both test scripts are in `tests/`. Each passes on its PR branch and
 fails on unpatched master (FieldTrip's `test_pullNNNN.m` convention: `DATA no`,
 runnable outside the DCCN).

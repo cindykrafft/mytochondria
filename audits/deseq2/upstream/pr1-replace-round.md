@@ -1,3 +1,5 @@
+_Filed as thelovelab/DESeq2#132 on 2026-09-01; closed the same day: "would change DESeq2 results and so won't be taken on." Withdrawn. See README.md in this directory._
+
 TITLE: replaceOutliers: round replacement counts instead of truncating
 
 Closes #NNN (companion issue).

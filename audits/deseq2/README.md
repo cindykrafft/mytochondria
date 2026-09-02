@@ -47,16 +47,26 @@ weights. Reproduced on shipped 1.42.1: lfcSE off by 0.42–2.5×, a third of gen
 off >10%, 1.8% of significance calls flip, p-values off up to 12.7× — controls
 agree to machine precision. Requires: weights in `assays()` (the zinbwave
 single-cell workflow) + a numeric/list/non-reference contrast + ≥1 all-zero gene
-(guaranteed in scRNA-seq). Upstream fixed it quietly in Aug 2025 (`abe5994`);
-**no erratum or NEWS entry exists** — that is the ask. Cohort exposure: 1 paper
-names zinbwave; 62 single-cell papers are candidates.
+(guaranteed in scRNA-seq). Upstream fixed it in Aug 2025 (`abe5994`, released
+as 1.49.4) **with a NEWS entry** under 1.49.4: "The wrong weights matrix was
+being used when recomputing the SE within results() for the numeric-style
+contrast. Fixed." An earlier version of this page, and the issue filed upstream,
+claimed no NEWS entry existed. That was wrong: the audit checked the fix
+commit's diff, which does not touch NEWS, and missed the same-day version-bump
+commit (`5f5e305`) that added the entry. The entry does not name the affected
+release range (1.16.0–1.49.x) or the weights/zinbwave workflow, which is why a
+user of that workflow is unlikely to find it; the maintainer closed the request
+as already documented. Cohort exposure: 1 paper names zinbwave; 62 single-cell
+papers are candidates.
 
 **DS2 — CONFIRMED behavior change. `lfcThreshold` tests are a different statistic
 before and after v1.44.0 (2024).** Old: 2·Φ((T−|LFC|)/SE) capped; new: the more
 powerful two-term formula. Same data: p-values differ up to 2×, +19% rejections
 at padj<0.05 (T=0.585 sim), 0.8% of calls flip. Both are valid tests; results
 simply don't reproduce across the version boundary (`greaterAbs2014` restores the
-old one). 5 cohort papers use lfcThreshold explicitly.
+old one). This is documented in NEWS under 1.44.0, naming `greaterAbs2014`; the
+upstream visibility request was closed as already documented. 5 cohort papers
+use lfcThreshold explicitly.
 
 **DS3 — note. `greaterAbs`+`useT=TRUE` was broken (loudly) in 1.44–1.52**, fixed
 Oct–Nov 2025. Affects glmGamPoi/single-cell threshold tests.
@@ -90,12 +100,34 @@ One suspicion (UPSHOT p>1) was raised and then withdrawn by proof during review.
 | `verify/dsn1_lrt_fastpath.py` | DS-N1 quantification (the exoneration) |
 | `verify/heldup_cooks_calibration.py` | Cook's constants + false-flag rate (held up) |
 
-## Filing route
+## Filing outcome (2026-09-01) and what went wrong
 
-DESeq2 lives on GitHub (`thelovelab/DESeq2`) with a responsive maintainer; the
-Bioconductor support site is the user-facing channel. DS1's code fix already
-exists upstream, so the filing is: (1) a GitHub issue requesting a NEWS/erratum
-entry naming the affected releases and conditions, with the reproduction script
-attached; (2) a support-site post so zinbwave-workflow users can check their
-analyses; (3) a docs note for DS2 version comparability; (4) a one-line
-`round()` PR for the replacement-count truncation.
+Four items were filed on `thelovelab/DESeq2`: issue #130 (NEWS/erratum for
+DS1), issue #133 (visibility for DS2), and issue #131 + PR #132 (the one-line
+`round()` change). The maintainer closed all four within two hours, pointing to
+the project's pinned policy (issue #1): the DS1 and DS2 changes were already in
+NEWS, and the PR "would change DESeq2 results and so won't be taken on."
+
+He was right on each point. The audit's process failures, recorded here so the
+next audit does not repeat them:
+
+- **It misread the repository's own history.** The claim that no NEWS entry
+  existed for DS1 came from inspecting the fix commit alone. The entry was added
+  in the adjacent version-bump commit. NEWS itself was never grepped.
+- **It did not read the contribution guidelines.** DESeq2's pinned issue #1
+  (since 2017) and `CONTRIBUTING.md` (July 2026) both say non-minor PRs should
+  be discussed on the Bioconductor support site first, and the maintainer will
+  not take changes that alter results without prior discussion. The audit's own
+  review rated the rounding bias "verified negligible" and still sent a
+  results-changing PR cold. That is a cost to the maintainer with no benefit.
+- **It treated a GitHub repo like every other GitHub repo.** For Bioconductor
+  packages the support site is the primary channel; GitHub is for browsing and
+  discussed PRs.
+
+Nothing further is filed. A support-site notice for zinbwave/weights users was
+drafted (`upstream/support-post-zinbwave.md`) and stays unposted: the
+maintainer has reviewed the finding and judged the NEWS entry sufficient, and
+with one cohort paper naming zinbwave the exposure does not warrant going
+around that judgment. The reproduction script is public here for anyone who
+needs to check an old analysis. The rounding change is withdrawn: the effect
+was measured as negligible and the project's policy is to keep results stable.

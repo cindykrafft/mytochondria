@@ -8,7 +8,8 @@ Git history consulted to date defects to released versions.
 
 ## Confirmed findings
 
-**DS1 CONFIRMED (upstream-fixed 2025-08-18, commit abe5994; NO erratum): observation
+**DS1 CONFIRMED (upstream-fixed 2025-08-18, commit abe5994, released 1.49.4 with a NEWS
+entry added in 5f5e305 the same day; an earlier draft here wrongly said none existed): observation
 weights misaligned in results(contrast=).** `getContrast()` (results.R:786 pre-fix)
 subsets counts/dispersions/betas to non-all-zero rows (`objectNZ`) but took the
 weights matrix from the UNSUBSET object. The C++ `fitBeta` does no dimension check,
@@ -23,7 +24,9 @@ in the DESeq2 vignette era — or any user weights) AND results(contrast=) via t
 numeric/list/non-reference-level path AND >=1 all-zero gene (guaranteed in scRNA).
 `results(name=)` and reference-level character contrasts were never affected.
 Cohort exposure: 1 paper names zinbwave explicitly; 62 single-cell papers are
-candidates. Ask upstream: NEWS/erratum naming affected versions + support-site note.
+candidates. Filed as issue #130 requesting a fuller NEWS entry; closed by the maintainer
+as already documented (the 1.49.4 entry exists but names neither the release range nor
+the weights workflow). Remaining route: a support-site post.
 
 **DS2 CONFIRMED (behavior change, not a bug): lfcThreshold tests changed definition
 at 1.43.2 (2024-02-01, commit 0247fd7; first release 1.44.0).** `altHypothesis=

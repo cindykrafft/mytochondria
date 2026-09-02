@@ -1,3 +1,5 @@
+_Filed as thelovelab/DESeq2#133 on 2026-09-01; closed the same day as already documented in NEWS (1.44.0). See README.md in this directory._
+
 TITLE: Docs/NEWS request: make the v1.44 change of the default lfcThreshold test more visible (p-values differ up to 2x across the version boundary)
 
 **Summary.** In 1.43.2 (commit 0247fd7, first release v1.44.0, 2024) the default

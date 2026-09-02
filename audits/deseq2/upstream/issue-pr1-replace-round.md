@@ -1,3 +1,5 @@
+_Filed as thelovelab/DESeq2#131 on 2026-09-01; closed the same day under the project's results-stability policy (issue #1). Withdrawn. See README.md in this directory._
+
 TITLE: replaceOutliers: replacement counts are truncated, not rounded (systematic -0.5 bias)
 
 **Summary.** In `replaceOutliers()` (R/core.R), the replacement counts built

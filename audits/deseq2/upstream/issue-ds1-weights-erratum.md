@@ -1,3 +1,5 @@
+_Filed as thelovelab/DESeq2#130 on 2026-09-01; closed the same day as already documented in NEWS (1.49.4). The "no NEWS entry" claim below was wrong; see README.md in this directory._
+
 TITLE: Request: NEWS/erratum entry for the results(contrast=) weights misalignment fixed in abe5994 (affected releases 1.16.0–1.49.x)
 
 **Summary.** Commit abe5994 (2025-08-18, "fix issue with contrast affecting lfcSE
