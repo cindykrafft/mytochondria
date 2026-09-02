@@ -1,0 +1,59 @@
+From 32a9118772c2fbaa689ed0264f187a717ebee144 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Wed, 2 Sep 2026 00:28:44 +0000
+Subject: [PATCH] bidiphase.shift: copy the source slice before the overlapping
+ in-place assignment
+
+bidiphase.shift shifts the odd scan lines with an in-place assignment whose
+source and destination slices overlap. numpy handles overlapping assignments
+by making a temporary copy, but torch.Tensor.copy_ does not, so since the
+registration path started passing torch tensors (v1.0.0.1) every odd line
+was corrupted instead of shifted: with bidiphase=3, 34% of odd-line pixels
+in register_frames' output differ from the intended shift (they contain
+repeated copies of the first columns). The reference image, which still
+goes through the numpy path in registration_wrapper, was shifted correctly,
+so frames and reference disagreed.
+
+Copy the source slice first (clone for torch, copy for numpy), which
+restores the numpy semantics for both array types.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012d2sJAD5EUp4GqAStqoBX7
+---
+ suite2p/registration/bidiphase.py | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/suite2p/registration/bidiphase.py b/suite2p/registration/bidiphase.py
+index 423eecc..ede403c 100644
+--- a/suite2p/registration/bidiphase.py
++++ b/suite2p/registration/bidiphase.py
+@@ -3,6 +3,7 @@ Copyright © 2023 Howard Hughes Medical Institute, Authored by Carsen Stringer a
+ """
+ import numpy as np
+ from numpy import fft
++import torch
+ 
+ 
+ def compute(frames: np.ndarray) -> int:
+@@ -60,8 +61,16 @@ def shift(frames: np.ndarray, bidiphase: int) -> None:
+     frames : np.ndarray
+         The input frames with odd lines shifted.
+     """
++    # The source and destination slices overlap. numpy makes a temporary copy
++    # for overlapping assignments, but torch.Tensor.copy_ does not, so on a
++    # torch tensor the in-place assignment reads already-overwritten pixels
++    # and corrupts the odd lines. Copy the source first for both array types.
+     if bidiphase > 0:
+-        frames[:, 1::2, bidiphase:] = frames[:, 1::2, :-bidiphase]
++        src = frames[:, 1::2, :-bidiphase]
++        src = src.clone() if isinstance(frames, torch.Tensor) else src.copy()
++        frames[:, 1::2, bidiphase:] = src
+     elif bidiphase < 0:
+-        frames[:, 1::2, :bidiphase] = frames[:, 1::2, -bidiphase:]
++        src = frames[:, 1::2, -bidiphase:]
++        src = src.clone() if isinstance(frames, torch.Tensor) else src.copy()
++        frames[:, 1::2, :bidiphase] = src
+     return frames
+-- 
+2.43.0
+

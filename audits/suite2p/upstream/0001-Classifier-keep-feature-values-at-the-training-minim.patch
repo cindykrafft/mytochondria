@@ -1,0 +1,40 @@
+From 376e510b152b3184b490d816eed00af14cdfdef5 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Wed, 2 Sep 2026 00:28:44 +0000
+Subject: [PATCH] Classifier: keep feature values at the training minimum in
+ the first bin
+
+_get_logp clamps feature values to the training range and then bins them
+with np.digitize(x, grid, right=True) - 1. For x equal to grid[0] (every
+value at or below the training minimum, and NaNs, which are set to grid[0])
+digitize returns 0, so the bin index becomes -1 and the probability of the
+*last* bin is used. A ROI whose skew is at or below the training minimum was
+therefore scored with the highest-skew bin's probability (builtin
+classifier: P(cell) 0.986 instead of 0.535), and the analogous wrap applies
+to compact and npix_norm. Clip the bin index to the valid range.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012d2sJAD5EUp4GqAStqoBX7
+---
+ suite2p/classification/classifier.py | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/suite2p/classification/classifier.py b/suite2p/classification/classifier.py
+index 8a7d9ae..cf733a8 100644
+--- a/suite2p/classification/classifier.py
++++ b/suite2p/classification/classifier.py
+@@ -133,7 +133,11 @@ class Classifier:
+             x[x < self.grid[0, n]] = self.grid[0, n]
+             x[x > self.grid[-1, n]] = self.grid[-1, n]
+             x[np.isnan(x)] = self.grid[0, n]
++            # np.digitize(..., right=True) returns 0 for x == grid[0], which after
++            # the -1 would index the *last* bin; clip so values at (or clamped to)
++            # the minimum use the first bin and values at the maximum the last.
+             ibin = np.digitize(x, self.grid[:, n], right=True) - 1
++            ibin = np.clip(ibin, 0, self.p.shape[0] - 1)
+             logp[:, n] = np.log(self.p[ibin, n] + 1e-6) - np.log(1 - self.p[ibin, n] +
+                                                                  1e-6)
+         return logp
+-- 
+2.43.0
+

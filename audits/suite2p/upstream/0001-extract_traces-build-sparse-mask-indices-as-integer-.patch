@@ -1,0 +1,42 @@
+From abba09ff102db9202aa193d18e7f3dcc57f12cda Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Wed, 2 Sep 2026 00:28:44 +0000
+Subject: [PATCH] extract_traces: build sparse-mask indices as integer tensors
+
+The pixel and ROI indices for the sparse cell and neuropil mask matrices
+were created with torch.Tensor(...), i.e. float32, which cannot represent
+integers above 2**24 exactly; for fields of view larger than 16.7 million
+pixels flattened pixel indices would be rounded to the wrong pixel. Create
+them as int64 directly.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_012d2sJAD5EUp4GqAStqoBX7
+---
+ suite2p/extraction/extract.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/suite2p/extraction/extract.py b/suite2p/extraction/extract.py
+index 4b3832d..1d825ac 100644
+--- a/suite2p/extraction/extract.py
++++ b/suite2p/extraction/extract.py
+@@ -62,7 +62,7 @@ def extract_traces(f_in, cell_masks, neuropil_masks, batch_size=500,
+         # create coo tensor of neuropil masks
+         ccol_indices = [m for nm in neuropil_masks for m in nm]
+         row_indices = [k for k in range(len(neuropil_masks)) for m in neuropil_masks[k]]
+-        inds = torch.Tensor([ccol_indices, row_indices]).to(device)
++        inds = torch.tensor([ccol_indices, row_indices], dtype=torch.long, device=device)
+         # convert to csc (tried creating csc directly but it was slow)
+         nmasks = torch.sparse_coo_tensor(inds, torch.ones(len(row_indices), device=device),
+                                          size=(Ly*Lx, ncells))
+@@ -71,7 +71,7 @@ def extract_traces(f_in, cell_masks, neuropil_masks, batch_size=500,
+     ccol_indices = [m for cm in cell_masks for m in cm[0]]
+     row_indices = [k for k in range(len(cell_masks)) for m in cell_masks[k][0]]
+     cell_lam = torch.Tensor([l for cm in cell_masks for l in cm[1]]).to(device)
+-    inds = torch.Tensor([ccol_indices, row_indices]).to(device)
++    inds = torch.tensor([ccol_indices, row_indices], dtype=torch.long, device=device)
+     cmasks = torch.sparse_coo_tensor(inds, cell_lam,
+                                      size=(Ly*Lx, ncells))
+     cmasks = cmasks.to_sparse_csc()
+-- 
+2.43.0
+

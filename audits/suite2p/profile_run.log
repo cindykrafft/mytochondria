@@ -1,0 +1,28 @@
+cohort: 32
+profiled 32/32
+
+FEATURES (papers):
+  two-photon                       31
+  GCaMP                            29
+  spatial scale / diameter         28
+  frame rate stated                26
+  registration / motion correction 23
+  z-stack / multiplane             22
+  cross-day / longitudinal         21
+  deconvolution (OASIS/spks)       18
+  neuropil correction              17
+  anatomical (cellpose) mode       16
+  ROI detection                    15
+  manual curation of ROIs          14
+  SNR / skew metrics               12
+  tau / decay constant             12
+  dF/F                             9
+  classifier / iscell              8
+  one-photon / miniscope           8
+  nonrigid registration            7
+  neuropil coefficient stated      6
+  Cellpose in suite2p              3
+  CaImAn also used                 3
+  version stated                   1
+
+VERSIONS: {'10.5281': 1}
