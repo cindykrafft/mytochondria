@@ -33,15 +33,16 @@ one branch, if a combined submission is ever preferred.)
 
 ## Status
 
-**SP1 and SP2 are filed and open upstream** — issue
-[#158](https://github.com/spm/spm/issues/158) / PR
-[#159](https://github.com/spm/spm/pull/159) (SP1) and issue
-[#160](https://github.com/spm/spm/issues/160) / PR
-[#161](https://github.com/spm/spm/pull/161) (SP2), all opened 2026-08-31.
-SP3-SP5 remain to file. SP1's branch ships with the unit
-test that would have caught the bug (pre-fix 12/23 assertions fail, fixed
-0/23 — `../reproductions/driver.m`); the `matlab.unittest` wrapper follows
-the repo's own `test_spm_Ncdf.m` pattern but has been executed only via the
-Octave driver, so run `runtests('tests/test_spm_ECdensity.m')` once in real
-MATLAB before filing. SP2-SP5 should be exercised in MATLAB first, and each
-PR should state what testing was done.
+| Finding | Issue / PR | State |
+|---|---|---|
+| SP1 — `spm_ECdensity` χ² EC densities | [#158](https://github.com/spm/spm/issues/158) / [PR #159](https://github.com/spm/spm/pull/159) | open (filed 2026-08-31) |
+| SP2 — `spm_nlsi_GN` log-det × n_q | [#160](https://github.com/spm/spm/issues/160) / [PR #161](https://github.com/spm/spm/pull/161) | open (filed 2026-08-31) |
+| SP3 — `@meeg/badsamples` baseline double-count | [PR #163](https://github.com/spm/spm/pull/163) | **merged 2026-09-02** (vlitvak) |
+| SP4 — `spm_eeg_downsample` achieved fsample | [PR #165](https://github.com/spm/spm/pull/165) | **merged 2026-09-02** (vlitvak) |
+| SP5 — `spm_design_contrasts` modulator padding | — | to file |
+
+SP1's branch ships with the unit test that would have caught the bug (pre-fix
+12/23 assertions fail, fixed 0/23 — `../reproductions/driver.m`); the
+`matlab.unittest` wrapper follows the repo's own `test_spm_Ncdf.m` pattern but
+has been executed only via the Octave driver. Each PR states what testing was
+done.

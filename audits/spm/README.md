@@ -200,17 +200,15 @@ Method→code links, with honesty flags; none is a claim that a result is wrong.
 
 ## Upstream status
 
-Five fixes plus a new unit test are implemented, pushed to the `cindykrafft/spm` fork,
-and staged for filing — see `upstream/README.md` for the branch/compare table and the
-ready-to-paste issue and PR bodies. SP1's fix ships with
-`tests/test_spm_ECdensity.m` (the function previously had **no test coverage**), which
-fails 12/23 assertions on the pre-fix code and 0/23 on the fix. SP1 and SP2 are filed
-and open upstream (issues [#158](https://github.com/spm/spm/issues/158) /
-[#160](https://github.com/spm/spm/issues/160), PRs
-[#159](https://github.com/spm/spm/pull/159) /
-[#161](https://github.com/spm/spm/pull/161)); SP3–SP5 remain to file and
-should be exercised in real MATLAB first (SP1 was regression-tested in
-Octave only).
+Five fixes plus a new unit test are implemented and pushed to the `cindykrafft/spm`
+fork (`upstream/README.md` has the branch/compare table and issue/PR bodies). **Two
+are merged upstream**: SP3 ([PR #163](https://github.com/spm/spm/pull/163)) and SP4
+([PR #165](https://github.com/spm/spm/pull/165)), both merged 2026-09-02. SP1
+([#158](https://github.com/spm/spm/issues/158) / [PR #159](https://github.com/spm/spm/pull/159),
+shipping `tests/test_spm_ECdensity.m` — the function previously had **no test
+coverage**; it fails 12/23 assertions on the pre-fix code and 0/23 on the fix) and
+SP2 ([#160](https://github.com/spm/spm/issues/160) / [PR #161](https://github.com/spm/spm/pull/161))
+are open. SP5 remains to file.
 
 ## Files
 

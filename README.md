@@ -40,7 +40,7 @@ are read in proportion.
 |---|---|---|---|
 | [FreeSurfer](audits/freesurfer/) | 116 | 16, three reproduced numerically | 5 fix PRs + 9 issues filed on GitHub |
 | [FSL](audits/fsl/) | 114 | 12, six with patches | reports and patches ready; filing via the FSL mailing list |
-| [SPM](audits/spm/) | full-codebase audit (not survey-driven) | 83 confirmed + ~38 plausible; one fix regression-tested by executing the code | 2 issue+PR pairs filed on GitHub (open); 3 more staged with filing kit ready |
+| [SPM](audits/spm/) | full-codebase audit (not survey-driven) | 83 confirmed + ~38 plausible; one fix regression-tested by executing the code | 2 fix PRs merged upstream (M/EEG artefact-window baseline; downsample sampling rate); 2 issue+PR pairs open (χ² EC densities with new unit test; DCM free energy); 1 staged |
 | [AFNI](audits/afni/) | 39 in the survey cohort; 57 adjudicated for the ReHo finding | 36 (9 high-impact, 15 narrower, 12 likely), one reproduced numerically | 2 fix PRs merged upstream (ReHo tie handling, NIfTI slice timing); 10 more written up. [Reanalysis](audits/afni/reanalysis/) of the published ReHo design on open data (ds000030, 40 subjects): the pre-fix build returns NaN in 17 % of brain voxels and a third of the correct value elsewhere, and the SCZ-vs-control p < .001 maps from the two builds do not overlap |
 | [DESeq2](audits/deseq2/) | 886 | 3 confirmed (one live 2017–2025, already fixed upstream but unannounced), 3 verified-negligible | erratum/NEWS request + docs note to file on GitHub |
 | [MACS2](audits/macs2/) | 475 | 3 confirmed (one live in current MACS3, reproduced on shipped binary), 4 notes, 2 withdrawn by own review | one-word fix PR + issues to file on GitHub |
@@ -87,7 +87,7 @@ audits/
 - **[cindykrafft/freesurfer](https://github.com/cindykrafft/freesurfer)** — fork
   carrying the five FreeSurfer fix branches submitted upstream.
 - **[cindykrafft/spm](https://github.com/cindykrafft/spm)** — fork carrying the five
-  SPM fix branches plus a new `tests/test_spm_ECdensity.m` (not yet filed upstream).
+  SPM fix branches plus a new `tests/test_spm_ECdensity.m` (two merged, two open upstream).
 
 ## Reading these findings fairly
 
