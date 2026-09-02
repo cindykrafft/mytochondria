@@ -45,7 +45,8 @@ and `3dMVM.R` all parse at the PR head (and at the base). The `3dMVM` Z
 conversion was also checked numerically: `qnorm(p/2, lower.tail=FALSE)` gives
 1.960 at p = 0.05 where the old `qnorm(p)` form gave 1.645, and a chi-square of
 1.96² round-trips to Z = 1.96. None of the three programs was run end to end on
-data; the PR thread should say so.
+data. A comment on the PR thread (2026-09-02) records the parse check, the Z check, and
+that limit.
 
 ## Verification honesty
 
