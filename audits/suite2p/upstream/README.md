@@ -10,6 +10,14 @@ a fork. Recommended order:
 4. **S3 — constant baseline** (`issue-s3-constant-baseline.md`, question).
 5. **S7 — doubled high-pass** (`issue-s7-double-highpass.md`, question).
 
+## Live branches on the fork (cindykrafft/suite2p, each one commit on main @ 90be895)
+
+| finding | branch | head | compare page |
+|---|---|---|---|
+| S2 | `fix/bidiphase-torch-overlap` | 4615ebc | https://github.com/MouseLand/suite2p/compare/main...cindykrafft:suite2p:fix/bidiphase-torch-overlap?expand=1 |
+| S1 | `fix/classifier-bin-clip` | 8921874 | https://github.com/MouseLand/suite2p/compare/main...cindykrafft:suite2p:fix/classifier-bin-clip?expand=1 |
+| S5 | `fix/extract-index-dtype` | 9110c72 | https://github.com/MouseLand/suite2p/compare/main...cindykrafft:suite2p:fix/extract-index-dtype?expand=1 |
+
 Each patch applies independently to `main` @ 90be895. From a fork:
 
 ```bash
