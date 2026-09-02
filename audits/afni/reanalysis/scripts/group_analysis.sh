@@ -30,7 +30,7 @@ nC=$(wc -l < $G/list_CONTROL.txt); nS=$(wc -l < $G/list_SCHZ.txt)
 if [ $nC -ge 2 ] && [ $nS -ge 2 ]; then
   for arm in pre post; do
     if [ $arm = pre ]; then SA="$PRE_S"; SB="$PRE_C"; else SA="$POST_S"; SB="$POST_C"; fi
-    3dttest++ -overwrite -prefix $G/ttest_${arm} -mask $G/group_mask+tlrc -setA SCZ $SA -setB CONTROL $SB -labelA SCZ -labelB CONTROL >/dev/null 2>&1
+    3dttest++ -overwrite -prefix $G/ttest_${arm} -mask $G/group_mask+tlrc -setA $SA -setB $SB -labelA SCZ -labelB CONTROL >/dev/null 2>&1
   done
   cd $G
   df=$((nC+nS-2)); tcrit=$(python3 -c "from scipy.stats import t; print(round(t.ppf(0.9995,$df),3))" 2>/dev/null || echo 3.55)

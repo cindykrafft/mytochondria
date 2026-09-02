@@ -37,7 +37,8 @@ per-subject summaries and `3dttest++` SCHZ vs CONTROL under each arm.
 | errts SD in mask (units 3dReHo saw) | 0.43 |
 | mean ReHo, pre-fix | 0.223 |
 | mean ReHo, post-fix | 0.609 |
-| mean relative error | **61 %** (max 96 %) |
+| mean relative error (NaN read as 0) | **61 %** (max 96 %) |
+| voxels returned as NaN by the pre-fix build | 7.5 % |
 
 The pipeline's bandpassed percent-signal residuals have SD ≈ 0.4 — inside the
 bug's worst regime (`../reproductions/reho_tie_sim.py` predicts ~54 % at scale
@@ -45,9 +46,20 @@ bug's worst regime (`../reproductions/reho_tie_sim.py` predicts ~54 % at scale
 
 ## Results (40 subjects: 20 CONTROL + 20 SCHZ)
 
-Everything below is in `results/`: `subjects_summary.tsv` (one row per
+Everything below is in `results/`: `subjects_summary_v2.tsv` (one row per
 subject), the two group-analysis logs, the SCZ-vs-CONTROL t-maps under each
-arm as NIfTI, and the group masks.
+arm as NIfTI, the group masks, and `figure1.png`.
+
+> **Correction (2026-09-02).** The first version of this section, pushed
+> earlier the same day, had two errors, both now fixed. (1) The group contrast
+> had been run with `3dttest++ -setA SCZ file1 file2 …`, which 3dttest++ parses
+> as its *long form* (label/dataset pairs), so only every second file — 10
+> subjects per group — entered the test. The script now uses the short form and
+> the t-maps and counts below are for 20 vs 20. (2) The per-subject statistics
+> had been computed with AFNI tools, which silently read NaN as 0; the pre-fix
+> 3dReHo turns out to return NaN in a large fraction of voxels (below), and that
+> is now reported explicitly. The qualitative conclusions did not change; most
+> numbers did.
 
 **Exclusions.** 52 subjects were attempted to reach 20 per group. Twelve
 failed the pipeline's own regression step because motion/outlier censoring
@@ -57,67 +69,69 @@ regressors — 4 of 24 CONTROL and 8 of 28 SCHZ attempted
 bandpass regressors, not of either 3dReHo build; it is noted because it makes
 the SCHZ group the more-censored one, which matters below.
 
-### Per subject: the pre-fix bug is large, and it is not a constant factor
+### Per subject: the pre-fix build returns NaN in a sixth of the brain, and a third of the correct value elsewhere
 
 | quantity (mean over 40 subjects, range) | value |
 |---|---|
 | errts SD in mask (the units 3dReHo saw) | 0.35 (0.14 – 0.52) |
-| mean ReHo, pre-fix | 0.158 |
-| mean ReHo, post-fix | 0.481 |
-| pre/post ratio | 0.33 (0.26 – 0.42) |
-| mean relative error, pre vs post | **57 %** (23 % – 65 %) |
-| spatial correlation of pre-fix and post-fix ReHo maps | **0.60** (0.31 – 0.76) |
+| **voxels where pre-fix 3dReHo returned NaN** | **17 %** (2 % – 69 %) |
+| in the remaining voxels: pre/post ratio | 0.33 (0.26 – 0.42) |
+| in the remaining voxels: relative error, pre vs post | **70 %** (60 % – 76 %) |
+| spatial correlation of pre-fix and post-fix maps (NaN read as 0, as AFNI does) | **0.60** (0.31 – 0.76) |
 
-Every subject's pre-fix ReHo map is roughly one third of the correct value,
-and the maps are only moderately correlated with the correct ones (r = 0.60):
-the bug does not merely rescale ReHo, it reorders voxels. The size of the error
-tracks each subject's residual amplitude — correlation of relative error with
-errts SD across subjects is r = 0.78, and of the spatial correlation with errts
-SD r = 0.68 — exactly as the tie-frequency mechanism predicts
-(`../reproductions/reho_tie_sim.py`). Subjects with small residual SD (the two
-most-censored SCHZ subjects, SD 0.14 and 0.18) have the *smallest* relative
-error (23 %, 31 %) but the *lowest* map fidelity (r = 0.35, 0.31).
+The pre-fix tie correction can zero its own denominator; when it does, the
+voxel is NaN. Every AFNI program that reads such a map converts NaN to 0
+silently (verified: `3dTcat` of three pre-fix maps holding 18,995 NaNs writes
+none; `3dttest++` output reproduces, to the last digit, a t-test in which
+those voxels are 0). So in a published AFNI pipeline the pre-fix ReHo map was
+0 in one voxel in six on average, and one third of the correct value in the
+rest. The maps are only moderately correlated with the correct ones
+(r = 0.60): the bug reorders voxels, it does not merely rescale them.
 
-Because the error depends on a quantity that differs between clinical groups
-(SCHZ residual SD 0.334 ± 0.082 vs CONTROL 0.370 ± 0.057; SCHZ mean censoring
-8.8 % vs 5.0 %), the pre-fix bias is group-dependent, i.e. it is not
-guaranteed to cancel in a between-group contrast.
+Both effects track each subject's residual amplitude, exactly as the
+tie-frequency mechanism predicts (`../reproductions/reho_tie_sim.py`): the
+NaN fraction correlates r = −0.88 with errts SD across subjects (the two
+most-censored SCHZ subjects, SD 0.14 and 0.18, are 69 % and 58 % NaN), and map
+fidelity correlates r = +0.68. Because residual SD and censoring differ between
+the clinical groups (SCHZ residual SD 0.334 ± 0.082 vs CONTROL 0.370 ± 0.057;
+NaN fraction 20 % vs 14 %; censoring 8.8 % vs 5.0 %), the pre-fix bias is
+group-dependent, i.e. it is not guaranteed to cancel in a between-group
+contrast.
 
 ### Group contrast: SCZ vs CONTROL under each binary
 
-`3dttest++`, two-sample, same subjects, same mask, the *only* difference being
-which 3dReHo produced the input maps.
+`3dttest++`, two-sample, 20 vs 20, same subjects, same mask, the *only*
+difference being which 3dReHo produced the input maps (pre-fix NaNs enter as
+0, as they would in any AFNI pipeline).
 
 | | intersection mask (8,657 vox) | 90 %-coverage mask (25,227 vox) |
 |---|---|---|
-| voxels \|t\| > 3.57 (p < .001), pre-fix | 12 | 25 |
-| voxels \|t\| > 3.57 (p < .001), post-fix | 33 | 82 |
-| overlap of those sets (pre ∩ post / pre ∪ post) | 1 / 44 | 1 / 106 |
-| voxels \|t\| > 1.96 (p < .05), pre / post | 726 / 1,097 | 2,848 / 3,415 |
+| voxels \|t\| > 3.57 (p < .001), pre-fix / post-fix | 0 / 12 | 49 / 57 |
+| overlap of those sets (pre ∩ post / pre ∪ post) | 0 / 12 | 2 / 104 |
+| voxels \|t\| > 1.96 (p < .05), pre-fix / post-fix | 767 / 920 | 2,849 / 4,470 |
+| overlap of the p < .05 sets (Jaccard) | 324 / 1,363 (0.24) | 1,632 / 5,687 (0.29) |
 | spatial correlation of t-maps, pre vs post | 0.66 | 0.68 |
-| voxels where t changes sign | 19 % | 19 % |
-| mean \|t_pre − t_post\| | 0.66 | 0.65 |
+| voxels where t changes sign | 21 % | 18 % |
+| mean \|t_pre − t_post\| | 0.66 | 0.69 |
 
-The two t-maps share only two thirds of their variance; the sign of the group
-difference flips in about one voxel in five; and **the p < .001 maps have
-essentially no overlap** — one voxel in common out of 44 (106) that pass in
-either arm. Under the fixed binary the contrast has roughly 2.5–3× as many
-suprathreshold voxels, consistent with the pre-fix maps being noisier
-(lower fidelity) rather than merely rescaled.
+The two t-maps share less than half their variance; the sign of the group
+difference flips in about one voxel in five; **the p < .001 sets have
+essentially no overlap** (0 of 12; 2 of 104), and even the liberal p < .05
+sets agree on only a quarter of their union.
 
 Whole-brain mean ReHo, the simplest ReHo statistic papers report:
 
-| SCZ − CONTROL, global mean ReHo | pre-fix | post-fix |
-|---|---|---|
-| difference | −0.020 | −0.038 |
-| Student t (df 38) | −1.84, p = 0.074 | −2.25, p = 0.031 |
-| Cohen's d | −0.58 | −0.71 |
+| SCZ − CONTROL, global mean ReHo | pre-fix (NaN as 0) | pre-fix (valid voxels only) | post-fix |
+|---|---|---|---|
+| difference | −0.024 | −0.020 | −0.038 |
+| Student t (df 38) | −1.74, p = 0.090 | −1.84, p = 0.074 | −2.25, p = 0.031 |
+| Cohen's d | | −0.58 | −0.71 |
 
 Same subjects, same residuals: the global SCZ < CONTROL reduction in ReHo is
 significant with the fixed code and not with the code every paper ran. This
 is a 40-subject pilot, so the crossing of p = 0.05 is illustrative rather than
-a claim about schizophrenia; the robust findings are the per-subject error
-sizes and the poor overlap of the significant voxel sets.
+a claim about schizophrenia; the robust findings are the NaN fraction, the
+per-subject error sizes, and the poor overlap of the significant voxel sets.
 
 ### Reading this fairly
 
@@ -131,6 +145,9 @@ sizes and the poor overlap of the significant voxel sets.
   before 3dReHo differs between arms.
 - The exclusion rate (12/52) is high because the run is short (148 TRs) and
   the bandpass adds ~80 regressors; it is the same for both arms.
+- The exposure criterion in `../README.md` (errts SD roughly 0.4–3) was
+  conservative: these subjects sit mostly *below* 0.4 and are the worst hit.
+  Some of the 52 papers cleared there may deserve a second look.
 
 ### Reproducing
 
@@ -138,6 +155,7 @@ sizes and the poor overlap of the significant voxel sets.
 `scripts/run_subject.sh` processes one subject end to end from the OpenNeuro
 S3 bucket (no credentials needed, ~9 min/subject on 4 cores);
 `scripts/supervisor.sh` runs the batch and top-up;
-`scripts/group_analysis.sh` produces everything in `results/`. The two 3dReHo
-builds come from `afni/afni` at `4c2bd54` and `d202535` via
+`scripts/group_analysis.sh` produces the group maps and logs;
+`scripts/subject_stats_v2.py` the per-subject table (nibabel, NaN-aware).
+The two 3dReHo builds come from `afni/afni` at `4c2bd54` and `d202535` via
 `make ptaylor_all`.
