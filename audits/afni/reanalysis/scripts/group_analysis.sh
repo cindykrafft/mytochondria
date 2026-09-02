@@ -12,7 +12,7 @@ while IFS=$'\t' read SUB GRP; do
   3dcalc -overwrite -a $d/reho_prefix+tlrc -b $d/reho_postfix+tlrc -m $M -expr 'm*abs(a-b)/b' -prefix $d/relerr >/dev/null 2>&1
   sd=$(3dBrickStat -mask $M -mean $d/errts_sd+tlrc); pre=$(3dBrickStat -mask $M -mean $d/reho_prefix+tlrc); post=$(3dBrickStat -mask $M -mean $d/reho_postfix+tlrc)
   rem=$(3dBrickStat -mask $M -mean $d/relerr+tlrc); rex=$(3dBrickStat -mask $M -max $d/relerr+tlrc)
-  sc=$(3ddot -mask $M -docor $d/reho_prefix+tlrc $d/reho_postfix+tlrc 2>/dev/null | tail -1)
+  sc=$(python3 $R/scripts/masked_corr.py $M $d/reho_prefix+tlrc $d/reho_postfix+tlrc)
   cf=$(1deval -a $d/censor_${SUB}_combined_2.1D -expr '1-a' | 3dTstat -mean -prefix - 1D:stdin\' 2>/dev/null | tail -1)
   printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" $SUB $GRP $sd $pre $post $rem $rex "$sc" "$cf" >> $R/group/subjects_summary.tsv
   if [ $GRP = CONTROL ]; then PRE_C="$PRE_C $d/reho_prefix+tlrc"; POST_C="$POST_C $d/reho_postfix+tlrc"; else PRE_S="$PRE_S $d/reho_prefix+tlrc"; POST_S="$POST_S $d/reho_postfix+tlrc"; fi
@@ -29,5 +29,5 @@ for arm in pre post; do
   echo "$arm: group-mask voxels $(3dBrickStat -count -non-zero group_mask+tlrc) | |t|>3.55 (p<.001 two-sided, df 38) voxels: $(3dcalc -a ttest_${arm}+tlrc'[1]' -expr 'step(abs(a)-3.55)' -prefix - 2>/dev/null | 3dBrickStat -count -non-zero - 2>/dev/null)"
 done
 3dcalc -overwrite -a ttest_pre+tlrc'[1]' -b ttest_post+tlrc'[1]' -m group_mask+tlrc -expr 'm*(a-b)' -prefix t_diff >/dev/null 2>&1
-echo "t-map spatial correlation pre vs post: $(3ddot -mask group_mask+tlrc -docor ttest_pre+tlrc'[1]' ttest_post+tlrc'[1]' 2>/dev/null | tail -1)"
+echo "t-map spatial correlation pre vs post: $(python3 $R/scripts/masked_corr.py group_mask+tlrc "ttest_pre+tlrc[1]" "ttest_post+tlrc[1]")"
 echo "mean |t_pre - t_post| in mask: $(3dcalc -a t_diff+tlrc -expr 'abs(a)' -prefix - 2>/dev/null | 3dBrickStat -mask group_mask+tlrc -mean - 2>/dev/null)"
