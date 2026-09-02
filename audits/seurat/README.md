@@ -1,7 +1,7 @@
 # Seurat audit against 767 published papers (2021–2026)
 
-_Tenth audit in the series. Profiling pass generated 2026-09-02; component reviews
-not yet started._
+_Tenth audit in the series. Profiling pass and component review 1 (differential
+expression) generated 2026-09-02._
 
 ## What this is
 
@@ -99,6 +99,41 @@ types in nearly every paper come from `FindAllMarkers`. Second, the cohort strad
 the v4 → v5 boundary (2024–2025), and the two lineages compute the log fold change
 differently (below), so per-paper version matters for exposure.
 
+## Findings so far (component review 1: differential expression)
+
+Full detail with line citations in
+[`component-reviews/differential-expression.md`](component-reviews/differential-expression.md);
+harnesses with captured output in [`verify/`](verify/).
+
+**SE1 — CONFIRMED behaviour change, v5.0.0, no NEWS entry: the fold change formula
+changed, and the new formula's pseudocount depends on group size.** v4 reported
+`log2(mean + 1)`, which halves the log2 ratio for the typical gene; v5 (commit
+`69b054b7`, 2023-10-18) reports `log2((sum + 1)/n)` = `log2(mean + 1/n)`, so the
+pseudocount is `1/n₁` for the cluster and `1/n₂` for the rest. For a gene with equal
+means the reported `avg_log2FC` is exactly `log2((μ+1/n₁)/(μ+1/n₂))`: 0.73 for a 50-cell
+cluster vs 5,000 at μ = 0.03, 0.26 at μ = 0.1. In a 10x-like simulation, 79–88 % of the
+lowest-expressed null genes passing `min.pct` in a 50–300-cell cluster are reported
+above +0.25 (v4: 0 %). p-values are untouched, no sign flips among significant DE genes,
+and v5's magnitudes for real DE genes are *closer* to truth than v4's — the damage is
+low-expression genes in small clusters, and cross-version comparability. The default
+`logfc.threshold` also moved from 0.25 to 0.1 in the same release, also without a NEWS
+line. Upstream already has issue #9346 (Sep 2024) describing the asymmetry, closed a
+month later with the code unchanged; **its comments could not be read from this
+session and must be before anything is filed.** Fix shape: one shared pseudocount
+`pseudocount.use / (n₁ + n₂)` in each mean function.
+
+**Notes (design or documentation, not defects):** SE2 Bonferroni over all assay
+features regardless of `features=` (documented); SE3 CLR-normalized (ADT) assays get a
+log of a mean of log-ratios labelled `avg_log2FC`; SE4 `negbinom` drops genes silently
+when `glm.nb` fails; SE5 `FindConservedMarkers` ranks by Tippett's minimum p, a
+union test, under a name promising an intersection; SE6 the `PrepSCTFindMarkers` /
+`FindMarkers.SCTAssay` skip-vs-error loop on subset objects (open issue #9130).
+
+**Held up:** the presto, limma and `wilcox.test` Wilcoxon paths are the same
+continuity- and tie-corrected normal approximation (presto's formula ported verbatim
+agrees with scipy to 1e-15); MAST p-value column position is correct today; bimod LRT
+degrees of freedom; `only.pos` and ordering columns; DESeq2 dispatch.
+
 ## Audit targets, ranked
 
 Read adversarially, in this order, each against the v3/v4/v5 tags the papers pin.
@@ -174,12 +209,20 @@ Out of scope: `R/visualization.R` (10,013 lines; plots, not numbers), `mixscape.
 | `seurat_profile.py` | profiling script; full-text path identical to the other audits, with the survey-cache fallback and `--offline` |
 | `seurat_profiles.jsonl` | one record per paper: features, versions, version family, parameters, companion packages, source |
 | `profile_run.log` | the 2026-09-02 run (offline) |
+| `component-reviews/differential-expression.md` | review 1: `FindMarkers`/`FoldChange` and every test they dispatch to, across v3.2.2, v4.3.0, v5.1.0 and main |
+| `verify/se1_foldchange_group_size.py` (+ `.out`) | SE1: exact bias table, 10x-like simulation with known truth, FindMarkers-style filtering |
+| `verify/heldup_wilcoxon_paths.py` (+ `.out`) | presto's p-value ported verbatim vs scipy vs exact |
 
 ## Next steps
 
 1. Rerun `seurat_profile.py` from a host that can reach Europe PMC; rebuild the table
    above from full text (expect DE and QC counts to rise several-fold).
-2. Component review 1 (differential expression) across tags v3.2.2, v4.3.0, v5.1.0 and
-   `main`; verification by running the shipped package on synthetic counts with known
-   group means, as the DESeq2 audit did — R is installable in the sandbox.
-3. Reviews 2–4, then exposure join per paper by version family and code path.
+2. Read the maintainers' reply on satijalab/seurat#9346 (not reachable from this
+   session); decide between a code-change issue with a `pbmc_small` reproduction and a
+   documentation/NEWS ask. Either way, the filing kit goes in `upstream/` first.
+3. Run SE1 through the shipped package (R was not available in this session; the
+   harness is a faithful port of a three-line formula, but the project's standard is
+   execution of the real code). `FindMarkers(pbmc_small, ...)` at v4.4.0 and v5.x on
+   the same object is the whole reproduction.
+4. Reviews 2–4 (normalisation, clustering, module scoring), then the exposure join per
+   paper by version family and code path.
