@@ -156,6 +156,9 @@ per-subject error sizes, and the poor overlap of the significant voxel sets.
 S3 bucket (no credentials needed, ~9 min/subject on 4 cores);
 `scripts/supervisor.sh` runs the batch and top-up;
 `scripts/group_analysis.sh` produces the group maps and logs;
-`scripts/subject_stats_v2.py` the per-subject table (nibabel, NaN-aware).
+`scripts/subject_stats_v2.py` the per-subject table (nibabel, NaN-aware);
+`scripts/make_figure1.py` the summary figure `results/figure1.png` (panel A: one
+subject's pre/post maps, gray = NaN from the pre-fix build; B: per-subject map
+fidelity vs residual SD; C: the SCZ-vs-CONTROL t-maps under each build).
 The two 3dReHo builds come from `afni/afni` at `4c2bd54` and `d202535` via
 `make ptaylor_all`.
