@@ -1,0 +1,27 @@
+#
+#  Cluster report 
+#[ Dataset prefix      = tt ]
+#[ Threshold vol       = [1] 'SCZ-CONTROL_Zscr' ]
+#[ Supplement dat vol  = [0] 'SCZ-CONTROL_mean' ]
+#[ Option summary      = -bisided,p=0.01,clust_nvox,136,NN1 ]
+#[ Threshold value(s)  = left-tail p=0.010000 -> thr=-2.575829;  right-tail p=0.010000 -> thr=2.575829 ]
+#[ Aux. stat. info.    =  ]
+#[ Nvoxel threshold    = 136;  Volume threshold = 3672.000 ]
+#[ Single voxel volume = 27.000 (microliters) ]
+#[ Neighbor type, NN   = 1 ]
+#[ Voxel datum type    = float ]
+#[ Voxel dimensions    = 3.000 mm X 3.000 mm X 3.000 mm ]
+#[ Coordinates Order   = RAI ]
+#[ Mask                = /home/user/reho-pilot/dpabi/group/mask90+tlrc ]
+#[ Mean and SEM based on signed voxel intensities ]
+#
+#Volume  CM RL  CM AP  CM IS  minRL  maxRL  minAP  maxAP  minIS  maxIS    Mean     SEM    Max Int  MI RL  MI AP  MI IS
+#------  -----  -----  -----  -----  -----  -----  -----  -----  -----  -------  -------  -------  -----  -----  -----
+    518    1.3   76.1    9.4  -22.5   22.5   49.5   97.5   -4.5   34.5  -0.5607    0.006  -0.9213    7.5   73.5   13.5 
+    156  -28.0   68.5  -32.5  -43.5  -13.5   52.5   82.5  -43.5  -25.5   0.2837   0.0048    0.434  -37.5   73.5  -28.5 
+    155  -43.3   24.8   51.8  -55.5  -25.5    7.5   40.5   37.5   61.5   -0.329   0.0069  -0.6281  -52.5   22.5   58.5 
+    150   23.5   73.5  -31.2    7.5   37.5   55.5   82.5  -40.5  -22.5   0.2941   0.0052   0.4209   22.5   79.5  -31.5 
+    146   15.2  -54.1   26.8   10.5   22.5  -67.5  -37.5    7.5   46.5   0.2323   0.0047   0.3978   16.5  -58.5   31.5 
+    136  -30.4    4.7  -21.7  -49.5  -10.5  -16.5   19.5  -31.5   -4.5   0.2962   0.0073   0.5747  -16.5   13.5  -19.5 
+#------  -----  -----  -----  -----  -----  -----  -----  -----  -----  -------  -------  -------  -----  -----  -----
+#  1261   -5.5   55.5    5.2                                            -0.1418   0.0116                             

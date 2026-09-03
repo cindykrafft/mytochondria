@@ -6,7 +6,7 @@ export PATH=/home/user/afni-bin/linux_ubuntu_24_64:$PATH; export LD_LIBRARY_PATH
 mkdir -p $D/anat $D/func $P
 for f in anat/${SUB}_T1w.nii.gz func/${SUB}_task-rest_bold.nii.gz; do
   [ -s $D/$f ] && ! gzip -t $D/$f 2>/dev/null && rm -f $D/$f
-  [ -s $D/$f ] || curl -sSf -o $D/$f https://s3.amazonaws.com/openneuro.org/ds000030/$SUB/$f || { echo "DOWNLOAD FAILED $f"; rm -f $D/$f; exit 3; }
+  [ -s $D/$f ] || curl -sSf --retry 3 --retry-all-errors -o $D/$f https://s3.amazonaws.com/openneuro.org/ds000030/$SUB/$f || { echo "DOWNLOAD FAILED $f"; rm -f $D/$f; exit 3; }
 done
 cd $P
 afni_proc.py -subj_id $SUB -script proc.$SUB -scr_overwrite \

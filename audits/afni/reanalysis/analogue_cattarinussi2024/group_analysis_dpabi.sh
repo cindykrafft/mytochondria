@@ -6,9 +6,12 @@ G=$R/dpabi/group; P=$R/dpabi/proc; mkdir -p $G; bs(){ 3dBrickStat "$@" | xargs; 
 : > $G/list_CONTROL.txt; : > $G/list_SCHZ.txt; : > $G/motion_excluded.txt
 tail -n +2 $R/dpabi/subjects_dpabi.tsv | while IFS=$'\t' read SUB GRP; do
   d=$P/$SUB.results; [ -f $d/szreho_postfix+tlrc.HEAD ] || continue
-  if grep -q EXCLUDE $d/motion_flag.txt; then echo "$SUB $GRP" >> $G/motion_excluded.txt; else echo $d >> $G/list_$GRP.txt; fi
+  ae=$(grep -m1 -oE '[0-9.]+' $d/out.mask_ae_dice.txt 2>/dev/null | head -1)
+  if grep -q EXCLUDE $d/motion_flag.txt; then echo "$SUB $GRP motion" >> $G/motion_excluded.txt
+  elif [ -n "$ae" ] && awk -v a=$ae 'BEGIN{exit !(a<0.8)}'; then echo "$SUB $GRP alignment-dice=$ae" >> $G/motion_excluded.txt
+  else echo $d >> $G/list_$GRP.txt; fi
 done
-nC=$(wc -l < $G/list_CONTROL.txt); nS=$(wc -l < $G/list_SCHZ.txt); echo "CONTROL $nC SCHZ $nS motion-excluded $(wc -l < $G/motion_excluded.txt)"
+nC=$(wc -l < $G/list_CONTROL.txt); nS=$(wc -l < $G/list_SCHZ.txt); echo "CONTROL $nC SCHZ $nS excluded (motion or alignment) $(wc -l < $G/motion_excluded.txt)"
 MASKS=$(cat $G/list_CONTROL.txt $G/list_SCHZ.txt | while read d; do s=$(basename $d .results); echo $d/mask_epi_anat.$s+tlrc.HEAD; done)
 3dmask_tool -overwrite -input $MASKS -frac 0.9 -prefix $G/mask90 >/dev/null 2>&1
 df=$((nC+nS-2)); tcrit=$(python3 -c "from scipy.stats import t; print(round(t.ppf(0.9995,$df),3))")

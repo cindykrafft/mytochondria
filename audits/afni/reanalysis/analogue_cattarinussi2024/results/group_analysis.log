@@ -1,0 +1,67 @@
+CONTROL 60 SCHZ 47 excluded (motion or alignment) 5
+== mask90: 57207 voxels; df 105; |t| for p<.001 = 3.386
+prefix: |t|>3.386: 384 (SCZ<HC 170, SCZ>HC 214)
+prefix p=0.001: threshold 30, surviving clusters 5
+   75 vox, mean -0.6872, peak RAI (7.5 73.5 13.5)
+   42 vox, mean -0.7033, peak RAI (1.5 91.5 1.5)
+   40 vox, mean 0.3455, peak RAI (-31.5 1.5 -25.5)
+   37 vox, mean 0.2608, peak RAI (-13.5 -37.5 49.5)
+   33 vox, mean 0.3515, peak RAI (22.5 79.5 -31.5)
+prefix p=0.01: threshold 136, surviving clusters 6
+   518 vox, mean -0.5607, peak RAI (7.5 73.5 13.5)
+   156 vox, mean 0.2837, peak RAI (-37.5 73.5 -28.5)
+   155 vox, mean -0.329, peak RAI (-52.5 22.5 58.5)
+   150 vox, mean 0.2941, peak RAI (22.5 79.5 -31.5)
+   146 vox, mean 0.2323, peak RAI (16.5 -58.5 31.5)
+   136 vox, mean 0.2962, peak RAI (-16.5 13.5 -19.5)
+postfix: |t|>3.386: 230 (SCZ<HC 126, SCZ>HC 104)
+postfix p=0.001: threshold 26, surviving clusters 2
+   33 vox, mean -0.656, peak RAI (4.5 94.5 7.5)
+   33 vox, mean -0.6088, peak RAI (10.5 70.5 10.5)
+postfix p=0.01: threshold 101, surviving clusters 1
+   313 vox, mean -0.4963, peak RAI (4.5 94.5 7.5)
+hist: |t|>3.386: 164 (SCZ<HC 52, SCZ>HC 112)
+hist p=0.001: threshold 25, surviving clusters 1
+   29 vox, mean 0.5836, peak RAI (31.5 61.5 46.5)
+hist p=0.01: threshold 91, surviving clusters 1
+   93 vox, mean 0.4664, peak RAI (31.5 61.5 46.5)
+t-map corr prefix vs postfix: 0.5654
+sign flips: 17081 of 57207
+overlap |t|>3.386 (and/or): 38 / 576
+corrected-cluster overlap p=0.001 (and/or): 42 / 251
+corrected-cluster overlap p=0.01 (and/or): 160 / 1414
+
+== Scoring against Cattarinussi 2024 (SCZ vs HC): region | build | mean t in region | frac voxels p<.001 same sign | corrected cluster (p<.001 / p<.01) of same sign overlaps region
+  L_superior_occipital   prefix   expected neg  mean t -0.70  frac p<.001 0.000  cluster no / no
+  R_inferior_occipital   prefix   expected neg  mean t -0.08  frac p<.001 0.000  cluster no / no
+  R_postcentral          prefix   expected neg  mean t -1.08  frac p<.001 0.018  cluster no / YES
+  R_anterior_orbital     prefix   expected pos  mean t +0.76  frac p<.001 0.000  cluster no / no
+  L_posterior_orbital    prefix   expected pos  mean t +0.96  frac p<.001 0.000  cluster no / no
+  R_temporal_pole        prefix   expected pos  mean t +1.30  frac p<.001 0.006  cluster YES / YES
+  L_temporal_pole        prefix   expected pos  mean t +0.90  frac p<.001 0.011  cluster no / no
+  R_hippocampus          prefix   expected pos  mean t +1.26  frac p<.001 0.024  cluster no / YES
+  L_cerebellum           prefix   expected pos  mean t +1.20  frac p<.001 0.014  cluster YES / YES
+  L_superior_occipital   postfix  expected neg  mean t +0.05  frac p<.001 0.000  cluster no / no
+  R_inferior_occipital   postfix  expected neg  mean t -1.42  frac p<.001 0.025  cluster no / no
+  R_postcentral          postfix  expected neg  mean t -0.93  frac p<.001 0.028  cluster no / no
+  R_anterior_orbital     postfix  expected pos  mean t +0.79  frac p<.001 0.000  cluster no / no
+  L_posterior_orbital    postfix  expected pos  mean t +0.87  frac p<.001 0.000  cluster no / no
+  R_temporal_pole        postfix  expected pos  mean t +1.37  frac p<.001 0.000  cluster no / no
+  L_temporal_pole        postfix  expected pos  mean t +1.58  frac p<.001 0.006  cluster no / no
+  R_hippocampus          postfix  expected pos  mean t +0.66  frac p<.001 0.000  cluster no / no
+  L_cerebellum           postfix  expected pos  mean t +0.15  frac p<.001 0.000  cluster no / no
+  L_superior_occipital   hist     expected neg  mean t +0.45  frac p<.001 0.000  cluster no / no
+  R_inferior_occipital   hist     expected neg  mean t -1.44  frac p<.001 0.058  cluster no / no
+  R_postcentral          hist     expected neg  mean t -0.28  frac p<.001 0.002  cluster no / no
+  R_anterior_orbital     hist     expected pos  mean t +0.63  frac p<.001 0.000  cluster no / no
+  L_posterior_orbital    hist     expected pos  mean t +1.08  frac p<.001 0.000  cluster no / no
+  R_temporal_pole        hist     expected pos  mean t +1.43  frac p<.001 0.066  cluster no / no
+  L_temporal_pole        hist     expected pos  mean t +1.49  frac p<.001 0.022  cluster no / no
+  R_hippocampus          hist     expected pos  mean t +0.28  frac p<.001 0.008  cluster no / no
+  L_cerebellum           hist     expected pos  mean t -0.36  frac p<.001 0.000  cluster no / no
+
+== Summary: build | regions with mean t of the reported sign (of 9) | regions with a corrected cluster of the reported sign at p<.001 | at p<.01
+  prefix   9/9   2/9   4/9
+  postfix  8/9   0/9   0/9
+  hist     7/9   0/9   0/9
+DPABI GROUP DONE
