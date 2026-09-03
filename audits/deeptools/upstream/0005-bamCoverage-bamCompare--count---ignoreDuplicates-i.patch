@@ -6,7 +6,7 @@ Subject: [PATCH] bamCoverage/bamCompare: count --ignoreDuplicates in the
 
 fraction_kept returned 1.0 early whenever --minMappingQuality, --samFlagInclude/Exclude and --min/maxFragmentLength were all unset, without looking at --ignoreDuplicates. The per-bin counts were deduplicated but the number of mapped reads used by --normalizeUsing (CPM, RPKM, RPGC, BPM) and by --scaleFactorsMethod readCount was not, unless some other filter happened to be set; --exactScaling could not override the early return.
 
-Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/claude/software-package-audit-ablwee/audits/deeptools)
+Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/main/audits/deeptools)
 ---
  CHANGES.txt                                       |  3 +++
  deeptools/getScaleFactor.py                       |  3 ++-

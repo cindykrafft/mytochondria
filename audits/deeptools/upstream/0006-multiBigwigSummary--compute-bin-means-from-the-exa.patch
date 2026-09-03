@@ -6,7 +6,7 @@ Subject: [PATCH] multiBigwigSummary: compute bin means from the exact bigWig
 
 countFragmentsInRegions_worker called pyBigWig's stats() with its default exact=False, which answers from the zoom level whose span fits the query and averages every zoom record overlapping the region, records straddling the region edges included in full. On a bamCoverage track with peaks the 10-kb bin means deviated from the true means by a median of 3 % and up to several-fold next to peaks. computeMatrix, bigwigCompare and bigwigAverage already read the exact values.
 
-Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/claude/software-package-audit-ablwee/audits/deeptools)
+Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/main/audits/deeptools)
 ---
  CHANGES.txt                                   |  3 +++
  deeptools/getScorePerBigWigBin.py             |  4 ++-

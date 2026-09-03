@@ -6,7 +6,7 @@ Subject: [PATCH] plotPCA: apply --log2 and --rowCenter to the matrix used for
 
 plot_pca bound `m = self.matrix`, replaced `m` by a row-selected copy for --ntop, and then applied --log2 (rebinding self.matrix) and --rowCenter (in place on self.matrix). The SVD ran on `m`, so --log2 never changed the result and --rowCenter only did when --ntop kept every row. Transform `m` instead.
 
-Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/claude/software-package-audit-ablwee/audits/deeptools)
+Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/main/audits/deeptools)
 ---
  CHANGES.txt                        |  3 ++
  deeptools/correlation.py           |  9 +++---

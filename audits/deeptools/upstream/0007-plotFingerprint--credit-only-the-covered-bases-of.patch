@@ -6,7 +6,7 @@ Subject: [PATCH] plotFingerprint: credit only the covered bases of a
 
 SumCoveragePerBin.get_coverage_of_region added a full tile to every bin up to the ceiling bin of the fragment end, so a fragment ending inside a bin credited that bin with the whole tile; the branch meant for the partial last bin only ever added max(0, negative). The path is taken when the sampling step equals --binSize (a single multi-bin region per chunk). Replace the three-part bookkeeping by the per-bin overlap.
 
-Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/claude/software-package-audit-ablwee/audits/deeptools)
+Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/main/audits/deeptools)
 ---
  CHANGES.txt                              |  3 +++
  deeptools/sumCoveragePerBin.py           | 29 ++++--------------------

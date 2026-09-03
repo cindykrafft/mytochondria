@@ -6,7 +6,7 @@ Subject: [PATCH] bamCompare: keep bin coordinates after a --skipZeroOverZero
 
 writeBedGraph_worker derives the coordinates of every written interval from the end of the previous one, so a bin skipped by --skipZeroOverZero shifted all following intervals of the chunk one bin to the left (issues #1108, #1130). Flush the current run and restart from the next bin's own coordinate, as the bigWig-input implementation (writeBedGraph_bam_and_bw) already does.
 
-Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/claude/software-package-audit-ablwee/audits/deeptools)
+Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/main/audits/deeptools)
 ---
  CHANGES.txt                                   |  3 +++
  .../test/test_bamCoverage_and_bamCompare.py   | 23 +++++++++++++++++++

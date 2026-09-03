@@ -6,7 +6,7 @@ Subject: [PATCH] plotCorrelation: use the median absolute deviation in
 
 get_outlier_indices scaled the deviation from the median by 1.4826 * median(|x|), i.e. by the median itself for counts, instead of by median(|x - median|) as the Iglewicz & Hoaglin method it cites (and the --removeOutliers help) require. A bin was only flagged when it exceeded about 300 times the median, so the option removed essentially nothing.
 
-Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/claude/software-package-audit-ablwee/audits/deeptools)
+Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/main/audits/deeptools)
 ---
  CHANGES.txt                                 |  3 +++
  deeptools/correlation.py                    |  2 +-
