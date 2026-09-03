@@ -1,0 +1,2 @@
+Tools passing:  bamtobed bamtofastq bed12tobed6 bedtobam bigchroms closest cluster complement coverage expand fisher flank general genomecov getfasta groupby intersect jaccard makewindows map merge multicov reldist sample shift shuffle slop sort spacing split subtract
+Tools failing:  negativecontrol

@@ -1,0 +1,21 @@
+    flank.t1...ok
+    flank.t2...ok
+    flank.t3...ok
+    flank.t4...ok
+    flank.t5...ok
+    flank.t6...ok
+    flank.t7...ok
+    flank.t8...ok
+    flank.t9...ok
+    flank.t10...ok
+    flank.t11...ok
+    flank.t12...0a1
+> chr1	95	100
+fail
+    flank.t13...0a1,2
+> chr1	95	100
+> chr1	200	205
+fail
+    flank.t14...0a1
+> chr1	95	100	d1	1	.
+fail

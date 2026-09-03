@@ -4,9 +4,10 @@ normed.bim: 4 records, 3 distinct IDs
 === --bfile plus --bmerge normed (--merge-mode 6) ===
 3 people to be merged from normed.fam.
 Of these, 0 are new, while 3 are present in the base dataset.
+Warning: normed.bim contains duplicate variant ID(s).  Variants with matching
 4 markers loaded from plus.bim.
-4 markers to be merged from normed.bim.
-Of these, 0 are new, while 4 are present in the base dataset.
+3 markers to be merged from normed.bim.
+Of these, 0 are new, while 3 are present in the base dataset.
 12 overlapping calls, 12 nonmissing in both filesets.
 11 concordant, for a concordance rate of 0.916667.
 --- plain merge ---
@@ -24,4 +25,4 @@ Of these, 1 is new, while 3 are present in the base dataset.
 --- plain merge ---
 merged fileset: 4 variants: v1 v2 v3 v4 
 
-(workdir /tmp/tmp.zdDqieNGKP)
+(workdir /tmp/tmp.zBqGwnHcPF)
