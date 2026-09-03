@@ -1,0 +1,5 @@
+cutadapt 5.3.dev15+g50e9fb8d3
+reference ACGTACGTNN: Aligner.effective_length=8  PrefixComparer.effective_length=8 max_k=2
+reference ACGTACGTnn: Aligner.effective_length=8  PrefixComparer.effective_length=12 max_k=3
+reference ACGTACGTNn: Aligner.effective_length=8  PrefixComparer.effective_length=10 max_k=2
+via PrefixAdapter('ACGTACGTnn', indels=False) (CLI path, upper-cased): PrefixComparer(reference=b'\x01\x02\x04\x08\x01\x02\x04\x08\x8f\x8f', max_k=2, wildcard_ref=True, wildcard_query=False)

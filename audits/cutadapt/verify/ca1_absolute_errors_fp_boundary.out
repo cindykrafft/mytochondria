@@ -1,0 +1,95 @@
+cutadapt 5.3.dev15+g50e9fb8d3 python 3.12.3
+
+== A. closed form: int(n * (k / n)) < k, i.e. a full-length match with k errors is rejected
+  k=1: n in [49, 98, 103, 107, 161, 187, 196, 197, 206, 214, 237, 239, 249, 253]
+  k=2: n in [49, 98, 103, 107, 161, 187, 196, 197, 206, 214, 237, 239, 249, 253]
+  k=3: n in [47, 94, 147, 173, 188, 294]
+  k=4: n in [49, 98, 103, 107, 161, 187, 196, 197, 206, 214, 237, 239, 249, 253]
+  k=5: n in [77, 154]
+
+   partial-length boundaries L <= n where int(L * (k/n)) < floor(L*k/n) (exact rational), n <= 300:
+  k=1: 14 (n, L) pairs; first 12: [(49, 49), (98, 98), (103, 103), (107, 107), (161, 161), (187, 187), (196, 196), (197, 197), (206, 206), (214, 214), (237, 237), (239, 239)]
+  k=2: 18 (n, L) pairs; first 12: [(49, 49), (98, 49), (98, 98), (103, 103), (107, 107), (161, 161), (187, 187), (196, 98), (196, 196), (197, 197), (206, 103), (206, 206)]
+  k=3: 10 (n, L) pairs; first 12: [(47, 47), (94, 94), (147, 49), (147, 98), (147, 147), (173, 173), (188, 188), (294, 98), (294, 196), (294, 294)]
+  k=4: 20 (n, L) pairs; first 12: [(49, 49), (98, 49), (98, 98), (103, 103), (107, 107), (161, 161), (187, 187), (196, 49), (196, 98), (196, 147), (196, 196), (197, 197)]
+  k=5: 6 (n, L) pairs; first 12: [(77, 77), (154, 154), (245, 49), (245, 98), (245, 147), (245, 196)]
+
+   decimal rates as typed on the command line (-e 0.1 etc.), L <= 300:
+  -e 0.05: 0 affected lengths; first 10: []
+  -e 0.1: 0 affected lengths; first 10: []
+  -e 0.12: 0 affected lengths; first 10: []
+  -e 0.15: 0 affected lengths; first 10: []
+  -e 0.2: 0 affected lengths; first 10: []
+  -e 0.25: 0 affected lengths; first 10: []
+  -e 0.3: 0 affected lengths; first 10: []
+  -e 0.29: 2 affected lengths; first 10: [100, 200]
+
+== B. shipped adapter classes: adapter of length n, read carries it with exactly k substitutions
+  k=1 n=49: rate=0.02040816326530612 n*rate=0.9999999999999999 expected(affected)=True
+      BackAdapter(-a)              found with k errors: False  with k-1 errors: True
+      FrontAdapter(-g)             found with k errors: False  with k-1 errors: True
+      PrefixAdapter(^,indels)      found with k errors: False  with k-1 errors: True
+      SuffixAdapter($,indels)      found with k errors: False  with k-1 errors: True
+      PrefixAdapter(^,--no-indels) found with k errors: False  with k-1 errors: True
+  k=1 n=98: rate=0.01020408163265306 n*rate=0.9999999999999999 expected(affected)=True
+      BackAdapter(-a)              found with k errors: False  with k-1 errors: True
+      FrontAdapter(-g)             found with k errors: False  with k-1 errors: True
+      PrefixAdapter(^,indels)      found with k errors: False  with k-1 errors: True
+      SuffixAdapter($,indels)      found with k errors: False  with k-1 errors: True
+      PrefixAdapter(^,--no-indels) found with k errors: False  with k-1 errors: True
+  k=2 n=98: rate=0.02040816326530612 n*rate=1.9999999999999998 expected(affected)=True
+      BackAdapter(-a)              found with k errors: False  with k-1 errors: True
+      FrontAdapter(-g)             found with k errors: False  with k-1 errors: True
+      PrefixAdapter(^,indels)      found with k errors: False  with k-1 errors: True
+      SuffixAdapter($,indels)      found with k errors: False  with k-1 errors: True
+      PrefixAdapter(^,--no-indels) found with k errors: False  with k-1 errors: True
+  k=3 n=47: rate=0.06382978723404255 n*rate=2.9999999999999996 expected(affected)=True
+      BackAdapter(-a)              found with k errors: False  with k-1 errors: True
+      FrontAdapter(-g)             found with k errors: False  with k-1 errors: True
+      PrefixAdapter(^,indels)      found with k errors: False  with k-1 errors: True
+      SuffixAdapter($,indels)      found with k errors: False  with k-1 errors: True
+      PrefixAdapter(^,--no-indels) found with k errors: False  with k-1 errors: True
+  k=2 n=49: rate=0.04081632653061224 n*rate=1.9999999999999998 expected(affected)=True
+      BackAdapter(-a)              found with k errors: False  with k-1 errors: True
+      FrontAdapter(-g)             found with k errors: False  with k-1 errors: True
+      PrefixAdapter(^,indels)      found with k errors: False  with k-1 errors: True
+      SuffixAdapter($,indels)      found with k errors: False  with k-1 errors: True
+      PrefixAdapter(^,--no-indels) found with k errors: False  with k-1 errors: True
+  k=1 n=50: rate=0.02 n*rate=1.0 expected(affected)=False
+      BackAdapter(-a)              found with k errors: True   with k-1 errors: True
+      FrontAdapter(-g)             found with k errors: True   with k-1 errors: True
+      PrefixAdapter(^,indels)      found with k errors: True   with k-1 errors: True
+      SuffixAdapter($,indels)      found with k errors: True   with k-1 errors: True
+      PrefixAdapter(^,--no-indels) found with k errors: True   with k-1 errors: True
+  k=1 n=48: rate=0.020833333333333332 n*rate=1.0 expected(affected)=False
+      BackAdapter(-a)              found with k errors: True   with k-1 errors: True
+      FrontAdapter(-g)             found with k errors: True   with k-1 errors: True
+      PrefixAdapter(^,indels)      found with k errors: True   with k-1 errors: True
+      SuffixAdapter($,indels)      found with k errors: True   with k-1 errors: True
+      PrefixAdapter(^,--no-indels) found with k errors: True   with k-1 errors: True
+  k=2 n=50: rate=0.04 n*rate=2.0 expected(affected)=False
+      BackAdapter(-a)              found with k errors: True   with k-1 errors: True
+      FrontAdapter(-g)             found with k errors: True   with k-1 errors: True
+      PrefixAdapter(^,indels)      found with k errors: True   with k-1 errors: True
+      SuffixAdapter($,indels)      found with k errors: True   with k-1 errors: True
+      PrefixAdapter(^,--no-indels) found with k errors: True   with k-1 errors: True
+  k=3 n=30: rate=0.1 n*rate=3.0 expected(affected)=False
+      BackAdapter(-a)              found with k errors: True   with k-1 errors: True
+      FrontAdapter(-g)             found with k errors: True   with k-1 errors: True
+      PrefixAdapter(^,indels)      found with k errors: True   with k-1 errors: True
+      SuffixAdapter($,indels)      found with k errors: True   with k-1 errors: True
+      PrefixAdapter(^,--no-indels) found with k errors: True   with k-1 errors: True
+
+   wildcard adapter: 50 nt with one N (49 non-N), -e 1, full-length match with 1 substitution outside the N
+   effective_length=49 rate=0.02040816326530612 -> match: None
+
+   AdapterIndex (demultiplexing path): two 49-nt anchored barcodes, -e 1
+   index max_k per adapter: [0, 0]
+   read = barcode1 with 1 substitution ->  None
+   read = barcode1 exact              ->  RemoveBeforeMatch(astart=0, astop=49, rstart=0, rstop=49, score=49, errors=0)
+
+== C. CLI: 300 reads = 20 nt + 49-nt adapter with exactly 1 substitution + 30 nt; `-e 1` vs `-e 1.0000001` vs `-e 2`
+   -e 1                   : reads trimmed 8/300 (a trimmed read is 20 nt long: 0)
+   -e 1.0000001           : reads trimmed 300/300 (a trimmed read is 20 nt long: 300)
+   -e 2                   : reads trimmed 300/300 (a trimmed read is 20 nt long: 300)
+   -e 0.0204081632653062  : reads trimmed 300/300 (a trimmed read is 20 nt long: 300)

@@ -1,0 +1,163 @@
+From 092928372eb6ca383facd595575906cb1b6b8d70 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 00:39:16 +0000
+Subject: [PATCH] Fix k-mer heuristic missing anchored adapters with an
+ inserted base
+
+The k-mer search sets for the partial-overlap classes of an adapter use a
+window that is exactly as long as the longest adapter prefix of the class.
+An occurrence of that prefix with insertions in the read spans up to
+max_errors more positions, so the k-mer chunk on the far side of the
+insertion lies outside the window and kmers_present() returns False even
+though the aligner accepts the occurrence. Regular 3'/5' adapters were
+covered by their internal search set, but anchored and non-internal
+adapters have no such set and lost about 40 % of the reads with one inserted
+base whenever exactly one error was allowed (two chunks).
+
+Extend each window by the number of allowed errors of its class.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.rst                    | 10 ++++++++++
+ src/cutadapt/kmer_heuristic.py |  5 ++++-
+ tests/test_adapters.py         | 35 ++++++++++++++++++++++++++++++++++
+ tests/test_kmer_heuristic.py   | 14 +++++++-------
+ 4 files changed, 56 insertions(+), 8 deletions(-)
+
+diff --git a/CHANGES.rst b/CHANGES.rst
+index 9d3149f..008de83 100644
+--- a/CHANGES.rst
++++ b/CHANGES.rst
+@@ -2,6 +2,16 @@
+ Changelog
+ =========
+ 
++development version
++-------------------
++
++* Fixed: Anchored (``^ADAPTER``, ``ADAPTER$``) and non-internal
++  (``XADAPTER``, ``ADAPTERX``) adapters were sometimes not found when the read
++  contains the adapter with an inserted base, although the number of errors was
++  within the allowed limit. This happened when exactly one error was allowed
++  (for example, adapters of 10 to 19 nt at the default ``-e 0.1``, or
++  ``-e 1``), since the runtime heuristic was introduced in version 4.3.
++
+ v5.2 (2025-10-23)
+ -----------------
+ 
+diff --git a/src/cutadapt/kmer_heuristic.py b/src/cutadapt/kmer_heuristic.py
+index b25b189..3bfeb8e 100644
+--- a/src/cutadapt/kmer_heuristic.py
++++ b/src/cutadapt/kmer_heuristic.py
+@@ -112,7 +112,10 @@ def create_back_overlap_searchsets(
+                     search_sets.append(search_set)
+                 minimum_length = min_overlap_kmer_length
+         kmer_sets = kmer_chunks(adapter[:minimum_length], max_errors + 1)
+-        search_sets.append((-length, None, kmer_sets))
++        # An occurrence of the adapter prefix that contains insertions spans up
++        # to max_errors more positions in the read than in the adapter, so the
++        # search window needs to be that much longer than the prefix.
++        search_sets.append((-(length + max_errors), None, kmer_sets))
+         minimum_length = length + 1
+     return search_sets
+ 
+diff --git a/tests/test_adapters.py b/tests/test_adapters.py
+index f24ecdf..8a826cf 100644
+--- a/tests/test_adapters.py
++++ b/tests/test_adapters.py
+@@ -15,6 +15,7 @@ from cutadapt.adapters import (
+     IndexedPrefixAdapters,
+     IndexedSuffixAdapters,
+     NonInternalFrontAdapter,
++    NonInternalBackAdapter,
+ )
+ 
+ 
+@@ -703,3 +704,37 @@ def test_very_long_adapter_issue_749():
+     assert match.astart == 0
+     assert match.astop == 20
+     assert match.errors == 0
++
++
++@pytest.mark.parametrize("insertion_position", [3, 15])
++def test_anchored_adapters_with_insertion_in_read(insertion_position):
++    # One inserted base makes the occurrence one base longer than the adapter.
++    # max_errors=0.1 on 19 nt allows one error, so the k-mer prefilter searches
++    # two chunks; the chunk on the far side of the insertion is shifted by one.
++    sequence = "CTGTCTCTTATACACATCT"
++    occurrence = sequence[:insertion_position] + "G" + sequence[insertion_position:]
++
++    prefix_adapter = PrefixAdapter(sequence, max_errors=0.1, indels=True)
++    match = prefix_adapter.match_to(occurrence + "AAAAAAAA")
++    assert match is not None
++    assert match.errors == 1
++    assert (match.rstart, match.rstop) == (0, 20)
++
++    suffix_adapter = SuffixAdapter(sequence, max_errors=0.1, indels=True)
++    match = suffix_adapter.match_to("AAAAAAAA" + occurrence)
++    assert match is not None
++    assert match.errors == 1
++    assert (match.rstart, match.rstop) == (8, 28)
++
++
++def test_noninternal_adapters_with_insertion_in_read():
++    sequence = "CTGTCTCTTATACACATCT"
++    occurrence = sequence[:10] + "G" + sequence[10:]
++    front_adapter = NonInternalFrontAdapter(sequence, max_errors=0.1, indels=True)
++    match = front_adapter.match_to(occurrence + "AAAAAAAA")
++    assert match is not None
++    assert match.errors == 1
++    back_adapter = NonInternalBackAdapter(sequence, max_errors=0.1, indels=True)
++    match = back_adapter.match_to("AAAAAAAA" + sequence[:8] + "G" + sequence[8:])
++    assert match is not None
++    assert match.errors == 1
+diff --git a/tests/test_kmer_heuristic.py b/tests/test_kmer_heuristic.py
+index c3a69a9..a1c7b92 100644
+--- a/tests/test_kmer_heuristic.py
++++ b/tests/test_kmer_heuristic.py
+@@ -45,8 +45,8 @@ def test_create_back_overlap_searchsets():
+     assert (-3, None, {"ABC"}) in searchsets
+     assert (-4, None, {"ABCD"}) in searchsets
+     assert (-9, None, {"ABCDE"}) in searchsets
+-    assert (-19, None, kmer_chunks(adapter[:10], 2)) in searchsets
+-    assert (-20, None, kmer_chunks(adapter, 3)) in searchsets
++    assert (-20, None, kmer_chunks(adapter[:10], 2)) in searchsets
++    assert (-22, None, kmer_chunks(adapter, 3)) in searchsets
+ 
+ 
+ @pytest.mark.parametrize(
+@@ -57,7 +57,7 @@ def test_create_back_overlap_searchsets():
+             [
+                 (-3, None, ["ABC"]),
+                 (-4, None, ["ABCD"]),
+-                (-19, None, ["ABCDE", "FGHIJ"]),
++                (-20, None, ["ABCDE", "FGHIJ"]),
+                 (0, None, ["ABCDEFG", "HIJ0123", "456789"]),
+             ],
+         ),
+@@ -66,8 +66,8 @@ def test_create_back_overlap_searchsets():
+             [
+                 (-3, None, ["ABC"]),
+                 (-4, None, ["ABCD"]),
+-                (-19, None, ["ABCDE", "FGHIJ"]),
+-                (-20, None, ["ABCDEFG", "HIJ0123", "456789"]),
++                (-20, None, ["ABCDE", "FGHIJ"]),
++                (-22, None, ["ABCDEFG", "HIJ0123", "456789"]),
+             ],
+         ),
+         (
+@@ -75,8 +75,8 @@ def test_create_back_overlap_searchsets():
+             [
+                 (0, 3, ["789"]),
+                 (0, 4, ["6789"]),
+-                (0, 19, ["01234", "56789"]),
+-                (0, 20, ["ABCDEF", "GHIJ012", "3456789"]),
++                (0, 20, ["01234", "56789"]),
++                (0, 22, ["ABCDEF", "GHIJ012", "3456789"]),
+             ],
+         ),
+         (
+-- 
+2.43.0
+

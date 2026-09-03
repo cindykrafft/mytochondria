@@ -1,0 +1,23 @@
+scrublet 0.2.3 | scanpy 1.12.4
+
+synthetic data seed 1: 1650 cells, 150 true doublets
+  scanpy  log_transform=False                          mean obs score 0.084  mean sim score 0.365  threshold  0.1642  called  147  recall 0.980  precision 1.000
+  scanpy  log_transform=True                           mean obs score 0.047  mean sim score 0.417  threshold  0.1820  called  141  recall 0.940  precision 1.000
+  original log_transform=False                         mean obs score 0.090  mean sim score 0.404  threshold  0.1876  called  144  recall 0.960  precision 1.000
+  original log_transform=True                          mean obs score 0.074  mean sim score 0.431  threshold  0.5761  called   23  recall 0.153  precision 1.000
+
+synthetic data seed 2: 1650 cells, 150 true doublets
+  scanpy  log_transform=False                          mean obs score 0.084  mean sim score 0.371  threshold  0.1712  called  148  recall 0.987  precision 1.000
+  scanpy  log_transform=True                           mean obs score 0.050  mean sim score 0.405  threshold  0.1949  called  142  recall 0.947  precision 1.000
+  original log_transform=False                         mean obs score 0.094  mean sim score 0.420  threshold  0.2009  called  147  recall 0.980  precision 1.000
+  original log_transform=True                          mean obs score 0.076  mean sim score 0.448  threshold  0.5854  called   32  recall 0.213  precision 1.000
+
+mechanism (seed 1): the matrices the port builds before z-scoring, log_transform=True
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/scrublet/verify/sr3_scanpy_log_transform_order.py", line 79, in <module>
+    ad_sim = sc.pp.scrublet_simulate_doublets(ad_obs, layer="raw", sim_doublet_ratio=2.0, random_state=0)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/scrublet/venv-rel/lib/python3.12/site-packages/legacy_api_wrap/__init__.py", line 88, in fn_compatible
+    return fn(*args_all, **kw)
+           ^^^^^^^^^^^^^^^^^^^
+TypeError: scrublet_simulate_doublets() got an unexpected keyword argument 'random_state'

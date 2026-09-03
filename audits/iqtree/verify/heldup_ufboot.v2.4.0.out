@@ -1,0 +1,20 @@
+binary: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/iqtree/iqtree2-v2.4.0/build/iqtree2
+IQ-TREE multicore version 2.4.0 for Linux x86 64-bit built Sep  3 2026
+1. same seed (-seed 3), -T 1, two runs: treefile and .ufboot identical -> True
+2. supports vs split frequencies in the 1000 .ufboot trees (-T 1):
+   A|B            reported  99    994/1000 = 99.4% -> 99
+   A|B|C|D        reported 100   1000/1000 = 100.0% -> 100
+   C|D            reported  97    973/1000 = 97.3% -> 97
+   E|F            reported  99    990/1000 = 99.0% -> 99
+   E|F|G          reported  98    977/1000 = 97.7% -> 98
+3. same seed, -T 2: .ufboot identical to -T 1 -> False; supports: {'C|D': ('97', '97'), 'E|F': ('99', '99'), 'E|F|G': ('98', '98'), 'A|B|C|D': ('100', '100'), 'A|B': ('99', '99')}
+   replicate trees differing between -T 1 and -T 2: 12 of 1000
+4. --bnni (-T 1): supports {'C|D': ('97', '99'), 'E|F': ('99', '100'), 'E|F|G': ('98', '100'), 'A|B|C|D': ('100', '100'), 'A|B': ('99', '100')}
+   --bnni supports equal split frequencies of the refined .ufboot trees -> True
+   log: Total 58 ufboot trees refined
+5. ub_t1_a: bootstrap correlation coefficient(s) in log: ['1.000']
+5. ub_t2: bootstrap correlation coefficient(s) in log: ['1.000']
+6. SH-aLRT -alrt 1000 -seed 3: -T 1 twice identical -> True; -T 1 vs -T 2 identical -> False
+   -T 1: {'C|D': '95.8', 'E|F': '97.6', 'E|F|G': '95.3', 'A|B|C|D': '99.8', 'A|B': '97.7'}
+   -T 2: {'C|D': '96.1', 'E|F': '97.3', 'E|F|G': '95.8', 'A|B|C|D': '99.8', 'A|B': '98.1'}
+UFBOOT CHECKS DONE

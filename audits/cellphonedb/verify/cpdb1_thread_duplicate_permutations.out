@@ -1,0 +1,149 @@
+
+Created /tmp/cpdb1_wfhq4mu9/db/cellphonedb_09_03_2026_003500.zip successfully
+cellphonedb 5.0.1  python 3.12.3  multiprocessing start method: fork
+fixture: 30 cells, 3 cell types of 10 -> 30!/(10!)^3 = 5.55e12 distinct assignments
+iterations = 1000, debug_seed = -1 (default, unseeded)
+
+A/B. permutations the shipped code actually draws
+   threads  workers   drawn      DISTINCT   multiplicity histogram
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb1_wfhq4mu9/in/counts.txt
+/tmp/cpdb1_wfhq4mu9/in/meta.txt
+[ ][CORE][03/09/26-00:35:00][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:1000 Debug-seed:-1 Threads:1 Precision:3
+[ ][CORE][03/09/26-00:35:01][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:35:01][INFO] Running Statistical Analysis
+0.0% 1.0% 2.0% 3.0% 4.0% 5.0% 6.0% 7.0% 8.0% 9.0% 10.0% 11.0% 12.0% 13.0% 14.0% 15.0% 16.0% 17.0% 18.0% 19.0% 20.0% 21.0% 22.0% 23.0% 24.0% 25.0% 26.0% 27.0% 28.0% 29.0% 30.0% 31.0% 32.0% 33.0% 34.0% 35.0% 36.0% 37.0% 38.0% 39.0% 40.0% 41.0% 42.0% 43.0% 44.0% 45.0% 46.0% 47.0% 48.0% 49.0% 50.0% 51.0% 52.0% 53.0% 54.0% 55.0% 56.0% 57.0% 58.0% 59.0% 60.0% 61.0% 62.0% 63.0% 64.0% 65.0% 66.0% 67.0% 68.0% 69.0% 70.0% 71.0% 72.0% 73.0% 74.0% 75.0% 76.0% 77.0% 78.0% 79.0% 80.0% 81.0% 82.0% 83.0% 84.0% 85.0% 86.0% 87.0% 88.0% 89.0% 90.0% 91.0% 92.0% 93.0% 94.0% 95.0% 96.0% 97.0% 98.0% 99.0% [ ][CORE][03/09/26-00:35:03][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:35:03][INFO] Building results
+Saved deconvoluted to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_A1.txt
+Saved deconvoluted_percents to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_percents_A1.txt
+Saved means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_means_A1.txt
+Saved pvalues to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_pvalues_A1.txt
+Saved significant_means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_significant_means_A1.txt
+   1        1         1000       1000       1x:1000
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb1_wfhq4mu9/in/counts.txt
+/tmp/cpdb1_wfhq4mu9/in/meta.txt
+[ ][CORE][03/09/26-00:35:03][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:1000 Debug-seed:-1 Threads:2 Precision:3
+[ ][CORE][03/09/26-00:35:03][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:35:03][INFO] Running Statistical Analysis
+  0%|          | 0/1000 [00:00<?, ?it/s]  0%|          | 1/1000 [00:00<04:45,  3.50it/s]  5%|▌         | 52/1000 [00:00<00:05, 170.22it/s] 10%|▉         | 95/1000 [00:00<00:03, 249.77it/s] 13%|█▎        | 132/1000 [00:00<00:03, 276.36it/s] 17%|█▋        | 167/1000 [00:00<00:02, 297.24it/s] 20%|██        | 202/1000 [00:00<00:02, 311.21it/s] 26%|██▌       | 258/1000 [00:00<00:01, 379.20it/s] 30%|███       | 300/1000 [00:01<00:01, 391.21it/s] 34%|███▍      | 341/1000 [00:01<00:01, 369.52it/s] 38%|███▊      | 380/1000 [00:01<00:01, 356.66it/s] 44%|████▍     | 438/1000 [00:01<00:01, 418.17it/s] 48%|████▊     | 485/1000 [00:01<00:01, 431.46it/s] 53%|█████▎    | 530/1000 [00:01<00:01, 414.31it/s] 58%|█████▊    | 580/1000 [00:01<00:00, 434.63it/s] 62%|██████▎   | 625/1000 [00:01<00:00, 414.71it/s] 67%|██████▋   | 668/1000 [00:01<00:00, 404.82it/s] 71%|███████   | 712/1000 [00:02<00:00, 412.04it/s] 76%|███████▌  | 758/1000 [00:02<00:00, 420.45it/s] 81%|████████  | 806/1000 [00:02<00:00, 436.38it/s] 86%|████████▌ | 861/1000 [00:02<00:00, 464.29it/s] 91%|█████████ | 908/1000 [00:02<00:00, 449.11it/s] 96%|█████████▋| 965/1000 [00:02<00:00, 481.69it/s]100%|██████████| 1000/1000 [00:02<00:00, 379.49it/s]
+[ ][CORE][03/09/26-00:35:06][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:35:06][INFO] Building results
+Saved deconvoluted to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_A2.txt
+Saved deconvoluted_percents to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_percents_A2.txt
+Saved means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_means_A2.txt
+Saved pvalues to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_pvalues_A2.txt
+Saved significant_means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_significant_means_A2.txt
+   2        2         1000       504        1x:8, 2x:496
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb1_wfhq4mu9/in/counts.txt
+/tmp/cpdb1_wfhq4mu9/in/meta.txt
+[ ][CORE][03/09/26-00:35:06][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:1000 Debug-seed:-1 Threads:4 Precision:3
+[ ][CORE][03/09/26-00:35:06][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:35:06][INFO] Running Statistical Analysis
+  0%|          | 0/1000 [00:00<?, ?it/s]  4%|▍         | 44/1000 [00:00<00:02, 414.55it/s] 11%|█         | 107/1000 [00:00<00:01, 502.07it/s] 17%|█▋        | 167/1000 [00:00<00:01, 540.67it/s] 23%|██▎       | 226/1000 [00:00<00:01, 545.20it/s] 30%|██▉       | 295/1000 [00:00<00:01, 565.13it/s] 35%|███▌      | 352/1000 [00:00<00:01, 499.41it/s] 41%|████      | 412/1000 [00:00<00:01, 520.27it/s] 48%|████▊     | 478/1000 [00:00<00:00, 539.20it/s] 54%|█████▍    | 538/1000 [00:01<00:00, 552.44it/s] 59%|█████▉    | 594/1000 [00:01<00:00, 553.47it/s] 65%|██████▌   | 650/1000 [00:01<00:00, 543.26it/s] 71%|███████   | 710/1000 [00:01<00:00, 543.68it/s] 78%|███████▊  | 781/1000 [00:01<00:00, 581.39it/s] 84%|████████▍ | 844/1000 [00:01<00:00, 587.05it/s] 90%|█████████ | 903/1000 [00:01<00:00, 555.72it/s] 96%|█████████▌| 959/1000 [00:01<00:00, 521.78it/s]100%|██████████| 1000/1000 [00:01<00:00, 536.97it/s]
+[ ][CORE][03/09/26-00:35:08][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:35:08][INFO] Building results
+Saved deconvoluted to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_A4.txt
+Saved deconvoluted_percents to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_percents_A4.txt
+Saved means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_means_A4.txt
+Saved pvalues to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_pvalues_A4.txt
+Saved significant_means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_significant_means_A4.txt
+   4        4         1000       279        1x:23, 2x:10, 3x:27, 4x:219
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb1_wfhq4mu9/in/counts.txt
+/tmp/cpdb1_wfhq4mu9/in/meta.txt
+[ ][CORE][03/09/26-00:35:08][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:1000 Debug-seed:-1 Threads:8 Precision:3
+[ ][CORE][03/09/26-00:35:08][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:35:08][INFO] Running Statistical Analysis
+  0%|          | 0/1000 [00:00<?, ?it/s]  2%|▏         | 24/1000 [00:00<00:04, 210.59it/s]  7%|▋         | 68/1000 [00:00<00:02, 321.96it/s] 11%|█         | 111/1000 [00:00<00:02, 352.92it/s] 18%|█▊        | 184/1000 [00:00<00:01, 485.79it/s] 25%|██▌       | 250/1000 [00:00<00:01, 543.61it/s] 33%|███▎      | 333/1000 [00:00<00:01, 592.49it/s] 39%|███▉      | 393/1000 [00:00<00:01, 577.43it/s] 47%|████▋     | 470/1000 [00:00<00:00, 605.38it/s] 55%|█████▍    | 545/1000 [00:00<00:00, 641.40it/s] 61%|██████    | 610/1000 [00:01<00:00, 639.93it/s] 68%|██████▊   | 675/1000 [00:01<00:00, 587.53it/s] 74%|███████▍  | 745/1000 [00:01<00:00, 614.34it/s] 81%|████████  | 808/1000 [00:01<00:00, 601.43it/s] 89%|████████▉ | 894/1000 [00:01<00:00, 655.85it/s] 96%|█████████▌| 960/1000 [00:01<00:00, 649.90it/s]100%|██████████| 1000/1000 [00:01<00:00, 594.61it/s]
+[ ][CORE][03/09/26-00:35:10][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:35:10][INFO] Building results
+Saved deconvoluted to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_A8.txt
+Saved deconvoluted_percents to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_percents_A8.txt
+Saved means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_means_A8.txt
+Saved pvalues to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_pvalues_A8.txt
+Saved significant_means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_significant_means_A8.txt
+   8        8         1000       137        1x:2, 2x:2, 3x:6, 4x:3, 5x:3, 6x:8, 7x:3, 8x:110
+
+   Read the histogram as 'appeared k times: n permutations'. At threads=1 every draw
+   is unique; at threads=T most are drawn T times.
+
+C. two analyses run back to back in one session
+   threads  distinct in run 1      distinct in run 2      shared between the runs
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb1_wfhq4mu9/in/counts.txt
+/tmp/cpdb1_wfhq4mu9/in/meta.txt
+[ ][CORE][03/09/26-00:35:10][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:1000 Debug-seed:-1 Threads:1 Precision:3
+[ ][CORE][03/09/26-00:35:10][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:35:10][INFO] Running Statistical Analysis
+0.0% 1.0% 2.0% 3.0% 4.0% 5.0% 6.0% 7.0% 8.0% 9.0% 10.0% 11.0% 12.0% 13.0% 14.0% 15.0% 16.0% 17.0% 18.0% 19.0% 20.0% 21.0% 22.0% 23.0% 24.0% 25.0% 26.0% 27.0% 28.0% 29.0% 30.0% 31.0% 32.0% 33.0% 34.0% 35.0% 36.0% 37.0% 38.0% 39.0% 40.0% 41.0% 42.0% 43.0% 44.0% 45.0% 46.0% 47.0% 48.0% 49.0% 50.0% 51.0% 52.0% 53.0% 54.0% 55.0% 56.0% 57.0% 58.0% 59.0% 60.0% 61.0% 62.0% 63.0% 64.0% 65.0% 66.0% 67.0% 68.0% 69.0% 70.0% 71.0% 72.0% 73.0% 74.0% 75.0% 76.0% 77.0% 78.0% 79.0% 80.0% 81.0% 82.0% 83.0% 84.0% 85.0% 86.0% 87.0% 88.0% 89.0% 90.0% 91.0% 92.0% 93.0% 94.0% 95.0% 96.0% 97.0% 98.0% 99.0% [ ][CORE][03/09/26-00:35:12][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:35:12][INFO] Building results
+Saved deconvoluted to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_C1_1.txt
+Saved deconvoluted_percents to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_percents_C1_1.txt
+Saved means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_means_C1_1.txt
+Saved pvalues to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_pvalues_C1_1.txt
+Saved significant_means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_significant_means_C1_1.txt
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb1_wfhq4mu9/in/counts.txt
+/tmp/cpdb1_wfhq4mu9/in/meta.txt
+[ ][CORE][03/09/26-00:35:12][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:1000 Debug-seed:-1 Threads:1 Precision:3
+[ ][CORE][03/09/26-00:35:12][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:35:12][INFO] Running Statistical Analysis
+0.0% 1.0% 2.0% 3.0% 4.0% 5.0% 6.0% 7.0% 8.0% 9.0% 10.0% 11.0% 12.0% 13.0% 14.0% 15.0% 16.0% 17.0% 18.0% 19.0% 20.0% 21.0% 22.0% 23.0% 24.0% 25.0% 26.0% 27.0% 28.0% 29.0% 30.0% 31.0% 32.0% 33.0% 34.0% 35.0% 36.0% 37.0% 38.0% 39.0% 40.0% 41.0% 42.0% 43.0% 44.0% 45.0% 46.0% 47.0% 48.0% 49.0% 50.0% 51.0% 52.0% 53.0% 54.0% 55.0% 56.0% 57.0% 58.0% 59.0% 60.0% 61.0% 62.0% 63.0% 64.0% 65.0% 66.0% 67.0% 68.0% 69.0% 70.0% 71.0% 72.0% 73.0% 74.0% 75.0% 76.0% 77.0% 78.0% 79.0% 80.0% 81.0% 82.0% 83.0% 84.0% 85.0% 86.0% 87.0% 88.0% 89.0% 90.0% 91.0% 92.0% 93.0% 94.0% 95.0% 96.0% 97.0% 98.0% 99.0% [ ][CORE][03/09/26-00:35:15][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:35:15][INFO] Building results
+Saved deconvoluted to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_C2_1.txt
+Saved deconvoluted_percents to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_percents_C2_1.txt
+Saved means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_means_C2_1.txt
+Saved pvalues to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_pvalues_C2_1.txt
+Saved significant_means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_significant_means_C2_1.txt
+   1        1000                   1000                   0 (0% of run 1)
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb1_wfhq4mu9/in/counts.txt
+/tmp/cpdb1_wfhq4mu9/in/meta.txt
+[ ][CORE][03/09/26-00:35:15][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:1000 Debug-seed:-1 Threads:4 Precision:3
+[ ][CORE][03/09/26-00:35:15][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:35:15][INFO] Running Statistical Analysis
+  0%|          | 0/1000 [00:00<?, ?it/s]  2%|▏         | 22/1000 [00:00<00:04, 219.18it/s]  5%|▌         | 54/1000 [00:00<00:03, 274.93it/s] 10%|▉         | 97/1000 [00:00<00:02, 342.85it/s] 15%|█▍        | 147/1000 [00:00<00:02, 382.49it/s] 19%|█▊        | 186/1000 [00:00<00:02, 376.05it/s] 24%|██▍       | 240/1000 [00:00<00:01, 428.95it/s] 30%|██▉       | 296/1000 [00:00<00:01, 454.41it/s] 35%|███▌      | 353/1000 [00:00<00:01, 479.39it/s] 41%|████      | 412/1000 [00:00<00:01, 500.25it/s] 46%|████▌     | 462/1000 [00:01<00:01, 496.35it/s] 51%|█████     | 512/1000 [00:01<00:00, 488.12it/s] 56%|█████▌    | 561/1000 [00:01<00:01, 425.89it/s] 60%|██████    | 605/1000 [00:01<00:01, 344.85it/s] 65%|██████▌   | 653/1000 [00:01<00:00, 374.75it/s] 70%|██████▉   | 698/1000 [00:01<00:00, 389.94it/s] 75%|███████▌  | 754/1000 [00:01<00:00, 414.62it/s] 82%|████████▏ | 822/1000 [00:01<00:00, 472.59it/s] 88%|████████▊ | 879/1000 [00:02<00:00, 489.46it/s] 94%|█████████▎| 937/1000 [00:02<00:00, 513.49it/s] 99%|█████████▉| 990/1000 [00:02<00:00, 507.93it/s]100%|██████████| 1000/1000 [00:02<00:00, 443.14it/s]
+[ ][CORE][03/09/26-00:35:17][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:35:17][INFO] Building results
+Saved deconvoluted to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_C1_4.txt
+Saved deconvoluted_percents to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_percents_C1_4.txt
+Saved means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_means_C1_4.txt
+Saved pvalues to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_pvalues_C1_4.txt
+Saved significant_means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_significant_means_C1_4.txt
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb1_wfhq4mu9/in/counts.txt
+/tmp/cpdb1_wfhq4mu9/in/meta.txt
+[ ][CORE][03/09/26-00:35:17][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:1000 Debug-seed:-1 Threads:4 Precision:3
+[ ][CORE][03/09/26-00:35:17][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:35:17][INFO] Running Statistical Analysis
+  0%|          | 0/1000 [00:00<?, ?it/s]  3%|▎         | 26/1000 [00:00<00:04, 239.62it/s]  7%|▋         | 70/1000 [00:00<00:02, 337.79it/s] 12%|█▏        | 121/1000 [00:00<00:02, 390.20it/s] 16%|█▌        | 161/1000 [00:00<00:02, 371.78it/s] 22%|██▏       | 220/1000 [00:00<00:01, 442.51it/s] 26%|██▋       | 265/1000 [00:00<00:01, 426.10it/s] 31%|███▏      | 314/1000 [00:00<00:01, 440.41it/s] 36%|███▌      | 359/1000 [00:00<00:01, 382.18it/s] 40%|████      | 404/1000 [00:01<00:01, 399.22it/s] 45%|████▍     | 447/1000 [00:01<00:01, 390.47it/s] 49%|████▉     | 492/1000 [00:01<00:01, 405.07it/s] 54%|█████▍    | 542/1000 [00:01<00:01, 428.74it/s] 60%|██████    | 600/1000 [00:01<00:00, 429.90it/s] 67%|██████▋   | 668/1000 [00:01<00:00, 492.78it/s] 72%|███████▏  | 719/1000 [00:01<00:00, 463.08it/s] 77%|███████▋  | 772/1000 [00:01<00:00, 460.66it/s] 83%|████████▎ | 830/1000 [00:01<00:00, 483.67it/s] 88%|████████▊ | 883/1000 [00:02<00:00, 496.06it/s] 93%|█████████▎| 934/1000 [00:02<00:00, 464.05it/s] 98%|█████████▊| 982/1000 [00:02<00:00, 453.42it/s]100%|██████████| 1000/1000 [00:02<00:00, 437.94it/s]
+[ ][CORE][03/09/26-00:35:20][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:35:20][INFO] Building results
+Saved deconvoluted to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_C2_4.txt
+Saved deconvoluted_percents to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_deconvoluted_percents_C2_4.txt
+Saved means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_means_C2_4.txt
+Saved pvalues to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_pvalues_C2_4.txt
+Saved significant_means to /tmp/cpdb1_wfhq4mu9/out/statistical_analysis_significant_means_C2_4.txt
+   4        300                    258                    258 (86% of run 1)
+
+   At threads>1 a repeat analysis is not an independent replicate: it re-uses the same
+   permutations, so re-running does not average the Monte-Carlo error away.
+
+D. spread of the reported p-values over 20 repeats run as SEPARATE processes
+   configuration              median sd    effective n      nominal iterations
+   threads=1                  0.01275      1068             1000
+   threads=4                  0.02764      270              1000
+
+   'effective n' is p(1-p)/var(p_hat): the number of independent permutations that
+   would produce the observed spread. At threads=4 it is about a quarter of the 1000
+   iterations the user asked for, which is what 250 distinct permutations buys.

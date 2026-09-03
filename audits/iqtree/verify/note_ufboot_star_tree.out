@@ -1,0 +1,27 @@
+binary: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/iqtree/iqtree2/build/iqtree2
+IQ-TREE multicore version 2.4.0 for Linux x86 64-bit built Sep  3 2026
+4 taxa, replicate alignment 1: ML tree (A,B,(C,D)40);
+   UFBoot supports ['40']   standard bootstrap supports ['56']
+   distinct topologies among the 1000 .ufboot trees: 3  (most common 400)
+   log lines: ['1']
+4 taxa, replicate alignment 2: ML tree (A,(B,C)31,D);
+   UFBoot supports ['31']   standard bootstrap supports ['69']
+   distinct topologies among the 1000 .ufboot trees: 3  (most common 347)
+   log lines: ['2']
+5 taxa, replicate alignment 1: ML tree (A,((B,D)77,C)31,E);
+   UFBoot supports ['77', '31']   standard bootstrap supports ['75', '44']
+   distinct topologies among the 1000 .ufboot trees: 14  (most common 272)
+   log lines: ['7']
+5 taxa, replicate alignment 2: ML tree (A,B,(C,(D,E)60)58);
+   UFBoot supports ['60', '58']   standard bootstrap supports ['49', '56']
+   distinct topologies among the 1000 .ufboot trees: 15  (most common 373)
+   log lines: ['4']
+6 taxa, replicate alignment 1: ML tree (A,((B,D)67,F)44,(C,E)57);
+   UFBoot supports ['67', '44', '57']   standard bootstrap supports ['68', '43', '62']
+   distinct topologies among the 1000 .ufboot trees: 52  (most common 163)
+   log lines: ['17']
+6 taxa, replicate alignment 2: ML tree (A,((B,C)63,D)27,(E,F)44);
+   UFBoot supports ['63', '27', '44']   standard bootstrap supports ['54', '19', '44']
+   distinct topologies among the 1000 .ufboot trees: 49  (most common 114)
+   log lines: ['22']
+DONE

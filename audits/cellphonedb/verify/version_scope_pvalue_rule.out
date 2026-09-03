@@ -1,0 +1,22 @@
+synthetic null: 4 draws against an observed mean of 2.0 in both cluster pairs
+   pair ctA|ctB : draws [3.0, 2.0, 2.0, 1.0]  -> 1 above, 2 equal, 1 below
+   pair ctC|ctD : draws [1.0, 2.0, 2.0, 2.0]  -> 0 above, 3 equal, 1 below
+   documented 'equal or higher' p : ctA|ctB = 0.75, ctC|ctD = 0.75
+
+tag        p ctA|ctB    p ctC|ctD      p == 0 possible get_significant_means(p, 0.05) keeps
+[ ][CORE][03/09/26-00:39:59][INFO] Building Pvalues result
+v2.1.7     0.25         0.00           yes            ['ctC|ctD']
+[ ][CORE][03/09/26-00:39:59][INFO] Building Pvalues result
+v3.1.0     0.25         0.00           yes            ['ctC|ctD']
+[ ][CORE][03/09/26-00:39:59][INFO] Building Pvalues result
+v4.0.0     0.25         0.00           yes            ['ctC|ctD']
+[ ][CORE][03/09/26-00:39:59][INFO] Building Pvalues result
+v5.0.0     0.25         0.00           yes            ['ctC|ctD']
+[ ][CORE][03/09/26-00:39:59][INFO] Building Pvalues result
+v5.0.1     0.25         0.00           yes            ['ctC|ctD']
+[ ][CORE][03/09/26-00:39:59][INFO] Building Pvalues result
+master     0.25         0.00           yes            ['ctC|ctD']
+
+Every release from v2.1.7 to master reports 0.25 and 0.00 where the documented rule
+gives 0.75 and 0.75: the ties are discarded and p = 0 is reachable, and an interaction
+with no null draw above it is called significant at the 0.05 cut-off in all of them.

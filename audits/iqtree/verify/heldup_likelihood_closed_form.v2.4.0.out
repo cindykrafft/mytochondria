@@ -1,0 +1,18 @@
+binary: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/iqtree/iqtree2-v2.4.0/build/iqtree2
+IQ-TREE multicore version 2.4.0 for Linux x86 64-bit built Sep  3 2026
+alignment: 5 taxa, 300 sites, 109 patterns
+JC                           JC                     iqtree     -1290.4621  reference     -1290.4621  diff -4.17e-05
+JC+G4{0.6} mean              JC+G4{0.6}             iqtree     -1313.6110  reference     -1313.6110  diff  4.74e-05
+  +G4 category rates (mean):   iqtree [0.05311, 0.3123, 0.8813, 2.753]  scipy [0.0531, 0.3123, 0.8813, 2.7533]
+JC+G4{0.6} median            JC+G4{0.6}             iqtree     -1310.5305  reference     -1310.5305  diff -3.38e-05
+  +G4 category rates (median): iqtree [0.05037, 0.3453, 0.9783, 2.626]  scipy [0.0504, 0.3453, 0.9783, 2.626]
+JC+I{0.3}                    JC+I{0.3}              iqtree     -1298.8422  reference     -1298.8422  diff  4.37e-05
+JC+I{0.3}+G4{0.6}            JC+I{0.3}+G4{0.6}      iqtree     -1341.2440  reference     -1341.2440  diff -3.10e-05
+  +I+G4 category rates: iqtree [0.07587, 0.4461, 1.259, 3.933]  scipy/(1-pinv) [0.0759, 0.4461, 1.259, 3.9333]  props [0.175, 0.175, 0.175, 0.175]
+GTR{..}+F{..}                GTR{1.5,4.0,0.8,1.2,5.0}+F{0.3,0.2,0.2,0.3} iqtree     -1357.3669  reference     -1357.3669  diff  3.60e-05
+GTR{..}+F{..}+G4{0.6}        GTR{1.5,4.0,0.8,1.2,5.0}+F{0.3,0.2,0.2,0.3}+G4{0.6} iqtree     -1372.3566  reference     -1372.3566  diff -4.71e-05
+variable-site alignment: 168 sites
+JC+ASC                       JC+ASC                 iqtree      -898.7854  reference      -898.7854  diff  2.98e-05
+GTR+F+ASC+G4                 GTR{1.5,4.0,0.8,1.2,5.0}+F{0.3,0.2,0.2,0.3}+ASC+G4{0.6} iqtree      -954.5740  reference      -954.5740  diff -1.84e-05
++ASC with constant sites refused: Invalid use of +ASC because of 132 invariant sites in the alignment
+ALL CLOSED-FORM CHECKS PASSED

@@ -1,0 +1,14 @@
+scrublet 0.2.2 | scikit-learn 1.9.0 | numpy 2.5.2
+mean_center=True  normalize_variance=True : OK   (_E_obs_norm is ndarray, 440 scores)
+mean_center=True  normalize_variance=False: FAIL (_E_obs_norm is matrix)
+     File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/scrublet/venv/lib/python3.12/site-packages/sklearn/utils/validation.py", line 3038, in validate_data
+       out = check_array(X, input_name="X", **check_params)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/scrublet/venv/lib/python3.12/site-packages/sklearn/utils/validation.py", line 860, in check_array
+       raise TypeError(
+   TypeError: np.matrix is not supported. Please convert to a numpy array with np.asarray. For more information see: https://numpy.org/doc/stable/reference/generated/numpy.matrix.html
+mean_center=False normalize_variance=True : OK   (_E_obs_norm is csc_matrix, 440 scores)
+mean_center=False normalize_variance=False: OK   (_E_obs_norm is csc_matrix, 440 scores)
+
+minimal reproduction of the type: csc_matrix - np.matrix -> matrix
+scanpy 1.14.0.dev1+ga656a33b0 sc.pp.scrublet(mean_center=True, normalize_variance=False): OK, threshold 0.0671

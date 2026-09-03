@@ -1,0 +1,290 @@
+From ae6b75dffc40cca2edf8d13d3a517d4621493071 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 00:39:16 +0000
+Subject: [PATCH] Honour an absolute number of errors (-e N) for every adapter
+ length
+
+With -e N (N >= 1), the number of errors is converted to the rate N/n for an
+adapter of length n, and an alignment covering L adapter characters is
+accepted if errors <= L * rate. For some n, the floating-point product
+n * (N / n) is slightly smaller than N (49 * (1 / 49) == 0.9999999999999999),
+so a full-length match was found only with N - 1 errors: -e 1 allowed no
+errors for a 49 nt adapter and -e 2 only one for a 98 nt adapter. The same
+truncation happened in PrefixComparer (--no-indels), when building the
+adapter index and in the k-mer heuristic.
+
+Add a tolerance of 1e-9 to every length * error_rate product: a
+max_errors_for_length() helper in align.py for the Python code and a DEF
+constant in _align.pyx.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.rst                    |  9 +++++++++
+ src/cutadapt/_align.pyx        | 13 +++++++++----
+ src/cutadapt/adapters.py       |  7 ++++---
+ src/cutadapt/align.py          | 16 ++++++++++++++++
+ src/cutadapt/kmer_heuristic.py |  6 ++++--
+ tests/test_adapters.py         | 29 +++++++++++++++++++++++++++++
+ tests/test_align.py            | 28 ++++++++++++++++++++++++++++
+ 7 files changed, 99 insertions(+), 9 deletions(-)
+
+diff --git a/CHANGES.rst b/CHANGES.rst
+index 9d3149f..99f9dba 100644
+--- a/CHANGES.rst
++++ b/CHANGES.rst
+@@ -2,6 +2,15 @@
+ Changelog
+ =========
+ 
++development version
++-------------------
++
++* Fixed: An absolute number of allowed errors (``-e N`` with N >= 1, or
++  ``max_errors=N``) is now honoured for every adapter length. Previously,
++  floating-point rounding reduced the number of allowed errors by one for some
++  adapter lengths: for example, ``-e 1`` allowed no errors at all for a 49 nt
++  adapter and ``-e 2`` allowed only one error for a 98 nt adapter.
++
+ v5.2 (2025-10-23)
+ -----------------
+ 
+diff --git a/src/cutadapt/_align.pyx b/src/cutadapt/_align.pyx
+index 1ce926f..3268b57 100644
+--- a/src/cutadapt/_align.pyx
++++ b/src/cutadapt/_align.pyx
+@@ -18,6 +18,11 @@ DEF MISMATCH_SCORE = -1
+ DEF INSERTION_SCORE = -2
+ DEF DELETION_SCORE = -2
+ 
++# Products such as 49 * (1 / 49) evaluate to 0.9999999999999999 in floating
++# point, which would turn "one allowed error" (-e 1) into "no errors". The
++# tolerance is far below the resolution of any meaningful error rate.
++DEF ERROR_RATE_TOLERANCE = 1e-9
++
+ 
+ # structure for a DP matrix entry
+ ctypedef struct _Entry:
+@@ -340,7 +345,7 @@ cdef class Aligner:
+         cdef int i, j
+ 
+         # maximum no. of errors
+-        cdef int k = <int> (max_error_rate * m)
++        cdef int k = <int> (max_error_rate * m + ERROR_RATE_TOLERANCE)
+ 
+         # Determine largest and smallest column we need to compute
+         cdef int max_n = n
+@@ -510,7 +515,7 @@ cdef class Aligner:
+                             cur_effective_length = self.effective_length
+                     is_acceptable = (
+                         length >= self._min_overlap
+-                        and cost <= cur_effective_length * max_error_rate
++                        and cost <= cur_effective_length * max_error_rate + ERROR_RATE_TOLERANCE
+                     )
+                     best_length = m + min(best.origin, 0)
+ 
+@@ -556,7 +561,7 @@ cdef class Aligner:
+ 
+                 is_acceptable = (
+                     length >= self._min_overlap
+-                    and cost <= cur_effective_length * max_error_rate
++                    and cost <= cur_effective_length * max_error_rate + ERROR_RATE_TOLERANCE
+                 )
+                 best_length = best.ref_stop + min(best.origin, 0)
+ 
+@@ -630,7 +635,7 @@ cdef class PrefixComparer:
+                 raise ValueError("Cannot have only N wildcards in the sequence")
+         if not (0 <= max_error_rate <= 1.):
+             raise ValueError("max_error_rate must be between 0 and 1")
+-        self.max_k = int(max_error_rate * self.effective_length)
++        self.max_k = int(max_error_rate * self.effective_length + ERROR_RATE_TOLERANCE)
+         if min_overlap < 1:
+             raise ValueError("min_overlap must be at least 1")
+         self.min_overlap = min_overlap
+diff --git a/src/cutadapt/adapters.py b/src/cutadapt/adapters.py
+index 3bda8e4..4c27776 100644
+--- a/src/cutadapt/adapters.py
++++ b/src/cutadapt/adapters.py
+@@ -20,6 +20,7 @@ from .align import (
+     SuffixComparer,
+     edit_environment,
+     hamming_sphere,
++    max_errors_for_length,
+ )
+ from .kmer_heuristic import create_positions_and_kmers, kmer_probability_analysis
+ 
+@@ -1375,7 +1376,7 @@ class AdapterIndex:
+             raise ValueError("Wildcards in the read not supported")
+         if adapter.adapter_wildcards:
+             raise ValueError("Wildcards in the adapter not supported")
+-        k = int(len(adapter) * adapter.max_error_rate)
++        k = max_errors_for_length(len(adapter), adapter.max_error_rate)
+         if k > 3:
+             raise ValueError("Error rate too high")
+ 
+@@ -1397,7 +1398,7 @@ class AdapterIndex:
+         start_time = time.time()
+         max_k = max(
+             (
+-                int(adapter.max_error_rate * len(adapter.sequence))
++                max_errors_for_length(len(adapter.sequence), adapter.max_error_rate)
+                 for adapter in self._adapters
+                 if adapter.indels
+             ),
+@@ -1415,7 +1416,7 @@ class AdapterIndex:
+         ambiguous = {}
+         for adapter in self._adapters:
+             sequence = adapter.sequence
+-            k = int(adapter.max_error_rate * len(sequence))
++            k = max_errors_for_length(len(sequence), adapter.max_error_rate)
+ 
+             if adapter.indels:
+                 for s, errors, matches in edit_environment(sequence, k):
+diff --git a/src/cutadapt/align.py b/src/cutadapt/align.py
+index eaa5cbc..ad83a8b 100644
+--- a/src/cutadapt/align.py
++++ b/src/cutadapt/align.py
+@@ -7,6 +7,7 @@ __all__ = [
+     "hamming_environment",
+     "edit_environment",
+     "edit_distance",
++    "max_errors_for_length",
+ ]
+ 
+ from enum import IntFlag
+@@ -21,6 +22,21 @@ from cutadapt._align import (
+ )
+ 
+ 
++# Products such as 49 * (1 / 49) evaluate to 0.9999999999999999 in floating
++# point, which would turn "one allowed error" (-e 1) into "no errors". The
++# tolerance is far below the resolution of any meaningful error rate. The same
++# constant is used in _align.pyx.
++ERROR_RATE_TOLERANCE = 1e-9
++
++
++def max_errors_for_length(length: int, max_error_rate: float) -> int:
++    """
++    Return the number of errors allowed in an alignment covering *length*
++    characters of the adapter at the given maximum error rate.
++    """
++    return int(length * max_error_rate + ERROR_RATE_TOLERANCE)
++
++
+ class EndSkip(IntFlag):
+     """
+     Flags for the Aligner that indicate which ends of reference or query may be skipped at
+diff --git a/src/cutadapt/kmer_heuristic.py b/src/cutadapt/kmer_heuristic.py
+index b25b189..c54ca91 100644
+--- a/src/cutadapt/kmer_heuristic.py
++++ b/src/cutadapt/kmer_heuristic.py
+@@ -2,6 +2,8 @@ import io
+ from typing import List, Optional, Set, Tuple
+ from collections import defaultdict
+ 
++from .align import max_errors_for_length
++
+ 
+ def kmer_chunks(sequence: str, chunks: int) -> Set[str]:
+     """
+@@ -92,7 +94,7 @@ def create_back_overlap_searchsets(
+     max_error = 0
+     search_sets: List[SearchSet] = []
+     for i in range(adapter_length + 1):
+-        if int(i * error_rate) > max_error:
++        if max_errors_for_length(i, error_rate) > max_error:
+             error_lengths.append((max_error, i - 1))
+             max_error += 1
+     error_lengths.append((max_error, adapter_length))
+@@ -139,7 +141,7 @@ def create_positions_and_kmers(
+     This function returns the positions and the accompanying words while also
+     taking into account partial overlap for back and front adapters.
+     """
+-    max_errors = int(len(adapter) * error_rate)
++    max_errors = max_errors_for_length(len(adapter), error_rate)
+     search_sets = []
+     if back_adapter:
+         search_sets.extend(
+diff --git a/tests/test_adapters.py b/tests/test_adapters.py
+index f24ecdf..e3581bd 100644
+--- a/tests/test_adapters.py
++++ b/tests/test_adapters.py
+@@ -703,3 +703,32 @@ def test_very_long_adapter_issue_749():
+     assert match.astart == 0
+     assert match.astop == 20
+     assert match.errors == 0
++
++
++def test_back_adapter_absolute_errors_floating_point_boundary():
++    # 49 * (1 / 49) is slightly less than 1 in floating point;
++    # one error must nevertheless be allowed
++    sequence = "CAGATTTTCATATTATGCAGAAAATCTACTTCGCCTGATACGAGTCGGT"
++    assert len(sequence) == 49
++    mutated = sequence[:20] + "T" + sequence[21:]
++    adapter = BackAdapter(sequence, max_errors=1)
++    match = adapter.match_to("GGGG" + mutated + "GGGG")
++    assert match is not None
++    assert match.errors == 1
++    assert (match.rstart, match.rstop) == (4, 53)
++
++
++def test_indexed_prefix_adapters_absolute_errors_floating_point_boundary():
++    sequence1 = "CAGATTTTCATATTATGCAGAAAATCTACTTCGCCTGATACGAGTCGGT"
++    sequence2 = "TGCCGTAATCGAGGCTAGTTCACCGATAGGTCCTAAGCTTGACGATCAA"
++    assert len(sequence1) == len(sequence2) == 49
++    adapters = [
++        PrefixAdapter(sequence1, max_errors=1, indels=False),
++        PrefixAdapter(sequence2, max_errors=1, indels=False),
++    ]
++    ma = IndexedPrefixAdapters(adapters)
++    mutated = sequence1[:20] + "T" + sequence1[21:]
++    match = ma.match_to(mutated + "GGGG")
++    assert match is not None
++    assert match.adapter is adapters[0]
++    assert match.errors == 1
+diff --git a/tests/test_align.py b/tests/test_align.py
+index 505107c..7b9fbe3 100644
+--- a/tests/test_align.py
++++ b/tests/test_align.py
+@@ -10,6 +10,7 @@ from cutadapt.align import (
+     hamming_sphere,
+     edit_environment,
+     edit_distance,
++    max_errors_for_length,
+     naive_edit_environment,
+     slow_edit_environment,
+     py_edit_environment,
+@@ -495,3 +496,30 @@ def test_edit_environment(k, s, environment_func):
+             assert m == score
+             assert m <= len(s), (s, t, dist)
+             assert m <= len(t), (s, t, dist)
++
++
++def test_max_errors_for_length_floating_point_boundary():
++    # 49 * (1 / 49) == 0.9999999999999999
++    assert max_errors_for_length(49, 1 / 49) == 1
++    assert max_errors_for_length(98, 2 / 98) == 2
++    assert max_errors_for_length(47, 3 / 47) == 3
++    assert max_errors_for_length(48, 1 / 49) == 0
++    assert max_errors_for_length(10, 0.1) == 1
++    assert max_errors_for_length(9, 0.1) == 0
++
++
++def test_absolute_errors_floating_point_boundary():
++    # An adapter of length 49 with max_errors=1 gets max_error_rate 1/49,
++    # and 49 * (1 / 49) is slightly less than 1 in floating point
++    reference = "CAGATTTTCATATTATGCAGAAAATCTACTTCGCCTGATACGAGTCGGT"
++    assert len(reference) == 49
++    mutated = reference[:20] + "T" + reference[21:]
++    assert mutated != reference
++    aligner = Aligner(reference, 1 / 49, flags=Where.BACK)
++    result = aligner.locate("GGGG" + mutated + "GGGG")
++    assert result is not None
++    assert result[5] == 1  # errors
++    comparer = PrefixComparer(reference, 1 / 49)
++    result = comparer.locate(mutated + "GGGG")
++    assert result is not None
++    assert result[5] == 1
+-- 
+2.43.0
+

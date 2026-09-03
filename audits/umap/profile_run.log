@@ -1,0 +1,81 @@
+cohort: 1111
+full text: 0   survey-cache fallback: 1111   ({'offline': 1111})
+
+JOURNAL: {'PNAS': 544, 'Nature': 453, 'Cell': 77, 'Science': 37} 
+YEAR: {'2021': 87, '2022': 130, '2023': 181, '2024': 239, '2025': 338, '2026': 136}
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  Seurat RunUMAP / Seurat also used                627
+  input: PCA / PCs                                 267
+  scRNA-seq                                        253
+  Monocle / ArchR / Signac (uwot)                  178
+  Scanpy also used (calls umap-learn)              171
+  clustering (Leiden / Louvain) on the same graph  96
+  input: Harmony / scVI / latent space             80
+  UMAP on non-single-cell data                     77
+  snRNA-seq                                        55
+  n_neighbors stated                               31
+  min_dist stated                                  30
+  spatial transcriptomics                          26
+  cytometry input (CyTOF/flow/spectral)            26
+  metric euclidean stated                          12
+  uwot named (R package)                           10
+  metric cosine                                    10
+  UMAP used for clustering (on UMAP coords)        8
+  umap-learn named (Python package)                8
+  random_state / seed stated                       6
+  metric correlation                               5
+  transform / projection of new data               5
+  n_components / 3D UMAP                           4
+  spread stated                                    3
+  umap-learn version stated                        2
+  supervised UMAP                                  2
+
+VERSION FAMILY: {'0.2': 1, '0.4': 1, '0.5': 1}
+VERSIONS (top 20): {'0.2.7.0': 1, '0.4.3': 1, '0.5.1': 1}
+
+n_neighbors: {30: 12, 20: 6, 15: 4, 50: 3, 25: 2, 40: 2, 70: 1, 10: 1, 100: 1, 250: 1, 2: 1, 5: 1}
+min_dist: {'0.3': 5, '0': 4, '0.1': 4, '0.5': 3, '0.2': 2, '0.01': 1, '0.4': 1, '0.25': 1}
+dims (PCs): {20: 20, 30: 16, 50: 15, 15: 6, 25: 4, 12: 3, 10: 2, 100: 1, 75: 1, 40: 1}
+
+CO-PACKAGES (top 40):
+  Seurat                   627
+  R                        480
+  ImageJ                   265
+  GSEA                     255
+  DESeq2                   215
+  Scanpy                   171
+  MACS2                    167
+  scDblFinder              166
+  STAR                     152
+  Python                   133
+  ggplot2                  133
+  SAMtools                 117
+  edgeR                    101
+  Monocle                  96
+  scikit-learn             92
+  clusterProfiler          88
+  Bowtie2                  88
+  SciPy                    86
+  featureCounts            83
+  limma                    83
+  Cutadapt                 73
+  CellChat                 71
+  FastQC                   69
+  SCENIC                   67
+  fgsea                    66
+  HOMER                    63
+  Picard                   63
+  BEDTools                 62
+  scVelo                   62
+  Bioconductor             59
+  Enrichr                  59
+  NumPy                    58
+  ComplexHeatmap           58
+  pheatmap                 58
+  QuPath                   56
+  AnnData                  53
+  Signac                   53
+  Slingshot                51
+  Matplotlib               48
+  ArchR                    47

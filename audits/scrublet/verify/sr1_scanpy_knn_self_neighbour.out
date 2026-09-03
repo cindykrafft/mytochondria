@@ -1,0 +1,35 @@
+scrublet 0.2.2 | scanpy 1.14.0.dev1+ga656a33b0 | scikit-learn 1.9.0 | pynndescent 0.6.0
+
+manifold: 1650 observed + 3300 simulated, 30 PCs; k = 20, k_adj = 60, r = 2.0, rho = 0.1
+
+--- original scrublet classifier on this manifold (use_approx_neighbors=False)
+  max|score - score(k_adj real neighbours, self excluded (original))| = 0
+  max|score - score(k_adj-1 real neighbours + self counted with own label)| = 0.147
+  max|score - score(k_adj-1 real neighbours, self excluded)| = 0.147
+
+--- scanpy port on the same manifold, use_approx_neighbors=None
+  max|score - score(k_adj-1 real neighbours, self excluded)| = 0.00374
+  max|score - score(k_adj real neighbours, self excluded (original))| = 0.147
+  max|score - score(k_adj-1 real neighbours + self counted with own label)| = 0.147
+
+--- scanpy port on the same manifold, use_approx_neighbors=False
+  max|score - score(k_adj-1 real neighbours, self excluded)| = 0.00374
+  max|score - score(k_adj real neighbours, self excluded (original))| = 0.147
+  max|score - score(k_adj-1 real neighbours + self counted with own label)| = 0.147
+
+--- scanpy port on the same manifold, use_approx_neighbors=True
+  max|score - score(k_adj-1 real neighbours, self excluded)| = 0.0584
+  max|score - score(k_adj real neighbours, self excluded (original))| = 0.147
+  max|score - score(k_adj-1 real neighbours + self counted with own label)| = 0.147
+
+--- consequences (same manifold, threshold by skimage.threshold_minimum on each package's own simulated scores)
+  classifier                                   max obs score min sim score threshold called recall   prec mean obs Δ vs orig mean sim Δ
+  original                                            0.7722        0.0258    0.1876    144  0.960  1.000             0.0000     0.0000
+  scanpy(use_approx_neighbors=None)                   0.6250        0.0258    0.1697    146  0.973  1.000            -0.0068    -0.0535
+  scanpy(use_approx_neighbors=False)                  0.6250        0.0258    0.1697    146  0.973  1.000            -0.0068    -0.0535
+  scanpy(use_approx_neighbors=True)                   0.6250        0.0258    0.1697    146  0.973  1.000            -0.0068    -0.0535
+
+  cells whose call differs between original and scanpy(sklearn) on the same manifold: 2 of 1650
+  observed cells with score strictly lower in the port than in the original: 763; higher: 0
+  simulated doublets with score strictly higher in the port: 1; lower: 2852
+  largest attainable observed score: original (nd=k_adj) 0.7722; port (nd<=k_adj-1) 0.6250

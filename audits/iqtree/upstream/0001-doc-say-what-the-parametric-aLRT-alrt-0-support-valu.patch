@@ -1,0 +1,31 @@
+From 47ab6949458d88a2f87cd458c6a3515681b8c7b1 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 00:38:48 +0000
+Subject: [PATCH 1/2] doc: say what the parametric aLRT (-alrt 0) support value is
+
+IQ-TREE prints, as PhyML does, the cube of (1 - p) under the mixture null
+(tree/phylotree.cpp Statistics_To_Probabilities); readers of the table expect
+1 - p from the cited Anisimova & Gascuel (2006). One sentence in the option table.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ doc/Command-Reference.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/doc/Command-Reference.md b/doc/Command-Reference.md
+index aa59d83..eadd490 100644
+--- a/doc/Command-Reference.md
++++ b/doc/Command-Reference.md
+@@ -542,7 +542,7 @@ The following single branch tests are faster than all bootstrap analysis and rec
+ 
+ | Option | Usage and meaning |
+ |-----------|------------------------------------------------------------------------------|
+-| `-alrt`   | Specify number of replicates (>=1000) to perform SH-like approximate likelihood ratio test (SH-aLRT) ([Guindon et al., 2010]). If number of replicates is set to 0 (`-alrt 0`), then the parametric aLRT test ([Anisimova and Gascuel 2006]) is performed, instead of SH-aLRT. |
++| `-alrt`   | Specify number of replicates (>=1000) to perform SH-like approximate likelihood ratio test (SH-aLRT) ([Guindon et al., 2010]). If number of replicates is set to 0 (`-alrt 0`), then the parametric aLRT test ([Anisimova and Gascuel 2006]) is performed, instead of SH-aLRT. The parametric support printed for a branch is, as in PhyML, the cube of one minus the p-value of the aLRT statistic under the 1/2 chi-square(0) + 1/2 chi-square(1) mixture, so it is smaller than 1 - p (e.g. 0.93 at p = 0.05). |
+ | `-abayes` | Perform approximate Bayes test ([Anisimova et al., 2011]). |
+ | `-lbp`    | Specify number of replicates (>=1000) to perform fast local bootstrap probability method ([Adachi and Hasegawa, 1996b]). |
+ 
+-- 
+2.43.0
+

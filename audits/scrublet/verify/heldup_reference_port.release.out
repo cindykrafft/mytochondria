@@ -1,0 +1,55 @@
+scrublet 0.2.3 file /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/scrublet/venv-rel/lib/python3.12/site-packages/scrublet/__init__.py
+  numpy 2.5.2
+  scipy 1.18.1
+  scikit-learn 1.9.0
+  scikit-image 0.26.0
+  annoy 1.17.3
+
+synthetic data: 1650 cells x 2000 genes, 150 true heterotypic doublets, mean UMI 4620
+
+[A] sparse helpers vs dense numpy
+  tot_counts_norm vs dense:            max|diff| = 0
+  sparse_var vs np.var(ddof=0):        max|diff| = 3.75e-12  (relative 2.44e-15)
+  sparse_zscore vs dense z-score:      max|diff| = 3.73e-14
+  sparse_multiply vs row scaling:      max|diff| = 0
+  subsample_counts(rate=1) passthrough: counts unchanged True, totals unchanged True
+
+[B] get_vscores / filter_genes vs reference
+  genes with mean>0: shipped 2000, reference 2000, identical index True
+  fitted b: shipped 0.0876563  reference 0.0876563;  a: 0.145575 vs 0.145575
+  v-scores: max|rel diff| = 1.35e-14
+  filter_genes: shipped keeps 300, reference keeps 300, identical True
+  runningquantile(p=0.1) equals the per-bin minimum in 5 of 45 non-empty bins (it is np.percentile(., 0.1), the 0.1th percentile)
+
+[C] full pipeline, exact neighbours, vs reference
+  gene filter: shipped 300 genes, reference 300, identical True
+  doublet parents identical: True  (n_sim = 3300, self-pairs i==j: 1, repeated ordered pairs: 3)
+  k = 20 (reference 20), k_adj = 60
+  observed scores: max|diff| = 0, cells differing > 1e-9: 0 of 1650
+  simulated scores: max|diff| = 0, differing > 1e-9: 0 of 3300
+  standard errors (obs): max|diff| = 0
+  PCA manifold (arpack vs full SVD, sign-aligned): max|diff| = 9.33e-12
+  threshold 0.1876; detected 0.0873; detectable 0.8333; overall 0.1047
+  vs truth: 144 called, recall 0.960, precision 1.000
+  dense input: scores identical True, calls identical True
+  CSR float32 input: max|score diff| = 0, calls identical True
+  rerun same random_state: scores identical True
+  random_state=1: parents identical to seed 0: False; max|score diff| = 0.249; calls agree on 0.999 of cells
+  user total_counts == row sums: scores identical True
+  simulate_doublets reseeds the *global* numpy RNG: np.random.rand() after a run with random_state=0 is 0.622268 both times: True
+
+[D] closed forms
+  score == odds/(1+odds) with odds = q*rho/(r*(1-rho)*(1-q)): max|diff| = 4.44e-16
+  score at q = r/(rho+r) (pure doublet state, no singlets nearby): 0.5263 = 1/(2-rho) = 0.5263; score reaches 1 only at q = 1
+  SE == sqrt((dL/dq se_q)^2 + (dL/drho se_rho)^2) by finite differences: max|rel diff| = 2.22e-10
+  se_q == sd of Beta(nd+1, N-nd+1): max|diff| = 1.39e-17
+  k = round(0.5*sqrt(n_obs)) = 20 (shipped 20); k_adj = round(k*(1+r)) = 60
+  threshold == skimage.threshold_minimum(sim scores): True
+  rates: detected 0.087273 vs 0.087273; detectable 0.833333 vs 0.833333; overall 0.104727 vs 0.104727
+  z_scores == (score - threshold)/se: True
+  call_doublets with unimodal (constant) simulated scores: returns None, predicted_doublets_ = None, threshold_ set: False
+
+[E] approximate (annoy, default) vs exact neighbours
+  max|score diff| = 0.2; median |diff| = 0.00313; calls agree on 1.0000 of cells; threshold 0.1876 vs 0.1876
+  annoy vs truth: 144 called, recall 0.960, precision 1.000   (exact: 144, 0.960, 1.000)
+  annoy rerun with the same random_state: identical scores True

@@ -1,0 +1,34 @@
+umap-learn 0.5.12
+
+1. smooth_knn_dist vs brentq on the paper's equation (800 points, k=15)
+  local_connectivity=1.0: max |sigma rel diff| = 4.56e-06, max |rho diff| = 0.00e+00, kernel row sums in [3.90688, 3.90690] (target log2(15) = 3.90689)
+  local_connectivity=1.5: max |sigma rel diff| = 6.06e-06, max |rho diff| = 1.19e-07, kernel row sums in [3.90688, 3.90690] (target log2(15) = 3.90689)
+  sigma floor active (sigma == 1e-3 * row mean) in 0 rows
+
+2. fuzzy_simplicial_set symmetrisation
+  set_op_mix_ratio=1.0: max |G - G.T| = 0.0e+00, min 0.000, max 1.000000, max |G - numpy reference| = 9.94e-08, nnz 16758
+  set_op_mix_ratio=0.5: max |G - G.T| = 0.0e+00, min 0.000, max 1.000000, max |G - numpy reference| = 3.73e-08, nnz 16758
+  set_op_mix_ratio=0.0: max |G - G.T| = 0.0e+00, min 0.000, max 1.000000, max |G - numpy reference| = 2.87e-08, nnz 5642
+  unsymmetrised A: diagonal all zero: True, max entry 1.0000, entries == 1 per row: [0, 800] (count of rows with 0,1,2,... ones)
+
+3. find_ab_params
+  spread=1.0 min_dist=0.1: a=1.5769 b=0.8951; independent least squares a=1.5769 b=0.8951; residual rms 0.0162
+  spread=1.0 min_dist=0.0: a=1.9328 b=0.7905; independent least squares a=1.9328 b=0.7905; residual rms 0.0242
+  spread=1.0 min_dist=0.5: a=0.5830 b=1.3342; independent least squares a=0.5830 b=1.3342; residual rms 0.0207
+  spread=1.0 min_dist=0.99: a=0.1193 b=1.9164; independent least squares a=0.1193 b=1.9164; residual rms 0.0312
+  spread=3.0 min_dist=0.1: a=0.2957 b=0.8247; independent least squares a=0.2957 b=0.8247; residual rms 0.0209
+  spread=0.5 min_dist=0.25: a=3.7063 b=1.3342; independent least squares a=3.7063 b=1.3342; residual rms 0.0207
+
+4. spectral_layout vs dense eigh of the normalized Laplacian
+  graph connected components: 1
+  eigenvalues (dense) 0..3: [-2.220446e-16  1.057063e-01  1.213580e-01  1.358150e-01]; principal angles between umap and dense 2-d eigenspaces: [6.38905694e-06 1.61992160e-05] deg
+  Rayleigh quotients of umap's vectors: [0.10570625060747638, 0.12135798258589094]
+  2-cluster graph: 2 components; layout finite: True; component centroids: [[ 9.993e-01 -2.484e-03]
+ [-9.997e-01  1.086e-04]]
+
+5. metric='euclidean' vs metric='precomputed' (exact small-data path)
+  max |graph_ difference| = 2.92e-06; max |sigma diff| = 1.91e-06; max |rho diff| = 2.38e-07
+  vs fuzzy_simplicial_set on sklearn exact kNN: max |graph_ difference| = 2.92e-06
+
+6. nearest_neighbors: precomputed path (fast_knn_indices) vs sklearn
+  indices identical: True; max |dist diff| = 0.00e+00; column 0 is self: True

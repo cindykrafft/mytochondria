@@ -1,0 +1,76 @@
+########## environment: venv
+cellphonedb 5.0.1   pandas 3.0.5   numpy 2.5.2
+/home/user/research-software-audit/audits/cellphonedb/verify/cpdb6_scoring_crashes_pandas3.py:52: Pandas4Warning: The 'mode.copy_on_write' option is deprecated. Copy-on-Write can no longer be disabled (it is always enabled with pandas >= 3.0), and setting the option has no impact. This option will be removed in pandas 4.0.
+  cow = pd.options.mode.copy_on_write
+pandas copy_on_write: True
+
+mechanism: df['i'].replace({1:'A',...}, inplace=True) leaves column 'i' as [1, 2, 3]
+           (the replacement took effect: False)
+
+
+calling cpdb_statistical_analysis_method.call(..., score_interactions=True)
+/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/CellphoneDB/cellphonedb/utils/scoring_utils.py:138: ChainedAssignmentError: A value is being set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+Such inplace method never works to update the original DataFrame or Series, because the intermediate object on which we are setting values always behaves as a copy (due to Copy-on-Write).
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' instead, to perform the operation inplace on the original object, or try to avoid an inplace operation using 'df[col] = df[col].method(value)'.
+
+See the documentation for a more detailed explanation: https://pandas.pydata.org/pandas-docs/stable/user_guide/copy_on_write.html
+  matrix[index_name].replace(to_replace=id2name, inplace=True)
+RESULT: raised ->
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/cellphonedb/verify/cpdb6_scoring_crashes_pandas3.py", line 71, in <module>
+    res = cpdb_statistical_analysis_method.call(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/CellphoneDB/cellphonedb/src/core/methods/cpdb_statistical_analysis_method.py", line 157, in call
+    interaction_scores = scoring_utils.score_interactions_based_on_participant_expressions_product(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/CellphoneDB/cellphonedb/utils/scoring_utils.py", line 343, in score_interactions_based_on_participant_expressions_product
+    cpdb_fms = scale_expression(cpdb_fmsh,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/CellphoneDB/cellphonedb/utils/scoring_utils.py", line 207, in scale_expression
+    scaler = MinMaxScaler(feature_range=(0, upper_range), clip=True).fit(matrix.T)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/venv/lib/python3.12/site-packages/sklearn/preprocessing/_data.py", line 473, in fit
+    return self.partial_fit(X, y)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/venv/lib/python3.12/site-packages/sklearn/base.py", line 1403, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/venv/lib/python3.12/site-packages/sklearn/preprocessing/_data.py", line 513, in partial_fit
+    X = validate_data(
+        ^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/venv/lib/python3.12/site-packages/sklearn/utils/validation.py", line 3038, in validate_data
+    out = check_array(X, input_name="X", **check_params)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/venv/lib/python3.12/site-packages/sklearn/utils/validation.py", line 922, in check_array
+    dtype_orig = np.result_type(*dtypes_orig)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: at least one array or dtype is required
+
+the failing step in isolation (heteromer_geometric_expression_per_cell_type):
+   input rows : 5 (index [0, 1, 2, 3, 4])
+   output rows: 0 (index [])
+   -> expected 5 genes + 2 complexes; an empty frame here is the defect, and it is what
+      reaches MinMaxScaler.
+########## environment: venv_pd2
+cellphonedb 5.0.1   pandas 2.3.3   numpy 2.5.2
+pandas copy_on_write: False
+
+mechanism: df['i'].replace({1:'A',...}, inplace=True) leaves column 'i' as ['A', 'B', 'C']
+           (the replacement took effect: True)
+
+
+calling cpdb_statistical_analysis_method.call(..., score_interactions=True)
+RESULT: completed. interaction_scores shape (4, 9), non-zero entries 14
+                  CTA|CTA  CTA|CTB  CTA|CTC  CTB|CTA  CTB|CTB  CTB|CTC  CTC|CTA  CTC|CTB  CTC|CTC
+interacting_pair                                                                                 
+LIG1_REC1           0.000    100.0     0.00    0.000   11.111    0.000    0.000      0.0      0.0
+LIG2_RECCPLX        0.000      0.0     0.00   22.474   50.000    0.000   44.949    100.0      0.0
+LIG1_RECCPLX       44.949    100.0     0.00    4.994   11.111    0.000    0.000      0.0      0.0
+LIG1_BIGCPLX        0.000    100.0    62.04    0.000   11.111    6.893    0.000      0.0      0.0
+
+the failing step in isolation (heteromer_geometric_expression_per_cell_type):
+   input rows : 5 (index [0, 1, 2, 3, 4])
+   output rows: 7 (index ['LIG1', 'REC1', 'SUB1', 'SUB2', 'LIG2', 'BIGCPLX', 'RECCPLX'])
+   -> expected 5 genes + 2 complexes; an empty frame here is the defect, and it is what
+      reaches MinMaxScaler.

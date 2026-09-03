@@ -1,0 +1,90 @@
+
+Created /tmp/cpdb3_pdkc3vip/db/cellphonedb_09_03_2026_003057.zip successfully
+cellphonedb 5.0.1
+fixture percents per cluster (fraction of cells with value > 0):
+            CTA     CTB     CTC
+LIG1     1.0000  0.3333  0.0000
+REC1     0.3333  1.0000  0.3333
+SUB1     1.0000  1.0000  0.3333
+SUB2     1.0000  1.0000  0.6667
+LIG2     0.0000  1.0000  1.0000
+RECCPLX  1.0000  1.0000  0.3333
+BIGCPLX  0.0000  1.0000  0.3333
+[ ][CORE][03/09/26-00:30:57][INFO] [Non Statistical Method] Threshold:0.1 Precision:3
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb3_pdkc3vip/in/counts.txt
+/tmp/cpdb3_pdkc3vip/in/meta.txt
+[ ][CORE][03/09/26-00:30:58][INFO] Running Basic Analysis
+[ ][CORE][03/09/26-00:30:58][INFO] Building results
+Saved means_result to /tmp/cpdb3_pdkc3vip/m1_0.1/simple_analysis_means_result_run.txt
+Saved deconvoluted to /tmp/cpdb3_pdkc3vip/m1_0.1/simple_analysis_deconvoluted_run.txt
+Saved deconvoluted_percents to /tmp/cpdb3_pdkc3vip/m1_0.1/simple_analysis_deconvoluted_percents_run.txt
+[ ][CORE][03/09/26-00:30:58][INFO] [Non Statistical Method] Threshold:0.99 Precision:3
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb3_pdkc3vip/in/counts.txt
+/tmp/cpdb3_pdkc3vip/in/meta.txt
+[ ][CORE][03/09/26-00:30:58][INFO] Running Basic Analysis
+[ ][CORE][03/09/26-00:30:58][INFO] Building results
+Saved means_result to /tmp/cpdb3_pdkc3vip/m1_0.99/simple_analysis_means_result_run.txt
+Saved deconvoluted to /tmp/cpdb3_pdkc3vip/m1_0.99/simple_analysis_deconvoluted_run.txt
+Saved deconvoluted_percents to /tmp/cpdb3_pdkc3vip/m1_0.99/simple_analysis_deconvoluted_percents_run.txt
+
+METHOD 1 (cpdb_analysis_method)
+  keys returned at threshold=0.1 : ['deconvoluted', 'deconvoluted_percents', 'means_result']
+  keys returned at threshold=0.99: ['deconvoluted', 'deconvoluted_percents', 'means_result']
+  'significant_means' in the returned dict: False
+  files written at threshold=0.1 : ['simple_analysis_deconvoluted_percents_run.txt', 'simple_analysis_deconvoluted_run.txt', 'simple_analysis_means_result_run.txt']
+  files written at threshold=0.99: ['simple_analysis_deconvoluted_percents_run.txt', 'simple_analysis_deconvoluted_run.txt', 'simple_analysis_means_result_run.txt']
+  files byte-identical between the two thresholds: 3 of 3
+      simple_analysis_deconvoluted_percents_run.txt        identical
+      simple_analysis_deconvoluted_run.txt                 identical
+      simple_analysis_means_result_run.txt                 identical
+
+  means_result, max |threshold=0.1 - threshold=0.99| = 0.0e+00
+                  CTA|CTA  CTA|CTB  CTA|CTC  CTB|CTA  CTB|CTB  CTB|CTC  CTC|CTA  CTC|CTB  CTC|CTC
+interacting_pair                                                                                 
+LIG1_REC1           1.667      2.5    1.667    0.333    1.167    0.333      0.0      0.0    0.000
+LIG2_RECCPLX        0.000      0.0    0.000    1.500    1.500    1.333      2.5      2.5    2.333
+LIG1_RECCPLX        2.000      2.0    1.833    0.667    0.667    0.500      0.0      0.0    0.000
+LIG1_BIGCPLX        0.000      2.0    1.667    0.000    0.667    0.333      0.0      0.0    0.000
+
+  Interactions the docs say METHOD 1 should have dropped at threshold=0.99
+  (an interaction is only 'expressed' if BOTH partners exceed the threshold):
+      14 of 36 cells of the means table carry a non-zero mean that the threshold rule excludes
+
+METHOD 2 (cpdb_statistical_analysis_method) on the same data, for contrast
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb3_pdkc3vip/in/counts.txt
+/tmp/cpdb3_pdkc3vip/in/meta.txt
+[ ][CORE][03/09/26-00:30:58][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:100 Debug-seed:0 Threads:1 Precision:3
+[ ][CORE][03/09/26-00:30:58][WARNING] Debug random seed enabled. Set to 0
+[ ][CORE][03/09/26-00:30:58][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:30:58][INFO] Running Statistical Analysis
+0.0% 1.0% 2.0% 3.0% 4.0% 5.0% 6.0% 7.0% 8.0% 9.0% 10.0% 11.0% 12.0% 13.0% 14.0% 15.0% 16.0% 17.0% 18.0% 19.0% 20.0% 21.0% 22.0% 23.0% 24.0% 25.0% 26.0% 27.0% 28.0% 29.0% 30.0% 31.0% 32.0% 33.0% 34.0% 35.0% 36.0% 37.0% 38.0% 39.0% 40.0% 41.0% 42.0% 43.0% 44.0% 45.0% 46.0% 47.0% 48.0% 49.0% 50.0% 51.0% 52.0% 53.0% 54.0% 55.0% 56.0% 57.0% 58.0% 59.0% 60.0% 61.0% 62.0% 63.0% 64.0% 65.0% 66.0% 67.0% 68.0% 69.0% 70.0% 71.0% 72.0% 73.0% 74.0% 75.0% 76.0% 77.0% 78.0% 79.0% 80.0% 81.0% 82.0% 83.0% 84.0% 85.0% 86.0% 87.0% 88.0% 89.0% 90.0% 91.0% 92.0% 93.0% 94.0% 95.0% 96.0% 97.0% 98.0% 99.0% [ ][CORE][03/09/26-00:30:59][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:30:59][INFO] Building results
+Saved deconvoluted to /tmp/cpdb3_pdkc3vip/m2_0.1/statistical_analysis_deconvoluted_run.txt
+Saved deconvoluted_percents to /tmp/cpdb3_pdkc3vip/m2_0.1/statistical_analysis_deconvoluted_percents_run.txt
+Saved means to /tmp/cpdb3_pdkc3vip/m2_0.1/statistical_analysis_means_run.txt
+Saved pvalues to /tmp/cpdb3_pdkc3vip/m2_0.1/statistical_analysis_pvalues_run.txt
+Saved significant_means to /tmp/cpdb3_pdkc3vip/m2_0.1/statistical_analysis_significant_means_run.txt
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb3_pdkc3vip/in/counts.txt
+/tmp/cpdb3_pdkc3vip/in/meta.txt
+[ ][CORE][03/09/26-00:30:59][INFO] [Cluster Statistical Analysis] Threshold:0.99 Iterations:100 Debug-seed:0 Threads:1 Precision:3
+[ ][CORE][03/09/26-00:30:59][WARNING] Debug random seed enabled. Set to 0
+[ ][CORE][03/09/26-00:30:59][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:30:59][INFO] Running Statistical Analysis
+0.0% 1.0% 2.0% 3.0% 4.0% 5.0% 6.0% 7.0% 8.0% 9.0% 10.0% 11.0% 12.0% 13.0% 14.0% 15.0% 16.0% 17.0% 18.0% 19.0% 20.0% 21.0% 22.0% 23.0% 24.0% 25.0% 26.0% 27.0% 28.0% 29.0% 30.0% 31.0% 32.0% 33.0% 34.0% 35.0% 36.0% 37.0% 38.0% 39.0% 40.0% 41.0% 42.0% 43.0% 44.0% 45.0% 46.0% 47.0% 48.0% 49.0% 50.0% 51.0% 52.0% 53.0% 54.0% 55.0% 56.0% 57.0% 58.0% 59.0% 60.0% 61.0% 62.0% 63.0% 64.0% 65.0% 66.0% 67.0% 68.0% 69.0% 70.0% 71.0% 72.0% 73.0% 74.0% 75.0% 76.0% 77.0% 78.0% 79.0% 80.0% 81.0% 82.0% 83.0% 84.0% 85.0% 86.0% 87.0% 88.0% 89.0% 90.0% 91.0% 92.0% 93.0% 94.0% 95.0% 96.0% 97.0% 98.0% 99.0% [ ][CORE][03/09/26-00:30:59][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:30:59][INFO] Building results
+Saved deconvoluted to /tmp/cpdb3_pdkc3vip/m2_0.99/statistical_analysis_deconvoluted_run.txt
+Saved deconvoluted_percents to /tmp/cpdb3_pdkc3vip/m2_0.99/statistical_analysis_deconvoluted_percents_run.txt
+Saved means to /tmp/cpdb3_pdkc3vip/m2_0.99/statistical_analysis_means_run.txt
+Saved pvalues to /tmp/cpdb3_pdkc3vip/m2_0.99/statistical_analysis_pvalues_run.txt
+Saved significant_means to /tmp/cpdb3_pdkc3vip/m2_0.99/statistical_analysis_significant_means_run.txt
+  significant_means entries kept: threshold=0.1 -> 9, threshold=0.99 -> 6
+  -> the threshold works in METHOD 2 (through significant_means, which METHOD 2 returns and writes),
+     and is inert in METHOD 1 because METHOD 1 discards that table.

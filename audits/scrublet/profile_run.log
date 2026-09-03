@@ -1,0 +1,62 @@
+cohort (survey package 'scDblFinder'): 179
+full text: 0   survey-cache fallback: 179   ({'offline': 179})
+papers naming Scrublet in the cached evidence: 78 of 179 (lower bound)
+journals (Scrublet-naming papers): {'Nature': 56, 'Science': 5, 'PNAS': 9, 'Cell': 8}
+years    (Scrublet-naming papers): {'2021': 6, '2022': 15, '2023': 14, '2024': 16, '2025': 19, '2026': 8}
+
+FEATURES (papers; whole doublet-tool cohort / Scrublet-naming papers; lower bounds where source=survey_cache):
+  Seurat also used                                                          150    53
+  score used to filter (removed cells)                                      116    48
+  Scrublet named                                                             78    78
+  DoubletFinder named                                                        73     1
+  Scanpy also used                                                           65    51
+  run per sample / library                                                   51    26
+  default parameters                                                         50    23
+  scDblFinder named                                                          31     2
+  10x Genomics                                                               30    15
+  snRNA-seq                                                                  22     7
+  threshold stated                                                           14     5
+  Scrublet version stated                                                     9     9
+  other doublet tool (DoubletDetection/DoubletDecon/scds/Solo/DoubletDecon)    5     5
+  DoubletFinder pK / pN / homotypic stated                                    5     0
+  sim_doublet_ratio / n_neighbors / n_prin_comps stated                       3     3
+  expected doublet rate stated                                                2     1
+  multiplexing ground truth (demuxlet/hashing)                                2     2
+  Scanpy port (sc.pp.scrublet / scanpy.external)                              1     1
+
+SCRUBLET VERSION FAMILY: {'0.2': 13, '0.1': 2}
+SCRUBLET VERSIONS: {'0.2.1': 7, '0.2.3': 5, '0.1': 2, '1.6.0': 2, '3.6': 1, '0.2.2': 1}
+expected doublet rates: {'5': 1, '4.7': 1}
+thresholds: {'0.01': 3, '0.3': 2, '0.05': 2, '0.1': 1, '0.18': 1, '0.25': 1, '0.9': 1, '0.15': 1, '0.4': 1}
+
+CO-PACKAGES (top 30):
+  UMAP                     166
+  Seurat                   150
+  R                        114
+  ImageJ                   79
+  Scanpy                   65
+  DESeq2                   46
+  MACS2                    46
+  STAR                     44
+  GSEA                     40
+  ggplot2                  40
+  Python                   33
+  edgeR                    29
+  clusterProfiler          28
+  scikit-learn             28
+  SCENIC                   27
+  limma                    27
+  SAMtools                 25
+  scVelo                   24
+  Monocle                  23
+  SoupX                    22
+  SciPy                    22
+  CellPhoneDB              22
+  FastQC                   21
+  Signac                   20
+  Slingshot                20
+  Bowtie2                  19
+  HOMER                    19
+  CellChat                 19
+  BEDTools                 19
+  AnnData                  19
