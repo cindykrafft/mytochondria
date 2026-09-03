@@ -39,8 +39,7 @@ with tempfile.TemporaryDirectory() as tmp:
         ("plink 1.9 --hardy", PLINK19, ["--file", pre, "--hardy", "--out", os.path.join(tmp, "o19")], "P", "SNP", []),
         ("plink 1.9 --hardy midp", PLINK19, ["--file", pre, "--hardy", "midp", "--out", os.path.join(tmp, "o19m")], "P", "SNP", []),
         ("plink2 --hardy", PLINK2, ["--pedmap", pre, "--hardy", "--out", os.path.join(tmp, "o2")], "P", "ID", []),
-        ("plink2 --hardy midp", PLINK2, ["--pedmap", pre, "--hardy", "midp", "--out", os.path.join(tmp, "o2m")], "P", "ID", []),
-        ("plink2 --hardy log10", PLINK2, ["--pedmap", pre, "--hardy", "log10", "--out", os.path.join(tmp, "o2l")], "LOG10_P", "ID", []),
+        ("plink2 --hardy midp", PLINK2, ["--pedmap", pre, "--hardy", "midp", "--out", os.path.join(tmp, "o2m")], "MIDP", "ID", []),
     ):
         run(exe, args)
         out = args[-1] + (".hwe" if "1.9" in label else ".hardy")

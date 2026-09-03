@@ -50,7 +50,8 @@ with tempfile.TemporaryDirectory() as tmp:
     print(f"plink 1.9 --freq: max |MAF - min(p,1-p)| = {d:.2e}, max |NCHROBS - 2*nonmissing| = {dn:g}; all-missing variant MAF printed as {t['MAF'][2]!r}")
     run(PLINK2, ["--pedmap", pre, "--freq", "--out", os.path.join(tmp, "f2")])
     t = read_table(os.path.join(tmp, "f2.afreq"))
-    d = max(abs(fnum(x) - p_alt[int(s[3:]) - 1]) for s, x in zip(t["ID"], t["ALT_FREQS"]) if not np.isnan(p_alt[int(s[3:]) - 1]))
+    # plink2 orients REF/ALT itself on .ped import (major allele = REF), so compare the frequency of whichever allele it calls ALT
+    d = max(abs(fnum(x) - (p_alt if alt == "T" else 1 - p_alt)[int(s[3:]) - 1]) for s, x, alt in zip(t["ID"], t["ALT_FREQS"], t["ALT"]) if not np.isnan(p_alt[int(s[3:]) - 1]) and alt != ".")
     dn = max(abs(fnum(x) - nm2[int(s[3:]) - 1]) for s, x in zip(t["ID"], t["OBS_CT"]))
     print(f"plink2    --freq: max |ALT_FREQS - p| = {d:.2e}, max |OBS_CT - 2*nonmissing| = {dn:g}; all-missing variant ALT_FREQS printed as {t['ALT_FREQS'][2]!r}")
     # --- missing
@@ -72,7 +73,15 @@ with tempfile.TemporaryDirectory() as tmp:
     de = max(abs(fnum(x) - e_hom[i]) for i, x in zip(idx, t["E(HOM)"]))
     dn = max(abs(fnum(x) - n_nm[i]) for i, x in zip(idx, t["N(NM)"]))
     df = max(abs(fnum(x) - F[i]) for i, x in zip(idx, t["F"]))
-    print(f"plink 1.9 --het: max |O(HOM) diff| {do:g}, |E(HOM) diff| {de:.2e}, |N(NM) diff| {dn:g}, |F diff| {df:.2e} (E(HOM) printed to 6 s.f.)")
+    print(f"plink 1.9 --het vs 2n/(2n-1)-corrected E(HOM): max |O(HOM) diff| {do:g}, |E(HOM) diff| {de:.2e}, |N(NM) diff| {dn:g}, |F diff| {df:.2e} (E(HOM) printed to 6 s.f.)")
+    e_hom_plain = (np.where(g[:, poly] >= 0, 1, 0) * (1 - 2 * p * (1 - p))).sum(1)
+    F_plain = (o_hom - e_hom_plain) / (n_nm - e_hom_plain)
+    de = max(abs(fnum(x) - e_hom_plain[i]) for i, x in zip(idx, t["E(HOM)"])); df = max(abs(fnum(x) - F_plain[i]) for i, x in zip(idx, t["F"]))
+    print(f"plink 1.9 --het vs uncorrected 1-2pq E(HOM) (plink_misc.c het_report, all-founder branch): |E(HOM) diff| {de:.2e}, |F diff| {df:.2e}")
+    run(PLINK19, ["--file", pre, "--het", "small-sample", "--out", os.path.join(tmp, "h19s")])
+    t = read_table(os.path.join(tmp, "h19s.het")); idx = [int(s[1:]) - 1 for s in t["IID"]]
+    de = max(abs(fnum(x) - e_hom[i]) for i, x in zip(idx, t["E(HOM)"])); df = max(abs(fnum(x) - F[i]) for i, x in zip(idx, t["F"]))
+    print(f"plink 1.9 --het small-sample vs 2n/(2n-1)-corrected: |E(HOM) diff| {de:.2e}, |F diff| {df:.2e}")
     run(PLINK2, ["--pedmap", pre, "--het", "--out", os.path.join(tmp, "h2")])
     t = read_table(os.path.join(tmp, "h2.het"))
     idx = [int(s[1:]) - 1 for s in t["IID"]]

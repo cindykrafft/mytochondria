@@ -1,0 +1,5 @@
+HWE tables n<=  60: 40670 queries (x2 for midp), worst relative error 4.020e-15 at 'H 0 15 39 1'
+Fisher tables N<=40: 271500 queries, worst relative error p 7.186e-16 at 'F 3 10 23 4 0', ln p 2.059e-15 at 'F 1 14 21 1 0'
+mismatches (rel > 1e-9): 0
+threshold function on 115020 (table, threshold) pairs, thresholds [0.01, 0.001, 0.0001, 1e-06, 1e-08, 1e-10, 1e-15, 1e-20, 1e-50]: 0 disagreements with (exact p < threshold)
+p == threshold (float of exact p) on 2126 tables: 0 reported as failing (expected 0: tolerance keeps p == thresh)

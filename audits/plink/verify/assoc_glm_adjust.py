@@ -211,7 +211,8 @@ with tempfile.TemporaryDirectory() as tmp:
     t = read_table(os.path.join(tmp, fn))
     ids = [s for s, te in zip(t["ID"], t["TEST"]) if te == "ADD"]
     print("B. plink2 --glm sex --covar cov1 (linear; BETA/SE/T/P on the ALT allele):")
-    cmp("BETA vs OLS beta", ids, [v for v, te in zip(t["BETA"], t["TEST"]) if te == "ADD"], "beta2")
+    # BETA is for the A1 column allele; sign-flip where plink2 chose 'A' (our REF) as A1
+    cmp("BETA vs OLS beta (oriented by the A1 column)", ids, [(v if a1 == "T" else str(-fnum(v))) for v, te, a1 in zip(t["BETA"], t["TEST"], t["A1"]) if te == "ADD"], "beta2")
     cmp("SE vs OLS se", ids, [v for v, te in zip(t["SE"], t["TEST"]) if te == "ADD"], "se2")
     cmp("P vs OLS p", ids, [v for v, te in zip(t["P"], t["TEST"]) if te == "ADD"], "p2", rel=True)
 

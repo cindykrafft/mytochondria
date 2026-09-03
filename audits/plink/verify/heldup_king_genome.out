@@ -1,0 +1,13 @@
+PLINK v1.9.0-b.8 64-bit (1 Sep 2026)
+PLINK v2.0.0-b.1 64-bit (2 Sep 2026)
+plink2 --make-king-table: 1035 pairs, max |KINSHIP - KING-robust port| = 2.44e-07
+   I1-I2 unrelated        : KINSHIP +0.0036
+   I41-I43 parent-offspring : KINSHIP +0.2524
+   I43-I44 full sibs        : KINSHIP +0.2502
+   I43-I46 half sibs        : KINSHIP +0.1461
+plink2 --king-cutoff 0.177 removed 3 samples: ['I43', 'I44', 'I46'] (planted relatives: I41..I46; 1st-degree pairs I41-I43, I41-I44, I42-I43, I42-I44, I43-I44, I41-I46, I45-I46)
+   I1-I2 unrelated        : Z0 1.0000 Z1 0.0000 Z2 0.0000 PI_HAT 0.0000  (port: 1.0000 0.0000 0.0000 0.0000)
+   I41-I43 parent-offspring : Z0 0.0000 Z1 0.9730 Z2 0.0270 PI_HAT 0.5135  (port: 0.0000 0.9730 0.0270 0.5135)
+   I43-I44 full sibs        : Z0 0.1994 Z1 0.5935 Z2 0.2071 PI_HAT 0.5038  (port: 0.1994 0.5935 0.2071 0.5038)
+   I43-I46 half sibs        : Z0 0.4179 Z1 0.5775 Z2 0.0046 PI_HAT 0.2934  (port: 0.4179 0.5775 0.0046 0.2934)
+plink 1.9 --genome: max |column - first-principles port| over all pairs: {'Z0': '5.0e-05', 'Z1': '5.0e-05', 'Z2': '5.0e-05', 'PI_HAT': '5.0e-05', 'IBS0': '0.0e+00', 'IBS1': '0.0e+00', 'IBS2': '0.0e+00'} (Z/PI_HAT printed to 4 decimals)

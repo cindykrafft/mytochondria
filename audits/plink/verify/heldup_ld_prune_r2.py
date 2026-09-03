@@ -101,8 +101,47 @@ with tempfile.TemporaryDirectory() as tmp:
         print(f"plink2 --r2-unphased inter-chr: {nn} pairs, max |UNPHASED_R2 - numpy r2| = {worst:.2e}")
     else:
         print("plink2 --r2-unphased:", (r.stderr + r.stdout).strip().splitlines()[-1])
-    # --ld on one pair (both)
+    # --ld on one pair (both): PLINK's --ld reports the haplotype-frequency (EM) r^2 and D',
+    # not the genotype correlation; reference = EM on the 3x3 genotype table (Hill 1974 / PLINK 1.07)
+    def em_r2(i, j, iters=1000):
+        k = obs[:, i] & obs[:, j]
+        x, y = g[k, i], g[k, j]
+        nn = int(k.sum())
+        tab = np.zeros((3, 3))
+        for a in range(3):
+            for b in range(3):
+                tab[a, b] = ((x == a) & (y == b)).sum()
+        # haplotypes: 0=(ref,ref) 1=(ref,alt) 2=(alt,ref) 3=(alt,alt); genotype code = alt count
+        h = np.full(4, 0.25)
+        for _ in range(iters):
+            cnt = np.zeros(4)
+            for a in range(3):
+                for b in range(3):
+                    n_ab = tab[a, b]
+                    if n_ab == 0: continue
+                    if a == 1 and b == 1:
+                        w = h[0] * h[3]; v = h[1] * h[2]
+                        cnt[0] += n_ab * w / (w + v); cnt[3] += n_ab * w / (w + v)
+                        cnt[1] += n_ab * v / (w + v); cnt[2] += n_ab * v / (w + v)
+                    else:
+                        # unambiguous: each individual contributes two haplotypes
+                        ha = [0, 1] if a == 1 else [a // 2] * 2   # allele at variant i on the two haplotypes
+                        hb = [0, 1] if b == 1 else [b // 2] * 2
+                        if a == 1:
+                            cnt[2 * ha[0] + hb[0]] += n_ab; cnt[2 * ha[1] + hb[1]] += n_ab
+                        elif b == 1:
+                            cnt[2 * ha[0] + hb[0]] += n_ab; cnt[2 * ha[1] + hb[1]] += n_ab
+                        else:
+                            cnt[2 * ha[0] + hb[0]] += 2 * n_ab
+            h = cnt / (2 * nn)
+        pA = h[2] + h[3]; pB = h[1] + h[3]
+        D = h[3] - pA * pB
+        r2v = D * D / (pA * (1 - pA) * pB * (1 - pB))
+        dmax = min(pA * (1 - pB), (1 - pA) * pB) if D > 0 else min(pA * pB, (1 - pA) * (1 - pB))
+        return r2v, abs(D) / dmax
     i, j = 3, 4
+    em = em_r2(i, j)
+    print(f"EM haplotype-frequency reference for snp{i+1} snp{j+1}: r^2 = {em[0]:.6f}, |D'| = {em[1]:.6f}   (genotype-correlation r^2 = {R2[i, j]:.6f})")
     r = run(PLINK19, ["--file", pre, "--ld", f"snp{i+1}", f"snp{j+1}", "--out", os.path.join(tmp, "l19")], check=False)
     line = [l for l in r.stdout.splitlines() if "R-sq" in l]
     print(f"plink 1.9 --ld snp{i+1} snp{j+1}: {line[0].strip() if line else 'n/a'}   numpy r2 = {R2[i, j]:.6f}")

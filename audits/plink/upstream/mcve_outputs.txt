@@ -1,0 +1,34 @@
+## master (8bfebe8), 1.9/plink built from the audited tree
+   1 snp1  ALL(NP)    T    A                2/2/2   0.3333      0.5       0.4805
+kept after --hwe 0.48: ['snp2']
+expected: ['snp1', 'snp2']  (exact p = 185/385 = 0.480519 > 0.48)
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/plink/upstream/mcve_pl1_hwe_threshold.py", line 17, in <module>
+    assert "snp1" in kept, "snp1 removed although its HWE p-value is above the threshold"
+           ^^^^^^^^^^^^^^
+AssertionError: snp1 removed although its HWE p-value is above the threshold
+
+## v1.9.0-b.7.12 (latest 1.9 release tag, 2026-09-01)
+   1 snp1  ALL(NP)    T    A                2/2/2   0.3333      0.5       0.4805
+kept after --hwe 0.48: ['snp2']
+expected: ['snp1', 'snp2']  (exact p = 185/385 = 0.480519 > 0.48)
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/plink/upstream/mcve_pl1_hwe_threshold.py", line 17, in <module>
+    assert "snp1" in kept, "snp1 removed although its HWE p-value is above the threshold"
+           ^^^^^^^^^^^^^^
+AssertionError: snp1 removed although its HWE p-value is above the threshold
+
+## v1.90b6.21 (commit 52f7793, 2020-10-19; the cohort's most-cited 1.9 build)
+   1 snp1  ALL(NP)    T    A                2/2/2   0.3333      0.5       0.4805
+kept after --hwe 0.48: ['snp2']
+expected: ['snp1', 'snp2']  (exact p = 185/385 = 0.480519 > 0.48)
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/plink/upstream/mcve_pl1_hwe_threshold.py", line 17, in <module>
+    assert "snp1" in kept, "snp1 removed although its HWE p-value is above the threshold"
+           ^^^^^^^^^^^^^^
+AssertionError: snp1 removed although its HWE p-value is above the threshold
+
+## with patch 0001 applied (branch fix/hwe-threshold-tail-sum)
+   1 snp1  ALL(NP)    T    A                2/2/2   0.3333      0.5       0.4805
+kept after --hwe 0.48: ['snp1', 'snp2']
+expected: ['snp1', 'snp2']  (exact p = 185/385 = 0.480519 > 0.48)

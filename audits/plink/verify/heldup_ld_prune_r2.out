@@ -1,0 +1,15 @@
+PLINK v1.9.0-b.8 64-bit (1 Sep 2026)
+PLINK v2.0.0-b.1 64-bit (2 Sep 2026)
+--indep-pairwise 50 5 0.5 plink 1.9 : pruned 84, port 83, symmetric difference 3
+--indep-pairwise 50 5 0.5 plink2    : pruned 86, port 83, symmetric difference 3
+--indep-pairwise 50 5 0.2 plink 1.9 : pruned 100, port 99, symmetric difference 1
+--indep-pairwise 50 5 0.2 plink2    : pruned 102, port 99, symmetric difference 3
+--indep-pairwise 20 10 0.8 plink 1.9 : pruned 0, port 0, symmetric difference 0
+--indep-pairwise 20 10 0.8 plink2    : pruned 0, port 0, symmetric difference 0
+--indep-pairwise 100 25 0.4 plink 1.9 : pruned 89, port 89, symmetric difference 4
+--indep-pairwise 100 25 0.4 plink2    : pruned 93, port 89, symmetric difference 4
+plink 1.9 --r2 inter-chr: 7140 pairs, max |R2 - numpy pairwise-complete r2| = 4.97e-07 (6 s.f. printed)
+plink2 --r2-unphased inter-chr: 7140 pairs, max |UNPHASED_R2 - numpy r2| = 4.97e-07
+EM haplotype-frequency reference for snp4 snp5: r^2 = 0.707983, |D'| = 0.844295   (genotype-correlation r^2 = 0.720079)
+plink 1.9 --ld snp4 snp5: R-sq = 0.707983       D' = 0.844295   numpy r2 = 0.720079
+plink2 --ld snp4 snp5: r^2 = 0.707983    |D'| = 0.844295   numpy r2 = 0.720079

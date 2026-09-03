@@ -1,0 +1,58 @@
+PLINK v1.9.0-b.8 64-bit (1 Sep 2026)
+PLINK v2.0.0-b.1 64-bit (2 Sep 2026)
+A. plink 1.9 --assoc (allelic test; A1 = minor allele so OR may be inverted vs ALT):
+  CHISQ vs scipy 2x2 chi-square (no Yates)                   n=200  max diff 4.84e-04
+  P vs chi2 sf                                               n=200  max rel diff 2.84e-04
+  OR vs allele-count odds ratio (either orientation)                max diff 4.99e-04
+  --assoc fisher P vs exact rational two-sided Fisher        n=200  max rel diff 4.01e-04
+A. plink 1.9 --model:
+  TREND CHISQ vs Cochran-Armitage                            n=200  max diff 4.76e-04
+  ALLELIC CHISQ vs 2x2 allele chi-square                     n=200  max diff 4.84e-04
+  GENO CHISQ vs 2x3 chi-square                               n=161  max diff 2.99e-03
+A. plink 1.9 --logistic (additive, no covariates) vs statsmodels Logit:
+  |STAT| vs |Wald z|                                                max diff 5.02e-04
+  P vs Wald p                                                n=200  max rel diff 3.53e-04
+  OR vs exp(beta) (either orientation)                              max rel diff 4.61e-04
+A. plink 1.9 --logistic sex --covar cov1:
+  P vs Wald p (Logit with sex + cov1)                        n=200  max rel diff 4.52e-04
+A. plink2 --glm (logistic, no covariates, no-firth):
+  P vs Wald p                                                n=200  max rel diff 9.93e-05
+  |Z_STAT| vs |Wald z|                                              max diff 6.59e-05
+A. plink2 --glm sex --covar cov1 (logistic):
+  P vs Wald p (Logit with sex + cov1)                        n=200  max rel diff 4.00e-06
+A. plink2 --glm firth vs Jeffreys-penalised Newton port: n=200, max |log OR diff| 1.39e-01, max |SE diff| 3.46e-03
+B. plink 1.9 --assoc (quantitative) vs statsmodels OLS (A1 = minor allele; |t|, P, R2 compared):
+  |T| vs |t|                                                        max diff 4.90e-04
+  P vs OLS p                                                 n=200  max rel diff 4.68e-04
+  R2 vs OLS r-squared                                        n=200  max diff 3.82e-06
+B. plink 1.9 --linear sex --covar cov1:
+  P vs OLS p                                                 n=200  max rel diff 3.95e-04
+B. plink2 --glm sex --covar cov1 (linear; BETA/SE/T/P on the ALT allele):
+  BETA vs OLS beta (oriented by the A1 column)               n=200  max diff 8.09e-07
+  SE vs OLS se                                               n=200  max diff 5.07e-07
+  P vs OLS p                                                 n=200  max rel diff 1.18e-05
+C. plink2 --adjust vs statsmodels multipletests (logistic ADD p-values, 200 tests):
+  row order matches sorted p: True
+  BONF      max rel diff 0.00e+00
+  HOLM      max rel diff 0.00e+00
+  SIDAK_SS  max rel diff 8.46e-07
+  SIDAK_SD  max rel diff 8.46e-07
+  FDR_BH    max rel diff 1.30e-06
+  FDR_BY    max rel diff 0.00e+00
+  GC column vs chi2.sf(chisq/lambda) with lambda=median/0.456: max rel diff 4.86e-06  (lambda 1.2003; with qchisq(0.5,1)=0.4549: 1.2032)
+  QQ column vs (i+0.5)/m: max diff 0.00e+00
+C. plink 1.9 --assoc --adjust vs multipletests ( 200 tests):
+  row order matches sorted p: False
+  BONF      max rel diff 0.00e+00
+  HOLM      max rel diff 0.00e+00
+  SIDAK_SS  max rel diff 4.35e-05
+  SIDAK_SD  max rel diff 4.75e-05
+  FDR_BH    max rel diff 1.49e-04
+  FDR_BY    max rel diff 0.00e+00
+  GC column vs chi2.sf(chisq/lambda), lambda=median/0.456=1.1804: max rel diff 4.79e-04
+C. plink 1.9 --assoc (quantitative) --adjust: lambda = median(t^2)/0.456 = 0.9010 -> treated as 1: GC column should equal UNADJ
+  GC column vs p(t/sqrt(lambda), df of that row): 7 of 200 rows off by > 0.1%, max rel diff 1.51e-03; example (SNP, UNADJ, GC, expected, NMISS) = ('snp1', '1.898e-06', '1.898e-06', '1.89513e-06', 488)
+  --adjust gc: BONF vs min(1, UNADJ*m) of the same row (lambda<1 case): 0 of 200 rows differ by > 0.1%
+C. plink 1.9 --linear --adjust: lambda = median(t^2)/0.456 = 0.9010 -> treated as 1: GC column should equal UNADJ
+  GC column vs p(t/sqrt(lambda), df of that row): 5 of 200 rows off by > 0.1%, max rel diff 1.48e-03; example (SNP, UNADJ, GC, expected, NMISS) = ('snp170', '0.03078', '0.03078', '0.0308111', 475)
+  --adjust gc: BONF vs min(1, UNADJ*m) of the same row (lambda<1 case): 0 of 200 rows differ by > 0.1%

@@ -1,0 +1,75 @@
+PLINK v1.9.0-b.8 64-bit (1 Sep 2026)
+PLINK v2.0.0-b.1 64-bit (2 Sep 2026)
+
+== plink 1.9 SNPHWE_t / SNPHWE_midp_t (stats_driver19, shipped objects): bisection of the flip threshold, n <= 200, hets <= 6 exhaustive (69305 tables)
+  midp=0: flip threshold / exact p - 1 by heterozygote count (0 = correct; < 0 = removed although p > threshold)
+    hets=0:  10000 tables, wrong boundary:      0; offset range [+2.27e-13, +2.27e-13]; median wrong offset +0.00e+00
+    hets=1:   9899 tables, wrong boundary:      0; offset range [+2.27e-13, +2.27e-13]; median wrong offset +0.00e+00
+    hets=2:   9798 tables, wrong boundary:   9798; offset range [-2.72e-02, -4.64e-05]; median wrong offset -1.71e-04
+    hets=3:   9697 tables, wrong boundary:   9600; offset range [-5.28e-02, +2.27e-13]; median wrong offset -5.17e-04
+    hets=4:   9597 tables, wrong boundary:      0; offset range [+2.27e-13, +2.27e-13]; median wrong offset +0.00e+00
+    hets=5:   9496 tables, wrong boundary:      1; offset range [-3.71e-02, +2.27e-13]; median wrong offset -3.71e-02
+    hets=6:   9396 tables, wrong boundary:      0; offset range [+2.27e-13, +2.27e-13]; median wrong offset +0.00e+00
+    total wrong: 19399 of 67883; largest offset -5.279e-02 at (hets, hom1, hom2) = (3, 1, 6) with p = 0.4799
+    hets=2 tables: max |offset - (-P(hets=0)/p)| = 2.1e-02  (the omitted tail element explains the offset)
+  midp=1: flip threshold / exact p - 1 by heterozygote count (0 = correct; < 0 = removed although p > threshold)
+    hets=0:  10000 tables, wrong boundary:      0; offset range [+2.27e-13, +2.27e-13]; median wrong offset +0.00e+00
+    hets=1:   9899 tables, wrong boundary:      0; offset range [+2.27e-13, +2.27e-13]; median wrong offset +0.00e+00
+    hets=2:   9798 tables, wrong boundary:   9798; offset range [-7.14e-02, -8.57e-05]; median wrong offset -3.42e-04
+    hets=3:   9697 tables, wrong boundary:   9600; offset range [-1.36e-01, +2.27e-13]; median wrong offset -1.03e-03
+    hets=4:   9597 tables, wrong boundary:      0; offset range [+2.27e-13, +2.27e-13]; median wrong offset +0.00e+00
+    hets=5:   9496 tables, wrong boundary:      1; offset range [-8.44e-02, +2.27e-13]; median wrong offset -8.44e-02
+    hets=6:   9396 tables, wrong boundary:      0; offset range [+2.27e-13, +2.27e-13]; median wrong offset +0.00e+00
+    total wrong: 19399 of 67883; largest offset -1.364e-01 at (hets, hom1, hom2) = (3, 1, 6) with p = 0.2632
+
+== plink2 HweThreshLn (stats_driver2, shipped objects) -- control: bisection of the flip threshold, n <= 200, hets <= 6 exhaustive (69305 tables)
+  midp=0: flip threshold / exact p - 1 by heterozygote count (0 = correct; < 0 = removed although p > threshold)
+    hets=0:  10000 tables, wrong boundary:      0; offset range [+2.27e-13, +7.96e-12]; median wrong offset +0.00e+00
+    hets=1:   9899 tables, wrong boundary:      0; offset range [+2.27e-13, +7.73e-12]; median wrong offset +0.00e+00
+    hets=2:   9798 tables, wrong boundary:      0; offset range [+2.27e-13, +7.50e-12]; median wrong offset +0.00e+00
+    hets=3:   9697 tables, wrong boundary:      0; offset range [+2.27e-13, +7.28e-12]; median wrong offset +0.00e+00
+    hets=4:   9597 tables, wrong boundary:      0; offset range [+2.27e-13, +7.05e-12]; median wrong offset +0.00e+00
+    hets=5:   9496 tables, wrong boundary:      0; offset range [+2.27e-13, +6.82e-12]; median wrong offset +0.00e+00
+    hets=6:   9396 tables, wrong boundary:      0; offset range [+2.27e-13, +6.59e-12]; median wrong offset +0.00e+00
+    total wrong: 0 of 67883; no negative offset
+    hets=2 tables: max |offset - (-P(hets=0)/p)| = 4.8e-02  (the omitted tail element explains the offset)
+  midp=1: flip threshold / exact p - 1 by heterozygote count (0 = correct; < 0 = removed although p > threshold)
+    hets=0:  10000 tables, wrong boundary:      0; offset range [+2.27e-13, +7.96e-12]; median wrong offset +0.00e+00
+    hets=1:   9899 tables, wrong boundary:      0; offset range [+2.27e-13, +7.73e-12]; median wrong offset +0.00e+00
+    hets=2:   9798 tables, wrong boundary:      0; offset range [+2.27e-13, +7.50e-12]; median wrong offset +0.00e+00
+    hets=3:   9697 tables, wrong boundary:      0; offset range [+2.27e-13, +7.28e-12]; median wrong offset +0.00e+00
+    hets=4:   9597 tables, wrong boundary:      0; offset range [+2.27e-13, +7.05e-12]; median wrong offset +0.00e+00
+    hets=5:   9496 tables, wrong boundary:      0; offset range [+2.27e-13, +6.82e-12]; median wrong offset +0.00e+00
+    hets=6:   9396 tables, wrong boundary:      0; offset range [+2.27e-13, +6.59e-12]; median wrong offset +0.00e+00
+    total wrong: 0 of 67883; no negative offset
+
+== B. command line
+table (hets 2, hom 2, hom 2): exact p = 37/77 = 0.480519; mid-p = 2/7 = 0.285714; het-count distribution {h: str(v) for h, v in d6.items()}
+  omitted tail element P(hets=0) = 5/231 = 0.02165; p - P(0) = 0.45887, so thresholds in (0.4589, 0.4805) remove the variant
+n = 6: plink 1.9 --hardy P = 0.4805, --hardy midp P = 0.2857 (GENO 2/2/2)
+  --hwe 0.48                       : plink 1.9 removed  plink2 kept     expected kept
+  --hwe 0.46                       : plink 1.9 kept     plink2 kept     expected kept
+  --hwe 0.45                       : plink 1.9 kept     plink2 kept     expected kept
+  --hwe 0.4805                     : plink 1.9 removed  plink2 kept     expected kept
+  --hwe 0.4806                     : plink 1.9 removed  plink2 removed  expected removed
+  --hwe 0.3                   midp : plink 1.9 removed  plink2 removed  expected removed
+  --hwe 0.29                  midp : plink 1.9 removed  plink2 removed  expected removed
+  --hwe 0.28                  midp : plink 1.9 removed  plink2 kept     expected kept
+
+table (hets 2, hom 5, hom 1000): exact p = 1.905011009e-12; mid-p = 9.52584794e-13; P(0)/P(2) = 8.325e-05
+n = 1007: plink 1.9 --hardy P = 1.905e-12, --hardy midp P = 9.526e-13 (GENO 5/2/1000)
+  --hwe 1.90499195879e-12          : plink 1.9 removed  plink2 kept     expected kept
+  --hwe 1.90495385857e-12          : plink 1.9 removed  plink2 kept     expected kept
+  --hwe 1.90489670824e-12          : plink 1.9 removed  plink2 kept     expected kept
+  --hwe 1.9048205078e-12           : plink 1.9 kept     plink2 kept     expected kept
+  --hwe 1.9046300067e-12           : plink 1.9 kept     plink2 kept     expected kept
+  --hwe 9.52556216468e-13     midp : plink 1.9 removed  plink2 kept     expected kept
+  --hwe 9.52489535532e-13     midp : plink 1.9 removed  plink2 kept     expected kept
+
+table (hets 3, hom 4, hom 300): exact p = 1.246348018e-07; P(1)/P(3) = 9.967e-04
+n = 307: plink 1.9 --hardy P = 1.246e-07, --hardy midp P = 6.238e-08 (GENO 4/3/300)
+  --hwe 1.24622338351e-07          : plink 1.9 removed  plink2 kept     expected kept
+  --hwe 1.24597411391e-07          : plink 1.9 removed  plink2 kept     expected kept
+  --hwe 1.2451016703e-07           : plink 1.9 kept     plink2 kept     expected kept
+  --hwe 1.24260897426e-07          : plink 1.9 kept     plink2 kept     expected kept
+  --hwe 1.23388453813e-07          : plink 1.9 kept     plink2 kept     expected kept

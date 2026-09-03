@@ -1,0 +1,85 @@
+cohort: 184
+full text: 0   survey-cache fallback: 184   ({'offline': 184})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  PLINK 1.9 named                                  77
+  PLINK version stated                             69
+  ancient DNA / population genetics (ADMIXTURE, EIGENSOFT, smartpca) 63
+  REGENIE / SAIGE / BOLT / GCTA / fastGWA co-used  63
+  PCA (--pca)                                      51
+  format conversion / --make-bed / --recode / VCF  47
+  GWAS                                             45
+  PLINK 2 named                                    36
+  MAF filter (--maf)                               32
+  LD pruning (--indep-pairwise / --indep)          29
+  relatedness / IBD (--genome, --make-king, --king-cutoff, PI_HAT) 23
+  imputed / dosage data                            22
+  regression: --glm / --linear / --logistic        21
+  --indep-pairwise parameters stated               19
+  clumping (--clump)                               17
+  missingness / call-rate filter (--geno / --mind) 17
+  LD / r2 calculation (--r2 / --ld / --ld-window)  16
+  ROH (--homozyg)                                  16
+  Fst (--fst)                                      15
+  covariates named                                 13
+  --adjust / GC lambda / multiple testing          11
+  genome-wide significance 5e-8                    10
+  heterozygosity (--het / F)                       10
+  UK Biobank                                       8
+  polygenic score (--score)                        5
+  Firth                                            5
+  HWE filter (--hwe / Hardy-Weinberg)              4
+  PLINK 1.07 named                                 3
+  association: --assoc / --model / Fisher          2
+  MAC / allele count filter                        2
+
+VERSION FAMILY: {'1.9': 84, '2.0': 13, '1.07': 3}
+VERSIONS (top 20): {'1.9': 50, '1.90b': 18, '2.0': 10, '1.90': 10, '1.90b6.21': 5, '2.00a': 3, '1.07': 3, '1.9b': 2, '1.90b6.26': 2, '1.09': 1, '1.90b6.15': 1, '1.9.20200712': 1, '1.90b6.4': 1, '1.90b5.3': 1, '1.90b4.4': 1, '1.987': 1, '1.90b3.42': 1, '1.90b6.6': 1}
+
+--indep-pairwise parameters: {'200 25 0.4': 6, '1000 100 0.8': 1, '50 5 0.4': 1, '50 10 0.1': 1, '50 5 0.5': 1, '200 25 0.2': 1, '50 5 0.2': 1, '200 100 0.05': 1, '200 100 0.1': 1, '200 20 0.2': 1}
+HWE thresholds: {'1.0 × 10 −6': 1}
+adjusted-p cutoffs: {'0.05': 3}
+MAF cutoffs: {'0.05': 5, '5%': 3, '1%': 2, '0.01': 2, '0.001': 1, '0.1': 1}
+PCs used: {20: 2, 30: 1, 10: 1}
+
+CO-PACKAGES (top 40):
+  R                        113
+  SAMtools                 64
+  ADMIXTURE                58
+  BWA                      56
+  GATK                     55
+  BCFtools                 53
+  VCFtools                 36
+  Picard                   33
+  LDSC                     30
+  GCTA                     28
+  SnpEff                   26
+  ggplot2                  21
+  ANGSD                    20
+  BUSCO                    19
+  UMAP                     18
+  DESeq2                   18
+  GEMMA                    16
+  minimap2                 15
+  IQ-TREE                  15
+  clusterProfiler          14
+  BEDTools                 13
+  VEP                      13
+  Python                   12
+  MAFFT                    12
+  REGENIE                  12
+  Seurat                   12
+  Trimmomatic              11
+  RepeatMasker             10
+  Bowtie2                  10
+  fastp                    10
+  STAR                     10
+  MAGMA                    10
+  lme4                     10
+  FUMA                     9
+  SAIGE                    9
+  ImageJ                   9
+  FastQC                   9
+  HISAT2                   8
+  SHAPEIT                  8
+  GSEA                     8

@@ -1,0 +1,10 @@
+HWE tables n<=  60: 40670 queries (x2 for midp), worst relative error 1.115e-15 at 'H 16 20 20 1'
+Fisher tables N<=40: 271500 queries, worst relative error p 1.057e-15 at 'F 3 13 14 4 1', ln p 2.375e-15 at 'F 1 18 19 2 1'
+mismatches (rel > 1e-9): 0
+threshold function on 115020 (table, threshold) pairs, thresholds [0.01, 0.001, 0.0001, 1e-06, 1e-08, 1e-10, 1e-15, 1e-20, 1e-50]: 5 disagreements with (exact p < threshold)
+   ('T 2 4 9 0 0.01', 'T 2 4 9 0 0.01 1')
+   ('T 3 4 10 1 0.01', 'T 3 4 10 1 0.01 1')
+   ('T 3 3 15 1 0.01', 'T 3 3 15 1 0.01 1')
+   ('T 3 10 11 1 0.0001', 'T 3 10 11 1 0.0001 1')
+   ('T 2 13 22 1 1e-08', 'T 2 13 22 1 1e-08 1')
+p == threshold (float of exact p) on 2126 tables: 343 reported as failing (expected 0: tolerance keeps p == thresh)

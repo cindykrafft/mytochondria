@@ -1,0 +1,12 @@
+PLINK v1.9.0-b.8 64-bit (1 Sep 2026)
+PLINK v2.0.0-b.1 64-bit (2 Sep 2026)
+plink 1.9 --freq: max |MAF - min(p,1-p)| = 5.00e-05, max |NCHROBS - 2*nonmissing| = 0; all-missing variant MAF printed as 'NA'
+plink2    --freq: max |ALT_FREQS - p| = 5.00e-07, max |OBS_CT - 2*nonmissing| = 0; all-missing variant ALT_FREQS printed as 'nan'
+plink 1.9 --missing: max |F_MISS - truth| per variant 5.55e-17, per sample 3.33e-06
+plink2    --missing: max |F_MISS - truth| per variant 5.55e-17, per sample 3.33e-08
+plink 1.9 --het vs 2n/(2n-1)-corrected E(HOM): max |O(HOM) diff| 0, |E(HOM) diff| 3.26e-01, |N(NM) diff| 0, |F diff| 3.14e-03 (E(HOM) printed to 6 s.f.)
+plink 1.9 --het vs uncorrected 1-2pq E(HOM) (plink_misc.c het_report, all-founder branch): |E(HOM) diff| 5.00e-02, |F diff| 4.94e-05
+plink 1.9 --het small-sample vs 2n/(2n-1)-corrected: |E(HOM) diff| 4.97e-02, |F diff| 4.80e-05
+plink2    --het: max |O(HOM) diff| 0, |E(HOM) diff| 2.82e-01, |OBS_CT diff| 0, |F diff| 3.14e-03
+plink2    --het vs uncorrected 1-2pq: |E(HOM) diff| 5.00e-04, |F diff| 4.85e-07
+plink2    --het small-sample vs 2n/(2n-1)-corrected: |E(HOM) diff| 4.99e-04, |F diff| 4.96e-07

@@ -35,8 +35,8 @@ g[rng.random((n, m)) < 0.02] = -1
 obs = g >= 0
 
 def king(i, j):
-    k = obs[:, i] & obs[:, j]
-    a, b = g[k, i], g[k, j]
+    k = obs[i] & obs[j]
+    a, b = g[i, k], g[j, k]
     het_i, het_j = (a == 1).sum(), (b == 1).sum()
     hethet = ((a == 1) & (b == 1)).sum()
     ibs0 = ((a == 0) & (b == 2)).sum() + ((a == 2) & (b == 0)).sum()
@@ -64,8 +64,8 @@ def genome_expectations():
 
 def genome(i, j, e):
     e00, e01, e02, e11, e12 = e
-    k = obs[:, i] & obs[:, j]
-    a, b = g[k, i], g[k, j]
+    k = obs[i] & obs[j]
+    a, b = g[i, k], g[j, k]
     nn = k.sum()
     d = np.abs(a - b)
     ibs0, ibs1 = (d == 2).sum(), (d == 1).sum()
@@ -104,7 +104,7 @@ with tempfile.TemporaryDirectory() as tmp:
     print(f"plink2 --king-cutoff 0.177 removed {len(removed)} samples: {removed} (planted relatives: I41..I46; 1st-degree pairs I41-I43, I41-I44, I42-I43, I42-I44, I43-I44, I41-I46, I45-I46)")
     # --genome
     e = genome_expectations()
-    run(PLINK19, ["--file", pre, "--genome", "--out", os.path.join(tmp, "g")])
+    run(PLINK19, ["--file", pre, "--genome", "full", "--out", os.path.join(tmp, "g")])
     t = read_table(os.path.join(tmp, "g.genome"))
     worst = {c: 0.0 for c in ("Z0", "Z1", "Z2", "PI_HAT", "IBS0", "IBS1", "IBS2")}
     for r in range(len(t["IID1"])):
