@@ -4,3 +4,4 @@ bedtools2:fix/issue-1123-flank-s-unstranded
 fastp:fix/issue-638-dedup-filter-counts
 CellphoneDB:fix/issue-224-create-db-empty-subunit-column
 cutadapt:fix/issue-518-info-file-offsets
+deepTools:fix/issue-1423-gzipped-bed-sortmatrix
