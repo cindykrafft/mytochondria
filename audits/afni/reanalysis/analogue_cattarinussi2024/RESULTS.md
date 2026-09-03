@@ -67,7 +67,7 @@ Nothing changes: pre-fix 5 / 6 clusters at p < .001 / .01 with the same peaks an
 A linear mean-motion covariate does not account for the pre-fix increases.
 
 **2. Whole-brain residual SD as a covariate** (`group_covsd_dpabi.sh`, `results/followup_sd_covariate.log`).
-Pre-fix clusters again unchanged (5 / 6). Expected in hindsight: the maps are z-normalised per subject,
+Pre-fix clusters again unchanged (5 / 6); post-fix clusters unchanged too (2 / 1, the same calcarine and cuneus peaks). Expected in hindsight: the maps are z-normalised per subject,
 so a global amplitude covariate cannot remove a *regional* amplitude effect.
 
 **3. Where do the two builds disagree? Voxelwise residual amplitude** (`results/ttest_residualSD_SCZvCON.nii.gz`).

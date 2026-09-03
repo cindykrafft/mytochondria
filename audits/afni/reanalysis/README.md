@@ -1,5 +1,14 @@
 # Reanalysis: AFNI PR #944 (3dReHo tie handling) on open data
 
+> **Current analysis (3 September 2026): `analogue_cattarinussi2024/`.** The reanalysis reported in the preprint
+> is the pipeline matched to Cattarinussi et al. 2024 (DPABI) on 47 SCHZ + 60 CONTROL, with a pre-registered
+> plan, results and labelled follow-ups in that directory. The two earlier runs documented below (the 20 + 20
+> pilot and its 40 + 33 extension, default `afni_proc.py` design) used afni_proc's default EPI-to-anatomical
+> alignment, which fails on about a third of ds000030 participants (EPI/anat Dice 0.39-0.80, brain masks half
+> size and displaced; hence the 24k-voxel group mask). Their per-participant before/after statistics stand;
+> their group maps and cluster locations should not be relied on. They are kept for the record.
+
+
 **Question.** How much do published-style ReHo results change between the AFNI
 `3dReHo` that every paper before 2026-08-28 ran and the fixed one (PR #944)?
 
