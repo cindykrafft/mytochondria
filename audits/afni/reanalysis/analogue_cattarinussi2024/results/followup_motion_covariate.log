@@ -1,0 +1,21 @@
+prefix (motion covariate): |t|>3.386: 399
+prefix cov p=0.001: threshold 29, surviving clusters 5
+   74 vox, mean -0.6866, peak RAI (7.5 73.5 13.5)
+   43 vox, mean 0.3454, peak RAI (-31.5 1.5 -25.5)
+   42 vox, mean 0.3454, peak RAI (22.5 79.5 -31.5)
+   37 vox, mean 0.2638, peak RAI (-13.5 -49.5 46.5)
+   37 vox, mean -0.7089, peak RAI (1.5 91.5 1.5)
+prefix cov p=0.01: threshold 133, surviving clusters 6
+   503 vox, mean -0.5614, peak RAI (7.5 73.5 13.5)
+   207 vox, mean 0.283, peak RAI (22.5 79.5 -31.5)
+   170 vox, mean 0.2809, peak RAI (-37.5 73.5 -28.5)
+   149 vox, mean -0.3313, peak RAI (-52.5 22.5 58.5)
+   145 vox, mean 0.2317, peak RAI (16.5 -58.5 31.5)
+   140 vox, mean 0.2963, peak RAI (-16.5 13.5 -19.5)
+postfix (motion covariate): |t|>3.386: 248
+postfix cov p=0.001: threshold 27, surviving clusters 2
+   33 vox, mean -0.656, peak RAI (4.5 94.5 7.5)
+   33 vox, mean -0.6088, peak RAI (10.5 70.5 10.5)
+postfix cov p=0.01: threshold 101, surviving clusters 1
+   316 vox, mean -0.4956, peak RAI (4.5 94.5 7.5)
+COV DONE
