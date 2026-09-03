@@ -53,8 +53,12 @@ order-dependent: the second job simply models a different molecule.
 **Origin.** Introduced by `a8ecdb2` "Cache the underlying CCD dictionary instead of the
 whole CCD object", which is the memory fix for the closed issue #509 (~3 GB per user
 CCD). Before it, each `__init__` unpickled its own copy and `update` was per-instance
-and correct. Fix keeps the memory win: overlay onto a shallow copy
-(`{**shared, **user_ccd_cifs}`), so only the top-level dict is duplicated.
+and correct. Worth noting for the upstream report: PR #514 proposed fixing #509 with a
+`collections.ChainMap` overlay onto a shared base, and a `ChainMap` never writes to its
+base — that shape would not have had this effect. It was closed in favour of `a8ecdb2`,
+which caches the dict but keeps the in-place `update`. The fix here keeps the memory win:
+overlay onto a shallow copy (`{**shared, **user_ccd_cifs}`), so only the top-level dict is
+duplicated and the component values stay shared.
 
 Two independent agents found this one from different directions (the chemical-component
 review and the featurisation review), which is why it heads the list.
