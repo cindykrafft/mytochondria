@@ -1,0 +1,10 @@
+region	label_index	sign
+L_superior_occipital	197	neg
+R_inferior_occipital	128	neg
+R_postcentral	176	neg
+R_anterior_orbital	104	pos
+L_posterior_orbital	179	pos
+R_temporal_pole	202	pos
+L_temporal_pole	203	pos
+R_hippocampus	47	pos
+L_cerebellum	39	pos

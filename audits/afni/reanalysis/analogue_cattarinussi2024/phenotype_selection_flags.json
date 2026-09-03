@@ -1,0 +1,1538 @@
+[
+{
+"subject": "sub-10159",
+"group": "CONTROL",
+"flags": [
+"MED"
+],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10171",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-10189",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"ANX",
+"SUD"
+],
+"any_dx": true,
+"codes": "296.36 Major Depressive Disorder, Recurrent, In Full Remission | 304.10 Sedative, Hypnotic, or Anxiolytic Dependence | 300.21 Panic Disorder With Agoraphobia | 300.29 Specific Phobia | 291.89 Alcohol-Induced Mood Disorder | 307.50 Eating Disorder NOS"
+},
+{
+"subject": "sub-10206",
+"group": "CONTROL",
+"flags": [
+"MDD"
+],
+"any_dx": true,
+"codes": "296.26 Major Depressive Disorder, Single Episode, In Full Remission"
+},
+{
+"subject": "sub-10217",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10225",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "303.90 Alcohol Dependence"
+},
+{
+"subject": "sub-10227",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-10228",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "307.51 Bulimia Nervosa"
+},
+{
+"subject": "sub-10235",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10249",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "304.30 Cannabis Dependence"
+},
+{
+"subject": "sub-10269",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.20 Cannabis Abuse"
+},
+{
+"subject": "sub-10271",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"ANX",
+"SUD"
+],
+"any_dx": true,
+"codes": "309.81 Posttraumatic Stress Disorder | 304.20 Cocaine Dependence | 296.25 Major Depressive Disorder, Single Episode, In Partial Remission"
+},
+{
+"subject": "sub-10273",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"SUD",
+"MED"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse | 296.26 Major Depressive Disorder, Single Episode, In Full Remission"
+},
+{
+"subject": "sub-10274",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "303.90 Alcohol Dependence | 304.30 Cannabis Dependence | 304.20 Cocaine Dependence | 305.30 Hallucinogen Abuse"
+},
+{
+"subject": "sub-10280",
+"group": "CONTROL",
+"flags": [
+"ANX",
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse | 300.3 Obsessive-Compulsive Disorder"
+},
+{
+"subject": "sub-10290",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10292",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10299",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.20 Cannabis Abuse"
+},
+{
+"subject": "sub-10304",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10316",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.60 Cocaine Abuse"
+},
+{
+"subject": "sub-10321",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10325",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10329",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10339",
+"group": "CONTROL",
+"flags": [
+"MED"
+],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10340",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10345",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"SUD",
+"MED"
+],
+"any_dx": true,
+"codes": "296.36 Major Depressive Disorder, Recurrent, In Full Remission | 303.90 Alcohol Dependence"
+},
+{
+"subject": "sub-10347",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-10356",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10361",
+"group": "CONTROL",
+"flags": [
+"ANX",
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse | 304.30 Cannabis Dependence | 300.22 Agoraphobia Without History of Panic Disorder | 300.3 Obsessive-Compulsive Disorder | 309.81 Posttraumatic Stress Disorder"
+},
+{
+"subject": "sub-10365",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10376",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10377",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-10388",
+"group": "CONTROL",
+"flags": [
+"MED"
+],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10428",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10429",
+"group": "CONTROL",
+"flags": [
+"MED"
+],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10438",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.20 Cannabis Abuse"
+},
+{
+"subject": "sub-10440",
+"group": "CONTROL",
+"flags": [
+"MED"
+],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10448",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"SUD"
+],
+"any_dx": true,
+"codes": "296.36 Major Depressive Disorder, Recurrent, In Full Remission | 303.90 Alcohol Dependence"
+},
+{
+"subject": "sub-10455",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "303.90 Alcohol Dependence"
+},
+{
+"subject": "sub-10460",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-10471",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-10478",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"ANX"
+],
+"any_dx": true,
+"codes": "296.35 Major Depressive Disorder, Recurrent, In Partial Remission | 300.4 Dysthymic Disorder | 300.23 Social Phobia"
+},
+{
+"subject": "sub-10487",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10492",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10501",
+"group": "CONTROL",
+"flags": [
+"ANX",
+"SUD"
+],
+"any_dx": true,
+"codes": "305.20 Cannabis Abuse | 300.29 Specific Phobia"
+},
+{
+"subject": "sub-10506",
+"group": "CONTROL",
+"flags": [
+"MDD"
+],
+"any_dx": true,
+"codes": "311  Depressive Disorder NOS | 307.50 Eating Disorder NOS"
+},
+{
+"subject": "sub-10517",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10523",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-10524",
+"group": "CONTROL",
+"flags": [
+"MDD"
+],
+"any_dx": true,
+"codes": "296.36 Major Depressive Disorder, Recurrent, In Full Remission"
+},
+{
+"subject": "sub-10525",
+"group": "CONTROL",
+"flags": [
+"MED"
+],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10527",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10530",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10557",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10565",
+"group": "CONTROL",
+"flags": [
+"MDD"
+],
+"any_dx": true,
+"codes": "296.26 Major Depressive Disorder, Single Episode, In Full Remission | 799.9 Diagnosis or Condition Deferred on Axis I"
+},
+{
+"subject": "sub-10570",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10575",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10624",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10629",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10631",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10638",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10668",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10672",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10674",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse | 305.90 Other (or Unknown) Substance Abuse | 307.50 Eating Disorder NOS"
+},
+{
+"subject": "sub-10678",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10680",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10686",
+"group": "CONTROL",
+"flags": [
+"MDD"
+],
+"any_dx": true,
+"codes": "296.25 Major Depressive Disorder, Single Episode, In Partial Remission"
+},
+{
+"subject": "sub-10692",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"MED"
+],
+"any_dx": true,
+"codes": "296.26 Major Depressive Disorder, Single Episode, In Full Remission"
+},
+{
+"subject": "sub-10696",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10697",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-10704",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"ANX"
+],
+"any_dx": true,
+"codes": "296.26 Major Depressive Disorder, Single Episode, In Full Remission | 300.3 Obsessive-Compulsive Disorder"
+},
+{
+"subject": "sub-10707",
+"group": "CONTROL",
+"flags": [
+"ANX",
+"MED"
+],
+"any_dx": true,
+"codes": "300.3 Obsessive-Compulsive Disorder"
+},
+{
+"subject": "sub-10708",
+"group": "CONTROL",
+"flags": [
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10719",
+"group": "CONTROL",
+"flags": [
+"MDD"
+],
+"any_dx": true,
+"codes": "311  Depressive Disorder NOS"
+},
+{
+"subject": "sub-10724",
+"group": "CONTROL",
+"flags": [
+"MED"
+],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10746",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"SUD"
+],
+"any_dx": true,
+"codes": "311  Depressive Disorder NOS | 305.20 Cannabis Abuse"
+},
+{
+"subject": "sub-10762",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10779",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10785",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10788",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"ANX",
+"MED"
+],
+"any_dx": true,
+"codes": "296.26 Major Depressive Disorder, Single Episode, In Full Remission | 300.29 Specific Phobia"
+},
+{
+"subject": "sub-10844",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "303.90 Alcohol Dependence | 304.30 Cannabis Dependence | 305.40 Sedative, Hypnotic, or Anxiolytic Abuse | 305.60 Cocaine Abuse | 305.30 Hallucinogen Abuse"
+},
+{
+"subject": "sub-10855",
+"group": "CONTROL",
+"flags": [
+"MDD"
+],
+"any_dx": true,
+"codes": "296.26 Major Depressive Disorder, Single Episode, In Full Remission"
+},
+{
+"subject": "sub-10871",
+"group": "CONTROL",
+"flags": [
+"ANX"
+],
+"any_dx": true,
+"codes": "300.23 Social Phobia"
+},
+{
+"subject": "sub-10877",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10882",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10891",
+"group": "CONTROL",
+"flags": [
+"MDD"
+],
+"any_dx": true,
+"codes": "296.26 Major Depressive Disorder, Single Episode, In Full Remission"
+},
+{
+"subject": "sub-10893",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "303.90 Alcohol Dependence"
+},
+{
+"subject": "sub-10912",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10934",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10940",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10949",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10958",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"SUD",
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "296.26 Major Depressive Disorder, Single Episode, In Full Remission | 305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-10963",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"ANX",
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "296.36 Major Depressive Disorder, Recurrent, In Full Remission | 300.23 Social Phobia"
+},
+{
+"subject": "sub-10968",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10971",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10975",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10977",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-10987",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"SUD"
+],
+"any_dx": true,
+"codes": "296.25 Major Depressive Disorder, Single Episode, In Partial Remission | 305.00 Alcohol Abuse | 305.20 Cannabis Abuse"
+},
+{
+"subject": "sub-10998",
+"group": "CONTROL",
+"flags": [
+"MDD"
+],
+"any_dx": true,
+"codes": "311  Depressive Disorder NOS | 309.28 Adjustment Disorder With Mixed Anxiety and Depressed Mood"
+},
+{
+"subject": "sub-11019",
+"group": "CONTROL",
+"flags": [
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-11030",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "303.90 Alcohol Dependence"
+},
+{
+"subject": "sub-11044",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"SUD"
+],
+"any_dx": true,
+"codes": "296.26 Major Depressive Disorder, Single Episode, In Full Remission | 305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-11050",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-11052",
+"group": "CONTROL",
+"flags": [
+"MDD"
+],
+"any_dx": true,
+"codes": "296.26 Major Depressive Disorder, Single Episode, In Full Remission"
+},
+{
+"subject": "sub-11059",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-11061",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "311  Depressive Disorder NOS"
+},
+{
+"subject": "sub-11062",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-11066",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-11067",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"MED"
+],
+"any_dx": true,
+"codes": "296.36 Major Depressive Disorder, Recurrent, In Full Remission | 307.51 Bulimia Nervosa"
+},
+{
+"subject": "sub-11068",
+"group": "CONTROL",
+"flags": [
+"SUD",
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-11077",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-11088",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-11090",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse | 304.30 Cannabis Dependence"
+},
+{
+"subject": "sub-11097",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-11098",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-11104",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-11105",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-11106",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"ANX"
+],
+"any_dx": true,
+"codes": "296.36 Major Depressive Disorder, Recurrent, In Full Remission | 300.29 Specific Phobia"
+},
+{
+"subject": "sub-11108",
+"group": "CONTROL",
+"flags": [
+"MDD"
+],
+"any_dx": true,
+"codes": "311  Depressive Disorder NOS"
+},
+{
+"subject": "sub-11112",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-11121",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-11122",
+"group": "CONTROL",
+"flags": [
+"ANX"
+],
+"any_dx": true,
+"codes": "300.29 Specific Phobia"
+},
+{
+"subject": "sub-11128",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"SUD"
+],
+"any_dx": true,
+"codes": "300.4 Dysthymic Disorder | 305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-11131",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-11142",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"ANX",
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "296.26 Major Depressive Disorder, Single Episode, In Full Remission | 300.23 Social Phobia | 300.29 Specific Phobia | 307.51 Bulimia Nervosa"
+},
+{
+"subject": "sub-11143",
+"group": "CONTROL",
+"flags": [],
+"any_dx": true,
+"codes": "V71.09 No Diagnosis on Axis I"
+},
+{
+"subject": "sub-11149",
+"group": "CONTROL",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "303.90 Alcohol Dependence | 304.30 Cannabis Dependence"
+},
+{
+"subject": "sub-11156",
+"group": "CONTROL",
+"flags": [
+"MDD",
+"ANX"
+],
+"any_dx": true,
+"codes": "296.26 Major Depressive Disorder, Single Episode, In Full Remission | 300.29 Specific Phobia"
+},
+{
+"subject": "sub-50004",
+"group": "SCHZ",
+"flags": [
+"ANX",
+"MED"
+],
+"any_dx": true,
+"codes": "295.60 Schizophrenia, Residual Type | 300.3 Obsessive-Compulsive Disorder"
+},
+{
+"subject": "sub-50005",
+"group": "SCHZ",
+"flags": [
+"ANX",
+"MED"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 300.3 Obsessive-Compulsive Disorder"
+},
+{
+"subject": "sub-50006",
+"group": "SCHZ",
+"flags": [
+"MED"
+],
+"any_dx": true,
+"codes": "295.70 Schizoaffective Disorder"
+},
+{
+"subject": "sub-50007",
+"group": "SCHZ",
+"flags": [],
+"any_dx": true,
+"codes": "295.90 Schizophrenia, Undifferentiated Type"
+},
+{
+"subject": "sub-50008",
+"group": "SCHZ",
+"flags": [],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type"
+},
+{
+"subject": "sub-50010",
+"group": "SCHZ",
+"flags": [],
+"any_dx": true,
+"codes": "295.90 Schizophrenia, Undifferentiated Type"
+},
+{
+"subject": "sub-50013",
+"group": "SCHZ",
+"flags": [
+"MDD",
+"MED"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 311  Depressive Disorder NOS"
+},
+{
+"subject": "sub-50014",
+"group": "SCHZ",
+"flags": [
+"MDD",
+"SUD"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 311  Depressive Disorder NOS | 305.20 Cannabis Abuse"
+},
+{
+"subject": "sub-50015",
+"group": "SCHZ",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "295.70 Schizoaffective Disorder | 303.90 Alcohol Dependence | 304.30 Cannabis Dependence | 304.80 Polysubstance Dependence"
+},
+{
+"subject": "sub-50016",
+"group": "SCHZ",
+"flags": [],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type"
+},
+{
+"subject": "sub-50020",
+"group": "SCHZ",
+"flags": [],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type"
+},
+{
+"subject": "sub-50021",
+"group": "SCHZ",
+"flags": [],
+"any_dx": true,
+"codes": "295.70 Schizoaffective Disorder"
+},
+{
+"subject": "sub-50022",
+"group": "SCHZ",
+"flags": [
+"MDD",
+"SUD",
+"MED"
+],
+"any_dx": true,
+"codes": "295.90 Schizophrenia, Undifferentiated Type | 311  Depressive Disorder NOS | 303.90 Alcohol Dependence"
+},
+{
+"subject": "sub-50023",
+"group": "SCHZ",
+"flags": [
+"SUD",
+"MED",
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "295.70 Schizoaffective Disorder | 303.90 Alcohol Dependence | 305.20 Cannabis Abuse | 305.70 Amphetamine Abuse | 305.60 Cocaine Abuse"
+},
+{
+"subject": "sub-50025",
+"group": "SCHZ",
+"flags": [
+"MED"
+],
+"any_dx": true,
+"codes": "295.90 Schizophrenia, Undifferentiated Type"
+},
+{
+"subject": "sub-50027",
+"group": "SCHZ",
+"flags": [
+"MDD",
+"SUD"
+],
+"any_dx": true,
+"codes": "295.90 Schizophrenia, Undifferentiated Type | 311  Depressive Disorder NOS | 304.30 Cannabis Dependence"
+},
+{
+"subject": "sub-50029",
+"group": "SCHZ",
+"flags": [
+"SUD",
+"MED"
+],
+"any_dx": true,
+"codes": "295.70 Schizoaffective Disorder | 303.90 Alcohol Dependence | 304.30 Cannabis Dependence"
+},
+{
+"subject": "sub-50032",
+"group": "SCHZ",
+"flags": [
+"MDD",
+"ADHD",
+"SUD",
+"MED",
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "295.90 Schizophrenia, Undifferentiated Type | 314.01 Attention-Deficit/Hyperactivity Disorder, Predominantly Hyperactive-Impulsive Type | 311  Depressive Disorder NOS | 303.90 Alcohol Dependence | 304.30 Cannabis Dependence | 305.70 Amphetamine Abuse | 305.60 Cocaine Abuse | 305.30 Hallucinogen Abuse"
+},
+{
+"subject": "sub-50033",
+"group": "SCHZ",
+"flags": [
+"MDD",
+"ADHD"
+],
+"any_dx": true,
+"codes": "295.60 Schizophrenia, Residual Type | 314.00 Attention-Deficit/Hyperactivity Disorder, Predominantly Inattentive Type | 311  Depressive Disorder NOS"
+},
+{
+"subject": "sub-50034",
+"group": "SCHZ",
+"flags": [
+"MDD",
+"SUD",
+"MED",
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 311  Depressive Disorder NOS | 303.90 Alcohol Dependence | 304.30 Cannabis Dependence | 304.20 Cocaine Dependence"
+},
+{
+"subject": "sub-50035",
+"group": "SCHZ",
+"flags": [
+"ADHD",
+"SUD"
+],
+"any_dx": true,
+"codes": "295.70 Schizoaffective Disorder | 314.01 Attention-Deficit/Hyperactivity Disorder, Combined Type | 303.90 Alcohol Dependence | 304.30 Cannabis Dependence | 304.40 Amphetamine Dependence | 305.60 Cocaine Abuse | 304.00 Opioid Dependence | 304.90 Other (or Unknown) Substance Dependence"
+},
+{
+"subject": "sub-50036",
+"group": "SCHZ",
+"flags": [
+"SUD",
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 296.80 Bipolar Disorder NOS | 303.90 Alcohol Dependence | 304.40 Amphetamine Dependence | 304.20 Cocaine Dependence | 304.90 Other (or Unknown) Substance Dependence | 304.80 Polysubstance Dependence | 305.20 Cannabis Abuse"
+},
+{
+"subject": "sub-50038",
+"group": "SCHZ",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 303.90 Alcohol Dependence"
+},
+{
+"subject": "sub-50043",
+"group": "SCHZ",
+"flags": [
+"ADHD",
+"SUD",
+"MED"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 314.00 Attention-Deficit/Hyperactivity Disorder, Predominantly Inattentive Type | 303.90 Alcohol Dependence | 304.30 Cannabis Dependence | 304.20 Cocaine Dependence | 304.50 Hallucinogen Dependence | 304.90 Other (or Unknown) Substance Dependence | 292.84 Hallucinogen-Induced Mood Disorder"
+},
+{
+"subject": "sub-50047",
+"group": "SCHZ",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 305.20 Cannabis Abuse"
+},
+{
+"subject": "sub-50048",
+"group": "SCHZ",
+"flags": [
+"SUD",
+"MED",
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "295.60 Schizophrenia, Residual Type | 305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-50049",
+"group": "SCHZ",
+"flags": [
+"MED"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type"
+},
+{
+"subject": "sub-50050",
+"group": "SCHZ",
+"flags": [
+"MDD"
+],
+"any_dx": true,
+"codes": "295.90 Schizophrenia, Undifferentiated Type | 311  Depressive Disorder NOS"
+},
+{
+"subject": "sub-50051",
+"group": "SCHZ",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "295.70 Schizoaffective Disorder | 303.90 Alcohol Dependence"
+},
+{
+"subject": "sub-50052",
+"group": "SCHZ",
+"flags": [
+"MDD",
+"SUD"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 311  Depressive Disorder NOS | 303.90 Alcohol Dependence | 304.20 Cocaine Dependence | 304.00 Opioid Dependence | 305.90 Other (or Unknown) Substance Abuse"
+},
+{
+"subject": "sub-50053",
+"group": "SCHZ",
+"flags": [
+"ADHD",
+"SUD"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 314.00 Attention-Deficit/Hyperactivity Disorder, Predominantly Inattentive Type | 303.90 Alcohol Dependence | 304.30 Cannabis Dependence | 305.60 Cocaine Abuse | 305.90 Other (or Unknown) Substance Abuse"
+},
+{
+"subject": "sub-50054",
+"group": "SCHZ",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "295.60 Schizophrenia, Residual Type | 305.20 Cannabis Abuse"
+},
+{
+"subject": "sub-50055",
+"group": "SCHZ",
+"flags": [
+"SUD",
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "295.60 Schizophrenia, Residual Type | 303.90 Alcohol Dependence | 304.30 Cannabis Dependence"
+},
+{
+"subject": "sub-50056",
+"group": "SCHZ",
+"flags": [
+"MED"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 296.80 Bipolar Disorder NOS"
+},
+{
+"subject": "sub-50058",
+"group": "SCHZ",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "295.70 Schizoaffective Disorder | 303.90 Alcohol Dependence"
+},
+{
+"subject": "sub-50059",
+"group": "SCHZ",
+"flags": [
+"MED"
+],
+"any_dx": true,
+"codes": "295.90 Schizophrenia, Undifferentiated Type"
+},
+{
+"subject": "sub-50060",
+"group": "SCHZ",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "295.70 Schizoaffective Disorder | 303.90 Alcohol Dependence | 304.40 Amphetamine Dependence | 305.20 Cannabis Abuse | 305.30 Hallucinogen Abuse"
+},
+{
+"subject": "sub-50061",
+"group": "SCHZ",
+"flags": [
+"SUD",
+"MED"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-50064",
+"group": "SCHZ",
+"flags": [
+"ADHD",
+"SUD"
+],
+"any_dx": true,
+"codes": "295.70 Schizoaffective Disorder | 314.01 Attention-Deficit/Hyperactivity Disorder, Combined Type | 303.90 Alcohol Dependence | 304.40 Amphetamine Dependence"
+},
+{
+"subject": "sub-50066",
+"group": "SCHZ",
+"flags": [
+"MDD",
+"SUD",
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 311  Depressive Disorder NOS | 304.80 Polysubstance Dependence | 303.90 Alcohol Dependence | 304.30 Cannabis Dependence | 304.40 Amphetamine Dependence | 304.60 Inhalant Dependence | 305.60 Cocaine Abuse"
+},
+{
+"subject": "sub-50067",
+"group": "SCHZ",
+"flags": [
+"MDD",
+"SUD"
+],
+"any_dx": true,
+"codes": "295.90 Schizophrenia, Undifferentiated Type | 311  Depressive Disorder NOS | 304.30 Cannabis Dependence | 304.40 Amphetamine Dependence | 304.20 Cocaine Dependence"
+},
+{
+"subject": "sub-50069",
+"group": "SCHZ",
+"flags": [
+"MDD",
+"ADHD"
+],
+"any_dx": true,
+"codes": "295.10 Schizophrenia, Disorganized Type | 311  Depressive Disorder NOS | 314.01 Attention-Deficit/Hyperactivity Disorder, Combined Type"
+},
+{
+"subject": "sub-50073",
+"group": "SCHZ",
+"flags": [
+"ADHD",
+"SUD",
+"MED",
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 314.01 Attention-Deficit/Hyperactivity Disorder, Predominantly Hyperactive-Impulsive Type | 304.40 Amphetamine Dependence | 305.50 Opioid Abuse"
+},
+{
+"subject": "sub-50075",
+"group": "SCHZ",
+"flags": [],
+"any_dx": true,
+"codes": "295.60 Schizophrenia, Residual Type"
+},
+{
+"subject": "sub-50076",
+"group": "SCHZ",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "295.90 Schizophrenia, Undifferentiated Type | 304.30 Cannabis Dependence"
+},
+{
+"subject": "sub-50077",
+"group": "SCHZ",
+"flags": [
+"SUD"
+],
+"any_dx": true,
+"codes": "295.90 Schizophrenia, Undifferentiated Type | 303.90 Alcohol Dependence | 304.40 Amphetamine Dependence | 304.30 Cannabis Dependence"
+},
+{
+"subject": "sub-50080",
+"group": "SCHZ",
+"flags": [],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type"
+},
+{
+"subject": "sub-50081",
+"group": "SCHZ",
+"flags": [
+"ADHD",
+"SUD"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 314.01 Attention-Deficit/Hyperactivity Disorder, Combined Type | 303.90 Alcohol Dependence"
+},
+{
+"subject": "sub-50083",
+"group": "SCHZ",
+"flags": [
+"MDD",
+"SUD"
+],
+"any_dx": true,
+"codes": "295.30 Schizophrenia, Paranoid Type | 311  Depressive Disorder NOS | 304.30 Cannabis Dependence | 305.00 Alcohol Abuse"
+},
+{
+"subject": "sub-50085",
+"group": "SCHZ",
+"flags": [
+"TBI_LOC"
+],
+"any_dx": true,
+"codes": "295.70 Schizoaffective Disorder"
+}
+]
