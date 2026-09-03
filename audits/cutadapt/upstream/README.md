@@ -1,13 +1,15 @@
 # Cutadapt upstream filing kit
 
 _Prepared 2026-09-03 against `marcelm/cutadapt` `main` @ `50e9fb8d` (2026-06-26,
-5.3.dev15). **Nothing has been filed yet.** The four fix branches are pushed to the fork
+5.3.dev15). **Filed 2026-09-03:** issue [#892](https://github.com/marcelm/cutadapt/issues/892) (CA1) and
+PR [#893](https://github.com/marcelm/cutadapt/pull/893) from `fix/absolute-error-count`; the changelog bullet on that
+branch now carries `` :issue:`892` `` (commit `c571a5c`). CA2–CA4 wait for a maintainer signal. The four fix branches are pushed to the fork
 [cindykrafft/cutadapt](https://github.com/cindykrafft/cutadapt), each one commit on top of
 `50e9fb8d`, and the `git am`-able patches are in this directory:_
 
 | branch | commit | patch |
 |---|---|---|
-| [`fix/absolute-error-count`](https://github.com/cindykrafft/cutadapt/tree/fix/absolute-error-count) | `7eeed8d` | 0001 (CA1) |
+| [`fix/absolute-error-count`](https://github.com/cindykrafft/cutadapt/tree/fix/absolute-error-count) | `7eeed8d` + `c571a5c` (issue number in changelog) | 0001 (CA1), PR #893 |
 | [`fix/max-ee-quality-base`](https://github.com/cindykrafft/cutadapt/tree/fix/max-ee-quality-base) | `1f56b1d` | 0002 (CA2) |
 | [`fix/index-alignment-score`](https://github.com/cindykrafft/cutadapt/tree/fix/index-alignment-score) | `d96438c` | 0003 (CA3) |
 | [`fix/prefilter-anchored-insertion`](https://github.com/cindykrafft/cutadapt/tree/fix/prefilter-anchored-insertion) | `32ef8c3` | 0004 (CA4) |

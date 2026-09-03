@@ -1,7 +1,8 @@
 # CellPhoneDB upstream filing kit
 
 _Prepared 2026-09-03 against `ventolab/CellphoneDB` `master` @ `dc8abd15` (version string 5.0.1).
-**Nothing has been filed yet.** No issue has been opened and no PR raised. Both fix branches
+**Filed 2026-09-03:** issue [#231](https://github.com/ventolab/CellphoneDB/issues/231) (CPDB1, the
+duplicate-permutation finding, which has no patch by design). CPDB2–CPDB6 wait for a maintainer signal. Both fix branches
 are pushed to the fork [cindykrafft/CellphoneDB](https://github.com/cindykrafft/CellphoneDB),
 each one commit on top of `dc8abd15`:
 [`fix/iterations-zero-progress-step`](https://github.com/cindykrafft/CellphoneDB/tree/fix/iterations-zero-progress-step)

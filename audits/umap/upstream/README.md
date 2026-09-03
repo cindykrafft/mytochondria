@@ -1,7 +1,8 @@
 # umap-learn upstream filing kit
 
 _Prepared 2026-09-03 against `lmcinnes/umap` `master` @ `e78d85af` (2026-08-31, version
-string 0.5.12, the same as the latest PyPI release). **Nothing has been filed yet.** The fix
+string 0.5.12, the same as the latest PyPI release). **Filed 2026-09-03:** issue [#1286](https://github.com/lmcinnes/umap/issues/1286) and
+PR [#1287](https://github.com/lmcinnes/umap/pull/1287). The fix
 branch [`fix/smooth-knn-dist-disconnected-floor`](https://github.com/cindykrafft/umap/tree/fix/smooth-knn-dist-disconnected-floor)
 (`54e0d23`, patch 0001, one commit on top of `e78d85af`) is pushed to the fork
 [cindykrafft/umap](https://github.com/cindykrafft/umap)._
