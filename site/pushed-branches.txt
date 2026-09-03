@@ -10,3 +10,4 @@ afni:fix/issue-73-nifti-stale-taxis
 umap:fix/issue-1194-precomputed-transform-search-index
 suite2p:fix/issue-1079-zreg-rigid-only
 plink-ng:fix/issue-140-bmerge-duplicate-id-counts
+freesurfer:fix/issue-1358-out-orientation-center
