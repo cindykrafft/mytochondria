@@ -1,0 +1,7 @@
+plain: DIFFERS: diffcount 0 
+conform: DIFFERS: diffcount 0 
+vs2: DIFFERS: diffcount 0 
+center: DIFFERS: diffcount 0 
+orient_center: DIFFERS: diffcount 0 
+orient_vs: DIFFERS: Volumes differ in geometry row=1 col=4 diff=2.000000 (2) 
+idir: DIFFERS: Volumes differ in geometry row=1 col=4 diff=1.000000 (1) 

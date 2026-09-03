@@ -16,6 +16,8 @@ Fixes #1358.
 | `mri_diff` synthetic conformed: `--out_orientation RAS` vs `--reorder -1 -3 2` | differ | identical |
 | `mri_diff` synthetic conformed: round trip vs input | differ | identical |
 
+Unaffected invocations are unchanged (`mri_diff` before vs after: plain copy, `--conform`, `-vs 2 2 2`, `--out_center`, and `--out_orientation` with `--out_center` all give `diffcount 0` and identical geometry).
+
 **What was run.** Built `utils`, `mri_convert`, `mri_info`, `mri_diff` from `dev` (f1fa3c6) on Ubuntu 24.04 with gcc 13.3 and system ITK 5.3, `-DMINIMAL=ON -DBUILD_GUIS=OFF`; the repro script and its before/after output are in the audit link below.
 
 Found while working through open issues in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/main/audits/freesurfer)
