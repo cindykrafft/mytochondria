@@ -28,8 +28,8 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 .tile .v{font:500 28px/1.1 "IBM Plex Mono",ui-monospace,monospace;margin-top:4px;font-variant-numeric:tabular-nums}
 .tile .s{font-size:12.5px;color:var(--muted);margin-top:2px}
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
-table{border-collapse:collapse;width:100%;min-width:980px}
-th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+table{border-collapse:collapse;width:100%;min-width:900px}
+th,td{padding:7px 8px;font-size:14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
 th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap;background:var(--code);position:sticky;top:0}
 th.n,td.n{text-align:right}
 td.n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
@@ -38,7 +38,8 @@ tr.repo td:first-child::before{content:"▸ ";color:var(--muted)}tr.repo.open td
 tr.detail td{background:var(--code);padding:6px 10px 10px 28px}
 tr.detail{display:none}tr.detail.show{display:table-row}
 ul.items{list-style:none;margin:0;padding:0;display:grid;gap:4px}
-ul.items li{display:grid;grid-template-columns:78px 1fr auto auto;gap:12px;align-items:baseline;font-size:14px}
+ul.items li span:nth-child(2){min-width:0;overflow-wrap:anywhere}
+ul.items li{display:grid;grid-template-columns:100px minmax(0,1fr) auto auto;gap:12px;align-items:baseline;font-size:14px}
 .pill{display:inline-block;font:500 11.5px "IBM Plex Mono",ui-monospace,monospace;padding:1px 7px;border-radius:3px;white-space:nowrap}
 .p-open{background:var(--open-soft);color:var(--open)}.p-merged,.p-resolved{background:var(--good-soft);color:var(--good)}
 .p-closed_unmerged,.p-declined{background:var(--bad-soft);color:var(--bad)}.p-none{background:var(--wait-soft);color:var(--wait)}
@@ -58,14 +59,14 @@ ul.items li{display:grid;grid-template-columns:78px 1fr auto auto;gap:12px;align
   <h2>By repository</h2>
   <div class="tablewrap"><table id="ledger">
     <thead><tr>
-      <th>Audit · repository</th><th class="n">Papers using it</th><th class="n">Findings</th>
-      <th class="n">Issues filed</th><th class="n">open</th><th class="n">resolved</th><th class="n">declined</th>
-      <th class="n">PRs filed</th><th class="n">open</th><th class="n">merged</th><th class="n">closed</th>
+      <th>Audit · repository</th><th class="n">Papers</th><th class="n">Findings</th>
+      <th class="n">Issues</th><th class="n">open</th><th class="n">resolved</th><th class="n">declined</th>
+      <th class="n">PRs</th><th class="n">open</th><th class="n">merged</th><th class="n">closed</th>
       <th class="n">Answered</th><th>Last activity</th>
     </tr></thead><tbody></tbody></table></div>
   <dl class="foot">
     <dt>How to read the columns</dt>
-    <dd>Papers using it: papers in the survey cohort (six journals, 2021 to 2026) whose methods name the package; lower bounds where the full text could not be read. Findings: confirmed by executing the shipped code, from each audit's README. Resolved: issue closed as completed. Declined: issue closed as not planned. Closed: pull request closed without merge. Answered: filings with at least one comment from anyone but the author is not distinguishable here, so this counts filings with any comment.</dd>
+    <dd>Papers: papers in the survey cohort (six journals, 2021 to 2026) whose methods name the package; lower bounds where the full text could not be read. Findings: confirmed by executing the shipped code, from each audit's README. Resolved: issue closed as completed. Declined: issue closed as not planned. Closed: pull request closed without merge. Answered: filings with at least one comment from anyone but the author is not distinguishable here, so this counts filings with any comment.</dd>
     <dt>Where the numbers come from</dt>
     <dd>A GitHub Actions job queries the GitHub search API for everything filed by the project's account since August 2026, four times a day, and publishes this page. Nothing here is edited by hand except the findings count and the repository map.</dd>
   </dl>
@@ -105,12 +106,12 @@ function render(D){
   for(const r of rows){
     const c=r.c||{}; const has=r.items.length>0;
     const name=r.a.dir?`<a href="${AUDIT_BASE}${r.a.dir}/">${esc(r.a.name)}</a>`:esc(r.a.name);
-    const repo=r.repo?`<a class="mono" href="https://github.com/${r.repo}">${esc(r.repo)}</a>`:`<span class="dim">${esc(r.a.channel||"no GitHub repository")}</span>`;
+    const repo=r.repo?`<a class="mono" href="https://github.com/${r.repo}">${esc(r.repo)}</a>`:`<span class="dim">no GitHub repository</span>`;
     const tr=document.createElement("tr"); tr.className="repo"+(has?"":" none");
     tr.innerHTML=`<td>${name} <span class="dim">·</span> ${repo}</td><td class="n">${r.a.papers?r.a.papers.toLocaleString("en"):'<span class="dim">–</span>'}</td><td class="n">${n(r.a.findings)}</td>
       <td class="n">${n(c.issues)}</td><td class="n">${n(c.i_open)}</td><td class="n">${n(c.resolved)}</td><td class="n">${n(c.declined)}</td>
       <td class="n">${n(c.prs)}</td><td class="n">${n(c.p_open)}</td><td class="n">${n(c.merged)}</td><td class="n">${n(c.closed)}</td>
-      <td class="n">${n(c.answered)}</td><td class="mono dim">${has?fmt(c.last):(r.a.channel?"":"nothing filed yet")}</td>`;
+      <td class="n">${n(c.answered)}</td><td class="${has?"mono ":""}dim">${has?fmt(c.last):esc(r.a.channel||"nothing filed yet")}</td>`;
     tb.appendChild(tr);
     if(has){
       const d=document.createElement("tr"); d.className="detail";
