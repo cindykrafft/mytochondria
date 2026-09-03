@@ -1,0 +1,457 @@
++ [[ 0 -eq 0 ]]
++ d=../../build_dynamic
++ cd TEST_EXTRACT_CHR
++ ./run_tests.sh ../../build_dynamic
++ plink --simulate simulate.txt --out tmp_data
++ cat tmp_data.bim
++ head -n 147
++ tail -n 150
++ sed 's/^1/2/g'
++ cat tmp_data.bim
++ head -n 100
++ cat tmp_data24.bim
++ tail -n 50
++ sed 's/^2/4/g'
++ cat tmp_data24.bim
++ cat tmp_data1.bim tmp_data2.bim tmp_data4.bim
++ ../../build_dynamic/pgen_compress tmp_data.bed tmp_data.pgen 2000
++ for c in 1 2 4
++ plink --bfile tmp_data --chr 1 --make-bed --out plink_c1
++ ../../build_dynamic/plink2 --bfile tmp_data --chr 1 --make-bed --out plink2_c1
++ diff -q plink_c1.bim plink2_c1.bim
++ diff -q plink_c1.bed plink2_c1.bed
++ ../../build_dynamic/plink2 --bpfile tmp_data --chr 1 --make-bed --out plink2x_c1
++ diff -q plink2x_c1.bed plink2_c1.bed
++ diff -q plink2x_c1.bim plink2_c1.bim
++ for c in 1 2 4
++ plink --bfile tmp_data --chr 2 --make-bed --out plink_c2
++ ../../build_dynamic/plink2 --bfile tmp_data --chr 2 --make-bed --out plink2_c2
++ diff -q plink_c2.bim plink2_c2.bim
++ diff -q plink_c2.bed plink2_c2.bed
++ ../../build_dynamic/plink2 --bpfile tmp_data --chr 2 --make-bed --out plink2x_c2
++ diff -q plink2x_c2.bed plink2_c2.bed
++ diff -q plink2x_c2.bim plink2_c2.bim
++ for c in 1 2 4
++ plink --bfile tmp_data --chr 4 --make-bed --out plink_c4
++ ../../build_dynamic/plink2 --bfile tmp_data --chr 4 --make-bed --out plink2_c4
++ diff -q plink_c4.bim plink2_c4.bim
++ diff -q plink_c4.bed plink2_c4.bed
++ ../../build_dynamic/plink2 --bpfile tmp_data --chr 4 --make-bed --out plink2x_c4
++ diff -q plink2x_c4.bed plink2_c4.bed
++ diff -q plink2x_c4.bim plink2_c4.bim
++ ../../build_dynamic/plink2 --bfile tmp_data --export eig --out plink2_roundtrip
++ ../../build_dynamic/plink2 --eigfile plink2_roundtrip --make-bed --out plink2_test
++ diff -q tmp_data.bed plink2_test.bed
++ diff -q tmp_data.bim plink2_test.bim
++ ../../build_dynamic/plink2 --bfile tmp_data --export eigt --out plink2_roundtrip
++ ../../build_dynamic/plink2 --eigfile plink2_roundtrip --make-bed --out plink2_test
++ diff -q tmp_data.bed plink2_test.bed
++ diff -q tmp_data.bim plink2_test.bim
++ ../../build_dynamic/plink2 --bfile tmp_data --export ind-major-bed --out plink2_roundtrip
++ ../../build_dynamic/plink2 --bfile plink2_roundtrip --make-bed --out plink2_test
++ diff -q tmp_data.bed plink2_test.bed
++ diff -q tmp_data.bim plink2_test.bim
++ ../../build_dynamic/plink2 --bfile tmp_data --export ped --out plink2_roundtrip
++ ../../build_dynamic/plink2 --pedmap plink2_roundtrip --make-bed --out plink2_test
++ diff -q tmp_data.bed plink2_test.bed
++ diff -q tmp_data.bim plink2_test.bim
++ ../../build_dynamic/plink2 --bfile tmp_data --export tped --out plink2_roundtrip
++ ../../build_dynamic/plink2 --tfile plink2_roundtrip --make-bed --out plink2_test
++ diff -q tmp_data.bed plink2_test.bed
++ diff -q tmp_data.bim plink2_test.bim
++ cd ..
++ echo 'TEST_EXTRACT_CHR passed.'
+TEST_EXTRACT_CHR passed.
++ cd TEST_MAF_FILTER
++ ./run_tests.sh ../../build_dynamic
++ plink --simulate simulate.txt --simulate-missing 0.098 --out tmp_data
++ plink --bfile tmp_data --keep-allele-order --geno 0.1 --maf 0.01 --make-bed --out plink_filtered
++ ../../build_dynamic/pgen_compress tmp_data.bed tmp_data.pgen 2000
++ ../../build_dynamic/plink2 --bfile tmp_data --geno 0.1 --maf 0.01 --make-bpgen --out new_filtered
++ diff -q plink_filtered.bim new_filtered.bim
++ ../../build_dynamic/pgen_compress -u new_filtered.pgen new_filtered.bed
++ diff -q plink_filtered.bed new_filtered.bed
++ ../../build_dynamic/plink2 --bpfile tmp_data --geno 0.1 --maf 0.01 --make-bpgen --out new_filtered2
++ diff -q plink_filtered.bim new_filtered2.bim
++ diff -q new_filtered.pgen new_filtered2.pgen
++ cd ..
++ echo 'TEST_MAF_FILTER passed.'
+TEST_MAF_FILTER passed.
++ cd TEST_PGEN_FREQ
++ ./run_tests.sh ../../build_dynamic
++ plink --simulate simulate.txt --simulate-missing 0.01 --out tmp_data
++ head -n 295 tmp_data.bim
++ tail -n 2 tmp_data.bim
++ head -n 1 last_two.txt
++ sed 's/^1/X/g'
++ sed 's/^1/X/g'
++ tail -n 1 last_two.txt
++ cp tmp_data2.bim tmp_data.bim
++ head -n 1234 tmp_data.fam
++ tail -n +1235
++ sed 's/2 1$/0 1/g'
++ head -n 1357 tmp_data.fam
++ tail -n +1358 tmp_data.fam
++ sed 's/2 1$/1 1/g'
++ cp tmp_data2.fam tmp_data.fam
++ plink --bfile tmp_data --a2-allele tmp_data.bim 5 2 --freqx
+Warning: Ignoring phenotypes of missing-sex samples.  If you don't want those
+phenotypes to be ignored, use the --allow-no-sex flag.
+Warning: 572 het. haploid genotypes present (see plink.hh ); many commands
+treat these as missing.
++ ../../build_dynamic/plink2 --bfile tmp_data --output-chr 26 --geno-counts cols=-provref
++ cat plink.frqx
++ tail -n +2
++ cat plink2.gcount
++ tail -n +2
++ diff -q plink.frqx.headerless plink2.gcount.headerless1
++ ../../build_dynamic/pgen_compress tmp_data.bed tmp_data.pgen 2000
++ ../../build_dynamic/plink2 --bpfile tmp_data --output-chr 26 --geno-counts cols=-provref
++ cat plink2.gcount
++ tail -n +2
++ diff -q plink.frqx.headerless plink2.gcount.headerless2
++ ../../build_dynamic/plink2 --bfile tmp_data --thin-indiv 0.5 --write-samples --out subset
++ plink --bfile tmp_data --a2-allele tmp_data.bim 5 2 --keep subset.id --freqx --out plink_subset
+Warning: Ignoring phenotypes of missing-sex samples.  If you don't want those
+phenotypes to be ignored, use the --allow-no-sex flag.
+Warning: 286 het. haploid genotypes present (see plink_subset.hh ); many
+commands treat these as missing.
++ ../../build_dynamic/plink2 --bfile tmp_data --output-chr 26 --keep subset.id --geno-counts cols=-provref --out plink2_subset
++ cat plink_subset.frqx
++ tail -n +2
++ cat plink2_subset.gcount
++ tail -n +2
++ diff -q plink_subset.frqx.headerless plink2_subset.gcount.headerless1
++ cd ..
++ echo 'TEST_PGEN_FREQ passed.'
+TEST_PGEN_FREQ passed.
++ cd TEST_PHASED_VCF
++ ./run_tests.sh ../../build_dynamic
++ plink --vcf 1kg_phase3_chr21_start.vcf.gz --out plink1_data
++ ../../build_dynamic/plink2 --vcf 1kg_phase3_chr21_start.vcf.gz --double-id --out plink2_data
++ ../../build_dynamic/plink2 --pfile plink2_data --export bcf --out plink2_roundtrip
++ ../../build_dynamic/plink2 --bcf plink2_roundtrip.bcf --out plink2_roundtrip
++ diff -q plink2_data.pgen plink2_roundtrip.pgen
++ ../../build_dynamic/plink2 --pfile plink2_data --export haps sample-v2 --out plink2_roundtrip
++ ../../build_dynamic/plink2 --haps plink2_roundtrip.haps --sample plink2_roundtrip.sample --real-ref-alleles --make-pgen --out plink2_roundtrip
++ diff -q plink2_data.pgen plink2_roundtrip.pgen
++ ../../build_dynamic/plink2 --pfile plink2_data --export hapslegend sample-v2 --out plink2_roundtrip
++ ../../build_dynamic/plink2 --haps plink2_roundtrip.haps --legend plink2_roundtrip.legend 21 --sample plink2_roundtrip.sample --real-ref-alleles --make-pgen --out plink2_roundtrip
++ diff -q plink2_data.pgen plink2_roundtrip.pgen
++ ../../build_dynamic/plink2 --pfile plink2_data --export vcf --out plink2_data
++ gunzip -c 1kg_phase3_chr21_start.vcf.gz
++ sed '/^#/ d'
++ cat 1kg_phase3_chr21_start.vcf
++ sed '/^#/ d'
++ cat plink2_data.vcf
++ diff -q 1kg_noheader.txt plink2_noheader.txt
++ cat 1kg_noheader.txt
++ cut -f 1-500,579-675,677-
++ tail -n 78
++ cut -f 1-2
++ cat plink1_data.fam
++ head -n 569
++ cat plink1_data.fam
++ head -n 667
++ tail -n 1
++ cut -f 1-2
++ ../../build_dynamic/plink2 --pfile plink2_data --remove remove.txt --export vcf --out plink2_pruned
++ tail -n +3
++ cat plink2_pruned.vcf
++ cat plink2_pruned.vcf
++ sed '/^#/ d'
++ diff -q 1kg_noheader_pruned.txt plink2_noheader_pruned.txt
++ ../../build_dynamic/plink2 --pfile plink2_data --remove remove.txt --make-pgen --out plink2_pruned
++ ../../build_dynamic/plink2 --pfile plink2_pruned --export vcf --out plink2_pruned2
++ tail -n +3
++ cat plink2_pruned2.vcf
++ diff -q plink2_pruned_nodate.txt plink2_pruned2_nodate.txt
++ plink --bfile plink1_data --thin 0.1 --thin-indiv 0.1 --make-bed --out sparse
++ cat sparse.bim
++ cut -f 2
++ ../../build_dynamic/plink2 --pfile plink2_data --keep sparse.fam --extract extract.txt --export vcf --out plink2_sparse
++ ../../build_dynamic/plink2 --pfile plink2_data --keep sparse.fam --indiv-sort f sparse.fam --extract extract.txt --make-pgen --out plink2_sparse2
++ ../../build_dynamic/plink2 --vcf plink2_sparse.vcf --id-delim --make-pgen --out plink2_sparse
++ diff -q plink2_sparse.pgen plink2_sparse2.pgen
++ diff -q plink2_sparse.pvar plink2_sparse2.pvar
++ diff -q plink2_sparse.psam plink2_sparse2.psam
++ plink --bfile plink1_data --maf 0.02 --pca 3 header tabs var-wts --out plink1_pca
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pca 3 biallelic-var-wts --out plink2_pca
++ python3 pca_compare.py -1 plink1_pca -2 plink2_pca -t 0.000002
++ plink --bfile plink1_data --freq
++ ../../build_dynamic/plink2 --bfile plink1_data --read-freq plink.frq --maf 0.02 --pca 3 biallelic-var-wts --out plink2_pca_rfreq
++ python3 pca_compare.py -1 plink2_pca -2 plink2_pca_rfreq -t 0.0002
++ plink --bfile plink1_data --freqx
++ ../../build_dynamic/plink2 --bfile plink1_data --read-freq plink.frqx --maf 0.02 --pca 3 biallelic-var-wts --out plink2_pca_rfreq
++ diff -q plink2_pca.eigenvec plink2_pca_rfreq.eigenvec
++ ../../build_dynamic/plink2 --bfile plink1_data --freq
++ ../../build_dynamic/plink2 --bfile plink1_data --read-freq plink2.afreq --maf 0.02 --pca 3 biallelic-var-wts --out plink2_pca_rfreq
++ python3 pca_compare.py -1 plink2_pca -2 plink2_pca_rfreq -t 0.000002
++ ../../build_dynamic/plink2 --bfile plink1_data --geno-counts
++ ../../build_dynamic/plink2 --bfile plink1_data --read-freq plink2.gcount --maf 0.02 --pca 3 biallelic-var-wts --out plink2_pca_rfreq
++ diff -q plink2_pca.eigenvec plink2_pca_rfreq.eigenvec
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pca 3 approx biallelic-var-wts --out plink2_pca_approx
+Warning: "--pca approx" is only recommended for analysis of >5000 samples.
++ python3 pca_compare.py -1 plink1_pca -2 plink2_pca_approx -t 0.009
++ ../../build_dynamic/plink2 --dummy 2504 1 --seed 1 --out pheno_cc
++ ../../build_dynamic/plink2 --dummy 2504 1 0.01 0.01 scalar-pheno --seed 1 --out pheno_qt
++ cat pheno_cc.psam
++ cut -f 3
++ tail -n +2
++ cat pheno_qt.psam
++ cut -f 3
++ tail -n +2
++ cat plink1_data.fam
++ cut -f 1-2
++ paste sample_ids.txt pheno_cc_col.txt
++ paste sample_ids.txt pheno_qt_col.txt
++ plink --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --logistic --allow-no-sex --out plink1_glm
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --glm allow-no-covars no-firth single-prec-cc --out plink2_glm
++ python3 glm_compare.py -1 plink1_glm.assoc.logistic -2 plink2_glm.PHENO1.glm.logistic -t 0.1
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --glm allow-no-covars no-firth --out plink2_glm_dbl
++ python3 glm_compare.py -1 plink1_glm.assoc.logistic -2 plink2_glm_dbl.PHENO1.glm.logistic -t 0.3
++ plink --bfile plink1_data --clump plink2_glm_dbl.PHENO1.glm.logistic --clump-snp-field ID --clump-p1 0.1 --clump-p2 0.2 --out plink1_test
++ cat plink1_test.clumped
++ tail -n +2
++ awk '{if ($12 == "NONE") $12 = "."; if ($12 != "") print $3"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10"\t"$11"\t"$12}'
++ ../../build_dynamic/plink2 --bfile plink1_data --clump cols=+f plink2_glm_dbl.PHENO1.glm.logistic --clump-p1 0.1 --clump-p2 0.2 --out plink2_test
++ cat plink2_test.clumps
++ tail -n +2
++ awk '{print $3"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10"\t"$11"\t"$12}'
++ diff -q plink1_test.clump_compare plink2_test.clump_compare
++ plink --bfile plink1_data --maf 0.02 --pheno pheno_qt.txt --linear --allow-no-sex --out plink1_glm
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_qt.txt --glm allow-no-covars --out plink2_glm
++ python3 glm_compare.py -1 plink1_glm.assoc.linear -2 plink2_glm.PHENO1.glm.linear -t 0.1
++ plink --bfile plink1_data --clump plink2_glm.PHENO1.glm.linear --clump-snp-field ID --clump-p1 0.1 --clump-p2 0.2 --out plink1_test
++ cat plink1_test.clumped
++ tail -n +2
++ awk '{if ($12 == "NONE") $12 = "."; if ($12 != "") print $3"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10"\t"$11"\t"$12}'
++ ../../build_dynamic/plink2 --bfile plink1_data --clump cols=+f plink2_glm.PHENO1.glm.linear --clump-p1 0.1 --clump-p2 0.2 --out plink2_test
++ cat plink2_test.clumps
++ tail -n +2
++ awk '{print $3"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10"\t"$11"\t"$12}'
++ diff -q plink1_test.clump_compare plink2_test.clump_compare
++ plink --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --logistic genotypic --allow-no-sex --out plink1_glm
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --glm allow-no-covars no-firth single-prec-cc genotypic --out plink2_glm
++ python3 glm_compare.py -1 plink1_glm.assoc.logistic -2 plink2_glm.PHENO1.glm.logistic -t 0.1
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --glm allow-no-covars no-firth genotypic --out plink2_glm_dbl
++ python3 glm_compare.py -1 plink1_glm.assoc.logistic -2 plink2_glm_dbl.PHENO1.glm.logistic -t 0.3
++ plink --bfile plink1_data --maf 0.02 --pheno pheno_qt.txt --linear genotypic --allow-no-sex --out plink1_glm
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_qt.txt --glm allow-no-covars genotypic --out plink2_glm
++ python3 glm_compare.py -1 plink1_glm.assoc.linear -2 plink2_glm.PHENO1.glm.linear -t 0.1
++ plink --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --logistic --covar plink1_pca.eigenvec --allow-no-sex --out plink1_glm
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --glm no-firth single-prec-cc --covar plink2_pca.eigenvec --out plink2_glm
++ python3 glm_compare.py -1 plink1_glm.assoc.logistic -2 plink2_glm.PHENO1.glm.logistic -t 0.1
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --glm no-firth --covar plink2_pca.eigenvec --out plink2_glm_dbl
++ python3 glm_compare.py -1 plink1_glm.assoc.logistic -2 plink2_glm_dbl.PHENO1.glm.logistic -t 0.3
++ plink --bfile plink1_data --maf 0.02 --pheno pheno_qt.txt --linear --covar plink1_pca.eigenvec --allow-no-sex --out plink1_glm
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_qt.txt --glm --covar plink2_pca.eigenvec --out plink2_glm
++ python3 glm_compare.py -1 plink1_glm.assoc.linear -2 plink2_glm.PHENO1.glm.linear -t 0.1
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_qt.txt --glm hide-covar --covar plink2_pca.eigenvec --out plink2_glm
++ plink --bfile plink1_data --clump plink2_glm.PHENO1.glm.linear --clump-snp-field ID --clump-p1 0.1 --clump-p2 0.2 --out plink1_test
++ cat plink1_test.clumped
++ tail -n +2
++ awk '{if ($12 == "NONE") $12 = "."; if ($12 != "") print $3"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10"\t"$11"\t"$12}'
++ ../../build_dynamic/plink2 --bfile plink1_data --clump cols=+f plink2_glm.PHENO1.glm.linear --clump-p1 0.1 --clump-p2 0.2 --out plink2_test
++ cat plink2_test.clumps
++ tail -n +2
++ awk '{print $3"\t"$6"\t"$7"\t"$8"\t"$9"\t"$10"\t"$11"\t"$12}'
++ diff -q plink1_test.clump_compare plink2_test.clump_compare
++ plink --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --logistic genotypic --covar plink1_pca.eigenvec --allow-no-sex --out plink1_glm --exclude-snp rs368311657
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --glm no-firth single-prec-cc genotypic --covar plink2_pca.eigenvec --out plink2_glm --exclude-snp rs368311657
++ python3 glm_compare.py -1 plink1_glm.assoc.logistic -2 plink2_glm.PHENO1.glm.logistic -t 0.1
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --glm no-firth genotypic --covar plink2_pca.eigenvec --out plink2_glm_dbl --exclude-snp rs368311657
++ python3 glm_compare.py -1 plink1_glm.assoc.logistic -2 plink2_glm_dbl.PHENO1.glm.logistic -t 0.3
++ plink --bfile plink1_data --maf 0.02 --pheno pheno_qt.txt --linear genotypic --covar plink1_pca.eigenvec --allow-no-sex --out plink1_glm
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_qt.txt --glm genotypic --covar plink2_pca.eigenvec --out plink2_glm
++ python3 glm_compare.py -1 plink1_glm.assoc.linear -2 plink2_glm.PHENO1.glm.linear -t 0.1
++ plink --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --logistic --covar plink1_pca.eigenvec --tests 1,3,4 --allow-no-sex --out plink1_glm
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --glm no-firth single-prec-cc --covar plink2_pca.eigenvec --tests 1,3,4 --out plink2_glm
++ python3 glm_compare.py -1 plink1_glm.assoc.logistic -2 plink2_glm.PHENO1.glm.logistic -t 0.1
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_cc.txt --glm no-firth --covar plink2_pca.eigenvec --tests 1,3,4 --out plink2_glm_dbl
++ python3 glm_compare.py -1 plink1_glm.assoc.logistic -2 plink2_glm_dbl.PHENO1.glm.logistic -t 0.3
++ plink --bfile plink1_data --maf 0.02 --pheno pheno_qt.txt --linear --covar plink1_pca.eigenvec --tests 1,3,5 --allow-no-sex --out plink1_glm
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_qt.txt --glm --covar plink2_pca.eigenvec --tests 1,3,5 --out plink2_glm
++ python3 glm_compare.py -1 plink1_glm.assoc.linear -2 plink2_glm.PHENO1.glm.linear -t 0.1
++ echo '#FID,IID,PHENO1'
++ cat pheno_qt.txt
++ tr '\t' ,
++ cat plink2_pca.eigenvec
++ tr '\t' ,
++ ../../build_dynamic/plink2 --bfile plink1_data --maf 0.02 --pheno pheno_qt_commas.txt --glm --covar plink2_pca_commas.eigenvec --tests 1,3,5 --out plink2_glm_commas
++ diff -q plink2_glm.PHENO1.glm.linear plink2_glm_commas.PHENO1.glm.linear
++ ../../build_dynamic/plink2 --pfile mt_mixed_phase vzs --export vcf bgz --out plink2_mt
++ ../../build_dynamic/plink2 --vcf plink2_mt.vcf.gz --psam mt_mixed_phase.psam --make-pgen --out plink2_mt2
++ diff -q mt_mixed_phase.pgen plink2_mt2.pgen
++ cd ..
++ echo 'TEST_PHASED_VCF passed.'
+TEST_PHASED_VCF passed.
++ cd TEST_SAMPLE_SUBSET
++ ./run_tests.sh ../../build_dynamic
++ plink --dummy 4321 333 0.05 --out tmp_data
++ plink --bfile tmp_data --mind 0.05 --make-bed --keep-allele-order --out tmp_filtered
++ cat tmp_filtered.fam
++ cut -d ' ' -f 1-2
++ ../../build_dynamic/plink2 --bfile tmp_data --keep keep.txt --make-bed --out bed_filtered
++ cat tmp_filtered.fam
++ tr ' ' '\t'
++ diff -q tmp_filtered_tabs.fam bed_filtered.fam
++ diff -q tmp_filtered.bed bed_filtered.bed
++ ../../build_dynamic/pgen_compress tmp_data.bed tmp_data.pgen 4321
++ ../../build_dynamic/plink2 --bpfile tmp_data --keep keep.txt --make-bed --out pgen_filtered
++ diff -q bed_filtered.fam pgen_filtered.fam
++ diff -q bed_filtered.bed pgen_filtered.bed
++ cd ..
++ echo 'TEST_SAMPLE_SUBSET passed.'
+TEST_SAMPLE_SUBSET passed.
++ cd TEST_DOSAGE_ROUND_TRIP
++ ./run_tests.sh ../../build_dynamic
++ ../../build_dynamic/plink2 --dummy 33 65537 0.1 acgt dosage-freq=0.1 --out tmp_data
++ ../../build_dynamic/plink2 --pfile tmp_data --export vcf vcf-dosage=DS --out tmp_data2
++ ../../build_dynamic/plink2 --vcf tmp_data2.vcf dosage=DS --out tmp_data2
++ diff -q tmp_data.pgen tmp_data2.pgen
++ ../../build_dynamic/plink2 --pfile tmp_data --export vcf vcf-dosage=GP --out tmp_data3
++ ../../build_dynamic/plink2 --vcf tmp_data3.vcf dosage=GP --out tmp_data3
++ diff -q tmp_data.pgen tmp_data3.pgen
++ ../../build_dynamic/plink2 --pfile tmp_data --export bgen-1.1 --out tmp_data4
++ cat tmp_data4.sample
++ cut -d ' ' -f 1-3
++ ../../build_dynamic/plink2 --bgen tmp_data4.bgen ref-last --sample tmp_data4.min.sample --out tmp_data4
++ diff -q tmp_data.pgen tmp_data4.pgen
++ ../../build_dynamic/plink2 --pfile tmp_data --export bgen-1.2 --out tmp_data5
++ ../../build_dynamic/plink2 --bgen tmp_data5.bgen ref-last --out tmp_data5
++ diff -q tmp_data.pgen tmp_data5.pgen
++ ../../build_dynamic/plink2 --pfile tmp_data --export oxford --out tmp_data6
++ ../../build_dynamic/plink2 --data tmp_data6 ref-last --out tmp_data6
++ diff -q tmp_data.pgen tmp_data6.pgen
++ ../../build_dynamic/plink2 --pfile tmp_data --export A-transpose --out tmp_data7
++ ../../build_dynamic/plink2 --import-dosage tmp_data7.traw id-delim=_ skip0=1 skip1=2 chr-col-num=1 pos-col-num=4 ref-first --psam tmp_data.psam --out tmp_data7
++ diff -q tmp_data.pgen tmp_data7.pgen
++ ../../build_dynamic/plink2 --dummy 33 65537 0.1 acgt phase-freq=0.1 dosage-freq=0.1 --out tmp_data8
++ ../../build_dynamic/plink2 --pfile tmp_data8 --export vcf vcf-dosage=HDS --out tmp_data8
++ ../../build_dynamic/plink2 --vcf tmp_data8.vcf dosage=HDS --make-pgen --export vcf vcf-dosage=HDS --out tmp_data9
++ diff -q tmp_data8.vcf tmp_data9.vcf
++ ../../build_dynamic/plink2 --pfile tmp_data8 --export bcf vcf-dosage=HDS-force --out tmp_data8
++ ../../build_dynamic/plink2 --bcf tmp_data8.bcf dosage=HDS --out tmp_data10
++ diff -q tmp_data9.pgen tmp_data10.pgen
++ cd ..
++ echo 'TEST_DOSAGE_ROUND_TRIP passed.'
+TEST_DOSAGE_ROUND_TRIP passed.
++ cd TEST_EXPORT_OPTIONS
++ ./run_tests.sh ../../build_dynamic
++ ../../build_dynamic/plink2 --dummy 21 333 0.05 --seed 1 --threads 1 --memory 640 --out tmp_data
++ ../../build_dynamic/plink2 --pfile tmp_data --make-pgen trim-alts --out trimmed_alts
++ ../../build_dynamic/plink2 --pfile trimmed_alts --freq
+++ wc -c
+++ awk '{if (($4 == ".") && ($5 == "0")) print $0}'
+++ cat plink2.afreq
++ [[ 186 -eq 0 ]]
+++ cat plink2.afreq
+++ wc -c
+++ awk '{if (($4 == ".") && ($5 != "0")) print $0}'
++ [[ 0 -ne 0 ]]
++ ../../build_dynamic/plink2 --pfile trimmed_alts --output-missing-genotype 0 --make-bed
+++ cat plink2.bim
+++ wc -c
+++ awk '{if ($5 == "0") print $0}'
++ [[ 185 -eq 0 ]]
+++ awk '{if ($6 == "0") print $0}'
+++ cat plink2.bim
+++ wc -c
++ [[ 0 -ne 0 ]]
++ ../../build_dynamic/plink2 --pfile trimmed_alts --output-missing-genotype 0 --make-pgen
+++ awk '{if ($5 == "0") print $0}'
+++ wc -c
+++ cat plink2.pvar
++ [[ 163 -eq 0 ]]
+++ cat plink2.pvar
+++ awk '{if ($4 == "0") print $0}'
+++ wc -c
++ [[ 0 -ne 0 ]]
++ cd ..
++ echo 'TEST_EXPORT_OPTIONS passed.'
+TEST_EXPORT_OPTIONS passed.
++ cd TEST_ONE_WAY_EXPORT
++ ./run_tests.sh ../../build_dynamic
++ ../../build_dynamic/plink2 --pfile all_ploidy vzs --snps-only --export phylip --out plink2_test
++ ../../build_dynamic/plink2 --zd plink2_test.phy.want.zst
++ diff -q plink2_test.phy plink2_test.phy.want
++ ../../build_dynamic/plink2 --pfile all_ploidy vzs --chr PAR1,X,PAR2 --keep-females --snps-only --export phylip-phased --out plink2_test.phased
++ ../../build_dynamic/plink2 --zd plink2_test.phased.phy.want.zst
++ diff -q plink2_test.phased.phy plink2_test.phased.phy.want
++ ../../build_dynamic/plink2 --pfile all_ploidy vzs --export A --out plink2_test
++ ../../build_dynamic/plink2 --zd plink2_test.raw.want.zst
++ diff -q plink2_test.raw plink2_test.raw.want
++ cd ..
++ echo 'TEST_ONE_WAY_EXPORT passed.'
+TEST_ONE_WAY_EXPORT passed.
++ cd TEST_PMERGE
++ ./run_tests.sh ../../build_dynamic
++ plink --simulate simulate.txt --simulate-missing 0.02 --out tmp_data
++ cat tmp_data.bim
++ head -n 99
++ cat tmp_data.bim
++ sed -n 100,198p
++ sed 's/^1/2/'
++ sed 's/^1/3/'
++ tail -n 99
++ cat tmp_data.bim
++ cat tmp_data1.bim tmp_data2.bim tmp_data3.bim
++ ../../build_dynamic/plink2 --bfile tmp_data --make-pgen --out tmp_all
++ for c in 1 2 3
++ ../../build_dynamic/plink2 --pfile tmp_all --chr 1 --make-pgen --out part1
++ for c in 1 2 3
++ ../../build_dynamic/plink2 --pfile tmp_all --chr 2 --make-pgen --out part2
++ for c in 1 2 3
++ ../../build_dynamic/plink2 --pfile tmp_all --chr 3 --make-pgen --out part3
++ ../../build_dynamic/plink2 --pfile part1 --pmerge part2 --out merged12
++ ../../build_dynamic/plink2 --pfile tmp_all --chr 1,2 --make-pgen --out expected12
++ ../../build_dynamic/plink2 --pfile merged12 --make-bed --out merged12b
++ ../../build_dynamic/plink2 --pfile expected12 --make-bed --out expected12b
++ diff -q expected12b.bed merged12b.bed
++ diff -q expected12b.bim merged12b.bim
++ diff -q expected12b.fam merged12b.fam
++ echo part1
++ echo part2
++ echo part3
++ ../../build_dynamic/plink2 --pmerge-list tmp_list.txt --out merged_all
++ ../../build_dynamic/plink2 --pfile merged_all --make-bed --out merged_allb
++ ../../build_dynamic/plink2 --pfile tmp_all --make-bed --out expected_allb
++ diff -q expected_allb.bed merged_allb.bed
++ diff -q expected_allb.bim merged_allb.bim
++ diff -q expected_allb.fam merged_allb.fam
++ echo part2
++ echo part3
++ ../../build_dynamic/plink2 --pfile part1 --pmerge-list tmp_list23.txt --out merged_all2
++ ../../build_dynamic/plink2 --pfile merged_all2 --make-bed --out merged_all2b
++ diff -q expected_allb.bed merged_all2b.bed
++ diff -q expected_allb.bim merged_all2b.bim
++ diff -q expected_allb.fam merged_all2b.fam
++ echo part3
++ echo part2
++ echo part1
++ ../../build_dynamic/plink2 --pmerge-list tmp_list_rev.txt --out merged_rev
++ ../../build_dynamic/plink2 --pfile merged_rev --make-bed --out merged_revb
++ diff -q expected_allb.bed merged_revb.bed
++ diff -q expected_allb.bim merged_revb.bim
++ for c in 1 2 3
++ ../../build_dynamic/plink2 --pfile part1 --make-bed --out bpart1
++ for c in 1 2 3
++ ../../build_dynamic/plink2 --pfile part2 --make-bed --out bpart2
++ for c in 1 2 3
++ ../../build_dynamic/plink2 --pfile part3 --make-bed --out bpart3
++ echo bpart1
++ echo bpart2
++ echo bpart3
++ ../../build_dynamic/plink2 --pmerge-list tmp_blist.txt bfile --out merged_b
++ ../../build_dynamic/plink2 --pfile merged_b --make-bed --out merged_bb
++ diff -q expected_allb.bed merged_bb.bed
++ diff -q expected_allb.bim merged_bb.bim
++ ../../build_dynamic/plink2 --pfile part1 --pmerge part1 --out merged_self
++ grep -q 'under development' tmp_self_err.txt
++ echo 'TEST_PMERGE passed.'
++ cd ..
++ echo 'TEST_PMERGE passed.'
+TEST_PMERGE passed.
++ echo 'All tests passed.'
+All tests passed.

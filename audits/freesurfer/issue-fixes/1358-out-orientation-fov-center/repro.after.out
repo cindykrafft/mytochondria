@@ -1,0 +1,12 @@
+== reporter's scenario: ones.mgz (256^3, identity affine) ==
+ones.mgz           c_ras=(128, 128, 128)  zeros=0 (0.00%)
+ones_reorder.mgz   c_ras=(127, 128, 127)  zeros=0 (0.00%)
+ones_LIA.mgz       c_ras=(127, 128, 127)  zeros=0 (0.00%)
+ones_RAS.mgz       c_ras=(128, 128, 128)  zeros=0 (0.00%)
+mri_diff ones_LIA.mgz ones_reorder.mgz: mri_diff ones_LIA.mgz ones_reorder.mgz  | diffcount 0
+mri_diff ones.mgz ones_RAS.mgz: mri_diff ones.mgz ones_RAS.mgz  | diffcount 0
+
+== test.sh scenario on a synthetic conformed LIA volume (random uchar) ==
+mri_diff reorient-ras.mgz reorder-ras.mgz -> exit 0: mri_diff reorient-ras.mgz reorder-ras.mgz  | diffcount 0
+mri_diff roundtrip-lia.mgz conf.mgz -> exit 0: mri_diff roundtrip-lia.mgz conf.mgz  | diffcount 0
+RESULT: OK
