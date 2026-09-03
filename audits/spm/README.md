@@ -218,7 +218,7 @@ are merged upstream**: SP3 ([PR #163](https://github.com/spm/spm/pull/163)) and 
 shipping `tests/test_spm_ECdensity.m` — the function previously had **no test
 coverage**; it fails 12/23 assertions on the pre-fix code and 0/23 on the fix) and
 SP2 ([#160](https://github.com/spm/spm/issues/160) / [PR #161](https://github.com/spm/spm/pull/161))
-are open. SP5 remains to file.
+are open, as is SP5 ([#167](https://github.com/spm/spm/issues/167) / [PR #168](https://github.com/spm/spm/pull/168), filed 2026-09-02).
 
 ## Files
 
@@ -232,8 +232,8 @@ are open. SP5 remains to file.
 
 1. Run SP2–SP5 through real MATLAB (`spm_tests` plus targeted checks) before filing
    their PRs; state in each PR what testing was done.
-2. File the five issues + PRs per `upstream/README.md`, SP1 first (it carries the test
-   that would have caught it).
+2. All five issues + PRs are filed (`upstream/README.md`); follow up on maintainer
+   review of SP1, SP2 and SP5.
 3. Extend the survey join: mine the six-journal corpus for SPM usage the way
    `fs_profile.py`/`fsl_profile.py` did, and build `spm_papers.tsv` /
    `spm_paper_exposure.tsv` so Tier 2 findings get per-paper exposure.

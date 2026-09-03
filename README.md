@@ -87,6 +87,12 @@ audits/
                  regression, and the upstream filing kit
   afni/          nine subsystem reviews, paper→feature exposure, the ReHo
                  tie-handling reproduction, and the upstream filing queue
+
+preprint/        LaTeX source, figures and compiled PDF of the AFNI paper
+                 (method + the ReHo reanalysis on ds000030)
+preprint-spm/    LaTeX source, figure and compiled PDF of the SPM companion
+                 paper (the 83 findings, the five upstream fixes, the two
+                 merged ones measured on SPM's MMN tutorial data)
 ```
 
 ## Related repositories
@@ -98,7 +104,7 @@ audits/
 - **[cindykrafft/freesurfer](https://github.com/cindykrafft/freesurfer)** — fork
   carrying the five FreeSurfer fix branches submitted upstream.
 - **[cindykrafft/spm](https://github.com/cindykrafft/spm)** — fork carrying the five
-  SPM fix branches plus a new `tests/test_spm_ECdensity.m` (two merged, two open upstream).
+  SPM fix branches plus a new `tests/test_spm_ECdensity.m` (two merged, three open upstream).
 
 ## Reading these findings fairly
 
