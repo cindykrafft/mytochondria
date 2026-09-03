@@ -12,3 +12,10 @@ prefix cov p=0.01: threshold 131, surviving clusters 6
    159 vox, mean 0.2832, peak RAI (-16.5 13.5 -19.5)
    156 vox, mean 0.2283, peak RAI (16.5 -58.5 31.5)
    154 vox, mean 0.2934, peak RAI (22.5 79.5 -31.5)
+postfix (residual-SD covariate): |t|>3.386: 249
+postfix cov p=0.001: threshold 25, surviving clusters 2
+   34 vox, mean -0.6078, peak RAI (10.5 70.5 10.5)
+   33 vox, mean -0.656, peak RAI (4.5 94.5 7.5)
+postfix cov p=0.01: threshold 98, surviving clusters 1
+   312 vox, mean -0.4964, peak RAI (4.5 94.5 7.5)
+COVSD DONE
