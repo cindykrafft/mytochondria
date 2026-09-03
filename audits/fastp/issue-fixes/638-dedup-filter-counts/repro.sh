@@ -42,6 +42,6 @@ grep -E 'reads passed filter|reads failed due to duplication|Duplication rate' $
 show $W/pe.json; echo "  pairs written to output      = $(( $(wc -l < $W/pe1.out.fq) / 4 ))"
 echo "== PE, same pairs, --merge --dedup"
 $FASTP $COMMON --dedup -i $W/pe1.fq -I $W/pe2.fq --merge --merged_out $W/mg.fq -j $W/mg.json -h $W/mg.html 2> $W/mg.log
-grep -E 'reads passed filter|reads failed due to duplication|Duplication rate|merged' $W/mg.log | sed 's/^/  stderr: /'
+grep -E 'reads passed filter|reads failed due to duplication|Duplication rate|Read pairs merged' $W/mg.log | sed 's/^/  stderr: /'
 show $W/mg.json; echo "  merged reads written         = $(( $(wc -l < $W/mg.fq) / 4 ))  (1000 distinct pairs)"
 rm -rf "$W"

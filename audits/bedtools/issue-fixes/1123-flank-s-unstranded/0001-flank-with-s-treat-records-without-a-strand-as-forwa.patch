@@ -1,0 +1,130 @@
+From d260626c16bae0eef2b404638a753304e7115baf Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 23:21:11 +0000
+Subject: [PATCH] flank: with -s, treat records without a "-" strand as forward
+ instead of dropping them
+
+`bedtools flank -s` only handled records whose column-6 strand was exactly
+"+" or "-"; anything else (BED3/4/5 input with no strand column, or a "."
+strand) matched neither branch of the if/else-if in BedFlank::FlankBed()
+and was silently omitted from the output, so a strand-less file produced
+no output at all under -s (issue #1123, also reported in #1057).
+
+Only a "-" strand needs the flanks swapped, so mirror slop -s
+(BedSlop::AddSlop: should_swap = _forceStrand && bed.strand == "-") and
+send every other record through AddFlank(). Document the behaviour of -s
+on strand-less features and add flank.t12-t14, which fail on the previous
+code and pass with this change; the full `make test` suite passes.
+
+Fixes #1123
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ docs/content/tools/flank.rst |  2 +-
+ src/flankBed/flankBed.cpp    | 11 +++++++----
+ test/flank/dotstrand.bed     |  2 ++
+ test/flank/nostrand.bed      |  1 +
+ test/flank/test-flank.sh     | 33 +++++++++++++++++++++++++++++++++
+ 5 files changed, 44 insertions(+), 5 deletions(-)
+ create mode 100644 test/flank/dotstrand.bed
+ create mode 100644 test/flank/nostrand.bed
+
+diff --git a/docs/content/tools/flank.rst b/docs/content/tools/flank.rst
+index db3b9da..6f37080 100644
+--- a/docs/content/tools/flank.rst
++++ b/docs/content/tools/flank.rst
+@@ -45,7 +45,7 @@ Usage and option summary
+ **-b**				             Increase the BED/GFF/VCF entry by the same number base pairs in each direction. *Integer*.							 
+ **-l**					         The number of base pairs to subtract from the start coordinate. *Integer*.
+ **-r**                           The number of base pairs to add to the end coordinate. *Integer*.
+-**-s**                           Define -l and -r based on strand. For example. if used, -l 500 for a negative-stranded feature, it will add 500 bp to the *end* coordinate.
++**-s**                           Define -l and -r based on strand. For example. if used, -l 500 for a negative-stranded feature, it will add 500 bp to the *end* coordinate. Features whose strand (column 6) is not "-" (e.g. "+", ".", or BED3-5 input with no strand column) are treated as forward-stranded.
+ **-pct**                         Define -l and -r as a fraction of the feature's length. E.g. if used on a 1000bp feature, -l 0.50, will add 500 bp "upstream".  Default = false.
+ ===========================      ===============================================================================================================================================================================================================
+ 
+diff --git a/src/flankBed/flankBed.cpp b/src/flankBed/flankBed.cpp
+index b28103d..4a9cf68 100644
+--- a/src/flankBed/flankBed.cpp
++++ b/src/flankBed/flankBed.cpp
+@@ -58,13 +58,16 @@ void BedFlank::FlankBed() {
+                 rightFlank = (int) (_rightFlank * bedEntry.size());
+             }
+             
+-            if ((_forceStrand == false) || (bedEntry.strand == "+"))
++            // With -s, only a "-" strand swaps the flanks. Any other value
++            // (+, ., or no strand column at all) is treated as forward,
++            // as slop -s does, rather than silently dropping the record.
++            if ((_forceStrand == true) && (bedEntry.strand == "-" ))
+             {
+-                AddFlank(bedEntry,  leftFlank, rightFlank);
++                AddStrandedFlank(bedEntry,  leftFlank, rightFlank);
+             }
+-            else if ((_forceStrand == true) && (bedEntry.strand == "-" ))
++            else
+             {
+-                AddStrandedFlank(bedEntry,  leftFlank, rightFlank);                    
++                AddFlank(bedEntry,  leftFlank, rightFlank);
+             }
+         }
+     }
+diff --git a/test/flank/dotstrand.bed b/test/flank/dotstrand.bed
+new file mode 100644
+index 0000000..2d4b425
+--- /dev/null
++++ b/test/flank/dotstrand.bed
+@@ -0,0 +1,2 @@
++chr1	100	200	d1	1	.
++chr1	100	200	d2	2	-
+diff --git a/test/flank/nostrand.bed b/test/flank/nostrand.bed
+new file mode 100644
+index 0000000..92d666d
+--- /dev/null
++++ b/test/flank/nostrand.bed
+@@ -0,0 +1 @@
++chr1	100	200
+diff --git a/test/flank/test-flank.sh b/test/flank/test-flank.sh
+index b610b24..c766a70 100644
+--- a/test/flank/test-flank.sh
++++ b/test/flank/test-flank.sh
+@@ -151,4 +151,37 @@ chr1	200	1000	a2	2	-" > exp
+ $BT flank -i a.bed -b 2000 -s -g tiny.genome > obs
+ check obs exp
+ rm obs exp
++###########################################################
++# test -s on a BED3 file (no strand column): records must be
++# treated as forward, not silently dropped (issue #1123)
++###########################################################
++echo -e "    flank.t12...\c"
++echo \
++"chr1	95	100" > exp
++$BT flank -i nostrand.bed -l 5 -r 0 -s -g tiny.genome > obs
++check obs exp
++rm obs exp
++
++###########################################################
++# test -s on BED3 with -b: same result as without -s
++###########################################################
++echo -e "    flank.t13...\c"
++echo \
++"chr1	95	100
++chr1	200	205" > exp
++$BT flank -i nostrand.bed -b 5 -s -g tiny.genome > obs
++check obs exp
++rm obs exp
++
++###########################################################
++# test -s with a "." strand: treated as forward, while "-"
++# records in the same file still swap -l and -r
++###########################################################
++echo -e "    flank.t14...\c"
++echo \
++"chr1	95	100	d1	1	.
++chr1	200	205	d2	2	-" > exp
++$BT flank -i dotstrand.bed -l 5 -r 0 -s -g tiny.genome > obs
++check obs exp
++rm obs exp
+ [[ $FAILURES -eq 0 ]] || exit 1;
+-- 
+2.43.0
+

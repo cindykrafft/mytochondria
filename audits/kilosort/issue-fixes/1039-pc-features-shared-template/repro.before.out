@@ -1,0 +1,9 @@
+pc_feature_ind:
+[[1 0]
+ [0 1]]
+restored (should equal source):
+[[ 1. 20.]
+ [10.  1.]
+ [ 2. 18.]
+ [ 8.  2.]]
+pc_feature_ind correct: False; features restored correctly: False

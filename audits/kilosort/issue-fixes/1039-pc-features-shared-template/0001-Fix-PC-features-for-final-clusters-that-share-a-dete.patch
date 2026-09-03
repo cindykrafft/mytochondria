@@ -1,0 +1,158 @@
+From 466c2a10f7922a74ab7f149355fd7894678048e3 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 23:20:33 +0000
+Subject: [PATCH] Fix PC features for final clusters that share a detection
+ template
+
+make_pc_features selected spikes by detection template from the full
+spike_templates/tF arrays, so when several final clusters share a
+template, processing the first cluster also re-ordered (in place) the
+tF rows of spikes belonging to the other clusters.  Those rows were then
+re-ordered a second time, from the wrong starting order, when their own
+cluster was processed, producing pc_features/pc_feature_ind that did not
+correspond to the channels' actual features and that depended on the
+order in which clusters were visited.
+
+Restrict spike selection, channel ranking and the in-place update to the
+spikes of the current cluster.  Clusters that do not share a template
+are unaffected.
+
+Fixes #1039
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ kilosort/postprocessing.py   | 17 +++++---
+ tests/test_postprocessing.py | 80 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 92 insertions(+), 5 deletions(-)
+ create mode 100644 tests/test_postprocessing.py
+
+diff --git a/kilosort/postprocessing.py b/kilosort/postprocessing.py
+index b8421be..509e0ae 100644
+--- a/kilosort/postprocessing.py
++++ b/kilosort/postprocessing.py
+@@ -103,15 +103,22 @@ def make_pc_features(ops, spike_templates, spike_clusters, tF):
+     feature_ind = np.zeros((n_clusters, n_chans), dtype=np.uint32)
+ 
+     for i in np.unique(spike_clusters):
++        # Only look at spikes assigned to this cluster. A detection template
++        # can be shared by several final clusters, so selecting spikes by
++        # template from the full arrays would also pick up (and overwrite)
++        # spikes that belong to other clusters, and those rows would then be
++        # re-ordered a second time when their own cluster is processed.
++        cluster_spikes = np.flatnonzero(spike_clusters == i)
++        cluster_templates = spike_templates[cluster_spikes]
+         # Get templates associated with cluster (often just 1)
+-        iunq = np.unique(spike_templates[spike_clusters==i]).astype(int)
++        iunq = np.unique(cluster_templates).astype(int)
+         # Get boolean mask with size (n_templates,), True if they match cluster
+         ix = torch.from_numpy(np.zeros(n_templates, bool))
+         ix[iunq] = True
+-        # Get PC features for all spikes detected with those templates (Xd),
+-        # and the indices in tF where those spikes occur (igood).
++        # Get PC features for this cluster's spikes (Xd), and the indices
++        # within `cluster_spikes` where those spikes occur (igood).
+         Xd, igood, ichan = get_data_cpu(
+-            ops, xy, iC, spike_templates, tF, None, None,
++            ops, xy, iC, cluster_templates, tF[cluster_spikes], None, None,
+             dmin=ops['dmin'], dminx=ops['dminx'], ix=ix, merge_dim=False
+             )
+ 
+@@ -120,7 +127,7 @@ def make_pc_features(ops, spike_templates, spike_clusters, tF):
+         chan_norm = torch.linalg.norm(spike_mean, dim=1)
+         sorted_chans, ind = torch.sort(chan_norm, descending=True)
+         # Assign features to overwrite tF in-place
+-        tF[igood,:] = Xd[:, ind[:n_chans], :]
++        tF[cluster_spikes[igood.cpu().numpy()],:] = Xd[:, ind[:n_chans], :]
+         # Save channel inds for phy
+         feature_ind[i,:] = ichan[ind[:n_chans]].cpu().numpy()
+ 
+diff --git a/tests/test_postprocessing.py b/tests/test_postprocessing.py
+new file mode 100644
+index 0000000..43c2575
+--- /dev/null
++++ b/tests/test_postprocessing.py
+@@ -0,0 +1,80 @@
++import numpy as np
++import torch
++
++from kilosort.postprocessing import make_pc_features
++
++
++def test_make_pc_features_shared_template():
++    # Two final clusters (0 and 1) whose spikes all come from the same
++    # detection template, on a two-channel probe. Both clusters have their
++    # largest feature on channel 1, so both should get feature_ind [1, 0]
++    # and the exported features must map back onto the original channels.
++    # See https://github.com/MouseLand/Kilosort/issues/1039
++    ops = {
++        'iU': torch.tensor([0]),
++        'iCC': torch.tensor([[0], [1]]),
++        'xc': np.array([0.0, 0.0]),
++        'yc': np.array([0.0, 20.0]),
++        'nearest_chans': 2,
++        'dmin': 20,
++        'dminx': 32,
++    }
++    spike_templates = np.zeros(4, dtype=np.int32)
++    spike_clusters = np.array([0, 1, 0, 1], dtype=np.int32)
++    # (n_spikes, n_chans, n_pcs) with n_pcs = 1; columns are channels [0, 1].
++    source = np.array([
++        [1.0, 20.0],
++        [1.0, 10.0],
++        [2.0, 18.0],
++        [2.0, 8.0],
++    ], dtype=np.float32)
++    tF = torch.from_numpy(source.copy()).unsqueeze(-1)
++
++    pc_features, pc_feature_ind = make_pc_features(
++        ops, spike_templates, spike_clusters, tF
++        )
++
++    assert pc_features.shape == (4, 1, 2)
++    np.testing.assert_array_equal(
++        pc_feature_ind, np.array([[1, 0], [1, 0]], dtype=np.uint32)
++        )
++    # Scatter features back onto the channels named by pc_feature_ind.
++    restored = np.zeros_like(source)
++    for spike, cluster in enumerate(spike_clusters):
++        restored[spike, pc_feature_ind[cluster]] = pc_features[spike, 0].numpy()
++    np.testing.assert_allclose(restored, source)
++
++
++def test_make_pc_features_order_independent():
++    # Result must not depend on which cluster is processed first, so relabel
++    # the clusters and check the exported features are permuted accordingly.
++    ops = {
++        'iU': torch.tensor([0]),
++        'iCC': torch.tensor([[0], [1]]),
++        'xc': np.array([0.0, 0.0]),
++        'yc': np.array([0.0, 20.0]),
++        'nearest_chans': 2,
++        'dmin': 20,
++        'dminx': 32,
++    }
++    spike_templates = np.zeros(4, dtype=np.int32)
++    source = np.array([
++        [1.0, 20.0],
++        [1.0, 10.0],
++        [2.0, 18.0],
++        [2.0, 8.0],
++    ], dtype=np.float32)
++
++    clusters_a = np.array([0, 1, 0, 1], dtype=np.int32)
++    clusters_b = 1 - clusters_a
++    feats_a, ind_a = make_pc_features(
++        ops, spike_templates, clusters_a,
++        torch.from_numpy(source.copy()).unsqueeze(-1)
++        )
++    feats_b, ind_b = make_pc_features(
++        ops, spike_templates, clusters_b,
++        torch.from_numpy(source.copy()).unsqueeze(-1)
++        )
++
++    np.testing.assert_array_equal(ind_a, ind_b[::-1])
++    np.testing.assert_allclose(feats_a.numpy(), feats_b.numpy())
+-- 
+2.43.0
+

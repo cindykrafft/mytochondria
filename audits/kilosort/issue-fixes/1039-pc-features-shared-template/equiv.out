@@ -1,0 +1,3 @@
+non-shared templates: feature_ind identical: True ; pc_features identical: True
+shared templates, new code: relabelling clusters permutes feature_ind only: True ; features unchanged: True
+shared templates, old code: features unchanged under relabelling: True ; feature_ind consistent: False

@@ -1,0 +1,26 @@
+fastp: fastp 1.3.6
+== SE, 4000 reads (2000 distinct), --dedup
+  stderr: reads passed filter: 2000
+  stderr: reads failed due to duplication: 2000
+  stderr: Duplication rate (may be overestimated since this is SE data): 50%
+  filtering_result.passed_filter_reads = 2000
+  filtering_result.duplicated_reads    = 2000
+  summary.after_filtering.total_reads  = 2000
+  reads written to output      = 2000
+== PE, 2000 pairs (1000 distinct), --dedup
+  stderr: reads passed filter: 2006
+  stderr: reads failed due to duplication: 1994
+  stderr: Duplication rate: 49.85%
+  filtering_result.passed_filter_reads = 2006
+  filtering_result.duplicated_reads    = 1994
+  summary.after_filtering.total_reads  = 2006
+  pairs written to output      = 1003
+== PE, same pairs, --merge --dedup
+  stderr: reads passed filter: 2000
+  stderr: reads failed due to duplication: 2000
+  stderr: Duplication rate: 50%
+  stderr: Read pairs merged: 1000
+  filtering_result.passed_filter_reads = 2000
+  filtering_result.duplicated_reads    = 2000
+  summary.after_filtering.total_reads  = 1000
+  merged reads written         = 1000  (1000 distinct pairs)

@@ -1,0 +1,22 @@
+cellphonedb 5.0.1, pandas 2.3.3
+complex_input.csv as read by pandas: {'uniprot_1': 'object', 'uniprot_2': 'object', 'uniprot_3': 'float64', 'uniprot_4': 'float64'}
+
+RESULT: create_db raised
+Traceback (most recent call last):
+  File "<scratch>/work/repro.py", line 48, in <module>
+    db_utils.create_db(d)
+  File "<scratch>/src/cellphonedb/utils/db_utils.py", line 316, in create_db
+    run_sanity_tests(data_dfs, protein_column_names, version)
+  File "<scratch>/src/cellphonedb/utils/db_utils.py", line 687, in run_sanity_tests
+    sanity_test_report_unknown_proteins(protein_db_df, complex_db_df, protein_column_names)
+  File "<scratch>/src/cellphonedb/utils/db_utils.py", line 603, in sanity_test_report_unknown_proteins
+    aux_df = pd.merge(complex_db_df, protein_db_df, left_on=col, right_on='uniprot', how='outer')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<scratch>/venv/lib/python3.12/site-packages/pandas/core/reshape/merge.py", line 170, in merge
+    op = _MergeOperation(
+         ^^^^^^^^^^^^^^^^
+  File "<scratch>/venv/lib/python3.12/site-packages/pandas/core/reshape/merge.py", line 807, in __init__
+    self._maybe_coerce_merge_keys()
+  File "<scratch>/venv/lib/python3.12/site-packages/pandas/core/reshape/merge.py", line 1509, in _maybe_coerce_merge_keys
+    raise ValueError(msg)
+ValueError: You are trying to merge on float64 and object columns for key 'uniprot_3'. If you wish to proceed you should use pd.concat

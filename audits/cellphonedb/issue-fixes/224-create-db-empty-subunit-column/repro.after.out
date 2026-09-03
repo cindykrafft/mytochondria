@@ -1,0 +1,5 @@
+cellphonedb 5.0.1, pandas 2.3.3
+complex_input.csv as read by pandas: {'uniprot_1': 'object', 'uniprot_2': 'object', 'uniprot_3': 'float64', 'uniprot_4': 'float64'}
+
+Created /tmp/cpdb224_01lmyhac/cellphonedb_09_03_2026_231752.zip successfully
+RESULT: created ['cellphonedb_09_03_2026_231752.zip']

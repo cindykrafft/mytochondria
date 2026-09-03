@@ -1,0 +1,15 @@
+bedtools 614e9a5
+== flank -i bed3.bed -l 5 -r 0 
+   chr1	95	100
+== flank -i bed3.bed -l 5 -r 0 -s
+== flank -i dot.bed -l 5 -r 0 
+   chr1	95	100	f1	0	.
+   chr1	495	500	f2	0	-
+== flank -i dot.bed -l 5 -r 0 -s
+   chr1	600	605	f2	0	-
+== flank -i bed4_strand_in_col4.bed -l 5 -r 0 
+   chr1	95	100	+
+   chr1	495	500	-
+== flank -i bed4_strand_in_col4.bed -l 5 -r 0 -s
+== slop -i bed3.bed -l 5 -r 0 -s   (slop treats a strand-less record as forward)
+   chr1	95	200
