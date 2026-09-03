@@ -101,7 +101,7 @@ changed Python files: 0 findings (14 on `master` overall, none in these files).
 `PULL_REQUEST_TEMPLATE.md` (four checkboxes, in [`pr-body.md`](pr-body.md)), `flake8` + `pytest`
 as in `.github/workflows/test.yml`, `CHANGES.txt` bullet under `unreleased` (the top heading on
 `master` is 3.5.5). The `pyproject.toml` version is untouched. Open PRs checked 2026-09-03: 12,
-none touches BED parsing or #1423 (PR #1449 is the audit's DT1 fix).
+none touches BED parsing or #1423 (PR #1449 is the audit's DT1 fix). #1423 has no assignee (the `assignee`/`assignees` fields of the search result were empty on 2026-09-03) and no labels, so a PR is appropriate.
 
 ## Other candidates considered
 

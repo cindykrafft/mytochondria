@@ -1,0 +1,3 @@
+umap 0.5.12 | raw rows 4800 | embedding rows 4800 | search index rows 4500
+graph: strongest column is a training row within 0.01 of the query: 0% | median distance 51.1
+embedding: median |transform(q) - embedding_[row of q]| = 7.08 | embedding extent 18.8 | within 1% of extent: 0%

@@ -1,0 +1,93 @@
+From cfe773e8e630f71ac4cff8d870b4d93183127af5 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 23:26:41 +0000
+Subject: [PATCH] Fix transform() refusing precomputed distances when fit used
+ the NN-descent path
+
+Fixes #1194.
+
+For metric="precomputed", nearest_neighbors() returns knn_search_index=None,
+and fit() stores that as _knn_search_index whenever the data is not "small"
+(>= 4096 rows, or force_approximation_algorithm=True). transform() then hit
+the #848 guard ("No search index available") before reaching its own
+precomputed branch, which reads the new-to-training distance matrix and
+never needs an index. Below 4096 rows _knn_search_index is never set, so the
+same call worked; that is the 4095/4096 cliff reported in #1194.
+
+Skip the guard for the precomputed metric. Adds
+test_precomputed_transform_on_iris_force_approx, the existing precomputed
+transform test with force_approximation_algorithm=True, which raised
+NotImplementedError before this change.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ umap/tests/test_umap_on_iris.py | 29 +++++++++++++++++++++++++++++
+ umap/umap_.py                   | 11 +++++++++--
+ 2 files changed, 38 insertions(+), 2 deletions(-)
+
+diff --git a/umap/tests/test_umap_on_iris.py b/umap/tests/test_umap_on_iris.py
+index d91fe9a..1043724 100644
+--- a/umap/tests/test_umap_on_iris.py
++++ b/umap/tests/test_umap_on_iris.py
+@@ -171,6 +171,35 @@ def test_precomputed_transform_on_iris(iris, iris_selection):
+     ), "Insufficiently trustworthy transform for" "iris dataset: {}".format(trust)
+ 
+ 
++# UMAP precomputed metric transform on iris via the NN-descent code path
++# (#1194: with >= 4096 training rows, or force_approximation_algorithm=True,
++# fit() stores _knn_search_index = None for a precomputed metric and transform()
++# used to refuse to run even though the precomputed branch needs no index)
++# ----------------------
++def test_precomputed_transform_on_iris_force_approx(iris, iris_selection):
++    data = iris.data[iris_selection]
++    distance_matrix = squareform(pdist(data))
++
++    fitter = UMAP(
++        n_neighbors=10,
++        min_dist=0.01,
++        random_state=42,
++        n_epochs=100,
++        metric="precomputed",
++        force_approximation_algorithm=True,
++    ).fit(distance_matrix)
++    assert fitter._knn_search_index is None
++
++    new_data = iris.data[~iris_selection]
++    new_distance_matrix = cdist(new_data, data)
++    embedding = fitter.transform(new_distance_matrix)
++
++    trust = trustworthiness(new_data, embedding, n_neighbors=10)
++    assert (
++        trust >= 0.85
++    ), "Insufficiently trustworthy transform for" "iris dataset: {}".format(trust)
++
++
+ # UMAP precomputed metric transform on iris with sparse distances
+ # ----------------------
+ def test_precomputed_sparse_transform_on_iris(iris, iris_selection):
+diff --git a/umap/umap_.py b/umap/umap_.py
+index fcbb113..6b06019 100644
+--- a/umap/umap_.py
++++ b/umap/umap_.py
+@@ -3104,8 +3104,15 @@ class UMAP(BaseEstimator, ClassNamePrefixFeaturesOutMixin):
+             )
+ 
+         # #848: knn_search_index is allowed to be None if not transforming new data,
+-        # so now we must validate that if it exists it is not None
+-        if hasattr(self, "_knn_search_index") and self._knn_search_index is None:
++        # so now we must validate that if it exists it is not None.
++        # #1194: a precomputed metric never has a search index (nearest_neighbors
++        # returns None for it), and the precomputed branch below does not need
++        # one, so only enforce this for the metrics that query the index.
++        if (
++            self.metric != "precomputed"
++            and hasattr(self, "_knn_search_index")
++            and self._knn_search_index is None
++        ):
+             raise NotImplementedError(
+                 "No search index available: transforming data"
+                 " into an existing embedding is not supported"
+-- 
+2.43.0
+

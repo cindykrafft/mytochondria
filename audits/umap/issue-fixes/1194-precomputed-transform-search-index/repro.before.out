@@ -1,0 +1,2 @@
+n=4095: transform OK, shape (5, 2), finite=True
+n=4096: NotImplementedError: No search index available: transforming data into an existing embedding is not supported
