@@ -1,0 +1,156 @@
+From f8171b6ad5aad0e38297ee69ab4aa4f4d9bab68a Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Thu, 3 Sep 2026 23:16:22 +0000
+Subject: [PATCH] Guard spm_MDP_VB_prune against columns left with no prior
+ mass
+
+Fixes #106.
+
+In spm_MDP_VB_prune the reduced prior rA is rescaled column by column to
+preserve the prior probability mass, rA = rA .* (sum(pA)./sum(rA)). When
+a column of rA has no mass left - a prior column of zeros (a never-visited
+state), or SIMPLE-mode pruning that removes every entry carrying prior
+mass - this is 0/0 (or 0*Inf) and the whole column becomes NaN. The NaN
+column then reaches spm_MDP_log_evidence and is written back into the
+returned priors, silently corrupting the model on the next learning
+epoch (or raising an error in spm_betaln, as reported).
+
+Move the mass-preservation step out of the MI/SIMPLE switch, detect the
+columns with no reduced mass, leave them unreduced (rA = pA, so that the
+reduced free energy is zero and qA and pA are unchanged there) and set
+their rescaling factor to one. Columns that do carry mass are treated
+exactly as before.
+
+Add tests/test_spm_MDP_VB_prune.m covering the reference reduction of a
+healthy column, the two zero-mass cases in SIMPLE mode, the default MI
+mode with a zero prior column, and a three-dimensional tensor.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ tests/test_spm_MDP_VB_prune.m  | 75 ++++++++++++++++++++++++++++++++++
+ toolbox/DEM/spm_MDP_VB_prune.m | 14 ++++++-
+ 2 files changed, 87 insertions(+), 2 deletions(-)
+ create mode 100644 tests/test_spm_MDP_VB_prune.m
+
+diff --git a/tests/test_spm_MDP_VB_prune.m b/tests/test_spm_MDP_VB_prune.m
+new file mode 100644
+index 0000000..3326d9c
+--- /dev/null
++++ b/tests/test_spm_MDP_VB_prune.m
+@@ -0,0 +1,75 @@
++classdef test_spm_MDP_VB_prune < matlab.unittest.TestCase
++% Unit Tests for spm_MDP_VB_prune
++%__________________________________________________________________________
++
++% Copyright (C) 2026 Wellcome Centre for Human Neuroimaging
++
++
++methods (Test)
++
++
++function test_simple_reduces_column_with_prior_mass(testCase)
++% a column whose small entry is pruned: reference behaviour is unchanged
++qA = [64; 1];
++pA = [ 1; 1];
++[sA,rA] = spm_MDP_VB_prune(qA,pA,0,0,[],'SIMPLE');
++testCase.verifyEqual(sA, [65; 0], 'AbsTol', 1e-10);
++testCase.verifyEqual(rA, [ 2; 0], 'AbsTol', 1e-10);
++end
++
++function test_simple_prior_zero_at_surviving_entries(testCase)
++% pruning removes every entry that carries prior mass (issue #106):
++% the column can not be rescaled and must be left unchanged, not NaN
++qA = [64; 1];
++pA = [ 0; 1];
++[sA,rA] = spm_MDP_VB_prune(qA,pA,0,0,[],'SIMPLE');
++testCase.verifyFalse(any(isnan(sA(:))));
++testCase.verifyFalse(any(isnan(rA(:))));
++testCase.verifyEqual(sA, qA);
++testCase.verifyEqual(rA, pA);
++end
++
++function test_simple_zero_prior_column_confined(testCase)
++% a prior column of zeros (never-visited state) next to a healthy column:
++% the zero column is left unchanged and the healthy column reduces as usual
++qA = [64 64; 1 1];
++pA = [ 0  1; 0 1];
++[sA,rA] = spm_MDP_VB_prune(qA,pA,0,0,[],'SIMPLE');
++testCase.verifyFalse(any(isnan(sA(:))));
++testCase.verifyFalse(any(isnan(rA(:))));
++testCase.verifyEqual(sA(:,1), qA(:,1));
++testCase.verifyEqual(rA(:,1), pA(:,1));
++testCase.verifyEqual(sA(:,2), [65; 0], 'AbsTol', 1e-10);
++testCase.verifyEqual(rA(:,2), [ 2; 0], 'AbsTol', 1e-10);
++end
++
++function test_mi_zero_prior_column(testCase)
++% default (mutual-information) mode with a prior column of zeros
++qA = [64 64; 1 1];
++pA = [ 0  1; 0 1];
++[sA,rA] = spm_MDP_VB_prune(qA,pA,0,0);
++testCase.verifyFalse(any(isnan(sA(:))));
++testCase.verifyFalse(any(isnan(rA(:))));
++testCase.verifyEqual(sA(:,1), qA(:,1));
++testCase.verifyEqual(rA(:,1), pA(:,1));
++testCase.verifyEqual(sum(rA(:,2)), sum(pA(:,2)), 'AbsTol', 1e-10);
++end
++
++function test_tensor_shape_preserved(testCase)
++% three-dimensional likelihood tensor with one all-zero prior column
++qA = rand(3,2,2) + 1;
++pA = ones(3,2,2);
++qA(:,1,1) = [64; 1; 1];
++pA(:,1,1) = 0;
++[sA,rA] = spm_MDP_VB_prune(qA,pA,0,0,[],'SIMPLE');
++testCase.verifyEqual(size(sA), size(qA));
++testCase.verifyEqual(size(rA), size(pA));
++testCase.verifyFalse(any(isnan(sA(:))));
++testCase.verifyFalse(any(isnan(rA(:))));
++testCase.verifyEqual(sA(:,1,1), qA(:,1,1));
++testCase.verifyEqual(rA(:,1,1), pA(:,1,1));
++end
++
++end % methods (Test)
++
++end % classdef
+diff --git a/toolbox/DEM/spm_MDP_VB_prune.m b/toolbox/DEM/spm_MDP_VB_prune.m
+index e023070..8967c3c 100644
+--- a/toolbox/DEM/spm_MDP_VB_prune.m
++++ b/toolbox/DEM/spm_MDP_VB_prune.m
+@@ -80,7 +80,6 @@ function [qA,pA] = spm_MDP_VB_prune(qA,pA,f,T,pC,OPT)
+         %------------------------------------------------------------------
+         [E,dEdA] = spm_MDP_MI(pA,pC);
+         rA       = pA.*exp(pA.*dEdA);           % reduced prior
+-        rA       = times(rA,sum(pA)./sum(rA));  % preserve probability mass
+ 
+     case('SIMPLE')
+ 
+@@ -89,12 +88,23 @@ function [qA,pA] = spm_MDP_VB_prune(qA,pA,f,T,pC,OPT)
+         rA       = spm_psi(qA);                 % reduced (log) prior
+         rA       = minus(rA,max(rA));           % normalise
+         rA       = times(pA,rA > -log(32));     % prune
+-        rA       = times(rA,sum(pA)./sum(rA));  % preserve probability mass
+ 
+     otherwise
+ 
+ end
+ 
++% preserve probability mass: columns left with no prior mass (a prior
++% column of zeros, or pruning that removes every entry with prior mass)
++% cannot be rescaled - rescaling them gives 0/0 = NaN - so leave them
++% unreduced (rA = pA), which gives zero reduced free energy below and
++% keeps qA and pA unchanged for those columns
++%--------------------------------------------------------------------------
++z        = ~any(rA,1);                          % columns with no mass
++rA(:,z)  = pA(:,z);                             % leave unreduced
++k        = sum(pA)./sum(rA);                    % rescaling factor
++k(z)     = 1;
++rA       = times(rA,k);
++
+ % retain reduced priors and posteriors if outwith Occam's window
+ %==========================================================================
+ [F,sA]  = spm_MDP_log_evidence(qA,pA,rA);
+-- 
+2.43.0
+

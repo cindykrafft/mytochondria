@@ -69,3 +69,13 @@ read them.
 
 Rule going forward, restated: no repository gets a new filing while it has an unanswered
 one, and none gets more than two until a maintainer replies.
+
+## Issue-fix round (from 2026-09-03 evening)
+
+Posture change, recorded in README step 6: instead of filing more audit findings, work
+through the audited repositories' own open issues, one reproducible bug each, and file a
+PR against the issue. Deliverables under `audits/<package>/issue-fixes/<n>-<slug>/`. Rules:
+nothing for HTSeq (declines); for repositories with unanswered audit filings (AFNI,
+FreeSurfer, Suite2p, Kilosort, Scanpy, umap, Cutadapt, CellPhoneDB) the PR answers the
+maintainers' own issue and is the only new item until they reply; the audit-finding queue
+stays frozen meanwhile.

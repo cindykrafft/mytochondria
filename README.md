@@ -63,6 +63,20 @@ Before preparing or opening anything, check the fork's topics; the ledger's
 week of filings put seven FieldTrip PRs up in two days and a reviewer's reply read as
 "fine, but minor".
 
+**6. Answer what the project already knows.** The audits kept finding bugs that users
+had already reported and nobody had claimed (deepTools #1108 and #1118, BEDTools #1142,
+fastp #474 and #518 among them), and a patch on a thread the maintainers keep open is the
+lowest-friction contribution there is. So the project now alternates: for each repository
+already audited, read its open issues, pick one reproducible bug with a wrong-number or
+crash consequence and no existing PR, reproduce it on master by execution, fix it with a
+test that fails before and passes after, run the project's own tests and linter, and file
+the PR against the issue. Everything is recorded under `audits/<package>/issue-fixes/`,
+one directory per issue, with the reproduction, outputs, patch, PR body and the other
+candidates considered. The same limits apply: nothing for a repository that declines
+AI-generated contributions, and no new PR while the repository has an unanswered one from
+this project, unless it answers the maintainers' own issue. The audit method from steps 1
+to 5 resumes once the open-issue backlog of the audited repositories is worked down.
+
 What *held up* under the same scrutiny is recorded alongside what didn't, so findings
 are read in proportion.
 

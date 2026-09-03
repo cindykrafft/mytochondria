@@ -1,0 +1,29 @@
+spm_MDP_VB_prune: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/issuefix/spm/src/toolbox/DEM/spm_MDP_VB_prune.m
+[1] SIMPLE: prior is zero at every entry that survives pruning
+reduced posterior sA =
+                      64                       1
+reduced prior rA =
+                       0                       1
+[2] SIMPLE: prior column of zeros (never-visited state), posterior has counts;
+    second column is healthy
+sA =
+                      64                      65
+                       1                       0
+rA =
+                       0                       2
+                       0                       0
+[3] MI (default) mode, same input as [2]
+sA =
+                      64                      64
+                       1                       1
+rA =
+                       0                       1
+                       0                       1
+[4] what the NaN prior does on the next call (as in spm_RDP_update loops)
+sA =
+                      65                      66
+                       2                       1
+rA =
+                       0                       2
+                       0                       0
+any NaN in outputs: 0
