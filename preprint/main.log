@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.2)  3 SEP 2026 01:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.9.2)  3 SEP 2026 02:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -535,48 +535,40 @@ ptm/m/n/10 (+20) 180Hz ac-tu-ally yields
  []
 
 [4]
-<figures/mechanism.pdf, id=116, 519.09798pt x 201.77744pt>
+<figures/mechanism.pdf, id=112, 519.09798pt x 201.77744pt>
 File: figures/mechanism.pdf Graphic file (type pdf)
 <use figures/mechanism.pdf>
 Package pdftex.def Info: figures/mechanism.pdf  used on input line 93.
 (pdftex.def)             Requested size: 469.75502pt x 182.59555pt.
- [5] [6 <./figures/mechanism.pdf>]
-<figures/reanalysis.pdf, id=204, 472.35674pt x 508.58264pt>
+ [5]
+<figures/reanalysis.pdf, id=128, 472.35674pt x 508.58264pt>
 File: figures/reanalysis.pdf Graphic file (type pdf)
 <use figures/reanalysis.pdf>
-Package pdftex.def Info: figures/reanalysis.pdf  used on input line 168.
+Package pdftex.def Info: figures/reanalysis.pdf  used on input line 147.
 (pdftex.def)             Requested size: 432.17375pt x 465.32529pt.
- [7] [8 <./figures/reanalysis.pdf>]
-[9]
-Overfull \hbox (42.22673pt too wide) in paragraph at lines 187--188
-\OT1/ptm/m/n/10.95 (-20) bles, group $\OML/cmm/m/it/10.95 t$\OT1/ptm/m/n/10.95 
-(-20) -maps and fig-ures are at []$\OT1/pcr/m/n/10.95 https : / / github . com 
-/ cindykrafft / research-[]software-[]audit$[]\OT1/ptm/m/n/10.95 (-20) .
+ [6 <./figures/mechanism.pdf>] [7 <./figures/reanalysis.pdf>] [8]
+Overfull \hbox (9.78871pt too wide) in paragraph at lines 166--167
+\OT1/pcr/m/n/10.95 github . com / afni / afni / pull / 944$[]\OT1/ptm/m/n/10.95
+ (-20) , []$\OT1/pcr/m/n/10.95 https : / / github . com / afni / afni / pull / 
+947$[]\OT1/ptm/m/n/10.95 (-20) , []$\OT1/pcr/m/n/10.95 https :
  []
 
-
-Overfull \hbox (18.32971pt too wide) in paragraph at lines 187--188
-\OT1/pcr/m/n/10.95 afni / pull / 944$[]\OT1/ptm/m/n/10.95 (-20) , []$\OT1/pcr/m
-/n/10.95 https : / / github . com / afni / afni / pull / 947$[]\OT1/ptm/m/n/10.
-95 (-20) , []$\OT1/pcr/m/n/10.95 https : / / github . com / spm /
- []
-
-[10] [11] (./main.aux)
+[9] [10] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 7F9E63D6CB640FD9410BD1486A5D4A2F;2833.
+(rerunfilecheck)             Checksum: 4EF01AC7980ECE2B1342194AD6C479ED;2697.
  ) 
 Here is how much of TeX's memory you used:
- 14343 strings out of 476182
- 224782 string characters out of 5795596
- 1942975 words of memory out of 5000000
- 35846 multiletter control sequences out of 15000+600000
- 593002 words of font info for 263 fonts, out of 8000000 for 9000
+ 14319 strings out of 476182
+ 224554 string characters out of 5795596
+ 1940975 words of memory out of 5000000
+ 35844 multiletter control sequences out of 15000+600000
+ 592231 words of font info for 250 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,11n,79p,2580b,579s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,79p,2521b,461s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texli
@@ -588,10 +580,10 @@ lic/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
 courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (11 pages, 290785 bytes).
+Output written on main.pdf (10 pages, 286817 bytes).
 PDF statistics:
- 411 PDF objects out of 1000 (max. 8388607)
- 243 compressed objects within 3 object streams
- 53 named destinations out of 1000 (max. 500000)
- 45707 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 406 PDF objects out of 1000 (max. 8388607)
+ 238 compressed objects within 3 object streams
+ 50 named destinations out of 1000 (max. 500000)
+ 45699 words of extra memory for PDF output out of 51595 (max. 10000000)
 
