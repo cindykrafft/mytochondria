@@ -1,8 +1,19 @@
 # Cutadapt upstream filing kit
 
 _Prepared 2026-09-03 against `marcelm/cutadapt` `main` @ `50e9fb8d` (2026-06-26,
-5.3.dev15). **Nothing has been filed.** The four fix branches exist only in the
-session's scratch clone; the `git am`-able patches are in this directory._
+5.3.dev15). **Nothing has been filed yet.** The four fix branches are pushed to the fork
+[cindykrafft/cutadapt](https://github.com/cindykrafft/cutadapt), each one commit on top of
+`50e9fb8d`, and the `git am`-able patches are in this directory:_
+
+| branch | commit | patch |
+|---|---|---|
+| [`fix/absolute-error-count`](https://github.com/cindykrafft/cutadapt/tree/fix/absolute-error-count) | `7eeed8d` | 0001 (CA1) |
+| [`fix/max-ee-quality-base`](https://github.com/cindykrafft/cutadapt/tree/fix/max-ee-quality-base) | `1f56b1d` | 0002 (CA2) |
+| [`fix/index-alignment-score`](https://github.com/cindykrafft/cutadapt/tree/fix/index-alignment-score) | `d96438c` | 0003 (CA3) |
+| [`fix/prefilter-anchored-insertion`](https://github.com/cindykrafft/cutadapt/tree/fix/prefilter-anchored-insertion) | `32ef8c3` | 0004 (CA4) |
+
+_Once a PR is opened, add its issue number to the `CHANGES.rst` bullet on that branch
+(the project prefixes entries with `` :issue:`NNN` ``)._
 
 ## What was read before preparing this (step 4 of the method)
 
