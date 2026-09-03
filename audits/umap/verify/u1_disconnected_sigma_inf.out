@@ -24,3 +24,18 @@ PART A  smooth_knn_dist on the distance array with inf for disconnected neighbou
 
 PART B  UMAP.fit(disconnection_distance=5) on the same data
   exact path (n < 4096)                                      sigma==inf rows:   8;  cluster rows:  56 edges of weight 1.0 among  56 nonzero
+  pynndescent path (force_approximation_algorithm=True)      sigma==inf rows:   8;  cluster rows:  56 edges of weight 1.0 among  56 nonzero
+  metric='precomputed', dense matrix, disconnection_distance sigma==inf rows:   8;  cluster rows:  56 edges of weight 1.0 among  56 nonzero
+  metric='precomputed', inf entries, nearest_neighbors path  sigma==inf rows:   8;  cluster rows:  56 edges of weight 1.0 among  56 nonzero
+  control: no disconnection                                  sigma==inf rows:   0;  cluster rows:  10 edges of weight 1.0 among  56 nonzero
+  transform(X[:8]) graph rows (bipartite): 8 of 64 nonzero entries equal 1.0 (self edges: 8)
+
+PART C  default settings, metric='jaccard' on sparse binary data (disconnection_distance defaults to 1;
+        rows sharing no feature are at distance exactly 1 and are pruned)
+  400 x 40 binary, density 0.06: rows with a pruned neighbour    0; sigma == inf    0; of which fewer than log2(k) finite neighbours (unbounded by definition)    0, wrongly inf    0; in the wrongly-inf rows 0 of 0 graph entries equal 1.0
+  1000 x 600 binary, density 0.005: rows with a pruned neighbour  548; sigma == inf  600; of which fewer than log2(k) finite neighbours (unbounded by definition)   87, wrongly inf  513; in the wrongly-inf rows 4531 of 4855 graph entries equal 1.0
+
+PART D  smooth_knn_dist with the floor computed on finite distances (proposed fix), Part A array
+  rows with sigma == inf: 0
+  max |sigma fixed - reference| = 2.19e-06 (all rows), max |rho diff| = 0.00e+00
+  without any inf, fixed vs shipped: max |sigma diff| = 0.00e+00, max |rho diff| = 0.00e+00
