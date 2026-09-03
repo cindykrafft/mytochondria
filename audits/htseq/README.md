@@ -51,6 +51,29 @@ pairs; `GenomicArrayOfSets` on 36,000 bases; GTF/GFF3 1-based→0-based conversi
 correction internals, the matrix writers, `StretchVector`, BigWig/bedGraph, VCF,
 multiprocessing.
 
+## HC2 on real data (added 2026-09-03, after the maintainer asked)
+
+The audit above used synthetic BAMs. In answer to the maintainer's question, the same
+check was run on two real Illumina paired-end samples from the public 1000 Genomes S3
+bucket, both aligned upstream with bwa 0.5.9 (`aln`/`sampe`, 2012), HG00096 chromosome 20,
+counted against Ensembl GRCh37 genes (harness [`verify/hc2_real_1000g.py`](verify/hc2_real_1000g.py),
+output [`verify/hc2_real_1000g.out`](verify/hc2_real_1000g.out)). Every unmapped-mate record
+in both files carries MAPQ 0, as the review assumed.
+
+| sample | paired records | pairs with one mate unmapped, mapped mate MAPQ ≥ 10 | `__too_low_aQual`, main default | same, patched | recovered | genes with count > 0 | genes whose count changes | median change | changes ≥ 1 % / ≥ 5 % | largest |
+|---|---|---|---|---|---|---|---|---|---|---|
+| exome | 1,926,759 | 2,840 (of 3,195) | 6,574 | 3,734 | 2,840 (exactly those pairs) | 1,163 | 437 | 0.26 % | 39 / 10 | 20 % (4 → 5) |
+| low coverage | 2,921,259 | 5,935 (of 7,247) | 24,655 | 18,720 | 5,935 (exactly those pairs) | 1,275 | 224 | 0.90 % | 101 / 19 | 20 % (4 → 5) |
+
+So on real BWA output the mechanism is exactly as described and the recovered pairs are
+exactly the one-mate-unmapped pairs whose mapped mate passes the cutoff. The size of the
+effect on these two DNA samples is small: about 0.3 % of pairs, per-gene changes mostly
+under 1 %, up to 20 % on genes with single-digit counts. These are DNA, not RNA-seq, and
+no real RNA-seq run could be fetched from this environment (ENA, NCBI and Zenodo are
+blocked; only the 1000 Genomes and iGenomes S3 buckets answer). For RNA-seq the effect
+scales with the fraction of pairs that have one unmapped mate, which depends on the
+aligner and library; the mechanism does not.
+
 ## How the papers use HTSeq (lower bounds from the survey cache; see below)
 
 | signal | papers |

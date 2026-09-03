@@ -78,6 +78,8 @@ statistic, and here it is inflated by pairs that have nothing wrong with their M
 `../upstream/`, with a test that fails on `main`). This is a behaviour change for the
 affected files (gene counts rise, `__too_low_aQual` falls), which the PR body flags.
 
+**Real data (added 2026-09-03).** See the README section "HC2 on real data": two 1000 Genomes BWA samples (HG00096 chr20, exome and low coverage) reproduce the mechanism exactly; 2,840 and 5,935 pairs recovered, matching the one-mate-unmapped pairs with mapped-mate MAPQ ≥ 10 to the pair; per-gene changes mostly under 1 %, up to 20 % on low-count genes (`verify/hc2_real_1000g.out`).
+
 ### HC1 — CONFIRMED on `main`, 2.1.2, 0.13.5, 0.12.4 and 0.11.2 (executed); same line in 0.9.1 (by reading): `BAM_Reader[iv]` misses alignments whose last aligned base is `iv.start`
 
 **Code.** `BAM_Reader.__getitem__` (`HTSeq/__init__.py:1065`):

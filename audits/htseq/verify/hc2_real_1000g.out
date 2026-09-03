@@ -1,0 +1,12 @@
+== exome: aligner [('bwa', '0.5.9-r16')]; 1926759 paired records; 3195 pairs with exactly one mate unmapped; MAPQ on the unmapped record: {0: 3195}; mapped mate MAPQ>=10 in 2840 of them
+   main -a 10     __too_low_aQual=  6574 __no_feature= 200227 __ambiguous= 30165 gene-assigned=732825
+   main -a 0      __too_low_aQual=     0 __no_feature= 203887 __ambiguous= 30328 gene-assigned=735576
+   patched -a 10  __too_low_aQual=  3734 __no_feature= 201551 __ambiguous= 30219 gene-assigned=734287
+   pairs recovered from __too_low_aQual by the patch: 2840  (== one-mate-unmapped pairs with mapped mate MAPQ>=10: True)
+   genes with count>0: 1163; genes whose count changes: 437; median relative change among them: 0.0026; >=1%: 39; >=5%: 10; largest: 0.200 (ENSG00000231977 4->5)
+== lowcov: aligner [('bwa', '0.5.9-r16')]; 2921259 paired records; 7247 pairs with exactly one mate unmapped; MAPQ on the unmapped record: {0: 7247}; mapped mate MAPQ>=10 in 5935 of them
+   main -a 10     __too_low_aQual= 24655 __no_feature=1347974 __ambiguous=  3043 gene-assigned=87175
+   main -a 0      __too_low_aQual=     0 __no_feature=1371839 __ambiguous=  3064 gene-assigned=87944
+   patched -a 10  __too_low_aQual= 18720 __no_feature=1353617 __ambiguous=  3050 gene-assigned=87460
+   pairs recovered from __too_low_aQual by the patch: 5935  (== one-mate-unmapped pairs with mapped mate MAPQ>=10: True)
+   genes with count>0: 1275; genes whose count changes: 224; median relative change among them: 0.0090; >=1%: 101; >=5%: 19; largest: 0.200 (ENSG00000222281 4->5)
