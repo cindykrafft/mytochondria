@@ -47,7 +47,7 @@ fastp: fastp 1.3.6
 == H5: --phred64
   phred+64 input with -6 gives the same surviving reads as phred+33: False
   qualities converted to phred+33 in the output: False
-  q30_bases: phred64 175934, phred33 99155
+  q30_bases: phred64 198591, phred33 99155
 
 == H6: threshold boundaries (one read each, 100 nt)
   -l 100 on a 100 nt read (kept: < is strict)    kept=True  expected=True  ok

@@ -1,0 +1,299 @@
+From 94ef85811504c062be78a162bb62f520e18253c8 Mon Sep 17 00:00:00 2001
+From: Claude Code <noreply@anthropic.com>
+Date: Thu, 3 Sep 2026 04:19:19 +0000
+Subject: [PATCH] reldist, subtract, flank: keep 64-bit coordinates (large
+ chromosomes)
+
+Since 2.28 coordinates are 64-bit (CHRPOS), but three tools still narrowed
+them to 32-bit int, so on chromosomes with coordinates above 2^31 (~2.15 Gb;
+common in plant, amphibian and some fish genomes):
+
+  reldist  LoadMidpoints/CalculateRelativeDistance cast (bed.end + bed.start)
+           to int before halving, so every query whose start+end >= 2^31 was
+           silently dropped from the distribution.
+  subtract subtractHits held keyStart/keyEnd/hitStart/hitEnd and the block
+           coordinates in int, producing negative end coordinates.
+  flank    AddFlank/AddStrandedFlank took chromSize and the flank sizes as int
+           and compared with static_cast<int>, collapsing the flanks to
+           [0, feature.start).
+
+Use CHRPOS throughout these three code paths.
+
+test/{reldist,subtract,flank}/: a large-chromosome case each (coordinates
+around 3e9), failing on unmodified master and passing with this change.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ src/flankBed/flankBed.cpp         | 30 +++++++++++++++---------------
+ src/flankBed/flankBed.h           |  4 ++--
+ src/reldist/reldist.cpp           |  4 ++--
+ src/subtractFile/subtractFile.cpp | 26 +++++++++++++-------------
+ test/flank/test-flank.sh          | 14 ++++++++++++++
+ test/reldist/test-reldist.sh      | 17 +++++++++++++++++
+ test/subtract/test-subtract.sh    | 15 +++++++++++++++
+ 7 files changed, 78 insertions(+), 32 deletions(-)
+
+diff --git a/src/flankBed/flankBed.cpp b/src/flankBed/flankBed.cpp
+index b28103d..dd6ec43 100644
+--- a/src/flankBed/flankBed.cpp
++++ b/src/flankBed/flankBed.cpp
+@@ -51,11 +51,11 @@ void BedFlank::FlankBed() {
+         
+     while (_bed->GetNextBed(bedEntry)) {
+         if (_bed->_status == BED_VALID) {
+-            int leftFlank  = _leftFlank;
+-            int rightFlank = _rightFlank;            
++            CHRPOS leftFlank  = (CHRPOS) _leftFlank;
++            CHRPOS rightFlank = (CHRPOS) _rightFlank;
+             if (_fractional == true) {
+-                leftFlank  = (int) (_leftFlank  * bedEntry.size());
+-                rightFlank = (int) (_rightFlank * bedEntry.size());
++                leftFlank  = (CHRPOS) (_leftFlank  * bedEntry.size());
++                rightFlank = (CHRPOS) (_rightFlank * bedEntry.size());
+             }
+             
+             if ((_forceStrand == false) || (bedEntry.strand == "+"))
+@@ -72,10 +72,10 @@ void BedFlank::FlankBed() {
+ }
+ 
+ 
+-void BedFlank::AddFlank(BED &bed, int leftFlank, int rightFlank) {
++void BedFlank::AddFlank(BED &bed, CHRPOS leftFlank, CHRPOS rightFlank) {
+ 
+-    int chromSize = _genome->getChromSize(bed.chrom);
+-    if (chromSize == -1) {
++    CHRPOS chromSize = _genome->getChromSize(bed.chrom);
++    if ((int64_t)chromSize == -1) {
+         cerr << "ERROR: chrom \"" << bed.chrom << "\" not found in genome file. Exiting." << endl;
+         exit(1);
+     }
+@@ -94,7 +94,7 @@ void BedFlank::AddFlank(BED &bed, int leftFlank, int rightFlank) {
+     // do not report a left flank if the left feature start is already
+     // the very first base of the scaffold
+     if ((leftFlank > 0) && (feature.start != 0)) {
+-        if ( (static_cast<int>(feature.start) - leftFlank) > 0)
++        if ( ((CHRPOS)feature.start - leftFlank) > 0)
+         {
+             left.end    = feature.start;
+             left.start -= leftFlank;
+@@ -112,8 +112,8 @@ void BedFlank::AddFlank(BED &bed, int leftFlank, int rightFlank) {
+     // Do not flank if the right flank of the feature (which is feature.end)
+     // is already last base of scaffold
+     if (rightFlank > 0 && (feature.end < chromSize) ) {
+-        if ( (static_cast<int>(feature.end) + static_cast<int>(rightFlank+1))
+-             <= static_cast<int>(chromSize)) 
++        if ( ((CHRPOS)feature.end + (rightFlank + 1))
++             <= chromSize) 
+         {
+             right.start    = feature.end;
+             right.end     += (rightFlank);
+@@ -128,10 +128,10 @@ void BedFlank::AddFlank(BED &bed, int leftFlank, int rightFlank) {
+ }
+ 
+ 
+-void BedFlank::AddStrandedFlank(BED &bed, int leftFlank, int rightFlank) {
++void BedFlank::AddStrandedFlank(BED &bed, CHRPOS leftFlank, CHRPOS rightFlank) {
+ 
+-    int chromSize = _genome->getChromSize(bed.chrom);
+-    if (chromSize == -1) {
++    CHRPOS chromSize = _genome->getChromSize(bed.chrom);
++    if ((int64_t)chromSize == -1) {
+         cerr << "ERROR: chrom \"" << bed.chrom << "\" not found in genome file. Exiting." << endl;
+         exit(1);
+     }
+@@ -146,7 +146,7 @@ void BedFlank::AddStrandedFlank(BED &bed, int leftFlank, int rightFlank) {
+     // Do not flank if the right flank of the feature (which is feature.start)
+     // since in reverse strand is first base of scaffold
+     if (rightFlank > 0 && (feature.start != 0)) {
+-        if ( (static_cast<int>(feature.start) - rightFlank) > 0)
++        if ( ((CHRPOS)feature.start - rightFlank) > 0)
+         {
+             left.end    = feature.start;
+             left.start -= rightFlank;
+@@ -171,7 +171,7 @@ void BedFlank::AddStrandedFlank(BED &bed, int leftFlank, int rightFlank) {
+     // you would create a left flank that has as left.start the feature.end coordinate
+     // so end needs to be smaller than chromsize to have at least 1 flanking base
+     if (leftFlank > 0 && (feature.end < chromSize) ) {
+-        if ( (static_cast<int>(feature.end) + leftFlank) <= static_cast<int>(chromSize))
++        if ( ((CHRPOS)feature.end + leftFlank) <= chromSize)
+         {
+             right.start    = feature.end;
+             right.end     += leftFlank;
+diff --git a/src/flankBed/flankBed.h b/src/flankBed/flankBed.h
+index 995d13a..965b083 100644
+--- a/src/flankBed/flankBed.h
++++ b/src/flankBed/flankBed.h
+@@ -58,9 +58,9 @@ private:
+     void FlankBed();
+ 
+     // method to grab requested flank w.r.t. a single BED entry
+-    void AddFlank(BED &bed, int leftSlop, int rightSlop);
++    void AddFlank(BED &bed, CHRPOS leftSlop, CHRPOS rightSlop);
+     
+     // method to grab requested flank w.r.t. a single BED entry, 
+     // while choosing flanks based on strand
+-    void AddStrandedFlank(BED &bed, int leftSlop, int rightSlop);
++    void AddStrandedFlank(BED &bed, CHRPOS leftSlop, CHRPOS rightSlop);
+ };
+diff --git a/src/reldist/reldist.cpp b/src/reldist/reldist.cpp
+index 2ee7c57..46f4f37 100644
+--- a/src/reldist/reldist.cpp
++++ b/src/reldist/reldist.cpp
+@@ -41,7 +41,7 @@ void RelativeDistance::LoadMidpoints() {
+     BED bed;    
+     _bedB->Open();
+     while (_bedB->GetNextBed(bed)) {
+-        CHRPOS midpoint = (int) (bed.end + bed.start) / 2;
++        CHRPOS midpoint = (bed.end + bed.start) / 2;
+         _db_midpoints[bed.chrom].push_back(midpoint);
+     }
+     
+@@ -106,7 +106,7 @@ void RelativeDistance::CalculateRelativeDistance()
+             vector<CHRPOS> *chrom_mids = &_db_midpoints[bed.chrom];
+             // binary search the current query's midpoint among
+             // the database midpoints
+-            CHRPOS midpoint = (CHRPOS) (bed.end + bed.start) / 2;
++            CHRPOS midpoint = (bed.end + bed.start) / 2;
+             low = lower_bound(chrom_mids->begin(), 
+                               chrom_mids->end(), 
+                               midpoint);
+diff --git a/src/subtractFile/subtractFile.cpp b/src/subtractFile/subtractFile.cpp
+index bccc727..ca9ffc2 100644
+--- a/src/subtractFile/subtractFile.cpp
++++ b/src/subtractFile/subtractFile.cpp
+@@ -68,8 +68,8 @@ void SubtractFile::subtractHits(RecordKeyVector &hits) {
+ 
+ 	//loop through hits. Track which bases in query were covered
+ 	Record *keyRec = hits.getKey();
+-	int keyStart = keyRec->getStartPos();
+-	int keyEnd = keyRec->getEndPos();
++	CHRPOS keyStart = keyRec->getStartPos();
++	CHRPOS keyEnd = keyRec->getEndPos();
+ 
+ 	//this vector of bools will represent the bases of the query.
+ 	//for each base, true means uncovered, false means covered.
+@@ -81,14 +81,14 @@ void SubtractFile::subtractHits(RecordKeyVector &hits) {
+ 	bool basesRemoved = false;
+ 	for (RecordKeyVector::iterator_type iter = hits.begin(); iter != hits.end(); iter = hits.next()) {
+ 		Record *hitRec = *iter;
+-		int hitStart = hitRec->getStartPos();
+-		int hitEnd = hitRec->getEndPos();
++		CHRPOS hitStart = hitRec->getStartPos();
++		CHRPOS hitEnd = hitRec->getEndPos();
+ 
+-		int startIdx = max(keyStart, hitStart) - keyStart;
+-		int endIdx = min(keyEnd, hitEnd) - keyStart;
++		CHRPOS startIdx = max(keyStart, hitStart) - keyStart;
++		CHRPOS endIdx = min(keyEnd, hitEnd) - keyStart;
+ 
+-		int keyLen = keyEnd - keyStart;
+-		int coveredLen = endIdx - startIdx;
++		CHRPOS keyLen = keyEnd - keyStart;
++		CHRPOS coveredLen = endIdx - startIdx;
+ 		float coveragePct = (float)coveredLen / (float)keyLen;
+ 		//for each base in the hit, set the base in the query to false.
+ 		//this effectively "erases" the covered bits. Only do
+@@ -111,7 +111,7 @@ void SubtractFile::subtractHits(RecordKeyVector &hits) {
+ 	// uniquely covered bases exceeds the overlap fraction.
+ 	if (upCast(_context)->getRemoveSum()) {
+ 		//determine how many bases are left uncovered.
+-		int numBasesUncovered = std::accumulate(keyBases.begin(), keyBases.end(), 0);
++		CHRPOS numBasesUncovered = std::accumulate(keyBases.begin(), keyBases.end(), (CHRPOS)0);
+ 		//determine percentage that are covered.
+ 		float pctCovered = 1.0 - (float)numBasesUncovered / (float)(keyEnd - keyStart);
+ 		if (pctCovered > upCast(_context)->getSubtractFraction()) {
+@@ -127,13 +127,13 @@ void SubtractFile::subtractHits(RecordKeyVector &hits) {
+ 	//now make "blocks" out of the query's remaining stretches of
+ 	//uncovered bases.
+ 	hits.clearVector();
+-    for (int i = 0; i < (int)keyBases.size(); i++) {
++    for (CHRPOS i = 0; i < (CHRPOS)keyBases.size(); i++) {
+         if (keyBases[i] == true) {
+-            int blockStart = keyStart + i;
+-            while (keyBases[i] == true && i < (int)keyBases.size()) {
++            CHRPOS blockStart = keyStart + i;
++            while (i < (CHRPOS)keyBases.size() && keyBases[i] == true) {
+                 i++;
+             }
+-            int blockEnd = min(keyStart + i, keyEnd);
++            CHRPOS blockEnd = min(keyStart + i, keyEnd);
+             hits.push_back(_tmpBlocksMgr->allocateAndAssignRecord(keyRec, blockStart, blockEnd));
+         }
+     }
+diff --git a/test/flank/test-flank.sh b/test/flank/test-flank.sh
+index b610b24..7b08f55 100644
+--- a/test/flank/test-flank.sh
++++ b/test/flank/test-flank.sh
+@@ -151,4 +151,18 @@ chr1	200	1000	a2	2	-" > exp
+ $BT flank -i a.bed -b 2000 -s -g tiny.genome > obs
+ check obs exp
+ rm obs exp
++###########################################################
++#  flank on a large chromosome (coordinates > 2^31)
++###########################################################
++echo -e "    flank.t_bigchrom...\c"
++echo -e "chr1\t5000000000" > big.genome
++echo -e "chr1\t3000000000\t3000000100\tf1\t1\t+" > big.bed
++echo \
++"chr1	2999999990	3000000000	f1	1	+
++chr1	3000000100	3000000110	f1	1	+" > exp
++$BT flank -i big.bed -g big.genome -l 10 -r 10 > obs
++check obs exp
++rm obs exp big.bed big.genome
++
++
+ [[ $FAILURES -eq 0 ]] || exit 1;
+diff --git a/test/reldist/test-reldist.sh b/test/reldist/test-reldist.sh
+index 589cafe..f2e12f2 100644
+--- a/test/reldist/test-reldist.sh
++++ b/test/reldist/test-reldist.sh
+@@ -166,4 +166,21 @@ $BT reldist -a issue_711.a.bed \
+ check obs exp
+ rm obs exp
+ 
++###########################################################
++#  reldist on a large chromosome (coordinates > 2^31):
++#  B midpoints at 3e9 and 3e9+1000, A midpoint at 3e9+100
++#  -> relative distance 0.100.
++###########################################################
++echo -e "    reldist.t_bigchrom...\c"
++echo \
++"chr1	2999999900	3000000100
++chr1	3000000900	3000001100" > bigb.bed
++echo -e "chr1\t3000000050\t3000000150" > biga.bed
++echo \
++"chr1	3000000050	3000000150	0.100" > exp
++$BT reldist -a biga.bed -b bigb.bed -detail > obs
++check obs exp
++rm obs exp biga.bed bigb.bed
++
++
+ [[ $FAILURES -eq 0 ]] || exit 1;
+diff --git a/test/subtract/test-subtract.sh b/test/subtract/test-subtract.sh
+index 0ba1dd7..445931a 100644
+--- a/test/subtract/test-subtract.sh
++++ b/test/subtract/test-subtract.sh
+@@ -275,4 +275,19 @@ $BT subtract -a a.bed -b b.bed b2.bed -f 0.6 -N > obs
+ check obs exp
+ rm obs exp
+ 
++###########################################################
++#  subtract on a large chromosome (coordinates > 2^31):
++#  A = [3e9, 3e9+100) minus B = [3e9+10, 3e9+20)
++###########################################################
++echo -e "    subtract.t_bigchrom...\c"
++echo -e "chr1\t3000000000\t3000000100" > biga.bed
++echo -e "chr1\t3000000010\t3000000020" > bigb.bed
++echo \
++"chr1	3000000000	3000000010
++chr1	3000000020	3000000100" > exp
++$BT subtract -a biga.bed -b bigb.bed > obs
++check obs exp
++rm obs exp biga.bed bigb.bed
++
++
+ [[ $FAILURES -eq 0 ]] || exit 1;
+-- 
+2.43.0
+

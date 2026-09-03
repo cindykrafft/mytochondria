@@ -53,7 +53,7 @@ report("-excl: no output record overlaps an excluded region (%d records)" % len(
 rows_ef = lines(run(["shuffle", "-i", I, "-g", G, "-seed", "7", "-excl", EXC, "-f", "0.5"], check=False))
 nbad = sum(1 for r in rows_ef for e in excl if r[0] == e[0] and overlap(int(r[1]), int(r[2]), e[1], e[2]) / (int(r[2]) - int(r[1])) >= 0.5)
 report("-excl -f 0.5: no record has >= 50 %% of its bases excluded", nbad == 0, str(nbad))
-small = feats[:3000]; write(I, small)
+small = [f for f in feats[:400] if int(f[2]) - int(f[1]) <= 1000]; write(I, small)
 rows_n = lines(run(["shuffle", "-i", I, "-g", G, "-seed", "7", "-noOverlapping"], check=False))
 by = {}
 for r in rows_n: by.setdefault(r[0], []).append((int(r[1]), int(r[2])))

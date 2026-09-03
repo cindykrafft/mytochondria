@@ -72,7 +72,7 @@ for label, args, fn in [
 
 # ------------------------------------------------------------------------ H2
 print("\n== H2: base correction (-c): GOOD_QUAL = Q30, BAD_QUAL = Q14 "
-      "(basecorrector.cpp:20-21)")
+      "(basecorrector.cpp:30-31)")
 overlap = rnd(80)
 cases = [
     ("r1 Q40, r2 Q2   -> r2 takes r1's base", 40, 2, "r2"),

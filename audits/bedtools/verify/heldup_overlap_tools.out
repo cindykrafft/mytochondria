@@ -90,8 +90,7 @@ bedtools 614e9a5
    cluster -s (partition; '.' records dropped)                ok 
 
 == map
-      first mismatch: a92 sstdev got NA ref nan hits ['465']
-   map -c 5 -o <18 operations> -null NA (count/count_distinct give 0 for no hit) MISMATCH 
+   map -c 5 -o <18 operations> -null NA (count/count_distinct give 0 for no hit) ok 
    map -o sum -f 0.5 -s                                       ok 
 
-MISMATCHES: 1
+MISMATCHES: 0

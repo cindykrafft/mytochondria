@@ -25,10 +25,10 @@ fastp: fastp 1.3.6
 == Part C: paired-end with --detect_adapter_for_pe (adapter trimming by overlap still runs)
   built-in adapter                    len   read1_adapter_sequence  trimmed reads
   TruSeq Universal Adapter (58 nt)     58 AATGATACGGCGACCACCGAGATC          40000
-  TruSeq Small RNA RPI1 (63 nt)        63              unspecified          23443
+  TruSeq Small RNA RPI1 (63 nt)        63              unspecified            352
   TruSeq Adapter Index 5 (63 nt)       63 AGATCGGAAGAGCACACGTCTGAA          40000
 
 == Part D: what stays in the reads (SE, TruSeq Small RNA RPI1, 63 nt)
   reads whose adapter was not removed: 2000/2000
-  adapter bases left in the output:    119433
+  adapter bases left in the output:    143014
   stderr said: Detecting adapter sequence for read1... | No adapter detected for read1 | reads failed due to adapter dimer: 0 | reads with adapter trimmed: 0 | bases trimmed due to adapters: 0

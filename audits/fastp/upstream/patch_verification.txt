@@ -1,0 +1,49 @@
+### patch verification (run 2026-09-03; harnesses in ../verify, binaries built
+### from each branch with `make -j` against libisal/libdeflate/libhwy)
+
+Each branch is one commit on top of OpenGene/fastp master @ dce5c40.
+
+--- unmodified master dce5c40 (reference)
+  fastp test                                   : ALL PASSED
+  new test of patch 0001 (Filter::test)        : FAILED
+      "cut_front with trim_front1=5 should keep 35 of 40 bases"
+  new test of patch 0002 (shell script)        : FAIL, 0 of 20000 reads trimmed
+  new test of patch 0003 (AdapterTrimmer::test): FAILED
+      "adapter with one inserted base not trimmed: ...AGATCGGAGAGAGCACACGTCTGAACTCCAGTCA"
+  heldup_filters_and_stats.py                  : 0 DIFFERS
+
+--- fix/cut-window-trim-front (patch 0001, FP1)
+  fastp test                                   : ALL PASSED
+  heldup_filters_and_stats.py                  : 0 DIFFERS
+  heldup_pipeline_and_dup.py                   : poly-G/poly-X 20000/20000 in all 5 rows,
+                                                 no split / --reads_to_process / UMI anomaly
+  fp1_cut_window_edge.py                       : Part A all 12 rows "ok";
+                                                 Part B 20000/20000 against the fixed port
+                                                 in all 8 option sets
+
+--- fix/known-adapter-truncation (patch 0002, FP2)
+  fastp test                                   : ALL PASSED
+  scripts/test_known_adapter_over60.sh         : PASS, 20000 of 20000 reads trimmed
+  heldup_filters_and_stats.py                  : 0 DIFFERS
+  heldup_pipeline_and_dup.py                   : no anomaly
+
+--- fix/adapter-indel-offset (patch 0003, FP3)
+  fastp test                                   : ALL PASSED
+  heldup_filters_and_stats.py                  : 0 DIFFERS
+  heldup_pipeline_and_dup.py                   : no anomaly
+  fp3_indel_adapter_offset.py                  : 5000/5000 against the port with the offset
+                                                 applied; 993/993 insertions and 967/967
+                                                 deletions trimmed (263 / 266 before);
+                                                 0 of 1013 adapter-free reads trimmed
+
+--- git apply --check against a clean dce5c40 worktree
+  0001-fix-cut_front-cut_tail-must-not-drop-a-window-of-goo.patch: applies cleanly
+  0002-fix-keep-an-auto-detected-adapter-that-is-longer-tha.patch: applies cleanly
+  0003-fix-search-for-a-gapped-adapter-at-the-read-offset-n.patch: applies cleanly
+  all three together: apply together cleanly (they touch different files)
+
+fastp has no linter configuration (no .clang-format, no pre-commit, no style
+section in the README); the CI workflow only builds the binary and runs
+`./fastp --version` and `./fastp -i testdata/R1.fq -o /dev/null`. Both were run
+for every branch, together with `./fastp test`, which is the project's unit-test
+entry point.

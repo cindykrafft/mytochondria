@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """FP3: the one-indel adapter search never leaves read position 0.
 
-`AdapterTrimmer::trimBySequence` (src/adaptertrimmer.cpp:90-183) scans the read
+`AdapterTrimmer::trimBySequence` (src/adaptertrimmer.cpp:64-157 (function starts at :64)) scans the read
 for the adapter at every offset `pos`. The exact-match loop passes the offset to
-the comparison (`rdata + startOffset + pos`, :117-119), but the two gapped loops
+the comparison (`rdata + startOffset + pos`, :91-93), but the two gapped loops
 that were added in v1.0.0 ("support one base insertion/deletion in SE mode
 adapter trimming") do not:
 
-    Matcher::matchWithOneInsertion(rdata, adata, cmplen, allowedMismatch);  // :136
-    Matcher::matchWithOneInsertion(adata, rdata, cmplen, allowedMismatch);  // :153
+    Matcher::matchWithOneInsertion(rdata, adata, cmplen, allowedMismatch);  // :110
+    Matcher::matchWithOneInsertion(adata, rdata, cmplen, allowedMismatch);  // :127
 
 `rdata` is the read from base 0. For every `pos` in [0, rlen-alen-1] the call is
 byte-for-byte identical (same pointers, same cmplen, same allowance), so the
@@ -51,7 +51,7 @@ def delete_base(ad, p):
 
 # --------------------------------------------------- ports of the C++ routines
 def match_with_one_insertion(ins, normal, cmplen, diff_limit):
-    """Port of Matcher::matchWithOneInsertion (src/matcher.cpp:8-45).
+    """Port of Matcher::matchWithOneInsertion (src/matcher.cpp:10-45).
 
     `ins` carries one extra base relative to `normal`; both are compared over
     `cmplen` characters of `normal` and `cmplen`+1 of `ins`.
@@ -160,7 +160,7 @@ ship_trim = fix_trim = 0
 
 def after_dimer_filter(res, info, dimer_max_len=2):
     """A read trimmed to <= --dimer_max_len bases is dropped as an adapter dimer
-    (seprocessor.cpp:262-265, a v1.x feature), so it is absent from the output."""
+    (seprocessor.cpp:255-260, a v1.x feature), so it is absent from the output."""
     if info is not None and len(res) <= dimer_max_len:
         return None
     return res

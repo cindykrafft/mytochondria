@@ -13,6 +13,7 @@
 """
 import os, random, sys, tempfile
 from scipy.stats import fisher_exact
+import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from btlib import *
 
@@ -58,15 +59,19 @@ for trial in range(30):
     if trial % 2:
         brows = sorted_bed(brows + [[r[0], max(0, int(r[1]) - rng.randint(0, 100)), int(r[2]) + rng.randint(0, 100), "x", 0, "+"] for r in arows if rng.random() < 0.4])
     write(A, arows); write(B, brows)
-    out = run(["fisher", "-a", A, "-b", B, "-g", G]).splitlines()
+    out = run(["fisher", "-a", A, "-b", B, "-g", G] + (["-m"] if trial % 3 == 2 else [])).splitlines()
     # parse
     def num(prefix): return int(next(l for l in out if l.startswith(prefix)).split(":")[1])
     qn, dn, novl, n22full = num("# Number of query intervals"), num("# Number of db intervals"), num("# Number of overlaps"), num("# Number of possible intervals")
     tab = [l for l in out if l.startswith("#     in -a") or l.startswith("# not in -a")]
     n11, n12 = [int(x.strip()) for x in tab[0].split("|")[1:3]]; n21, n22 = [int(x.strip()) for x in tab[1].split("|")[1:3]]
     left, right, two, ratio = out[-1].split("\t")
-    # port of fisher.cpp: records are merged within each file (ContextFisher <- ContextJaccard: setUseMergedIntervals)
-    ma, mb = merge(arows), merge(brows)
+    # port of fisher.cpp: records are NOT merged by default (ContextFisher.cpp:10; -m merges)
+    ma = {}; mb = {}
+    for r in arows: ma.setdefault(r[0], []).append((int(r[1]), int(r[2])))
+    for r in brows: mb.setdefault(r[0], []).append((int(r[1]), int(r[2])))
+    if trial % 3 == 2:
+        ma, mb = merge(arows), merge(brows)
     qcount = sum(len(v) for v in ma.values()); dcount = sum(len(v) for v in mb.values())
     qlen = sum(e - s for v in ma.values() for s, e in v); dlen = sum(e - s for v in mb.values() for s, e in v)
     pairs = sum(1 for c in ma for s, e in ma[c] for s2, e2 in mb.get(c, []) if overlap(s, e, s2, e2) > 0)
@@ -85,7 +90,7 @@ for trial in range(30):
     ok_ratio += r_ok; n_done += 1
     if not (tab_ok and p_ok and r_ok):
         print("   trial %d: table %s port %s; p %s %s %s vs scipy %.5g %.5g %.5g; ratio %s" % (trial, (qn, dn, novl, n22full, n11, n12, n21, n22), (qcount, dcount, pairs, p22full, p11, p12, p21, p22), left, right, two, pl, pr, pt, ratio))
-report("table (counts, n22 heuristic) equals the port of fisher.cpp", ok_table == n_done, "%d/%d" % (ok_table, n_done))
+report("table (counts, n22 heuristic; -m merged in every third trial) equals the port", ok_table == n_done, "%d/%d" % (ok_table, n_done))
 report("left/right/two-tail p-values equal scipy.stats.fisher_exact (rel 1e-4)", ok_p == n_done, "%d/%d" % (ok_p, n_done))
 report("odds ratio = (n11/n12)/(n21/n22)", ok_ratio == n_done, "%d/%d" % (ok_ratio, n_done))
 print("   documentation examples (docs/content/tools/fisher.rst):")
@@ -167,7 +172,7 @@ write(A, ivs)
 comp = {"A": "T", "C": "G", "G": "C", "T": "A", "N": "N", "a": "t", "c": "g", "g": "c", "t": "a"}
 def prof(s):
     u = s.upper(); a, c, g, t, n = (u.count(x) for x in "ACGTN"); o = len(s) - a - c - g - t - n
-    return ("%f" % ((a + t) / len(s)), "%f" % ((c + g) / len(s)), a, c, g, t, n, o, len(s))
+    return ("%f" % float(np.float32(a + t) / np.float32(len(s))), "%f" % float(np.float32(c + g) / np.float32(len(s))), a, c, g, t, n, o, len(s))
 def count_overlapping(s, p):
     return sum(1 for i in range(len(s)) if s[i:i + len(p)] == p)
 for label, args, rc in (("default", [], False), ("-s (reverse complement of '-' records)", ["-s"], True)):

@@ -52,17 +52,16 @@ def closest_port(a, bs, mode=None, io=False, s=False, S_=False, k=1, N=False):
         elif b0 >= a1:      # right
             d = b0 - a1 + 1
             up = (mode == "a" and a[5] == "-") or (mode == "b" and b[5] == "+")
-            cands.append((d, b[3], -d if up else d))
+            cands.append((d, b[3], -d if (up and mode) else d))
         else:               # left
             d = a0 - b1 + 1
             up = not ((mode == "a" and a[5] == "-") or (mode == "b" and b[5] == "+"))
-            cands.append((d, b[3], -d if up else d))
+            cands.append((d, b[3], -d if (up and mode) else d))
     cands.sort()
-    out, used_d = [], []
+    out, last_d = [], None
     for d, name, sd in cands:
-        if len(used_d) >= k and d not in used_d: break
-        if d not in used_d: used_d.append(d)
-        out.append((name, sd))
+        if len(out) >= k and d != last_d: break    # -k counts hits; ties at the k-th distance are all reported
+        out.append((name, sd)); last_d = d
     return set(out)
 
 for label, args, kw in (("-d", ["-d"], {}), ("-D ref", ["-D", "ref"], dict(mode="ref")), ("-D a", ["-D", "a"], dict(mode="a")), ("-D b", ["-D", "b"], dict(mode="b")),
@@ -247,16 +246,20 @@ def bam_depth(split_N, split_D, mode=None, strand=None, du=False):
     return d
 sizes2 = {"chr1": 20000, "chr2": 8000}
 def bg2(d): return [(c, s, e, v) for c, s, e, v in bg_port({**d, "chr3": np.zeros(0, dtype=np.int64)}) if c != "chr3"]
+# genomeCoverageBed.cpp:351: GetBamBlocks(..., breakOnDeletionOps = !_ignoreD, breakOnSkipOps = _obeySplits):
+# deleted reference bases are NOT covered unless -ignoreD; N is covered unless -split.
 got = [(l[0], int(l[1]), int(l[2]), int(l[3])) for l in lines(run(["genomecov", "-ibam", BAM, "-bg"]))]
-report("BAM -bg (N and D counted as covered, I/S not)", got == bg2(bam_depth(False, False)))
+report("BAM -bg (N covered, D not covered, I/S not)", got == bg2(bam_depth(False, True)))
+got = [(l[0], int(l[1]), int(l[2]), int(l[3])) for l in lines(run(["genomecov", "-ibam", BAM, "-bg", "-ignoreD"]))]
+report("BAM -bg -ignoreD (D covered)", got == bg2(bam_depth(False, False)))
 got = [(l[0], int(l[1]), int(l[2]), int(l[3])) for l in lines(run(["genomecov", "-ibam", BAM, "-bg", "-split"]))]
-report("BAM -bg -split (N splits, D covered)", got == bg2(bam_depth(True, False)))
+report("BAM -bg -split (N and D split)", got == bg2(bam_depth(True, True)))
 got = [(l[0], int(l[1]), int(l[2]), int(l[3])) for l in lines(run(["genomecov", "-ibam", BAM, "-bg", "-split", "-ignoreD"]))]
-report("BAM -bg -split -ignoreD (N and D split)", got == bg2(bam_depth(True, True)))
+report("BAM -bg -split -ignoreD (N split, D covered)", got == bg2(bam_depth(True, False)))
 got = [(l[0], int(l[1]), int(l[2]), int(l[3])) for l in lines(run(["genomecov", "-ibam", BAM, "-bg", "-strand", "-"]))]
-report("BAM -bg -strand -", got == bg2(bam_depth(False, False, strand="-")))
+report("BAM -bg -strand -", got == bg2(bam_depth(False, True, strand="-")))
 got = [(l[0], int(l[1]), int(l[2]), int(l[3])) for l in lines(run(["genomecov", "-ibam", BAM, "-bg", "-strand", "-", "-du"]))]
-report("BAM -bg -strand - -du (second mates flipped)", got == bg2(bam_depth(False, False, strand="-", du=True)))
+report("BAM -bg -strand - -du (second mates flipped)", got == bg2(bam_depth(False, True, strand="-", du=True)))
 got = [(l[0], int(l[1]), int(l[2]), int(l[3])) for l in lines(run(["genomecov", "-ibam", BAM, "-bg", "-5"]))]
 report("BAM -bg -5", got == bg2(bam_depth(False, False, mode="5")))
 got = [(l[0], int(l[1]), int(l[2]), int(l[3])) for l in lines(run(["genomecov", "-ibam", BAM, "-bg", "-3"]))]

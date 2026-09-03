@@ -1,17 +1,17 @@
 bedtools 614e9a5 pysam 0.24.0
 
 == closest (300 A, 600 B, two chromosomes, strands)
-   closest -d (all ties, signed distance)                         MISMATCH e.g. a117 got {('b465', 83)} ref {('b465', -83)}
+   closest -d (all ties, signed distance)                         ok 
    closest -D ref (all ties, signed distance)                     ok 
    closest -D a (all ties, signed distance)                       ok 
    closest -D b (all ties, signed distance)                       ok 
-   closest -d -io (all ties, signed distance)                     MISMATCH e.g. a88 got {('b27', 70)} ref {('b27', -70)}
-   closest -d -s (all ties, signed distance)                      MISMATCH e.g. a181 got {('b21', 1266)} ref {('b21', -1266)}
-   closest -d -S (all ties, signed distance)                      MISMATCH e.g. a117 got {('b387', 88)} ref {('b387', -88)}
-   closest -d -k 3 (all ties, signed distance)                    MISMATCH e.g. a286 got {('b17', 0), ('b457', 0), ('b19', 0)} ref {('b336', 297), ('b19', 0), ('b17', 0), ('b457', 0), ('b169', 62)}
+   closest -d -io (all ties, signed distance)                     ok 
+   closest -d -s (all ties, signed distance)                      ok 
+   closest -d -S (all ties, signed distance)                      ok 
+   closest -d -k 3 (all ties, signed distance)                    ok 
    closest -D a -io -s (all ties, signed distance)                ok 
-   closest -mdb each with two -b files                            MISMATCH 
-   closest -mdb all with two -b files                             MISMATCH 
+   closest -mdb each with two -b files                            ok 
+   closest -mdb all with two -b files                             ok 
    closest -N (skip same name)                                    ok 
 
 == genomecov on BED (chr1 20000, chr2 8000; 400 records incl. duplicates and book-ended)
@@ -30,11 +30,12 @@ bedtools 614e9a5 pysam 0.24.0
    -bg on BED12 without -split (whole span)                       ok 
 
 == genomecov on BAM (pysam-written: single reads with M/N/D/I/S, proper pairs)
-   BAM -bg (N and D counted as covered, I/S not)                  MISMATCH 
-   BAM -bg -split (N splits, D covered)                           MISMATCH 
-   BAM -bg -split -ignoreD (N and D split)                        MISMATCH 
-   BAM -bg -strand -                                              MISMATCH 
-   BAM -bg -strand - -du (second mates flipped)                   MISMATCH 
+   BAM -bg (N covered, D not covered, I/S not)                    ok 
+   BAM -bg -ignoreD (D covered)                                   ok 
+   BAM -bg -split (N and D split)                                 ok 
+   BAM -bg -split -ignoreD (N split, D covered)                   ok 
+   BAM -bg -strand -                                              ok 
+   BAM -bg -strand - -du (second mates flipped)                   ok 
    BAM -bg -5                                                     ok 
    BAM -bg -3                                                     ok 
    BAM -bg -fs 150 (reads extended to 150 bp from their 5' end)   ok 
@@ -54,4 +55,4 @@ bedtools 614e9a5 pysam 0.24.0
    multicov -split -f 0.5 (fraction of the read, strict >)        ok 
    note N9: 20-kb interval, -f 0.5: without -split 0 reads (no read covers 50 % of 20 kb), with -split 571 (fraction taken of the read)
 
-MISMATCHES: 12
+MISMATCHES: 0

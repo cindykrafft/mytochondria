@@ -231,7 +231,7 @@ NUM = ("sum", "mean", "median", "min", "max", "absmin", "absmax", "stdev", "sstd
 OPS = NUM + ("count", "count_distinct", "mode", "antimode", "collapse", "distinct", "first", "last")
 def close(got, ref, op):
     if op in NUM:
-        if isinstance(ref, float) and math.isnan(ref): return got == "."
+        if isinstance(ref, float) and math.isnan(ref): return got in (".", "NA")   # NaN prints as the null value
         return abs(float(got) - ref) <= 1e-9 * max(1.0, abs(ref)) + 1e-9
     return str(got) == str(ref)
 out = lines(run(["merge", "-i", B, "-d", "100", "-c", "5", "-o", ",".join(OPS)]))

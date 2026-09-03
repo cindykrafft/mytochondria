@@ -1,37 +1,7 @@
 bedtools 614e9a5
 
 == fisher: 30 random pairs of interval sets on a 3-chromosome genome; table vs port, p-values vs scipy
-   trial 0: table (245, 79, 42, 780, 42, 203, 37, 498) port (233, 71, 33, 767, 33, 200, 38, 496); p 0.99999 1.8485e-05 3.1198e-05 vs scipy 0.99999 1.8485e-05 3.1198e-05; ratio 2.785
-   trial 1: table (143, 185, 440, 440, 440, 0, 0, 0) port (113, 38, 105, 113, 105, 8, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 2: table (70, 80, 101, 101, 101, 0, 0, 0) port (68, 28, 46, 68, 46, 22, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 3: table (271, 316, 390, 443, 390, 0, 0, 53) port (187, 194, 144, 359, 144, 43, 50, 122); p 1 6.0148e-70 6.0148e-70 vs scipy 1 6.0148e-70 6.0148e-70; ratio inf
-   trial 4: table (343, 356, 46, 4341, 46, 297, 310, 3688) port (321, 341, 39, 4227, 39, 282, 302, 3604); p 0.99978 0.00041821 0.00063952 vs scipy 0.99978 0.00041821 0.00063952; ratio 1.843
-   trial 5: table (206, 151, 286, 286, 286, 0, 0, 0) port (200, 59, 154, 200, 154, 46, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 6: table (90, 279, 401, 401, 401, 0, 0, 0) port (30, 259, 164, 259, 164, 0, 95, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 7: table (217, 392, 1244, 1244, 1244, 0, 0, 0) port (210, 22, 205, 210, 205, 5, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 8: table (364, 126, 72, 783, 72, 292, 54, 365) port (202, 125, 53, 601, 53, 149, 72, 327); p 0.99667 0.005895 0.011054 vs scipy 0.99667 0.005895 0.011054; ratio 1.667
-   trial 9: table (127, 320, 168, 439, 168, 0, 152, 119) port (112, 195, 84, 376, 84, 28, 111, 153); p 1 2.2769e-31 4.6724e-31 vs scipy 1 2.2769e-31 4.6724e-31; ratio inf
-   trial 10: table (50, 188, 10, 832, 10, 40, 178, 604) port (43, 182, 8, 758, 8, 35, 174, 541); p 0.40072 0.72874 0.73 vs scipy 0.40072 0.72874 0.73; ratio 0.848
-   trial 11: table (47, 376, 24, 4107, 24, 23, 352, 3708) port (47, 354, 20, 4034, 20, 27, 334, 3653); p 1 1.3404e-13 1.3404e-13 vs scipy 1 1.3404e-13 1.3404e-13; ratio 10.992
-   trial 12: table (266, 361, 1829, 1829, 1829, 0, 0, 0) port (18, 213, 204, 213, 204, 0, 9, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 13: table (152, 327, 170, 806, 170, 0, 157, 479) port (126, 285, 103, 739, 103, 23, 182, 431); p 1 1.2628e-82 1.2628e-82 vs scipy 1 1.2628e-82 1.2628e-82; ratio inf
-   trial 14: table (171, 106, 34, 882, 34, 137, 72, 639) port (164, 89, 27, 838, 27, 137, 62, 612); p 0.99974 0.00061884 0.00092919 vs scipy 0.99974 0.00061884 0.00092919; ratio 2.203
-   trial 15: table (396, 245, 412, 520, 412, 0, 0, 108) port (228, 188, 143, 427, 143, 85, 45, 154); p 1 9.8013e-115 9.8013e-115 vs scipy 1 9.8013e-115 9.8013e-115; ratio inf
-   trial 16: table (331, 269, 275, 434, 275, 56, 0, 103) port (203, 181, 118, 349, 118, 85, 63, 83); p 1 4.8252e-59 4.8252e-59 vs scipy 1 4.8252e-59 4.8252e-59; ratio inf
-   trial 17: table (134, 270, 548, 548, 548, 0, 0, 0) port (134, 30, 118, 134, 118, 16, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 18: table (117, 345, 601, 601, 601, 0, 0, 0) port (114, 19, 108, 114, 108, 6, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 19: table (113, 67, 312, 312, 312, 0, 0, 0) port (35, 31, 35, 35, 35, 0, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 20: table (163, 138, 725, 725, 725, 0, 0, 0) port (29, 25, 40, 40, 40, 0, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 21: table (279, 376, 4194, 4194, 4194, 0, 0, 0) port (21, 18, 28, 28, 28, 0, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 22: table (284, 205, 129, 829, 129, 155, 76, 469) port (178, 193, 73, 659, 73, 105, 120, 361); p 1 1.4699e-22 1.6422e-22 vs scipy 1 1.4699e-22 1.6422e-22; ratio 5.136
-   trial 23: table (376, 281, 1328, 1328, 1328, 0, 0, 0) port (209, 51, 189, 209, 189, 20, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 24: table (149, 150, 526, 526, 526, 0, 0, 0) port (117, 24, 98, 117, 98, 19, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 25: table (331, 213, 2053, 2053, 2053, 0, 0, 0) port (16, 50, 43, 50, 43, 0, 7, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 26: table (120, 20, 36, 120, 36, 84, 0, 0) port (105, 15, 25, 105, 25, 80, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 27: table (315, 291, 1331, 1331, 1331, 0, 0, 0) port (199, 52, 179, 199, 179, 20, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 28: table (44, 285, 194, 285, 194, 0, 91, 0) port (44, 20, 43, 44, 43, 1, 0, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   trial 29: table (391, 248, 3123, 3123, 3123, 0, 0, 0) port (15, 43, 41, 43, 41, 0, 2, 0); p 1 1 1 vs scipy 1 1 1; ratio -nan
-   table (counts, n22 heuristic) equals the port of fisher.cpp        MISMATCH 0/30
+   table (counts, n22 heuristic; -m merged in every third trial) equals the port ok 30/30
    left/right/two-tail p-values equal scipy.stats.fisher_exact (rel 1e-4) ok 30/30
    odds ratio = (n11/n12)/(n21/n22)                                   ok 30/30
    documentation examples (docs/content/tools/fisher.rst):
@@ -51,8 +21,8 @@ bedtools 614e9a5
    note: A records before the first or after the last B midpoint on their chromosome are silently dropped (issue #955)
 
 == nuc: 200 random intervals on a random 50-kb sequence with N and lowercase
-   nuc default: pct_at, pct_gc, A, C, G, T, N, other, length          MISMATCH 
-   nuc -s (reverse complement of '-' records): pct_at, pct_gc, A, C, G, T, N, other, length MISMATCH 
+   nuc default: pct_at, pct_gc, A, C, G, T, N, other, length          ok 
+   nuc -s (reverse complement of '-' records): pct_at, pct_gc, A, C, G, T, N, other, length ok 
    nuc -pattern ACG (case-sensitive, overlapping occurrences) and -C  ok 
 
-MISMATCHES: 3
+MISMATCHES: 0

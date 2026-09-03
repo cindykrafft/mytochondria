@@ -2,12 +2,12 @@
 """The NOTE-level behaviours, each executed on the shipped binary.
 
 N1  --overlap_diff_limit / --overlap_diff_percent_limit are enforced over the
-    first 50 bases of the overlap only (overlapanalysis.cpp:28-41)
+    first 50 bases of the overlap only (overlapanalysis.cpp:28-44)
 N2  --overlap_len_require N accepts an overlap only when it is longer than N
 N3  the insert-size histogram is filled by worker thread 0 only, so it scales
     with 1/--thread (peprocessor.cpp:449, :497)
 N4  --poly_g_min_len N already trims a tail of N-1 G
-N5  -m/--merge silently switches on base correction (options.cpp:120-121)
+N5  -m/--merge silently switches on base correction (options.cpp:119-121)
 N6  the adapter search needs 5 matching bases at the read end, not 4
 
 Usage: python3 notes_overlap_polyg_threads.py [path-to-fastp]

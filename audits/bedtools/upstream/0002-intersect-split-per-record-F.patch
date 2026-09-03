@@ -1,0 +1,245 @@
+From 334764cedbee490d5c8a65c36cdf75d1e84fbf16 Mon Sep 17 00:00:00 2001
+From: Claude Code <noreply@anthropic.com>
+Date: Thu, 3 Sep 2026 04:13:18 +0000
+Subject: [PATCH] intersect: apply -F and -r to each database record under
+ -split
+
+BlockMgr::findBlockedOverlaps tested -F (and the reciprocal test of -r)
+against the sum of the block lengths of every database record that touched
+the query, with the non-redundant overlap as numerator, and cleared every hit
+when that ratio was too small. A record lying entirely inside the query was
+therefore dropped as soon as other records also overlapped the query (three
+identical reads inside a 100-bp interval: 0 lines under -split -F 0.5, 3 lines
+without -split), and a record that failed the fraction on its own was kept
+when a neighbour passed. Without -split both options are per record.
+
+Test -F and -r per database record, on that record's own block length, and
+keep -f as the cumulative fraction of the query covered by the records that
+survive (issue #750). Overlap blocks of rejected records are no longer handed
+to coverage.
+
+test/intersect/test-intersect.sh: the -F 0.20 case now also reports exon2 for
+two_blocks_two_exons (20 of 100 bases); new cases for three identical reads
+(-F 0.5, -F 1.0) and the issue #1142 example (-split -r -f 0.90).
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ .../FileRecordTools/Records/BlockMgr.cpp      | 57 ++++++++++---------
+ test/getfasta/rna.fasta.fai                   |  1 +
+ test/intersect/multi_intersect/exp1           |  6 ++
+ test/intersect/multi_intersect/obs            |  0
+ test/intersect/sortAndNaming/exp              | 11 ++++
+ test/intersect/sortAndNaming/obs              |  0
+ test/intersect/test-intersect.sh              | 36 +++++++++++-
+ 7 files changed, 84 insertions(+), 27 deletions(-)
+ create mode 100644 test/getfasta/rna.fasta.fai
+ create mode 100644 test/intersect/multi_intersect/exp1
+ create mode 100644 test/intersect/multi_intersect/obs
+ create mode 100644 test/intersect/sortAndNaming/exp
+ create mode 100644 test/intersect/sortAndNaming/obs
+
+diff --git a/src/utils/FileRecordTools/Records/BlockMgr.cpp b/src/utils/FileRecordTools/Records/BlockMgr.cpp
+index 213f86d..ef8b937 100644
+--- a/src/utils/FileRecordTools/Records/BlockMgr.cpp
++++ b/src/utils/FileRecordTools/Records/BlockMgr.cpp
+@@ -227,10 +227,8 @@ int BlockMgr::findBlockedOverlaps(RecordKeyVector &keyList, RecordKeyVector &hit
+ 	_overlapStarts.clear();
+ 	_overlapEnds.clear();
+ 	CHRPOS keyBlocksSumLength = getTotalBlockLength(keyList);
+-	CHRPOS hitBlockSumLength = 0;
+-	vector<CHRPOS> overlappingStarts;
+-	vector<CHRPOS> overlappingEnd;
+-	
++	vector<CHRPOS> hitOverlapStarts;
++	vector<CHRPOS> hitOverlapEnds;
+ 
+ 	//Loop through every database record the query intersected with
+ 	RecordKeyVector::iterator_type hitListIter = hitList.begin();
+@@ -239,10 +237,12 @@ int BlockMgr::findBlockedOverlaps(RecordKeyVector &keyList, RecordKeyVector &hit
+ 		RecordKeyVector hitBlocks(*hitListIter);
+ 		bool deleteHitBlocks = false;
+ 		getBlocks(hitBlocks, deleteHitBlocks); //get all blocks for the hit record.
+-		hitBlockSumLength += getTotalBlockLength(hitBlocks); //get total length of the bocks for the hitRecord.
++		CHRPOS hitBlockLength = getTotalBlockLength(hitBlocks); //total length of the blocks of this hit record.
+ 		
+ 		bool hitHasOverlap = false;
+ 		CHRPOS totalDbOverlap = 0;
++		hitOverlapStarts.clear();
++		hitOverlapEnds.clear();
+ 		//loop through every block of the database record.
+ 		RecordKeyVector::iterator_type hitBlockIter = hitBlocks.begin();
+ 		for (; hitBlockIter != hitBlocks.end(); hitBlockIter = hitBlocks.next()) 
+@@ -259,21 +259,37 @@ int BlockMgr::findBlockedOverlaps(RecordKeyVector &keyList, RecordKeyVector &hit
+ 				CHRPOS overlap  = minEnd - maxStart;
+ 				if (overlap > 0) {
+ 					hitHasOverlap = true;
+-					if (overlapList != NULL) {
+-						overlapList->push_back(allocateAndAssignRecord(keyList.getKey(), maxStart, minEnd));
+-					}
+ 					totalDbOverlap += overlap;
+-					_overlapStarts.push_back(maxStart);
+-					_overlapEnds.push_back(minEnd);
++					hitOverlapStarts.push_back(maxStart);
++					hitOverlapEnds.push_back(minEnd);
+ 				}
+ 			}
+ 		}
+-		// add the database record to the list of potential (i.e., subject to -f, -r, -F)
+-		// hits if an overlap was observed
++		// -F and -r are tested per database record, as they are without -split:
++		// the fraction of this record's blocks that the query's blocks cover.
++		// (-f is cumulative over all records, below; see issue #750.)
++		if (hitHasOverlap && (float)totalDbOverlap / (float)hitBlockLength < _overlapFractionB)
++		{
++			hitHasOverlap = false;
++		}
++		if (hitHasOverlap && _hasReciprocal &&
++			(float)totalDbOverlap / (float)hitBlockLength < _overlapFractionA)
++		{
++			hitHasOverlap = false;
++		}
++		// add the database record to the list of potential (i.e., subject to -f)
++		// hits if a sufficient overlap was observed
+ 		if (hitHasOverlap)
+ 		{
+ 			resultList.push_back(*hitListIter);
+ 			_overlapBases.push_back(totalDbOverlap);
++			for (size_t i = 0; i < hitOverlapStarts.size(); i++) {
++				_overlapStarts.push_back(hitOverlapStarts[i]);
++				_overlapEnds.push_back(hitOverlapEnds[i]);
++				if (overlapList != NULL) {
++					overlapList->push_back(allocateAndAssignRecord(keyList.getKey(), hitOverlapStarts[i], hitOverlapEnds[i]));
++				}
++			}
+ 		}
+ 		if (deleteHitBlocks) {
+ 			deleteBlocks(hitBlocks);
+@@ -282,25 +298,14 @@ int BlockMgr::findBlockedOverlaps(RecordKeyVector &keyList, RecordKeyVector &hit
+ 
+ 	int totalUniqueOverlap = getNonRedundantOverlap();
+ 
+-	// was there sufficient overlap with respect ot -a? if not, delete.
++	// was there sufficient overlap with respect to -a? if not, delete.
++	// This is the cumulative fraction of the query's blocks covered by
++	// the records kept above (issue #750).
+ 	if ((float) totalUniqueOverlap / (float)keyBlocksSumLength < _overlapFractionA) 
+ 	{
+ 		resultList.clearAll();
+ 		_overlapBases.clear();
+ 	}
+-	// was there sufficient overlap with respect ot -b? if not, delete.
+-	if ((float)totalUniqueOverlap / (float)hitBlockSumLength < _overlapFractionB) 
+-	{
+-		resultList.clearAll();
+-		_overlapBases.clear();
+-	}	
+-	// was there sufficient overlap with respect ot -b when using -r? if not, delete.
+-	if (_hasReciprocal &&
+-				((float)totalUniqueOverlap / (float)hitBlockSumLength < _overlapFractionA)) 
+-	{
+-		resultList.clearAll();
+-		_overlapBases.clear();
+-	}
+ 
+ 	// clean up
+ 	if (deleteKeyBlocks) {
+diff --git a/test/getfasta/rna.fasta.fai b/test/getfasta/rna.fasta.fai
+new file mode 100644
+index 0000000..5eba916
+--- /dev/null
++++ b/test/getfasta/rna.fasta.fai
+@@ -0,0 +1 @@
++chr1	10	6	10	11
+diff --git a/test/intersect/multi_intersect/exp1 b/test/intersect/multi_intersect/exp1
+new file mode 100644
+index 0000000..318cd75
+--- /dev/null
++++ b/test/intersect/multi_intersect/exp1
+@@ -0,0 +1,6 @@
++chr1	5	20
++chr1	70	75
++chr2	5	20
++chr2	70	75
++chr3	5	20
++chr3	70	75
+diff --git a/test/intersect/multi_intersect/obs b/test/intersect/multi_intersect/obs
+new file mode 100644
+index 0000000..e69de29
+diff --git a/test/intersect/sortAndNaming/exp b/test/intersect/sortAndNaming/exp
+new file mode 100644
+index 0000000..8403bd7
+--- /dev/null
++++ b/test/intersect/sortAndNaming/exp
+@@ -0,0 +1,11 @@
++chr1	10	20
++chr1	80	100
++chr2	50	80
++chr2	100	120
++chr10	5	50
++chr10	80	120
++chr11	20	60
++chr11	80	120
++chr12	10	50
++chr12	60	90
++chr1_gl0003	20	80
+diff --git a/test/intersect/sortAndNaming/obs b/test/intersect/sortAndNaming/obs
+new file mode 100644
+index 0000000..e69de29
+diff --git a/test/intersect/test-intersect.sh b/test/intersect/test-intersect.sh
+index 2b7997b..de1a234 100644
+--- a/test/intersect/test-intersect.sh
++++ b/test/intersect/test-intersect.sh
+@@ -496,7 +496,8 @@ rm obs exp
+ echo -e "    intersect.t22.q...\c"
+ echo \
+ "chr1	0	30	one_block_one_exon_30bp	40	-	0	30	0,0,0	1	30,	0,	chr1	0	100	exon1	1	+	30
+-chr1	80	110	one_block_one_exon_20bp	40	-	80	110	0,0,0	1	30,	0,	chr1	0	100	exon1	1	+	20" > exp
++chr1	80	110	one_block_one_exon_20bp	40	-	80	110	0,0,0	1	30,	0,	chr1	0	100	exon1	1	+	20
++chr1	90	220	two_blocks_two_exons	40	-	90	220	0,0,0	2	10,20,	0,110,	chr1	200	300	exon2	2	-	20" > exp
+ $BT intersect -a split.issue750.bam -b exons.issue750.bed  -F 0.20 -bed -split -wo > obs
+ check obs exp
+ rm obs exp
+@@ -518,6 +519,39 @@ $BT intersect -a split.issue750.bam -b exons.issue750.bed  -F 0.10 -bed -split -
+ check obs exp
+ rm obs exp
+ 
++###########################################################
++#  Test that -F (and -r) are applied to each B record on
++#  its own with -split: three identical reads that lie
++#  entirely inside the A interval are all reported, whatever
++#  other B records overlap A. See issue #1142.
++############################################################
++echo -e "    intersect.t22.s...\c"
++echo \
++"chr1	100	200	gene	chr1	120	170	r1	0	+	120	170	0	1	50	0
++chr1	100	200	gene	chr1	120	170	r2	0	+	120	170	0	1	50	0
++chr1	100	200	gene	chr1	120	170	r3	0	+	120	170	0	1	50	0" > exp
++echo -e "chr1\t100\t200\tgene" > split_F_a.bed
++for r in r1 r2 r3; do echo -e "chr1\t120\t170\t$r\t0\t+\t120\t170\t0\t1\t50\t0"; done > split_F_b.bed12
++$BT intersect -a split_F_a.bed -b split_F_b.bed12 -split -F 0.5 -wa -wb > obs
++check obs exp
++rm obs
++$BT intersect -a split_F_a.bed -b split_F_b.bed12 -split -F 1.0 -wa -wb > obs
++check obs exp
++rm obs exp split_F_a.bed split_F_b.bed12
++
++###########################################################
++#  Issue #1142: a perfect reciprocal match must be reported
++#  even when another isoform shares the locus.
++############################################################
++echo -e "    intersect.t22.t...\c"
++echo \
++"chr1	1000	2000	A1	0	+	1000	2000	0	1	1000,	0,	chr1	1000	2000	B1_perfect_match	0	+	1000	2000	0	1	1000,	0,	1000" > exp
++echo -e "chr1\t1000\t2000\tA1\t0\t+\t1000\t2000\t0\t1\t1000,\t0," > issue1142_a.bed12
++echo -e "chr1\t1000\t2000\tB1_perfect_match\t0\t+\t1000\t2000\t0\t1\t1000,\t0,\nchr1\t1000\t6000\tB2_different_isoform\t0\t+\t1000\t6000\t0\t2\t1000,2000,\t0,3000," > issue1142_b.bed12
++$BT intersect -a issue1142_a.bed12 -b issue1142_b.bed12 -split -r -f 0.90 -wo > obs
++check obs exp
++rm obs exp issue1142_a.bed12 issue1142_b.bed12
++
+ ###########################################################
+ #  Test that -f is based on the cumulative fraction of the
+ #  split overlaps for the A interval, not based on _each_
+-- 
+2.43.0
+

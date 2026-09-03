@@ -66,7 +66,7 @@ class CutOpts:
 
 
 def trim_and_cut(seq, qual, front, tail, o: CutOpts, variant="shipped"):
-    """Port of Filter::trimAndCut (filter.cpp:99-238). Returns (seq, qual) or None."""
+    """Port of Filter::trimAndCut (filter.cpp:68-191). Returns (seq, qual) or None."""
     q = [ord(c) for c in qual]
     l = len(seq)
     if front == 0 and tail == 0 and not o.any:
@@ -147,7 +147,7 @@ def trim_and_cut(seq, qual, front, tail, o: CutOpts, variant="shipped"):
 
 # ------------------------------------------------------------ polyx.cpp ports
 def trim_poly_g(seq, compare_req=10):
-    """Port of PolyX::trimPolyG (polyx.cpp:11-38). Returns the trimmed sequence."""
+    """Port of PolyX::trimPolyG (polyx.cpp:16-42). Returns the trimmed sequence."""
     rlen = len(seq)
     mismatch = 0
     first_g = rlen - 1
@@ -167,7 +167,7 @@ def trim_poly_g(seq, compare_req=10):
 
 
 def trim_poly_x(seq, compare_req=10):
-    """Port of PolyX::trimPolyX (polyx.cpp:39-117). Returns the trimmed sequence."""
+    """Port of PolyX::trimPolyX (polyx.cpp:49-118). Returns the trimmed sequence."""
     rlen = len(seq)
     idx = {"A": 0, "T": 1, "C": 2, "G": 3}
     counts = [0, 0, 0, 0]
@@ -200,7 +200,7 @@ def trim_poly_x(seq, compare_req=10):
 def pass_filter(seq, qual, qualified_q=15, unqualified_pct=40, n_limit=5,
                 avg_qual=0, min_len=15, max_len=0, complexity=None,
                 qual_filter=True, len_filter=True):
-    """Port of Filter::passFilter (filter.cpp:46-88). Returns a reason string."""
+    """Port of Filter::passFilter (filter.cpp:15-57). Returns a reason string."""
     if seq is None or len(seq) == 0:
         return "too_short"
     rlen = len(seq)

@@ -9,3 +9,13 @@ bedtools 614e9a5
    different seeds differ                                                 ok 
    -excl: no output record overlaps an excluded region (20000 records)    ok 0
    -excl -f 0.5: no record has >= 50 %% of its bases excluded             ok 0
+   -noOverlapping: 80 of 80 placed, no pairwise overlap                   ok 0
+   -allowBeyondChromEnd -chrom: end clipped at chromosome length          ok 
+
+== random
+   random -n 30000 -l 250: count, length, containment                     ok 
+   random: chromosome frequency proportional to size (chi-square p = 0.541) ok 
+   random: strand balance (chi-square p = 0.579)                          ok 
+   random -seed reproducible                                              ok 
+
+MISMATCHES: 0
