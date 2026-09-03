@@ -47,6 +47,18 @@ def slim(it, kind):
             "comments": it.get("comments", 0), "created": it["created_at"], "closed": it.get("closed_at"),
             "updated": it["updated_at"], "merged_at": pr.get("merged_at")}
 
+# Forks that carry the "declines" topic: the upstream maintainers do not take AI-generated contributions.
+TOPIC = cfg.get("declines_topic")
+for a in cfg["audits"]:
+    a.setdefault("declines_ai", False)
+    if TOPIC and a.get("fork"):
+        try:
+            topics = get(f"https://api.github.com/repos/{a['fork']}/topics").get("names", [])
+        except urllib.error.HTTPError as e:
+            if e.code == 404: continue   # no fork yet
+            raise
+        if TOPIC in topics: a["declines_ai"] = True
+
 items = []
 unmapped = set()
 for kind in ("issue", "pr"):
@@ -59,6 +71,6 @@ for kind in ("issue", "pr"):
         items.append(s)
 items.sort(key=lambda x: x["created"])
 out = {"generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "author": AUTHOR, "since": SINCE,
-       "audits": cfg["audits"], "audit_repo": cfg["audit_repo"], "items": items, "unmapped_repos": sorted(unmapped)}
+       "audits": cfg["audits"], "audit_repo": cfg["audit_repo"], "declines_topic": TOPIC, "items": items, "unmapped_repos": sorted(unmapped)}
 json.dump(out, open(os.path.join(HERE, "data.json"), "w"), indent=1)
 print(f"{len(items)} items across {len({i['repo'] for i in items})} repositories; unmapped: {sorted(unmapped)}", file=sys.stderr)

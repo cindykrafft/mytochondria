@@ -67,6 +67,8 @@ ul.items li{display:grid;grid-template-columns:100px minmax(0,1fr) auto auto;gap
   <dl class="foot">
     <dt>How to read the columns</dt>
     <dd>Papers: papers in the survey cohort (six journals, 2021 to 2026) whose methods name the package; lower bounds where the full text could not be read. Findings: confirmed by executing the shipped code, from each audit's README. Resolved: issue closed as completed. Declined: issue closed as not planned. Closed: pull request closed without merge. Answered: filings with at least one comment from anyone but the author is not distinguishable here, so this counts filings with any comment.</dd>
+    <dt>Declines AI contributions</dt>
+    <dd>Some maintainers have said they do not want AI-generated issues or pull requests. That decision is recorded as a topic on the project's fork of their repository, this page reads it from there, and nothing further is filed, commented or pushed for that repository; what is already open is left to the maintainers. The audit itself stays published in the audit repository.</dd>
     <dt>Where the numbers come from</dt>
     <dd>A GitHub Actions job queries the GitHub search API for everything filed by the project's account since August 2026, four times a day, and publishes this page. Nothing here is edited by hand except the findings count and the repository map.</dd>
   </dl>
@@ -105,7 +107,7 @@ function render(D){
   const tb=document.querySelector("#ledger tbody"); tb.innerHTML="";
   for(const r of rows){
     const c=r.c||{}; const has=r.items.length>0;
-    const name=r.a.dir?`<a href="${AUDIT_BASE}${r.a.dir}/">${esc(r.a.name)}</a>`:esc(r.a.name);
+    const name=(r.a.dir?`<a href="${AUDIT_BASE}${r.a.dir}/">${esc(r.a.name)}</a>`:esc(r.a.name))+(r.a.declines_ai?` <span class="pill p-declined" title="The fork carries the topic ${esc(D.declines_topic||"")}: the maintainers do not take AI-generated contributions, so nothing further is filed here">declines AI contributions</span>`:"");
     const repo=r.repo?`<a class="mono" href="https://github.com/${r.repo}">${esc(r.repo)}</a>`:`<span class="dim">no GitHub repository</span>`;
     const tr=document.createElement("tr"); tr.className="repo"+(has?"":" none");
     tr.innerHTML=`<td>${name} <span class="dim">·</span> ${repo}</td><td class="n">${r.a.papers?r.a.papers.toLocaleString("en"):'<span class="dim">–</span>'}</td><td class="n">${n(r.a.findings)}</td>

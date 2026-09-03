@@ -11,6 +11,11 @@ repository until a maintainer responds; after a positive signal, the held items 
 repository follow one at a time. A comment on an issue the maintainers already keep open
 is a separate, low-cost category and is not counted against the cap.
 
+**Declined repositories.** A fork carrying the topic `upstream-declines-ai-contributions`
+means the maintainers do not take AI-generated contributions. Nothing further goes to that
+repository: no issue, no comment, no PR, no follow-up on open items. Its held findings stay
+in the kit indefinitely.
+
 **Grades of everything prepared and unfiled** (kits under `audits/<package>/upstream/`):
 
 | tier | finding | reason |

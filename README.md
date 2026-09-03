@@ -50,7 +50,16 @@ questions are held in the filing kit. At most two filings per repository until a
 maintainer responds; after a positive signal, the held items for that repository follow
 one at a time. A comment on an issue the maintainers already keep open is a separate,
 low-cost category and does not count against the cap. Every prepared finding carries
-its tier in [`audits/TRIAGE.md`](audits/TRIAGE.md). This step was added after the first
+its tier in [`audits/TRIAGE.md`](audits/TRIAGE.md).
+
+Some maintainers have said they do not want AI-generated contributions. That is their
+call and it is final for this project: the fork of their repository under
+`github.com/cindykrafft` gets the topic **`upstream-declines-ai-contributions`**, and from
+then on nothing is filed, commented, re-opened or pushed for that repository, held items
+included. Open filings are left to the maintainers to close as they see fit; the audit
+stays published here, with the outcome recorded in its README and in the status ledger.
+Before preparing or opening anything, check the fork's topics; the ledger's
+[`site/audits.json`](site/audits.json) and the filing console read the same topic. This step was added after the first
 week of filings put seven FieldTrip PRs up in two days and a reviewer's reply read as
 "fine, but minor".
 
