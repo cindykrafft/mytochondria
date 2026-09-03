@@ -1,8 +1,11 @@
 # Scrublet / Scanpy-port upstream filing kit
 
 _Prepared 2026-09-03 against `swolock/scrublet` `master` @ `67f8ecb` (= PyPI 0.2.3) and
-`scverse/scanpy` `main` @ `a656a33b`. **Nothing has been filed.** Fix branches exist only
-in this session's local clones; the patches here are the `git format-patch` output._
+`scverse/scanpy` `main` @ `a656a33b`. **Nothing has been filed.** The two Scanpy patches are pushed to the fork
+[cindykrafft/scanpy](https://github.com/cindykrafft/scanpy) as `fix/scrublet-knn-neighbour-count` (`336bf96`)
+and `fix/scrublet-log-transform-order` (`a6d16cd`), each one commit on `a656a33b`, ruff-clean; the
+Scrublet-original patches stay as `git format-patch` output because that repository is unmaintained
+(last commit 2020-12-28) and will not be filed._
 
 ## What was read before preparing this (step 4 of the method)
 
