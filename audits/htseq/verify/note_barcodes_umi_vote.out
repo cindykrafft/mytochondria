@@ -1,0 +1,21 @@
+HTSeq 2.1.2 python 3.12.3
+exit 0 
+
+htseq-count-barcodes output (rows: feature, column: the one cell):
+	AAAACCCCGGGGTTTT-1
+A	2
+B	0
+__no_feature	1
+__ambiguous	0
+__too_low_aQual	1
+__not_aligned	0
+__alignment_not_unique	0
+
+Per-UMI expectation if unassigned reads were ignored (cellranger rule) vs what the vote gives:
+  m1 3xA            -> A     (both)
+  m2 1xA + 2 outside-> A     (reference)   vs __no_feature (vote: 2 > 1)
+  m3 1xA + 1 NH=2   -> A     (reference)   vs tie 1:1 -> UMI discarded
+  m4 2xA + 1xB      -> A     (both; the B read is a distinct molecule collision, A wins the vote)
+  m5 1xA + 1xB      -> tie   (both discard)
+  m6 2xA + 3 MAPQ 0 -> A     (reference)   vs __too_low_aQual (vote: 3 > 2)
+Reference total for A: 4 molecules (m1, m2, m3, m4) + m6 = 5; B: 0.

@@ -1,0 +1,83 @@
+From 4a8e832f2416a94e809d9af4ac96cb185ac95122 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 04:09:26 +0000
+Subject: [PATCH] fix: keep an auto-detected adapter that is longer than 60
+ bases
+
+std::string::resize(n, c) resizes to n and pads with c, so
+adapt.resize(0, 60) emptied the adapter instead of truncating it to 60
+characters. Since v0.26.0 the detector matches the built-in table first
+(Evaluator::checkKnownAdapters), and 139 of the 234 built-in adapters are longer
+than 60 nt, so for those libraries fastp printed the adapter it had just found
+and then reported 'No adapter detected', leaving the adapter untrimmed in every
+read and dropping the adapter_cutting section from the JSON report. The families
+that hit this are the ones with no shorter built-in prefix to fall back on: the
+TruSeq Small RNA RPI primers and the RNA PCR Primer index series.
+
+Truncate to 60 characters as intended. Adds scripts/test_known_adapter_over60.sh,
+which fails without this change (0 of 20000 reads trimmed).
+---
+ scripts/test_known_adapter_over60.sh | 28 ++++++++++++++++++++++++++++
+ src/main.cpp                         |  4 ++--
+ 2 files changed, 30 insertions(+), 2 deletions(-)
+ create mode 100755 scripts/test_known_adapter_over60.sh
+
+diff --git a/scripts/test_known_adapter_over60.sh b/scripts/test_known_adapter_over60.sh
+new file mode 100755
+index 0000000..50f8de5
+--- /dev/null
++++ b/scripts/test_known_adapter_over60.sh
+@@ -0,0 +1,28 @@
++#!/usr/bin/env bash
++set -euo pipefail
++
++# A built-in adapter longer than 60 nt (here TruSeq Small RNA RPI1, 63 nt) is
++# reported by the adapter detector; it must then also be used for trimming.
++
++python3 - <<'PY' > /tmp/fp_known_adapter_over60.fq
++import random
++random.seed(1)
++RPI1 = "TGGAATTCTCGGGTGCCAAGGAACTCCAGTCACATCACGATCTCGTATGCCGTCTTCTGCTTG"
++for i in range(20000):
++    insert = "".join(random.choice("ACGT") for _ in range(random.randint(20, 37)))
++    seq = (insert + RPI1)[:100]
++    print("@r%d" % i); print(seq); print("+"); print("I" * len(seq))
++PY
++
++./fastp -i /tmp/fp_known_adapter_over60.fq -o /dev/null \
++  -j /tmp/fp_known_adapter_over60.json -h /tmp/fp_known_adapter_over60.html \
++  > /dev/null 2> /tmp/fp_known_adapter_over60.log
++
++trimmed=$(grep -o 'reads with adapter trimmed: [0-9]*' /tmp/fp_known_adapter_over60.log | grep -o '[0-9]*')
++if [[ "$trimmed" -lt 19000 ]]; then
++  echo "FAIL: only $trimmed of 20000 reads had their adapter trimmed"
++  grep -E 'Detecting|No adapter' /tmp/fp_known_adapter_over60.log || true
++  exit 1
++fi
++
++echo "PASS: adapter trimmed in $trimmed of 20000 reads"
+diff --git a/src/main.cpp b/src/main.cpp
+index 0724850..82c915f 100644
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -456,7 +456,7 @@ int main(int argc, char* argv[]){
+             cerr << "Detecting adapter sequence for read1..." << endl;
+             string adapt = eva.evalAdapterAndReadNum(readNum, false);
+             if(adapt.length() > 60 )
+-                adapt.resize(0, 60);
++                adapt.resize(60);
+             if(adapt.length() > 0 ) {
+                 opt.adapter.sequence = adapt;
+                 opt.adapter.detectedAdapter1 = adapt;
+@@ -472,7 +472,7 @@ int main(int argc, char* argv[]){
+             cerr << "Detecting adapter sequence for read2..." << endl;
+             string adapt = eva.evalAdapterAndReadNum(readNum, true);
+             if(adapt.length() > 60 )
+-                adapt.resize(0, 60);
++                adapt.resize(60);
+             if(adapt.length() > 0 ) {
+                 opt.adapter.sequenceR2 = adapt;
+                 opt.adapter.detectedAdapter2 = adapt;
+-- 
+2.43.0
+

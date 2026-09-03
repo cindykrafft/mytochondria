@@ -1,0 +1,268 @@
+From 569e3990fc19f94bbc26cf5fa039e26e536cdeee Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 00:39:16 +0000
+Subject: [PATCH] Choose the best adapter by alignment score also when using an
+ index
+
+AdapterIndex ranked candidate adapters by the number of matching bases,
+while MultipleAdapters.match_to (used with --no-index and for all
+non-anchored adapters) ranks by alignment score (match +1, mismatch -1,
+indel -2), the criterion introduced in Cutadapt 4. The two paths could
+therefore assign the same read to different adapters: an 11 nt barcode
+matching exactly (score 11) lost against a 12 nt barcode matching with one
+inserted base (12 matches, score 10). The index also stored the number of
+matches in Match.score, so mixed lists of indexed and non-indexed adapters
+compared incompatible quantities.
+
+Store the alignment score in the index (computed from the numbers of
+errors and matches and the two lengths), rank and detect ambiguity by
+score, and stop the multi-length search early based on the score.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.rst              | 12 ++++++
+ src/cutadapt/adapters.py | 84 ++++++++++++++++++++++++++--------------
+ tests/test_adapters.py   | 32 +++++++++++++++
+ 3 files changed, 99 insertions(+), 29 deletions(-)
+
+diff --git a/CHANGES.rst b/CHANGES.rst
+index 9d3149f..27b61a9 100644
+--- a/CHANGES.rst
++++ b/CHANGES.rst
+@@ -2,6 +2,18 @@
+ Changelog
+ =========
+ 
++development version
++-------------------
++
++* When demultiplexing with an index (that is, when multiple anchored adapters
++  are given), the best-matching adapter is now chosen by alignment score, which
++  is the criterion the regular adapter search and ``--no-index`` use.
++  Previously, the index chose the adapter with the highest number of matching
++  bases, which could assign a read to an adapter that matches only with an
++  inserted base instead of to one that matches exactly, and the ``score``
++  recorded for such matches was the number of matches. The set of reads that
++  are considered ambiguous (and therefore not assigned) can change as well.
++
+ v5.2 (2025-10-23)
+ -----------------
+ 
+diff --git a/src/cutadapt/adapters.py b/src/cutadapt/adapters.py
+index 3bda8e4..457e600 100644
+--- a/src/cutadapt/adapters.py
++++ b/src/cutadapt/adapters.py
+@@ -1410,6 +1410,9 @@ class AdapterIndex:
+                 "Indexing could take long and use a lot of memory. "
+                 "If this becomes a problem, try --no-indels and/or --no-index."
+             )
++        # The index maps each string to (adapter, errors, score), where score
++        # is the alignment score (match: +1, mismatch: -1, indel: -2) -- the
++        # same criterion MultipleAdapters.match_to uses to pick the best adapter.
+         index: Dict[str, Tuple[SingleAdapter, int, int]] = dict()
+         lengths = set()
+         ambiguous = {}
+@@ -1419,26 +1422,29 @@ class AdapterIndex:
+ 
+             if adapter.indels:
+                 for s, errors, matches in edit_environment(sequence, k):
++                    score = self._alignment_score(
++                        len(sequence), len(s), errors, matches
++                    )
+                     if s in index:
+-                        other_adapter, other_errors, other_matches = index[s]
+-                        if matches < other_matches:
++                        other_adapter, other_errors, other_score = index[s]
++                        if score < other_score:
+                             continue
+-                        if other_matches == matches and s not in ambiguous:
+-                            ambiguous[s] = (adapter, other_adapter, k, matches)
+-                    index[s] = (adapter, errors, matches)
++                        if other_score == score and s not in ambiguous:
++                            ambiguous[s] = (adapter, other_adapter, k, score)
++                    index[s] = (adapter, errors, score)
+                     lengths.add(len(s))
+             else:
+                 n = len(sequence)
+                 for errors in range(k + 1):
+-                    matches = n - errors
++                    score = (n - errors) * 1 + errors * -1
+                     for s in hamming_sphere(sequence, errors):
+                         if s in index:
+-                            other_adapter, other_errors, other_matches = index[s]
+-                            if matches < other_matches:
++                            other_adapter, other_errors, other_score = index[s]
++                            if score < other_score:
+                                 continue
+-                            if other_matches == matches and s not in ambiguous:
+-                                ambiguous[s] = (adapter, other_adapter, k, matches)
+-                        index[s] = (adapter, errors, matches)
++                            if other_score == score and s not in ambiguous:
++                                ambiguous[s] = (adapter, other_adapter, k, score)
++                        index[s] = (adapter, errors, score)
+                 lengths.add(n)
+ 
+         if ambiguous:
+@@ -1448,12 +1454,12 @@ class AdapterIndex:
+                 len(ambiguous),
+             )
+             s = next(iter(ambiguous))
+-            adapter, other_adapter, k, matches = ambiguous[s]
++            adapter, other_adapter, k, score = ambiguous[s]
+             logger.warning(
+                 "WARNING: For example, %r, when found in a read, would result in "
+-                "%s matches for both %s %r and %s %r",
++                "an alignment score of %s for both %s %r and %s %r",
+                 s,
+-                matches,
++                score,
+                 other_adapter.name,
+                 other_adapter.sequence,
+                 adapter.name,
+@@ -1471,6 +1477,21 @@ class AdapterIndex:
+ 
+         return sorted(lengths, reverse=True), index, len(ambiguous)
+ 
++    @staticmethod
++    def _alignment_score(
++        adapter_length: int, string_length: int, errors: int, matches: int
++    ) -> int:
++        """
++        Return the score (match: +1, mismatch: -1, indel: -2) of the alignment
++        between an adapter and a string from its edit environment. The numbers of
++        insertions, deletions and mismatches follow from the two lengths, the
++        number of errors and the number of matches.
++        """
++        insertions = matches - adapter_length + errors
++        deletions = matches - string_length + errors
++        mismatches = errors - insertions - deletions
++        return matches - mismatches - 2 * (insertions + deletions)
++
+     def _match_to_one_length(self, sequence: str):
+         """
+         Match a query string against all adapters and return a Match that represents
+@@ -1481,13 +1502,13 @@ class AdapterIndex:
+             result = self._lookup_with_n(affix)
+             if result is None:
+                 return None
+-            adapter, e, m = result
++            adapter, e, score = result
+         else:
+             try:
+-                adapter, e, m = self._index[affix]
++                adapter, e, score = self._index[affix]
+             except KeyError:
+                 return None
+-        return self._make_match(adapter, self._length, m, e, sequence)
++        return self._make_match(adapter, self._length, score, e, sequence)
+ 
+     def _match_to_multiple_lengths(self, sequence: str):
+         """
+@@ -1499,38 +1520,43 @@ class AdapterIndex:
+         # Check all the prefixes or suffixes (affixes) that could match
+         best_adapter: Optional[SingleAdapter] = None
+         best_length = 0
+-        best_m = -1
++        best_score = None
+         best_e = 1000
+ 
+         # Check successively shorter affixes
+         for length in self._lengths:
+-            if length < best_m:
+-                # No chance of getting the same or a higher number of matches, so we can stop early
++            if best_score is not None and length < best_score:
++                # The score cannot exceed the length of the affix, so there is
++                # no chance of getting the same or a higher score: stop early
+                 break
+             affix = self._make_affix(affix, length)
+             if "N" in affix:
+                 result = self._lookup_with_n(affix)
+                 if result is None:
+                     continue
+-                adapter, e, m = result
++                adapter, e, score = result
+             else:
+                 try:
+-                    adapter, e, m = self._index[affix]
++                    adapter, e, score = self._index[affix]
+                 except KeyError:
+                     continue
+ 
+-            if m > best_m or (m == best_m and e < best_e):
+-                # TODO this could be made to work:
+-                # assert best_m == -1
++            if (
++                best_score is None
++                or score > best_score
++                or (score == best_score and e < best_e)
++            ):
+                 best_adapter = adapter
+                 best_e = e
+-                best_m = m
++                best_score = score
+                 best_length = length
+ 
+-        if best_m == -1:
++        if best_score is None:
+             return None
+         else:
+-            return self._make_match(best_adapter, best_length, best_m, best_e, sequence)
++            return self._make_match(
++                best_adapter, best_length, best_score, best_e, sequence
++            )
+ 
+     def _lookup_with_n(self, affix):
+         # N wildcards need to be counted as mismatches (read wildcards aren’t allowed).
+@@ -1541,7 +1567,7 @@ class AdapterIndex:
+         except KeyError:
+             return None
+ 
+-        # The looked up number of matches and errors is too low if
++        # The looked up score and number of errors are wrong if
+         # the adapter actually has an A where the N is in the query.
+         # Fix this by re-doing the alignment.
+         adapter = result[0]
+diff --git a/tests/test_adapters.py b/tests/test_adapters.py
+index f24ecdf..838bf65 100644
+--- a/tests/test_adapters.py
++++ b/tests/test_adapters.py
+@@ -703,3 +703,35 @@ def test_very_long_adapter_issue_749():
+     assert match.astart == 0
+     assert match.astop == 20
+     assert match.errors == 0
++
++
++def test_indexed_prefix_adapters_use_alignment_score():
++    # The 11 nt adapter matches exactly (score 11); the 12 nt adapter matches
++    # with one inserted base (12 matches, but score 12 - 2 = 10). The index
++    # must pick the same adapter as MultipleAdapters (highest score).
++    a = PrefixAdapter("ACGTACGTACGT", max_errors=1, indels=True)
++    b = PrefixAdapter("ACGTACGTACA", max_errors=1, indels=True)
++    read = "ACGTACGTACAGTTTTTTTTT"
++    for adapters in ([a, b], [b, a]):
++        match = IndexedPrefixAdapters(adapters).match_to(read)
++        assert match.adapter is b
++        assert match.errors == 0
++        assert match.score == 11
++        assert MultipleAdapters(adapters).match_to(read).adapter is b
++
++
++def test_indexed_prefix_adapters_score_is_alignment_score():
++    a = PrefixAdapter("ACGTTGCAAC", max_errors=1, indels=True)
++    b = PrefixAdapter("GGATCCTTGA", max_errors=1, indels=True)
++    ipa = IndexedPrefixAdapters([a, b])
++    # one inserted T: ten matches, one indel
++    match = ipa.match_to("ACGTTTGCAACGGGGG")
++    assert match.adapter is a
++    assert match.errors == 1
++    assert match.score == 8
++    assert match.score == MultipleAdapters([a, b]).match_to("ACGTTTGCAACGGGGG").score
++    # one substitution: nine matches, one mismatch
++    match = ipa.match_to("ACGTTGCTACGGGGG")
++    assert match.adapter is a
++    assert match.errors == 1
++    assert match.score == 8
+-- 
+2.43.0
+

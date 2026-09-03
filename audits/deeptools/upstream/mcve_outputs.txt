@@ -1,0 +1,200 @@
+################ bamCoverage 3.5.6 (venv-master, Python 3.12.3)
+
+$ python mcve_dt1_skipzerooverzero.py
+got:
+chr1	0	100	2
+chr1	100	500	1
+
+Traceback (most recent call last):
+  File "mcve_dt1_skipzerooverzero.py", line 21, in <module>
+    assert got == expected, "expected:\n" + expected
+           ^^^^^^^^^^^^^^^
+chr1	0	100	2
+chr1	200	300	1
+
+[exit 1]
+
+$ python mcve_dt2_plotpca_log2.py
+PC1 loadings, no option : ['0.5001532546026309', '0.5020745221037851', '0.4948445793973041', '0.5028883955767491']
+PC1 loadings, --log2    : ['0.5001532546026309', '0.5020745221037851', '0.4948445793973041', '0.5028883955767491']
+PC1 loadings, --rowCenter: ['0.5001532546026309', '0.5020745221037851', '0.4948445793973041', '0.5028883955767491']
+Traceback (most recent call last):
+  File "mcve_dt2_plotpca_log2.py", line 19, in <module>
+    assert log2 != plain, "--log2 had no effect on the PCA"
+           ^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt3_removeoutliers.py
+median 100, MAD 7, planted bin is 472 MADs from the median
+flagged by get_outlier_indices (threshold 200): []
+Traceback (most recent call last):
+  File "mcve_dt3_removeoutliers.py", line 13, in <module>
+    assert 123 in Correlation.get_outlier_indices(data), "the outlier was not flagged"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt4_mnase.py
+covered interval(s): [['173', '177']]
+Traceback (most recent call last):
+  File "mcve_dt4_mnase.py", line 18, in <module>
+    assert covered == [["173", "176"]], "expected [['173', '176']] (three bases 173, 174, 175)"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt5_bpm.py
+BPM == CPM bit for bit: True
+sum of BPM over all bins: 2982800 (documented definition gives 1e6)
+Traceback (most recent call last):
+  File "mcve_dt5_bpm.py", line 19, in <module>
+    assert not np.array_equal(tracks["CPM"], tracks["BPM"]), "BPM and CPM produced the same track"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt6_smooth.py
+bins differing from the chromosome-wide 5-bin mean: [999900, 999950, 1000000, 1000050]
+Traceback (most recent call last):
+  File "mcve_dt6_smooth.py", line 27, in <module>
+    assert len(bad) == 0, "smoothed values differ next to the chunk boundary at 1,000,000"
+           ^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt7_ignoredup.py
+CPM factor with --ignoreDuplicates                    : 333.333  (1e6/3000 = 333.333)
+CPM factor with --ignoreDuplicates --samFlagExclude 4 : 507.099  (1e6/2000 = 500.000)
+Traceback (most recent call last):
+  File "mcve_dt7_ignoredup.py", line 23, in <module>
+    assert abs(f1 - f2) < 1e-6, "the denominator changes with a no-op filter"
+           ^^^^^^^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt8_zoom.py
+bin 90000-100000: multiBigwigSummary 10.043, exact mean 10.054, pyBigWig stats(exact=True) 10.054
+bin 100000-110000: multiBigwigSummary 1.901, exact mean 1.906, pyBigWig stats(exact=True) 1.906
+Traceback (most recent call last):
+  File "mcve_dt8_zoom.py", line 17, in <module>
+    assert abs(rows[100000] - vals[100000:110000].mean()) < 1e-3, "the bin after the peak is not the mean of its values"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt9_sumcoverage.py
+bin sums: [0.0, 30.0, 40.0, 0.0, 0.0]  expected: [0, 30, 20, 0, 0]
+Traceback (most recent call last):
+  File "mcve_dt9_sumcoverage.py", line 15, in <module>
+    np.testing.assert_equal(got, [0, 30, 20, 0, 0])
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-master/lib/python3.12/site-packages/numpy/testing/_private/utils.py", line 380, in assert_equal
+    return assert_array_equal(actual, desired, err_msg, verbose,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-master/lib/python3.12/site-packages/numpy/testing/_private/utils.py", line 1128, in assert_array_equal
+    assert_array_compare(operator.__eq__, actual, desired, err_msg=err_msg,
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-master/lib/python3.12/site-packages/numpy/testing/_private/utils.py", line 988, in assert_array_compare
+    raise AssertionError(msg)
+Arrays are not equal
+
+Mismatched elements: 1 / 5 (20%)
+Mismatch at index:
+ [2]: 40.0 (ACTUAL), 20 (DESIRED)
+Max absolute difference among violations: 20.
+Max relative difference among violations: 1.
+ ACTUAL: array([ 0., 30., 40.,  0.,  0.])
+ DESIRED: array([ 0, 30, 20,  0,  0])
+[exit 1]
+################ bamCoverage 3.3.1 (venv-3.3.1, Python 3.12.3)
+
+$ python mcve_dt1_skipzerooverzero.py
+got:
+chr1	0	100	2
+chr1	100	500	1
+
+Traceback (most recent call last):
+  File "mcve_dt1_skipzerooverzero.py", line 21, in <module>
+    assert got == expected, "expected:\n" + expected
+           ^^^^^^^^^^^^^^^
+chr1	0	100	2
+chr1	200	300	1
+
+[exit 1]
+
+$ python mcve_dt2_plotpca_log2.py
+PC1 loadings, no option : ['0.5001532546026309', '0.5020745221037851', '0.4948445793973041', '0.5028883955767491']
+PC1 loadings, --log2    : ['0.5001532546026309', '0.5020745221037851', '0.4948445793973041', '0.5028883955767491']
+PC1 loadings, --rowCenter: ['0.5001532546026309', '0.5020745221037851', '0.4948445793973041', '0.5028883955767491']
+Traceback (most recent call last):
+  File "mcve_dt2_plotpca_log2.py", line 19, in <module>
+    assert log2 != plain, "--log2 had no effect on the PCA"
+           ^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt3_removeoutliers.py
+median 100, MAD 7, planted bin is 472 MADs from the median
+flagged by get_outlier_indices (threshold 200): []
+Traceback (most recent call last):
+  File "mcve_dt3_removeoutliers.py", line 13, in <module>
+    assert 123 in Correlation.get_outlier_indices(data), "the outlier was not flagged"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt4_mnase.py
+covered interval(s): [['173', '177']]
+Traceback (most recent call last):
+  File "mcve_dt4_mnase.py", line 18, in <module>
+    assert covered == [["173", "176"]], "expected [['173', '176']] (three bases 173, 174, 175)"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt5_bpm.py
+BPM == CPM bit for bit: True
+sum of BPM over all bins: 2982800 (documented definition gives 1e6)
+Traceback (most recent call last):
+  File "mcve_dt5_bpm.py", line 19, in <module>
+    assert not np.array_equal(tracks["CPM"], tracks["BPM"]), "BPM and CPM produced the same track"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt6_smooth.py
+bins differing from the chromosome-wide 5-bin mean: [999900, 999950, 1000000, 1000050]
+Traceback (most recent call last):
+  File "mcve_dt6_smooth.py", line 27, in <module>
+    assert len(bad) == 0, "smoothed values differ next to the chunk boundary at 1,000,000"
+           ^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt7_ignoredup.py
+CPM factor with --ignoreDuplicates                    : 333.333  (1e6/3000 = 333.333)
+CPM factor with --ignoreDuplicates --samFlagExclude 4 : 507.099  (1e6/2000 = 500.000)
+Traceback (most recent call last):
+  File "mcve_dt7_ignoredup.py", line 23, in <module>
+    assert abs(f1 - f2) < 1e-6, "the denominator changes with a no-op filter"
+           ^^^^^^^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt8_zoom.py
+bin 90000-100000: multiBigwigSummary 10.043, exact mean 10.054, pyBigWig stats(exact=True) 10.054
+bin 100000-110000: multiBigwigSummary 1.901, exact mean 1.906, pyBigWig stats(exact=True) 1.906
+Traceback (most recent call last):
+  File "mcve_dt8_zoom.py", line 17, in <module>
+    assert abs(rows[100000] - vals[100000:110000].mean()) < 1e-3, "the bin after the peak is not the mean of its values"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[exit 1]
+
+$ python mcve_dt9_sumcoverage.py
+bin sums: [0.0, 30.0, 40.0, 0.0, 0.0]  expected: [0, 30, 20, 0, 0]
+Traceback (most recent call last):
+  File "mcve_dt9_sumcoverage.py", line 15, in <module>
+    np.testing.assert_equal(got, [0, 30, 20, 0, 0])
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-3.3.1/lib/python3.12/site-packages/numpy/testing/_private/utils.py", line 380, in assert_equal
+    return assert_array_equal(actual, desired, err_msg, verbose,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-3.3.1/lib/python3.12/site-packages/numpy/testing/_private/utils.py", line 1128, in assert_array_equal
+    assert_array_compare(operator.__eq__, actual, desired, err_msg=err_msg,
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-3.3.1/lib/python3.12/site-packages/numpy/testing/_private/utils.py", line 988, in assert_array_compare
+    raise AssertionError(msg)
+Arrays are not equal
+
+Mismatched elements: 1 / 5 (20%)
+Mismatch at index:
+ [2]: 40.0 (ACTUAL), 20 (DESIRED)
+Max absolute difference among violations: 20.
+Max relative difference among violations: 1.
+ ACTUAL: array([ 0., 30., 40.,  0.,  0.])
+ DESIRED: array([ 0, 30, 20,  0,  0])
+[exit 1]

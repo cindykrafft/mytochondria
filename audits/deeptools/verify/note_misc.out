@@ -1,0 +1,10 @@
+bamCoverage 3.5.6
+N1 multiBamSummary bins -bs 1000 --genomeChunkSize 62901: 201 bins, 4 not 1000 bp: [(62000, 62901), (124901, 125802), (187802, 188703), (199703, 200000)]; grid restarts at [62901, 63901, 64901]
+   default chunk length for this file (countReadsPerBin.get_chunk_length): 10000000 bp (genome 200000, so a single chunk here)
+   without --genomeChunkSize: 200 bins, all 1000 bp: True
+N2 computeMatrix --skipZeros keeps: ['r_pos'] (r_cancel has values +1 and -1, mean 0; r_zero is all zero)
+N3 bamCompare SES factors (no filter)                 : ['0.9864628', '1.']
+N3 bamCompare SES factors --minMappingQuality 10      : ['0.9864628', '1.']
+   (sample 1 has 20,000 reads, 10,000 of them MAPQ 5; sample 2 has 20,000 reads; the readCount method gives factors [1, 0.5] with the filter)
+N6 bigwigCompare --skipZeroOverZero, log2, pseudocount 0: intervals [(0, 1000, 1.0)] (expected [(0,1000,1.0), (1000,2000,0.0)]; the trailing 0-valued run is missing)
+N7 CPM --ignoreForNormalization chr2: chr1 = counts*1e6/4000: True; chr2 written: True, with the same factor: True

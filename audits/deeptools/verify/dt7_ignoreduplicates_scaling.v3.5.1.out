@@ -1,0 +1,12 @@
+bamCoverage 3.5.1
+sample A: 9994 reads, 5952 after duplicate removal (40.4% duplicates); sample B: 6000 reads, 5950 after
+
+bamCoverage on A                                           scale factor   1e6/mapped used  track = dedup counts * 1e6 / dedup mapped?
+--ignoreDuplicates                                         100.0600       9994             False (max rel diff 4.0e-01; 1e6/5952 = 168.0108, 1e6/9994 = 100.0600)
+--ignoreDuplicates --exactScaling                          100.0600       9994             False (max rel diff 4.0e-01; 1e6/5952 = 168.0108, 1e6/9994 = 100.0600)
+--ignoreDuplicates --minMappingQuality 1                   168.0351       5951             True (max rel diff 1.5e-04; 1e6/5952 = 168.0108, 1e6/9994 = 100.0600)
+--ignoreDuplicates --minMappingQuality 1 --exactScaling    168.0351       5951             True (max rel diff 1.5e-04; 1e6/5952 = 168.0108, 1e6/9994 = 100.0600)
+
+bamCompare --scaleFactorsMethod readCount (A vs B):
+  --ignoreDuplicates                               factors [0.6004 1.    ]; from deduplicated counts [0.9997 1.    ]; from raw counts [0.6004 1.    ]
+  --ignoreDuplicates --minMappingQuality 1         factors [0.9998 1.    ]; from deduplicated counts [0.9997 1.    ]; from raw counts [0.6004 1.    ]

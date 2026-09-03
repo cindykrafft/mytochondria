@@ -1,0 +1,89 @@
+cohort: 258
+full text: 0   survey-cache fallback: 258   ({'offline': 258})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  MAFFT / MUSCLE alignment                         163
+  IQ-TREE version stated                           104
+  IQ-TREE 2 named                                  82
+  UFBoot replicates 1000                           74
+  ultrafast bootstrap (UFBoot)                     61
+  ModelFinder / -m MFP / -m TEST                   50
+  protein matrix named (LG/JTT/WAG etc.)           41
+  +G (discrete gamma)                              38
+  +F (empirical frequencies)                       34
+  IQ-TREE 1.x named                                33
+  concatenation / supermatrix                      30
+  MFP+MERGE / partition merging                    26
+  RAxML also used                                  25
+  trimming (trimAl/ClipKIT/Gblocks/BMGE)           24
+  model named GTR                                  23
+  MrBayes / BEAST also used                        22
+  SARS-CoV-2 / viral genomes                       21
+  +I (invariable sites)                            21
+  +R (FreeRate)                                    20
+  web server (CIPRES/IQ-TREE web)                  16
+  partition model (-p/-q/-spp/-Q)                  16
+  standard nonparametric bootstrap (-b)            12
+  coalescent / ASTRAL also used                    12
+  protein mixture (C10-C60/LG4X/EX/PMSF)           11
+  dating / LSD2 / MCMCtree                         10
+  SH-aLRT (-alrt)                                  9
+  model named HKY/K2P/TN                           8
+  threads stated                                   7
+  constraint tree (-g)                             5
+  UFBoot replicates 10000                          4
+  SH-aLRT replicates 1000                          4
+  +ASC (ascertainment bias)                        4
+  -bnni refinement                                 3
+  IQ-TREE 3 named                                  2
+  tree topology tests (AU/SH/KH)                   2
+
+VERSION FAMILY: {'1.6': 52, '2.1': 32, '2.2': 27, '2.0': 26, '2.3': 11, '1.5': 1, '2.7': 1, '2.4': 1, '2.6': 1, '1.7': 1, '1.3': 1, '3.0': 1}
+VERSIONS (top 25): {'1.6.12': 28, '2.0.3': 11, '2.1.4': 9, '2.1.2': 9, '2.0.6': 8, '2.2.0.3': 7, '2.1.3': 6, '2.0': 6, '2.2.0': 5, '1.6.11': 5, '2.1.1': 4, '1.6.1': 4, '2.2.5': 4, '2.3.6': 3, '2.2.2.6': 3, '1.6.10': 3, '2.2': 3, '2.3.4': 2, '2.3.0': 2, '2.2.2.3': 2, '1.6.2': 2, '1.6': 2, '1.6.5': 2, '2.3.2': 2, '2.1': 2}
+
+UFBoot replicate counts: {1000: 64, 100: 5, 10000: 2, 100000: 1, 2000: 1, 500: 1}
+SH-aLRT replicate counts: {1000: 3, 2000: 1}
+models named (top 30): {'LG': 15, 'MFP': 14, 'GTR': 7, 'TEST': 6, 'GTR+G': 6, 'C60': 4, 'GTR+F+G4': 3, 'C60+F+G': 3, 'WAG': 3, 'LG+F+I+G4': 3, 'TN93': 3, 'LG+I+G4': 2, 'LG4M': 2, 'C20': 2, 'C40': 2, 'GTR+I+G': 2, 'C10': 2, 'LG+F+R6': 2, 'HKY+F+I': 1, 'HKY+F+I+G4': 1, 'LG+G4': 1, 'GTR+I+F+G4': 1, 'LG+F+G4': 1, 'PMSF': 1, 'GTR+F': 1, 'GTR+G4': 1, 'LG+I+G': 1, 'JTT': 1, 'LG4X': 1, 'Q.pfam': 1}
+threads: {'AUTO': 3, '16': 3, '8': 2, '30': 1, '1': 1, '36': 1}
+
+CO-PACKAGES (top 40):
+  MAFFT                    132
+  R                        103
+  BLAST                    70
+  SAMtools                 60
+  AlphaFold                53
+  BWA                      48
+  HMMER                    46
+  BUSCO                    43
+  Trimmomatic              40
+  ggplot2                  32
+  ChimeraX                 30
+  minimap2                 29
+  OrthoFinder              29
+  SPAdes                   27
+  BCFtools                 27
+  MUSCLE                   27
+  ImageJ                   25
+  RAxML                    25
+  Bowtie2                  24
+  GATK                     24
+  BEDTools                 24
+  Python                   23
+  DESeq2                   22
+  RepeatMasker             22
+  PyMOL                    22
+  VCFtools                 22
+  ColabFold                20
+  Clustal Omega            18
+  STAR                     18
+  InterProScan             18
+  HISAT2                   17
+  fastp                    17
+  Picard                   16
+  PHENIX                   16
+  Cutadapt                 16
+  BEAST                    15
+  PLINK                    15
+  ADMIXTURE                15
+  tidyverse                15
+  eggNOG                   15

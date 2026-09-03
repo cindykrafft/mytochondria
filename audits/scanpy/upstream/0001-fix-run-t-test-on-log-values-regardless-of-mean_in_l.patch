@@ -1,0 +1,80 @@
+From 08d3cc72a79f948060e403ebb2c107172a676e36 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 22:54:07 +0000
+Subject: [PATCH] fix: run t-test on log values regardless of mean_in_log_space
+
+rank_genes_groups(method='t-test' | 't-test_overestim_var',
+mean_in_log_space=False) computed the per-group means and variances on
+expm1(X) and fed them to Welch's test, so the test ran on linear-scale values
+while the docstring and release note describe mean_in_log_space as a
+fold-change option only. Compute the test statistics on X, then (if
+requested) the exponentiated means for the fold change, as the wilcoxon branch
+already does. Adds a test asserting scores and p-values are identical for both
+settings.
+---
+ docs/release-notes/+ttest-log-space.fix.md |  1 +
+ src/scanpy/tools/_rank_genes_groups.py     |  8 ++++++--
+ tests/test_rank_genes_groups.py            | 23 ++++++++++++++++++++++
+ 3 files changed, 30 insertions(+), 2 deletions(-)
+ create mode 100644 docs/release-notes/+ttest-log-space.fix.md
+
+diff --git a/docs/release-notes/+ttest-log-space.fix.md b/docs/release-notes/+ttest-log-space.fix.md
+new file mode 100644
+index 0000000..ed2ae21
+--- /dev/null
++++ b/docs/release-notes/+ttest-log-space.fix.md
+@@ -0,0 +1 @@
++Fix {func}`scanpy.tl.rank_genes_groups` running the `t-test` and `t-test_overestim_var` methods on exponentiated values when `mean_in_log_space=False`; the test now always uses the (log-transformed) input and `mean_in_log_space` only affects `logfoldchanges` {smaller}`C Krafft`
+diff --git a/src/scanpy/tools/_rank_genes_groups.py b/src/scanpy/tools/_rank_genes_groups.py
+index 4f45761..d85c822 100644
+--- a/src/scanpy/tools/_rank_genes_groups.py
++++ b/src/scanpy/tools/_rank_genes_groups.py
+@@ -653,8 +653,12 @@ class _RankGenes:
+     ) -> None:
+         generate_test_results = None
+         if method in {"t-test", "t-test_overestim_var"}:
+-            self._basic_stats(exponentiate_values=not mean_in_log_space, need_var=True)
+-            generate_test_results = self.t_test(method)
++            # The test always runs on the (log-transformed) values in `X`;
++            # `mean_in_log_space` only selects how the fold change is computed.
++            self._basic_stats(exponentiate_values=False, need_var=True)
++            generate_test_results = list(self.t_test(method))
++            if not mean_in_log_space:
++                self._basic_stats(exponentiate_values=True)
+         elif "wilcoxon" in method:
+             generate_test_results = (
+                 self.illico(tie_correct=tie_correct)
+diff --git a/tests/test_rank_genes_groups.py b/tests/test_rank_genes_groups.py
+index 6caabad..693bc79 100644
+--- a/tests/test_rank_genes_groups.py
++++ b/tests/test_rank_genes_groups.py
+@@ -554,3 +554,26 @@ def test_mean_in_log_space(
+         )
+     logfcs = adata.uns["rank_genes_groups"]["logfoldchanges"]["a"]
+     np.testing.assert_equal(logfcs, expected_logfc)
++
++
++@pytest.mark.parametrize("method", ["t-test", "t-test_overestim_var"])
++def test_mean_in_log_space_does_not_change_ttest(
++    method: Literal["t-test", "t-test_overestim_var"],
++):
++    """`mean_in_log_space` selects the fold change, not the values the t-test sees."""
++    pbmc = pbmc68k_reduced()
++    scores, pvals = {}, {}
++    for mean_in_log_space in (True, False):
++        rank_genes_groups(
++            pbmc,
++            groupby="bulk_labels",
++            method=method,
++            n_genes=pbmc.raw.n_vars,
++            mean_in_log_space=mean_in_log_space,
++        )
++        res = pbmc.uns["rank_genes_groups"]
++        scores[mean_in_log_space] = res["scores"]
++        pvals[mean_in_log_space] = res["pvals"]
++    for group in scores[True].dtype.names:
++        np.testing.assert_allclose(scores[True][group], scores[False][group], rtol=1e-6)
++        np.testing.assert_allclose(pvals[True][group], pvals[False][group], rtol=1e-6)
+-- 
+2.43.0
+

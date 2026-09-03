@@ -1,0 +1,14 @@
+HTSeq 2.1.2 python 3.12.3
+reads: 190 (100 unique in A, 50 ambiguous A/B, 40 multimappers NH=3 with 3 records each); records: 270
+--secondary-alignments ignore --nonunique none    : A=100 B=0 C=0  sum(features)=100  ambiguous=50 alignment_not_unique=40  sum(features)+no_feature == reads? False
+--secondary-alignments ignore --nonunique all     : A=190 B=50 C=0  sum(features)=240  ambiguous=50 alignment_not_unique=40  sum(features)+no_feature == reads? False
+--secondary-alignments ignore --nonunique fraction: A=165 B=25 C=0  sum(features)=190  ambiguous=50 alignment_not_unique=40  sum(features)+no_feature == reads? True
+--secondary-alignments ignore --nonunique random  : A=173 B=17 C=0  sum(features)=190  ambiguous=50 alignment_not_unique=40  sum(features)+no_feature == reads? True
+--secondary-alignments score  --nonunique none    : A=100 B=0 C=0  sum(features)=100  ambiguous=50 alignment_not_unique=120  sum(features)+no_feature == reads? False
+--secondary-alignments score  --nonunique all     : A=190 B=90 C=40  sum(features)=320  ambiguous=50 alignment_not_unique=120  sum(features)+no_feature == reads? False
+--secondary-alignments score  --nonunique fraction: A=165 B=65 C=40  sum(features)=270  ambiguous=50 alignment_not_unique=120  sum(features)+no_feature == reads? False
+--secondary-alignments score  --nonunique random  : A=158 B=72 C=40  sum(features)=270  ambiguous=50 alignment_not_unique=120  sum(features)+no_feature == reads? False
+
+With --secondary-alignments score and --nonunique fraction each of the 40 multimappers adds 3 counts
+(one per alignment record, 1/len(features) each), so the feature sum exceeds the number of reads by 80;
+with the default (ignore) the primary record alone is counted, sum(features) + no_feature == reads.

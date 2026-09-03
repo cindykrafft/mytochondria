@@ -1,0 +1,103 @@
+From a49d86214e153f250a042f73a41ef205770057b8 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Wed, 2 Sep 2026 22:56:25 +0000
+Subject: [PATCH] fix: build n_bins equal-frequency expression bins in
+ score_genes
+
+score_genes binned genes by rank // round(N / (n_bins - 1)), so bins
+0..n_bins-2 held round(N / (n_bins - 1)) genes each and the top bin held
+whatever was left: between one and about n_bins / 2 of the most highly
+expressed genes (or nothing, for some N). Gene lists containing those genes got
+almost no matched control genes, and lists consisting of them raised 'No
+control genes found in any cut'. Use n_bins equal-frequency bins as Seurat's
+cut_number() does, which the docstring promises.
+
+Bin membership changes for every gene, so seeded control draws change:
+tests/_data/score_genes_reference_paul2015.pkl must be regenerated with this
+code (test_score_with_reference), and test_gene_list_is_control now pins the
+seed its ctrl_as_ref=True case relies on.
+---
+ docs/release-notes/+score-genes-bins.fix.md |  1 +
+ src/scanpy/tools/_score_genes.py            |  7 ++--
+ tests/test_score_genes.py                   | 40 ++++++++++++++++++++-
+ 3 files changed, 45 insertions(+), 3 deletions(-)
+ create mode 100644 docs/release-notes/+score-genes-bins.fix.md
+
+diff --git a/docs/release-notes/+score-genes-bins.fix.md b/docs/release-notes/+score-genes-bins.fix.md
+new file mode 100644
+index 0000000..06b98c7
+--- /dev/null
++++ b/docs/release-notes/+score-genes-bins.fix.md
+@@ -0,0 +1 @@
++Fix {func}`scanpy.tl.score_genes` (and {func}`scanpy.tl.score_genes_cell_cycle`) building `n_bins` equal-frequency expression bins for the control genes; previously the highest-expression bin held only a handful of genes, so gene lists containing the most highly expressed genes got almost no matched controls or failed with `No control genes found` {smaller}`C Krafft`
+diff --git a/src/scanpy/tools/_score_genes.py b/src/scanpy/tools/_score_genes.py
+index 774ef0e..e69a99f 100644
+--- a/src/scanpy/tools/_score_genes.py
++++ b/src/scanpy/tools/_score_genes.py
+@@ -276,8 +276,11 @@ def _score_genes_bins(
+     # Sometimes (and I don’t know how) missing data may be there, with NaNs for missing entries
+     obs_avg = obs_avg[np.isfinite(obs_avg)]
+ 
+-    n_items = int(np.round(len(obs_avg) / (n_bins - 1)))
+-    obs_cut = obs_avg.rank(method="min") // n_items
++    # `n_bins` equal-frequency bins (as Seurat's `cut_number`): ranks 0..N-1 mapped
++    # onto 0..n_bins-1. The previous `rank // round(N / (n_bins - 1))` left the top
++    # bin with between one and a dozen genes, or no top bin at all.
++    obs_cut = (obs_avg.rank(method="first") - 1) * n_bins // len(obs_avg)
++    obs_cut = obs_cut.astype(int)
+     keep_ctrl_in_obs_cut = np.False_ if ctrl_as_ref else obs_cut.index.isin(gene_list)
+ 
+     # now pick `ctrl_size` genes from every cut
+diff --git a/tests/test_score_genes.py b/tests/test_score_genes.py
+index 5878f90..ac59a52 100644
+--- a/tests/test_score_genes.py
++++ b/tests/test_score_genes.py
+@@ -287,6 +287,44 @@ def test_gene_list_is_control(*, ctrl_as_ref: bool):
+         if ctrl_as_ref
+         else nullcontext()
+     ):
++        # g3 shares its expression bin with one other gene; with ctrl_as_ref=True the
++        # single control drawn from that bin must be g3 itself for the error to occur,
++        # which this seed guarantees.
+         sc.tl.score_genes(
+-            adata, gene_list="g3", ctrl_size=1, n_bins=5, ctrl_as_ref=ctrl_as_ref
++            adata, gene_list="g3", ctrl_size=1, n_bins=5, ctrl_as_ref=ctrl_as_ref, rng=1
+         )
++
++
++@pytest.mark.parametrize("n_vars", [2000, 18000, 25000])
++def test_bins_are_equal_frequency(n_vars: int):
++    """Every expression bin holds n_vars / n_bins genes, including the top one.
++
++    Regression test: the bin boundaries used to be ``rank // round(n / (n_bins - 1))``,
++    which left the highest-expression bin with 1-12 genes (or removed it), so lists of
++    the most highly expressed genes had almost no control genes.
++    """
++    from scanpy.tools._score_genes import _score_genes_bins
++
++    n_bins, ctrl_size = 25, 50
++    rng = np.random.default_rng(0)
++    adata = AnnData(rng.lognormal(0, 1, (10, n_vars)).astype(np.float32))
++    adata.var_names = [f"g{i}" for i in range(n_vars)]
++    avg = np.asarray(adata.X.mean(axis=0)).ravel()
++    top_genes = adata.var_names[np.argsort(avg)[-5:]]
++    controls = list(
++        _score_genes_bins(
++            top_genes,
++            adata.var_names.astype("string"),
++            ctrl_as_ref=False,
++            ctrl_size=ctrl_size,
++            n_bins=n_bins,
++            get_subset=lambda genes: adata[:, genes].X,
++            rng=rng,
++        )
++    )
++    # the five top genes share one bin, which supplies a full set of controls
++    assert len(controls) == 1
++    assert len(controls[0]) == ctrl_size
++    # and scoring them works instead of raising "No control genes found"
++    sc.tl.score_genes(adata, top_genes, ctrl_size=ctrl_size, n_bins=n_bins, rng=0)
++    assert np.isfinite(adata.obs["score"]).all()
+-- 
+2.43.0
+

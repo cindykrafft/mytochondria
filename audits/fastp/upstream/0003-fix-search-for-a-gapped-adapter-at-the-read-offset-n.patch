@@ -1,0 +1,79 @@
+From 7b5579dd4bd853e3ae6fdf85e42f9882b9d9e109 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 04:10:32 +0000
+Subject: [PATCH] fix: search for a gapped adapter at the read offset, not only
+ at the read start
+
+The exact-match loop in AdapterTrimmer::trimBySequence compares the adapter with
+the read at the current offset (rdata + startOffset + pos), but the two loops
+added for one insertion and one deletion passed rdata, i.e. always the start of
+the read. For every pos up to rlen-alen-1 the call is then identical, so the
+whole loop is a single test of 'does the read begin with the adapter', and an
+adapter occurring at the 3' end with one indel is never found: on 200 reads
+carrying the TruSeq Read 1 adapter with one inserted base at read position 40,
+0 were trimmed, against 200 of 200 for the same reads without the indel.
+
+Pass rdata + pos in both loops. On 5,000 random reads this recovers every
+planted indel occurrence (993 of 993 insertions, 967 of 967 deletions, against
+263 and 266 before) and trims none of the 1,013 reads without an adapter.
+AdapterTrimmer::test() now covers both cases; they fail without this change.
+---
+ src/adaptertrimmer.cpp | 28 ++++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
+
+diff --git a/src/adaptertrimmer.cpp b/src/adaptertrimmer.cpp
+index 495b6ca..c5f032f 100644
+--- a/src/adaptertrimmer.cpp
++++ b/src/adaptertrimmer.cpp
+@@ -107,7 +107,7 @@ bool AdapterTrimmer::trimBySequence(Read* r, FilterResult* fr, string& adapterse
+         for(pos = 0; pos<rlen-matchReq-1; pos++) {
+             int cmplen = min(rlen - pos - 1, alen);
+             int allowedMismatch = cmplen/allowOneMismatchForEach -1;
+-            bool matched = Matcher::matchWithOneInsertion(rdata, adata, cmplen, allowedMismatch);
++            bool matched = Matcher::matchWithOneInsertion(rdata + pos, adata, cmplen, allowedMismatch);
+             if(matched) {
+                 found = true;
+                 hasInsertion = true;
+@@ -124,7 +124,7 @@ bool AdapterTrimmer::trimBySequence(Read* r, FilterResult* fr, string& adapterse
+         for(pos = 0; pos<rlen-matchReq; pos++) {
+             int cmplen = min(rlen - pos, alen - 1);
+             int allowedMismatch = cmplen/allowOneMismatchForEach -1;
+-            bool matched = Matcher::matchWithOneInsertion(adata, rdata, cmplen, allowedMismatch);
++            bool matched = Matcher::matchWithOneInsertion(adata, rdata + pos, cmplen, allowedMismatch);
+             if(matched) {
+                 found = true;
+                 hasDeletion = true;
+@@ -181,5 +181,29 @@ bool AdapterTrimmer::test() {
+         return false;
+     }
+ 
++    // An adapter that occurs at the 3' end with one inserted base must be found
++    // where it occurs, not only at the start of the read.
++    string illumina = "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA";
++    Read withInsertion("@name",
++        "TTTTAACCCCCCCCCCCCCCCCCCCCCCCCCCCCAATTTTAGATCGGAGAGAGCACACGTCTGAACTCCAGTCA",
++        "+",
++        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
++    if(!AdapterTrimmer::trimBySequence(&withInsertion, NULL, illumina)
++        || *withInsertion.mSeq != "TTTTAACCCCCCCCCCCCCCCCCCCCCCCCCCCCAATTTT") {
++        cerr << "adapter with one inserted base not trimmed: " << *withInsertion.mSeq << endl;
++        return false;
++    }
++
++    // ... and the same with one deleted base.
++    Read withDeletion("@name",
++        "TTTTAACCCCCCCCCCCCCCCCCCCCCCCCCCCCAATTTTAGATCGGAAGAGCACACGTCTGACTCCAGTCA",
++        "+",
++        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
++    if(!AdapterTrimmer::trimBySequence(&withDeletion, NULL, illumina)
++        || *withDeletion.mSeq != "TTTTAACCCCCCCCCCCCCCCCCCCCCCCCCCCCAATTTT") {
++        cerr << "adapter with one deleted base not trimmed: " << *withDeletion.mSeq << endl;
++        return false;
++    }
++
+     return true;
+ }
+\ No newline at end of file
+-- 
+2.43.0
+

@@ -1,0 +1,21 @@
+scrublet 0.2.2 | scanpy 1.14.0.dev1+ga656a33b0
+
+synthetic data: 1650 cells, 150 true doublets
+
+[1] defaults of each package (exact neighbours)
+  original: scr.Scrublet(X, random_state=0).scrub_doublets() thr 0.1876  called  144  recall 0.960  prec 1.000
+    original preprocessing: 300 genes kept (v-score >= 85th pctl, >=3 counts in >=3 cells); k = 20; expected_doublet_rate 0.1
+  scanpy: sc.pp.scrublet(adata, random_state=0)              thr 0.0994  called  146  recall 0.973  prec 1.000  Spearman vs original 0.432  call Jaccard 0.986  max|Δscore| 0.394
+    scanpy preprocessing: filter_genes(min_cells=3), filter_cells(min_genes=3), normalize_total (median), highly_variable_genes (seurat flavour) -> 3300 simulated doublets; expected_doublet_rate default 0.05
+  scanpy, expected_doublet_rate=0.1 (original's default)     thr 0.1642  called  147  recall 0.980  prec 1.000  Spearman vs original 0.432  call Jaccard 0.980  max|Δscore| 0.237
+    doublet parents with the same seed: original 3300 pairs (with replacement, 1 self-pairs), scanpy 3300 pairs (grid without replacement, 0 self-pairs); unordered pairs in common: 5
+
+[2] port fed the original's gene set and simulated doublets (adata_sim), expected_doublet_rate=0.1: differences left are z-score ddof, PCA seed, kNN rule
+  scanpy core on the original's obs/sim matrices             thr 0.1697  called  146  recall 0.973  prec 1.000  Spearman vs original 0.996  call Jaccard 0.986  max|Δscore| 0.147
+    port's simulated-score minimum 0.0258 vs original's 0.0258; port's observed-score maximum 0.6250 vs original's 0.7722
+
+[3] port's classifier on the original's PCA manifold (only the kNN rule differs) -- see sr1_scanpy_knn_self_neighbour.py for the rule
+  scanpy classifier, original manifold                       thr 0.1697  called  146  recall 0.973  prec 1.000  Spearman vs original 0.996  call Jaccard 0.986  max|Δscore| 0.147
+
+[4] z-score ddof: the port uses ddof=1, the original ddof=0 -- a uniform rescaling of every gene, invariant for PCA-then-Euclidean-kNN
+    port z-scores / original z-scores: min 0.999697 max 0.999697; sqrt((n-1)/n) = 0.999697

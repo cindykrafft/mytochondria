@@ -1,0 +1,22 @@
+bamCoverage 3.5.6
+reference-point TSS -b 300 -a 500 --averageTypeBins mean                 OK  (9 regions, max |diff| 0.0e+00)
+reference-point TSS -b 300 -a 500 --averageTypeBins median               OK  (9 regions, max |diff| 0.0e+00)
+reference-point TSS -b 300 -a 500 --averageTypeBins max                  OK  (9 regions, max |diff| 0.0e+00)
+reference-point TSS -b 300 -a 500 --averageTypeBins sum                  OK  (9 regions, max |diff| 0.0e+00)
+reference-point TSS -b 300 -a 500 --averageTypeBins std                  OK  (9 regions, max |diff| 0.0e+00)
+reference-point TSS --missingDataAsZero                                  OK  (9 regions, max |diff| 0.0e+00)
+reference-point TES                                                      OK  (9 regions, max |diff| 0.0e+00)
+reference-point center                                                   OK  (9 regions, max |diff| 0.0e+00)
+reference-point TSS --nanAfterEnd (regions >= 10 bp)                     OK  (8 regions, max |diff| 0.0e+00)
+   (note: the 5-bp region r8 gets NaN in its first downstream bin under --nanAfterEnd; the padding is rounded to whole bins)
+scale-regions -m 500 -b 200 -a 100 (regions >= 10 bp)                    OK  (8 regions, max |diff| 0.0e+00)
+scale-regions --averageTypeBins median                                   OK  (8 regions, max |diff| 0.0e+00)
+scale-regions --unscaled5prime 50 --unscaled3prime 30 (regions >= 100 bp) OK  (7 regions, max |diff| 0.0e+00)
+scale-regions -b 0 -a 0 --missingDataAsZero                              OK  (8 regions, max |diff| 0.0e+00)
+plotProfile --averageType mean equals numpy over non-NaN rows            OK
+plotProfile --averageType median equals numpy over non-NaN rows          OK
+plotProfile --averageType max equals numpy over non-NaN rows             OK
+plotProfile --averageType min equals numpy over non-NaN rows             OK
+plotProfile --averageType sum equals numpy over non-NaN rows             OK
+plotProfile --averageType std equals numpy over non-NaN rows             OK
+plotHeatmap --outFileNameMatrix equals the computeMatrix values (4 s.f.) OK

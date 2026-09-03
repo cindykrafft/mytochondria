@@ -1,0 +1,42 @@
+===== master dce5c40: fastp 1.3.6
+--- mcve_fp1_cut_front_trim_front.py
+--cut_front -f 5: output read is 52 nt (expected 55)
+--cut_tail  -t 5: output read is 52 nt (expected 55)
+-f 5 (control)  : output read is 55 nt (expected 55)
+--- mcve_fp2_known_adapter_over60.py
+auto-detection             adapter printed by fastp: 63 nt     | 'No adapter detected' | reads with adapter trimmed: 0
+--adapter_sequence <RPI1>  adapter printed by fastp: none      | adapter used | reads with adapter trimmed: 20000
+expected in both rows: 20000 of 20000 reads trimmed
+--- mcve_fp3_indel_adapter.py
+exact                    output  40 nt (expected 40)
+one_inserted_base        output  74 nt (expected 40)   <-- adapter left in the read
+one_deleted_base         output  72 nt (expected 40)   <-- adapter left in the read
+insertion_at_position_0  output   0 nt (expected 0)
+===== release v1.3.6: fastp 1.3.6
+--- mcve_fp1_cut_front_trim_front.py
+--cut_front -f 5: output read is 52 nt (expected 55)
+--cut_tail  -t 5: output read is 52 nt (expected 55)
+-f 5 (control)  : output read is 55 nt (expected 55)
+--- mcve_fp2_known_adapter_over60.py
+auto-detection             adapter printed by fastp: 63 nt     | 'No adapter detected' | reads with adapter trimmed: 0
+--adapter_sequence <RPI1>  adapter printed by fastp: none      | adapter used | reads with adapter trimmed: 20000
+expected in both rows: 20000 of 20000 reads trimmed
+--- mcve_fp3_indel_adapter.py
+exact                    output  40 nt (expected 40)
+one_inserted_base        output  74 nt (expected 40)   <-- adapter left in the read
+one_deleted_base         output  72 nt (expected 40)   <-- adapter left in the read
+insertion_at_position_0  output   0 nt (expected 0)
+===== release v0.23.4: fastp 0.23.4
+--- mcve_fp1_cut_front_trim_front.py
+--cut_front -f 5: output read is 52 nt (expected 55)
+--cut_tail  -t 5: output read is 52 nt (expected 55)
+-f 5 (control)  : output read is 55 nt (expected 55)
+--- mcve_fp2_known_adapter_over60.py
+auto-detection             adapter printed by fastp: none      | 'No adapter detected' | reads with adapter trimmed: 0
+--adapter_sequence <RPI1>  adapter printed by fastp: none      | adapter used | reads with adapter trimmed: 20000
+expected in both rows: 20000 of 20000 reads trimmed
+--- mcve_fp3_indel_adapter.py
+exact                    output  40 nt (expected 40)
+one_inserted_base        output  74 nt (expected 40)   <-- adapter left in the read
+one_deleted_base         output  72 nt (expected 40)   <-- adapter left in the read
+insertion_at_position_0  output  74 nt (expected 0)   <-- adapter left in the read

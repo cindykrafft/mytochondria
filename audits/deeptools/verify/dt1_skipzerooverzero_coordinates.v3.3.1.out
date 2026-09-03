@@ -1,0 +1,23 @@
+bamCoverage 3.3.1
+bins: 400, zero-over-zero bins: 206
+
+bamCompare_default (--operation log2 ): intervals written 198; bins with wrong value: 0 of 400; bins with a value where the output should be empty: 0; bins empty that should have a value: 0
+  first 6 intervals: [(0, 500, 0.0), (500, 550, -0.807), (550, 600, -0.363), (600, 650, 0.648), (650, 700, 0.036), (700, 750, -0.049)]
+  expected first 6 : [(0, 500, np.float64(0.0)), (500, 550, np.float64(-0.807)), (550, 600, np.float64(-0.363)), (600, 650, np.float64(0.648)), (650, 700, np.float64(0.036)), (700, 750, np.float64(-0.049))]
+
+bamCompare_skip (--operation log2 --skipZeroOverZero): intervals written 194; bins with wrong value: 375 of 400; bins with a value where the output should be empty: 196; bins empty that should have a value: 0
+  first 6 intervals: [(500, 550, -0.807), (550, 600, -0.363), (600, 650, 0.648), (650, 700, 0.036), (700, 750, -0.049), (750, 800, 0.341)]
+  expected first 6 : [(500, 550, np.float64(-0.807)), (550, 600, np.float64(-0.363)), (600, 650, np.float64(0.648)), (650, 700, np.float64(0.036)), (700, 750, np.float64(-0.049)), (750, 800, np.float64(0.341))]
+
+bamCompare_skip_subtract (--operation subtract --skipZeroOverZero): intervals written 193; bins with wrong value: 372 of 400; bins with a value where the output should be empty: 196; bins empty that should have a value: 0
+  first 6 intervals: [(500, 550, -3.0), (550, 600, -2.0), (600, 650, 3.4), (650, 700, 0.2), (700, 750, -0.2), (750, 800, 1.6)]
+  expected first 6 : [(500, 550, np.float64(-3.0)), (550, 600, np.float64(-2.0)), (600, 650, np.float64(3.4)), (650, 700, np.float64(0.2)), (700, 750, np.float64(-0.2)), (750, 800, np.float64(1.6))]
+
+bigwigCompare --skipZeroOverZero on the scaled bamCoverage tracks: bins with wrong value: 4 of 400
+  bin 20 (1000-1050): bigwigCompare nan, expected 2.0000, c1=5 c2=0; previous bin expected 0.8074
+  bin 50 (2500-2550): bigwigCompare nan, expected 0.1806, c1=4 c2=2; previous bin expected 0.0356
+  bin 110 (5500-5550): bigwigCompare nan, expected 0.1806, c1=4 c2=2; previous bin expected 0.3410
+  bin 260 (13000-13050): bigwigCompare nan, expected 0.6167, c1=6 c2=2; previous bin expected 0.3785
+  (the wrong bins are the trailing bins of a run whose value is exactly 0: writeBedGraph_bam_and_bw.py:135 tests `if previousValue and ...`, so a final run of 0.0 in a chunk is not written)
+
+SUMMARY: default 0 wrong; --skipZeroOverZero log2 375 wrong, subtract 372 wrong (of 400 bins)

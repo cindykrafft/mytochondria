@@ -1,0 +1,20 @@
+bedtools v2.31.1
+
+== A. minimal: A = chr1:100-200; B = three identical single-block BED12 reads chr1:120-170
+   three reads              -split -F 0.5          -> 0 lines []
+   three reads, no -split   -F 0.5                 -> 3 lines ['r1', 'r2', 'r3']
+   one read                 -split -F 0.5          -> 1 lines ['r1']
+   three reads              -split -F 0.34         -> 0 lines []
+   three reads              -split -F 0.33         -> 3 lines ['r1', 'r2', 'r3']
+   (each read is 100 % inside A; expected 3 lines for every -F <= 1.0; the break at 50/150 = 0.333 is the summed denominator)
+
+== B. random: 200 A intervals (BED4), 4000 BED12 reads with 1-3 blocks
+   -split -F 0.5: reference pairs 838, shipped 356, missed (false negatives) 530, extra (false positives) 48
+      control without -split: reference 824, shipped 824, missed 0, extra 0
+   -split -F 0.9: reference pairs 585, shipped 7, missed (false negatives) 579, extra (false positives) 1
+      control without -split: reference 609, shipped 609, missed 0, extra 0
+   -split -f 0.5 -r: per-record reciprocal reference 1, shipped 0, missed 1, extra 0
+
+== C. -f under -split is cumulative over all B records (project test intersect.t22.*; issue #750)
+   two 40-bp reads at 100-140 and 160-200 on a 100-bp A, -f 0.5:
+   -split: 2 lines; no -split: 0 lines

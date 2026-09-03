@@ -1,0 +1,91 @@
+
+Created /tmp/cpdb4_9gmxs_be/db/cellphonedb_09_03_2026_003101.zip successfully
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb4_9gmxs_be/in/counts.txt
+/tmp/cpdb4_9gmxs_be/in/meta.txt
+[ ][CORE][03/09/26-00:31:01][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:100 Debug-seed:0 Threads:1 Precision:3
+[ ][CORE][03/09/26-00:31:01][WARNING] Debug random seed enabled. Set to 0
+[ ][CORE][03/09/26-00:31:02][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:31:02][INFO] Running Statistical Analysis
+0.0% 1.0% 2.0% 3.0% 4.0% 5.0% 6.0% 7.0% 8.0% 9.0% 10.0% 11.0% 12.0% 13.0% 14.0% 15.0% 16.0% 17.0% 18.0% 19.0% 20.0% 21.0% 22.0% 23.0% 24.0% 25.0% 26.0% 27.0% 28.0% 29.0% 30.0% 31.0% 32.0% 33.0% 34.0% 35.0% 36.0% 37.0% 38.0% 39.0% 40.0% 41.0% 42.0% 43.0% 44.0% 45.0% 46.0% 47.0% 48.0% 49.0% 50.0% 51.0% 52.0% 53.0% 54.0% 55.0% 56.0% 57.0% 58.0% 59.0% 60.0% 61.0% 62.0% 63.0% 64.0% 65.0% 66.0% 67.0% 68.0% 69.0% 70.0% 71.0% 72.0% 73.0% 74.0% 75.0% 76.0% 77.0% 78.0% 79.0% 80.0% 81.0% 82.0% 83.0% 84.0% 85.0% 86.0% 87.0% 88.0% 89.0% 90.0% 91.0% 92.0% 93.0% 94.0% 95.0% 96.0% 97.0% 98.0% 99.0% [ ][CORE][03/09/26-00:31:02][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:31:02][INFO] Building results
+Saved deconvoluted to /tmp/cpdb4_9gmxs_be/out/statistical_analysis_deconvoluted_run.txt
+Saved deconvoluted_percents to /tmp/cpdb4_9gmxs_be/out/statistical_analysis_deconvoluted_percents_run.txt
+Saved means to /tmp/cpdb4_9gmxs_be/out/statistical_analysis_means_run.txt
+Saved pvalues to /tmp/cpdb4_9gmxs_be/out/statistical_analysis_pvalues_run.txt
+Saved significant_means to /tmp/cpdb4_9gmxs_be/out/statistical_analysis_significant_means_run.txt
+cellphonedb 5.0.1
+
+True per-gene cluster means of the fixture (each gene's own mean over its cluster):
+         CTA     CTB     CTC
+LIG1  3.0000  0.3333  0.0000
+REC1  0.3333  2.0000  0.3333
+SUB1  1.0000  3.0000  0.6667
+SUB2  2.0000  1.0000  2.0000
+LIG2  0.0000  2.0000  4.0000
+
+Complex minima (what build_clusters stores for the complex rows):
+         CTA  CTB     CTC
+RECCPLX  1.0  1.0  0.6667
+BIGCPLX  0.0  1.0  0.3333
+
+deconvoluted.txt as written by the shipped run:
+gene_name uniprot  is_complex complex_name id_cp_interaction   CTA   CTB   CTC
+     LIG1  P00001       False          NaN   CPI-SS0B402F03C 3.000 0.333 0.000
+     LIG2  P00005       False          NaN   CPI-SC0613055CE 0.000 2.000 4.000
+     LIG1  P00001       False          NaN   CPI-SC04E30ADD4 3.000 0.333 0.000
+     LIG1  P00001       False          NaN   CPI-SC0E51FC38B 3.000 0.333 0.000
+     SUB1  P00003        True      RECCPLX   CPI-SC0613055CE 1.000 1.000 0.667
+     SUB1  P00003        True      RECCPLX   CPI-SC04E30ADD4 1.000 1.000 0.667
+     SUB2  P00004        True      RECCPLX   CPI-SC0613055CE 1.000 1.000 0.667
+     SUB2  P00004        True      RECCPLX   CPI-SC04E30ADD4 1.000 1.000 0.667
+     REC1  P00002        True      BIGCPLX   CPI-SC0E51FC38B 0.000 1.000 0.333
+     SUB1  P00003        True      BIGCPLX   CPI-SC0E51FC38B 0.000 1.000 0.333
+     SUB2  P00004        True      BIGCPLX   CPI-SC0E51FC38B 0.000 1.000 0.333
+     LIG2  P00005        True      BIGCPLX   CPI-SC0E51FC38B 0.000 1.000 0.333
+     REC1  P00002       False          NaN   CPI-SS0B402F03C 0.333 2.000 0.333
+
+deconvoluted_percents.txt as written by the shipped run:
+gene_name complex_name   CTA   CTB   CTC
+     LIG1          NaN 1.000 0.333 0.000
+     LIG2          NaN 0.000 1.000 1.000
+     LIG1          NaN 1.000 0.333 0.000
+     LIG1          NaN 1.000 0.333 0.000
+     SUB1      RECCPLX 1.000 1.000 0.333
+     SUB1      RECCPLX 1.000 1.000 0.333
+     SUB2      RECCPLX 1.000 1.000 0.333
+     SUB2      RECCPLX 1.000 1.000 0.333
+     REC1      BIGCPLX 0.000 1.000 0.333
+     SUB1      BIGCPLX 0.000 1.000 0.333
+     SUB2      BIGCPLX 0.000 1.000 0.333
+     LIG2      BIGCPLX 0.000 1.000 0.333
+     REC1          NaN 0.333 1.000 0.333
+
+subunit rows, reported vs the subunit's own value:
+  gene     complex   reported mean            own mean                 wrong?
+  SUB1     RECCPLX   [1.0, 1.0, 0.667]        [1.0, 3.0, 0.667]        YES
+  SUB2     RECCPLX   [1.0, 1.0, 0.667]        [2.0, 1.0, 2.0]          YES
+  REC1     BIGCPLX   [0.0, 1.0, 0.333]        [0.333, 2.0, 0.333]      YES
+  SUB1     BIGCPLX   [0.0, 1.0, 0.333]        [1.0, 3.0, 0.667]        YES
+  SUB2     BIGCPLX   [0.0, 1.0, 0.333]        [2.0, 1.0, 2.0]          YES
+  LIG2     BIGCPLX   [0.0, 1.0, 0.333]        [0.0, 2.0, 4.0]          YES
+
+  6 subunit rows report a mean that is not the gene's mean.
+
+subunit rows, reported vs the subunit's own percent:
+  gene     complex   reported pct             own pct                  wrong?
+  SUB1     RECCPLX   [1.0, 1.0, 0.333]        [1.0, 1.0, 0.333]        no
+  SUB2     RECCPLX   [1.0, 1.0, 0.333]        [1.0, 1.0, 0.667]        YES
+  REC1     BIGCPLX   [0.0, 1.0, 0.333]        [0.333, 1.0, 0.333]      YES
+  SUB1     BIGCPLX   [0.0, 1.0, 0.333]        [1.0, 1.0, 0.333]        YES
+  SUB2     BIGCPLX   [0.0, 1.0, 0.333]        [1.0, 1.0, 0.667]        YES
+  LIG2     BIGCPLX   [0.0, 1.0, 0.333]        [0.0, 1.0, 1.0]          YES
+
+  5 subunit rows report a percent that is not the gene's percent.
+
+Worked example: SUB1 is expressed at mean 3.0 in CTB (every cell of CTB expresses it),
+but deconvoluted.txt reports 1.0 for SUB1 in CTB, because RECCPLX's minimum over
+(SUB1=3.0, SUB2=1.0) is 1.0. A reader checking 'is SUB1 expressed in CTB?' is shown
+its partner's value. Simple (non-complex) rows are unaffected:
+  all 3 simple rows report the gene's own mean: True

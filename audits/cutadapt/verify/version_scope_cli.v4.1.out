@@ -1,0 +1,12 @@
+4.1 ( /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cutadapt/venv-4.1/bin/cutadapt )
+CA1  -e 1, 49-nt adapter, 300 one-substitution reads: trimmed to 20 nt: 0
+     control -e 1.0000001: 300
+CA2  --max-ee 1 --quality-base 64, 300 phred+64 reads with EE 10.5..23.9: kept 300 (expected 0)
+CA3  default   : {'A': 0, 'B': 50, 'unknown': 0}
+CA3  --no-index: {'A': 0, 'B': 50, 'unknown': 0}
+CA4  34-nt adapter -e 1 -g ^AD: trimmed 350 of 350
+CA4  34-nt adapter -e 1 -g AD : trimmed 350 of 350
+CA4  34-nt adapter -e 1 -g XAD: trimmed 350 of 350
+CA4  19-nt adapter -e 0.1 -g ^AD: trimmed 200 of 200
+CA4  19-nt adapter -e 0.1 -g AD : trimmed 200 of 200
+CA4  19-nt adapter -e 0.1 -g XAD: trimmed 200 of 200

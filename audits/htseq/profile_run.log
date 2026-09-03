@@ -1,0 +1,87 @@
+cohort: 161
+full text: 0   survey-cache fallback: 161   ({'offline': 161})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  DESeq2 downstream                                109
+  htseq-count named                                82
+  STAR aligner                                     73
+  HISAT2 / TopHat                                  42
+  BWA / Bowtie                                     35
+  GENCODE / Ensembl / RefSeq GTF                   35
+  edgeR / limma downstream                         33
+  HTSeq version stated                             32
+  paired-end                                       31
+  uniquely mapped / unique reads                   17
+  ChIP/ATAC/CUT&RUN                                16
+  featureCounts also named                         14
+  mode union                                       13
+  single-cell / 10x                                12
+  FPKM / TPM                                       9
+  -f bam                                           5
+  stranded no / -s no                              5
+  TCGA / GDC HTSeq counts downloaded               4
+  bacterial / CDS features                         4
+  stranded reverse / -s reverse                    4
+  -a / --minaqual stated                           3
+  -i / --idattr stated                             3
+  stranded yes / -s yes                            3
+  -r pos                                           3
+  -r name                                          3
+  --nonunique all                                  3
+  mode intersection-strict                         2
+  ribosome profiling / Ribo-seq                    1
+  -t / --type stated                               1
+  --nonunique none                                 1
+  mode intersection-nonempty                       1
+  --secondary/--supplementary-alignments           1
+
+VERSION FAMILY: {'0.11': 17, '0.6': 16, '0.9': 11, '2.0': 8, '0.12': 7, '0.13': 5, '0.5': 3, '0.7': 2, '0.10': 2, '1.99': 1}
+VERSIONS (top 20): {'0.9.1': 11, '0.11.2': 11, '0.6.1': 9, '0.12.4': 7, '0.13.5': 5, '0.6.1p': 4, '0.6.0': 3, '2.0.3': 2, '2.0.1': 2, '0.10.0': 2, '0.11.1': 2, '2.0.2': 2, '0.5.3': 2, '0.7.2': 1, '0.6.1p1': 1, '2.0.5': 1, '0.7.1': 1, '0.11': 1, '0.11.4': 1, '0.5.4p': 1}
+
+resolutions: {'1.52': 1, '0.2': 1}
+MAPQ cutoffs: {'20': 1, '10': 1}
+padj cutoffs: {'0.05': 15, '0.1': 2, '0.25': 1, '0.001': 1}
+lfc cutoffs: {'2': 5, '1': 4, '1.5': 2, '0.1': 1, '0.5': 1}
+dims: {12: 1, 50: 1, 200: 1}
+
+CO-PACKAGES (top 40):
+  DESeq2                   105
+  R                        97
+  STAR                     67
+  ImageJ                   55
+  SAMtools                 39
+  GSEA                     37
+  Seurat                   36
+  HISAT2                   36
+  Bowtie2                  33
+  UMAP                     33
+  edgeR                    30
+  Cutadapt                 28
+  MACS2                    27
+  FastQC                   27
+  ggplot2                  26
+  Bioconductor             21
+  Picard                   20
+  Trimmomatic              19
+  Trim Galore              17
+  BWA                      16
+  limma                    15
+  deepTools                15
+  BEDTools                 15
+  featureCounts            15
+  Python                   14
+  GATK                     13
+  AlphaFold                13
+  HOMER                    12
+  clusterProfiler          11
+  fgsea                    11
+  pheatmap                 11
+  scDblFinder              10
+  SciPy                    9
+  tidyverse                9
+  ComplexHeatmap           9
+  MAFFT                    7
+  BLAST                    7
+  TopHat                   6
+  Fiji                     6
+  BUSCO                    6

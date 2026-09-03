@@ -1,0 +1,26 @@
+===== master: 5.3.dev15+g50e9fb8d3, Python 3.12.3
+--- mcve_ca1_absolute_errors.py
+-e 1: output read GGGGCAGATTTTCATATTATGCAGTAAATCTACTTCGCCTGATACGAGTCGGTGGGG (57 nt; expected 4 nt 'GGGG')
+-e 1.0000001: output read GGGG (4 nt; expected 4 nt 'GGGG')
+--- mcve_ca2_max_ee_quality_base.py
+--max-ee 1 --quality-base 64: 1 read(s) written (expected 0: 31.5 expected errors > 1)
+-q 20 --quality-base 64 (control): read trimmed to 0 nt (expected 0: every base is below Q20)
+--- mcve_ca3_index_criterion.py
+default   : read written to ['A'].fastq
+--no-index: read written to ['B'].fastq
+--- mcve_ca4_prefilter_insertion.py
+-g ^CTGTCTCTTATACACATCT : output read CTGGTCTCTTATACACATCTAAAAAAAA (expected AAAAAAAA)
+-g CTGTCTCTTATACACATCT  : output read AAAAAAAA (expected AAAAAAAA)
+===== v5.2: 5.2, Python 3.12.3
+--- mcve_ca1_absolute_errors.py
+-e 1: output read GGGGCAGATTTTCATATTATGCAGTAAATCTACTTCGCCTGATACGAGTCGGTGGGG (57 nt; expected 4 nt 'GGGG')
+-e 1.0000001: output read GGGG (4 nt; expected 4 nt 'GGGG')
+--- mcve_ca2_max_ee_quality_base.py
+--max-ee 1 --quality-base 64: 1 read(s) written (expected 0: 31.5 expected errors > 1)
+-q 20 --quality-base 64 (control): read trimmed to 0 nt (expected 0: every base is below Q20)
+--- mcve_ca3_index_criterion.py
+default   : read written to ['A'].fastq
+--no-index: read written to ['B'].fastq
+--- mcve_ca4_prefilter_insertion.py
+-g ^CTGTCTCTTATACACATCT : output read CTGGTCTCTTATACACATCTAAAAAAAA (expected AAAAAAAA)
+-g CTGTCTCTTATACACATCT  : output read AAAAAAAA (expected AAAAAAAA)

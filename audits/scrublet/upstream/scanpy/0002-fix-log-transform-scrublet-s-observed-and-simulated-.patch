@@ -1,0 +1,108 @@
+From 9022cf38c0f32cc6998cdb3912ba4f8e4660e7a8 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 00:48:30 +0000
+Subject: [PATCH] fix: log-transform scrublet's observed and simulated cells
+ after the common normalisation
+
+With `log_transform=True`, `pp.scrublet` applied `log1p` while the observed
+matrix was median-normalised and the simulated doublets were raw summed
+counts, and only then normalised both to 1e6 counts: the two populations
+received different transforms, and a doublet simulated from a cell and
+itself no longer coincided with that cell. Normalise both first, then log
+both, as the original Scrublet does.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ .../+scrublet-log-transform-order.fix.md      |  1 +
+ .../preprocessing/_scrublet/__init__.py       | 11 ++++--
+ tests/test_scrublet.py                        | 39 +++++++++++++++++++
+ 3 files changed, 47 insertions(+), 4 deletions(-)
+ create mode 100644 docs/release-notes/+scrublet-log-transform-order.fix.md
+
+diff --git a/docs/release-notes/+scrublet-log-transform-order.fix.md b/docs/release-notes/+scrublet-log-transform-order.fix.md
+new file mode 100644
+index 0000000..77a664e
+--- /dev/null
++++ b/docs/release-notes/+scrublet-log-transform-order.fix.md
+@@ -0,0 +1 @@
++Fix {func}`~scanpy.pp.scrublet` with `log_transform=True` log-transforming the observed cells (median-normalised) and the simulated doublets (raw counts) on different scales and before the common per-cell normalisation; both are now normalised to 1e6 counts and then log-transformed, as in Scrublet {smaller}`C Krafft`
+diff --git a/src/scanpy/preprocessing/_scrublet/__init__.py b/src/scanpy/preprocessing/_scrublet/__init__.py
+index d1c6642..6ceddbd 100644
+--- a/src/scanpy/preprocessing/_scrublet/__init__.py
++++ b/src/scanpy/preprocessing/_scrublet/__init__.py
+@@ -217,14 +217,17 @@ def scrublet(  # noqa: PLR0913
+                 rng=rng,
+             )
+             del ad_obs.layers["raw"]
+-            if log_transform:
+-                pp.log1p(ad_obs)
+-                pp.log1p(ad_sim)
+ 
+-            # Now normalise simulated and observed in the same way
++            # Now normalise simulated and observed in the same way, and only then
++            # log-transform both: `ad_obs` is median-normalised here while `ad_sim`
++            # holds raw summed counts, so a log taken before this step would put the
++            # two populations on different scales.
+ 
+             pp.normalize_total(ad_obs, target_sum=1e6)
+             pp.normalize_total(ad_sim, target_sum=1e6)
++            if log_transform:
++                pp.log1p(ad_obs)
++                pp.log1p(ad_sim)
+ 
+         ad_obs = _scrublet_call_doublets(
+             adata_obs=ad_obs,
+diff --git a/tests/test_scrublet.py b/tests/test_scrublet.py
+index c607a64..2d6dd8d 100644
+--- a/tests/test_scrublet.py
++++ b/tests/test_scrublet.py
+@@ -223,6 +223,45 @@ def test_scrublet_data(rng_arg: Literal["rng", "random_state"]) -> None:
+     )
+ 
+ 
++def test_scrublet_log_transform_consistent() -> None:
++    """`log_transform=True` must transform observed and simulated cells alike.
++
++    Replicates the preprocessing by hand on counts made here (no download):
++    normalise both populations to 1e6 counts, then `log1p` both, then score
++    through `adata_sim`. Before the fix, `log1p` was applied while the
++    observed cells were median-normalised and the simulated doublets were
++    raw summed counts, so the two populations were transformed differently.
++    """
++    rng = np.random.default_rng(0)
++    counts = rng.poisson(np.outer(rng.lognormal(0, 0.4, 300), rng.gamma(0.5, 1.0, 600)))
++    adata = AnnData(sparse.csr_matrix(counts.astype(np.float32)))  # noqa: TID251
++    adata.var_names = [f"g{i}" for i in range(adata.n_vars)]
++    seed = 1234
++
++    adata_auto = sc.pp.scrublet(
++        adata, log_transform=True, use_approx_neighbors=False, copy=True, rng=seed
++    )
++
++    adata_obs = _preprocess_for_scrublet(adata)
++    adata_sim = _create_sim_from_parents(
++        adata_obs, adata_auto.uns["scrublet"]["doublet_parents"]
++    )
++    sc.pp.normalize_total(adata_obs, target_sum=1e6)
++    sc.pp.normalize_total(adata_sim, target_sum=1e6)
++    sc.pp.log1p(adata_obs)
++    sc.pp.log1p(adata_sim)
++    adata_manual = sc.pp.scrublet(
++        adata_obs, adata_sim=adata_sim, use_approx_neighbors=False, copy=True, rng=seed
++    )
++
++    assert_allclose(
++        adata_manual.obs["doublet_score"],
++        adata_auto.obs["doublet_score"],
++        atol=1e-15,
++        rtol=1e-15,
++    )
++
++
+ @pytest.fixture(scope="module")
+ def scrub_small_sess() -> AnnData:
+     # Reduce size of input for faster test
+-- 
+2.43.0
+

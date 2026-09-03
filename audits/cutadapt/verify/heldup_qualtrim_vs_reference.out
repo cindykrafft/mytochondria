@@ -1,0 +1,10 @@
+cutadapt 5.3.dev15+g50e9fb8d3
+1. quality_trim_index vs BWA port: 40000 random cases, mismatches 0
+2. nextseq_trim_index vs port: 40000 random cases, mismatches 0
+3. poly_a_trim_index vs documented algorithm: 30000 cases, poly-A mismatches 0, poly-T mismatches 0
+4. expected_errors vs sum 10^(-q/10): 10000 random strings, both offsets, worst relative error 5.41e-16
+   SCORE_TO_ERROR_RATE table, phred 0..93: worst relative deviation from 10^(-q/10): 0.00e+00
+   phred 94: ValueError (Not a valid phred value 127 for character )
+5. read of length 10: TooShort(10)=False TooShort(11)=True TooLong(10)=False TooLong(9)=True
+   EE=0.001: TooManyExpectedErrors(EE)=False TooManyExpectedErrors(EE*0.999)=True
+   2 N of 10: TooManyN(2)=False TooManyN(1)=True TooManyN(0.2)=False TooManyN(0.19)=True TooManyN(0)=True

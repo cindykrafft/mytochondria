@@ -1,0 +1,17 @@
+binary: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/iqtree/iqtree2-v2.4.0/build/iqtree2
+IQ-TREE multicore version 2.4.0 for Linux x86 64-bit built Sep  3 2026
+4 taxa, rooted-style Newick ((A,B),(C,D)): cf.stat rows -> [(6, 'NA'), (7, 'NA')] | log: ['rooted tree with 4 taxa and 7 branches']
+4 taxa --scf 1   : reported sCF 80 sDF1 6.67 sDF2 13.33 sN 15 | exact counts [12, 1, 2] -> sCF 80.00 sN 15
+4 taxa --scf 100 : reported sCF 80 sDF1 6.67 sDF2 13.33 sN 15 | exact counts [12, 1, 2] -> sCF 80.00 sN 15
+6 taxa --scf 20000: branch table
+   branch 7 (AB): reported sCF 88.57 sN 13.00275 | exhaustive mean over 4 quartets sCF 88.58 sN 13.00
+   branch 8 (CD): reported sCF 90.83 sN 13.7586 | exhaustive mean over 4 quartets sCF 90.83 sN 13.75
+   branch 9 (EF): reported sCF 81.98 sN 8.4908 | exhaustive mean over 4 quartets sCF 81.93 sN 8.50
+   --cf-quartet 50: 150 sampled quartets in .cf.quartet, all site counts (qCF_N, qDF1_N, qDF2_N, qN) equal the port's
+gCF with a rooted 4-taxon gene tree ((A,B),(C,D)): ['ERROR: Taxon not found in full tree: __root__']
+gCF on 17 gene trees
+   branch 7 (AB): reported gN 15 gCF 53.33 gCF_N 8 gDF1_N 2 gDF2_N 1 gDFP_N 4 | port gN 15 gC 8 gDF1 2 gDF2 1 gDFP 4
+   branch 8 (CD): reported gN 15 gCF 66.67 gCF_N 10 gDF1_N 0 gDF2_N 0 gDFP_N 5 | port gN 15 gC 10 gDF1 0 gDF2 0 gDFP 5
+   branch 9 (EF): reported gN 16 gCF 81.25 gCF_N 13 gDF1_N 0 gDF2_N 0 gDFP_N 3 | port gN 16 gC 13 gDF1 0 gDF2 0 gDFP 3
+
+ALL CONCORDANCE-FACTOR CHECKS PASSED

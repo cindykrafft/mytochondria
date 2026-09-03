@@ -1,0 +1,31 @@
+# MCVE outputs on master @ 614e9a5 (bedtools 614e9a5)
+
+== mcve_bt1.py ==
+coverage -split      : chr1	100	1000	gene	2	200	900	0.2222222   (count 2; expected 1)
+intersect -c -split  : chr1	100	1000	gene	1   (1 record)
+coverage -split -f0.5: chr1	100	200	gene	1	10	100	0.1000000   (10% read still counted; expected 0/0)
+
+== mcve_bt2.py ==
+three reads 100%% inside A:
+  -split -F 0.5 : 0 lines  (expected 3)
+        -F 0.5 : 3 lines  (no -split)
+  -split -F 0.33: 3 lines  (break at 50/150)
+
+== mcve_bt3.py ==
+-d -t first            -> b1
+-D ref -t first        -> b1
+-D a -t first          -> b2
+-D a -t last           -> b1
+-D b -t first          -> b2
+(-t first documented as the first tie in the B file = b1 in every mode)
+
+== mcve_bt4.py ==
+reldist -detail: (no output)  (expected ...0.100)
+subtract       : chr1	3000000000	-1294967286 | chr1	3000000000	-1294967196  (expected two positive pieces)
+flank -l10 -r10: chr1	0	3000000000  (expected 2999999990-3000000000, 3000000100-3000000110)
+closest -d     : 1294967295  (expected 3000000001)
+
+== mcve_bt5.py ==
+slop -pct -b 0.53 on 100 bp: ['chr1', '999948', '1000152'] -> added 52 each side (expected 53)
+flank -pct -l 0.53 -r 0    : ['chr1', '999948', '1000000'] -> length 52 (expected 53)
+slop -b 20000001           : chr1	5000000	45000010 (expected 4999999-45000011)

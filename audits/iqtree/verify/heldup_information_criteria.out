@@ -1,0 +1,19 @@
+binary: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/iqtree/iqtree2/build/iqtree2
+IQ-TREE multicore version 2.4.0 for Linux x86 64-bit built Sep  3 2026
+alignment: 6 taxa, 600 sites
+A. GTR+F+I+G4: logL -2676.2471  k=19 (expected 19)  AIC 5390.4943 (5390.4942)  AICc 5391.8046 (5391.8045)  BIC 5474.0360 (5474.0359)
+B. ModelFinder table: 92 models; best by BIC: TPM3u+F+G4
+   k from AIC is an integer and AICc/BIC follow from (L, k, n=600) for every row: max deviation 1.45e-03
+   k matches the count implied by the model name for all 92 rows: yes
+   TPM3u+F+G4     logL  -2677.9610  k=15  AICc   5386.745  BIC   5451.877
+   HKY+F+G4       logL  -2681.8230  k=14  AICc   5392.364  BIC   5453.203
+   TPM3u+F+I      logL  -2679.7690  k=15  AICc   5390.360  BIC   5455.492
+   K3Pu+F+G4      logL  -2679.8110  k=15  AICc   5390.444  BIC   5455.576
+   HKY+F+I        logL  -2684.0400  k=14  AICc   5396.798  BIC   5457.637
+   TPM2u+F+G4     logL  -2680.9890  k=15  AICc   5392.801  BIC   5457.933
+   BIC argmin of the table: TPM3u+F+G4  (reported best: TPM3u+F+G4)
+C. edge-linked proportional (-p)    GTR+F+G4 x2: k=28 (expected 28)  BIC 5524.0430 (recomputed with n=600: 5524.0430)
+C. edge-linked equal (-q)           GTR+F+G4 x2: k=27 (expected 27)  BIC 5517.8650 (recomputed with n=600: 5517.8651)
+C. edge-unlinked (-Q)               GTR+F+G4 x2: k=36 (expected 36)  BIC 5566.0921 (recomputed with n=600: 5566.0921)
+C. -m MFP -p: selected ['K2P+G4', 'HKY+F+I'] -> k=17 (expected 17)
+ALL INFORMATION-CRITERION CHECKS PASSED

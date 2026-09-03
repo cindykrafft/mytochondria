@@ -1,0 +1,18 @@
+PLINK v1.9.0-b.8 64-bit (1 Sep 2026)
+PLINK v2.0.0-b.1 64-bit (2 Sep 2026)
+plink 1.9 --hardy       : 400 variants, max |P - exact|/exact = 4.65e-04  (6 significant digits printed)
+plink 1.9 --hardy midp  : 400 variants, max |P - exact|/exact = 4.16e-04  (6 significant digits printed)
+plink2 --hardy          : 400 variants, max |P - exact|/exact = 4.72e-06  (6 significant digits printed)
+plink2 --hardy midp     : 400 variants, max |P - exact|/exact = 4.49e-06  (6 significant digits printed)
+--hwe 0.05 plink 1.9       : kept 328, expected 328, symmetric difference 0
+--hwe 0.05 plink 1.9 midp  : kept 322, expected 322, symmetric difference 0
+--hwe 0.05 plink2          : kept 328, expected 328, symmetric difference 0
+--hwe 0.05 plink2 midp     : kept 322, expected 322, symmetric difference 0
+--hwe 0.001 plink 1.9       : kept 340, expected 340, symmetric difference 0
+--hwe 0.001 plink 1.9 midp  : kept 340, expected 340, symmetric difference 0
+--hwe 0.001 plink2          : kept 340, expected 340, symmetric difference 0
+--hwe 0.001 plink2 midp     : kept 340, expected 340, symmetric difference 0
+--hwe 1e-06 plink 1.9       : kept 342, expected 342, symmetric difference 0
+--hwe 1e-06 plink 1.9 midp  : kept 342, expected 342, symmetric difference 0
+--hwe 1e-06 plink2          : kept 342, expected 342, symmetric difference 0
+--hwe 1e-06 plink2 midp     : kept 342, expected 342, symmetric difference 0

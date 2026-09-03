@@ -1,0 +1,34 @@
+### venv (2.1.2 main @ 7672321, editable)
+$ python mcve_hc1_bam_reader_window.py
+HTSeq 2.1.2 | reader[iv]: ['inside'] | records with iv.overlaps: ['covers_base_100', 'inside']
+Traceback (most recent call last):
+  File "mcve_hc1_bam_reader_window.py", line 21, in <module>
+    assert got == expected, "reader[iv] should return every alignment overlapping iv"
+           ^^^^^^^^^^^^^^^
+AssertionError: reader[iv] should return every alignment overlapping iv
+
+$ python mcve_hc2_unmapped_mate.py
+2.1.2 {'A': '1', '__no_feature': '0', '__ambiguous': '0', '__too_low_aQual': '1', '__not_aligned': '0', '__alignment_not_unique': '0'}
+Traceback (most recent call last):
+  File "mcve_hc2_unmapped_mate.py", line 31, in <module>
+    assert counts["A"] == "2" and counts["__too_low_aQual"] == "0", "both pairs should count for A"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: both pairs should count for A
+
+### venv212 (2.1.2 PyPI wheel)
+$ python mcve_hc1_bam_reader_window.py
+HTSeq 2.1.2 | reader[iv]: ['inside'] | records with iv.overlaps: ['covers_base_100', 'inside']
+Traceback (most recent call last):
+  File "mcve_hc1_bam_reader_window.py", line 21, in <module>
+    assert got == expected, "reader[iv] should return every alignment overlapping iv"
+           ^^^^^^^^^^^^^^^
+AssertionError: reader[iv] should return every alignment overlapping iv
+
+$ python mcve_hc2_unmapped_mate.py
+2.1.2 {'A': '1', '__no_feature': '0', '__ambiguous': '0', '__too_low_aQual': '1', '__not_aligned': '0', '__alignment_not_unique': '0'}
+Traceback (most recent call last):
+  File "mcve_hc2_unmapped_mate.py", line 31, in <module>
+    assert counts["A"] == "2" and counts["__too_low_aQual"] == "0", "both pairs should count for A"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: both pairs should count for A
+

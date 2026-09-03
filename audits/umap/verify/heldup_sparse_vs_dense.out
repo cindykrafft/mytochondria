@@ -1,0 +1,15 @@
+umap-learn 0.5.12
+
+1. metrics on 120 x 60 vectors, 60 % zeros, all-zero rows and duplicates included (reported: max |diff| over all pairs)
+  euclidean    dense vs sparse: 0.00e+00;  dense vs scipy (finite pairs, 14400 of 14400): 2.54e-07;  sparse vs scipy: 2.54e-07
+  manhattan    dense vs sparse: 0.00e+00;  dense vs scipy (finite pairs, 14400 of 14400): 6.71e-07;  sparse vs scipy: 6.71e-07
+  cosine       dense vs sparse: 2.22e-16;  dense vs scipy (finite pairs, 13225 of 14400): 2.15e-08;  sparse vs scipy: 2.15e-08
+    scipy is nan on 1175 pairs (zero / constant rows); there dense returns [0. 1.], sparse returns [0. 1.]
+  correlation  dense vs sparse: 2.42e-08;  dense vs scipy (finite pairs, 13225 of 14400): 6.66e-16;  sparse vs scipy: 2.42e-08
+    scipy is nan on 1175 pairs (zero / constant rows); there dense returns [0. 1.], sparse returns [0. 1.]
+
+2. UMAP.fit dense vs CSR, graph_ compared
+  exact path (n < 4096)                            euclidean : nnz 39296 vs 39296, edges present in one only: 0, max |weight diff| = 4.95e-06, mean |diff| over union = 4.28e-07
+  exact path (n < 4096)                            cosine    : nnz 25394 vs 25394, edges present in one only: 0, max |weight diff| = 4.41e-06, mean |diff| over union = 2.79e-07
+  pynndescent path (n >= 4096), random_state=0     euclidean : nnz 131270 vs 131284, edges present in one only: 5406, max |weight diff| = 1.00e+00, mean |diff| over union = 1.50e-02
+  pynndescent path (n >= 4096), random_state=0     cosine    : nnz 91720 vs 91764, edges present in one only: 2476, max |weight diff| = 1.00e+00, mean |diff| over union = 6.01e-02

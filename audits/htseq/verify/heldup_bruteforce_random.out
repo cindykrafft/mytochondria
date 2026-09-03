@@ -1,0 +1,67 @@
+HTSeq 2.1.2 python 3.12.3
+features: 260 lines, 247 exons, 133 gene_ids
+single-end: records 1725, counting units 1725 (0 pairs, 1725 singles/lone mates)
+paired-end: records 3235, counting units 1689 (1546 pairs, 143 singles/lone mates)
+
+== single-end
+  runs so far: 108; runs with any mismatch vs the documented port: 0; vs the port modelling HC2 (unmapped mate's MAPQ 0 compared with -a): 0
+
+== paired-end
+  runs so far: 324; runs with any mismatch vs the documented port: 162; vs the port modelling HC2 (unmapped mate's MAPQ 0 compared with -a): 0
+
+CLI runs: 324; mismatching vs documented port: 162; mismatching vs port modelling HC2: 0
+
+Runs mismatching the documented port (all paired-end; first 3 differing keys as (key, port, cli)):
+   ('paired-end', 'yes', 'union', 'none', 'ignore', 'ignore', 10, 'name', 17, [('G100', 3.0, 2.0), ('G12', 4.0, 3.0), ('G120', 6.0, 5.0)])
+   ('paired-end', 'yes', 'union', 'none', 'ignore', 'ignore', 10, 'pos', 17, [('G100', 3.0, 2.0), ('G12', 4.0, 3.0), ('G120', 6.0, 5.0)])
+   ('paired-end', 'yes', 'union', 'none', 'score', 'score', 10, 'name', 17, [('G100', 3.0, 2.0), ('G12', 4.0, 3.0), ('G120', 6.0, 5.0)])
+   ('paired-end', 'yes', 'union', 'none', 'score', 'score', 10, 'pos', 17, [('G100', 3.0, 2.0), ('G12', 4.0, 3.0), ('G120', 6.0, 5.0)])
+   ('paired-end', 'yes', 'union', 'none', 'ignore', 'score', 30, 'name', 15, [('G12', 4.0, 3.0), ('G120', 5.0, 4.0), ('G121', 2.0, 1.0)])
+   ('paired-end', 'yes', 'union', 'none', 'ignore', 'score', 30, 'pos', 15, [('G12', 4.0, 3.0), ('G120', 5.0, 4.0), ('G121', 2.0, 1.0)])
+   ('paired-end', 'yes', 'union', 'all', 'ignore', 'ignore', 10, 'name', 24, [('G100', 7.0, 6.0), ('G110', 6.0, 5.0), ('G112', 5.0, 4.0)])
+   ('paired-end', 'yes', 'union', 'all', 'ignore', 'ignore', 10, 'pos', 24, [('G100', 7.0, 6.0), ('G110', 6.0, 5.0), ('G112', 5.0, 4.0)])
+   ('paired-end', 'yes', 'union', 'all', 'score', 'score', 10, 'name', 24, [('G100', 7.0, 6.0), ('G110', 6.0, 5.0), ('G112', 5.0, 4.0)])
+   ('paired-end', 'yes', 'union', 'all', 'score', 'score', 10, 'pos', 24, [('G100', 7.0, 6.0), ('G110', 6.0, 5.0), ('G112', 5.0, 4.0)])
+   ('paired-end', 'yes', 'union', 'all', 'ignore', 'score', 30, 'name', 18, [('G110', 5.0, 4.0), ('G112', 4.0, 3.0), ('G12', 4.0, 3.0)])
+   ('paired-end', 'yes', 'union', 'all', 'ignore', 'score', 30, 'pos', 18, [('G110', 5.0, 4.0), ('G112', 4.0, 3.0), ('G12', 4.0, 3.0)])
+   ... 162 such runs; they all use -a > 0 (with -a 0 the unmapped mate's MAPQ 0 passes): True
+
+Sample rows (dataset, stranded, mode, nonunique, sec, supp, -a, order, n_mismatch_doc, n_mismatch_hc2, sum(feature counts), specials):
+   ('single-end', 'yes', 'union', 'none', 'ignore', 'ignore', 10, 'name', 0, 0, 210.0, {'no_feature': 631, 'ambiguous': 42, 'too_low_aQual': 302, 'not_aligned': 93, 'alignment_not_unique': 222})
+   ('single-end', 'yes', 'intersection-strict', 'all', 'score', 'score', 10, 'name', 0, 0, 151.0, {'no_feature': 903, 'ambiguous': 13, 'too_low_aQual': 591, 'not_aligned': 93, 'alignment_not_unique': 341})
+   ('single-end', 'yes', 'intersection-nonempty', 'fraction', 'score', 'ignore', 0, 'name', 0, 0, 438.0, {'no_feature': 1088, 'ambiguous': 27, 'too_low_aQual': 0, 'not_aligned': 93, 'alignment_not_unique': 341})
+   ('single-end', 'no', 'intersection-strict', 'none', 'ignore', 'score', 30, 'name', 0, 0, 202.0, {'no_feature': 559, 'ambiguous': 25, 'too_low_aQual': 505, 'not_aligned': 93, 'alignment_not_unique': 222})
+   ('single-end', 'no', 'intersection-nonempty', 'fraction', 'ignore', 'ignore', 10, 'name', 0, 0, 529.0, {'no_feature': 434, 'ambiguous': 42, 'too_low_aQual': 444, 'not_aligned': 93, 'alignment_not_unique': 222})
+   ('single-end', 'reverse', 'intersection-strict', 'none', 'score', 'score', 10, 'name', 0, 0, 154.0, {'no_feature': 795, 'ambiguous': 12, 'too_low_aQual': 330, 'not_aligned': 93, 'alignment_not_unique': 341})
+   ('single-end', 'reverse', 'intersection-nonempty', 'all', 'score', 'ignore', 0, 'name', 0, 0, 508.0, {'no_feature': 1045, 'ambiguous': 27, 'too_low_aQual': 0, 'not_aligned': 93, 'alignment_not_unique': 341})
+   ('paired-end', 'yes', 'union', 'all', 'score', 'score', 10, 'pos', 24, 0, 463.0, {'no_feature': 361, 'ambiguous': 103, 'too_low_aQual': 886, 'not_aligned': 100, 'alignment_not_unique': 252})
+   ('paired-end', 'yes', 'intersection-strict', 'none', 'score', 'ignore', 0, 'name', 0, 0, 36.0, {'no_feature': 1235, 'ambiguous': 3, 'too_low_aQual': 0, 'not_aligned': 100, 'alignment_not_unique': 252})
+   ('paired-end', 'yes', 'intersection-strict', 'fraction', 'score', 'ignore', 0, 'pos', 0, 0, 47.0, {'no_feature': 1479, 'ambiguous': 4, 'too_low_aQual': 0, 'not_aligned': 100, 'alignment_not_unique': 252})
+   ('paired-end', 'yes', 'intersection-nonempty', 'all', 'ignore', 'score', 30, 'name', 16, 0, 210.0, {'no_feature': 290, 'ambiguous': 12, 'too_low_aQual': 975, 'not_aligned': 100, 'alignment_not_unique': 126})
+   ('paired-end', 'no', 'union', 'none', 'ignore', 'score', 30, 'pos', 31, 0, 200.0, {'no_feature': 111, 'ambiguous': 177, 'too_low_aQual': 849, 'not_aligned': 100, 'alignment_not_unique': 126})
+   ('paired-end', 'no', 'intersection-strict', 'none', 'ignore', 'ignore', 10, 'name', 15, 0, 45.0, {'no_feature': 611, 'ambiguous': 1, 'too_low_aQual': 617, 'not_aligned': 100, 'alignment_not_unique': 126})
+   ('paired-end', 'no', 'intersection-strict', 'fraction', 'ignore', 'ignore', 10, 'pos', 18, 0, 46.0, {'no_feature': 611, 'ambiguous': 1, 'too_low_aQual': 743, 'not_aligned': 100, 'alignment_not_unique': 126})
+   ('paired-end', 'no', 'intersection-nonempty', 'all', 'score', 'score', 10, 'name', 36, 0, 431.0, {'no_feature': 303, 'ambiguous': 31, 'too_low_aQual': 886, 'not_aligned': 100, 'alignment_not_unique': 252})
+   ('paired-end', 'reverse', 'union', 'none', 'score', 'score', 10, 'pos', 26, 0, 220.0, {'no_feature': 395, 'ambiguous': 88, 'too_low_aQual': 634, 'not_aligned': 100, 'alignment_not_unique': 252})
+   ('paired-end', 'reverse', 'union', 'fraction', 'score', 'ignore', 0, 'name', 0, 0, 710.0, {'no_feature': 816, 'ambiguous': 196, 'too_low_aQual': 0, 'not_aligned': 100, 'alignment_not_unique': 252})
+   ('paired-end', 'reverse', 'intersection-strict', 'all', 'score', 'ignore', 0, 'pos', 0, 0, 59.0, {'no_feature': 1470, 'ambiguous': 3, 'too_low_aQual': 0, 'not_aligned': 100, 'alignment_not_unique': 252})
+   ('paired-end', 'reverse', 'intersection-nonempty', 'none', 'ignore', 'score', 30, 'name', 24, 0, 161.0, {'no_feature': 314, 'ambiguous': 13, 'too_low_aQual': 849, 'not_aligned': 100, 'alignment_not_unique': 126})
+   ('paired-end', 'reverse', 'intersection-nonempty', 'fraction', 'ignore', 'score', 30, 'pos', 24, 0, 174.0, {'no_feature': 314, 'ambiguous': 13, 'too_low_aQual': 975, 'not_aligned': 100, 'alignment_not_unique': 126})
+
+== --nonunique random (conservation: feature sum == unique + ambiguous, both orders)
+  union                  -r name: feature sum 334 == unique 232 + ambiguous 102 -> OK; __ambiguous reported 102
+  union                  -r pos: feature sum 334 == unique 232 + ambiguous 102 -> OK; __ambiguous reported 102
+  intersection-nonempty  -r name: feature sum 282 == unique 264 + ambiguous 18 -> OK; __ambiguous reported 18
+  intersection-nonempty  -r pos: feature sum 282 == unique 264 + ambiguous 18 -> OK; __ambiguous reported 18
+
+== -i gene_id -i gene_name (joined id) and -t exon -t gene, union, stranded yes, -r name
+  ids in output: 133 (port 133); mismatches: []
+
+== --feature-query 'gene_name == "N7"'  (only that gene's exons are features)
+  N7 lies on ['chr1']; counts: {'G7': 8.0}
+  mismatches vs port: [('G7', 9.0, 8.0), ('__no_feature', 648.0, 649.0)]
+  mismatches vs port that also models the UnknownChrom rule (a pair with a mate on a chromosome without features is __no_feature as a whole): []
+
+(the last two checks use the port modelling HC2, on the paired-end data)
+
+DONE; mismatching vs documented port: 162 ; vs port modelling HC2: 0

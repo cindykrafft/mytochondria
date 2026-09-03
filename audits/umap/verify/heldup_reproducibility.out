@@ -1,0 +1,15 @@
+umap-learn 0.5.12
+
+N=2000 (exact path):
+  n_jobs after fit: requested 1 -> 1, requested 4 -> 1
+  graph_ n_jobs=1 vs n_jobs=4: max |diff| = 0.00e+00
+  embedding n_jobs=1 vs n_jobs=4: max |diff| = 0.00e+00
+  repeat seeded run: max |embedding diff| = 0.00e+00
+  two unseeded runs: graph_ max |diff| = 0.00e+00, embedding max |diff| = 6.78 (expected to differ)
+
+N=6000 (pynndescent path):
+  n_jobs after fit: requested 1 -> 1, requested 4 -> 1
+  graph_ n_jobs=1 vs n_jobs=4: max |diff| = 0.00e+00
+  embedding n_jobs=1 vs n_jobs=4: max |diff| = 0.00e+00
+  repeat seeded run: max |embedding diff| = 0.00e+00
+  two unseeded runs: graph_ max |diff| = 1.00e+00, embedding max |diff| = 4.82 (expected to differ)

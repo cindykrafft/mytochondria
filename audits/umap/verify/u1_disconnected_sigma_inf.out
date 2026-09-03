@@ -1,0 +1,41 @@
+umap-learn 0.5.12 /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/umap/umap/umap/__init__.py
+
+data: 8-point cluster + 300-point cluster, k=15; disconnection_distance=5.0
+  rows with at least one disconnected neighbour: 8 (the 8 cluster points)
+  finite neighbours per such row (excluding self): [7 7 7 7 7 7 7 7]
+
+PART A  smooth_knn_dist on the distance array with inf for disconnected neighbours
+  point  rho(ship)  rho(ref)   sigma(shipped)  sigma(reference)
+      0     0.4918    0.4918              inf           0.23411
+      1     0.5531    0.5531              inf           0.62091
+      2     0.6911    0.6911              inf           0.38623
+      3     0.2871    0.2871              inf           0.46872
+      4     0.6019    0.6019              inf           0.17556
+      5     0.4763    0.4763              inf           0.22668
+      6     0.2871    0.2871              inf           0.47686
+      7     0.3761    0.3761              inf           0.52887
+  rows with sigma == inf: shipped 8, reference 0
+  rows without a disconnected neighbour: max |sigma shipped - reference| = 1.68e-06, max |rho diff| = 0.00e+00
+  membership strengths of point 0 to its finite neighbours (columns 1..7):
+    shipped   [1. 1. 1. 1. 1. 1. 1.]
+    reference [1.     0.7698 0.6941 0.5548 0.4051 0.3408 0.1422]
+  cluster rows: edges with weight exactly 1.0 -> shipped 56 of 56 finite edges, reference 8
+  reference row sums of exp(-(d-rho)/sigma) over finite non-self neighbours (target log2(15) = 3.9069): [3.907 3.907 3.907 3.907 3.907 3.907 3.907 3.907]
+
+PART B  UMAP.fit(disconnection_distance=5) on the same data
+  exact path (n < 4096)                                      sigma==inf rows:   8;  cluster rows:  56 edges of weight 1.0 among  56 nonzero
+  pynndescent path (force_approximation_algorithm=True)      sigma==inf rows:   8;  cluster rows:  56 edges of weight 1.0 among  56 nonzero
+  metric='precomputed', dense matrix, disconnection_distance sigma==inf rows:   8;  cluster rows:  56 edges of weight 1.0 among  56 nonzero
+  metric='precomputed', inf entries, nearest_neighbors path  sigma==inf rows:   8;  cluster rows:  56 edges of weight 1.0 among  56 nonzero
+  control: no disconnection                                  sigma==inf rows:   0;  cluster rows:  10 edges of weight 1.0 among  56 nonzero
+  transform(X[:8]) graph rows (bipartite): 8 of 64 nonzero entries equal 1.0 (self edges: 8)
+
+PART C  default settings, metric='jaccard' on sparse binary data (disconnection_distance defaults to 1;
+        rows sharing no feature are at distance exactly 1 and are pruned)
+  400 x 40 binary, density 0.06: rows with a pruned neighbour    0; sigma == inf    0; of which fewer than log2(k) finite neighbours (unbounded by definition)    0, wrongly inf    0; in the wrongly-inf rows 0 of 0 graph entries equal 1.0
+  1000 x 600 binary, density 0.005: rows with a pruned neighbour  548; sigma == inf  600; of which fewer than log2(k) finite neighbours (unbounded by definition)   87, wrongly inf  513; in the wrongly-inf rows 4531 of 4855 graph entries equal 1.0
+
+PART D  smooth_knn_dist with the floor computed on finite distances (proposed fix), Part A array
+  rows with sigma == inf: 0
+  max |sigma fixed - reference| = 2.19e-06 (all rows), max |rho diff| = 0.00e+00
+  without any inf, fixed vs shipped: max |sigma diff| = 0.00e+00, max |rho diff| = 0.00e+00

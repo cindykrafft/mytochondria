@@ -1,0 +1,15 @@
+binary: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/iqtree/iqtree2-v2.4.0/build/iqtree2
+IQ-TREE multicore version 2.4.0 for Linux x86 64-bit built Sep  3 2026
+k=1 supporting sites of 501: AB|CDEF UFBoot 53%  standard -b 200 53%  P(replicate has >=1 site) 63.2%
+   other branches: UFBoot {'C|D': '100', 'E|F': '100'}  standard {'C|D': '100', 'E|F': '100'}
+   .ufboot: A/B-side split of each replicate tree: {'AB': 527, '(none)': 473}
+   log: ['Iteration 10 / LogL: -1704.332 / Time: 0h:0m:0s', 'Iteration 20 / LogL: -1704.332 / Time: 0h:0m:0s', 'Iteration 30 / LogL: -1704.336 / Time: 0h:0m:0s (0h:0m:0s left)']
+k=2 supporting sites of 502: AB|CDEF UFBoot 69%  standard -b 200 77%  P(replicate has >=1 site) 86.5%
+   other branches: UFBoot {'C|D': '100', 'E|F': '100'}  standard {'C|D': '100', 'E|F': '100'}
+   .ufboot: A/B-side split of each replicate tree: {'AB': 691, '(none)': 309}
+   log: ['Iteration 10 / LogL: -1712.370 / Time: 0h:0m:0s', 'Iteration 20 / LogL: -1712.370 / Time: 0h:0m:0s', 'Iteration 30 / LogL: -1712.370 / Time: 0h:0m:0s (0h:0m:0s left)']
+k=4 supporting sites of 504: AB|CDEF UFBoot 88%  standard -b 200 92%  P(replicate has >=1 site) 98.2%
+   other branches: UFBoot {'C|D': '100', 'E|F': '100'}  standard {'C|D': '100', 'E|F': '100'}
+   .ufboot: A/B-side split of each replicate tree: {'AB': 875, '(none)': 125}
+   log: ['Iteration 10 / LogL: -1727.530 / Time: 0h:0m:0s', 'Iteration 20 / LogL: -1727.530 / Time: 0h:0m:0s', 'Iteration 30 / LogL: -1727.530 / Time: 0h:0m:0s (0h:0m:0s left)']
+DONE

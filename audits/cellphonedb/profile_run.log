@@ -1,0 +1,65 @@
+cohort: 46
+full text: 0   survey-cache fallback: 46   ({'offline': 46})
+
+JOURNALS: {'Nature': 27, 'PNAS': 14, 'Cell': 3, 'Science': 2}
+YEARS: {'2021': 6, '2022': 10, '2023': 9, '2024': 11, '2025': 8, '2026': 2}
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  Seurat / Scanpy upstream                 41
+  R / reticulate driver                    22
+  CellPhoneDB version stated               19
+  CellChat also used                       6
+  squidpy / omnipath wrapper               5
+  CellSign / TF module                     4
+  database version stated                  3
+  microenvironments                        3
+  statistical method (method 2)            3
+  LIANA also used                          3
+  p-value cutoff stated                    3
+  dot plot / heatmap of interactions       2
+  spatial data                             2
+  subsampling                              2
+  log-normalised input stated              2
+  NicheNet also used                       2
+  simple/basic method (method 1)           1
+  ktplots / ktplotspy                      1
+  DEG method (method 3)                    1
+  threshold stated                         1
+
+VERSION FAMILY: {'v2': 7, 'v5': 2, 'v3': 2, 'v4': 1}
+VERSIONS: {'2.0': 3, '5': 2, '2.0.0': 2, '3': 1, '4.0.0': 1, '3.0.0': 1, '2.1.1': 1, '2.1.2': 1}
+iterations stated: {}
+thresholds stated: {'10': 1, '.78': 1}
+p-value cutoffs: {'0.05': 2}
+
+CO-PACKAGES (top 30):
+  UMAP                     43
+  Seurat                   32
+  R                        29
+  Scanpy                   22
+  scDblFinder              22
+  GSEA                     13
+  ImageJ                   13
+  SCENIC                   13
+  ggplot2                  12
+  scVelo                   12
+  PHENIX                   10
+  DESeq2                   9
+  clusterProfiler          9
+  MACS2                    9
+  scikit-learn             9
+  AnnData                  8
+  Enrichr                  7
+  SciPy                    7
+  Monocle                  7
+  Matplotlib               6
+  STAR                     6
+  seaborn                  6
+  NumPy                    6
+  igraph                   6
+  CellChat                 6
+  velocyto                 6
+  edgeR                    6
+  limma                    5
+  ComplexHeatmap           5
+  Slingshot                5

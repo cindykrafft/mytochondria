@@ -1,0 +1,65 @@
+Title: --ignoreDuplicates without another read filter is not applied to the number of mapped reads used by --normalizeUsing and --scaleFactorsMethod readCount
+
+<!-- deeptools/deepTools .github/ISSUE_TEMPLATE.md checklist -->
+
+- [x] Search whether this issue (or a similar issue) has been solved before: no prior report found (nearest: #309, 2016, "normalization based on total mapping does not consider filtered reads", which introduced the sampling in `fraction_kept`; #5, bamCorrelate in 2013).
+- [x] deepTools version: 3.5.6 (`master` @ `ea0f68bb`; also reproduced on 3.5.1 and 3.3.1); Python 3.12.3
+- [x] Full command producing the issue: `bamCoverage -b d.bam -o d.bw -bs 50 --normalizeUsing CPM --ignoreDuplicates --verbose` versus the same with `--samFlagExclude 4` added (script below)
+- [x] Output printed: see below
+
+**What happens.** `getScaleFactor.fraction_kept` (`deeptools/getScaleFactor.py`, lines 126-135) returns 1.0 without sampling whenever
+
+```python
+if (not args.minMappingQuality or args.minMappingQuality == 0) and \
+   (not args.samFlagInclude or args.samFlagInclude == 0) and \
+   (not args.samFlagExclude or args.samFlagExclude == 0) and \
+   (not args.minFragmentLength or args.minFragmentLength == 0) and \
+   (not args.maxFragmentLength or args.maxFragmentLength == 0):
+```
+
+and does not look at `args.ignoreDuplicates`, although its docstring lists `--ignoreDuplicates` among the filters it accounts for and `getFractionKept_worker` does count duplicates once the sampler runs. `--exactScaling` is applied after the early return and cannot override it. The per-bin counts are deduplicated, but the number of mapped reads that CPM, RPKM, RPGC and BPM divide by, and that `bamCompare --scaleFactorsMethod readCount` uses, is the count *before* duplicate removal — unless any other filter is set, in which case it is deduplicated. Two samples with different duplication rates are therefore compared with a bias equal to the ratio of their non-duplicate fractions, and adding a no-op filter changes every value in the track.
+
+**Minimal reproduction** (2,000 random reads plus 1,000 exact copies of the first 1,000; `--samFlagExclude 4` removes nothing from a BAM of mapped reads):
+
+```python
+import re, subprocess, numpy as np, pysam
+
+L = 100000
+starts = np.random.RandomState(0).randint(0, L - 50, 2000)
+with pysam.AlignmentFile("/tmp/d.u", "wb", header={"HD": {"VN": "1.0"}, "SQ": [{"SN": "chr1", "LN": L}]}) as fh:
+    for i, s in enumerate(list(starts) + list(starts[:1000])):
+        a = pysam.AlignedSegment(); a.query_name = "r%d" % i; a.query_sequence = "A" * 50; a.flag = 0
+        a.reference_id = 0; a.reference_start = int(s); a.mapping_quality = 30; a.cigar = ((0, 50),)
+        a.query_qualities = pysam.qualitystring_to_array("I" * 50); fh.write(a)
+pysam.sort("-o", "/tmp/d.bam", "/tmp/d.u"); pysam.index("/tmp/d.bam")
+
+def factor(extra):
+    r = subprocess.run(["bamCoverage", "-b", "/tmp/d.bam", "-o", "/tmp/d.bw", "-bs", "50", "--normalizeUsing", "CPM", "--verbose"] + extra,
+                       capture_output=True, text=True)
+    return float(re.search(r"Final scaling factor: ([0-9.e+-]+)", r.stdout + r.stderr).group(1))
+
+f1, f2 = factor(["--ignoreDuplicates"]), factor(["--ignoreDuplicates", "--samFlagExclude", "4"])
+print("CPM factor with --ignoreDuplicates                    : %.3f  (1e6/3000 = %.3f)" % (f1, 1e6 / 3000))
+print("CPM factor with --ignoreDuplicates --samFlagExclude 4 : %.3f  (1e6/2000 = %.3f)" % (f2, 1e6 / 2000))
+assert abs(f1 - f2) < 1e-6, "the denominator changes with a no-op filter"
+```
+
+**Output** (3.5.6):
+
+```
+CPM factor with --ignoreDuplicates                    : 333.333  (1e6/3000 = 333.333)
+CPM factor with --ignoreDuplicates --samFlagExclude 4 : 507.099  (1e6/2000 = 500.000)
+Traceback (most recent call last):
+  File "mcve_dt7_ignoredup.py", line 23, in <module>
+    assert abs(f1 - f2) < 1e-6, "the denominator changes with a no-op filter"
+AssertionError: the denominator changes with a no-op filter
+```
+
+(507 rather than 500 because a few of the 2,000 random starts coincide by chance and are duplicates too.) On the audit's example — sample A with 40 % duplicates, sample B with none, all reads MAPQ 30 — `bamCoverage --normalizeUsing CPM --ignoreDuplicates` writes values 40 % too low for A (factor 100.06 instead of 168.01), `--exactScaling` does not change that, and `bamCompare --scaleFactorsMethod readCount --ignoreDuplicates` scales A by 0.60 instead of 1.00 although the two deduplicated depths are equal.
+
+**Fix.** Add `and not args.ignoreDuplicates` to the early-return condition (one line); a patch with a test on `test_filtering.bam` (which carries position duplicates) is ready and a PR follows.
+
+Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/claude/software-package-audit-ablwee/audits/deeptools)
+
+---
+_Generated by [Claude Code](https://claude.ai/code)_

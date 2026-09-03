@@ -1,0 +1,12 @@
+scanpy 1.14.0.dev1+ga656a33b0
+group 0 (n=300) vs group 1 (n=1700), method='t-test', groups=['0'], reference='1'
+
+  mean_in_log_space=True   vs Welch on log1p values:  max |score difference| = 1.40e-04
+  mean_in_log_space=True   vs Welch on expm1 values:  max |score difference| = 5.47e+00
+  mean_in_log_space=False  vs Welch on log1p values:  max |score difference| = 5.47e+00
+  mean_in_log_space=False  vs Welch on expm1 values:  max |score difference| = 5.01e-05
+
+  null data (no DE), group 0 vs rest, BH<0.05: log-scale test   10 genes, linear-scale test    9 genes, overlap 9
+  DE data (150 genes 3x up in group 0), group 0 vs rest, BH<0.05: log-scale test  181 genes, linear-scale test  259 genes, overlap 177
+
+The two settings are different statistical tests, not two fold-change conventions.

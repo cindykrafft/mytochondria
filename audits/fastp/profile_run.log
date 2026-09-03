@@ -1,0 +1,102 @@
+cohort: 117
+full text: 0   survey-cache fallback: 117   ({'offline': 117})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  adapter trimming mentioned             48
+  default parameters stated              37
+  fastp version stated                   24
+  RNA-seq                                23
+  --qualified_quality_phred (-q)         20
+  --length_required (-l)                 13
+  FastQC / MultiQC also used             13
+  metagenomics / 16S / amplicon          13
+  Cutadapt / Trim Galore also used       11
+  paired-end                             11
+  --dedup (-D) / duplication             11
+  ATAC / ChIP / CUT&RUN                  9
+  --cut_right (-r)                       8
+  --correction (-c)                      8
+  --trim_front1/2 (-f/-F)                7
+  --unqualified_percent_limit (-u)       7
+  Trimmomatic also used                  7
+  cut window size / mean quality         6
+  adapter auto-detection                 6
+  --n_base_limit (-n)                    5
+  --cut_tail (-3)                        4
+  --detect_adapter_for_pe                4
+  single-cell                            3
+  --average_qual (-e)                    3
+  --trim_poly_x (-x)                     3
+  --trim_poly_g (-g)                     3
+  --umi (-U)                             2
+  WGS / WES / resequencing               2
+  --trim_tail1/2 (-t/-T)                 2
+  bisulfite / methylation                2
+  --adapter_sequence given               2
+  overlap parameters                     2
+  --merge (-m)                           2
+  --disable_quality_filtering (-Q)       2
+  --cut_front (-5)                       2
+  --thread (-w)                          2
+  Illumina TruSeq / Nextera named        1
+  --reads_to_process                     1
+  overrepresentation analysis (-p)       1
+  --max_len1/2 (-b/-B)                   1
+  --low_complexity_filter (-y)           1
+  JSON/HTML report or Q20/Q30 cited      1
+
+VERSION FAMILY: {'0.20': 19, '0.23': 17, '0.21': 7, '0.19': 2, '0.24': 2, '0.7': 2, '0.12': 1, '1.0': 1, '0.22': 1, '0.8': 1}
+VERSIONS (top 20): {'0.20.0': 10, '0.20.1': 8, '0.23.2': 7, '0.23.4': 7, '0.21.0': 6, '0.23.1': 2, '0.7.17': 2, '0.19.7': 1, '0.12.4': 1, '0.23.0': 1, '0.19.41': 1, '0.24': 1, '0.24.2': 1, '0.20': 1, '1.0.1': 1, '0.22.08': 1, '0.21.1': 1, '0.8': 1}
+
+STATED PARAMETER VALUES:
+  q_cutoffs              {'30': 5, '15': 3, '20': 3, '0': 3, '19': 1, '5': 1}
+  length_required        {'15': 2, '36': 2, '100': 1, '75': 1, '30': 1, '80': 1, '150': 1, '50': 1}
+  cut_window_sizes       {'4': 4, '10': 1}
+  cut_mean_quality       {'20': 3, '15': 1, '10': 1}
+  unqualified_percent    {'40': 1, '20': 1}
+  n_base_limit           {'0': 1}
+  average_qual           {'30': 1, '20': 1}
+  trim_front             {'2': 1}
+  trim_tail              {'1': 1}
+
+CO-PACKAGES (top 40):
+  R                        64
+  SAMtools                 52
+  DESeq2                   34
+  Bowtie2                  33
+  BWA                      29
+  ImageJ                   26
+  featureCounts            21
+  GATK                     20
+  BEDTools                 19
+  MACS2                    18
+  IQ-TREE                  17
+  Picard                   17
+  STAR                     17
+  minimap2                 17
+  deepTools                15
+  BLAST                    14
+  BCFtools                 14
+  clusterProfiler          14
+  edgeR                    13
+  MAFFT                    13
+  Seurat                   13
+  FastQC                   13
+  HISAT2                   13
+  ggplot2                  13
+  RepeatMasker             12
+  pheatmap                 11
+  VCFtools                 11
+  Cutadapt                 11
+  BUSCO                    11
+  PLINK                    10
+  UMAP                     10
+  PyMOL                    8
+  eggNOG                   8
+  SnpEff                   8
+  GSEA                     8
+  AlphaFold                7
+  Bioconductor             7
+  Kraken2                  7
+  DADA2                    7
+  SciPy                    7

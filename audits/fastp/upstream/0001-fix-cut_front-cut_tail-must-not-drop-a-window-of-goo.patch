@@ -1,0 +1,108 @@
+From 23735790a9c3b62050bdf8386f3a60b0bcf41528 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 04:07:57 +0000
+Subject: [PATCH] fix: --cut_front/--cut_tail must not drop a window of good
+ bases after --trim_front1/--trim_tail1
+
+Filter::trimAndCut advances the cut position past the last failing sliding
+window (windows overlap, so dropping the failing window means keeping from
+s+w-1). The guard that suppresses that advance when the very first window
+already passes compared the scan position with the start of the untrimmed read
+(if(s > 0), if(t < l-1)) instead of the start of the scan. With --trim_front1 or
+--trim_tail1 greater than zero the scan never starts at 0, so the advance also
+fired for reads on which no window failed and cut_window_size-1 good bases were
+removed from every read: with -f 5 --cut_front a 60 nt read of Q40 bases came
+out 52 nt long instead of 55, and 46 nt with -W 10.
+
+Compare against front/l-tail-1 instead. Filter::test() now covers both sides
+with an all-Q40 read; both new cases fail without this change.
+---
+ src/filter.cpp | 59 +++++++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 53 insertions(+), 6 deletions(-)
+
+diff --git a/src/filter.cpp b/src/filter.cpp
+index 42510b5..0090d13 100644
+--- a/src/filter.cpp
++++ b/src/filter.cpp
+@@ -117,8 +117,13 @@ Read* Filter::trimAndCut(Read* r, int front, int tail, int& frontTrimmed) {
+                 break;
+         }
+ 
+-        // the trimming in front is forwarded and rlen is recalculated
+-        if(s >0 )
++        // The loop above stops on the first window that passes; the bases of the
++        // last failing window (which ends at s+w-2, since windows overlap) are
++        // dropped with it. If the very first window already passes, nothing
++        // failed and nothing extra may be dropped -- the comparison must
++        // therefore be against `front`, the start of the scan, and not against
++        // the start of the untrimmed read.
++        if(s > front)
+             s = s+w-1;
+         while(s<l && seq[s] == 'N')
+             s++;
+@@ -186,7 +191,9 @@ Read* Filter::trimAndCut(Read* r, int front, int tail, int& frontTrimmed) {
+                 break;
+         }
+ 
+-        if(t < l-1)
++        // Mirror of the 5' case: only drop the last failing window when there
++        // was one, i.e. when the scan actually moved away from its start.
++        if(t < l-tail-1)
+             t = t-w+1;
+         while(t>=0 && seq[t] == 'N')
+             t--;
+@@ -258,7 +265,47 @@ bool Filter::test() {
+     int frontTrimmed = 0;
+     Read* ret = filter.trimAndCut(&r, 0, 1, frontTrimmed);
+     ret->print();
+-    
+-    return *ret->mSeq == "CCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+-        && *ret->mQuality == "CCCCCCCCCCC////CCCCCCCCCCCCC";
++
++    if(*ret->mSeq != "CCCCCCCCCCCCCCCCCCCCCCCCCCCC"
++        || *ret->mQuality != "CCCCCCCCCCC////CCCCCCCCCCCCC")
++        return false;
++
++    // Every base is Q40, so no sliding window can fail: --cut_front together
++    // with --trim_front1 must remove the globally trimmed bases and nothing else.
++    Read rf("@name",
++        "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
++        "+",
++        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
++    Options optf;
++    optf.qualityCut.enabledFront = true;
++    optf.qualityCut.windowSizeFront = 4;
++    optf.qualityCut.qualityFront = 20;
++    Filter filterf(&optf);
++    frontTrimmed = 0;
++    Read* retf = filterf.trimAndCut(&rf, 5, 0, frontTrimmed);
++    if(retf == NULL || frontTrimmed != 5
++        || *retf->mSeq != "CGTACGTACGTACGTACGTACGTACGTACGTACGT") {
++        cerr << "cut_front with trim_front1=5 should keep 35 of 40 bases" << endl;
++        return false;
++    }
++
++    // ... and the same on the 3' side with --cut_tail and --trim_tail1.
++    Read rt("@name",
++        "ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT",
++        "+",
++        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
++    Options optt;
++    optt.qualityCut.enabledTail = true;
++    optt.qualityCut.windowSizeTail = 4;
++    optt.qualityCut.qualityTail = 20;
++    Filter filtert(&optt);
++    frontTrimmed = 0;
++    Read* rett = filtert.trimAndCut(&rt, 0, 5, frontTrimmed);
++    if(rett == NULL
++        || *rett->mSeq != "ACGTACGTACGTACGTACGTACGTACGTACGTACG") {
++        cerr << "cut_tail with trim_tail1=5 should keep 35 of 40 bases" << endl;
++        return false;
++    }
++
++    return true;
+ }
+\ No newline at end of file
+-- 
+2.43.0
+

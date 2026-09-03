@@ -1,0 +1,165 @@
+From 2bd50ac2c44fbc458ebcc58ff38724fd6ea488a8 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 00:39:16 +0000
+Subject: [PATCH] Make --max-ee and --max-aer honour --quality-base
+
+TooManyExpectedErrors and TooHighAverageErrorRate called expected_errors()
+with the default base of 33 regardless of --quality-base. On Phred+64 data
+declared with --quality-base 64, every quality value was therefore read 31
+too high, the expected number of errors was ~1000 times too small and the
+filters never discarded anything. Pass the quality base through, as is
+already done for -q and --nextseq-trim.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.rst                |  9 +++++++++
+ src/cutadapt/cli.py        |  8 ++++++--
+ src/cutadapt/predicates.py | 22 ++++++++++++++++------
+ tests/test_predicates.py   | 23 ++++++++++++++++++++++-
+ 4 files changed, 53 insertions(+), 9 deletions(-)
+
+diff --git a/CHANGES.rst b/CHANGES.rst
+index 9d3149f..8b1c5e0 100644
+--- a/CHANGES.rst
++++ b/CHANGES.rst
+@@ -2,6 +2,15 @@
+ Changelog
+ =========
+ 
++development version
++-------------------
++
++* Fixed: ``--max-expected-errors``/``--max-ee`` and
++  ``--max-average-error-rate``/``--max-aer`` now take ``--quality-base``
++  into account. Previously, these filters always interpreted quality values as
++  Phred+33, so on Phred+64 data the expected number of errors was underestimated
++  by three orders of magnitude and no reads were discarded.
++
+ v5.2 (2025-10-23)
+ -----------------
+ 
+diff --git a/src/cutadapt/cli.py b/src/cutadapt/cli.py
+index 7cfa0cc..79d6e96 100644
+--- a/src/cutadapt/cli.py
++++ b/src/cutadapt/cli.py
+@@ -759,7 +759,9 @@ def make_pipeline_from_args(  # noqa: C901
+                 "Ignoring option --max-ee because input does not provide quality values"
+             )
+         else:
+-            predicate = TooManyExpectedErrors(args.max_expected_errors)
++            predicate = TooManyExpectedErrors(
++                args.max_expected_errors, quality_base=args.quality_base
++            )
+             if paired:
+                 step = PairedEndFilter(
+                     predicate, predicate, pair_filter_mode=pair_filter_mode
+@@ -774,7 +776,9 @@ def make_pipeline_from_args(  # noqa: C901
+                 "Ignoring option --max-er because input does not contain quality values"
+             )
+         else:
+-            predicate = TooHighAverageErrorRate(args.max_average_error_rate)
++            predicate = TooHighAverageErrorRate(
++                args.max_average_error_rate, quality_base=args.quality_base
++            )
+             if paired:
+                 step = PairedEndFilter(
+                     predicate, predicate, pair_filter_mode=pair_filter_mode
+diff --git a/src/cutadapt/predicates.py b/src/cutadapt/predicates.py
+index 5bd46bb..6ec9a2e 100644
+--- a/src/cutadapt/predicates.py
++++ b/src/cutadapt/predicates.py
+@@ -61,14 +61,18 @@ class TooManyExpectedErrors(Predicate):
+     (http://drive5.com/usearch/).
+     """
+ 
+-    def __init__(self, max_errors: float):
++    def __init__(self, max_errors: float, quality_base: int = 33):
+         self.max_errors = max_errors
++        self.quality_base = quality_base
+ 
+     def __repr__(self):
+-        return f"TooManyExpectedErrors(max_errors={self.max_errors})"
++        return (
++            f"TooManyExpectedErrors(max_errors={self.max_errors}, "
++            f"quality_base={self.quality_base})"
++        )
+ 
+     def test(self, read, info: ModificationInfo):
+-        return expected_errors(read.qualities) > self.max_errors
++        return expected_errors(read.qualities, self.quality_base) > self.max_errors
+ 
+ 
+ class TooHighAverageErrorRate(Predicate):
+@@ -78,21 +82,27 @@ class TooHighAverageErrorRate(Predicate):
+     have varying lengths, such as for long read sequencing technologies.
+     """
+ 
+-    def __init__(self, max_error_rate: float):
++    def __init__(self, max_error_rate: float, quality_base: int = 33):
+         if not 0.0 < max_error_rate < 1.0:
+             raise ValueError(
+                 f"max_error_rate must be between 0.0 and 1.0, got {max_error_rate}."
+             )
+         self.max_error_rate = max_error_rate
++        self.quality_base = quality_base
+ 
+     def __repr__(self):
+-        return f"TooHighAverageErrorRate(max_error_rate={self.max_error_rate}"
++        return (
++            f"TooHighAverageErrorRate(max_error_rate={self.max_error_rate}, "
++            f"quality_base={self.quality_base})"
++        )
+ 
+     def test(self, read, info: ModificationInfo):
+         read_length = len(read)
+         if read_length == 0:
+             return False
+-        return (expected_errors(read.qualities) / read_length) > self.max_error_rate
++        return (
++            expected_errors(read.qualities, self.quality_base) / read_length
++        ) > self.max_error_rate
+ 
+ 
+ class TooManyN(Predicate):
+diff --git a/tests/test_predicates.py b/tests/test_predicates.py
+index 9e6b4d0..dce5c22 100644
+--- a/tests/test_predicates.py
++++ b/tests/test_predicates.py
+@@ -5,7 +5,11 @@ Tests write output (should it return True or False or write)
+ import pytest
+ from dnaio import SequenceRecord
+ 
+-from cutadapt.predicates import TooManyN, TooHighAverageErrorRate
++from cutadapt.predicates import (
++    TooManyN,
++    TooHighAverageErrorRate,
++    TooManyExpectedErrors,
++)
+ from cutadapt.steps import PairedEndFilter
+ 
+ 
+@@ -70,3 +74,20 @@ def test_too_high_average_error_rate(quals, rate, expected):
+     predicate = TooHighAverageErrorRate(rate)
+     _seq = SequenceRecord("read1", "A" * len(quals), qualities=quals)
+     assert predicate.test(_seq, []) == expected
++
++
++def test_too_many_expected_errors_quality_base():
++    # Phred 2 at every position: 10 * 10**-0.2 = 6.3 expected errors
++    read33 = SequenceRecord("read1", "A" * 10, qualities=chr(2 + 33) * 10)
++    read64 = SequenceRecord("read1", "A" * 10, qualities=chr(2 + 64) * 10)
++    assert TooManyExpectedErrors(max_errors=1.0).test(read33, [])
++    assert TooManyExpectedErrors(max_errors=1.0, quality_base=64).test(read64, [])
++    assert not TooManyExpectedErrors(max_errors=7.0, quality_base=64).test(read64, [])
++
++
++def test_too_high_average_error_rate_quality_base():
++    read64 = SequenceRecord("read1", "A" * 10, qualities=chr(2 + 64) * 10)
++    assert TooHighAverageErrorRate(max_error_rate=0.5, quality_base=64).test(read64, [])
++    assert not TooHighAverageErrorRate(max_error_rate=0.7, quality_base=64).test(
++        read64, []
++    )
+-- 
+2.43.0
+

@@ -1,0 +1,87 @@
+cohort: 200
+full text: 0   survey-cache fallback: 200   ({'offline': 200})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  umap                                             171
+  Seurat also used                                 102
+  doublet removal                                  70
+  diffusion / PAGA / trajectory                    57
+  pca                                              47
+  leiden                                           42
+  CellChat / ligand-receptor                       41
+  scanpy version stated                            35
+  batch integration (harmony/bbknn/scVI/combat)    32
+  squidpy / spatial                                19
+  log1p                                            18
+  adjusted p / BH                                  18
+  highly_variable_genes                            18
+  snRNA-seq                                        16
+  wilcoxon named                                   14
+  calculate_qc_metrics / percent mito              14
+  neighbors                                        13
+  normalize_total / library-size normalisation     12
+  louvain                                          12
+  resolution stated                                10
+  score_genes                                      8
+  log fold change reported                         5
+  rank_genes_groups                                4
+  mito threshold stated                            4
+  regress_out                                      4
+  n_top_genes stated                               4
+  t-test named                                     3
+  scale / max_value                                2
+  score_genes_cell_cycle                           1
+  HVG flavor seurat_v3                             1
+  target_sum 1e4 stated                            1
+  logreg                                           1
+
+VERSION FAMILY: {'1.9': 30, '1.8': 11, '1.6': 11, '1.10': 8, '1.4': 7, '1.7': 6, '1.11': 2, '1.5': 2, '1.0': 1}
+VERSIONS (top 20): {'1.9.1': 13, '1.6.0': 8, '1.8.2': 5, '1.9.3': 5, '1.10.0': 4, '1.8.1': 4, '1.9': 4, '1.9.6': 3, '1.9.8': 3, '1.4.3': 3, '1.10.3': 2, '1.7.2': 2, '1.6': 2, '1.7.1': 2, '1.7.0': 2, '1.5.1': 2, '1.4.6': 2, '1.11.2': 1, '1.9.5': 1, '1.10.1': 1}
+
+resolutions: {'0.8': 2, '1.2': 2, '0.6': 2, '1.7': 1, '0.2': 1}
+mito %: {'15': 3, '12': 2, '5': 1, '20': 1}
+padj cutoffs: {'0.05': 6, '0.15': 1}
+lfc cutoffs: {'1.5': 3, '2': 2, '0.25': 1}
+dims: {20: 8, 50: 7, 30: 4, 2: 2, 12: 2, 8: 2, 1: 2, 5: 2, 200: 1, 3: 1}
+
+CO-PACKAGES (top 40):
+  UMAP                     171
+  R                        105
+  Seurat                   102
+  scDblFinder              65
+  ImageJ                   64
+  Python                   63
+  scikit-learn             51
+  SciPy                    51
+  GSEA                     49
+  AnnData                  49
+  DESeq2                   47
+  STAR                     45
+  MACS2                    44
+  NumPy                    38
+  Matplotlib               36
+  scVelo                   36
+  seaborn                  34
+  ggplot2                  33
+  clusterProfiler          27
+  SAMtools                 27
+  limma                    24
+  SCENIC                   24
+  featureCounts            22
+  CellPhoneDB              22
+  Cellpose                 22
+  edgeR                    21
+  QuPath                   20
+  Enrichr                  20
+  igraph                   20
+  velocyto                 19
+  Monocle                  18
+  CellChat                 17
+  ArchR                    17
+  Bowtie2                  17
+  Picard                   15
+  pheatmap                 15
+  Cutadapt                 15
+  BEDTools                 15
+  FastQC                   14
+  Signac                   14

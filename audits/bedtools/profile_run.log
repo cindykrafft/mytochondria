@@ -1,0 +1,93 @@
+cohort: 302
+full text: 0   survey-cache fallback: 302   ({'offline': 302})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  samtools                                         172
+  overlap / intersection in prose                  121
+  MACS                                             114
+  ATAC / ChIP / CUT&RUN                            88
+  RNA-seq                                          77
+  deepTools                                        69
+  intersect                                        54
+  bedtools version stated                          51
+  HOMER                                            49
+  WGS / variants / SV                              26
+  merge                                            20
+  -c / -u / -v named                               18
+  methylation / bisulfite                          17
+  genomecov                                        14
+  -bg / -bga / -scale named                        12
+  bamtobed / bedtobam                              12
+  GREAT / ChIPseeker / annotation                  11
+  getfasta / nuc                                   10
+  Hi-C / TAD                                       9
+  closest                                          9
+  -f / -F / -r / -e fraction named                 9
+  coverage                                         9
+  permutation / shuffled null                      7
+  subtract                                         7
+  makewindows                                      6
+  multicov                                         4
+  bedops                                           4
+  jaccard                                          3
+  pybedtools                                       3
+  -d distance named                                3
+  slop / flank                                     3
+  -split named                                     3
+  -s / -S strand named                             2
+  -incl / -excl / -noOverlapping                   1
+  complement                                       1
+  fisher                                           1
+  cluster                                          1
+  shuffle                                          1
+
+VERSION FAMILY: {'2.30': 45, '2.29': 17, '2.27': 14, '2.31': 10, '2.26': 10, '2.25': 8, '2.28': 4, '2.23': 2, '2.3': 1, '2.18': 1, '2.24': 1, '2.17': 1, '2.14': 1, '2.6': 1}
+VERSIONS (top 20): {'2.30.0': 43, '2.29.2': 13, '2.26.0': 10, '2.27.1': 9, '2.25.0': 8, '2.31.0': 5, '2.31.1': 4, '2.28.0': 4, '2.29.0': 3, '2.23.0': 2, '2.30': 2, '2.27': 2, '2.27.0': 2, '2.3.0': 1, '2.29.1': 1, '2.18.1': 1, '2.24.0': 1, '2.17.0': 1, '2.31': 1, '2.27.168': 1}
+
+-f/-F fractions: {'0.3': 2, '1.0': 1, '0.9': 1, '0.2': 1, '0.5': 1}
+-d distances: {0: 1}
+-w windows: {100000: 2, 1001: 1}
+-b slops: {1000: 1, 100: 1}
+'bedtools <sub>' named: {'intersect': 23, 'v': 8, 'merge': 7, 'closest': 7, 'and': 6, 'getfasta': 5, 'bamtobed': 5, 'coverage': 5, 'to': 4, 'subtract': 4, 'makewindows': 3, 'version': 3, 'slop': 3, 'genomecov': 3, 'multicov': 2, 'bamtofastq': 2, 'jaccard': 1, 'complement': 1, 'make': 1, 'using': 1}
+
+CO-PACKAGES (top 40):
+  SAMtools                 172
+  R                        167
+  Bowtie2                  118
+  MACS2                    111
+  DESeq2                   104
+  Cutadapt                 73
+  Picard                   71
+  BWA                      71
+  STAR                     69
+  deepTools                66
+  ImageJ                   63
+  UMAP                     62
+  Seurat                   61
+  minimap2                 55
+  ggplot2                  54
+  Trimmomatic              49
+  featureCounts            48
+  GATK                     48
+  HOMER                    48
+  RepeatMasker             46
+  edgeR                    42
+  FastQC                   41
+  BCFtools                 39
+  MAFFT                    39
+  GSEA                     37
+  Trim Galore              34
+  BUSCO                    33
+  Python                   30
+  BLAST                    29
+  HISAT2                   26
+  clusterProfiler          26
+  scikit-learn             24
+  IQ-TREE                  24
+  limma                    23
+  Bioconductor             21
+  AlphaFold                20
+  fastp                    19
+  scDblFinder              19
+  HMMER                    19
+  VCFtools                 18

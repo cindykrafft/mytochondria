@@ -1,0 +1,147 @@
+From 1a8ef57c168698be89b5263240f5675195e29cdd Mon Sep 17 00:00:00 2001
+From: Claude Code <noreply@anthropic.com>
+Date: Thu, 3 Sep 2026 04:08:35 +0000
+Subject: [PATCH] coverage: count database records, not blocks, with -split and
+ honour -f/-F
+
+With -split, CoverageFile::checkSplits replaced the hit list by the list of
+per-block overlaps that the depth is computed from, so the count column (and
+-counts) reported the number of overlapping blocks instead of the number of
+database records: a single three-block read counted as 3, while
+`intersect -c -split` counts it once. The per-block list was also kept when
+BlockMgr::findBlockedOverlaps had rejected every hit under -f/-F/-r, so those
+options had no effect on coverage -split (a 10 % overlap was reported under
+-f 0.5, with its depth).
+
+Keep the number of records that survived the fraction test as the hit count,
+and drop the per-block overlaps when no record survived.
+
+test/coverage/test-coverage.sh: t10/t10b now expect a count of 1 for the
+three-block read; t10c-t10e cover -f 0.6/0.7 with -split; t10f/t10g a two-block
+BED12 record.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ src/coverageFile/coverageFile.cpp | 16 +++++++++++-
+ src/coverageFile/coverageFile.h   |  1 +
+ test/coverage/test-coverage.sh    | 43 ++++++++++++++++++++++++++++++-
+ 3 files changed, 58 insertions(+), 2 deletions(-)
+
+diff --git a/src/coverageFile/coverageFile.cpp b/src/coverageFile/coverageFile.cpp
+index ea9adc0..eddd9a5 100644
+--- a/src/coverageFile/coverageFile.cpp
++++ b/src/coverageFile/coverageFile.cpp
+@@ -15,6 +15,7 @@ CoverageFile::CoverageFile(ContextCoverage *context)
+  _queryLen(0),
+  _totalQueryLen(0),
+  _hitCount(0),
++ _splitHitCount(0),
+  _queryOffset(0),
+  _floatValBuf(NULL)
+ {
+@@ -134,6 +135,12 @@ void CoverageFile::makeDepthCount(RecordKeyVector &hits) {
+ 		}
+ 		_hitCount++;
+ 	}
++	// With -split, hits holds one entry per overlapping block (see checkSplits),
++	// which is what the depth needs; the number of database records is what
++	// the count column reports.
++	if (upCast(_context)->getObeySplits()) {
++		_hitCount = _splitHitCount;
++	}
+ }
+ 
+ size_t CoverageFile::countBasesAtDepth(size_t depth) {
+@@ -242,7 +249,14 @@ void CoverageFile::checkSplits(RecordKeyVector &hitSet)
+ 		RecordKeyVector resultSet(hitSet.getKey());
+ 		RecordKeyVector overlapSet(hitSet.getKey());
+ 		upCast(_context)->getSplitBlockInfo()->findBlockedOverlaps(keySet, hitSet, resultSet, &overlapSet);
+-		//hitSet.clearAll();
++		// resultSet holds the database records that overlap the query after
++		// -f/-F/-r have been applied to the blocked overlap; overlapSet holds
++		// the per-block overlaps the depth is computed from. Report the record
++		// count, and no depth at all when the fraction test rejected every hit.
++		_splitHitCount = resultSet.size();
++		if (_splitHitCount == 0) {
++			upCast(_context)->getSplitBlockInfo()->deleteBlocks(overlapSet);
++		}
+ 		hitSet.swap(overlapSet);
+ 	}
+ }
+diff --git a/src/coverageFile/coverageFile.h b/src/coverageFile/coverageFile.h
+index 7597403..52e95df 100644
+--- a/src/coverageFile/coverageFile.h
++++ b/src/coverageFile/coverageFile.h
+@@ -29,6 +29,7 @@ protected:
+ 	size_t _queryLen;
+ 	size_t _totalQueryLen;
+ 	size_t _hitCount;
++	size_t _splitHitCount;
+ 	CHRPOS _queryOffset;
+ 	static const int DEFAULT_DEPTH_CAPACITY = 1024;
+ 	char *_floatValBuf;
+diff --git a/test/coverage/test-coverage.sh b/test/coverage/test-coverage.sh
+index 557b031..bce131e 100755
+--- a/test/coverage/test-coverage.sh
++++ b/test/coverage/test-coverage.sh
+@@ -508,7 +508,7 @@ rm exp obs
+ ##################################################################
+ echo -e "    coverage.t10...\c"
+ echo \
+-"chr1	0	50	3	30	50	0.6000000
++"chr1	0	50	1	30	50	0.6000000
+ chr1	12	20	0	0	8	0.0000000" > exp
+ $BT coverage -a c.bed -b three_blocks_match.bam -split > obs
+ check exp obs
+@@ -517,6 +517,47 @@ $BT coverage -a c.bed -b three_blocks_match.bam -split -sorted > obs
+ check exp obs
+ rm exp obs
+ 
++##################################################################
++#  Test -split with -f: the 3-block read covers 30 of the 50 bases
++#  of the first interval (0.6), so -f 0.6 keeps it and -f 0.7 drops
++#  it, and a dropped hit contributes no depth either.
++##################################################################
++echo -e "    coverage.t10c...\c"
++echo \
++"chr1	0	50	1	30	50	0.6000000
++chr1	12	20	0	0	8	0.0000000" > exp
++$BT coverage -a c.bed -b three_blocks_match.bam -split -f 0.6 > obs
++check exp obs
++rm exp obs
++echo -e "    coverage.t10d...\c"
++echo \
++"chr1	0	50	0	0	50	0.0000000
++chr1	12	20	0	0	8	0.0000000" > exp
++$BT coverage -a c.bed -b three_blocks_match.bam -split -f 0.7 > obs
++check exp obs
++echo -e "    coverage.t10e...\c"
++$BT coverage -a c.bed -b three_blocks_match.bam -split -f 0.7 -sorted > obs
++check exp obs
++rm exp obs
++
++##################################################################
++#  Test -split with a BED12 record: one record with two blocks
++#  inside the interval counts once
++##################################################################
++echo -e "    coverage.t10f...\c"
++echo \
++"chr1	0	50	1	20	50	0.4000000" > exp
++echo "chr1	0	50" > two_blocks_a.bed
++echo "chr1	5	45	two_blocks	0	+	5	45	0	2	10,10	0,30" > two_blocks_b.bed12
++$BT coverage -a two_blocks_a.bed -b two_blocks_b.bed12 -split > obs
++check exp obs
++echo -e "    coverage.t10g...\c"
++echo \
++"chr1	0	50	1" > exp
++$BT coverage -a two_blocks_a.bed -b two_blocks_b.bed12 -split -counts > obs
++check exp obs
++rm exp obs two_blocks_a.bed two_blocks_b.bed12
++
+ ##################################################################
+ #  Test w/o -split
+ ##################################################################
+-- 
+2.43.0
+

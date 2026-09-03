@@ -1,0 +1,24 @@
+scrublet 0.2.3 | scanpy 1.12.4
+
+synthetic data seed 1: 1650 cells, 150 true doublets
+  scanpy  log_transform=False                          mean obs score 0.084  mean sim score 0.365  threshold  0.1642  called  147  recall 0.980  precision 1.000
+  scanpy  log_transform=True                           mean obs score 0.047  mean sim score 0.417  threshold  0.1820  called  141  recall 0.940  precision 1.000
+  original log_transform=False                         mean obs score 0.090  mean sim score 0.404  threshold  0.1876  called  144  recall 0.960  precision 1.000
+  original log_transform=True                          mean obs score 0.074  mean sim score 0.431  threshold  0.5761  called   23  recall 0.153  precision 1.000
+
+synthetic data seed 2: 1650 cells, 150 true doublets
+  scanpy  log_transform=False                          mean obs score 0.084  mean sim score 0.371  threshold  0.1712  called  148  recall 0.987  precision 1.000
+  scanpy  log_transform=True                           mean obs score 0.050  mean sim score 0.405  threshold  0.1949  called  142  recall 0.947  precision 1.000
+  original log_transform=False                         mean obs score 0.094  mean sim score 0.420  threshold  0.2009  called  147  recall 0.980  precision 1.000
+  original log_transform=True                          mean obs score 0.076  mean sim score 0.448  threshold  0.5854  called   32  recall 0.213  precision 1.000
+
+mechanism (seed 1): the matrices the port builds before z-scoring, log_transform=True
+  per-cell sums over the 518 HVGs at the moment log1p is applied: observed (median-normalised) mean 1137.6, simulated (raw sums) mean 2565.3
+  after log1p then normalize_total(1e6): correlation of mean gene profiles obs vs sim = 0.9940
+  (the original applies log10(1+x) after both populations are normalised to 1e6 by their full-gene totals, so they share one transform)
+
+self-doublet test (seed 1): sim = raw counts of cell i added to itself, for 20 cells, then each package's transform sequence
+  scanpy   log_transform=False: relative distance between cell i and its self-doublet: max 1.23e-07, mean 5.88e-08
+  scanpy   log_transform=True : relative distance between cell i and its self-doublet: max 0.189, mean 0.0817
+  original log_transform=False: relative distance between cell i and its self-doublet: max 0, mean 0
+  original log_transform=True : relative distance between cell i and its self-doublet: max 0, mean 0

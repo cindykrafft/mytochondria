@@ -1,0 +1,20 @@
+umap-learn 0.5.12
+500 Gaussian points in 8-d, k=15, target log2(k) = 3.907; point 0 replicated m extra times (identical rows)
+  m   sigma(point 0)   floor(1e-3*mean)   kernel sum   weights to non-identical neighbours (sorted by distance)
+   0        0.59663          0.00243      3.907      [1.    0.33  0.316 0.29  0.272 0.248]
+   1        0.47326          0.00224      2.907      [1.    0.247 0.234 0.21  0.193 0.173]
+   2        0.33768          0.00204      3.907      [1.    0.141 0.131 0.112 0.1   0.085]
+   3        0.00185          0.00185      4.000      [1. 0. 0. 0. 0. 0.]
+   4        0.00166          0.00166      4.000      [1. 0. 0. 0. 0. 0.]
+   6        0.00130          0.00130      6.000      [1. 0. 0. 0. 0. 0.]
+  10        0.00061          0.00061     10.000      [1. 0. 0. 0.]
+
+Same via UMAP.fit (exact path), graph_ row of point 0: number of neighbours with weight > 0.01
+  m= 0 unique=False: weights > 0.01 to identical rows:  0, to distinct rows: 14; sigma(point 0) = 0.59663
+  m= 0 unique=True : weights > 0.01 to identical rows:  0, to distinct rows: 15; sigma(point 0) = 0.44691
+  m= 2 unique=False: weights > 0.01 to identical rows:  2, to distinct rows: 12; sigma(point 0) = 0.33768
+  m= 2 unique=True : weights > 0.01 to identical rows:  0, to distinct rows: 15; sigma(point 0) = 0.44691
+  m= 4 unique=False: weights > 0.01 to identical rows:  4, to distinct rows:  3; sigma(point 0) = 0.00166
+  m= 4 unique=True : weights > 0.01 to identical rows:  0, to distinct rows: 15; sigma(point 0) = 0.44691
+  m=10 unique=False: weights > 0.01 to identical rows: 10, to distinct rows:  1; sigma(point 0) = 0.00061
+  m=10 unique=True : weights > 0.01 to identical rows:  0, to distinct rows: 15; sigma(point 0) = 0.44691

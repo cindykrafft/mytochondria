@@ -1,0 +1,95 @@
+From dfec26ef296398bc170277d24712594bfa0e477b Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 00:46:36 +0000
+Subject: [PATCH] fix: do not divide by a zero progress step when iterations <=
+ 50
+
+shuffled_analysis' single-threaded branch computed
+progress_step = round(iterations / 100, 0), which is 0.0 for every
+iterations <= 50, and then took `i % progress_step`. Any run with
+threads=1 and iterations <= 50 therefore raised
+"ZeroDivisionError: float modulo" before producing any result.
+
+threads=1 is the documented workaround for driving the package from
+R/RStudio on Windows (see the comment above this branch, referencing
+issue #102), where a first run with a small number of iterations is a
+natural thing to try.
+
+Clamp the step to at least 1. No effect on any result: progress_step
+only drives the progress print.
+
+Adds ShuffledAnalysisUnitTests.test_small_iterations_single_thread,
+which drives shuffled_analysis with iterations 1, 10, 50 and 51 on a
+hand-built 4-cell input and needs no database download, so it runs in
+CI alongside the existing tests.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ .../cpdb_statistical_analysis_helper.py       |  4 ++-
+ cellphonedb/src/tests/method_tests.py         | 28 +++++++++++++++++++
+ 2 files changed, 31 insertions(+), 1 deletion(-)
+
+diff --git a/cellphonedb/src/core/methods/cpdb_statistical_analysis_helper.py b/cellphonedb/src/core/methods/cpdb_statistical_analysis_helper.py
+index f03d2e4..a958b7d 100755
+--- a/cellphonedb/src/core/methods/cpdb_statistical_analysis_helper.py
++++ b/cellphonedb/src/core/methods/cpdb_statistical_analysis_helper.py
+@@ -476,7 +476,9 @@ def shuffled_analysis(iterations: int,
+         # NB. At the time of writing, our parallelisation method does not work when Python is called
+         # via Reticulate from R Studio on Windows. The only option then is to run with threads set to 1.
+         # See: https://github.com/ventolab/CellphoneDB/issues/102
+-        progress_step = round(iterations / 100, 0)
++        # NB. max(1, ...) keeps the modulus below well defined: round(iterations / 100, 0)
++        # is 0.0 for every iterations <= 50, which raised ZeroDivisionError.
++        progress_step = max(1, int(round(iterations / 100)))
+         for i in range(iterations):
+             result = _statistical_analysis(cluster_combinations,
+                                            counts,
+diff --git a/cellphonedb/src/tests/method_tests.py b/cellphonedb/src/tests/method_tests.py
+index 39cb51e..b7a437d 100644
+--- a/cellphonedb/src/tests/method_tests.py
++++ b/cellphonedb/src/tests/method_tests.py
+@@ -4,6 +4,7 @@ import fnmatch
+ import re
+ import zipfile
+ from cellphonedb.utils import search_utils, db_utils, db_releases_utils
++from cellphonedb.src.core.methods import cpdb_statistical_analysis_helper
+ from cellphonedb.src.core.methods import cpdb_analysis_method, cpdb_statistical_analysis_method, cpdb_degs_analysis_method
+ 
+ RELEASED_VERSION = "v4.1.0"
+@@ -194,5 +195,32 @@ class UnitTests(unittest.TestCase):
+         # 'CellSign_active_interactions_deconvoluted dataframe is empty')
+ 
+ 
++class ShuffledAnalysisUnitTests(unittest.TestCase):
++    """Unit tests for shuffled_analysis that need no database download."""
++
++    @staticmethod
++    def _tiny_inputs():
++        import numpy as np
++        import pandas as pd
++        cells = ['c1', 'c2', 'c3', 'c4']
++        meta = pd.DataFrame({'cell_type': ['A', 'A', 'B', 'B']}, index=cells)
++        meta.index.name = 'cell'
++        counts = pd.DataFrame([[1.0, 2.0, 0.0, 3.0],
++                               [0.0, 1.0, 2.0, 2.0]], index=[1, 2], columns=cells)
++        interactions = pd.DataFrame({'multidata_1_id': [1], 'multidata_2_id': [2]}, index=[0])
++        cluster_combinations = np.array([['A', 'B']], dtype=object)
++        real_mean_analysis = pd.DataFrame([[1.5]], index=[0], columns=['A|B'])
++        return meta, counts, interactions, cluster_combinations, real_mean_analysis
++
++    def test_small_iterations_single_thread(self):
++        """iterations <= 50 with threads=1 must not raise (progress_step used to be 0)."""
++        meta, counts, interactions, combos, real = self._tiny_inputs()
++        for iterations in (1, 10, 50, 51):
++            results = cpdb_statistical_analysis_helper.shuffled_analysis(
++                iterations, meta, counts, interactions, combos, {}, real, 1, '|')
++            assert len(results) == iterations, \
++                "expected {} shuffle results, got {}".format(iterations, len(results))
++
++
+ if __name__ == "__main__":
+     unittest.main()
+-- 
+2.43.0
+

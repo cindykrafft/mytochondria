@@ -1,0 +1,144 @@
+From 620b7e45072a4f8587f9662af7675a3c3eb19bf7 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 03:56:23 +0000
+Subject: [PATCH] Apply the -a MAPQ cutoff to aligned mates only in htseq-count
+
+_assess_pe_read (and the same test in htseq-count-barcodes) compared the
+MAPQ of both records of a pair with --minaqual without checking that the
+record is aligned. Aligners write MAPQ 0 on the record of an unmapped mate,
+so a pair whose mate is unmapped but present in the file was counted as
+__too_low_aQual under the default -a 10, while the same pair was counted
+when the unmapped record was absent from the file, and while the FAQ says
+that only the aligned read determines how such a pair is counted. Check
+aQual only for aligned mates. Adds a test with a three-pair BAM written by
+pysam and a history entry.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ .../count_features/count_features_per_file.py | 12 ++++-
+ HTSeq/scripts/count_with_barcodes.py          |  7 ++-
+ doc/history.rst                               |  8 ++++
+ test/test_htseq-count.py                      | 46 +++++++++++++++++++
+ 4 files changed, 69 insertions(+), 4 deletions(-)
+
+diff --git a/HTSeq/scripts/count_features/count_features_per_file.py b/HTSeq/scripts/count_features/count_features_per_file.py
+index 037b77f..bd86d9e 100644
+--- a/HTSeq/scripts/count_features/count_features_per_file.py
++++ b/HTSeq/scripts/count_features/count_features_per_file.py
+@@ -386,8 +386,16 @@ def _assess_pe_read(
+                 return True
+     except KeyError:
+         pass
+-    if (read_sequence[0] and read_sequence[0].aQual < minaqual) or (
+-        read_sequence[1] and read_sequence[1].aQual < minaqual
++    # Only aligned mates carry a meaningful MAPQ: aligners write 0 on the
++    # record of an unmapped mate, which must not disqualify the pair.
++    if (
++        read_sequence[0] is not None
++        and read_sequence[0].aligned
++        and read_sequence[0].aQual < minaqual
++    ) or (
++        read_sequence[1] is not None
++        and read_sequence[1].aligned
++        and read_sequence[1].aQual < minaqual
+     ):
+         read_stats.add_low_quality_read(read_sequence=read_sequence)
+         return True
+diff --git a/HTSeq/scripts/count_with_barcodes.py b/HTSeq/scripts/count_with_barcodes.py
+index af34ec2..82e1571 100644
+--- a/HTSeq/scripts/count_with_barcodes.py
++++ b/HTSeq/scripts/count_with_barcodes.py
+@@ -306,8 +306,11 @@ def count_reads_with_barcodes(
+                             continue
+                 except KeyError:
+                     pass
+-                if ((r[0] and r[0].aQual < minaqual) or
+-                   (r[1] and r[1].aQual < minaqual)):
++                # Only aligned mates carry a meaningful MAPQ (see count.py)
++                if ((r[0] is not None and r[0].aligned and
++                     r[0].aQual < minaqual) or
++                    (r[1] is not None and r[1].aligned and
++                     r[1].aQual < minaqual)):
+                     write_to_samout(
+                             r, "__too_low_aQual", samoutfile,
+                             template)
+diff --git a/doc/history.rst b/doc/history.rst
+index 6208884..6c02975 100644
+--- a/doc/history.rst
++++ b/doc/history.rst
+@@ -4,6 +4,14 @@
+ Version history
+ ***************
+ 
++Version 2.1.3
++=============
++Unreleased
++
++Bugfix release:
++
++- ``htseq-count`` and ``htseq-count-barcodes`` compared the MAPQ of the *unmapped* mate of a read pair (0 on every aligner's unmapped records) with ``-a``, so a pair whose mate is unmapped but present in the file was discarded as ``__too_low_aQual`` under the default ``-a 10`` while the same pair was counted when the unmapped record was absent. The ``-a`` cutoff now applies to aligned mates only, as the FAQ describes.
++
+ Version 2.0.9
+ =============
+ 2024-09-12
+diff --git a/test/test_htseq-count.py b/test/test_htseq-count.py
+index 0cc74df..8046dc6 100644
+--- a/test/test_htseq-count.py
++++ b/test/test_htseq-count.py
+@@ -545,6 +545,52 @@ class HTSeqCount(HTSeqCountBase):
+                 data_folder + "/10x_pbmc1k/subsampled_with_missing_barcodes_counts.h5ad"
+             )
+ 
++    def test_pair_with_unmapped_mate_is_counted(self):
++        """A pair whose unmapped mate is in the file (MAPQ 0 on that record)
++        must be counted like a pair whose mate is missing from the file: the
++        -a cutoff applies to aligned mates only."""
++        import tempfile
++
++        tmp = tempfile.mkdtemp()
++        gtf = os.path.join(tmp, "one_gene.gtf")
++        with open(gtf, "w") as f:
++            f.write('chr1\tsrc\texon\t1001\t2000\t.\t+\t.\tgene_id "A";\n')
++        bam = os.path.join(tmp, "pairs.bam")
++        header = {"HD": {"VN": "1.6"}, "SQ": [{"SN": "chr1", "LN": 5000}]}
++
++        def segment(name, flag, start, mapq, cigar, mate_start):
++            a = pysam.AlignedSegment()
++            a.query_name = name
++            a.flag = flag
++            a.query_sequence = "A" * 50
++            a.query_qualities = pysam.qualitystring_to_array("I" * 50)
++            a.reference_id = 0
++            a.reference_start = start
++            a.mapping_quality = mapq
++            a.cigartuples = cigar
++            a.next_reference_id = 0
++            a.next_reference_start = mate_start
++            return a
++
++        with pysam.AlignmentFile(bam, "wb", header=header) as f:
++            # mate 1 aligned in A (MAPQ 60), mate 2 unmapped, placed at mate 1
++            f.write(segment("mate2_unmapped", 0x1 | 0x8 | 0x40, 1100, 60, [(0, 50)], 1100))
++            f.write(segment("mate2_unmapped", 0x1 | 0x4 | 0x80, 1100, 0, None, 1100))
++            # mate 1 aligned in A (MAPQ 60), mate 2 not in the file
++            f.write(segment("mate2_absent", 0x1 | 0x20 | 0x40, 1200, 60, [(0, 50)], 1500))
++            # both aligned in A (MAPQ 60)
++            f.write(segment("both", 0x1 | 0x2 | 0x20 | 0x40, 1300, 60, [(0, 50)], 1500))
++            f.write(segment("both", 0x1 | 0x2 | 0x10 | 0x80, 1500, 60, [(0, 50)], 1300))
++
++        p = sp.run(
++            [self.cmd, "-q", "-s", "yes", "-a", "10", bam, gtf],
++            check=True,
++            capture_output=True,
++        )
++        counts = dict(line.split("\t") for line in p.stdout.decode().splitlines())
++        self.assertEqual(counts["A"], "3")
++        self.assertEqual(counts["__too_low_aQual"], "0")
++
+     def test_nonunique_fraction(self):
+         self._run(
+             {
+-- 
+2.43.0
+

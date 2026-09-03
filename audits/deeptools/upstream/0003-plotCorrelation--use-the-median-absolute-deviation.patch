@@ -1,0 +1,62 @@
+From fd3b0e37bf5cd8b5dc1dbedbed350b762f1b881a Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 04:09:16 +0000
+Subject: [PATCH] plotCorrelation: use the median absolute deviation in
+ --removeOutliers
+
+get_outlier_indices scaled the deviation from the median by 1.4826 * median(|x|), i.e. by the median itself for counts, instead of by median(|x - median|) as the Iglewicz & Hoaglin method it cites (and the --removeOutliers help) require. A bin was only flagged when it exceeded about 300 times the median, so the option removed essentially nothing.
+
+Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/claude/software-package-audit-ablwee/audits/deeptools)
+---
+ CHANGES.txt                                 |  3 +++
+ deeptools/correlation.py                    |  2 +-
+ deeptools/test/test_correlation_outliers.py | 13 +++++++++++++
+ 3 files changed, 17 insertions(+), 1 deletion(-)
+ create mode 100644 deeptools/test/test_correlation_outliers.py
+
+diff --git a/CHANGES.txt b/CHANGES.txt
+index 5f0bf0f0..05edd923 100755
+--- a/CHANGES.txt
++++ b/CHANGES.txt
+@@ -1,3 +1,6 @@
++unreleased
++* plotCorrelation --removeOutliers: the deviation is scaled by the median absolute deviation, as documented, not by the median of |x|
++
+ 3.5.5
+ * drop support for python 3.7
+ * doc fixes (argparse properly displayed, minor changes in installation instructions)
+diff --git a/deeptools/correlation.py b/deeptools/correlation.py
+index 56b8d91d..69935364 100755
+--- a/deeptools/correlation.py
++++ b/deeptools/correlation.py
+@@ -116,7 +116,7 @@ class Correlation:
+         """
+         median = np.median(data)
+         b_value = 1.4826  # value set for a normal distribution
+-        mad = b_value * np.median(np.abs(data))
++        mad = b_value * np.median(np.abs(data - median))
+         outliers = []
+         if mad > 0:
+             deviation = abs(data - median) / mad
+diff --git a/deeptools/test/test_correlation_outliers.py b/deeptools/test/test_correlation_outliers.py
+new file mode 100644
+index 00000000..08f5d4ac
+--- /dev/null
++++ b/deeptools/test/test_correlation_outliers.py
+@@ -0,0 +1,13 @@
++import numpy as np
++import numpy.testing as nt
++from deeptools.correlation import Correlation
++
++
++def test_get_outlier_indices_uses_median_absolute_deviation():
++    rng = np.random.RandomState(1)
++    data = rng.poisson(100.0, 5000).astype(float)
++    data[[5, 700, 4200]] = 5000.0
++    # |x - median| / (1.4826 * MAD) with MAD ~ 7 flags the three planted bins;
++    # with median(|x|) in place of the MAD nothing below ~30,000 was flagged
++    nt.assert_equal(sorted(Correlation.get_outlier_indices(data)), [5, 700, 4200])
++    assert len(Correlation.get_outlier_indices(rng.poisson(100.0, 5000).astype(float))) == 0
+-- 
+2.43.0
+

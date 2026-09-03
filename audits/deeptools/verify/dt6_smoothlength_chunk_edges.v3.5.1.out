@@ -1,0 +1,16 @@
+bamCoverage 3.5.1
+
+--region chr1:0:3000000: bins differing from the chromosome-wide sliding mean: 8 of 60000
+  positions (bp) of differing bins: [999900, 999950, 1000000, 1000050, 1999900, 1999950, 2000000, 2000050]
+  bin 19998 at 999900 bp: bamCoverage 3.5000, chromosome-wide window mean 3.4000
+  bin 19999 at 999950 bp: bamCoverage 4.0000, chromosome-wide window mean 3.2000
+  bin 20000 at 1000000 bp: bamCoverage 1.3333, chromosome-wide window mean 2.8000
+  bin 20001 at 1000050 bp: bamCoverage 1.2500, chromosome-wide window mean 2.0000
+  bin 39998 at 1999900 bp: bamCoverage 0.5000, chromosome-wide window mean 0.6000
+  bin 39999 at 1999950 bp: bamCoverage 0.6667, chromosome-wide window mean 0.8000
+  bins away from chunk edges equal the reference: True
+
+(genome-wide): bins differing from the chromosome-wide sliding mean: 0 of 60000
+  bins away from chunk edges equal the reference: True
+
+unsmoothed track equals bin counts: True

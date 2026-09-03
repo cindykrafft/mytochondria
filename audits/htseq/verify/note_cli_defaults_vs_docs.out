@@ -1,0 +1,16 @@
+HTSeq 2.1.2 python 3.12.3
+  --secondary-alignments       choices {score,ignore}                           help says default: (not stated in --help)
+  --supplementary-alignments   choices {score,ignore}                           help says default: (not stated in --help)
+  --nonunique                  choices {none,all,fraction,random}               help says default: (not stated in --help)
+  --stranded                   choices {yes,no,reverse}                         help says default: yes
+  --minaqual                   choices ?                                        help says default: 10
+  --mode                       choices {union,intersection-strict,intersection-nonempty} help says default: (not stated in --help)
+  --order                      choices {pos,name}                               help says default: name
+
+BAM with one read: primary + secondary + supplementary record, all in gene A:
+  defaults                                       -> A = 1
+  --secondary-alignments score                   -> A = 2
+  --secondary-alignments score --supplementary-alignments score -> A = 3
+  doc/htseqcount.rst says both default to 'score'; the code defaults to 'ignore' (count.py, commit 7be4fe3 of 2018-05-16, history.rst entry for 0.10.0).
+
+mtx/h5ad/loom table dtype float32: a count of 16777217 is stored as 16777216 (documented: 'the data type is float32')

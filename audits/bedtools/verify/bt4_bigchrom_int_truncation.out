@@ -1,0 +1,39 @@
+bedtools 614e9a5
+
+== reldist -detail: B midpoints at base and base+1000, A midpoint at base+100 -> 0.100
+   base 1000000 (start+end < 2^31)    got ['0.100']                                        expected ['0.100']                                ok
+   base 1000000000 (start+end < 2^31) got ['0.100']                                        expected ['0.100']                                ok
+   base 1073741000 (start+end < 2^31) got []                                               expected ['0.100']                                WRONG
+   base 1073742000 (start+end >= 2^31) got []                                               expected ['0.100']                                WRONG
+   base 3000000000 (start+end >= 2^31) got []                                               expected ['0.100']                                WRONG
+   (threshold: start+end of a B record >= 2^31 = 2147483648, i.e. positions from 1,073,741,824)
+
+== subtract: A = [base, base+100) minus B = [base+10, base+20)
+   base 1000000                       got [(1000000, 1000010), (1000020, 1000100)]         expected [(1000000, 1000010), (1000020, 1000100)] ok
+   base 2147483000                    got [(2147483000, 2147483010), (2147483020, 2147483100)] expected [(2147483000, 2147483010), (2147483020, 2147483100)] ok
+   base 2147484000                    got [(2147484000, -2147483286), (2147484000, -2147483196)] expected [(2147484000, 2147484010), (2147484020, 2147484100)] WRONG
+   base 3000000000                    got [(3000000000, -1294967286), (3000000000, -1294967196)] expected [(3000000000, 3000000010), (3000000020, 3000000100)] WRONG
+
+== flank -l 10 -r 10: A = [base, base+100) on a 5e9 chromosome
+   base 1000000                       got [(999990, 1000000), (1000100, 1000110)]          expected [(999990, 1000000), (1000100, 1000110)]  ok
+   base 2147483000                    got [(2147482990, 2147483000)]                       expected [(2147482990, 2147483000), (2147483100, 2147483110)] WRONG
+   base 2147484000                    got [(0, 2147484000)]                                expected [(2147483990, 2147484000), (2147484100, 2147484110)] WRONG
+   base 3000000000                    got [(0, 3000000000)]                                expected [(2999999990, 3000000000), (3000000100, 3000000110)] WRONG
+   flank with a chromosome size >= 2^31 but small coordinates: A = [1000, 1100)
+   chromSize 5e9, base 1000           got [(990, 1000), (1100, 1110)]                      expected [(990, 1000), (1100, 1110)]              ok
+
+== closest -d: A = [0, 10), B = [gap+10, gap+20) -> distance gap+1
+   gap 1000000                        got [1000001]                                        expected [1000001]                                ok
+   gap 2147483000                     got [2147483001]                                     expected [2147483001]                             ok
+   gap 2147484000                     got [2147483295]                                     expected [2147484001]                             WRONG
+   gap 3000000000                     got [1294967295]                                     expected [3000000001]                             WRONG
+   closest -k 2 with two B records at gaps 3e9 and 3e9+5 (order by distance)
+   gap 3e9, -k 2                      got [('near', '1294967295'), ('far', '1294967290')]  expected [('near', '3000000001'), ('far', '3000000006')] WRONG
+
+== controls at base 3e9: intersect -wo, coverage, merge -d, cluster -d, slop, window -w
+   intersect -wo overlap              got ['10']                                           expected ['10']                                   ok
+   coverage                           got [['1', '10', '100', '0.1000000']]                expected [['1', '10', '100', '0.1000000']]        ok
+   merge -d 10                        got [(3000000000, 3000000200)]                       expected [(3000000000, 3000000200)]               ok
+   cluster -d 10                      got ['1', '1']                                       expected ['1', '1']                               ok
+   slop -b 10                         got [(2999999990, 3000000110)]                       expected [(2999999990, 3000000110)]               ok
+   window -w 10                       got 1                                                expected 1                                        ok

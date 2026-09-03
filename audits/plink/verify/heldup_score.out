@@ -1,0 +1,9 @@
+PLINK v1.9.0-b.8 64-bit (1 Sep 2026)
+PLINK v2.0.0-b.1 64-bit (2 Sep 2026)
+default (mean-impute, average): plink1.9 max|SCORE-ref| 4.94e-07 |CNT-2*nonmissing| 0;  plink2 max|SCORE1_AVG-ref| 4.94e-07 |DENOM-ref| 0
+sum                           : plink1.9 max|SCORE-ref| 4.58e-05 |CNT-2*nonmissing| 0;  plink2 max|SCORE1_SUM-ref| 4.58e-05 |DENOM-ref| 0
+no-mean-imputation            : plink1.9 max|SCORE-ref| 4.95e-07 |CNT-2*nonmissing| 0;  plink2 max|SCORE1_AVG-ref| 4.95e-07 |DENOM-ref| 0
+no-mean-imputation sum (plink2 only; 1.9 rejects the pair): plink2 max|SCORE1_SUM-ref| 4.94e-05 |DENOM-ref| 0
+center                        : plink1.9 max|SCORE-ref| 3.13e-07 |CNT-2*nonmissing| 0;  plink2 max|SCORE1_AVG-ref| 6.52e-02 |DENOM-ref| 0
+center no-mean-imputation (plink2 only; 1.9 rejects the pair): plink2 max|SCORE1_AVG-ref| 2.76e-07 |DENOM-ref| 0
+plink2 NALLELE (first 3 samples): ['58', '61', '53']

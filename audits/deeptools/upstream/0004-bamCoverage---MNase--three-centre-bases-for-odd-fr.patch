@@ -1,0 +1,77 @@
+From ca5637f9f95948e2178da871d94890a43be36395 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 04:09:16 +0000
+Subject: [PATCH] bamCoverage --MNase: three centre bases for odd fragment
+ lengths
+
+CenterFragment.get_fragment_from_read computed read.pos + read.tlen / 2 - 1 with true division, which is a half-integer for odd template lengths; the coverage code floors the start bin and ceils the end bin, so four bases (one left of the centre base, the centre and two to its right) were counted instead of the documented three (issue #1118). Under Python 2 the same expression was an integer division.
+
+Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/claude/software-package-audit-ablwee/audits/deeptools)
+---
+ CHANGES.txt                                   |  3 +++
+ deeptools/bamCoverage.py                      |  6 ++++--
+ .../test/test_bamCoverage_and_bamCompare.py   | 19 +++++++++++++++++++
+ 3 files changed, 26 insertions(+), 2 deletions(-)
+
+diff --git a/CHANGES.txt b/CHANGES.txt
+index 5f0bf0f0..2c5e03df 100755
+--- a/CHANGES.txt
++++ b/CHANGES.txt
+@@ -1,3 +1,6 @@
++unreleased
++* bamCoverage --MNase: odd-length fragments contribute their three central bases (four, shifted, since the Python 3 port; issue #1118)
++
+ 3.5.5
+ * drop support for python 3.7
+ * doc fixes (argparse properly displayed, minor changes in installation instructions)
+diff --git a/deeptools/bamCoverage.py b/deeptools/bamCoverage.py
+index acca196f..704f81ba 100644
+--- a/deeptools/bamCoverage.py
++++ b/deeptools/bamCoverage.py
+@@ -405,12 +405,14 @@ class CenterFragment(writeBedGraph.WriteBedGraph):
+         if read.is_proper_pair and not read.is_reverse and 1 < abs(read.tlen):
+             # distance between pairs is even return two bases at the center
+             if read.tlen % 2 == 0:
+-                fragment_start = read.pos + read.tlen / 2 - 1
++                fragment_start = read.pos + read.tlen // 2 - 1
+                 fragment_end = fragment_start + 2
+ 
+             # distance is odd return three bases at the center
++            # (integer division: with Python 3's `/` the start was a
++            # half-integer and four bases were counted, issue #1118)
+             else:
+-                fragment_start = read.pos + read.tlen / 2 - 1
++                fragment_start = read.pos + read.tlen // 2 - 1
+                 fragment_end = fragment_start + 3
+ 
+         return [(fragment_start, fragment_end)]
+diff --git a/deeptools/test/test_bamCoverage_and_bamCompare.py b/deeptools/test/test_bamCoverage_and_bamCompare.py
+index ac1f23ce..4cf70b16 100644
+--- a/deeptools/test/test_bamCoverage_and_bamCompare.py
++++ b/deeptools/test/test_bamCoverage_and_bamCompare.py
+@@ -460,3 +460,22 @@ def test_bam_compare_filter_blacklist():
+                     '3R\t1050\t1500\t0\n']
+         assert f"{resp}" == f"{expected}", f"{resp} != {expected}"
+         unlink(outfile)
++
++
++def test_bam_coverage_MNase_odd_fragment_length():
++    """
++    --MNase counts the two central bases of an even-length fragment and the
++    three central bases of an odd-length one. test_paired2.bam has proper
++    pairs of template length 147 (x2, start 5000384), 166 (start 5001010)
++    and 154 (x2, start 5001115) inside the default 130-200 window.
++    """
++    outfile = '/tmp/test_file_mnase.bg'
++    args = "--bam {} -o {} --MNase --binSize 1 --outFileFormat bedgraph --region chr2:5000000:5002000".format(
++        ROOT + "test_paired2.bam", outfile).split()
++    bam_cov.main(args)
++    resp = open(outfile).readlines()
++    expected = ['chr2\t5000000\t5000456\t0\n', 'chr2\t5000456\t5000459\t2\n', 'chr2\t5000459\t5001092\t0\n',
++                'chr2\t5001092\t5001094\t1\n', 'chr2\t5001094\t5001191\t0\n', 'chr2\t5001191\t5001193\t2\n',
++                'chr2\t5001193\t5002000\t0\n']
++    assert f"{resp}" == f"{expected}", f"{resp} != {expected}"
++    unlink(outfile)
+-- 
+2.43.0
+

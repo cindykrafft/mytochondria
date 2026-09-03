@@ -1,0 +1,12 @@
+umap-learn 0.5.12
+
+exact path (n < 4096): transform(X[:200]) with transform_mode='graph'
+  self-edge weight in the transform graph: min 1.000 max 1.000 (fit sets self to 0)
+  nonzeros per row: transform 14.0, fit unsymmetrised 14.0, graph_ 20.9
+  on shared edges: max |transform - fit| = 0.703, mean |diff| = 0.152, corr 0.870
+  fit: nearest non-identical neighbour has weight 1.0 in 200 of 200 rows; transform: 0 of 200 rows
+  fit sigma (first 5): [0.4549 0.1891 0.1952 0.4564 0.2638], rho: [1.8826 2.8212 2.2991 1.4893 1.9442]
+  transform's smooth_knn_dist(local_connectivity=0): sigma (first 5): [1.9788 2.4605 2.0472 1.6844 1.8441], rho: [0. 0. 0. 0. 0.]
+  transform(X) on the full training matrix returns graph_ itself: True
+  embedding transform of the same subset twice (transform_seed=42): max |diff| = 0.00e+00
+  transform(X[:200]) vs embedding_[:200]: max |diff| = 1.117, median 0.231 (embedding range [22.26449   6.047565])

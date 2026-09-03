@@ -1,0 +1,75 @@
+cellphonedb 5.0.1
+
+progress_step = round(iterations/100, 0) in the threads=1 branch:
+   iterations=1     progress_step=0.0   -> ZeroDivisionError
+   iterations=5     progress_step=0.0   -> ZeroDivisionError
+   iterations=10    progress_step=0.0   -> ZeroDivisionError
+   iterations=25    progress_step=0.0   -> ZeroDivisionError
+   iterations=49    progress_step=0.0   -> ZeroDivisionError
+   iterations=50    progress_step=0.0   -> ZeroDivisionError
+   iterations=51    progress_step=1.0   ok
+   iterations=100   progress_step=1.0   ok
+   iterations=1000  progress_step=10.0  ok
+
+Created /tmp/cpdb5_8g38ivpf/db/cellphonedb_09_03_2026_003104.zip successfully
+
+=== iterations=10, threads=1 ===
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb5_8g38ivpf/in/counts.txt
+/tmp/cpdb5_8g38ivpf/in/meta.txt
+[ ][CORE][03/09/26-00:31:04][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:10 Debug-seed:0 Threads:1 Precision:3
+[ ][CORE][03/09/26-00:31:04][WARNING] Debug random seed enabled. Set to 0
+[ ][CORE][03/09/26-00:31:05][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:31:05][INFO] Running Statistical Analysis
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/cellphonedb/verify/cpdb5_iterations_le_50_crash.py", line 47, in <module>
+    res = cpdb_statistical_analysis_method.call(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/CellphoneDB/cellphonedb/src/core/methods/cpdb_statistical_analysis_method.py", line 126, in call
+    analysis_result = cpdb_statistical_analysis_complex_method.call(meta.copy(),
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/CellphoneDB/cellphonedb/src/core/methods/cpdb_statistical_analysis_complex_method.py", line 85, in call
+    statistical_mean_analysis = cpdb_statistical_analysis_helper.shuffled_analysis(iterations,
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/CellphoneDB/cellphonedb/src/core/methods/cpdb_statistical_analysis_helper.py", line 490, in shuffled_analysis
+    if i % progress_step == 0:
+       ~~^~~~~~~~~~~~~~~
+ZeroDivisionError: float modulo
+
+=== iterations=10, threads=4 ===
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb5_8g38ivpf/in/counts.txt
+/tmp/cpdb5_8g38ivpf/in/meta.txt
+[ ][CORE][03/09/26-00:31:05][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:10 Debug-seed:0 Threads:4 Precision:3
+[ ][CORE][03/09/26-00:31:05][WARNING] Debug random seed enabled. Set to 0
+[ ][CORE][03/09/26-00:31:05][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:31:05][INFO] Running Statistical Analysis
+  0%|          | 0/10 [00:00<?, ?it/s]100%|██████████| 10/10 [00:00<00:00, 152.01it/s]
+[ ][CORE][03/09/26-00:31:05][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:31:05][INFO] Building results
+Saved deconvoluted to /tmp/cpdb5_8g38ivpf/out/statistical_analysis_deconvoluted_i10_t4.txt
+Saved deconvoluted_percents to /tmp/cpdb5_8g38ivpf/out/statistical_analysis_deconvoluted_percents_i10_t4.txt
+Saved means to /tmp/cpdb5_8g38ivpf/out/statistical_analysis_means_i10_t4.txt
+Saved pvalues to /tmp/cpdb5_8g38ivpf/out/statistical_analysis_pvalues_i10_t4.txt
+Saved significant_means to /tmp/cpdb5_8g38ivpf/out/statistical_analysis_significant_means_i10_t4.txt
+completed; pvalues shape (4, 20)
+
+=== iterations=51, threads=1 ===
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb5_8g38ivpf/in/counts.txt
+/tmp/cpdb5_8g38ivpf/in/meta.txt
+[ ][CORE][03/09/26-00:31:06][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:51 Debug-seed:0 Threads:1 Precision:3
+[ ][CORE][03/09/26-00:31:06][WARNING] Debug random seed enabled. Set to 0
+[ ][CORE][03/09/26-00:31:06][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:31:06][INFO] Running Statistical Analysis
+0.0% 1.0% 2.0% 3.0% 4.0% 5.0% 6.0% 7.0% 8.0% 9.0% 10.0% 11.0% 12.0% 13.0% 14.0% 15.0% 16.0% 17.0% 18.0% 19.0% 20.0% 21.0% 22.0% 23.0% 24.0% 25.0% 26.0% 27.0% 28.0% 29.0% 30.0% 31.0% 32.0% 33.0% 34.0% 35.0% 36.0% 37.0% 38.0% 39.0% 40.0% 41.0% 42.0% 43.0% 44.0% 45.0% 46.0% 47.0% 48.0% 49.0% 50.0% [ ][CORE][03/09/26-00:31:06][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:31:06][INFO] Building results
+Saved deconvoluted to /tmp/cpdb5_8g38ivpf/out/statistical_analysis_deconvoluted_i51_t1.txt
+Saved deconvoluted_percents to /tmp/cpdb5_8g38ivpf/out/statistical_analysis_deconvoluted_percents_i51_t1.txt
+Saved means to /tmp/cpdb5_8g38ivpf/out/statistical_analysis_means_i51_t1.txt
+Saved pvalues to /tmp/cpdb5_8g38ivpf/out/statistical_analysis_pvalues_i51_t1.txt
+Saved significant_means to /tmp/cpdb5_8g38ivpf/out/statistical_analysis_significant_means_i51_t1.txt
+completed; pvalues shape (4, 20)

@@ -1,0 +1,10 @@
+sparse counts, 80 vs 1200 cells, 300 genes (100 DE):
+  max |p_presto - p_scipy_asymptotic| = 1.11e-15   (all-zero genes: presto p=1, scipy p=n/a)
+  calls at p<0.05 identical: True
+
+small tie-free groups, exact vs the continuity-corrected normal approximation both paths use:
+  n1=n2= 3  max |p_exact - p_approx| = 0.037
+  n1=n2= 5  max |p_exact - p_approx| = 0.017
+  n1=n2=10  max |p_exact - p_approx| = 0.009
+  n1=n2=20  max |p_exact - p_approx| = 0.004
+  (relevant only to groups near min.cells.group = 3 with no tied zeros; not a defect)

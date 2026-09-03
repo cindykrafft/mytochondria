@@ -1,0 +1,103 @@
+
+Created /tmp/cpdb_heldup_i6qym8br/db/cellphonedb_09_03_2026_002947.zip successfully
+cellphonedb 5.0.1
+fixture: 5 genes x 9 cells, 3 cell types x 3 cells, 2 complexes, 4 interactions
+iterations=200 debug_seed=0 threads=1 threshold=0.10 pvalue=0.05
+
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb_heldup_i6qym8br/in/counts.txt
+/tmp/cpdb_heldup_i6qym8br/in/meta.txt
+[ ][CORE][03/09/26-00:29:47][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:200 Debug-seed:0 Threads:1 Precision:3
+[ ][CORE][03/09/26-00:29:47][WARNING] Debug random seed enabled. Set to 0
+[ ][CORE][03/09/26-00:29:48][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:29:48][INFO] Running Statistical Analysis
+0.0% 1.0% 2.0% 3.0% 4.0% 5.0% 6.0% 7.0% 8.0% 9.0% 10.0% 11.0% 12.0% 13.0% 14.0% 15.0% 16.0% 17.0% 18.0% 19.0% 20.0% 21.0% 22.0% 23.0% 24.0% 25.0% 26.0% 27.0% 28.0% 29.0% 30.0% 31.0% 32.0% 33.0% 34.0% 35.0% 36.0% 37.0% 38.0% 39.0% 40.0% 41.0% 42.0% 43.0% 44.0% 45.0% 46.0% 47.0% 48.0% 49.0% 50.0% 51.0% 52.0% 53.0% 54.0% 55.0% 56.0% 57.0% 58.0% 59.0% 60.0% 61.0% 62.0% 63.0% 64.0% 65.0% 66.0% 67.0% 68.0% 69.0% 70.0% 71.0% 72.0% 73.0% 74.0% 75.0% 76.0% 77.0% 78.0% 79.0% 80.0% 81.0% 82.0% 83.0% 84.0% 85.0% 86.0% 87.0% 88.0% 89.0% 90.0% 91.0% 92.0% 93.0% 94.0% 95.0% 96.0% 97.0% 98.0% 99.0% [ ][CORE][03/09/26-00:29:49][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:29:49][INFO] Building results
+Saved deconvoluted to /tmp/cpdb_heldup_i6qym8br/out/statistical_analysis_deconvoluted_run.txt
+Saved deconvoluted_percents to /tmp/cpdb_heldup_i6qym8br/out/statistical_analysis_deconvoluted_percents_run.txt
+Saved means to /tmp/cpdb_heldup_i6qym8br/out/statistical_analysis_means_run.txt
+Saved pvalues to /tmp/cpdb_heldup_i6qym8br/out/statistical_analysis_pvalues_run.txt
+Saved significant_means to /tmp/cpdb_heldup_i6qym8br/out/statistical_analysis_significant_means_run.txt
+A/C  reference cluster means match the hand-computed table (incl. complex minima):
+            CTA     CTB     CTC
+LIG1     3.0000  0.3333  0.0000
+REC1     0.3333  2.0000  0.3333
+SUB1     1.0000  3.0000  0.6667
+SUB2     2.0000  1.0000  2.0000
+LIG2     0.0000  2.0000  4.0000
+RECCPLX  1.0000  1.0000  0.6667
+BIGCPLX  0.0000  1.0000  0.3333 
+
+B    reference cluster percents match the hand-computed table:
+            CTA     CTB     CTC
+LIG1     1.0000  0.3333  0.0000
+REC1     0.3333  1.0000  0.3333
+SUB1     1.0000  1.0000  0.3333
+SUB2     1.0000  1.0000  0.6667
+LIG2     0.0000  1.0000  1.0000
+RECCPLX  1.0000  1.0000  0.3333
+BIGCPLX  0.0000  1.0000  0.3333 
+
+     shipped deconvoluted means (simple genes) vs reference: max |diff| = 3.33e-04
+     shipped deconvoluted pcts  (simple genes) vs reference: max |diff| = 3.33e-04
+
+D    interaction means (x>0)*(y>0)*(x+y)/2, shipped vs reference: max |diff| = 5.53e-08
+              CTA|CTA  CTA|CTB  CTA|CTC  CTB|CTA  CTB|CTB  CTB|CTC  CTC|CTA  CTC|CTB  CTC|CTC
+LIG1_REC1       1.667      2.5    1.667    0.333    1.167    0.333      0.0      0.0    0.000
+LIG2_RECCPLX    0.000      0.0    0.000    1.500    1.500    1.333      2.5      2.5    2.333
+LIG1_RECCPLX    2.000      2.0    1.833    0.667    0.667    0.500      0.0      0.0    0.000
+LIG1_BIGCPLX    0.000      2.0    1.667    0.000    0.667    0.333      0.0      0.0    0.000 
+
+E    threshold flags (both percents > 0.10), reference:
+              CTA|CTA  CTA|CTB  CTA|CTC  CTB|CTA  CTB|CTB  CTB|CTC  CTC|CTA  CTC|CTB  CTC|CTC
+LIG1_REC1           1        1        1        1        1        1        0        0        0
+LIG2_RECCPLX        0        0        0        1        1        1        1        1        1
+LIG1_RECCPLX        1        1        1        1        1        1        0        0        0
+LIG1_BIGCPLX        0        1        1        0        1        1        0        0        0 
+
+Reading user files...
+The following user files were loaded successfully:
+/tmp/cpdb_heldup_i6qym8br/in_cont/counts.txt
+/tmp/cpdb_heldup_i6qym8br/in_cont/meta.txt
+[ ][CORE][03/09/26-00:29:49][INFO] [Cluster Statistical Analysis] Threshold:0.1 Iterations:200 Debug-seed:0 Threads:1 Precision:3
+[ ][CORE][03/09/26-00:29:49][WARNING] Debug random seed enabled. Set to 0
+[ ][CORE][03/09/26-00:29:49][INFO] Running Real Analysis
+[ ][CORE][03/09/26-00:29:49][INFO] Running Statistical Analysis
+0.0% 1.0% 2.0% 3.0% 4.0% 5.0% 6.0% 7.0% 8.0% 9.0% 10.0% 11.0% 12.0% 13.0% 14.0% 15.0% 16.0% 17.0% 18.0% 19.0% 20.0% 21.0% 22.0% 23.0% 24.0% 25.0% 26.0% 27.0% 28.0% 29.0% 30.0% 31.0% 32.0% 33.0% 34.0% 35.0% 36.0% 37.0% 38.0% 39.0% 40.0% 41.0% 42.0% 43.0% 44.0% 45.0% 46.0% 47.0% 48.0% 49.0% 50.0% 51.0% 52.0% 53.0% 54.0% 55.0% 56.0% 57.0% 58.0% 59.0% 60.0% 61.0% 62.0% 63.0% 64.0% 65.0% 66.0% 67.0% 68.0% 69.0% 70.0% 71.0% 72.0% 73.0% 74.0% 75.0% 76.0% 77.0% 78.0% 79.0% 80.0% 81.0% 82.0% 83.0% 84.0% 85.0% 86.0% 87.0% 88.0% 89.0% 90.0% 91.0% 92.0% 93.0% 94.0% 95.0% 96.0% 97.0% 98.0% 99.0% [ ][CORE][03/09/26-00:29:49][INFO] Building Pvalues result
+[ ][CORE][03/09/26-00:29:49][INFO] Building results
+Saved deconvoluted to /tmp/cpdb_heldup_i6qym8br/out_cont/statistical_analysis_deconvoluted_cont.txt
+Saved deconvoluted_percents to /tmp/cpdb_heldup_i6qym8br/out_cont/statistical_analysis_deconvoluted_percents_cont.txt
+Saved means to /tmp/cpdb_heldup_i6qym8br/out_cont/statistical_analysis_means_cont.txt
+Saved pvalues to /tmp/cpdb_heldup_i6qym8br/out_cont/statistical_analysis_pvalues_cont.txt
+Saved significant_means to /tmp/cpdb_heldup_i6qym8br/out_cont/statistical_analysis_significant_means_cont.txt
+F    p-values on a continuous (tie-free) fixture, over the 200 shuffles the package drew:
+     rule reproduced: p = #(shuffled mean > observed) / iterations, with p forced to 1
+     where the observed mean is 0 or the threshold flag is 0
+     max |shipped - reference| = 0.00e+00   exact match: True
+              CTA|CTA  CTA|CTB  CTA|CTC  CTB|CTA  CTB|CTB  CTB|CTC  CTC|CTA  CTC|CTB  CTC|CTC
+LIG1_REC1        0.06    0.205    0.005    0.545    0.480    0.080    1.000     1.00    1.000
+LIG2_RECCPLX     1.00    1.000    1.000    0.100    0.430    0.390    0.005     0.18    0.005
+LIG1_RECCPLX     0.00    0.155    0.055    0.065    0.445    0.315    1.000     1.00    1.000
+LIG1_BIGCPLX     1.00    0.085    0.025    1.000    0.135    0.170    1.000     1.00    1.000 
+
+G    significant_means (mean where p <= 0.05 else NaN): identical to reference: True
+              CTA|CTA  CTA|CTB  CTA|CTC  CTB|CTA  CTB|CTB  CTB|CTC  CTC|CTA  CTC|CTB  CTC|CTC
+LIG1_REC1         NaN      NaN    3.593      NaN      NaN      NaN      NaN      NaN      NaN
+LIG2_RECCPLX      NaN      NaN      NaN      NaN      NaN      NaN    3.049      NaN    2.509
+LIG1_RECCPLX     3.25      NaN      NaN      NaN      NaN      NaN      NaN      NaN      NaN
+LIG1_BIGCPLX      NaN      NaN    2.710      NaN      NaN      NaN      NaN      NaN      NaN
+
+     rank (non-NaN / 9 columns), shipped vs reference:
+              shipped  reference
+LIG1_REC1       0.111      0.111
+LIG2_RECCPLX    0.222      0.222
+LIG1_RECCPLX    0.111      0.111
+LIG1_BIGCPLX    0.111      0.111
+
+Files written by the run:
+    statistical_analysis_deconvoluted_percents_run.txt
+    statistical_analysis_deconvoluted_run.txt
+    statistical_analysis_means_run.txt
+    statistical_analysis_pvalues_run.txt
+    statistical_analysis_significant_means_run.txt

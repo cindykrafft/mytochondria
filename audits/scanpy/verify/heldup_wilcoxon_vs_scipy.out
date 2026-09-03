@@ -1,0 +1,5 @@
+scanpy 1.14.0.dev1+ga656a33b0
+wilcoxon tie_correct=True vs scipy asymptotic (no continuity): max |p diff| = 2.69e-07
+numba rankdata vs scipy.stats.rankdata: max |diff| = 0.00e+00
+numba _tiecorrect vs scipy.stats.tiecorrect: max |diff| = 0.00e+00
+normalize_total(exclude_highly_expressed) CSR vs dense: max |diff| = 2.15e-05

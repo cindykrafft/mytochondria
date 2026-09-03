@@ -1,0 +1,5 @@
+cutadapt 5.3.dev15+g50e9fb8d3
+3' adapter ACGTACGTAC, read TTTTTACGTACGTAGTTTTTTTTTTACGTACGT
+   candidates: internal 1-mismatch (rstart 5, score 8, errors 1) vs terminal exact 8-mer (rstart 25, score 8, errors 0)
+   chosen: rstart=5 rstop=15 score=8 errors=1 -> leftmost (more errors)
+5' adapter, read GTACGTACTTTTTTTTTTTCGTACGTACTTTTT: chosen rstart=0 rstop=8 score=8 errors=0 -> leftmost (partial exact 8-mer, fewer errors)

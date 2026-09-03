@@ -1,0 +1,19 @@
+cutadapt 5.3.dev15+g50e9fb8d3
+
+== indels=True
+  3' (-a)                      n= 2500 matches= 1666 exact-planted= 533 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 3)  P5 prefilter != aligner: 0  P6 both prefixes skipped: 0
+  5' (-g)                      n= 2500 matches= 1702 exact-planted= 554 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 6)  P5 prefilter != aligner: 0  P6 both prefixes skipped: 0
+  anywhere (-b)                n= 2500 matches= 1766 exact-planted= 566 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 14)  P5 prefilter != aligner: 6  P6 both prefixes skipped: 0
+  non-internal 3' (ADAPTERX)   n= 2500 matches= 1631 exact-planted= 548 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 0)  P5 prefilter != aligner: 15  P6 both prefixes skipped: 0
+  non-internal 5' (XADAPTER)   n= 2500 matches= 1634 exact-planted= 557 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 0)  P5 prefilter != aligner: 7  P6 both prefixes skipped: 0
+  anchored 5' (^ADAPTER)       n= 2500 matches= 1504 exact-planted= 596 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 0)  P5 prefilter != aligner: 23  P6 both prefixes skipped: 0
+  anchored 3' (ADAPTER$)       n= 2500 matches= 1410 exact-planted= 497 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 0)  P5 prefilter != aligner: 31  P6 both prefixes skipped: 0
+
+== indels=False
+  3' (-a)                      n= 2500 matches= 1635 exact-planted= 542 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 7)  P5 prefilter != aligner: 0  P6 both prefixes skipped: 0
+  5' (-g)                      n= 2500 matches= 1632 exact-planted= 514 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 1)  P5 prefilter != aligner: 0  P6 both prefixes skipped: 0
+  anywhere (-b)                n= 2500 matches= 1733 exact-planted= 556 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 3)  P5 prefilter != aligner: 3  P6 both prefixes skipped: 0
+  non-internal 3' (ADAPTERX)   n= 2500 matches= 1669 exact-planted= 576 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 0)  P5 prefilter != aligner: 0  P6 both prefixes skipped: 0
+  non-internal 5' (XADAPTER)   n= 2500 matches= 1618 exact-planted= 545 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 0)  P5 prefilter != aligner: 0  P6 both prefixes skipped: 0
+  anchored 5' (^ADAPTER)       n= 2500 matches= 1484 exact-planted= 555 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 0)  P5 prefilter != aligner: 0  P6 both prefixes skipped: 0
+  anchored 3' (ADAPTER$)       n= 2500 matches= 1497 exact-planted= 540 | P1 errors!=edit-dist: 0  P2 rate exceeded: 0  P3 overlap/anchor: 0  P4 planted exact lost: 0 (earlier worse occurrence won: 0)  P5 prefilter != aligner: 0  P6 both prefixes skipped: 0

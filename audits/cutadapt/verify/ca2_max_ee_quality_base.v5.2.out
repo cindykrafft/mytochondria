@@ -1,0 +1,8 @@
+cutadapt 5.2
+--max-ee 0.5: reference keeps 0/2000 | phred+33 file, default base: keeps 0 (== reference: True) | phred+64 file, --quality-base 64: keeps 2000 (== reference: False)
+--max-ee 1.0: reference keeps 0/2000 | phred+33 file, default base: keeps 0 (== reference: True) | phred+64 file, --quality-base 64: keeps 2000 (== reference: False)
+--max-ee 2.0: reference keeps 2/2000 | phred+33 file, default base: keeps 2 (== reference: True) | phred+64 file, --quality-base 64: keeps 2000 (== reference: False)
+--max-aer 0.01: reference keeps 0/2000 | phred+33: keeps 0 (== ref: True) | phred+64 + --quality-base 64: keeps 2000 (== ref: False)
+--max-aer 0.02: reference keeps 0/2000 | phred+33: keeps 0 (== ref: True) | phred+64 + --quality-base 64: keeps 2000 (== ref: False)
+control -q 20: phred+33 == BWA port: True; phred+64 with --quality-base 64 == BWA port: True
+read r0: true EE (base 64) = 7.2616; shipped expected_errors(q, base=64) = 7.2616; shipped default expected_errors(q) = 0.005768 (this is what the predicate uses)

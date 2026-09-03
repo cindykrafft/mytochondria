@@ -1,0 +1,5 @@
+scikit-learn 1.4.2  numpy 2.5.2: TypeError: np.matrix is not supported. Please convert to a numpy array with np.as
+scikit-learn 1.5.2  numpy 2.5.2: TypeError: np.matrix is not supported. Please convert to a numpy array with np.as
+scikit-learn 1.6.1  numpy 2.5.2: TypeError: np.matrix is not supported. Please convert to a numpy array with np.as
+scikit-learn 1.7.2  numpy 2.5.2: TypeError: np.matrix is not supported. Please convert to a numpy array with np.as
+scikit-learn 1.9.0  numpy 2.5.2: TypeError: np.matrix is not supported. Please convert to a numpy array with np.as

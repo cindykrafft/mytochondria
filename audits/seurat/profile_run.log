@@ -1,0 +1,113 @@
+cohort: 767
+full text: 0   survey-cache fallback: 767   ({'offline': 767})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  RunUMAP                                          628
+  version stated                                   167
+  doublet removal                                  160
+  Monocle / trajectory                             152
+  Scanpy also used                                 102
+  Signac / ATAC                                    80
+  CellChat / ligand-receptor                       77
+  p_val_adj / adjusted p                           56
+  SCENIC                                           56
+  Harmony                                          51
+  snRNA-seq                                        48
+  PercentageFeatureSet / percent.mt                44
+  SoupX / ambient RNA                              40
+  resolution stated                                40
+  Louvain named                                    37
+  SCTransform                                      33
+  pseudobulk (AggregateExpression etc.)            32
+  RunPCA / PCs stated                              30
+  FindNeighbors                                    30
+  Wilcoxon named                                   24
+  NormalizeData / LogNormalize                     23
+  Leiden named                                     22
+  FindClusters                                     21
+  FindMarkers                                      21
+  RunTSNE                                          20
+  CCA/anchor integration (v3/v4)                   19
+  avg_log2FC / log fold change                     18
+  FindVariableFeatures                             17
+  AddModuleScore                                   16
+  mito threshold stated                            16
+  nFeature / nCount filter                         15
+  spatial (Visium etc.)                            14
+  2,000 variable features                          14
+  regress out (vars.to.regress)                    10
+  ElbowPlot / JackStraw                            10
+  WNN multimodal                                   10
+  fastMNN / Seurat wrapper                         8
+  FindAllMarkers                                   8
+  ScaleData                                        7
+  SingleR / other annotation                       6
+  MAST named                                       6
+  CLR (ADT / CITE-seq)                             5
+  SCTransform v2 / glmGamPoi                       5
+  UCell / AUCell instead                           5
+  FindTransferAnchors / TransferData               4
+  CellCycleScoring                                 4
+  Bonferroni named                                 4
+  min.pct stated                                   4
+  RPCA                                             3
+  scale factor 10,000 stated                       3
+  logfc.threshold stated                           3
+  IntegrateLayers (v5)                             2
+  SCT-based integration                            2
+  DESeq2 via FindMarkers                           2
+  sketch-based (v5)                                1
+  only.pos                                         1
+  other test.use (t/bimod/roc/LR/negbinom/poisson) 1
+  Azimuth                                          1
+
+VERSION FAMILY: {'v4': 203, 'v3': 70, 'v5': 61, 'v2': 6, 'v1': 1}
+VERSIONS (top 20): {'4.3.0': 42, '4.1.0': 26, '5.1.0': 22, '4.1.1': 20, '5.0.1': 13, '3.2.2': 13, '4.0': 13, '4.0.3': 12, '4.0.4': 11, '4.0.2': 10, '3.1.5': 9, '4.4.0': 8, '4.3': 8, '3.1.4': 8, '5.0.3': 8, '4.0.0': 8, '4.2.0': 6, '4.3.0.1': 6, '4.1': 6, '4.0.1': 6}
+
+resolutions: {'0.5': 11, '0.6': 6, '0.2': 6, '0.8': 4, '0.3': 3, '1.2': 3, '1.0': 2, '0.1': 1, '0.25': 1, '2.4': 1}
+mito %: {'5': 7, '10': 6, '15': 3, '20': 3, '12': 1, '25': 1, '1': 1, '2': 1, '7.5': 1}
+padj cutoffs: {'0.05': 36, '0.1': 3, '0.001': 2, '0.01': 2, '0.25': 1, '0.15': 1, '0.0001': 1}
+lfc cutoffs: {'2': 5, '1.5': 4, '1': 4, '0.5': 3, '0.1': 1, '0.25': 1, '7': 1, '0.15': 1}
+dims: {20: 23, 30: 20, 50: 16, 15: 9, 2: 8, 25: 5, 10: 5, 100: 5, 5: 5, 12: 4}
+
+CO-PACKAGES (top 40):
+  UMAP                     627
+  R                        455
+  ImageJ                   232
+  DESeq2                   210
+  GSEA                     193
+  scDblFinder              150
+  MACS2                    149
+  STAR                     144
+  ggplot2                  129
+  SAMtools                 105
+  Scanpy                   102
+  edgeR                    96
+  clusterProfiler          93
+  Python                   86
+  Bowtie2                  77
+  featureCounts            75
+  Monocle                  74
+  Cutadapt                 68
+  limma                    67
+  fgsea                    66
+  Picard                   62
+  BEDTools                 61
+  FastQC                   59
+  SCENIC                   56
+  pheatmap                 56
+  Bioconductor             55
+  Signac                   54
+  HOMER                    53
+  ComplexHeatmap           53
+  QuPath                   52
+  deepTools                47
+  Enrichr                  46
+  CellChat                 45
+  scikit-learn             44
+  tidyverse                44
+  SciPy                    43
+  ArchR                    42
+  scVelo                   41
+  Slingshot                41
+  HTSeq                    36

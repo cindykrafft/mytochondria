@@ -1,0 +1,10 @@
+scanpy 1.14.0.dev1+ga656a33b0
+|z| without tie correction / |z| with, by gene sparsity:
+  zeros in [0.00,0.50): n= 875  median ratio 0.992
+  zeros in [0.50,0.80): n= 919  median ratio 0.830
+  zeros in [0.80,0.95): n=1134  median ratio 0.536
+  zeros in [0.95,1.00): n=1069  median ratio 0.236
+  null data                    tie_correct=False: BH<0.05 genes =    0
+  null data                    tie_correct=True : BH<0.05 genes =    0
+  DE data (200 genes 2.5x up)  tie_correct=False: BH<0.05 genes =  128
+  DE data (200 genes 2.5x up)  tie_correct=True : BH<0.05 genes =  201

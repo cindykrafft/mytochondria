@@ -1,0 +1,35 @@
+cutadapt 5.2
+
+== A. minimal example: A=ACGTACGTACGT (12 nt), B=ACGTACGTACA (11 nt), -e 0.1 (1 error each)
+   read = ACGTACGTAC A GT...  = B exactly (11 matches, 0 errors, score 11)
+                             = A with one inserted base (12 matches, 1 indel, score 12-2=10)
+WARNING: The adapters are too similar. When creating the index, 2 ambiguous sequences were found that cannot be assigned uniquely.
+WARNING: For example, 'ACGTACGTACAT', when found in a read, would result in 11 matches for both A 'ACGTACGTACGT' and B 'ACGTACGTACA'
+WARNING: Reads with ambiguous sequence will *not* be trimmed.
+   order ['A', 'B']: index -> A RemoveBeforeMatch(astart=0, astop=12, rstart=0, rstop=13, score=12, errors=1)
+                    --no-index -> B RemoveBeforeMatch(astart=0, astop=11, rstart=0, rstop=11, score=11, errors=0)
+WARNING: The adapters are too similar. When creating the index, 2 ambiguous sequences were found that cannot be assigned uniquely.
+WARNING: For example, 'ACGTACGTACAT', when found in a read, would result in 11 matches for both B 'ACGTACGTACA' and A 'ACGTACGTACGT'
+WARNING: Reads with ambiguous sequence will *not* be trimmed.
+   order ['B', 'A']: index -> A RemoveBeforeMatch(astart=0, astop=12, rstart=0, rstop=13, score=12, errors=1)
+                    --no-index -> B RemoveBeforeMatch(astart=0, astop=11, rstart=0, rstop=11, score=11, errors=0)
+
+== B. random barcode sets, reads = barcode + one random edit (sub/ins/del) + 40 nt; -e 1, indels allowed
+   three-way: index | --no-index via adapter.match_to (k-mer prefilter + aligner) | --no-index via the bare aligner
+   (the prefilter has its own false negatives for anchored adapters -- see CA4 -- so the criterion is judged on the bare aligner)
+   mixed lengths 10-12: 10000 reads -> {'index == bare aligner (score rule)': 10000, '--no-index match_to != bare aligner (prefilter false negative, CA4)': 1107}
+      by planted edit: {('prefilter', 'ins'): 1107}
+      differing read TAGAGGACCTTGACAG... planted TAGGGACCTT (ins); index -> bc4 RemoveBeforeMatch(astart=0, astop=10, rstart=0, rstop=11, score=10, errors=1); bare aligner (score, errors, order) -> bc0; all aligner hits: {'bc0': (0, 10, 0, 10, 8, 1), 'bc4': (0, 10, 0, 11, 8, 1)}
+      differing read TAGAGGACCTTTCGTT... planted TAGGGACCTT (ins); index -> bc4 RemoveBeforeMatch(astart=0, astop=10, rstart=0, rstop=11, score=10, errors=1); bare aligner (score, errors, order) -> bc0; all aligner hits: {'bc0': (0, 10, 0, 10, 8, 1), 'bc4': (0, 10, 0, 11, 8, 1)}
+   all length 10: 10000 reads -> {'index == bare aligner (score rule)': 9998, '--no-index match_to != bare aligner (prefilter false negative, CA4)': 1088, 'index and bare aligner assign DIFFERENT adapters': 2}
+      by planted edit: {('prefilter', 'ins'): 1088, ('criterion', 'ins'): 2}
+
+== C. index Match.score is the number of matches, not the alignment score
+   read = bc1 with one insertion: index score=10 errors=1; --no-index score=8 errors=1
+   mixed list [^bc1, ^bc2, 3'-adapter], read = bc1-with-insertion + 15 nt + first 9 nt of the 3' adapter:
+      index=True: chosen bc1 (score field 10, errors 1)
+      index=False: chosen ad3 (score field 9, errors 0)
+
+== D. CLI demultiplexing (-g A=^... -g B=^... -o {name}.fastq), the Part A read repeated 100x, default vs --no-index
+   default   : {'A': 100, 'B': 0, 'unknown': 0}
+   --no-index: {'A': 0, 'B': 100, 'unknown': 0}

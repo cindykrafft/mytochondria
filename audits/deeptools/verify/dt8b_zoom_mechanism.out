@@ -1,0 +1,8 @@
+bamCoverage 3.5.6 pyBigWig 0.3.25
+A three long intervals: spans [400000]; 10-kb stats error median 0.00e+00, max 0.00e+00
+B random run lengths (x50 bp): spans [15952]; 10-kb stats error median 7.05e-09, max 2.66e-08
+C 50-bp aligned steps: spans [800]; 10-kb stats error median 3.79e-03, max 1.00e-01
+D bamCoverage track: 33391 intervals, spans [944, 3776]; 10-kb stats error median 3.42e-02, max 2.45e+00
+  D rewritten (one addEntries call, maxZooms 10): spans [944, 3776]; 10-kb stats error median 3.42e-02, max 2.45e+00
+  D rewritten (calls of 1,000 intervals, maxZooms 10): spans [944, 3776]; 10-kb stats error median 3.42e-02, max 2.45e+00
+  D rewritten (one call, default maxZooms): spans [944, 3776]; 10-kb stats error median 3.42e-02, max 2.45e+00

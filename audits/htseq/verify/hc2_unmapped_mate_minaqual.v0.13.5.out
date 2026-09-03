@@ -1,0 +1,18 @@
+HTSeq 0.13.5 python 3.12.3
+
+== A. minimal: gene A = chr1:[1000,2000)+, three pairs whose mate 1 (MAPQ 60) lies in A
+  records: [('both_mapped', 'flag', 97, 'MAPQ', 60), ('both_mapped', 'flag', 145, 'MAPQ', 60), ('mate2_absent', 'flag', 97, 'MAPQ', 60), ('mate2_unmapped_in_file', 'flag', 73, 'MAPQ', 60), ('mate2_unmapped_in_file', 'flag', 133, 'MAPQ', 0)]
+  -a 10 -r name: A = 2, __too_low_aQual = 1; XF: {'both_mapped': None, 'mate2_absent': None, 'mate2_unmapped_in_file': '__too_low_aQual'}
+  -a 10 -r pos: A = 2, __too_low_aQual = 1; XF: {'mate2_unmapped_in_file': '__too_low_aQual', 'both_mapped': None, 'mate2_absent': None}
+  -a 0  -r name: A = 3, __too_low_aQual = 0; XF: {'both_mapped': None, 'mate2_absent': None, 'mate2_unmapped_in_file': None}
+  -a 0  -r pos: A = 3, __too_low_aQual = 0; XF: {'mate2_unmapped_in_file': None, 'both_mapped': None, 'mate2_absent': None}
+
+== B. 2,000 pairs, 6 % with an unmapped mate 2 (record present, MAPQ 0), all mate-1 MAPQ 60, 20 genes
+  pairs with an unmapped mate: 113; documented expectation: every pair counts in its gene (sum = 2000)
+  -a 10 (default), unmapped mates in file, -r name: sum(genes) = 1887, __too_low_aQual = 113, genes differing from expectation: 20/20
+  -a 10 (default), unmapped mates in file, -r pos : sum(genes) = 1887, __too_low_aQual = 113, genes differing from expectation: 20/20
+  -a 0,            unmapped mates in file, -r name: sum(genes) = 2000, __too_low_aQual = 0, genes differing from expectation: 0/20
+  -a 10,           unmapped mates stripped, -r name: sum(genes) = 2000, __too_low_aQual = 0, genes differing from expectation: 0/20
+  -a 10,           unmapped mates stripped, -r pos : sum(genes) = 2000, __too_low_aQual = 0, genes differing from expectation: 0/20
+
+RESULT: with the default -a 10 every pair whose unmapped mate is in the file is counted as __too_low_aQual; the same pairs count when -a 0 is given or when the unmapped records are removed.

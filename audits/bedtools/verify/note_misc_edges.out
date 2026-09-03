@@ -1,0 +1,34 @@
+bedtools 614e9a5
+
+== N2 subtract: A = [100,200), B = [100,150) covers exactly 50 %
+   -A -f 0.5 -> 0 line(s) (A removed)
+   -N -f 0.5 -> 1 line(s) (A kept: pctCovered > fraction is strict)
+   -N -f 0.49 -> 0 line(s)
+
+== N3 window -sw -l 10 -r 0: A = [100,200) with no strand column; B left [90,95) and right [205,210)
+   unstranded A -> hits ['right'] (window extended to the right, i.e. treated as '-')
+   A on '+'     -> hits ['left']
+   A strand '.' -> hits ['right']
+
+== N4 genomecov -5 / -3 -bg on an unstranded BED record [100,110)
+   -5 -> [['chr1', '109', '110', '1']] (start 100 would be the '+' 5' end)
+   -3 -> [['chr1', '109', '110', '1']]
+   -5 on '+' -> [['chr1', '100', '101', '1']]
+
+== N5 genomecov -bg on a zero-length record chr1 100 100
+   -> [['chr1', '99', '101', '1']] (two bases; the parser widens zero-length records to [start-1, end+1))
+
+== N6 genomecov -scale: depth 3 on [0,10)
+   -scale 0.5        -> 1.5
+   -scale 1234567.5  -> 3.7037e+06
+   -scale 333333.33  -> 1e+06
+
+== N7 nuc -pattern AA on AAAAGC
+   user_patt_count = 3 (3 = overlapping occurrences; 2 non-overlapping)
+
+== N8 map -o count / -null on an A record without hits; -prec default
+   -o sum      -null NA -> ['5', 'NA']
+   -o count    -null NA -> ['1', '0']
+   -o mean     -null NA -> ['5', 'NA']
+   -o collapse -null NA -> ['5', 'NA']
+   -o sum of 0.1234567891234 -> 0.1234567891 (KeyListOps.h DEFAULT_PRECISION = 10; help text says 5)

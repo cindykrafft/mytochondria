@@ -1,0 +1,22 @@
+cutadapt 5.3.dev15+g50e9fb8d3
+-m 30 single-end: kept 336, reference (len >= 30) 336: ok; reads of exactly 30 nt kept: 10 of 10
+-M 40 single-end: kept 354, reference (len <= 40) 354: ok
+-m 30:20 --pair-filter any  : kept 243 pairs, reference 243: ok
+-m 30:20 --pair-filter both : kept 529 pairs, reference 529: ok
+-m 30:20 --pair-filter first: kept 336 pairs, reference 336: ok
+-m 30 paired (default any): kept 183, reference 183: ok
+--max-n 2  : kept 550, reference 550: ok
+--max-n 0.1: kept 536, reference 536: ok
+--max-n 0  : kept 394, reference 394: ok
+-a -A --discard-untrimmed: kept 41 pairs; reference 'both mates trimmed' 41: ok
+-a only --discard-untrimmed: kept 152 pairs; reference 'R1 trimmed' 152: ok
+-l 25: all lengths == min(len, 25): ok
+-l -25: sequence == original[-25:]: ok
+-u 5 -u -3: sequence == original[5:-3]: ok
+--trim-n: sequence == original.strip('N'): ok
+--strip-suffix: names stripped: ok
+-q 20: == BWA port: ok
+pipeline -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -q 20 -m 20...: kept 187 pairs
+   --interleaved input == two files: ok
+   --interleaved output == two files: ok
+   -j 3 == -j 1: ok

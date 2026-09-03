@@ -1,0 +1,32 @@
+From 5af6eb1a099125681917eec6c4db0a688b0f5ee8 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 00:38:48 +0000
+Subject: [PATCH 2/2] doc: concordance factors need unrooted species and gene trees
+
+A rooted species tree gets NA on its root branch in --scf/--gcf and a rooted
+gene tree aborts --gcf with 'Taxon not found in full tree: __root__'
+(tree/discordance.cpp). Add a warning box saying so.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ doc/Concordance-Factor.md | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/doc/Concordance-Factor.md b/doc/Concordance-Factor.md
+index 713a5a1..ec01b15 100644
+--- a/doc/Concordance-Factor.md
++++ b/doc/Concordance-Factor.md
+@@ -160,6 +160,9 @@ iqtree3 -te concat.treefile -s ALN_FILE --scfl 100 --prefix concord
+ iqtree2 -t concat.treefile -s ALN_FILE --scf 100 --prefix concord -T 10
+ ```
+ 	
++>**NOTE**: The species tree given with `-t`/`-te` and the gene trees given with `--gcf` must be unrooted. A Newick tree with a bifurcating root (e.g. `((A,B),(C,D));`) is read as rooted: the branch at its root then receives no concordance factor (`NA` in `.cf.stat`), and a rooted gene tree stops `--gcf` with `Taxon not found in full tree: __root__`. Unroot such trees first (e.g. write the root as a trifurcation, `(A,B,(C,D));`).
++{: .warning}
++
+ `--scf` specifies the number of quartets (randomly sampled around each internal
+ branch) for computing sCF. We recommend at least 100 quartets for stable sCF
+ values. Note that running this command several times may lead to slightly
+-- 
+2.43.0
+

@@ -1,0 +1,19 @@
+bamCoverage 3.5.6
+mapped reads 30000 / 20000 -> readCount factors [0.666667 1.      ]
+readCount, --operation log2, pseudocount 1                             OK (max |diff| 5.05e-06)
+readCount, --operation ratio, pseudocount 1                            OK (max |diff| 3.37e-05)
+readCount, --operation subtract, pseudocount 1                         OK (max |diff| 3.37e-05)
+readCount, --operation add, pseudocount 1                              OK (max |diff| 3.56e-05)
+readCount, --operation mean, pseudocount 1                             OK (max |diff| 3.37e-05)
+readCount, --operation reciprocal_ratio, pseudocount 1                 OK (max |diff| 3.37e-05)
+readCount, --operation first, pseudocount 1                            OK (max |diff| 3.56e-05)
+readCount, --operation second, pseudocount 1                           OK (max |diff| 0.00e+00)
+readCount, log2, --pseudocount 0.5 2                                   OK (max |diff| 5.05e-06)
+/home/user/research-software-audit/audits/deeptools/verify/heldup_bamcompare.py:39: RuntimeWarning: divide by zero encountered in divide
+  r = (v1 + pc[0]) / (v2 + pc[1])
+readCount, ratio, --pseudocount 0 (0/0 -> nan, x/0 -> inf)             OK (max |diff| 4.46e-05)
+--scaleFactors 0.5:1.25, log2                                          OK (max |diff| 5.05e-06)
+--scaleFactorsMethod None --normalizeUsing CPM, log2                   OK (max |diff| 5.18e-06)
+--scaleFactorsMethod None --normalizeUsing RPKM, subtract              OK (max |diff| 3.35e-02)
+--scaleFactorsMethod None --normalizeUsing None, log2 (factors 1,1)    OK (max |diff| 5.05e-06)
+SES factors [0.99 1.  ]; true background ratio 1.0 (so [1, 1] is ideal); readCount factors [0.6667 1.    ]; the SES factor for sample 2 is within 10% of 1: True

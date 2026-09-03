@@ -1,0 +1,28 @@
+bedtools 614e9a5
+
+== fisher: 30 random pairs of interval sets on a 3-chromosome genome; table vs port, p-values vs scipy
+   table (counts, n22 heuristic; -m merged in every third trial) equals the port ok 30/30
+   left/right/two-tail p-values equal scipy.stats.fisher_exact (rel 1e-4) ok 30/30
+   odds ratio = (n11/n12)/(n21/n22)                                   ok 30/30
+   documentation examples (docs/content/tools/fisher.rst):
+   genome 500: Number of possible intervals (estimated): 34 | in-a|2|1| / notin-a|0|31| | 1 0.0053476 0.0053476 inf
+              docs: 37 possible; table 2 1 / 0 34; left 1 right 0.0045045 two 0.0045045 ratio inf
+              scipy on the printed table [[2, 1], [0, 31]]: left 1 right 0.0053476 two 0.0053476
+   genome  60: Number of possible intervals (estimated): 4 | in-a|2|1| / notin-a|0|1| | 1 0.5 1 inf
+              docs: 4 possible; table 2 1 / 0 1; left 1 right 0.5 two 1 ratio inf
+              scipy on the printed table [[2, 1], [0, 1]]: left 1 right 0.5 two 1
+
+== jaccard: 20 random pairs of sets with internal overlaps
+   intersection, union, jaccard (float, 7 digits), n_intersections    ok 20/20
+   jaccard -s (per-strand merge and intersection)                     ok 
+
+== reldist: 5 random pairs; -detail and summary vs a port (queries outside B's midpoint span skipped)
+   reldist -detail (%.3f) and summary (floor to 0.01, count, total, %.3f) ok 5/5
+   note: A records before the first or after the last B midpoint on their chromosome are silently dropped (issue #955)
+
+== nuc: 200 random intervals on a random 50-kb sequence with N and lowercase
+   nuc default: pct_at, pct_gc, A, C, G, T, N, other, length          ok 
+   nuc -s (reverse complement of '-' records): pct_at, pct_gc, A, C, G, T, N, other, length ok 
+   nuc -pattern ACG (case-sensitive, overlapping occurrences) and -C  ok 
+
+MISMATCHES: 0
