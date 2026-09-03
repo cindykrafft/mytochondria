@@ -1,0 +1,21 @@
+no pre-trimming: 
+  info line: r1	0	16	23	AAAAACCCCCCCCCCC	GATTACA	GGGG	1	IIIIIIIIIIIIIIII	IIIIIII	IIII	
+  got      offsets=(16, 23) matched='GATTACA' before+matched+after='AAAAACCCCCCCCCCCGATTACAGGGG'
+  expected offsets=(16, 23) matched='GATTACA' before+matched+after='AAAAACCCCCCCCCCCGATTACAGGGG'
+  OK
+-u 5 (issue 518): -u 5
+  info line: r1	0	16	23	AAAAACCCCCCCCCCC	GATTACA	GGGG	1	IIIIIIIIIIIIIIII	IIIIIII	IIII	
+  got      offsets=(16, 23) matched='GATTACA' before+matched+after='AAAAACCCCCCCCCCCGATTACAGGGG'
+  expected offsets=(16, 23) matched='GATTACA' before+matched+after='AAAAACCCCCCCCCCCGATTACAGGGG'
+  OK
+-q 20,0 (issue 518): -q 20,0
+  info line: r1	0	16	23	AAAAACCCCCCCCCCC	GATTACA	GGGG	1	#####IIIIIIIIIII	IIIIIII	IIII	
+  got      offsets=(16, 23) matched='GATTACA' before+matched+after='AAAAACCCCCCCCCCCGATTACAGGGG'
+  expected offsets=(16, 23) matched='GATTACA' before+matched+after='AAAAACCCCCCCCCCCGATTACAGGGG'
+  OK
+-u 5 --revcomp: -u 5 --revcomp
+  info line: r1	0	16	23	AAAAACCCCCCCCCCC	GATTACA	GGGG	1	IIIIIIIIIIIIIIII	IIIIIII	IIII	0
+  got      offsets=(16, 23) matched='GATTACA' before+matched+after='AAAAACCCCCCCCCCCGATTACAGGGG'
+  expected offsets=(16, 23) matched='GATTACA' before+matched+after='AAAAACCCCCCCCCCCGATTACAGGGG'
+  OK
+all correct

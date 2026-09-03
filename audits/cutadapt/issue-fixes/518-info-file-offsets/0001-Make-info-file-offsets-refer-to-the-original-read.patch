@@ -1,0 +1,355 @@
+From 00b47a723add9ba332b6b333338cab3e3aa58829 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 23:20:37 +0000
+Subject: [PATCH] Make info file offsets refer to the original read
+
+When bases were removed from a read before adapter trimming (--cut,
+--quality-cutoff, --nextseq-trim), the adapter match coordinates refer
+to the shortened read, but the info file sliced the original read at
+those coordinates: the offsets in columns 3-4 were too small by the
+number of bases removed from the 5' end and columns 5-7 (and 9-11)
+showed the wrong sequences.
+
+ModificationInfo now records how many bases these modifiers removed
+from either end, and InfoFileWriter computes the records relative to
+the read the adapters were searched in and adds the removed bases back
+to the first record, so that the offsets and columns 5-7 refer to the
+original read as documented.
+
+Fixes #518
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.rst               |   8 +++
+ doc/reference.rst         |   5 +-
+ src/cutadapt/info.pyi     |   2 +
+ src/cutadapt/info.pyx     |  12 ++++-
+ src/cutadapt/modifiers.py |   5 ++
+ src/cutadapt/steps.py     |  31 +++++++++++
+ tests/test_info_file.py   | 108 ++++++++++++++++++++++++++++++++++++++
+ tests/test_modifiers.py   |   8 +--
+ 8 files changed, 174 insertions(+), 5 deletions(-)
+
+diff --git a/CHANGES.rst b/CHANGES.rst
+index 9d3149f..6a88894 100644
+--- a/CHANGES.rst
++++ b/CHANGES.rst
+@@ -2,6 +2,14 @@
+ Changelog
+ =========
+ 
++development version
++-------------------
++
++* :issue:`518`: Fixed incorrect offsets and sequences in the ``--info-file``
++  when bases had been removed from the read before adapter trimming
++  (``--cut``, ``--quality-cutoff``, ``--nextseq-trim``): The match coordinates
++  now refer to the original read, and columns 5-7 again concatenate to it.
++
+ v5.2 (2025-10-23)
+ -----------------
+ 
+diff --git a/doc/reference.rst b/doc/reference.rst
+index 2f44112..4888eb6 100644
+--- a/doc/reference.rst
++++ b/doc/reference.rst
+@@ -874,7 +874,10 @@ If an adapter match was found, these fields are output in a row:
+ 12. Flag indicating whether the read was reverse complemented: 1 if yes, 0 if not,
+     and empty if ``--revcomp`` was not used.
+ 
+-The concatenation of the fields 5-7 yields the full read sequence. Column 8 identifies
++The concatenation of the fields 5-7 yields the full read sequence. The coordinates
++in fields 3 and 4 refer to the original read even if bases were removed from the
++read before adapter trimming (with ``--cut``, ``--quality-cutoff`` or
++``--nextseq-trim``). Column 8 identifies
+ the found adapter. `The section about named adapters <named-adapters>` describes
+ how to give a name to an adapter. Adapters without a name are numbered starting
+ from 1. Fields 9-11 are empty if quality values are not available.
+diff --git a/src/cutadapt/info.pyi b/src/cutadapt/info.pyi
+index e839ae5..03b30b2 100644
+--- a/src/cutadapt/info.pyi
++++ b/src/cutadapt/info.pyi
+@@ -7,5 +7,7 @@ class ModificationInfo:
+     cut_prefix: str
+     cut_suffix: str
+     is_rc: bool | None
++    removed_front: int
++    removed_back: int
+     def __init__(self, read: SequenceRecord) -> None: ...
+     def __repr__(self) -> str: ...
+diff --git a/src/cutadapt/info.pyx b/src/cutadapt/info.pyx
+index 7f9f0f1..5d137b4 100644
+--- a/src/cutadapt/info.pyx
++++ b/src/cutadapt/info.pyx
+@@ -10,6 +10,8 @@ cdef class ModificationInfo:
+         public object cut_prefix
+         public object cut_suffix
+         public object is_rc
++        public int removed_front
++        public int removed_back
+ 
+     def __init__(self, read):
+         self.matches = []
+@@ -17,6 +19,12 @@ cdef class ModificationInfo:
+         self.cut_prefix = None
+         self.cut_suffix = None
+         self.is_rc = None
++        # Number of bases removed from the beginning (5' end) and end (3' end)
++        # of the read *before* adapter trimming (by --cut, --quality-cutoff or
++        # --nextseq-trim). Adapter match coordinates are relative to the read
++        # with these bases removed.
++        self.removed_front = 0
++        self.removed_back = 0
+ 
+     def __repr__(self):
+         return (
+@@ -25,5 +33,7 @@ cdef class ModificationInfo:
+             f"original_read={self.original_read}, "
+             f"cut_prefix={self.cut_prefix}, "
+             f"cut_suffix={self.cut_suffix}, "
+-            f"is_rc={self.is_rc})"
++            f"is_rc={self.is_rc}, "
++            f"removed_front={self.removed_front}, "
++            f"removed_back={self.removed_back})"
+         )
+diff --git a/src/cutadapt/modifiers.py b/src/cutadapt/modifiers.py
+index 433eb1a..9229619 100644
+--- a/src/cutadapt/modifiers.py
++++ b/src/cutadapt/modifiers.py
+@@ -520,9 +520,11 @@ class UnconditionalCutter(SingleEndModifier):
+     def __call__(self, read, info: ModificationInfo):
+         if self.length > 0:
+             info.cut_prefix = read.sequence[: self.length]
++            info.removed_front += len(info.cut_prefix)
+             return read[self.length :]
+         elif self.length < 0:
+             info.cut_suffix = read.sequence[self.length :]
++            info.removed_back += len(info.cut_suffix)
+             return read[: self.length]
+ 
+ 
+@@ -834,6 +836,7 @@ class NextseqQualityTrimmer(SingleEndModifier):
+     def __call__(self, read, info: ModificationInfo):
+         stop = nextseq_trim_index(read, self.cutoff, self.base)
+         self.trimmed_bases += len(read) - stop
++        info.removed_back += len(read) - stop
+         return read[:stop]
+ 
+ 
+@@ -855,6 +858,8 @@ class QualityTrimmer(SingleEndModifier):
+             read.qualities, self.cutoff_front, self.cutoff_back, self.base
+         )
+         self.trimmed_bases += len(read) - (stop - start)
++        info.removed_front += start
++        info.removed_back += len(read) - stop
+         return read[start:stop]
+ 
+ 
+diff --git a/src/cutadapt/steps.py b/src/cutadapt/steps.py
+index 08f75af..23a8c41 100644
+--- a/src/cutadapt/steps.py
++++ b/src/cutadapt/steps.py
+@@ -231,11 +231,28 @@ class InfoFileWriter(SingleEndStep):
+ 
+     def __call__(self, read, info: ModificationInfo) -> Optional[SequenceRecord]:
+         current_read = info.original_read
++        removed_front = info.removed_front
++        removed_back = info.removed_back
+         if info.is_rc:
+             current_read = current_read.reverse_complement()
++            removed_front, removed_back = removed_back, removed_front
+         if info.matches:
++            # The adapters were searched in the read after preceding modifiers
++            # (--cut, --quality-cutoff, --nextseq-trim) had removed bases from
++            # its ends, so the match coordinates refer to that shortened read.
++            # Compute the records relative to it and add the removed bases
++            # back to the first record so that it describes the original read.
++            prefix = current_read[:removed_front]
++            suffix = current_read[len(current_read) - removed_back :]
++            current_read = current_read[
++                removed_front : len(current_read) - removed_back
++            ]
++            first_record = True
+             for match in info.matches:
+                 for info_record in match.get_info_records(current_read):
++                    if first_record:
++                        self._add_removed_ends(info_record, prefix, suffix)
++                        first_record = False
+                     # info_record[0] is the read name suffix
+                     print(
+                         read.name + info_record[0],
+@@ -252,6 +269,20 @@ class InfoFileWriter(SingleEndStep):
+ 
+         return read
+ 
++    @staticmethod
++    def _add_removed_ends(info_record, prefix, suffix) -> None:
++        """
++        Modify an info record (see Match.get_info_records) in place such that
++        it refers to the read with *prefix* and *suffix* added back
++        """
++        info_record[2] += len(prefix)
++        info_record[3] += len(prefix)
++        info_record[4] = prefix.sequence + info_record[4]
++        info_record[6] = info_record[6] + suffix.sequence
++        if prefix.qualities is not None:
++            info_record[8] = prefix.qualities + info_record[8]
++            info_record[10] = info_record[10] + suffix.qualities
++
+ 
+ class PairedInfoFileWriter(PairedEndStep):
+     def __init__(self, file1: TextIO, file2: TextIO):
+diff --git a/tests/test_info_file.py b/tests/test_info_file.py
+index f16000c..717d209 100644
+--- a/tests/test_info_file.py
++++ b/tests/test_info_file.py
+@@ -171,6 +171,114 @@ def test_issue_296(tmp_path):
+     assert_files_equal(reads_path, out_path)
+ 
+ 
++@pytest.mark.parametrize(
++    "params,qualities,expected_qualities",
++    [
++        (["-u", "5"], "I" * 27, "I" * 16 + "\t" + "I" * 7 + "\t" + "I" * 4),
++        (["-u", "-3"], "I" * 27, "I" * 16 + "\t" + "I" * 7 + "\t" + "I" * 4),
++        (
++            ["-q", "20,20"],
++            "#" * 5 + "I" * 18 + "#" * 4,
++            "#" * 5 + "I" * 11 + "\t" + "I" * 7 + "\t" + "####",
++        ),
++        (
++            ["--nextseq-trim", "20"],
++            "I" * 23 + "####",
++            "I" * 16 + "\t" + "I" * 7 + "\t####",
++        ),
++        (
++            ["-u", "5", "--revcomp"],
++            "I" * 27,
++            "I" * 16 + "\t" + "I" * 7 + "\t" + "I" * 4,
++        ),
++    ],
++)
++def test_info_file_offsets_after_cut_or_quality_trim(
++    tmp_path, params, qualities, expected_qualities
++):
++    # Issue #518: Offsets and sequences in the info file must refer to the
++    # original read, not to the read as seen by the adapter trimmer
++    info_path = tmp_path / "info.txt"
++    reads_path = tmp_path / "reads.fastq"
++    reads_path.write_text(f"@r1\nAAAAACCCCCCCCCCCGATTACAGGGG\n+\n{qualities}\n")
++    main(
++        params
++        + [
++            "-a",
++            "ad=GATTACA",
++            "--info-file",
++            info_path,
++            "-o",
++            tmp_path / "out.fastq",
++            reads_path,
++        ]
++    )
++    rc = "\t0" if "--revcomp" in params else "\t"
++    assert info_path.read_text() == (
++        "r1\t0\t16\t23\tAAAAACCCCCCCCCCC\tGATTACA\tGGGG\tad\t"
++        + expected_qualities
++        + rc
++        + "\n"
++    )
++
++
++def test_info_file_offsets_after_cut_reverse_complemented(tmp_path):
++    # Issue #518, read is reverse-complemented by --revcomp
++    info_path = tmp_path / "info.txt"
++    reads_path = tmp_path / "reads.fastq"
++    reads_path.write_text(
++        "@r1\nCCCCTGTAATCGGGGGGGGGGGTTTTT\n+\n" + "#" * 4 + "I" * 23 + "\n"
++    )
++    main(
++        [
++            "-u",
++            "-3",
++            "-q",
++            "20,0",
++            "--revcomp",
++            "-a",
++            "ad=GATTACA",
++            "--info-file",
++            info_path,
++            "-o",
++            tmp_path / "out.fastq",
++            reads_path,
++        ]
++    )
++    assert info_path.read_text() == (
++        "r1 rc\t0\t16\t23\tAAAAACCCCCCCCCCC\tGATTACA\tGGGG\tad\t"
++        "IIIIIIIIIIIIIIII\tIIIIIII\t####\t1\n"
++    )
++
++
++def test_info_file_offsets_after_cut_times(tmp_path):
++    # Issue #518 with --times 2: only the first row refers to the original read
++    info_path = tmp_path / "info.txt"
++    reads_path = tmp_path / "reads.fasta"
++    reads_path.write_text(">r1\nAAAAACCCCCTTGGCCGATTACAGGGG\n")
++    main(
++        [
++            "-u",
++            "5",
++            "--times",
++            "2",
++            "-a",
++            "one=GATTACA",
++            "-a",
++            "two=TTGG",
++            "--info-file",
++            info_path,
++            "-o",
++            tmp_path / "out.fasta",
++            reads_path,
++        ]
++    )
++    assert info_path.read_text() == (
++        "r1\t0\t16\t23\tAAAAACCCCCTTGGCC\tGATTACA\tGGGG\tone\t\t\t\t\n"
++        "r1\t0\t5\t9\tCCCCC\tTTGG\tCC\ttwo\t\t\t\t\n"
++    )
++
++
+ def test_paired_info_file(run_paired, tmp_path, cores):
+     info_path = tmp_path / "info1.txt"
+     info_path2 = tmp_path / "info2.txt"
+diff --git a/tests/test_modifiers.py b/tests/test_modifiers.py
+index 640c07e..ba68bd5 100644
+--- a/tests/test_modifiers.py
++++ b/tests/test_modifiers.py
+@@ -38,11 +38,13 @@ def test_unconditional_cutter():
+     assert UnconditionalCutter(length=2)(read, info).sequence == "cdefg"
+     assert info.cut_prefix == "ab"
+     assert info.cut_suffix is None
++    assert (info.removed_front, info.removed_back) == (2, 0)
+ 
+     info = ModificationInfo(read)
+     assert UnconditionalCutter(length=-2)(read, info).sequence == "abcde"
+     assert info.cut_suffix == "fg"
+     assert info.cut_prefix is None
++    assert (info.removed_front, info.removed_back) == (0, 2)
+ 
+     assert UnconditionalCutter(length=100)(read, info).sequence == ""
+     assert UnconditionalCutter(length=-100)(read, info).sequence == ""
+@@ -91,9 +93,9 @@ def test_quality_trimmer():
+     read = SequenceRecord("read1", "ACGTTTACGTA", "##456789###")
+ 
+     qt = QualityTrimmer(10, 10, 33)
+-    assert qt(read, ModificationInfo(read)) == SequenceRecord(
+-        "read1", "GTTTAC", "456789"
+-    )
++    info = ModificationInfo(read)
++    assert qt(read, info) == SequenceRecord("read1", "GTTTAC", "456789")
++    assert (info.removed_front, info.removed_back) == (2, 3)
+ 
+     qt = QualityTrimmer(0, 10, 33)
+     assert qt(read, ModificationInfo(read)) == SequenceRecord(
+-- 
+2.43.0
+
