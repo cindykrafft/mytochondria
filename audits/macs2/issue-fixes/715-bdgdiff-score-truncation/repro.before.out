@@ -1,0 +1,16 @@
+== Part 1: synthetic four-track case, macs3 bdgdiff -C 0.2 --d1 1 --d2 1
+expected mean log10LR per region (documented score column):
+  chr1:0-1000  t1_vs_c1=12.1537  t2_vs_c2=10.2025  t1_vs_t2=0.0465
+  chr1:1000-2000  t1_vs_c1=12.1537  t2_vs_c2=7.4607  t1_vs_t2=0.3271
+  chr1:2000-3000  t1_vs_c1=35.4687  t2_vs_c2=7.4607  t1_vs_t2=6.1784
+cond1.bed score column: chr1:0-2000 -> 3.0
+cond2.bed score column: (empty)
+common.bed score column: (empty)
+
+== Part 2: project's own test data (test/cmdlinetest step 10, bdgdiff)
+cond1: 638 regions (reference 638), coordinates identical: True, integer-valued scores: 2/638, scores differing from reference: 638
+   chr22:17255466-17255800  got 24.9521  reference 25.5431
+   chr22:17372721-17373257  got 36.903  reference 37.3104
+   chr22:17392235-17392663  got 48.8178  reference 49.3307
+cond2: 0 regions (reference 0), coordinates identical: True, integer-valued scores: 0/0, scores differing from reference: 0
+common: 0 regions (reference 0), coordinates identical: True, integer-valued scores: 0/0, scores differing from reference: 0
