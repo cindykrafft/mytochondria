@@ -159,6 +159,22 @@ statistics across all bins) are affected; one cohort paper reports PSI. Fix
 in `upstream/`: zero the last element after forming the products and set its
 normalizer to 1, so edge windows simply contain one fewer product.
 
+**Follow-up on `normalize='yes'` (2026-09-03, after the maintainer asked what it computes).**
+`phaseslope` builds the normalizer *after* `x` has been overwritten with the products, so
+`coh(f) = |x(f)|·|x(f+1)| + 1 = |C(f)|·|C(f+1)|²·|C(f+2)| + 1`, a product of four coherency
+magnitudes plus one, not the `|C(f)|·|C(f+1)|` that the `%FIXME why the +1? get the coherence`
+comment suggests was meant. Ported line for line and compared on a 20-bin synthetic coherency
+(`verify/ft11c_psi_normalize_meaning.py`, output `.out`): the shipped output equals the port
+exactly; it differs from the "intended" `|C(f)||C(f+1)|+1` normalizer by up to 9e-2 and from a
+phase-only slope (`Σ sin Δφ`, what dividing by the magnitudes without the `+1` would give) by 1.1.
+For constant coherence magnitude `s` the option multiplies the unnormalized PSI by `1/(s⁴+1)`:
+1.000 at `s = 0.05`, 0.941 at `0.5`, 0.551 at `0.95`. So the option is a mild, coherence-dependent
+attenuation, not a normalization of the PSI in either sense (amplitude removed, or Nolte et al.'s
+`Ψ/std(Ψ)` by jackknife, which the function's `v` output already provides the ingredients for).
+The docstring lists `'normalize' = ?`, and `ft_connectivityanalysis` never sets it, so the default
+path is unaffected. Status: NOTE (design/documentation), reported to the maintainer on PR #2610 as
+his own question; the PR stays scoped to the edge bin.
+
 ## FTR — `ft_statfun_depsamplesregrT` control-variable branch cannot run [verified]
 
 `statfun/ft_statfun_depsamplesregrT.m` line 98 indexes

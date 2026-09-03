@@ -1,0 +1,17 @@
+bins 1..20 (edge-fixed), nbin=3
+max|ft normalize=no  - Nolte PSI|                       = 5.55e-17
+max|ft normalize=yes - port of what the code builds|   = 0.00e+00
+max|ft normalize=yes - intended |C(f)||C(f+1)|+1|      = 8.97e-02
+max|ft normalize=yes - phase-only sum sin(dphi)|       = 1.13e+00
+
+per-bin, bins 4..8: den_actual = |prod(f)||prod(f+1)|+1  vs  den_intended+1 = |C(f)||C(f+1)|+1
+  f= 4 |C|=0.64 |C(f+1)|=0.27  den_actual=1.024  den_intended+1=1.172  den_intended=0.172
+  f= 5 |C|=0.27 |C(f+1)|=0.52  den_actual=1.042  den_intended+1=1.142  den_intended=0.142
+  f= 6 |C|=0.52 |C(f+1)|=0.56  den_actual=1.053  den_intended+1=1.294  den_intended=0.294
+  f= 7 |C|=0.56 |C(f+1)|=0.32  den_actual=1.043  den_intended+1=1.179  den_intended=0.179
+  f= 8 |C|=0.32 |C(f+1)|=0.75  den_actual=1.051  den_intended+1=1.240  den_intended=0.240
+
+ratio normalize=yes / normalize=no, bins 4..17: min 0.845 max 0.963 (phase-only reference would give 2.220 .. 5.226)
+constant |C|=0.05: normalize=yes / no = 1.0000  (1/(|C|^4+1) = 1.0000; the intended 1/(|C|^2+1) = 0.9975; pure phase would be 1/|C|^2 = 400.0000)
+constant |C|=0.50: normalize=yes / no = 0.9412  (1/(|C|^4+1) = 0.9412; the intended 1/(|C|^2+1) = 0.8000; pure phase would be 1/|C|^2 = 4.0000)
+constant |C|=0.95: normalize=yes / no = 0.5511  (1/(|C|^4+1) = 0.5511; the intended 1/(|C|^2+1) = 0.5256; pure phase would be 1/|C|^2 = 1.1080)
