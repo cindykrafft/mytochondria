@@ -14,7 +14,7 @@ This is exactly the situation in #203 (14 taxa, two partitions, the outgroup amo
 
 **Test.** `test_scripts/test_iqtree.sh` (and `test_iqtree.ps1`) get two commands on the existing turtle data, where `phrynops` has no data in the fourth partition: `-p turtle.nex -o phrynops` and `-lmap 100 -o phrynops`, both `-m GTR+G -T 1 -seed 73073`. Both abort on `main` and complete with the patch; their log-likelihoods are added to `test_data/expect_ans.txt` for `verify_results.sh`.
 
-**Run.** Built with cmake/gcc 13.3 on Linux x86-64 as in CI (without `-DIQTREE_FLAGS=static`). `test_scripts/test_iqtree.sh` + `verify_results.sh`: all existing checks pass before and after (RESULTS_PLACEHOLDER). A synthetic 14-taxon reproduction of #203 (`-p`, `-q`, `-Q`, with `-m MFP` and `-m GTR+G`) and of #89 (`-lmap` with one and with two outgroup taxa) aborts before and completes after.
+**Run.** Built with cmake/gcc 13.3 on Linux x86-64 as in CI (without `-DIQTREE_FLAGS=static`). `test_scripts/test_iqtree.sh` + `verify_results.sh`: 21 of 21 existing checks pass before and after, and the two new checks pass after (23 of 23; both commands abort before). A synthetic 14-taxon reproduction of #203 (`-p`, `-q`, `-Q`, with `-m MFP` and `-m GTR+G`) and of #89 (`-lmap` with one and with two outgroup taxa) aborts before and completes after.
 
 Found while working through open issues in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/main/audits/iqtree)
 

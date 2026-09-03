@@ -81,3 +81,26 @@ maintainers' own issue and is the only new item until they reply; the audit-find
 stays frozen meanwhile.
 
 Assigned issues (2026-09-04): no PR; comment with the diagnosis and a branch link instead. First case: SPM #104–#106 are assigned to the toolbox author.
+
+### Issue-fix round, results (2026-09-04)
+
+| repository | issue | what | state |
+|---|---|---|---|
+| spm/spm | #106 | `spm_MDP_VB_prune` NaN column when the surviving entries carry no prior mass | assigned to the toolbox author: comment with diagnosis + branch link, no PR |
+| MouseLand/suite2p | #1079 | rigid-only z-registration against a reference list crashes (`compute_shifts` zero-width nonrigid offsets) | assigned to the maintainer: comment + branch link, no PR |
+| MouseLand/Kilosort | #1039 | `make_pc_features` re-orders channels twice for clusters sharing a detection template | PR ready |
+| arq5x/bedtools2 | #1123 | `flank -s` drops every record without a `-`/`+` strand | PR ready |
+| OpenGene/fastp | #638 (= #528) | `--dedup` drops counted as passed; `--merge --dedup` removed nothing | PR ready; behaviour change on `--merge` flagged |
+| ventolab/CellphoneDB | #224 (= #137) | `create_db` merge on an all-NaN `uniprot_N` column | PR ready |
+| marcelm/cutadapt | #518 | `--info-file` offsets wrong after 5' trimming (maintainer's own 2021 issue) | PR ready |
+| deeptools/deepTools | #1423 | `computeMatrix` gzipped BED crash in `sortMatrix` | PR ready |
+| fieldtrip/fieldtrip | #2345 | `cfg.toi = 'NN%'` is the step, not the overlap | PR ready; every percentage but 50 changes the time axis |
+| afni/afni | #73 | stale AFNI extension time axis; `3dvolreg` zero-byte output with exit 0 | PR ready; repository has a large unanswered backlog from us |
+| lmcinnes/umap | #1194 | `transform` refuses precomputed distances above 4096 rows | PR ready |
+| chrchang/plink-ng | #140 | `--bmerge` duplicate-ID counts and warning asymmetric | PR ready |
+| freesurfer/freesurfer | #1358 | `mri_convert --out_orientation` shifts by one voxel per flipped axis | PR ready; large unanswered backlog from us |
+| scverse/scanpy | #3809 | `.distances` keeps `n_neighbors` entries on transformer paths (≥ 8192 cells by default) | PR ready; 6 unread comments on the issue |
+| macs3-project/MACS | #715 | `bdgdiff` scores truncated to integers | PR ready; two held findings in the kit README |
+| iqtree/iqtree3 | #203 (+ #89, likely #135/#102) | `setRootNode` assertion when the outgroup is absent from a partition/quartet | PR ready once a fork of iqtree/iqtree3 exists |
+
+Each kit under `audits/<package>/issue-fixes/<n>-<slug>/` records the alternates considered, so the next round can start from those.

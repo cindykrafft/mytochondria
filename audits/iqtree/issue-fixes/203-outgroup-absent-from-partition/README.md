@@ -132,8 +132,8 @@ runs (`-T 1 -seed 73073`).
 
 | | `main` @ `8977d31a` | branch |
 |---|---|---|
-| `test_iqtree.sh` + `verify_results.sh`, existing 21 checks | 21 PASS | AFTER_EXISTING |
-| the two new checks | 0 of 2 (both commands abort) | AFTER_NEW |
+| `test_iqtree.sh` + `verify_results.sh`, existing 21 checks | 21 PASS | 21 PASS |
+| the two new checks | 0 of 2 (both commands abort) | 2 of 2 PASS (23 of 23 overall, every command exit 0) |
 
 Note on the harness: `test_iqtree.sh` wraps each command in `/usr/bin/time`, which this
 container lacks; it was run through a copy with that wrapper removed (`test_iqtree_notime.sh`,
