@@ -4,7 +4,7 @@ _Fields follow `.github/ISSUE_TEMPLATE/bug_report.md`._
 
 **Title:** `--max-ee` / `--max-aer` always assume Phred+33; with `--quality-base 64` nothing is discarded
 
-**Cutadapt and Python version:** 5.2 (PyPI wheel) and `main` @ 50e9fb8d, Python 3.12.3, Linux x86-64. Also reproduced on 4.1, 4.4, 4.5 and 4.9.
+**Cutadapt and Python version:** 5.2 (PyPI wheel) and `main` @ 50e9fb8d, Python 3.12.3, Linux x86-64. Also reproduced on the 4.1, 4.2, 4.3, 4.4, 4.5, 4.9, 5.0 and 5.1 wheels.
 
 **How installed:** `pip install cutadapt==5.2` / `pip install -e .` from a clone of `main`.
 

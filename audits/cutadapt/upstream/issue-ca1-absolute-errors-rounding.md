@@ -5,7 +5,7 @@ how installed; command-line parameters; example read; output; expected output)._
 
 **Title:** Absolute number of errors (`-e N`) is one too small for some adapter lengths (e.g. `-e 1` allows 0 errors for a 49 nt adapter)
 
-**Cutadapt and Python version:** 5.2 (PyPI wheel) and `main` @ 50e9fb8d, Python 3.12.3, Linux x86-64. Also reproduced on 4.1, 4.4, 4.5 and 4.9 (PyPI wheels).
+**Cutadapt and Python version:** 5.2 (PyPI wheel) and `main` @ 50e9fb8d, Python 3.12.3, Linux x86-64. Also reproduced on the 4.1, 4.2, 4.3, 4.4, 4.5, 4.9, 5.0 and 5.1 wheels.
 
 **How installed:** `pip install cutadapt==5.2` / `pip install -e .` from a clone of `main`.
 

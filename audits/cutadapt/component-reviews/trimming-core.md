@@ -13,8 +13,9 @@ Every suspicion was **executed on the shipped code**: `main` installed editable 
 Python 3.12 venv (version string `5.3.dev15+g50e9fb8d3`, Cython build), harnesses in
 `../verify/` with captured output; each confirmed finding was also run on the 5.2
 wheel from PyPI (the latest release) and, through the CLI-only script
-`../verify/version_scope_cli.py`, on the 4.1 wheel (the most-cited version in the
-cohort that still builds on Python 3.12; 3.4 and 1.18 do not, see `../README.md`).
+`../verify/version_scope_cli.py`, on the 4.1, 4.2, 4.3, 4.4, 4.5, 4.9, 5.0 and 5.1
+wheels (4.1 is the most-cited version in the cohort that still builds on Python 3.12;
+3.4 and 1.18 do not, see `../README.md`).
 References are independent Python ports of the documented rules run on random
 reads, or the package's own bare aligner run without the prefilter.
 
@@ -22,7 +23,7 @@ Cohort exposure numbers are lower bounds from the survey cache (see `../README.m
 
 ## Findings
 
-### CA1 — CONFIRMED on `main`, 5.2 and 4.1: an absolute number of errors (`-e N`) is converted to a rate, and for some adapter lengths the rate multiplied back is a hair below N, so one allowed error is lost
+### CA1 — CONFIRMED on `main`, 5.2 and every wheel executed (4.1, 4.2, 4.3, 4.4, 4.5, 4.9, 5.0, 5.1): an absolute number of errors (`-e N`) is converted to a rate, and for some adapter lengths the rate multiplied back is a hair below N, so one allowed error is lost
 
 **Code.** `adapters.py:580-582` turns `-e N` (N ≥ 1) into `max_error_rate = N / (len −
 #N)`. The aligner accepts an alignment covering `L` adapter characters when
@@ -48,7 +49,7 @@ means "one error". The documentation (`doc/guide.rst:649-652`) promises the oppo
 | wildcard adapter, 50 nt with one N (`effective_length` 49), `-e 1` | not found |
 | `AdapterIndex` on two 49-nt barcodes, `-e 1` | `max_k` = 0 for both; read with one substitution unassigned |
 | CLI, 300 reads = 20 nt + 49-nt adapter with one substitution + 30 nt | `-e 1`: 0 of 300 trimmed to 20 nt (8 random 3-mer end matches); `-e 1.0000001`, `-e 2`: 300/300 |
-| version scope (CLI script) | `main`, 5.2, 4.1: 0/300 trimmed; control `-e 1.0000001` 300/300 on all three |
+| version scope (CLI script) | `main`, 5.2, 5.1, 5.0, 4.9, 4.5, 4.4, 4.3, 4.2, 4.1: 0/300 trimmed; control `-e 1.0000001` 300/300 on all ten |
 
 **Who is exposed.** Anyone using the integer form of `-e` (documented since 3.0;
 the cohort cache names `-e 1` once and "1 mismatch every 10 bp" once, lower bounds)
@@ -72,7 +73,7 @@ cleaner but touches the Cython signature; the issue text offers both.
 prior report (#358 introduced the feature, #457 and #615 concern how the allowed
 number is displayed).
 
-### CA2 — CONFIRMED on `main`, 5.2 and 4.1: `--max-expected-errors` and `--max-average-error-rate` ignore `--quality-base`
+### CA2 — CONFIRMED on `main`, 5.2 and every wheel executed (4.1 through 5.1): `--max-expected-errors` and `--max-average-error-rate` ignore `--quality-base`
 
 **Code.** `predicates.py:70-71` and `:91-95` call `expected_errors(read.qualities)`
 with the default base 33; `cli.py:762` and `:777` construct the predicates without
@@ -94,8 +95,9 @@ random reads of 50–150 nt, Phred 2–40 uniform):
 | control `-q 20` | BWA port | identical | identical |
 
 For read `r0` the true expected-error count is 7.2616 and the predicate computes
-0.005768. Version scope (CLI script): `main`, 5.2 and 4.1 keep 300/300 reads with
-10.5–23.9 expected errors under `--max-ee 1 --quality-base 64`.
+0.005768. Version scope (CLI script): `main`, 5.2, 5.1, 5.0, 4.9, 4.5, 4.4, 4.3, 4.2 and 4.1
+all keep 300/300 reads with 10.5–23.9 expected errors under `--max-ee 1
+--quality-base 64`.
 
 **Who is exposed.** Only users of Phred+64 data (Illumina 1.3–1.7, pre-2011); the
 cohort's three `--max-ee` mentions are on modern data. A wrong number nonetheless: the
@@ -109,7 +111,7 @@ to `tests/test_predicates.py` fail on `main` (2 failed) and pass with the patch
 **Upstream.** No prior report (searched `quality-base` with `max-ee`/expected
 errors; #17 from 2015 is about `-q` and was fixed).
 
-### CA3 — CONFIRMED on `main` and 5.2 (4.1 gives the score-consistent answer): the demultiplexing index ranks adapters by number of matching bases, the rest of Cutadapt by alignment score, so the same read is assigned differently with and without `--no-index`
+### CA3 — CONFIRMED on `main`, 5.2, 5.1 and 5.0 (4.1–4.9 give the score-consistent answer; the index rewrite of 5.0, PR #827, introduced it): the demultiplexing index ranks adapters by number of matching bases, the rest of Cutadapt by alignment score, so the same read is assigned differently with and without `--no-index`
 
 **Code.** `MultipleAdapters.match_to` (`adapters.py:1278-1284`) keeps the match
 with the highest `score` (match +1, mismatch −1, indel −2: `_align.pyx:16-19`,
@@ -135,7 +137,7 @@ inconsistent with itself as well. "Number of matches" is the pre-4.0 criterion t
 | 6 random barcodes all 10 nt, same | 9,998 agree; 2 reads with an insertion assigned to different barcodes (score ties broken by errors-then-length in the index, by list order in `MultipleAdapters`; both listed in the `.out`) | — |
 | `Match.score` of an indexed match with one insertion (10 matches) | 10 | 8 |
 | mixed list `[^bc1, ^bc2, 3'-adapter]`, read = bc1 with an insertion + 15 nt + 9 nt of the 3' adapter | bc1 (score field 10) | 3' adapter (score 9) |
-| version scope (CLI script) | `main`, 5.2: A 50 / B 0 vs `--no-index` B 50; 4.1: B 50 both ways | |
+| version scope (CLI script) | `main`, 5.2, 5.1, 5.0: A 50 / B 0 by default vs B 50 with `--no-index`; 4.9, 4.5, 4.4, 4.3, 4.2, 4.1: B 50 both ways | |
 
 So the index disagrees with the documented criterion deterministically on
 constructed inputs, rarely on random same-length barcodes (2 / 10,000, all tie
@@ -160,7 +162,7 @@ which reads are "ambiguous", it should go to the maintainer as an issue first.
 (first vs best match), #614 (open, `MultipleAdapters` early stop), #671 (open,
 leftmost vs best alignment). None reports the criterion mismatch.
 
-### CA4 — CONFIRMED on `main` and 5.2 (absent on 4.1, which predates the prefilter): the k-mer prefilter rejects anchored and non-internal adapter occurrences that carry one inserted base whenever exactly one error is allowed
+### CA4 — CONFIRMED on `main`, 5.2 and every wheel from 4.3 on (4.3, 4.4, 4.5, 4.9, 5.0, 5.1); absent on 4.1 and 4.2, which predate the prefilter: the k-mer prefilter rejects anchored and non-internal adapter occurrences that carry one inserted base whenever exactly one error is allowed
 
 **Code.** Since 4.3 (PR #663) every adapter runs `kmer_finder.kmers_present(read)`
 before the aligner and returns `None` without aligning when it is false
@@ -195,9 +197,9 @@ every position p plus random flanks, 200 draws per p:
 CLI on the same construction (20 reads per insertion position): Illumina `-e 1`:
 `-g ^AD` 392/700, `-g XAD` 398/700, `-a AD$` 388/700 trimmed vs `-g AD` and `-a AD`
 700/700; Nextera `-e 0.1`: `^AD` 257/400, `XAD` 332/400, `AD$` 253/400 vs 400/400;
-Illumina `-e 0.1`: 700/700 everywhere. Version scope: `main` and 5.2 trim 197/350
-(`^AD`, 34 nt `-e 1`) and 126/200 (`^AD`, 19 nt `-e 0.1`) where 4.1 trims 350/350 and
-200/200. In the random battery (`heldup_aligner_properties.out`) every one of the 23 +
+Illumina `-e 0.1`: 700/700 everywhere. Version scope: `main`, 5.2, 5.1, 5.0, 4.9, 4.5, 4.4 and 4.3 trim 197/350
+(`^AD`, 34 nt `-e 1`) and 126/200 (`^AD`, 19 nt `-e 0.1`) where 4.2 and 4.1 trim
+350/350 and 200/200 — the loss appears exactly with the 4.3 heuristic. In the random battery (`heldup_aligner_properties.out`) every one of the 23 +
 31 + 7 + 15 prefilter/aligner disagreements for these four types was a read with an
 insertion; regular 3'/5' adapters had 0 in 10,000 alignments.
 

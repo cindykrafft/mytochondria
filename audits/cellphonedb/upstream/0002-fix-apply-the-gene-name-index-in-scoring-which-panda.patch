@@ -1,0 +1,104 @@
+From caa492854e188d990b613d7ac6c35f7a703fe04c Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 00:47:23 +0000
+Subject: [PATCH] fix: apply the gene-name index in scoring, which pandas CoW
+ discarded
+
+heteromer_geometric_expression_per_cell_type rewrote the mean-expression
+matrix index from multidata ids to gene names with
+
+    matrix[index_name].replace(to_replace=id2name, inplace=True)
+
+which mutates a temporary Series. Under copy-on-write -- opt-in in
+pandas 2.x, the only behaviour from pandas 3.0 -- the write is discarded
+(pandas emits ChainedAssignmentError as a warning). The index stayed
+integer, so the very next line
+
+    idx = [gene in list(genes[counts_data]) for gene in matrix.index]
+
+selected nothing and the empty frame reached scale_expression, where
+MinMaxScaler raised "ValueError: at least one array or dtype is
+required" -- an error naming neither the scoring step nor the cause.
+
+The effect is that score_interactions=True fails outright on pandas >= 3,
+which pyproject.toml permits (pandas = ">=1.5.0") and a fresh install
+now resolves. The CI pins Python 3.8, which cannot install pandas 3, so
+test_basic_method still passes there.
+
+Assign the result instead, which is correct on every pandas version.
+
+Adds ScoringUtilsUnitTests.test_heteromer_geometric_expression_reindexes_
+by_gene_name, which drives the function on hand-built tables and needs no
+database download. It fails on unpatched master under pandas 3 and passes
+with this change.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ cellphonedb/src/tests/method_tests.py | 35 +++++++++++++++++++++++++++
+ cellphonedb/utils/scoring_utils.py    |  4 ++-
+ 2 files changed, 38 insertions(+), 1 deletion(-)
+
+diff --git a/cellphonedb/src/tests/method_tests.py b/cellphonedb/src/tests/method_tests.py
+index 39cb51e..5c3e53f 100644
+--- a/cellphonedb/src/tests/method_tests.py
++++ b/cellphonedb/src/tests/method_tests.py
+@@ -194,5 +194,40 @@ class UnitTests(unittest.TestCase):
+         # 'CellSign_active_interactions_deconvoluted dataframe is empty')
+ 
+ 
++class ScoringUtilsUnitTests(unittest.TestCase):
++    """Unit tests for scoring_utils that need no database download."""
++
++    def test_heteromer_geometric_expression_reindexes_by_gene_name(self):
++        """The multidata-id index must be replaced by gene names, and complexes added.
++
++        Regression test: the index rewrite used a chained inplace replace, which is a no-op
++        under pandas copy-on-write (pandas >= 3), leaving an integer index. Every gene was
++        then filtered out and the empty frame reached MinMaxScaler, which raised
++        "ValueError: at least one array or dtype is required".
++        """
++        import pandas as pd
++        from cellphonedb.utils import scoring_utils
++
++        genes = pd.DataFrame({'gene_name': ['LIG1', 'REC1', 'SUB1', 'SUB2'],
++                              'protein_id': [0, 1, 2, 3]})
++        complex_composition = pd.DataFrame({'complex_multidata_id': [4, 4],
++                                            'protein_multidata_id': [2, 3]})
++        complex_expanded = pd.DataFrame({'complex_multidata_id': [4], 'name': ['RECCPLX']})
++        id2name = {0: 'LIG1', 1: 'REC1', 2: 'SUB1', 3: 'SUB2', 4: 'RECCPLX'}
++        matrix = pd.DataFrame({'ctA': [1.0, 2.0, 4.0, 1.0], 'ctB': [3.0, 1.0, 2.0, 2.0]},
++                              index=pd.Index([0, 1, 2, 3], name='id_multidata'))
++
++        out = scoring_utils.heteromer_geometric_expression_per_cell_type(
++            matrix=matrix, counts_data='gene_name', genes=genes,
++            complex_composition=complex_composition, complex_expanded=complex_expanded,
++            id2name=id2name)
++
++        assert set(out.index) == {'LIG1', 'REC1', 'SUB1', 'SUB2', 'RECCPLX'}, \
++            "expected the four genes and one complex, got {}".format(list(out.index))
++        # RECCPLX = geometric mean of SUB1 and SUB2
++        self.assertAlmostEqual(float(out.loc['RECCPLX', 'ctA']), (4.0 * 1.0) ** 0.5, places=6)
++        self.assertAlmostEqual(float(out.loc['RECCPLX', 'ctB']), (2.0 * 2.0) ** 0.5, places=6)
++
++
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/cellphonedb/utils/scoring_utils.py b/cellphonedb/utils/scoring_utils.py
+index 326ec97..f58688d 100644
+--- a/cellphonedb/utils/scoring_utils.py
++++ b/cellphonedb/utils/scoring_utils.py
+@@ -135,7 +135,9 @@ def heteromer_geometric_expression_per_cell_type(
+     if matrix.index.intersection(genes[counts_data]).empty:
+         index_name = matrix.index.name
+         matrix = matrix.reset_index()
+-        matrix[index_name].replace(to_replace=id2name, inplace=True)
++        # NB. not matrix[index_name].replace(..., inplace=True): that mutates a temporary
++        # Series and is a no-op under pandas copy-on-write (the default from pandas 3.0).
++        matrix[index_name] = matrix[index_name].replace(to_replace=id2name)
+         matrix.set_index(index_name, inplace=True)
+         matrix.index.name = None
+ 
+-- 
+2.43.0
+

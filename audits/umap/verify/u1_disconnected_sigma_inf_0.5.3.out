@@ -30,10 +30,10 @@ PART B  UMAP.fit(disconnection_distance=5) on the same data
   control: no disconnection                                  sigma==inf rows:   0;  cluster rows:  10 edges of weight 1.0 among  56 nonzero
   transform(X[:8]) graph rows (bipartite): 8 of 64 nonzero entries equal 1.0 (self edges: 8)
 
-PART C  default settings, metric='jaccard' on sparse binary data (default disconnection_distance = 1)
-  rows with sigma == inf: 0 of 400
-  in those rows: 0 of 0 nonzero graph entries equal exactly 1.0
-  in the other rows: 2218 of 6528 nonzero graph entries equal exactly 1.0
+PART C  default settings, metric='jaccard' on sparse binary data (disconnection_distance defaults to 1;
+        rows sharing no feature are at distance exactly 1 and are pruned)
+  400 x 40 binary, density 0.06: rows with a pruned neighbour    0; sigma == inf    0; of which fewer than log2(k) finite neighbours (unbounded by definition)    0, wrongly inf    0; in the wrongly-inf rows 0 of 0 graph entries equal 1.0
+  1000 x 600 binary, density 0.005: rows with a pruned neighbour  923; sigma == inf  975; of which fewer than log2(k) finite neighbours (unbounded by definition)  546, wrongly inf  429; in the wrongly-inf rows 3403 of 3445 graph entries equal 1.0
 
 PART D  smooth_knn_dist with the floor computed on finite distances (proposed fix), Part A array
   rows with sigma == inf: 0
