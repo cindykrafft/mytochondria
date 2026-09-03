@@ -1,5 +1,7 @@
 # PLINK upstream filing kit
 
+**Outcome (2026-09-03):** issue #380 filed, PR #381 closed by the maintainer in favour of his own commit `1fe42e5`, which is the same fix; verified by rerunning the harnesses at that commit. Nothing further to file.
+
 Default branch: **`master`**.
 
 _Prepared 2026-09-03 against `chrchang/plink-ng` `master` @ `8bfebe8` (2026-09-02).

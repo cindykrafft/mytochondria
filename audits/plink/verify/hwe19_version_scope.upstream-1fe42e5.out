@@ -1,0 +1,3 @@
+./stats_driver19_upfix: threshold = exact p * (1 - 1e-3); a correct filter keeps every table
+  midp=0: hets=0: 0/900 wrongly removed, hets=1: 0/869 wrongly removed, hets=2: 0/838 wrongly removed, hets=3: 0/807 wrongly removed, hets=>=4: 0/2132 wrongly removed
+  midp=1: hets=0: 0/900 wrongly removed, hets=1: 0/869 wrongly removed, hets=2: 0/838 wrongly removed, hets=3: 0/807 wrongly removed, hets=>=4: 0/2001 wrongly removed

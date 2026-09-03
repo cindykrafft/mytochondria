@@ -8,6 +8,16 @@ numbers get published — the Hardy–Weinberg exact test and the `--hwe` filter
 `--assoc`/`--model`/`--logistic`/`--linear`/`--glm` with `--adjust`, and `--score` —
 verified by executing the built binaries and the shipped exact-test functions._
 
+
+> **Fixed upstream (2026-09-03).** The maintainer closed PR #381 and committed his own fix,
+> [`1fe42e5` "1.9: fix issue 380"](https://github.com/chrchang/plink-ng/commit/1fe42e5b11ec0709bbbb8179e0ba69d015e9b6e8),
+> which inserts the same `tailp1 + tailp2 >= exit_thresh` check at the same four points as
+> the audit's patch. Rebuilt at that commit and rerun: 0 of 9,061 tables wrongly removed
+> through the shipped functions and the command line reports "unaffected"
+> (`verify/hwe19_version_scope.upstream-1fe42e5.out`, `verify/version_scope_hwe_cli.upstream-1fe42e5.out`).
+> Issue #380 was still open at the time of writing, with two maintainer comments not readable
+> from the audit session. Nothing further to file.
+
 ## What this is
 
 The six-journal survey found **184 papers** in PNAS (88), *Nature* (83), *Cell* (8)

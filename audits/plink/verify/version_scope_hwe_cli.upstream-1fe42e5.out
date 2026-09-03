@@ -1,0 +1,9 @@
+PLINK v1.9.0-b.8NL 64-bit (3 Sep 2026)
+hets 2, hom 2, hom 2: exact p = 0.480519, --hardy P = 0.4805
+  --hwe 0.48                  : kept (expected kept, p > threshold)
+  --hwe 0.46                  : kept (expected kept, p > threshold)
+  --hwe 0.45                  : kept (expected kept, p > threshold)
+hets 2, hom 5, hom 1000: exact p = 1.90501e-12, --hardy P = 1.905e-12
+  --hwe 1.90495385857e-12     : kept (expected kept, p > threshold)
+  --hwe 1.9048205078e-12      : kept (expected kept, p > threshold)
+verdict: unaffected
