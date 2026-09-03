@@ -1,7 +1,13 @@
 # CellPhoneDB upstream filing kit
 
 _Prepared 2026-09-03 against `ventolab/CellphoneDB` `master` @ `dc8abd15` (version string 5.0.1).
-**Nothing has been filed.** No issue has been opened, no PR raised, no branch pushed._
+**Nothing has been filed yet.** No issue has been opened and no PR raised. Both fix branches
+are pushed to the fork [cindykrafft/CellphoneDB](https://github.com/cindykrafft/CellphoneDB),
+each one commit on top of `dc8abd15`:
+[`fix/iterations-zero-progress-step`](https://github.com/cindykrafft/CellphoneDB/tree/fix/iterations-zero-progress-step)
+(`06575c3`, patch 0001, CPDB5) and
+[`fix/scoring-pandas3-index`](https://github.com/cindykrafft/CellphoneDB/tree/fix/scoring-pandas3-index)
+(`e481263`, patch 0002, CPDB6)._
 
 ## What was read before preparing this (step 4 of the method)
 
