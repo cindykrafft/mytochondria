@@ -1,5 +1,7 @@
 Confirmed on `main` (`ec374022`), and it also affects the default `transformer=None` once `n_obs >= 8192` (which switches to pynndescent): `Neighbors.compute_neighbors` only truncates `.distances` to the `n_neighbors - 1` nearest neighbors on the brute-force shortcut path, and stores the raw `fit_transform` output for every other transformer — and `PyNNDescentTransformer` returns `n_neighbors` neighbors plus the cell itself. The connectivities are built from the truncated arrays, so `.obsp["distances"]` carries one neighbor per cell that `.obsp["connectivities"]` never uses (384 of 500 checked cells on a random 8,500-cell matrix). Scanpy 1.9 built `distances` from the truncated kNN arrays on this path, so this is a regression from the 1.10 transformer refactor (#2536).
 
+A side effect worth knowing: `method="gauss"` on that path also weighted all `k` stored neighbours and gave every cell a diagonal self-loop of weight 1.0 (from the stored self-distance of 0); `umap` connectivities were already built from the truncated arrays and are unchanged by the fix.
+
 PR #NNN attached: it rebuilds `distances` from the truncated indices/distances for every transformer when `knn=True`, with a regression test that fails on `main`.
 
 ---

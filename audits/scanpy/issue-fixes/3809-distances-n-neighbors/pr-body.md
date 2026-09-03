@@ -16,6 +16,8 @@ Since the transformer refactor (#2536), `Neighbors.compute_neighbors` only restr
 
 Rebuild `.distances` from the truncated `knn_indices`/`knn_distances` (`keep_self=False`) for every transformer when `knn=True`, exactly as the shortcut path already did. The brute-force path is unchanged; `distances` for the pynndescent and custom-transformer paths now has `n_neighbors - 1` entries per row and the same sparsity pattern the connectivities use.
 
+Effect on connectivities: `method="umap"` (the default) and `"jaccard"` are bit-identical before and after, since they were already computed from the truncated arrays. `method="gauss"` on the pynndescent path does change: `_connectivity.gauss` weights every stored entry of the matrix it receives, so it previously used all `n_neighbors` stored neighbours *and* turned the stored self-distance of 0 into a diagonal self-loop of weight 1.0 on every cell; it now uses the same `n_neighbors - 1` neighbours as the brute-force path and `umap` (1,500 random cells, `k = 15`: 32,922 → 30,518 non-zeros, the 1,500 diagonal entries gone).
+
 ### Tests
 
 - New `test_distances_n_neighbors` (pynndescent and a `KNeighborsTransformer` instance): asserts `n_neighbors - 1` stored and non-zero entries per row and that every `distances` edge is a `connectivities` edge. Fails on `main` (`6` stored entries per row where `4` are expected), passes with the fix.
