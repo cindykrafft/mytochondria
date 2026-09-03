@@ -8,6 +8,13 @@ pairing and the special counters, the `GenomicArrayOfSets`/`StepVector` interval
 machinery under it, `htseq-count-barcodes` and `htseq-qa` — verified by executing the
 shipped code against an independent per-base port._
 
+
+> **Upstream declines AI-generated contributions (2026-09-03).** Issue #109 and PR #110 were
+> closed by the maintainer the same day they were opened. Nothing further is filed, commented
+> or pushed for `htseq/htseq`: HC1 stays in the kit unfiled, the fork carries (or is to carry)
+> the topic `upstream-declines-ai-contributions`, and the ledger marks the repository
+> accordingly. The audit and its harnesses remain as published here.
+
 ## What this is
 
 The six-journal survey found **161 papers** in PNAS (89), *Nature* (61), *Cell* (9)

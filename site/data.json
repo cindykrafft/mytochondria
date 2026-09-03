@@ -10,7 +10,8 @@
    "findings": 16,
    "repos": [
     "freesurfer/freesurfer"
-   ]
+   ],
+   "fork": "cindykrafft/freesurfer"
   },
   {
    "dir": "fsl",
@@ -27,7 +28,8 @@
    "findings": 83,
    "repos": [
     "spm/spm"
-   ]
+   ],
+   "fork": "cindykrafft/spm"
   },
   {
    "dir": "afni",
@@ -36,7 +38,8 @@
    "findings": 36,
    "repos": [
     "afni/afni"
-   ]
+   ],
+   "fork": "cindykrafft/afni"
   },
   {
    "dir": "deseq2",
@@ -45,7 +48,8 @@
    "findings": 3,
    "repos": [
     "thelovelab/DESeq2"
-   ]
+   ],
+   "fork": "cindykrafft/DESeq2"
   },
   {
    "dir": "macs2",
@@ -54,7 +58,8 @@
    "findings": 3,
    "repos": [
     "macs3-project/MACS"
-   ]
+   ],
+   "fork": "cindykrafft/MACS"
   },
   {
    "dir": "kilosort",
@@ -63,7 +68,8 @@
    "findings": 8,
    "repos": [
     "MouseLand/Kilosort"
-   ]
+   ],
+   "fork": "cindykrafft/Kilosort"
   },
   {
    "dir": "fieldtrip",
@@ -72,7 +78,8 @@
    "findings": 5,
    "repos": [
     "fieldtrip/fieldtrip"
-   ]
+   ],
+   "fork": "cindykrafft/fieldtrip"
   },
   {
    "dir": "suite2p",
@@ -81,7 +88,8 @@
    "findings": 5,
    "repos": [
     "MouseLand/suite2p"
-   ]
+   ],
+   "fork": "cindykrafft/suite2p"
   },
   {
    "dir": "seurat",
@@ -90,7 +98,8 @@
    "findings": 1,
    "repos": [
     "satijalab/seurat"
-   ]
+   ],
+   "fork": "cindykrafft/seurat"
   },
   {
    "dir": "scanpy",
@@ -99,7 +108,8 @@
    "findings": 2,
    "repos": [
     "scverse/scanpy"
-   ]
+   ],
+   "fork": "cindykrafft/scanpy"
   },
   {
    "dir": "scrublet",
@@ -116,7 +126,8 @@
    "findings": 6,
    "repos": [
     "ventolab/CellphoneDB"
-   ]
+   ],
+   "fork": "cindykrafft/CellphoneDB"
   },
   {
    "dir": "umap",
@@ -125,7 +136,8 @@
    "findings": 1,
    "repos": [
     "lmcinnes/umap"
-   ]
+   ],
+   "fork": "cindykrafft/umap"
   },
   {
    "dir": "cutadapt",
@@ -134,7 +146,8 @@
    "findings": 4,
    "repos": [
     "marcelm/cutadapt"
-   ]
+   ],
+   "fork": "cindykrafft/cutadapt"
   },
   {
    "dir": "deeptools",
@@ -143,7 +156,8 @@
    "findings": 9,
    "repos": [
     "deeptools/deepTools"
-   ]
+   ],
+   "fork": "cindykrafft/deepTools"
   },
   {
    "dir": "iqtree",
@@ -153,7 +167,8 @@
    "repos": [
     "iqtree/iqtree3"
    ],
-   "channel": "no wrong number on master; four notes, a Discussion draft is prepared"
+   "channel": "no wrong number on master; four notes, a Discussion draft is prepared",
+   "fork": "cindykrafft/iqtree3"
   },
   {
    "dir": "fastp",
@@ -162,7 +177,8 @@
    "findings": 3,
    "repos": [
     "OpenGene/fastp"
-   ]
+   ],
+   "fork": "cindykrafft/fastp"
   },
   {
    "dir": "bedtools",
@@ -171,7 +187,8 @@
    "findings": 5,
    "repos": [
     "arq5x/bedtools2"
-   ]
+   ],
+   "fork": "cindykrafft/bedtools2"
   },
   {
    "dir": "htseq",
@@ -180,7 +197,9 @@
    "findings": 2,
    "repos": [
     "htseq/htseq"
-   ]
+   ],
+   "fork": "cindykrafft/htseq",
+   "declines_ai": true
   },
   {
    "dir": "plink",
@@ -189,7 +208,8 @@
    "findings": 1,
    "repos": [
     "chrchang/plink-ng"
-   ]
+   ],
+   "fork": "cindykrafft/plink-ng"
   }
  ],
  "audit_repo": "cindykrafft/research-software-audit",
@@ -1358,5 +1378,6 @@
   }
  ],
  "unmapped_repos": [],
- "seed_note": "transcribed seed; replaced by the Actions job"
+ "seed_note": "transcribed seed; replaced by the Actions job",
+ "declines_topic": "upstream-declines-ai-contributions"
 }

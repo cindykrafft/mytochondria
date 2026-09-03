@@ -196,7 +196,8 @@
    "repos": [
     "htseq/htseq"
    ],
-   "fork": "cindykrafft/htseq"
+   "fork": "cindykrafft/htseq",
+   "declines_ai": true
   },
   {
    "dir": "plink",

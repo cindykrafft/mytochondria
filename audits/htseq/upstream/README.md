@@ -1,5 +1,7 @@
 # HTSeq upstream filing kit
 
+**Not to be filed further.** The maintainer closed issue #109 and PR #110 on 2026-09-03; the repository declines AI-generated contributions. HC1 is kept here for the record only.
+
 Default branch of `htseq/htseq`: **`main`**.
 
 _Prepared 2026-09-03 against `htseq/htseq` `main` @ `7672321` (2026-02-04, version
