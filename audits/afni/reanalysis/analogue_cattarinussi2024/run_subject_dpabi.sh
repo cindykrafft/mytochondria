@@ -14,6 +14,7 @@ afni_proc.py -subj_id $SUB -script proc.$SUB -scr_overwrite \
   -blocks tshift align tlrc volreg mask scale \
   -tcat_remove_first_trs 10 -volreg_align_to MIN_OUTLIER -volreg_align_e2a -volreg_tlrc_warp \
   -tlrc_base MNI152_2009_template_SSW.nii.gz \
+  -align_unifize_epi local -align_opts_aea -cost lpc+ZZ -giant_move -check_flip \
   -mask_segment_anat yes -mask_segment_erode yes -mask_epi_anat yes \
   -execute
 cd $O
@@ -49,6 +50,6 @@ for arm in prefix postfix hist; do
   3dmerge -overwrite -1blur_fwhm 4.0 -doall -prefix szreho_$arm zreho_$arm+tlrc
   rm -f tmp_$arm+tlrc.*
 done
-rm -f pb0*.BRIK* pb0*.HEAD all_runs.* anat_w_skull_warped.* ROI_import* TSNR.* corr_brain.* errts.*.BRIK* errts.*.HEAD fitts.* *_masked+tlrc.* anat_final.* Classes* mask_epi_extents* mask_anat* mask_group* vr_base* final_epi* anat.un* *.nii.gz
+keep_qc=1; rm -f *T1w* anat_w_skull_warped* volumized* mask_WMe* mask_CSFe* mask_GM* pb0*.BRIK* pb0*.HEAD all_runs.* anat_w_skull_warped.* ROI_import* TSNR.* corr_brain.* errts.*.BRIK* errts.*.HEAD fitts.* *_masked+tlrc.* anat_final.* Classes* mask_epi_extents* mask_anat* mask_group* vr_base* final_epi* anat.un* *.nii.gz
 rm -rf $D
 echo "DONE $SUB $(cat motion_flag.txt)"

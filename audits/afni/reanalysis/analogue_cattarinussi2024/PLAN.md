@@ -29,3 +29,14 @@ orbital, L posterior orbital, bilateral temporal pole, R hippocampus, L cerebell
 the fraction of those nine regions containing a corrected cluster of the same sign; uncorrected agreement
 with the same regions at |t| > 3.4 (voxel p < .001); and, between builds, the same overlap statistics as before.
 Both builds are reported whatever the outcome.
+
+## Amendment 1 (before any group result): EPI-to-anatomical alignment
+
+Per-subject QC of the first 43 processed participants showed that afni_proc's default EPI-to-anatomical
+alignment fails or is poor on this dataset for about a third of participants (EPI/anat mask Dice 0.39-0.80;
+masks of 25-36k instead of ~65k voxels, displaced upward). This was confirmed on the worst case
+(sub-10492: Dice 0.39 -> 0.89) by adding AFNI's recommended options for difficult data:
+`-align_unifize_epi local -align_opts_aea -cost lpc+ZZ -giant_move -check_flip`. The whole batch was
+restarted with these options; a per-subject alignment QC threshold (EPI/anat Dice < 0.8 -> excluded,
+listed) is added to the group script. The earlier reanalysis (afni_proc default pipeline, 73 participants)
+used the default alignment and is affected by the same failure; it is to be rerun with the same options.
