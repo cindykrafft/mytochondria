@@ -1,0 +1,29 @@
+{
+  "_comment": "One entry per audit under audits/. `repos` maps upstream GitHub repositories to the audit; `findings` is the count of confirmed findings from the status table in README.md (hand-maintained; update when an audit changes). `channel` explains audits with no GitHub repository.",
+  "audits": [
+    {"dir": "freesurfer", "name": "FreeSurfer", "papers": 116, "findings": 16, "repos": ["freesurfer/freesurfer"]},
+    {"dir": "fsl", "name": "FSL", "papers": 114, "findings": 12, "repos": [], "channel": "reports and patches ready; filing goes through the FSL mailing list, not GitHub"},
+    {"dir": "spm", "name": "SPM", "papers": null, "findings": 83, "repos": ["spm/spm"]},
+    {"dir": "afni", "name": "AFNI", "papers": 39, "findings": 36, "repos": ["afni/afni"]},
+    {"dir": "deseq2", "name": "DESeq2", "papers": 886, "findings": 3, "repos": ["thelovelab/DESeq2"]},
+    {"dir": "macs2", "name": "MACS2", "papers": 475, "findings": 3, "repos": ["macs3-project/MACS"]},
+    {"dir": "kilosort", "name": "Kilosort", "papers": 60, "findings": 8, "repos": ["MouseLand/Kilosort"]},
+    {"dir": "fieldtrip", "name": "FieldTrip", "papers": 42, "findings": 5, "repos": ["fieldtrip/fieldtrip"]},
+    {"dir": "suite2p", "name": "Suite2p", "papers": 32, "findings": 5, "repos": ["MouseLand/suite2p"]},
+    {"dir": "seurat", "name": "Seurat", "papers": 767, "findings": 1, "repos": ["satijalab/seurat"]},
+    {"dir": "scanpy", "name": "Scanpy", "papers": 200, "findings": 2, "repos": ["scverse/scanpy"]},
+    {"dir": "scrublet", "name": "Scrublet", "papers": 78, "findings": 4, "repos": [], "channel": "two findings are in Scanpy's port and are filed against scverse/scanpy; the original repository has had no maintainer activity since 2020"},
+    {"dir": "cellphonedb", "name": "CellPhoneDB", "papers": 46, "findings": 6, "repos": ["ventolab/CellphoneDB"]},
+    {"dir": "umap", "name": "umap-learn", "papers": 1111, "findings": 1, "repos": ["lmcinnes/umap"]},
+    {"dir": "cutadapt", "name": "Cutadapt", "papers": 331, "findings": 4, "repos": ["marcelm/cutadapt"]},
+    {"dir": "deeptools", "name": "deepTools", "papers": 167, "findings": 9, "repos": ["deeptools/deepTools"]},
+    {"dir": "iqtree", "name": "IQ-TREE", "papers": 258, "findings": 0, "repos": ["iqtree/iqtree3"], "channel": "no wrong number on master; four notes, a Discussion draft is prepared"},
+    {"dir": "fastp", "name": "fastp", "papers": 117, "findings": 3, "repos": ["OpenGene/fastp"]},
+    {"dir": "bedtools", "name": "BEDTools", "papers": 302, "findings": 5, "repos": ["arq5x/bedtools2"]},
+    {"dir": "htseq", "name": "HTSeq", "papers": 161, "findings": 2, "repos": ["htseq/htseq"]},
+    {"dir": "plink", "name": "PLINK", "papers": 184, "findings": 1, "repos": ["chrchang/plink-ng"]}
+  ],
+  "author": "cindykrafft",
+  "since": "2026-08-01",
+  "audit_repo": "cindykrafft/research-software-audit"
+}

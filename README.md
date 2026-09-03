@@ -59,6 +59,8 @@ are read in proportion.
 
 ## Status
 
+A live ledger of every filing and its state on GitHub, refreshed four times a day: https://cindykrafft.github.io/research-software-audit/ (built from [`site/`](site/) by the `Status page` workflow).
+
 Filing follows step 5 above; the per-finding tiers are in [`audits/TRIAGE.md`](audits/TRIAGE.md).
 
 | Audit | Papers exposed | Findings | Upstream |

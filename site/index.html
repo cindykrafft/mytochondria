@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research Software Audit Ledger</title>
+<meta name="description" content="Every correctness finding this project has filed upstream, with its current state on GitHub, refreshed four times a day.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--ground:#F2F4F6;--surface:#FFFFFF;--ink:#1A2431;--muted:#5B6B7B;--line:#D6DDE4;--line-strong:#B5C0CB;--accent:#1F5C9E;--code:#E9EEF3;
+  --open:#9A6A12;--open-soft:#FBF1DC;--good:#2A7A4E;--good-soft:#E1F3E8;--bad:#A8322A;--bad-soft:#FBE4E1;--wait:#5B6B7B;--wait-soft:#E9EEF3}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0F151B;--surface:#161E26;--ink:#E4EAF0;--muted:#98A6B4;--line:#2A343E;--line-strong:#3C4854;--accent:#7FB3EC;--code:#1E2831;
+  --open:#E0B15A;--open-soft:#33290F;--good:#6CC594;--good-soft:#122A1B;--bad:#F08A80;--bad-soft:#33171A;--wait:#98A6B4;--wait-soft:#1E2831}}
+:root[data-theme="dark"]{--ground:#0F151B;--surface:#161E26;--ink:#E4EAF0;--muted:#98A6B4;--line:#2A343E;--line-strong:#3C4854;--accent:#7FB3EC;--code:#1E2831;
+  --open:#E0B15A;--open-soft:#33290F;--good:#6CC594;--good-soft:#122A1B;--bad:#F08A80;--bad-soft:#33171A;--wait:#98A6B4;--wait-soft:#1E2831}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font:15px/1.5 "Source Sans 3",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:1180px;margin:0 auto;padding:36px 24px 72px}
+h1{font:600 30px/1.15 Bitter,Georgia,serif;margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance}
+h2{font:600 20px/1.2 Bitter,Georgia,serif;margin:36px 0 10px}
+.lede{color:var(--muted);max-width:68ch;margin:0 0 6px}
+.stamp{font:13px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.mono,.num{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:22px 0 8px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.tile .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tile .v{font:500 28px/1.1 "IBM Plex Mono",ui-monospace,monospace;margin-top:4px;font-variant-numeric:tabular-nums}
+.tile .s{font-size:12.5px;color:var(--muted);margin-top:2px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:980px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap;background:var(--code);position:sticky;top:0}
+th.n,td.n{text-align:right}
+td.n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+tr.repo{cursor:pointer}tr.repo:hover td{background:color-mix(in srgb,var(--code) 55%,transparent)}
+tr.repo td:first-child::before{content:"▸ ";color:var(--muted)}tr.repo.open td:first-child::before{content:"▾ "}
+tr.detail td{background:var(--code);padding:6px 10px 10px 28px}
+tr.detail{display:none}tr.detail.show{display:table-row}
+ul.items{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+ul.items li{display:grid;grid-template-columns:78px 1fr auto auto;gap:12px;align-items:baseline;font-size:14px}
+.pill{display:inline-block;font:500 11.5px "IBM Plex Mono",ui-monospace,monospace;padding:1px 7px;border-radius:3px;white-space:nowrap}
+.p-open{background:var(--open-soft);color:var(--open)}.p-merged,.p-resolved{background:var(--good-soft);color:var(--good)}
+.p-closed_unmerged,.p-declined{background:var(--bad-soft);color:var(--bad)}.p-none{background:var(--wait-soft);color:var(--wait)}
+.dim{color:var(--muted)}.zero{color:var(--muted)}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);max-width:75ch}
+.foot dt{font-weight:600;color:var(--ink);margin-top:8px}.foot dd{margin:0}
+@media (max-width:640px){ul.items li{grid-template-columns:1fr;gap:2px}}
+</style>
+</head>
+<body>
+<main>
+  <p class="stamp" id="stamp">loading…</p>
+  <h1>Research Software Audit Ledger</h1>
+  <p class="lede">Every issue and pull request this project has filed against a research software repository, with its state on GitHub right now, next to what each audit found. Counts are of findings the audit verified by executing the shipped code; the filing rule is at most two per repository until a maintainer answers.</p>
+  <p class="lede">Method, harnesses and filing kits: <a id="repolink" href="https://github.com/cindykrafft/research-software-audit">cindykrafft/research-software-audit</a>.</p>
+  <div class="totals" id="totals"></div>
+  <h2>By repository</h2>
+  <div class="tablewrap"><table id="ledger">
+    <thead><tr>
+      <th>Audit · repository</th><th class="n">Papers using it</th><th class="n">Findings</th>
+      <th class="n">Issues filed</th><th class="n">open</th><th class="n">resolved</th><th class="n">declined</th>
+      <th class="n">PRs filed</th><th class="n">open</th><th class="n">merged</th><th class="n">closed</th>
+      <th class="n">Answered</th><th>Last activity</th>
+    </tr></thead><tbody></tbody></table></div>
+  <dl class="foot">
+    <dt>How to read the columns</dt>
+    <dd>Papers using it: papers in the survey cohort (six journals, 2021 to 2026) whose methods name the package; lower bounds where the full text could not be read. Findings: confirmed by executing the shipped code, from each audit's README. Resolved: issue closed as completed. Declined: issue closed as not planned. Closed: pull request closed without merge. Answered: filings with at least one comment from anyone but the author is not distinguishable here, so this counts filings with any comment.</dd>
+    <dt>Where the numbers come from</dt>
+    <dd>A GitHub Actions job queries the GitHub search API for everything filed by the project's account since August 2026, four times a day, and publishes this page. Nothing here is edited by hand except the findings count and the repository map.</dd>
+  </dl>
+</main>
+<script>
+const AUDIT_BASE = "https://github.com/cindykrafft/research-software-audit/tree/main/audits/";
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}
+function n(v){return v?`<span class="num">${v}</span>`:`<span class="zero">·</span>`}
+function fmt(d){return d?d.slice(0,10):""}
+const LABEL={open:"open",merged:"merged",closed_unmerged:"closed, not merged",resolved:"resolved",declined:"declined"};
+function render(D){
+  document.getElementById("stamp").textContent=`refreshed ${D.generated.replace("T"," ").replace("Z"," UTC")} · ${D.items.length} filings by ${D.author} since ${D.since}`;
+  const byRepo={}; for(const it of D.items){(byRepo[it.repo] ||= []).push(it)}
+  const rows=[]; const T={findings:0,issues:0,prs:0,open:0,merged:0,resolved:0,declined:0,closed:0,answered:0,audits:D.audits.length};
+  for(const a of D.audits){
+    T.findings+=a.findings||0;
+    const repos=a.repos.length?a.repos:[null];
+    for(const repo of repos){
+      const items=repo?(byRepo[repo]||[]):[];
+      const c={issues:0,i_open:0,resolved:0,declined:0,prs:0,p_open:0,merged:0,closed:0,answered:0,last:""};
+      for(const it of items){
+        if(it.kind==="issue"){c.issues++; if(it.status==="open")c.i_open++; if(it.status==="resolved")c.resolved++; if(it.status==="declined")c.declined++}
+        else{c.prs++; if(it.status==="open")c.p_open++; if(it.status==="merged")c.merged++; if(it.status==="closed_unmerged")c.closed++}
+        if(it.comments>0)c.answered++; if(it.updated>c.last)c.last=it.updated;
+      }
+      T.issues+=c.issues;T.prs+=c.prs;T.open+=c.i_open+c.p_open;T.merged+=c.merged;T.resolved+=c.resolved;T.declined+=c.declined;T.closed+=c.closed;T.answered+=c.answered;
+      rows.push({a,repo,items,c});
+    }
+  }
+  // repos with filings but no audit entry
+  for(const repo of Object.keys(byRepo)) if(!D.audits.some(a=>a.repos.includes(repo))) rows.push({a:{name:"(unmapped)",dir:null,papers:null,findings:null},repo,items:byRepo[repo],c:null});
+  document.getElementById("totals").innerHTML=[
+    ["Audits",T.audits,"packages reviewed"],["Findings",T.findings,"verified by execution"],["Issues filed",T.issues,`${T.resolved} resolved · ${T.declined} declined`],
+    ["PRs filed",T.prs,`${T.merged} merged · ${T.closed} closed unmerged`],["Awaiting maintainers",T.open,"open right now"],["Answered",T.answered,"filings with a reply"]
+  ].map(([k,v,s])=>`<div class="tile"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join("");
+  const tb=document.querySelector("#ledger tbody"); tb.innerHTML="";
+  for(const r of rows){
+    const c=r.c||{}; const has=r.items.length>0;
+    const name=r.a.dir?`<a href="${AUDIT_BASE}${r.a.dir}/">${esc(r.a.name)}</a>`:esc(r.a.name);
+    const repo=r.repo?`<a class="mono" href="https://github.com/${r.repo}">${esc(r.repo)}</a>`:`<span class="dim">${esc(r.a.channel||"no GitHub repository")}</span>`;
+    const tr=document.createElement("tr"); tr.className="repo"+(has?"":" none");
+    tr.innerHTML=`<td>${name} <span class="dim">·</span> ${repo}</td><td class="n">${r.a.papers?r.a.papers.toLocaleString("en"):'<span class="dim">–</span>'}</td><td class="n">${n(r.a.findings)}</td>
+      <td class="n">${n(c.issues)}</td><td class="n">${n(c.i_open)}</td><td class="n">${n(c.resolved)}</td><td class="n">${n(c.declined)}</td>
+      <td class="n">${n(c.prs)}</td><td class="n">${n(c.p_open)}</td><td class="n">${n(c.merged)}</td><td class="n">${n(c.closed)}</td>
+      <td class="n">${n(c.answered)}</td><td class="mono dim">${has?fmt(c.last):(r.a.channel?"":"nothing filed yet")}</td>`;
+    tb.appendChild(tr);
+    if(has){
+      const d=document.createElement("tr"); d.className="detail";
+      d.innerHTML=`<td colspan="13"><ul class="items">${r.items.map(it=>`<li><a class="mono" href="${it.url}">${it.kind==="pr"?"PR":"issue"} #${it.number}</a><span>${esc(it.title)}</span><span class="pill p-${it.status}">${LABEL[it.status]}</span><span class="mono dim">${fmt(it.created)}${it.comments?` · ${it.comments} comment${it.comments>1?"s":""}`:""}</span></li>`).join("")}</ul></td>`;
+      tb.appendChild(d);
+      tr.addEventListener("click",e=>{if(e.target.tagName==="A")return; tr.classList.toggle("open"); d.classList.toggle("show")});
+    }
+  }
+}
+if(window.__DATA__){render(window.__DATA__)}
+else fetch("data.json",{cache:"no-store"}).then(r=>r.json()).then(render).catch(e=>{document.getElementById("stamp").textContent="Could not load data.json: "+e});
+</script>
+</body>
+</html>
