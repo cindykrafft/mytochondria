@@ -1,0 +1,23 @@
+$ 3dcalc -a synth.nii -expr a -prefix withext.nii
+++ 3dcalc: AFNI version=AFNI_26.2.06 (Sep  3 2026) [64-bit]
+++ Authored by: A cast of thousands
+++ Output dataset ./withext.nii
+[exit status 0]
+$ 3dinfo -nv -nt dropped.nii
+
+** WARNING: NIfTI file /dev/shm/afni/work/before_work/dropped.nii dimensions altered since AFNI extension was added
+7	7
+[exit status 0]
+(-nv is the number of sub-bricks, -nt the length of the time axis; they should both be 7)
+$ 3dvolreg -prefix vr.nii.gz -1Dfile vr.1D -base 0 dropped.nii
+++ 3dvolreg: AFNI version=AFNI_26.2.06 (Sep  3 2026) [64-bit]
+++ Authored by: RW Cox
+
+** WARNING: NIfTI file /dev/shm/afni/work/before_work/dropped.nii dimensions altered since AFNI extension was added
+++ edt_blur: sigx 9, dx 3, fwhm 21.1934, sfac 2.5, firx 8
+++ Max displacement in automask = 3.28 (mm) at sub-brick 4
+++ Max delta displ  in automask = 3.77 (mm) at sub-brick 5
+** ERROR: nifti_image_write_engine: NBL does not match nim
+[exit status 0]
+vr.nii.gz size: 0 bytes (-1 = missing)
+RESULT: exit=0 output_bytes=0

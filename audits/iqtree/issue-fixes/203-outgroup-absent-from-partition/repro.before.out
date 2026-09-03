@@ -2,3 +2,7 @@ binary: IQ-TREE version 3.1.3 for Linux x86 64-bit built Sep  3 2026
 203a  -p parts.nex -m MFP -o outgroup_taxon    exit=134  ERROR: phylotree.cpp:486: virtual void PhyloTree::setRootNode(const char*, bool): Assertion `root' failed.
 203b  -p parts.nex -m GTR+G -o outgroup_taxon  exit=134  ERROR: phylotree.cpp:486: virtual void PhyloTree::setRootNode(const char*, bool): Assertion `root' failed.
 203c  -q parts.nex -m GTR+G -o outgroup_taxon  exit=134  ERROR: phylotree.cpp:486: virtual void PhyloTree::setRootNode(const char*, bool): Assertion `root' failed.
+203d  -p parts.nex -m GTR+G -o sp00 (has data) exit=0    Log-likelihood of the tree: -3375.3349 (s.e. 92.2056)
+203e  -p parts.nex -m GTR+G, no -o             exit=0    Log-likelihood of the tree: -3375.3349 (s.e. 92.2056)
+89a   -lmap 50 -m JC -o outgroup_taxon         exit=134  ERROR: phylotree.cpp:486: virtual void PhyloTree::setRootNode(const char*, bool): Assertion `root' failed.
+89b   -lmap 50 -m JC -o outgroup_taxon,sp12    exit=134  ERROR: phylotree.cpp:494: virtual void PhyloTree::setRootNode(const char*, bool): Assertion `root' failed.

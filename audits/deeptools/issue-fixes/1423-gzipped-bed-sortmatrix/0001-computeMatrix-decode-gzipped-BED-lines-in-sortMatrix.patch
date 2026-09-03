@@ -1,0 +1,115 @@
+From 2bc645306788acf183f93a51daf9a66522bdf031 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 23:25:43 +0000
+Subject: [PATCH] computeMatrix: decode gzipped BED lines in sortMatrix (#1423)
+
+With the default --sortRegions keep, computeMatrix re-reads the regions
+file in computeMatrixOperations.sortMatrix to restore the input order.
+openPossiblyCompressed opens a gzipped file in binary mode, and while
+getNext decodes the header lines, loadBED iterated the remaining lines
+as bytes, so every gzipped BED crashed with
+
+    TypeError: startswith first arg must be bytes or a tuple of bytes, not str
+
+loadGTF already decoded its lines; do the same in loadBED.  Tests for
+computeMatrix and computeMatrixOperations sort on a gzipped copy of the
+existing test BEDs, which fail before this change.
+
+Fixes #1423
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.txt                                   |  3 +++
+ deeptools/computeMatrixOperations.py          |  2 ++
+ .../test/test_computeMatrixOperations.py      | 20 +++++++++++++++++++
+ deeptools/test/test_heatmapper.py             | 17 ++++++++++++++++
+ 4 files changed, 42 insertions(+)
+
+diff --git a/CHANGES.txt b/CHANGES.txt
+index 5f0bf0f..7005676 100755
+--- a/CHANGES.txt
++++ b/CHANGES.txt
+@@ -1,3 +1,6 @@
++unreleased
++* computeMatrix (and computeMatrixOperations sort) no longer crash with `TypeError: startswith first arg must be bytes` when the regions file is gzipped; loadBED now decodes the lines it reads, as loadGTF already did. #1423
++
+ 3.5.5
+ * drop support for python 3.7
+ * doc fixes (argparse properly displayed, minor changes in installation instructions)
+diff --git a/deeptools/computeMatrixOperations.py b/deeptools/computeMatrixOperations.py
+index 0224f00..bd6c543 100755
+--- a/deeptools/computeMatrixOperations.py
++++ b/deeptools/computeMatrixOperations.py
+@@ -595,6 +595,8 @@ def loadBED(line, fp, fname, labelColumn, labels, regions, defaultGroup):
+     localRegions[name] = len(localRegions)
+ 
+     for line in fp:
++        if not isinstance(line, str):
++            line = line.decode('ascii')
+         if line.startswith("#") and labelColumn is None:
+             if len(localRegions) > 0:
+                 label = line[1:].strip()
+diff --git a/deeptools/test/test_computeMatrixOperations.py b/deeptools/test/test_computeMatrixOperations.py
+index c253431..7fa8494 100644
+--- a/deeptools/test/test_computeMatrixOperations.py
++++ b/deeptools/test/test_computeMatrixOperations.py
+@@ -163,3 +163,23 @@ class TestComputeMatrixOperations(object):
+         expectedh = '10ea07d1aa58f44625abe2142ef76094'
+         assert f'{h}' == f'{expectedh}'
+         os.remove(oname)
++
++    def testsortGzippedBED(self):
++        """
++        computeMatrixOperations sort with a gzipped BED (issue #1423)
++        """
++        bedgz = "/tmp/computeMatrixOperations.bed.gz"
++        with open(self.bed, "rb") as fin, gzip.open(bedgz, "wb") as fout:
++            fout.write(fin.read())
++        oname = "/tmp/sorted_gz.mat.gz"
++        args = "sort -m {} -o {} -R {}".format(self.matrix, oname, bedgz)
++        args = args.split()
++        cmo.main(args)
++        f = gzip.GzipFile(oname)
++        getHeader(f)  # Skip the header, which can be in a different order
++        h = hashlib.md5(f.read()).hexdigest()
++        f.close()
++        expectedh = '10ea07d1aa58f44625abe2142ef76094'
++        assert f'{h}' == f'{expectedh}'
++        os.remove(oname)
++        os.remove(bedgz)
+diff --git a/deeptools/test/test_heatmapper.py b/deeptools/test/test_heatmapper.py
+index 7eb9d6d..6a864e4 100644
+--- a/deeptools/test/test_heatmapper.py
++++ b/deeptools/test/test_heatmapper.py
+@@ -1,3 +1,4 @@
++import gzip
+ import os
+ import sys
+ 
+@@ -103,6 +104,22 @@ def test_computeMatrix_multiple_bed():
+     os.remove('/tmp/_test.mat')
+ 
+ 
++def test_computeMatrix_gzipped_bed():
++    """
++    A gzipped BED must give the same matrix as the plain one (issue #1423):
++    the default --sortRegions keep re-reads the regions file in sortMatrix.
++    """
++    with open(ROOT + '/test2.bed', 'rb') as fin, gzip.open('/tmp/_test2.bed.gz', 'wb') as fout:
++        fout.write(fin.read())
++    args = "reference-point -R /tmp/_test2.bed.gz -S {0}/test.bw  -b 100 -a 100 " \
++           "--outFileName /tmp/_test.mat.gz  -bs 1 -p 1".format(ROOT).split()
++    deeptools.computeMatrix.main(args)
++    os.system('gunzip -f /tmp/_test.mat.gz')
++    assert cmpMatrices(ROOT + '/master.mat', '/tmp/_test.mat') is True
++    os.remove('/tmp/_test.mat')
++    os.remove('/tmp/_test2.bed.gz')
++
++
+ def test_computeMatrix_region_extend_over_chr_end():
+     args = "reference-point -R {0}/group1.bed {0}/group2.bed -S {0}/test.bw  -b 100 -a 500 " \
+            "--outFileName /tmp/_test.mat.gz  -bs 1 -p 1".format(ROOT).split()
+-- 
+2.43.0
+

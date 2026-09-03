@@ -1,0 +1,7 @@
+deeptools 3.5.6
+
+== computeMatrix regions.bed (default --sortRegions keep)
+RESULT: ok, region order in the matrix: ['geneC', 'geneA', 'geneB']
+
+== computeMatrix regions.bed.gz (default --sortRegions keep)
+RESULT: ok, region order in the matrix: ['geneC', 'geneA', 'geneB']

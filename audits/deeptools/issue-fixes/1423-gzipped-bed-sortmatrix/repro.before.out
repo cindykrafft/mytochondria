@@ -1,0 +1,18 @@
+deeptools 3.5.6
+
+== computeMatrix regions.bed (default --sortRegions keep)
+RESULT: ok, region order in the matrix: ['geneC', 'geneA', 'geneB']
+
+== computeMatrix regions.bed.gz (default --sortRegions keep)
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/issuefix/deeptools/repro.py", line 45, in <module>
+    deeptools.computeMatrix.main(args)
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/issuefix/deeptools/src/deeptools/computeMatrix.py", line 421, in main
+    cmo.sortMatrix(hm, args.regionsFileName, args.transcriptID, args.transcript_id_designator, verbose=not args.quiet)
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/issuefix/deeptools/src/deeptools/computeMatrixOperations.py", line 722, in sortMatrix
+    loadBED(line, fp, fname, labelColumn, labels, regions, defaultGroup)
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/issuefix/deeptools/src/deeptools/computeMatrixOperations.py", line 598, in loadBED
+    if line.startswith("#") and labelColumn is None:
+       ^^^^^^^^^^^^^^^^^^^^
+TypeError: startswith first arg must be bytes or a tuple of bytes, not str
+RESULT: crashed

@@ -17,7 +17,9 @@ same commit as the audit. Fix branch `fix/issue-518-info-file-offsets`, one comm
   are also incorrect because the *original sequence* is split up according to the
   wrong offsets."
 - No open or closed PR references it (`search_pull_requests` for "info file offsets 518":
-  0 results).
+  0 results). **Not assigned to anyone** (`assignee`/`assignees` empty in the
+  `search_issues` result on 2026-09-03), so a PR can be prepared under the
+  no-assignee rule.
 
 ## Diagnosis (`main` @ `50e9fb8d`)
 

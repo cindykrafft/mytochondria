@@ -1,0 +1,9 @@
+
+
+ The output is being written to: /dev/shm/afni/src/tests/output_of_tests/output_2026_09_03_232614
+.                                                                        [100%]
+
+Test output is written to:  /dev/shm/afni/src/tests/output_of_tests/output_2026_09_03_232614
+
+1 passed in 0.23s
+pytest exit=0
