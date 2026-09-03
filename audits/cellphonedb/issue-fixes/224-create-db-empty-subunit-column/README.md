@@ -8,7 +8,7 @@ on top of `dc8abd15`) exists only in the scratch clone and as `0001-*.patch` her
 ## The issue
 
 **[#224 "problems in build database by files"](https://github.com/ventolab/CellphoneDB/issues/224)**,
-opened 2025-10-19, 0 comments, unlabelled, unassigned. The reporter followed the official
+opened 2025-10-19, 0 comments, unlabelled, unassigned (the same traceback was reported in #137 in 2023, closed). The reporter followed the official
 `T0_BuildDBfromFiles` notebook with the six input files (`interaction_input.csv`, `gene_input.csv`,
 `complex_input.csv`, `protein_input.csv`, `transcription_factor_input.csv`,
 `sources/uniprot_synonyms.tsv`) and `db_utils.create_db()` raised
@@ -140,9 +140,13 @@ this.
   bug. **#163 / #148 / #167**: outdated tutorial unpacking, a data-type problem behind screenshots,
   and the Windows `spawn` guard — environment or user error. **#158** version string: already
   5.0.1 on master.
-- **#137** (closed 2023, "Error in generating costomize interaction database", 3 comments) is the
-  nearest earlier report of a `create_db` failure; its body could not be retrieved through the
-  search API from this session, so whether it was the same column-dtype problem is unknown.
+- **#137** (closed 2023-08, "Error in generating costomize interaction database", 3 comments,
+  retrieved on a second search) is **the same failure two years earlier**: a custom interaction set
+  with a pseudo `complex_input.csv` whose `uniprot_N` columns are empty, and the identical traceback
+  from the same `pd.merge` in the sanity test (then `run_sanity_tests`, `db_utils.py:433`):
+  `ValueError: You are trying to merge on float64 and object columns`. Its closing comments are not
+  readable from here; the code path is unchanged on `master`, so whatever was said there was a
+  workaround, not a fix. The PR body cites it.
 
 ## Caveats
 

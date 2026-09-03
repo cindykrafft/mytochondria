@@ -8,7 +8,7 @@ Fixes #224.
 ValueError: You are trying to merge on float64 and object columns for key 'uniprot_3'. If you wish to proceed you should use pd.concat
 ```
 
-(`float64 and str` under pandas 3). That is the normal shape of a custom database built the way the `T0_BuildDBfromFiles` notebook describes: the released `complex_input.csv` header has `uniprot_1..uniprot_5`, only one released complex uses `uniprot_5` and four use `uniprot_4`, so any subset that drops those rows fails to build. Converting the columns to strings before saving the CSV does not help, because `create_db` re-reads the files.
+(`float64 and str` under pandas 3). That is the normal shape of a custom database built the way the `T0_BuildDBfromFiles` notebook describes: the released `complex_input.csv` header has `uniprot_1..uniprot_5`, only one released complex uses `uniprot_5` and four use `uniprot_4`, so any subset that drops those rows fails to build. Converting the columns to strings before saving the CSV does not help, because `create_db` re-reads the files. #137 (2023, closed) shows the same traceback from the same merge for a custom database with an essentially empty `complex_input.csv`.
 
 **Fix.** The sanity test now takes the non-empty accessions of each subunit column (`dropna()`) and reports those absent from `protein_input.csv`. That is exactly what the outer merge computed (`uniprot` null and `uniprot_N` not null), without depending on the column dtype. The warning text and content are unchanged: on the released v5.0.0 input files, master and this branch print identical output, both as-is (no warning) and with two proteins removed from `protein_input.csv` (both are reported by both versions). No result of any analysis method is affected.
 
