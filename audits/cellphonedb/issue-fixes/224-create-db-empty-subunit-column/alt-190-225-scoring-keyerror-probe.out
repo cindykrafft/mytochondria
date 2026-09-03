@@ -1,0 +1,28 @@
+Created /tmp/probe_t91wd1wv/db/cellphonedb_09_03_2026_232212.zip successfully
+[ ][CORE][03/09/26-23:22:12][INFO] [Non Statistical Method] Threshold:0.1 Precision:3
+Reading user files...
+The following user files were loaded successfully:
+/tmp/probe_t91wd1wv/in/counts.txt
+/tmp/probe_t91wd1wv/in/meta.txt
+  complex_to_protein_ids = complex_composition.groupby(COMPLEX_ID).apply(lambda x: x[PROTEIN_ID].values).to_dict()
+[ ][CORE][03/09/26-23:22:14][INFO] Running Basic Analysis
+[ ][CORE][03/09/26-23:22:14][INFO] Building results
+[ ][CORE][03/09/26-23:22:14][INFO] Scoring interactions: Filtering genes per cell type..
+[ ][CORE][03/09/26-23:22:14][INFO] Scoring interactions: Calculating mean expression of each gene per group/cell type..
+<scratch>/src/cellphonedb/utils/scoring_utils.py:103: RuntimeWarning: invalid value encountered in power
+  geom = np.power(sub_prod, 1 / len(sub_values))
+[ ][CORE][03/09/26-23:22:14][INFO] Scoring interactions: Calculating scores for all interactions and cell types..
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/cellphonedb/issue-fixes/224-create-db-empty-subunit-column/alt-190-225-scoring-keyerror-probe.py", line 21, in <module>
+    res = cpdb_analysis_method.call(cpdb_file_path=db, meta_file_path=meta_fp, counts_file_path=counts_fp,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<scratch>/src/cellphonedb/src/core/methods/cpdb_analysis_method.py", line 180, in call
+    interaction_scores = scoring_utils.score_interactions_based_on_participant_expressions_product(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<scratch>/src/cellphonedb/utils/scoring_utils.py", line 347, in score_interactions_based_on_participant_expressions_product
+    interaction_scores = score_product(matrix=cpdb_fms,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<scratch>/src/cellphonedb/utils/scoring_utils.py", line 293, in score_product
+    interaction_scores[ct_pair] = [interacting_pair2score[id] for id in interaction_scores['interacting_pair']]
+                                   ~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'LIG2_RECCPLX'
