@@ -1,0 +1,14 @@
+prefix (residual-SD covariate): |t|>3.386: 425
+prefix cov p=0.001: threshold 30, surviving clusters 5
+   77 vox, mean -0.6848, peak RAI (7.5 73.5 13.5)
+   44 vox, mean 0.3377, peak RAI (-31.5 1.5 -25.5)
+   40 vox, mean 0.2641, peak RAI (-13.5 -49.5 46.5)
+   40 vox, mean -0.7097, peak RAI (1.5 91.5 1.5)
+   37 vox, mean 0.3503, peak RAI (22.5 79.5 -31.5)
+prefix cov p=0.01: threshold 131, surviving clusters 6
+   521 vox, mean -0.5596, peak RAI (7.5 73.5 13.5)
+   166 vox, mean 0.2817, peak RAI (-37.5 73.5 -28.5)
+   161 vox, mean -0.3291, peak RAI (-52.5 22.5 58.5)
+   159 vox, mean 0.2832, peak RAI (-16.5 13.5 -19.5)
+   156 vox, mean 0.2283, peak RAI (16.5 -58.5 31.5)
+   154 vox, mean 0.2934, peak RAI (22.5 79.5 -31.5)
