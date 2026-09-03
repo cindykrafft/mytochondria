@@ -1,0 +1,102 @@
+From 0187f464ef9e86d7bd02ef0737f2eb33e9a0d331 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 23:32:04 +0000
+Subject: [PATCH] compute_shifts: return None nonrigid offsets for rigid-only
+ multi-reference registration
+
+Registering against a list of reference images (z-registration,
+ops["zpos_registration"]) with nonrigid=False crashed in shift_frames with
+`IndexError: list index out of range` (register.py:459): the nZ > 1 branch of
+compute_shifts always returned zero-width tensors of shape (n_frames, 0) for
+the nonrigid offsets, so `yoff1 is not None` was true and
+nonrigid.transform_data was called with an empty block list. The nZ == 1
+branch returns None for these entries when nonrigid registration is off; do
+the same for nZ > 1.
+
+Adds a unit test that registers a small synthetic movie against two reference
+images with nonrigid=False and nonrigid=True.
+
+Fixes #1079 (part 1; part 2, a two-channel recording with nonrigid=True, runs
+on main).
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ suite2p/registration/register.py | 12 ++++++++----
+ tests/test_registration.py       | 25 +++++++++++++++++++++++--
+ 2 files changed, 31 insertions(+), 6 deletions(-)
+
+diff --git a/suite2p/registration/register.py b/suite2p/registration/register.py
+index ae82424..8ea7cff 100644
+--- a/suite2p/registration/register.py
++++ b/suite2p/registration/register.py
+@@ -366,17 +366,21 @@ def compute_shifts(refAndMasks, fr_reg, maxregshift=0.1, smooth_sigma_time=0,
+         cmax_all = np.array([offsets[2].cpu().numpy() for offsets in offsets_all]).T
+         zest = cmax_all.argmax(axis=1)
+ 
+-        nb = refAndMasks[0][3].shape[0] if refAndMasks[0][3] is not None else 0
++        has_nonrigid = refAndMasks[0][3] is not None
++        nb = refAndMasks[0][3].shape[0] if has_nonrigid else 0
+         device = fr_reg.device
+         shapes = [(n_fr,), (n_fr,), (n_fr,), (n_fr, nb), (n_fr, nb), (n_fr, nb)]
+         offsets_best = [torch.zeros(shapes[i], device=device, 
+                                     dtype=torch.float32 if i > 1 else torch.long) 
+-                        for i in range(6)]
++                        for i in range(6 if has_nonrigid else 3)]
+         for z in range(nZ):
+             iz = np.nonzero(zest == z)[0]
+             if len(iz) > 0:
+-                for i, offsets in enumerate(offsets_all[z][:6]):
+-                    offsets_best[i][iz] = offsets[iz] if offsets is not None else 0
++                for i, offsets in enumerate(offsets_all[z][:len(offsets_best)]):
++                    offsets_best[i][iz] = offsets[iz]
++        if not has_nonrigid:
++            # rigid-only registration: no nonrigid offsets, same as the nZ == 1 path
++            offsets_best += [None, None, None]
+         
+         return *offsets_best[:6], zest, cmax_all
+             
+diff --git a/tests/test_registration.py b/tests/test_registration.py
+index 0300e12..b985167 100644
+--- a/tests/test_registration.py
++++ b/tests/test_registration.py
+@@ -1,7 +1,7 @@
+ import numpy as np
+ import pytest
+ import torch
+-from suite2p.registration import bidiphase
++from suite2p.registration import bidiphase, register
+ from suite2p.registration.nonrigid import transform_data
+ 
+ 
+@@ -74,4 +74,25 @@ def test_transform_data_mps_cpu_consistency():
+     max_diff = np.abs(cpu_np - mps_np).max()
+ 
+     assert correlation > 0.99, f"Correlation: {correlation}"
+-    assert max_diff < 2, f"Max diff: {max_diff}"
+\ No newline at end of file
++    assert max_diff < 2, f"Max diff: {max_diff}"
++
++@pytest.mark.parametrize("nonrigid", [False, True])
++def test_register_frames_with_reference_list_rigid_only(nonrigid):
++    """Registering against a list of reference images (z-registration) must work
++    with nonrigid=False as well as nonrigid=True (issue #1079)."""
++    rng = np.random.default_rng(0)
++    n_frames, Ly, Lx = 6, 64, 64
++    frames = rng.normal(1000, 50, (n_frames, Ly, Lx)).astype(np.int16)
++    frames[:, 10:20, 10:20] += 2000
++    refs = [frames[0].copy(), np.roll(frames[0], 5, axis=0).copy()]
++
++    outputs = register.register_frames(frames, refs, nonrigid=nonrigid, block_size=[32, 32],
++                                       batch_size=3, device=torch.device("cpu"))
++    ymax, xmax, cmax, ymax1, xmax1, cmax1, zest, cmax_all = outputs[3]
++    assert ymax.shape == xmax.shape == cmax.shape == (n_frames,)
++    assert zest.shape == (n_frames,) and cmax_all.shape == (n_frames, len(refs))
++    assert np.all(zest == 0)   # every frame is closest to the first reference
++    if nonrigid:
++        assert ymax1 is not None and ymax1.shape[0] == n_frames
++    else:
++        assert ymax1 is None and xmax1 is None and cmax1 is None
+-- 
+2.43.0
+

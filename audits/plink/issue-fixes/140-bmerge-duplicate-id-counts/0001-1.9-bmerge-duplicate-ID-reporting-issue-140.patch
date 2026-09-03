@@ -1,0 +1,256 @@
+From 3b2a5f5f60f9d58594da252d7bf41758fdb5d06b Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 23:33:18 +0000
+Subject: [PATCH] 1.9: --bmerge duplicate-ID reporting (issue #140)
+
+--bmerge keys the merge on variant ID, so several records sharing an ID
+describe a single merged variant.  Two log problems followed from counting
+records instead of distinct IDs for the second fileset:
+
+* the same fileset reported two different variant counts depending on
+  whether it was the base ("N markers loaded from") or the second fileset
+  ("N markers to be merged from"), and
+* "Of these, X are new, while Y are present in the base dataset" could
+  report more variants present in the base than the base dataset has.
+
+The duplicate-ID warning was also restricted to the first fileset, which is
+the asymmetry the existing comment at that site describes and leaves as a
+todo: in the reporter's case the fileset with the duplicate IDs was silently
+accepted when it was the second one.
+
+merge_bim_scan() now stamps each hash-table entry with the index of the last
+fileset it was seen in, so a duplicate ID *within* the current fileset is
+distinguishable from an ID that also appears in an earlier fileset, and
+reports that count to merge_datasets().  The warning fires for whichever
+fileset has the duplicates and names it, and the second fileset's variant
+count is its distinct-ID count.  Genotype output is unchanged.
+
+New test: 2.0/Tests/TEST_BMERGE_DUP_IDS.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ 1.9/plink_data.c                           | 41 ++++++++++---
+ 2.0/Tests/TEST_BMERGE_DUP_IDS/run_tests.sh | 68 ++++++++++++++++++++++
+ 2.0/Tests/run_tests.sh                     |  5 ++
+ 3 files changed, 106 insertions(+), 8 deletions(-)
+ create mode 100755 2.0/Tests/TEST_BMERGE_DUP_IDS/run_tests.sh
+
+diff --git a/1.9/plink_data.c b/1.9/plink_data.c
+index 32f7964..eae66e0 100644
+--- a/1.9/plink_data.c
++++ b/1.9/plink_data.c
+@@ -14501,6 +14501,10 @@ typedef struct ll_entry2_struct {
+   int64_t pos;
+   double cm;
+   char* allele[2];
++  // index of the last fileset this variant ID was seen in; lets
++  // merge_bim_scan() tell a duplicate ID within the current fileset apart from
++  // an ID that also appears in an earlier fileset
++  uint32_t last_fileset_idx;
+   char idstr[];
+ } Ll_bim;
+ 
+@@ -14745,7 +14749,7 @@ int32_t merge_sample_sortf(char* sample_sort_fname, char* sample_fids, uintptr_t
+   return retval;
+ }
+ 
+-int32_t merge_bim_scan(char* bimname, uint32_t is_binary, uint32_t allow_no_variants, uintptr_t* max_marker_id_len_ptr, Ll_bim** htable_bim, uint32_t* max_bim_linelen_ptr, uint64_t* tot_marker_ct_ptr, uint32_t* cur_marker_ct_ptr, uint64_t* position_warning_ct_ptr, Ll_str** non_biallelics_ptr, uint32_t allow_extra_chroms, Chrom_info* chrom_info_ptr) {
++int32_t merge_bim_scan(char* bimname, uint32_t is_binary, uint32_t allow_no_variants, uintptr_t* max_marker_id_len_ptr, Ll_bim** htable_bim, uint32_t* max_bim_linelen_ptr, uint64_t* tot_marker_ct_ptr, uint32_t* cur_marker_ct_ptr, uint32_t* cur_dup_ct_ptr, uint64_t* position_warning_ct_ptr, Ll_str** non_biallelics_ptr, uint32_t allow_extra_chroms, uint32_t fileset_idx, Chrom_info* chrom_info_ptr) {
+   unsigned char* bigstack_mark = g_bigstack_base;
+   uintptr_t max_marker_id_len = *max_marker_id_len_ptr;
+   uintptr_t loadbuf_size = MAXLINELEN;
+@@ -14753,6 +14757,7 @@ int32_t merge_bim_scan(char* bimname, uint32_t is_binary, uint32_t allow_no_vari
+   uint64_t tot_marker_ct = *tot_marker_ct_ptr;
+   uint64_t position_warning_ct = *position_warning_ct_ptr;
+   uint32_t cur_marker_ct = 0;
++  uint32_t cur_dup_ct = 0;
+   double cm = 0.0;
+   FILE* infile = nullptr;
+   int32_t retval = 0;
+@@ -14800,6 +14805,7 @@ int32_t merge_bim_scan(char* bimname, uint32_t is_binary, uint32_t allow_no_vari
+     if (!line_idx) {
+       // no variants
+       *cur_marker_ct_ptr = 0;
++      *cur_dup_ct_ptr = 0;
+       goto merge_bim_scan_ret_1;
+     }
+     line_idx--;
+@@ -14966,6 +14972,13 @@ int32_t merge_bim_scan(char* bimname, uint32_t is_binary, uint32_t allow_no_vari
+ 		LOGERRPRINTFWW("Warning: Multiple chromosomes seen for variant '%s'.\n", bufptr);
+ 	      }
+ 	    }
++	    if (llbim_ptr->last_fileset_idx == fileset_idx) {
++	      // duplicate ID within the current fileset, as opposed to an ID which
++	      // also appears in an earlier fileset
++	      cur_dup_ct++;
++	    } else {
++	      llbim_ptr->last_fileset_idx = fileset_idx;
++	    }
+ 	    name_match = 1;
+ 	    break;
+ 	  }
+@@ -14982,6 +14995,7 @@ int32_t merge_bim_scan(char* bimname, uint32_t is_binary, uint32_t allow_no_vari
+ 	  llbim_ptr->next = nullptr;
+ 	  llbim_ptr->pos = llxx;
+ 	  llbim_ptr->cm = cm;
++	  llbim_ptr->last_fileset_idx = fileset_idx;
+ 	  if (aptr1) {
+ 	    if (allele_set(aptr1, alen1, &(llbim_ptr->allele[0]))) {
+ 	      goto merge_bim_scan_ret_NOMEM;
+@@ -15014,6 +15028,7 @@ int32_t merge_bim_scan(char* bimname, uint32_t is_binary, uint32_t allow_no_vari
+     *max_bim_linelen_ptr = max_bim_linelen;
+     *tot_marker_ct_ptr = tot_marker_ct;
+     *cur_marker_ct_ptr = cur_marker_ct;
++    *cur_dup_ct_ptr = cur_dup_ct;
+     *position_warning_ct_ptr = position_warning_ct;
+   }
+ 
+@@ -16038,6 +16053,7 @@ int32_t merge_datasets(char* bedname, char* bimname, char* famname, char* outnam
+   uint64_t position_warning_ct = 0;
+   uint32_t orig_idx = 0;
+   uint32_t cur_marker_ct = 0;
++  uint32_t cur_dup_ct = 0;
+   uint32_t tot_marker_ct = 0;
+   int32_t retval = 0;
+   uint32_t* map_reverse = nullptr;
+@@ -16479,11 +16495,11 @@ int32_t merge_datasets(char* bedname, char* bimname, char* famname, char* outnam
+ 
+   ullxx = 0;
+   for (mlpos = 0; mlpos < merge_ct; ++mlpos) {
+-    retval = merge_bim_scan(mergelist_bim[mlpos], (mergelist_fam[mlpos])? 1 : 0, allow_no_variants, &max_marker_id_len, htable_bim, &max_bim_linelen, &ullxx, &cur_marker_ct, &position_warning_ct, &non_biallelics, allow_extra_chroms, chrom_info_ptr);
++    retval = merge_bim_scan(mergelist_bim[mlpos], (mergelist_fam[mlpos])? 1 : 0, allow_no_variants, &max_marker_id_len, htable_bim, &max_bim_linelen, &ullxx, &cur_marker_ct, &cur_dup_ct, &position_warning_ct, &non_biallelics, allow_extra_chroms, mlpos, chrom_info_ptr);
+     if (retval) {
+       goto merge_datasets_ret_1;
+     }
+-    if ((!mlpos) && (ullxx != cur_marker_ct)) {
++    if (cur_dup_ct) {
+       // Update (2 May 2020): PLINK 1.07 errored out if the first input fileset
+       // had two variants with the same ID.  However, it did *not* do so if
+       // this was true of later filesets, so in cases like
+@@ -16497,20 +16513,29 @@ int32_t merge_datasets(char* bedname, char* bimname, char* famname, char* outnam
+       // variants with ID=. which should be assigned distinct IDs before
+       // merge), so printing a warning where there previously was an error is
+       // justified.
+-      // (Obvious todo for PLINK 2.0: also print this warning if the first
+-      // fileset doesn't have a duplicate ID, but a later fileset does.)
+-      logerrprint("Warning: First fileset to be merged contains duplicate variant ID(s).  Variants\nwith matching IDs are all merged together; if this is not what you want (e.g.\nyou have a bunch of novel variants, all with ID \".\"), assign distinct IDs to\nthem (with e.g. --set-missing-var-ids) before rerunning this merge.\n");
++      // Update (3 Sep 2026): this warning was previously restricted to the
++      // first fileset, so the asymmetry described above was still visible in
++      // the log; it now names whichever fileset has the duplicate IDs.
++      LOGERRPRINTFWW("Warning: %s contains duplicate variant ID(s).  Variants with matching IDs are all merged together; if this is not what you want (e.g. you have a bunch of novel variants, all with ID \".\"), assign distinct IDs to them (with e.g. --set-missing-var-ids) before rerunning this merge.\n", mergelist_bim[mlpos]);
+     }
+     if (!merge_list) {
+       if (!mlpos) {
+ 	uii = ullxx;
+       } else {
++	// bugfix (3 Sep 2026): report the number of distinct variant IDs in the
++	// second fileset, not its line count.  The merge is keyed on variant ID,
++	// so duplicate IDs describe a single merged variant; counting lines made
++	// the same fileset report two different variant counts depending on
++	// whether it was the base or the second fileset, and could claim that
++	// more variants were present in the base dataset than the base dataset
++	// has (issue #140).
++	const uint32_t cur_distinct_ct = cur_marker_ct - cur_dup_ct;
+ 	LOGPRINTFWW("%u marker%s loaded from %s.\n", uii, (uii == 1)? "" : "s", mergelist_bim[0]);
+-	LOGPRINTFWW("%u marker%s to be merged from %s.\n", cur_marker_ct, (cur_marker_ct == 1)? "" : "s", mergelist_bim[1]);
++	LOGPRINTFWW("%u marker%s to be merged from %s.\n", cur_distinct_ct, (cur_distinct_ct == 1)? "" : "s", mergelist_bim[1]);
+ 	// bugfix: don't underflow when a single file has duplicate IDs (e.g.
+ 	// '.').
+ 	uii = ullxx - uii;
+-	LOGPRINTF("Of these, %u %s new, while %u %s present in the base dataset.\n", uii, (uii == 1)? "is" : "are", cur_marker_ct - uii, (cur_marker_ct - uii == 1)? "is" : "are");
++	LOGPRINTF("Of these, %u %s new, while %u %s present in the base dataset.\n", uii, (uii == 1)? "is" : "are", cur_distinct_ct - uii, (cur_distinct_ct - uii == 1)? "is" : "are");
+       }
+     }
+     if (!mergelist_fam[mlpos]) {
+diff --git a/2.0/Tests/TEST_BMERGE_DUP_IDS/run_tests.sh b/2.0/Tests/TEST_BMERGE_DUP_IDS/run_tests.sh
+new file mode 100755
+index 0000000..2ee1714
+--- /dev/null
++++ b/2.0/Tests/TEST_BMERGE_DUP_IDS/run_tests.sh
+@@ -0,0 +1,68 @@
++#!/bin/bash
++
++# PLINK 1.9 --bmerge keys the merge on variant ID, so several records sharing an
++# ID describe a single merged variant.  The log must therefore describe a
++# fileset the same way whether it is the base or the second fileset, and the
++# duplicate-ID warning must name whichever fileset has the duplicates.
++# (https://github.com/chrchang/plink-ng/issues/140)
++
++set -exo pipefail
++
++# 4 records, 4 distinct IDs.
++cat > plus.map << 'MAPEOF'
++1	v1	0	100
++1	v2	0	200
++1	v3	0	300
++1	v4	0	400
++MAPEOF
++cat > plus.ped << 'PEDEOF'
++F1 S1 0 0 1 1 A G A A C C G G
++F1 S2 0 0 1 1 A A A G C T G T
++F1 S3 0 0 1 1 G G G G T T T T
++PEDEOF
++
++# First 3 variants of plus, with v2 present twice: 4 records, 3 distinct IDs.
++cat > normed.map << 'MAPEOF'
++1	v1	0	100
++1	v2	0	200
++1	v2	0	200
++1	v3	0	300
++MAPEOF
++cat > normed.ped << 'PEDEOF'
++F1 S1 0 0 1 1 A G A A A A C T
++F1 S2 0 0 1 1 A A A G A G C T
++F1 S3 0 0 1 1 G G G G G G T T
++PEDEOF
++
++# Same three variants, without the duplicate record.
++sed -n '1,2p;4p' normed.map > single.map
++cut -d ' ' -f 1-10,13-14 normed.ped > single.ped
++
++plink --file plus --make-bed --out plus
++plink --file normed --make-bed --out normed
++plink --file single --make-bed --out single
++
++# 1. Duplicate IDs in the second fileset: the warning names that fileset, and
++#    its variant count is the number of distinct IDs, not the record count.
++plink --bfile plus --bmerge normed.bed normed.bim normed.fam --merge-mode 6 --out base_plus
++grep -q "normed.bim contains duplicate variant ID(s)" base_plus.log
++grep -q "^3 markers to be merged from normed.bim.$" base_plus.log
++grep -q "^Of these, 0 are new, while 3 are present in the base dataset.$" base_plus.log
++
++# 2. Same pair the other way around: the same fileset reports the same count.
++plink --bfile normed --bmerge plus.bed plus.bim plus.fam --merge-mode 6 --out base_normed
++grep -q "normed.bim contains duplicate variant ID(s)" base_normed.log
++grep -q "^3 markers loaded from normed.bim.$" base_normed.log
++grep -q "^4 markers to be merged from plus.bim.$" base_normed.log
++grep -q "^Of these, 1 is new, while 3 are present in the base dataset.$" base_normed.log
++
++# 3. Either way around, the merged fileset has the 4 distinct variants.
++plink --bfile plus --bmerge normed.bed normed.bim normed.fam --make-bed --out merged_plus
++plink --bfile normed --bmerge plus.bed plus.bim plus.fam --make-bed --out merged_normed
++[[ "$(wc -l < merged_plus.bim)" -eq 4 ]]
++[[ "$(wc -l < merged_normed.bim)" -eq 4 ]]
++
++# 4. No duplicate IDs anywhere: no warning.
++plink --bfile plus --bmerge single.bed single.bim single.fam --merge-mode 6 --out no_dups
++! grep -q "contains duplicate variant ID" no_dups.log
++grep -q "^3 markers to be merged from single.bim.$" no_dups.log
+diff --git a/2.0/Tests/run_tests.sh b/2.0/Tests/run_tests.sh
+index e6172fa..7a0b31a 100755
+--- a/2.0/Tests/run_tests.sh
++++ b/2.0/Tests/run_tests.sh
+@@ -63,4 +63,9 @@ cd TEST_PMERGE
+ cd ..
+ echo "TEST_PMERGE passed."
+ 
++cd TEST_BMERGE_DUP_IDS
++./run_tests.sh $d $2 $3 > TEST_BMERGE_DUP_IDS.log
++cd ..
++echo "TEST_BMERGE_DUP_IDS passed."
++
+ echo "All tests passed."
+-- 
+2.43.0
+

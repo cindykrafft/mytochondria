@@ -1,0 +1,4 @@
+nonrigid=False twochan=False: OK zpos=[0 0 0 0 0 0]
+nonrigid=False twochan=True: OK zpos=[0 0 0 0 0 0]
+nonrigid=True twochan=False: OK zpos=[0 0 0 0 0 0]
+nonrigid=True twochan=True: OK zpos=[0 0 0 0 0 0]

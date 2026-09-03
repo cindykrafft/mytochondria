@@ -1,0 +1,9 @@
+/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/issuefix/suite2p/src/suite2p/registration/register.py:88: RuntimeWarning: invalid value encountered in divide
+  dxy = dxy / dxy.mean()
+suite2p 1.1.0
+reg_tif: 2 tiff file(s)
+  frames in tiffs: 6, mean = 3195
+  equals registered channel 1 (f_reg):       False
+  equals registered channel 2 (f_reg_chan2): True
+reg_tif_chan2: 0 tiff file(s)
+registered channel means: chan1 1086  chan2 3195

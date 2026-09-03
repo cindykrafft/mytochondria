@@ -1,0 +1,138 @@
+From 8b4a0c7f21106fe5e9a57b6a3afb66e6a8bc078a Mon Sep 17 00:00:00 2001
+From: Cynthia Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 23:33:32 +0000
+Subject: [PATCH] fix: keep `n_neighbors - 1` neighbors in `distances` for all
+ kNN transformers
+
+Since the transformer refactor (#2536), `Neighbors.compute_neighbors` only
+restricted `.distances` to the `n_neighbors - 1` nearest neighbors on the
+brute-force shortcut path. For every other transformer the raw
+`fit_transform` output was stored, and `PyNNDescentTransformer` (used
+explicitly or by default for >= 8192 cells) returns `n_neighbors` neighbors
+plus the cell itself, so `.obsp["distances"]` had one neighbor more per row
+than documented and than the connectivities were computed from.
+
+Rebuild `.distances` from the truncated indices/distances for every
+transformer when `knn=True`, as the shortcut path already did.
+
+Closes #3809
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ docs/release-notes/3809.fix.md   |  1 +
+ src/scanpy/neighbors/__init__.py | 15 ++++++++----
+ tests/test_neighbors.py          | 39 ++++++++++++++++++++++++++------
+ 3 files changed, 43 insertions(+), 12 deletions(-)
+ create mode 100644 docs/release-notes/3809.fix.md
+
+diff --git a/docs/release-notes/3809.fix.md b/docs/release-notes/3809.fix.md
+new file mode 100644
+index 00000000..aa99ebf9
+--- /dev/null
++++ b/docs/release-notes/3809.fix.md
+@@ -0,0 +1 @@
++Fix {func}`~scanpy.pp.neighbors` storing `n_neighbors` instead of `n_neighbors - 1` neighbors per cell in `.obsp["distances"]` when a kNN transformer is used (the default for ≥ 8192 cells), so `distances` now matches `connectivities` again {smaller}`C Krafft`
+diff --git a/src/scanpy/neighbors/__init__.py b/src/scanpy/neighbors/__init__.py
+index 3197a6b4..e327b3b9 100644
+--- a/src/scanpy/neighbors/__init__.py
++++ b/src/scanpy/neighbors/__init__.py
+@@ -600,12 +600,17 @@ class Neighbors:
+         if shortcut:
+             # self._distances is a sparse matrix with a diag of 1, fix that
+             self._distances[np.diag_indices_from(self.distances)] = 0
+-            if knn:  # remove too far away entries in self._distances
+-                self._distances = _get_sparse_matrix_from_indices_distances(
+-                    knn_indices, knn_distances, keep_self=False
+-                )
+-            else:  # convert to dense
++            if not knn:  # convert to dense
+                 self._distances = self._distances.toarray()
++        if knn:
++            # Restrict `self._distances` to the `n_neighbors - 1` nearest neighbors
++            # used for the connectivities. Transformers can return more entries per row,
++            # e.g. `PyNNDescentTransformer` returns `n_neighbors` neighbors plus the cell
++            # itself, which would leave one neighbor more in `.distances` than in
++            # `.connectivities`.
++            self._distances = _get_sparse_matrix_from_indices_distances(
++                knn_indices, knn_distances, keep_self=False
++            )
+         if index := getattr(transformer, "index_", None):
+             from pynndescent import NNDescent
+ 
+diff --git a/tests/test_neighbors.py b/tests/test_neighbors.py
+index 8ad17a6f..7e2c118f 100644
+--- a/tests/test_neighbors.py
++++ b/tests/test_neighbors.py
+@@ -176,21 +176,21 @@ def test_distances_euclidean(
+ 
+ 
+ @pytest.mark.parametrize(
+-    ("transformer", "knn"),
++    ("transformer", "knn", "expected"),
+     [
+         # knn=False trivially returns all distances
+-        pytest.param(None, False, id="knn=False"),
+-        # pynndescent returns all distances when data is so small
+-        pytest.param("pynndescent", True, id="pynndescent"),
+-        # Explicit brute force also returns all distances
++        pytest.param(None, False, distances_euclidean_all, id="knn=False"),
++        # knn=True keeps n_neighbors - 1 neighbors, even if the transformer returns more
++        pytest.param("pynndescent", True, distances_euclidean, id="pynndescent"),
+         pytest.param(
+             KNeighborsTransformer(n_neighbors=n_neighbors, algorithm="brute"),
+             True,
++            distances_euclidean,
+             id="sklearn",
+         ),
+     ],
+ )
+-def test_distances_all(neigh: Neighbors, transformer, knn):
++def test_distances_all(neigh: Neighbors, transformer, knn, expected):
+     neigh.compute_neighbors(
+         n_neighbors, transformer=transformer, method="gauss", knn=knn
+     )
+@@ -199,7 +199,7 @@ def test_distances_all(neigh: Neighbors, transformer, knn):
+         if isinstance(neigh.distances, CSBase)
+         else neigh.distances
+     )
+-    np.testing.assert_allclose(dists, distances_euclidean_all)
++    np.testing.assert_allclose(dists, expected)
+ 
+ 
+ @pytest.mark.parametrize(
+@@ -382,6 +382,31 @@ def test_restore_n_neighbors(neigh, conv):
+     assert neigh_restored.n_neighbors == 1
+ 
+ 
++@pytest.mark.parametrize(
++    "transformer",
++    [
++        pytest.param("pynndescent", id="pynndescent"),
++        pytest.param(
++            KNeighborsTransformer(n_neighbors=5, algorithm="brute"), id="sklearn"
++        ),
++    ],
++)
++def test_distances_n_neighbors(transformer) -> None:
++    """`.distances` has `n_neighbors - 1` entries per row and matches `.connectivities`.
++
++    Transformers can return more neighbors than that (e.g. `PyNNDescentTransformer`
++    returns `n_neighbors` neighbors plus the cell itself). See scverse/scanpy#3809.
++    """
++    n_neighbors = 5
++    adata = AnnData(np.random.default_rng(0).standard_normal((200, 10)))
++    sc.pp.neighbors(adata, n_neighbors=n_neighbors, transformer=transformer)
++    dists, conns = adata.obsp["distances"], adata.obsp["connectivities"]
++    np.testing.assert_array_equal(np.diff(dists.indptr), n_neighbors - 1)
++    np.testing.assert_array_equal(dists.getnnz(axis=1), n_neighbors - 1)
++    # every neighbor in `.distances` is an edge in `.connectivities`
++    assert (dists.astype(bool) > conns.astype(bool)).nnz == 0
++
++
+ def test_neighbors_distance_equivalence() -> None:
+     adata = pbmc68k_reduced()
+     adata_d = adata.copy()
+-- 
+2.43.0
+
