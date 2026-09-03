@@ -79,7 +79,7 @@ Python 3.12 venv, editable installs of both clones, pytest 9, ruff 0.16.5.
 
 | patch | new test on unmodified code | with the patch | linter |
 |---|---|---|---|
-| scrublet 0001 (SR2) | `test_subsampled_totals_scale_with_rate` **fails** (mean 2250.3 vs 2000 expected); `test_subsampled_counts_are_thinned` passes | 2 passed | project has none |
+| scrublet 0001 (SR2) | **2 failed**: `test_subsampled_totals_scale_with_rate` (mean 2250.3 vs 2000 expected) and `test_subsampled_counts_are_thinned` (the returned totals differ from the thinned row sums even with every gene kept) | 2 passed | project has none |
 | scrublet 0002 (SR4) | `test_scrub_doublets_mean_center_without_variance_normalisation` **fails** (`TypeError: np.matrix is not supported`) | 1 passed | project has none |
 | scanpy 0001 (SR1) | `test_scrublet_knn_uses_k_adj_neighbors[distinct/coincident × False/None]`: **4 failed** on `main` (39–66 % of scores off, max 0.180) | 4 passed | `ruff check` and `ruff format --check` clean on `core.py`, `tests/test_scrublet.py` |
 | scanpy 0002 (SR3) | `test_scrublet_log_transform_consistent`: **fails** on `main` (278 of 300 scores off, max 0.255) | 1 passed | clean on `__init__.py`, `tests/test_scrublet.py` |

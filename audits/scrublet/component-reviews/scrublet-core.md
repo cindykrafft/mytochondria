@@ -78,10 +78,12 @@ happens whenever two points coincide: `_remove_self_column` drops column 0 *by p
 twin, so the row keeps itself. Coincident points are produced by the port's own sampler
 (a parent pair drawn as (i,j) and (j,i), or (i,i)) in every run tested. So:
 
-- with a coincident pair anywhere: `neighbors` has `k_adj − 1` columns for *every* cell,
-  no self column (the `[:, 1:]` for pynndescent then drops a real neighbour: `k_adj − 2`);
-- without: `k_adj` columns, the first being the cell itself, counted with its own label
-  (sklearn/default backend) or dropped (pynndescent) — `k_adj − 1` other cells either way.
+- sklearn/default backend, with a coincident pair anywhere: `neighbors` has `k_adj − 1`
+  columns for *every* cell and no self column; without one: `k_adj` columns, the first
+  being the cell itself, counted with its own label — `k_adj − 1` other cells either way;
+- pynndescent backend: `compute_neighbors` stores the transformer's raw output, whose
+  first column is already the cell itself, and `[:, 1:]` removes it — `k_adj − 1` other
+  cells.
 
 The original uses `k_adj` other cells on both paths (`helper_functions.py:410`
 `get_nns_by_item(iCell, k + 1)[1:]`; `:417-420` `kneighbors()` on the fitted set, which
