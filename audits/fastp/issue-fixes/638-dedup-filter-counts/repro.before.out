@@ -1,0 +1,24 @@
+fastp: fastp 1.3.6
+== SE, 4000 reads (2000 distinct), --dedup
+  stderr: reads passed filter: 4000
+  stderr: Duplication rate (may be overestimated since this is SE data): 50%
+  filtering_result.passed_filter_reads = 4000
+  filtering_result.duplicated_reads    = (absent)
+  summary.after_filtering.total_reads  = 2000
+  reads written to output      = 2000
+== PE, 2000 pairs (1000 distinct), --dedup
+  stderr: reads passed filter: 4000
+  stderr: Duplication rate: 50%
+  filtering_result.passed_filter_reads = 4000
+  filtering_result.duplicated_reads    = (absent)
+  summary.after_filtering.total_reads  = 2000
+  pairs written to output      = 1000
+== PE, same pairs, --merge --dedup
+  stderr: reads passed filter: 4000
+  stderr: Duplication rate: 49.95%
+  stderr: Read pairs merged: 2000
+  stderr: ./fastp -A -G -Q -L --dedup -i /tmp/tmp.lQ9WZpVYd3/pe1.fq -I /tmp/tmp.lQ9WZpVYd3/pe2.fq --merge --merged_out /tmp/tmp.lQ9WZpVYd3/mg.fq -j /tmp/tmp.lQ9WZpVYd3/mg.json -h /tmp/tmp.lQ9WZpVYd3/mg.html 
+  filtering_result.passed_filter_reads = 4000
+  filtering_result.duplicated_reads    = (absent)
+  summary.after_filtering.total_reads  = 2000
+  merged reads written         = 2000  (1000 distinct pairs)
