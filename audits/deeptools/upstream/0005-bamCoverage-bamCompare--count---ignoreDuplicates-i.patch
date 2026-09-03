@@ -1,6 +1,6 @@
-From 3fb4844be73c094a342e931f0249362388520c02 Mon Sep 17 00:00:00 2001
+From 7f30bc8f572ef052df40efd6fd381ef9cd6b8fd2 Mon Sep 17 00:00:00 2001
 From: Cynthia Condra <cynthiacondra@gmail.com>
-Date: Thu, 3 Sep 2026 04:02:39 +0000
+Date: Thu, 3 Sep 2026 04:09:16 +0000
 Subject: [PATCH] bamCoverage/bamCompare: count --ignoreDuplicates in the
  normalisation denominator
 

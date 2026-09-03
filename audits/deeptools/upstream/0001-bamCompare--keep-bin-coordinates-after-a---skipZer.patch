@@ -1,6 +1,6 @@
-From c2a9c8a80826298670357c93c4dd6fd12dff878b Mon Sep 17 00:00:00 2001
+From c56759682c6f2dcb98d06b77b0ed4051e2986197 Mon Sep 17 00:00:00 2001
 From: Cynthia Condra <cynthiacondra@gmail.com>
-Date: Thu, 3 Sep 2026 04:02:38 +0000
+Date: Thu, 3 Sep 2026 04:09:16 +0000
 Subject: [PATCH] bamCompare: keep bin coordinates after a --skipZeroOverZero
  gap
 
@@ -10,8 +10,8 @@ Found in a source-level correctness audit of research software (methods and harn
 ---
  CHANGES.txt                                   |  3 +++
  .../test/test_bamCoverage_and_bamCompare.py   | 23 +++++++++++++++++++
- deeptools/writeBedGraph.py                    |  7 ++++++
- 3 files changed, 33 insertions(+)
+ deeptools/writeBedGraph.py                    |  8 +++++++
+ 3 files changed, 34 insertions(+)
 
 diff --git a/CHANGES.txt b/CHANGES.txt
 index 5f0bf0f0..53b1bf20 100755
@@ -56,10 +56,18 @@ index ac1f23ce..5cb9fcc2 100644
 +    unlink(outfile)
 +    unlink(reference)
 diff --git a/deeptools/writeBedGraph.py b/deeptools/writeBedGraph.py
-index dd83e9ad..d64985ea 100644
+index dd83e9ad..e1f73aa8 100644
 --- a/deeptools/writeBedGraph.py
 +++ b/deeptools/writeBedGraph.py
-@@ -244,6 +244,13 @@ class WriteBedGraph(cr.CountReadsPerBin):
+@@ -232,6 +232,7 @@ class WriteBedGraph(cr.CountReadsPerBin):
+ 
+         _file = open(utilities.getTempFileName(suffix='.bg'), 'w')
+         previous_value = None
++        writeStart = writeEnd = None
+         line_string = "{}\t{}\t{}\t{:g}\n"
+         for tileIndex in range(coverage.shape[0]):
+ 
+@@ -244,6 +245,13 @@ class WriteBedGraph(cr.CountReadsPerBin):
              else:
                  tileCoverage = coverage[tileIndex, :]
              if self.skipZeroOverZero and np.sum(tileCoverage) == 0:

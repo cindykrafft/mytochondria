@@ -1,6 +1,6 @@
-From e0b8d5c33e3409adce894670cb08e0a9add4eea4 Mon Sep 17 00:00:00 2001
+From ffedd888bdc0547cbc3b2bf6b5b592b10d778162 Mon Sep 17 00:00:00 2001
 From: Cynthia Condra <cynthiacondra@gmail.com>
-Date: Thu, 3 Sep 2026 04:02:39 +0000
+Date: Thu, 3 Sep 2026 04:09:17 +0000
 Subject: [PATCH] plotFingerprint: credit only the covered bases of a
  fragment's last bin
 

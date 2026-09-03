@@ -1,6 +1,6 @@
-From 0b9aeb2151b9eb7b6e0a4fcbe1dafc3c8127ae77 Mon Sep 17 00:00:00 2001
+From e7131b0269dc7785c34687706224af495c56cc1a Mon Sep 17 00:00:00 2001
 From: Cynthia Condra <cynthiacondra@gmail.com>
-Date: Thu, 3 Sep 2026 04:02:39 +0000
+Date: Thu, 3 Sep 2026 04:09:17 +0000
 Subject: [PATCH] multiBigwigSummary: compute bin means from the exact bigWig
  values
 
@@ -10,8 +10,8 @@ Found in a source-level correctness audit of research software (methods and harn
 ---
  CHANGES.txt                                   |  3 +++
  deeptools/getScorePerBigWigBin.py             |  4 ++-
- ...st_bigwigCompare_and_multiBigwigSummary.py | 25 +++++++++++++++++++
- 3 files changed, 31 insertions(+), 1 deletion(-)
+ ...st_bigwigCompare_and_multiBigwigSummary.py | 27 ++++++++++++++++++-
+ 3 files changed, 32 insertions(+), 2 deletions(-)
 
 diff --git a/CHANGES.txt b/CHANGES.txt
 index 5f0bf0f0..a7c2779a 100755
@@ -40,9 +40,18 @@ index 6f0ff45e..b0caf425 100644
                  if score is None or score == [None] or np.isnan(score[0]):
                      score = [np.nan]
 diff --git a/deeptools/test/test_bigwigCompare_and_multiBigwigSummary.py b/deeptools/test/test_bigwigCompare_and_multiBigwigSummary.py
-index 076baa21..51e05d0f 100644
+index 076baa21..ca91e741 100644
 --- a/deeptools/test/test_bigwigCompare_and_multiBigwigSummary.py
 +++ b/deeptools/test/test_bigwigCompare_and_multiBigwigSummary.py
+@@ -119,7 +119,7 @@ def test_multiBigwigSummary_gtf():
+     labels = resp['labels']
+     nt.assert_equal(labels, ['test1.bw.bw', 'test1.bw.bw'])
+     nt.assert_allclose(matrix, np.array([[27.475, 27.475],
+-                                         [27.31248719, 27.31248719]]))
++                                         [27.80669351, 27.80669351]]))
+     unlink(outfile)
+ 
+ 
 @@ -134,3 +134,28 @@ def test_multiBigwigSummary_metagene():
      nt.assert_allclose(matrix, np.array([[20.28956028, 20.28956028],
                                           [22.1923501, 22.1923501]]))

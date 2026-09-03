@@ -1,70 +1,90 @@
-== unmodified master: touched test modules
-........................................................                 [100%]
-56 passed in 0.65s
-== flake8 on master (project options): 14 findings
+== unmodified master (ea0f68bb): touched test modules
+56 passed in 0.43s
+== full test suite on unmodified master:
+FAILED deeptools/test/test_plotCoverage.py::test_plotCoverage_default - Asser...
+1 failed, 99 passed in 12.42s
+== flake8 on unmodified master (project options): 14 findings, none in the files the patches touch
 
-== fix/bamcompare-skipzerooverzero-coordinates
--- new test(s) on unmodified master:
-1 failed, 20 deselected in 0.45s
--- touched test module(s) with the patch:
-54 passed in 0.63s
+== fix/bamcompare-skipzerooverzero-coordinates (c5675968)
+-- new/changed test(s) on unmodified master (test_bam_compare_ZoverZ_interior_bins):
+1 failed, 20 deselected in 0.20s
+-- touched test modules with the patch (new file + bamCoverage/bamCompare, bigwigCompare/multiBigwigSummary, countReadsPerBin):
+54 passed in 0.41s
 -- doctests of the changed module(s):
-2 passed in 0.30s
--- flake8 (project options) on changed files: 2 findings
-
-== fix/plotpca-log2-rowcenter
--- new test(s) on unmodified master:
-2 failed in 1.76s
--- touched test module(s) with the patch:
-1 failed, 54 passed in 2.09s
--- doctests of the changed module(s):
-1 passed in 2.08s
--- flake8 (project options) on changed files: 1 findings
-
-== fix/plotcorrelation-mad-outliers
--- new test(s) on unmodified master:
-1 failed in 1.86s
--- touched test module(s) with the patch:
-54 passed in 2.13s
--- doctests of the changed module(s):
-1 passed in 1.79s
+   deeptools/writeBedGraph.py: 2 passed in 0.18s
+-- full test suite with the patch:
+FAILED deeptools/test/test_plotCoverage.py::test_plotCoverage_default - Asser...
+1 failed, 100 passed in 12.47s
 -- flake8 (project options) on changed files: 0 findings
 
-== fix/mnase-odd-fragment-centre
--- new test(s) on unmodified master:
-1 failed, 20 deselected in 0.64s
--- touched test module(s) with the patch:
-1 failed, 53 passed in 0.79s
+== fix/plotpca-log2-rowcenter (2b6ab898)
+-- new/changed test(s) on unmodified master (test_plotPCA_log2_and_rowCenter_change_the_result):
+1 failed in 1.05s
+-- touched test modules with the patch (new file + bamCoverage/bamCompare, bigwigCompare/multiBigwigSummary, countReadsPerBin):
+54 passed in 1.19s
 -- doctests of the changed module(s):
-no tests ran in 0.36s
+   deeptools/correlation.py: 1 passed in 1.00s
+-- full test suite with the patch:
+FAILED deeptools/test/test_plotCoverage.py::test_plotCoverage_default - Asser...
+1 failed, 100 passed in 13.30s
 -- flake8 (project options) on changed files: 0 findings
 
-== fix/ignoreduplicates-scale-factor
--- new test(s) on unmodified master:
-1 failed, 20 deselected in 0.36s
--- touched test module(s) with the patch:
-54 passed in 0.70s
+== fix/plotcorrelation-mad-outliers (fd3b0e37)
+-- new/changed test(s) on unmodified master (test_get_outlier_indices):
+1 failed in 1.20s
+-- touched test modules with the patch (new file + bamCoverage/bamCompare, bigwigCompare/multiBigwigSummary, countReadsPerBin):
+54 passed in 1.33s
 -- doctests of the changed module(s):
-no tests ran in 0.35s
+   deeptools/correlation.py: 1 passed in 1.00s
+-- full test suite with the patch:
+FAILED deeptools/test/test_plotCoverage.py::test_plotCoverage_default - Asser...
+1 failed, 100 passed in 13.38s
 -- flake8 (project options) on changed files: 0 findings
 
-== fix/multibigwigsummary-exact-stats
--- new test(s) on unmodified master:
-1 failed, 7 deselected in 0.34s
--- touched test module(s) with the patch:
-1 failed, 53 passed in 0.65s
+== fix/mnase-odd-fragment-centre (ca5637f9)
+-- new/changed test(s) on unmodified master (test_bam_coverage_MNase_odd_fragment_length):
+1 failed, 20 deselected in 0.26s
+-- touched test modules with the patch (new file + bamCoverage/bamCompare, bigwigCompare/multiBigwigSummary, countReadsPerBin):
+54 passed in 0.45s
 -- doctests of the changed module(s):
-3 passed, 1 warning in 0.51s
+   deeptools/bamCoverage.py: no tests ran in 0.16s
+-- full test suite with the patch:
+FAILED deeptools/test/test_plotCoverage.py::test_plotCoverage_default - Asser...
+1 failed, 100 passed in 11.81s
 -- flake8 (project options) on changed files: 0 findings
 
-== fix/sumcoverage-partial-bins
--- new test(s) on unmodified master:
-1 failed in 0.48s
--- touched test module(s) with the patch:
-54 passed in 0.84s
+== fix/ignoreduplicates-scale-factor (7f30bc8f)
+-- new/changed test(s) on unmodified master (test_get_num_kept_reads_ignore_duplicates):
+1 failed, 20 deselected in 0.21s
+-- touched test modules with the patch (new file + bamCoverage/bamCompare, bigwigCompare/multiBigwigSummary, countReadsPerBin):
+54 passed in 0.42s
 -- doctests of the changed module(s):
-1 passed, 1 warning in 0.43s
+   deeptools/getScaleFactor.py: no tests ran in 0.16s
+-- full test suite with the patch:
+FAILED deeptools/test/test_plotCoverage.py::test_plotCoverage_default - Asser...
+1 failed, 100 passed in 12.16s
 -- flake8 (project options) on changed files: 0 findings
 
-== full test suite on master:
-1 failed, 99 passed in 19.99s
+== fix/multibigwigsummary-exact-stats (e7131b02)
+-- new/changed test(s) on unmodified master (test_multiBigwigSummary_bins_exact_mean or test_multiBigwigSummary_gtf):
+2 failed, 6 deselected in 0.22s
+-- touched test modules with the patch (new file + bamCoverage/bamCompare, bigwigCompare/multiBigwigSummary, countReadsPerBin):
+54 passed in 0.42s
+-- doctests of the changed module(s):
+   deeptools/getScorePerBigWigBin.py: 3 passed, 1 warning in 0.16s
+-- full test suite with the patch:
+FAILED deeptools/test/test_plotCoverage.py::test_plotCoverage_default - Asser...
+1 failed, 100 passed in 12.38s
+-- flake8 (project options) on changed files: 0 findings
+
+== fix/sumcoverage-partial-bins (ffedd888)
+-- new/changed test(s) on unmodified master (test_sum_coverage_partial_bins):
+1 failed in 0.22s
+-- touched test modules with the patch (new file + bamCoverage/bamCompare, bigwigCompare/multiBigwigSummary, countReadsPerBin):
+54 passed in 0.39s
+-- doctests of the changed module(s):
+   deeptools/sumCoveragePerBin.py: 1 passed, 1 warning in 0.15s
+-- full test suite with the patch:
+FAILED deeptools/test/test_plotCoverage.py::test_plotCoverage_default - Asser...
+1 failed, 100 passed in 12.68s
+-- flake8 (project options) on changed files: 0 findings

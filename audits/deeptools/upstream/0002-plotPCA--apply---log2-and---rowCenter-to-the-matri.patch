@@ -1,6 +1,6 @@
-From d834b86d30cccd400261aea00a6a6ee6f248b436 Mon Sep 17 00:00:00 2001
+From 2b6ab8983604c4e5ffb562bc76ed51a4e7c959c3 Mon Sep 17 00:00:00 2001
 From: Cynthia Condra <cynthiacondra@gmail.com>
-Date: Thu, 3 Sep 2026 04:02:38 +0000
+Date: Thu, 3 Sep 2026 04:09:16 +0000
 Subject: [PATCH] plotPCA: apply --log2 and --rowCenter to the matrix used for
  the SVD
 
@@ -9,9 +9,9 @@ plot_pca bound `m = self.matrix`, replaced `m` by a row-selected copy for --ntop
 Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/claude/software-package-audit-ablwee/audits/deeptools)
 ---
  CHANGES.txt                        |  3 ++
- deeptools/correlation.py           |  9 +++--
- deeptools/test/test_correlation.py | 61 ++++++++++++++++++++++++++++++
- 3 files changed, 69 insertions(+), 4 deletions(-)
+ deeptools/correlation.py           |  9 +++---
+ deeptools/test/test_correlation.py | 50 ++++++++++++++++++++++++++++++
+ 3 files changed, 58 insertions(+), 4 deletions(-)
  create mode 100644 deeptools/test/test_correlation.py
 
 diff --git a/CHANGES.txt b/CHANGES.txt
@@ -51,15 +51,13 @@ index 56b8d91d..5d8dd4a3 100755
  
 diff --git a/deeptools/test/test_correlation.py b/deeptools/test/test_correlation.py
 new file mode 100644
-index 00000000..ca67df3f
+index 00000000..58eec604
 --- /dev/null
 +++ b/deeptools/test/test_correlation.py
-@@ -0,0 +1,61 @@
+@@ -0,0 +1,50 @@
 +import os
 +import numpy as np
-+import numpy.testing as nt
 +import deeptools.plotPCA as pca
-+from deeptools.correlation import Correlation
 +
 +
 +def _pca_data(extra):
@@ -71,7 +69,7 @@ index 00000000..ca67df3f
 +        np.savez_compressed(fh, matrix=mat, labels=['a', 'b', 'c', 'd'])
 +    out = '/tmp/_test_pca.tab'
 +    pca.main('-in {} --outFileNameData {} {}'.format(npz, out, extra).split())
-+    rows = [l.split('\t') for l in open(out) if not l.startswith('#') and not l.startswith('Component')]
++    rows = [line.split('\t') for line in open(out) if not line.startswith('#') and not line.startswith('Component')]
 +    os.unlink(out)
 +    os.unlink(npz)
 +    return mat, np.array([[float(x) for x in r[1:5]] for r in rows])
@@ -107,15 +105,6 @@ index 00000000..ca67df3f
 +    assert not np.allclose(np.abs(rc[0]), np.abs(plain[0]), atol=1e-6)
 +    mat, top = _pca_data('--ntop 100 --log2 --rowCenter')
 +    _assert_same_up_to_sign(top, _reference(mat, 100, True, True))
-+
-+
-+def test_get_outlier_indices_uses_median_absolute_deviation():
-+    rng = np.random.RandomState(1)
-+    data = rng.poisson(100.0, 5000).astype(float)
-+    data[[5, 700, 4200]] = 5000.0
-+    # |x - median| / (1.4826 * MAD) with MAD ~ 7 flags the three planted bins
-+    nt.assert_equal(sorted(Correlation.get_outlier_indices(data)), [5, 700, 4200])
-+    assert len(Correlation.get_outlier_indices(rng.poisson(100.0, 5000).astype(float))) == 0
 -- 
 2.43.0
 

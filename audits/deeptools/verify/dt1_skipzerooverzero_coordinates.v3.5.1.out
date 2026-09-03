@@ -1,4 +1,5 @@
 bamCoverage 3.5.1
+bins: 400, zero-over-zero bins: 206
 
 bamCompare_default (--operation log2 ): intervals written 198; bins with wrong value: 0 of 400; bins with a value where the output should be empty: 0; bins empty that should have a value: 0
   first 6 intervals: [(0, 500, 0.0), (500, 550, -0.807), (550, 600, -0.363), (600, 650, 0.648), (650, 700, 0.036), (700, 750, -0.049)]
@@ -19,3 +20,4 @@ bigwigCompare --skipZeroOverZero on the scaled bamCoverage tracks: bins with wro
   bin 260 (13000-13050): bigwigCompare nan, expected 0.6167, c1=6 c2=2; previous bin expected 0.3785
   (the wrong bins are the trailing bins of a run whose value is exactly 0: writeBedGraph_bam_and_bw.py:135 tests `if previousValue and ...`, so a final run of 0.0 in a chunk is not written)
 
+SUMMARY: default 0 wrong; --skipZeroOverZero log2 375 wrong, subtract 372 wrong (of 400 bins)

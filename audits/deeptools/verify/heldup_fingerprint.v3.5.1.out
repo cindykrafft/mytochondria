@@ -1,24 +1,16 @@
 bamCoverage 3.5.1
-Traceback (most recent call last):
-  File "/home/user/research-software-audit/audits/deeptools/verify/heldup_fingerprint.py", line 54, in <module>
-    counts, metrics = run(nsamples)
-                      ^^^^^^^^^^^^^
-  File "/home/user/research-software-audit/audits/deeptools/verify/heldup_fingerprint.py", line 37, in run
-    S.run(["plotFingerprint", "-b", bam_ch, bam_in, "--labels", "chip", "input", "--outRawCounts", raw,
-  File "/home/user/research-software-audit/audits/deeptools/verify/_synth.py", line 38, in run
-    raise RuntimeError("command failed: %s\n%s" % (" ".join(cmd), r.stderr))
-Traceback (most recent call last):
-  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-3.5.1/bin/plotFingerprint", line 14, in <module>
-    main(args)
-  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-3.5.1/lib/python3.12/site-packages/deeptools/plotFingerprint.py", line 471, in main
-    JSD = getJSD(args, idx, num_reads_per_bin)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-3.5.1/lib/python3.12/site-packages/deeptools/plotFingerprint.py", line 280, in getJSD
-    chip = np.zeros(MAXLEN, dtype=np.int)
-                                  ^^^^^^
-  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-3.5.1/lib/python3.12/site-packages/numpy/__init__.py", line 760, in __getattr__
-    raise AttributeError(__former_attrs__[attr], name=None)
-`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
-The aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:
-    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
 
+--numberOfSamples 2000 (sampling step 250, bin 500 -> 2-tuple per-bin path): 1999 windows; per-bin coverage sums equal per-base reference: True
+  chip: AUC 0.177387 (ref 0.177387), X-int 0.000500 (ref 0.000500), elbow 0.889945 (ref 0.889945) -> OK
+  input: AUC 0.434839 (ref 0.434839), X-int 0.000500 (ref 0.000500), elbow 0.522261 (ref 0.522261) -> OK
+  JS distance chip vs input: 0.474603 (independent 0.474603) -> OK
+  CHANCE % genome enriched 11.0555 (ref 11.0555), diff. enrichment 57.0202 (ref 57.0202) -> OK
+  synthetic JSD 0.524959; independent Poisson reference 0.524968; the same with deepTools' index shift 0.524959
+
+--numberOfSamples 1000 (sampling step 500, bin 500 -> 3-tuple chunk path): 1000 windows; per-bin coverage sums equal per-base reference: False
+  sum reported / sum exact: chip 1.939, input 1.918; bins over-counted: 560 of 1000; mean excess per over-counted bin 1677.5
+  chip: AUC 0.160139 (ref 0.160139), X-int 0.001000 (ref 0.001000), elbow 0.874000 (ref 0.874000) -> OK
+  input: AUC 0.391666 (ref 0.391666), X-int 0.001000 (ref 0.001000), elbow 0.564000 (ref 0.564000) -> OK
+  JS distance chip vs input: 0.438523 (independent 0.438523) -> OK
+  CHANCE % genome enriched 12.3000 (ref 12.3000), diff. enrichment 57.0791 (ref 57.0791) -> OK
+  synthetic JSD 0.542412; independent Poisson reference 0.542415; the same with deepTools' index shift 0.542412

@@ -40,7 +40,8 @@ def run(nsamples):
     metrics = {}
     lines = [l.rstrip("\n").split("\t") for l in open(qm)]
     for row in lines[1:]:
-        metrics[row[0]] = dict(zip(lines[0][1:], [float(x) for x in row[1:]]))
+        # releases before 3.5.1 write "NA" for the reference sample's own JSD/CHANCE
+        metrics[row[0]] = dict(zip(lines[0][1:], [float(x) if x not in ("NA", "nan") else np.nan for x in row[1:]]))
     return counts, metrics
 
 

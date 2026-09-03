@@ -1,6 +1,6 @@
-From 51663226b883be1b834771b17da9c5296a60d21d Mon Sep 17 00:00:00 2001
+From ca5637f9f95948e2178da871d94890a43be36395 Mon Sep 17 00:00:00 2001
 From: Cynthia Condra <cynthiacondra@gmail.com>
-Date: Thu, 3 Sep 2026 04:02:39 +0000
+Date: Thu, 3 Sep 2026 04:09:16 +0000
 Subject: [PATCH] bamCoverage --MNase: three centre bases for odd fragment
  lengths
 
@@ -8,10 +8,10 @@ CenterFragment.get_fragment_from_read computed read.pos + read.tlen / 2 - 1 with
 
 Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/claude/software-package-audit-ablwee/audits/deeptools)
 ---
- CHANGES.txt                                     |  3 +++
- deeptools/bamCoverage.py                        |  6 ++++--
- .../test/test_bamCoverage_and_bamCompare.py     | 17 +++++++++++++++++
- 3 files changed, 24 insertions(+), 2 deletions(-)
+ CHANGES.txt                                   |  3 +++
+ deeptools/bamCoverage.py                      |  6 ++++--
+ .../test/test_bamCoverage_and_bamCompare.py   | 19 +++++++++++++++++++
+ 3 files changed, 26 insertions(+), 2 deletions(-)
 
 diff --git a/CHANGES.txt b/CHANGES.txt
 index 5f0bf0f0..2c5e03df 100755
@@ -46,10 +46,10 @@ index acca196f..704f81ba 100644
  
          return [(fragment_start, fragment_end)]
 diff --git a/deeptools/test/test_bamCoverage_and_bamCompare.py b/deeptools/test/test_bamCoverage_and_bamCompare.py
-index ac1f23ce..32b3693f 100644
+index ac1f23ce..4cf70b16 100644
 --- a/deeptools/test/test_bamCoverage_and_bamCompare.py
 +++ b/deeptools/test/test_bamCoverage_and_bamCompare.py
-@@ -460,3 +460,20 @@ def test_bam_compare_filter_blacklist():
+@@ -460,3 +460,22 @@ def test_bam_compare_filter_blacklist():
                      '3R\t1050\t1500\t0\n']
          assert f"{resp}" == f"{expected}", f"{resp} != {expected}"
          unlink(outfile)
@@ -67,7 +67,9 @@ index ac1f23ce..32b3693f 100644
 +        ROOT + "test_paired2.bam", outfile).split()
 +    bam_cov.main(args)
 +    resp = open(outfile).readlines()
-+    expected = ['chr2\t5000456\t5000459\t2\n', 'chr2\t5001092\t5001094\t1\n', 'chr2\t5001191\t5001193\t2\n']
++    expected = ['chr2\t5000000\t5000456\t0\n', 'chr2\t5000456\t5000459\t2\n', 'chr2\t5000459\t5001092\t0\n',
++                'chr2\t5001092\t5001094\t1\n', 'chr2\t5001094\t5001191\t0\n', 'chr2\t5001191\t5001193\t2\n',
++                'chr2\t5001193\t5002000\t0\n']
 +    assert f"{resp}" == f"{expected}", f"{resp} != {expected}"
 +    unlink(outfile)
 -- 
