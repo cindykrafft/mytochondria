@@ -30,7 +30,7 @@ bases trimmed due to adapters: 0
 ```
 
 and the JSON report has no `adapter_cutting` section at all. On 2,000 such reads
-the adapter is left in 2,000 of them, 119,433 adapter bases in total.
+the adapter is left in 2,000 of them, 143,139 adapter bases in total.
 
 **Expected output:** the adapter is used, as it is when the same sequence is
 passed with `--adapter_sequence` (20,000 of 20,000 reads trimmed).
@@ -102,7 +102,7 @@ Index 35`) trimmed 0 of 20,000 reads, and the five that resolve to a shorter
 entry (33 nt and 58 nt TruSeq, `Reverse_adapter`, `TruSeq_Adapter_Index_5`,
 `pcr_dimer`) trimmed 20,000 of 20,000. For paired-end data with
 `--detect_adapter_for_pe` the overlap analysis still catches most read-throughs,
-but 23,443 instead of 40,000 reads were trimmed on the same data.
+but 24,735 instead of 40,000 reads were trimmed on the same data.
 
 **Proposed fix.** `adapt.resize(60);` in both places (keeping the author's 60 nt
 cap). Dropping the cap for built-in adapters would work too, since the trimmer

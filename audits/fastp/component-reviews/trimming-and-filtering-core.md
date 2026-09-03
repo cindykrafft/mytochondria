@@ -145,9 +145,9 @@ walks the table in `std::map` (lexicographic) order, so the shorter prefix wins
 the tie and is returned instead (rows 4, 5, 7 above). 85 of the 139 long entries
 have no such prefix — 48 TruSeq Small RNA RPI primers, 36 RNA PCR Primer index
 primers and one `PrefixPE/2` — and those are the ones that get discarded. On
-2,000 reads with RPI1 the adapter stayed in 2,000 of them (119,433 adapter bases
+2,000 reads with RPI1 the adapter stayed in 2,000 of them (143,139 adapter bases
 in the output). For paired-end data with `--detect_adapter_for_pe` the overlap
-analysis still catches most read-throughs, but 23,443 of 40,000 reads were
+analysis still catches most read-throughs, but 24,735 of 40,000 reads were
 trimmed instead of 40,000, and `read1_adapter_sequence` is reported as
 `unspecified`.
 

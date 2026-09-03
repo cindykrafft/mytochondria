@@ -96,14 +96,13 @@ ADAPTERS = [
 NREADS, RLEN = 20000, 100
 
 
-def make_reads(adapter, n=NREADS, rlen=RLEN):
-    """Every read carries the adapter after an insert of 20-37 nt (read-through).
-
-    The read ends inside or just after the adapter, as a real read-through does;
-    anything after the adapter is drawn at random."""
+def make_reads(adapter, n=NREADS, rlen=RLEN, ins_lo=20, ins_hi=37):
+    """Every read carries the adapter after an insert of ins_lo-ins_hi nt
+    (read-through). The read ends inside or just after the adapter, as a real
+    read-through does; anything after the adapter is drawn at random."""
     out = []
     for i in range(n):
-        ins = rnd(random.randint(20, 37))
+        ins = rnd(random.randint(ins_lo, ins_hi))
         seq = (ins + adapter + rnd(rlen))[:rlen]
         out.append((f"r{i}", seq, "I" * len(seq), len(ins)))
     return out
@@ -142,9 +141,10 @@ for label, ad in ADAPTERS:
 
 # ------------------------------------------------------------------- Part C
 print("\n== Part C: paired-end with --detect_adapter_for_pe (adapter trimming by overlap still runs)")
+print("  inserts of 31-60 nt, so that the true overlap clears --overlap_len_require 30")
 print(f"  {'built-in adapter':<34} {'len':>4} {'read1_adapter_sequence':>24} {'trimmed reads':>14}")
 for label, ad in ADAPTERS[:1] + ADAPTERS[2:4]:
-    r1 = make_reads(ad, n=20000)
+    r1 = make_reads(ad, n=20000, ins_lo=31, ins_hi=60)
     r2 = [(n, (rc(s[:ins]) + rc(ad) + rnd(RLEN))[:RLEN], "I" * RLEN, ins) for n, s, q, ins in r1]
     js, err, _ = run(["-2", "--disable_adapter_trimming"], r1, r2=r2)  # detection only
     seq = js.get("adapter_cutting", {}).get("read1_adapter_sequence", "no section")
