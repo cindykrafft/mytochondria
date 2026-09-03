@@ -47,6 +47,8 @@ are read in proportion.
 
 ## Status
 
+Filing follows the triage in [`audits/TRIAGE.md`](audits/TRIAGE.md): only findings that change published numbers under default or common settings are filed now, at most two per repository until a maintainer responds; the rest are held.
+
 | Audit | Papers exposed | Findings | Upstream |
 |---|---|---|---|
 | [FreeSurfer](audits/freesurfer/) | 116 | 16, three reproduced numerically | 5 fix PRs + 9 issues filed on GitHub |
