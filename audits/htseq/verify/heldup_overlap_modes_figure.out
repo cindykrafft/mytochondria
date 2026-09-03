@@ -1,0 +1,44 @@
+HTSeq 2.1.2 python 3.12.3
+
+== --nonunique none  (--stranded yes, default -a 10, secondary/supplementary ignore)
+  union                  CLI: gene_A=5 gene_B=0 ambiguous=2 alignment_not_unique=1   vs port: OK
+  intersection-strict    CLI: gene_A=4 gene_B=0 no_feature=2 ambiguous=1 alignment_not_unique=1   vs port: OK
+  intersection-nonempty  CLI: gene_A=6 gene_B=0 ambiguous=1 alignment_not_unique=1   vs port: OK
+
+== --nonunique all  (--stranded yes, default -a 10, secondary/supplementary ignore)
+  union                  CLI: gene_A=8 gene_B=2 ambiguous=2 alignment_not_unique=1   vs port: OK
+  intersection-strict    CLI: gene_A=6 gene_B=1 no_feature=2 ambiguous=1 alignment_not_unique=1   vs port: OK
+  intersection-nonempty  CLI: gene_A=8 gene_B=1 ambiguous=1 alignment_not_unique=1   vs port: OK
+
+== --nonunique fraction  (--stranded yes, default -a 10, secondary/supplementary ignore)
+  union                  CLI: gene_A=7 gene_B=1 ambiguous=2 alignment_not_unique=1   vs port: OK
+  intersection-strict    CLI: gene_A=5.5 gene_B=0.5 no_feature=2 ambiguous=1 alignment_not_unique=1   vs port: OK
+  intersection-nonempty  CLI: gene_A=7.5 gene_B=0.5 ambiguous=1 alignment_not_unique=1   vs port: OK
+
+== per-row assignment (XF tag from --samout) vs the figure, --nonunique none
+  union                  row 1 read inside gene_A                               figure: gene_A                   got: gene_A                         OK
+  union                  row 2 read half outside gene_A                         figure: gene_A                   got: gene_A                         OK
+  union                  row 3 read over exon end and intron of gene_A          figure: gene_A                   got: gene_A                         OK
+  union                  row 4 spliced read over both exons of gene_A           figure: gene_A                   got: gene_A                         OK
+  union                  row 5 read in gene_A, gene_B elsewhere                 figure: gene_A                   got: gene_A                         OK
+  union                  row 6 read in gene_A, gene_B starts inside the read    figure: __ambiguous              got: __ambiguous[gene_A+gene_B]     OK
+  union                  row 7 read inside the overlap of gene_A and gene_B     figure: __ambiguous              got: __ambiguous[gene_A+gene_B]     OK
+  union                  row 8 multimapper (NH=2) over gene_A / gene_B          figure: __alignment_not_unique   got: __alignment_not_unique         OK
+  intersection-strict    row 1 read inside gene_A                               figure: gene_A                   got: gene_A                         OK
+  intersection-strict    row 2 read half outside gene_A                         figure: __no_feature             got: __no_feature                   OK
+  intersection-strict    row 3 read over exon end and intron of gene_A          figure: __no_feature             got: __no_feature                   OK
+  intersection-strict    row 4 spliced read over both exons of gene_A           figure: gene_A                   got: gene_A                         OK
+  intersection-strict    row 5 read in gene_A, gene_B elsewhere                 figure: gene_A                   got: gene_A                         OK
+  intersection-strict    row 6 read in gene_A, gene_B starts inside the read    figure: gene_A                   got: gene_A                         OK
+  intersection-strict    row 7 read inside the overlap of gene_A and gene_B     figure: __ambiguous              got: __ambiguous[gene_A+gene_B]     OK
+  intersection-strict    row 8 multimapper (NH=2) over gene_A / gene_B          figure: __alignment_not_unique   got: __alignment_not_unique         OK
+  intersection-nonempty  row 1 read inside gene_A                               figure: gene_A                   got: gene_A                         OK
+  intersection-nonempty  row 2 read half outside gene_A                         figure: gene_A                   got: gene_A                         OK
+  intersection-nonempty  row 3 read over exon end and intron of gene_A          figure: gene_A                   got: gene_A                         OK
+  intersection-nonempty  row 4 spliced read over both exons of gene_A           figure: gene_A                   got: gene_A                         OK
+  intersection-nonempty  row 5 read in gene_A, gene_B elsewhere                 figure: gene_A                   got: gene_A                         OK
+  intersection-nonempty  row 6 read in gene_A, gene_B starts inside the read    figure: gene_A                   got: gene_A                         OK
+  intersection-nonempty  row 7 read inside the overlap of gene_A and gene_B     figure: __ambiguous              got: __ambiguous[gene_A+gene_B]     OK
+  intersection-nonempty  row 8 multimapper (NH=2) over gene_A / gene_B          figure: __alignment_not_unique   got: __alignment_not_unique         OK
+
+ALL FIGURE ROWS AND PORT COMPARISONS AGREE

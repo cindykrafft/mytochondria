@@ -1,0 +1,21 @@
+HTSeq 2.1.2 python 3.12.3 pysam 0.24.0
+
+== A. minimal: window chr1:[100,200), 10-nt reads
+  reader[iv]                          -> ['[95,105)', '[199,209)']
+  records with a.iv.overlaps(iv)      -> ['covers_base_100_[91,101)', '[95,105)', '[199,209)']
+  pysam fetch(chr1, 100, 200)         -> ['covers_base_100_[91,101)', '[95,105)', '[199,209)']
+  MISSED by reader[iv]: ['covers_base_100_[91,101)']
+
+== B. random windows and reads (2,000 reads of 20-150 nt on chr1, 300 windows)
+  windows with at least one overlapping record missing from reader[iv]: 7/300
+  overlapping records missed in total: 7; non-overlapping records returned: 0
+    window [45592,47706): missed [('r469', (45453, 45593))]
+    window [48853,49124): missed [('r334', (48789, 48854))]
+    window [20487,22636): missed [('r87', (20435, 20488))]
+  every missed record ends exactly at iv.start+1 (i.e. covers only base iv.start): True
+
+== C. TSS-profile style use (doc/tutorials/tss.rst): coverage in a +-100 window around position 50000
+  coverage at the window's first base: reader[window] = 2  fetch(start,end) = 2
+  positions where the two profiles differ: []
+
+RESULT: BAM_Reader[iv] misses records covering only base iv.start: True

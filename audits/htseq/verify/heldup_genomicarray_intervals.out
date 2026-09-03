@@ -1,0 +1,30 @@
+HTSeq 2.1.2 python 3.12.3
+
+== A. GenomicArrayOfSets vs per-base dictionary
+  stranded=True: 24000 bases + 1,200 point lookups checked, mismatches: 0
+  stranded=False: 12000 bases + 1,200 point lookups checked, mismatches: 0
+  stranded array with '.' interval: KeyError as documented -> 'Non-stranded index used for stranded GenomicArray.'
+
+== B. GFF_Reader coordinate conversion
+  GTF one       -> chr1:[0,1)/+  length 1
+  GTF hundred   -> chr1:[100,200)/-  length 100
+  GTF nostrand  -> chr1:[4,8)/.  length 4
+  end_included=False one       -> chr1:[0,0)/+
+  end_included=False hundred   -> chr1:[100,199)/-
+  end_included=False nostrand  -> chr1:[4,7)/.
+  GFF3 {'ID': 'e1', 'Parent': 'g1'} -> chr1:[100,200)/+
+  stranded=True with a '.' feature: ValueError as documented -> Feature nostrand at chr1:[4,8)/. does not have strand information but  ...
+  stranded=False: features ['hundred', 'nostrand', 'one'] base 0 -> {'one'} base 4..7 -> [set(), {'nostrand'}, {'nostrand'}, set()]
+
+== C. overlaps / contains / is_contained_in vs brute force (20,000 random pairs)
+  mismatches: {'overlaps (zero-length interval involved)': 133}
+  zero-length: [5,5).overlaps([3,10)) = True ; [3,3).overlaps([3,10)) = False but [3,10).overlaps([3,3)) = True (note: asymmetric; no zero-length intervals arise in htseq-count)
+
+== D. StepVector set/add vs dense numpy (int typecode, 3,000 random ops)
+  equal to dense: True | steps contiguous and cover [0,5000): True | consecutive steps differ: True
+
+== E. pairing: name order vs position order vs generator truth
+  -r name: pairs yielded 1866 vs truth 1866; differences: 0; warnings: ['Read p3 claims to have an aligned mate which could not be fo', '264 reads with missing mate encountered.']
+  -r pos: pairs yielded 1866 vs truth 1866; differences: 0; warnings: ['Mate records missing for 264 records; first such record: <SA']
+
+ALL HELD UP

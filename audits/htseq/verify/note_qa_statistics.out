@@ -1,0 +1,20 @@
+HTSeq 2.1.2 python 3.12.3
+2000 reads processed
+
+== 1. FASTQ: readlen guessed 50 nreads 2000
+  max |base fraction - reference| = 0.0
+  max |quality fraction - reference| = 0.0
+2000 alignments processed
+
+== 2. BAM split into aligned / unaligned; minus-strand records must be counted as sequenced
+  aligned:   max |base - ref| = 0.0  max |qual - ref| = 0.0  nreads 1616 1616
+  unaligned: max |base - ref| = 0.0  max |qual - ref| = 0.0  nreads 384 384
+300 alignments processed
+
+== 3. 100 reads x (primary + secondary + supplementary); primary_only=False: records counted as aligned = 300 (100 reads)
+200 reads processed
+
+== 3. 100 reads x (primary + secondary + supplementary); primary_only=True: records counted as aligned = 200 (100 reads)
+Error occured in: line 4 of file /tmp/tmpx8qwyuh8/hi.fastq
+
+== 4. Q42 read with default --maxqual 41 -> ValueError Too large quality value encountered.
