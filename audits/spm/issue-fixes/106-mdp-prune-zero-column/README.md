@@ -17,6 +17,8 @@ _Issue-fix kit, 2026-09-03. Not filed; PR not opened. Base: `spm/spm@4e20e07`
 - Comments could not be read from this session (there are none anyway); the body
   contains the traceback, root cause and a proposed patch, which was enough.
 
+> **Assigned issue (2026-09-04).** #106 is assigned to the DEM toolbox author (Friston, 2026-05-11, with #104 and #105). Under the project's rule no PR is opened on an assigned issue: the diagnosis and the branch link go on the thread as a comment (`comment.md`); `pr-body.md` is kept only in case the assignee asks for a PR.
+
 ## Diagnosis (on `4e20e07`)
 
 `toolbox/DEM/spm_MDP_VB_prune.m`:

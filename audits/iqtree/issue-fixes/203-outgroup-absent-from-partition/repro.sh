@@ -26,15 +26,21 @@ with open("aln.fa", "w") as f, open("aln_full.fa", "w") as g:
 with open("parts.nex", "w") as f:
     f.write("#nexus\nbegin sets;\n  charset p1 = 1-%d;\n  charset p2 = %d-%d;\nend;\n" % (L1, L1 + 1, L1 + L2))
 PY
-run() { # label, args...
-  label=$1; shift
-  "$IQTREE3" "$@" -T 1 -seed 1 -redo -quiet > "$label.stdout" 2>&1; rc=$?
-  printf '%-52s exit=%s  %s\n' "$label" "$rc" "$(grep -m1 'Assertion\|BEST SCORE\|Total tree length' "$label.stdout" "$label.log" 2>/dev/null | head -1 | sed 's/^[^:]*://')"
-  if [ $rc -eq 0 ]; then printf '    %s\n' "$(grep -m1 'Log-likelihood of the tree\|BEST SCORE FOUND' "$label.iqtree" "$label.log" | head -1 | sed 's/^[^:]*://')"; fi
+run() { # id, description, args...
+  id=$1; desc=$2; shift 2
+  "$IQTREE3" "$@" -T 1 -seed 1 -redo -quiet -pre "$id" > "$id.stdout" 2>&1; rc=$?
+  if [ $rc -eq 0 ]; then
+    msg=$(grep -m1 'Log-likelihood of the tree' "$id.iqtree" 2>/dev/null)
+  else
+    msg=$(grep -m1 'Assertion' "$id.stdout")
+  fi
+  printf '%-5s %-40s exit=%-4s %s\n' "$id" "$desc" "$rc" "$msg"
 }
 echo "binary: $("$IQTREE3" --version 2>&1 | head -1)"
-run "203a: -p parts -m MFP -o outgroup_taxon"     -s aln.fa -p parts.nex -m MFP   -o outgroup_taxon -pre 203a
-run "203b: -p parts -m GTR+G -o outgroup_taxon"   -s aln.fa -p parts.nex -m GTR+G -o outgroup_taxon -pre 203b
-run "203c: -p parts -m GTR+G -o sp00 (has data)"  -s aln.fa -p parts.nex -m GTR+G -o sp00 -pre 203c
-run "89a:  -lmap 50 -m JC -o outgroup_taxon"      -s aln_full.fa -m JC -lmap 50 -o outgroup_taxon -pre 89a
-run "89b:  -lmap 50 -m JC -o outgroup_taxon,sp12" -s aln_full.fa -m JC -lmap 50 -o outgroup_taxon,sp12 -pre 89b
+run 203a "-p parts.nex -m MFP -o outgroup_taxon"     -s aln.fa -p parts.nex -m MFP   -o outgroup_taxon
+run 203b "-p parts.nex -m GTR+G -o outgroup_taxon"   -s aln.fa -p parts.nex -m GTR+G -o outgroup_taxon
+run 203c "-q parts.nex -m GTR+G -o outgroup_taxon"   -s aln.fa -q parts.nex -m GTR+G -o outgroup_taxon
+run 203d "-p parts.nex -m GTR+G -o sp00 (has data)"  -s aln.fa -p parts.nex -m GTR+G -o sp00
+run 203e "-p parts.nex -m GTR+G, no -o"              -s aln.fa -p parts.nex -m GTR+G
+run 89a  "-lmap 50 -m JC -o outgroup_taxon"          -s aln_full.fa -m JC -lmap 50 -o outgroup_taxon
+run 89b  "-lmap 50 -m JC -o outgroup_taxon,sp12"     -s aln_full.fa -m JC -lmap 50 -o outgroup_taxon,sp12

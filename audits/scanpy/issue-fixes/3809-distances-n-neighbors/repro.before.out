@@ -1,0 +1,5 @@
+scanpy 0.1.0.dev1+gec3740223, n_neighbors=15, documented non-zero entries per row: 14
+
+transformer=sklearn      n_obs= 1500: non-zero entries per row 14..14, stored 14..14; 0 of the first 500 cells have a neighbour in `distances` absent from `connectivities`
+transformer=pynndescent  n_obs= 1500: non-zero entries per row 16..16, stored 16..16; 348 of the first 500 cells have a neighbour in `distances` absent from `connectivities`
+transformer=None         n_obs= 8500: non-zero entries per row 16..16, stored 16..16; 384 of the first 500 cells have a neighbour in `distances` absent from `connectivities`

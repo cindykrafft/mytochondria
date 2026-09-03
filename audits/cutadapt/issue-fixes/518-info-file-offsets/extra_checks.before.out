@@ -1,0 +1,22 @@
+   first wrong row: r0	0	21	35	GGGTCTATAGCCGCTATCCTC	GACTGCGGATTACA	GATTACACAATAGA	ad	IIIIIIII#I##IIII#IIII	III#IIIIII#III	#####III###III	
+-u 7 -a                                                 rows checked:  292 (against planted adapter:  285)  wrong: 285
+   first wrong row: r0	0	27	41	CTCCTGTATACCTAATGCACAAAGCTG	AAACTAGGATTACA	GATTACAGTAGCAGCATTTGGCACTCA	ad	IIIII##IIIIII#IIII###II#III	III#II#II#I#II	IIIIII##IIII#I#II#III#III#I	
+-u 7 -u -4 -a                                           rows checked:  292 (against planted adapter:  286)  wrong: 286
+   first wrong row: r1	0	38	52	CGATTCTCTATCGCCAATCATATTGGGCACTGACCGAG	TGATTACAGATTAC	AGGTGATACCAGGTTCCGC	ad	#I#IIIIIII#III#I#III#IIII###IIIIIIIII#	I#II##II##I##I	#IIIIIIII#II#III#I#	
+-q 20,20 -a                                             rows checked:  300 (against planted adapter:  300)  wrong: 83
+   first wrong row: r0	0	26	40	ACCTCGCTCAGTGATAAAGGAAGCAC	GTAGATTACAGATT	ACAAGCGCATCGAG	ad	I#I#II##IIIIIIIIIII#IIIIII	IIII###IIIIIII	##IIIIIIIIIIII	
+-u 3 -q 20 --nextseq-trim 20 -a                         rows checked:  299 (against planted adapter:  299)  wrong: 299
+   first wrong row: r0	0	22	36	TGAACTCCGATAAAACCGAGGT	ACCAACTCGGATTA	CAGATTACAGGCCCTCTCTGAGGA	ad	#IIIIII##II#IIIII##I#I	III#II#II#II#I	IIIII#I#II#I#II#I##I##II	0
+-u 7 -q 20,20 --revcomp -a                              rows checked:  292 (against planted adapter:  284)  wrong: 283
+   first wrong row: r1	0	26	40	CCACTACTCTAAATTGGTGAGGGAGT	CGCGGGTTGATTAC	AGATTACAATCCAGA	ad	#II#III#I#I#I#II#I###II##I	IIIIII#IIII#II	IIIIIIIII#IIIII	
+-u 7 -q 20,20 --times 2 -a -a                           rows checked:  285 (against planted adapter:  272)  wrong: 272
+   first wrong row: r0	0	15	29	TGACCGGACCCTGCA	GAATGTGGATTACA	GATTACAGAGAACGATA	ad	IIIIIIII#I#II##	I#I#I#II##I###	IIIIII##II#I###II	
+-u 7 -q 20,20 --action=retain -a                        rows checked:  297 (against planted adapter:  290)  wrong: 290
+   first wrong row: r0	0	22	36	AGAAATTCTTATCGCAAACGAT	TCGGCTCAGATTAC	AGATTACACAAGACAGTTCACAGATAA	ad	IIIIIII#I##I#IIIIIIIII	#IIIIII#IIII#I	IIII##I#IIIIIIIII##IIIII#I#	
+-u 7 -q 20,20 -g (5' adapter)                           rows checked:  298 (against planted adapter:  292)  wrong: 292
+-u 7 -q 20,20 linked -a ^X...Y                          rows checked:   10 (against planted adapter:    0)  wrong: 0
+   first wrong row: r0	0	18	32	AGGAACACTCCGTCATGT	GTAGGTAGATTACA	GATTACAAT	ad	III##IIII#II#IIIII	III#I#IIIIIII#	I#I#IIIII	
+-u 7 -q 20,20 -j 2 -a                                   rows checked:  296 (against planted adapter:  286)  wrong: 286
+   first wrong row: r0	0	16	30	TTATCGAATCAGCGCC	ATCCCCAGATTACA	GATTACATCTA	ad	#II#IIIIIIIIII#I	II#I#I##I#I#II	I##I#I#IIII	
+paired -u 7 -U 5 -q 20,20 -a/-A --info-file-paired      rows checked:  594 (against planted adapter:  577)  wrong: 577
+2953 inconsistent rows

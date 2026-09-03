@@ -79,3 +79,5 @@ nothing for HTSeq (declines); for repositories with unanswered audit filings (AF
 FreeSurfer, Suite2p, Kilosort, Scanpy, umap, Cutadapt, CellPhoneDB) the PR answers the
 maintainers' own issue and is the only new item until they reply; the audit-finding queue
 stays frozen meanwhile.
+
+Assigned issues (2026-09-04): no PR; comment with the diagnosis and a branch link instead. First case: SPM #104–#106 are assigned to the toolbox author.

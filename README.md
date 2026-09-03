@@ -74,7 +74,9 @@ the PR against the issue. Everything is recorded under `audits/<package>/issue-f
 one directory per issue, with the reproduction, outputs, patch, PR body and the other
 candidates considered. The same limits apply: nothing for a repository that declines
 AI-generated contributions, and no new PR while the repository has an unanswered one from
-this project, unless it answers the maintainers' own issue. The audit method from steps 1
+this project, unless it answers the maintainers' own issue. An issue with an assignee is
+someone's claimed work: no PR on it; a verified diagnosis goes on the thread as a comment
+with a link to the branch, and the assignee decides. The audit method from steps 1
 to 5 resumes once the open-issue backlog of the audited repositories is worked down.
 
 What *held up* under the same scrutiny is recorded alongside what didn't, so findings
