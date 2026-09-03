@@ -1,0 +1,28 @@
+01:06 START (tmp dir fix)
+CONTROL 40 SCHZ 33
+== mask mask90: 24403 voxels; df 71; |t| for p<.001 = 3.433
+mask90 pre: |t|>3.433: 215 ; |t|>1.96: 6016
+mask90 pre p=0.001: threshold 24, largest cluster 38, surviving clusters 3, surviving voxels 91
+mask90 pre p=0.01: threshold 145, largest cluster 793, surviving clusters 3, surviving voxels 1289
+mask90 post: |t|>3.433: 93 ; |t|>1.96: 5112
+mask90 post p=0.001: threshold 24, largest cluster 29, surviving clusters 1, surviving voxels 29
+mask90 post p=0.01: threshold 172, largest cluster 274, surviving clusters 2, surviving voxels 532
+mask90 t-map corr pre vs post: 0.6275
+mask90 sign flips: 3004
+mask90 overlap |t|>3.433 (and/or): 15 / 293
+mask90 overlap |t|>1.96 (and/or): 2807 / 8321
+mask90 corrected-cluster voxel overlap p=0.001 (and/or): 0 / 120
+mask90 corrected-cluster voxel overlap p=0.01 (and/or): 102 / 1719
+== mask inter: 6488 voxels; df 71; |t| for p<.001 = 3.433
+inter pre: |t|>3.433: 83 ; |t|>1.96: 1621
+inter pre p=0.001: threshold 14, largest cluster 21, surviving clusters 3, surviving voxels 61
+inter pre p=0.01: threshold 79, largest cluster 245, surviving clusters 3, surviving voxels 524
+inter post: |t|>3.433: 28 ; |t|>1.96: 1622
+inter post p=0.001: threshold 14, largest cluster 11, surviving clusters 0, surviving voxels 0
+inter post p=0.01: threshold 72, largest cluster 151, surviving clusters 2, surviving voxels 232
+inter t-map corr pre vs post: 0.6442
+inter sign flips: 685
+inter overlap |t|>3.433 (and/or): 7 / 104
+inter overlap |t|>1.96 (and/or): 928 / 2315
+inter corrected-cluster voxel overlap p=0.01 (and/or): 146 / 610
+GROUP EXT DONE

@@ -1,0 +1,24 @@
+#
+#  Cluster report 
+#[ Dataset prefix      = tt ]
+#[ Threshold vol       = [1] 'SCZ-CONTROL_Zscr' ]
+#[ Supplement dat vol  = [0] 'SCZ-CONTROL_mean' ]
+#[ Option summary      = -bisided,p=0.01,clust_nvox,79,NN1 ]
+#[ Threshold value(s)  = left-tail p=0.010000 -> thr=-2.575829;  right-tail p=0.010000 -> thr=2.575829 ]
+#[ Aux. stat. info.    =  ]
+#[ Nvoxel threshold    = 79;  Volume threshold = 2133.000 ]
+#[ Single voxel volume = 27.000 (microliters) ]
+#[ Neighbor type, NN   = 1 ]
+#[ Voxel datum type    = float ]
+#[ Voxel dimensions    = 3.000 mm X 3.000 mm X 3.000 mm ]
+#[ Coordinates Order   = RAI ]
+#[ Mask                = /home/user/reho-pilot/group_ext/inter+tlrc ]
+#[ Mean and SEM based on signed voxel intensities ]
+#
+#Volume  CM RL  CM AP  CM IS  minRL  maxRL  minAP  maxAP  minIS  maxIS    Mean     SEM    Max Int  MI RL  MI AP  MI IS
+#------  -----  -----  -----  -----  -----  -----  -----  -----  -----  -------  -------  -------  -----  -----  -----
+    245   -3.9   26.2   27.6  -16.5    4.5   10.5   46.5    7.5   49.5  -0.0865   0.0011  -0.1366   -1.5   37.5   25.5 
+    150   -2.3   52.4   39.8  -16.5    7.5   37.5   70.5   19.5   49.5  -0.0993   0.0015  -0.1503    1.5   61.5   40.5 
+    129    2.0   45.8   -0.3  -13.5   13.5   25.5   64.5  -10.5   10.5  -0.0941   0.0016  -0.1324   -1.5   37.5   -1.5 
+#------  -----  -----  -----  -----  -----  -----  -----  -----  -----  -------  -------  -------  -----  -----  -----
+#   524   -1.9   39.2   24.4                                            -0.0921  8.1e-04                             

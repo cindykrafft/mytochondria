@@ -7,7 +7,8 @@ SUB=$1; ROOT=/home/user/reho-pilot; D=$ROOT/data/$SUB; O=$ROOT/proc/$SUB
 export PATH=/home/user/afni-bin/linux_ubuntu_24_64:$PATH; export LD_LIBRARY_PATH=/home/user/afni-bin/linux_ubuntu_24_64; export OMP_NUM_THREADS=4
 mkdir -p $D/anat $D/func $ROOT/proc
 for f in anat/${SUB}_T1w.nii.gz func/${SUB}_task-rest_bold.nii.gz; do
-  [ -s $D/$f ] || curl -sS -o $D/$f https://s3.amazonaws.com/openneuro.org/ds000030/$SUB/$f
+  [ -s $D/$f ] && ! gzip -t $D/$f 2>/dev/null && rm -f $D/$f   # discard truncated/partial downloads
+  [ -s $D/$f ] || curl -sSf -o $D/$f https://s3.amazonaws.com/openneuro.org/ds000030/$SUB/$f || { echo "DOWNLOAD FAILED $f"; rm -f $D/$f; exit 3; }
 done
 cd $ROOT/proc
 afni_proc.py -subj_id $SUB -script proc.$SUB -scr_overwrite \

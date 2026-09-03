@@ -12,6 +12,8 @@ on an open dataset with a clinical contrast, so the comparison is of the
 
 **Dataset.** OpenNeuro ds000030 (UCLA Consortium for Neuropsychiatric
 Phenomics), resting-state fMRI, 3 T. Pilot: 20 CONTROL + 20 SCHZ that
+pass the pipeline, later enlarged to 40 CONTROL + 33 SCHZ (see *Enlarged sample*
+below). Pilot lists: 20 CONTROL + 20 SCHZ that
 pass the pipeline (`subjects.tsv` lists the first 20 eligible of each with rest + T1w;
 `subjects_spare.tsv` the top-up pool used when a subject failed censoring, see
 Exclusions below).
@@ -189,6 +191,91 @@ is a 40-subject pilot, so the crossing of p = 0.05 is illustrative rather than
 a claim about schizophrenia; the robust findings are the NaN fraction, the
 per-subject error sizes, and the poor overlap of the significant voxel sets.
 
+### Enlarged sample: 40 CONTROL + 33 SCHZ
+
+After the pilot the batch was extended (`scripts/run_ext.sh`; everything under
+`results/enlarged_sample/`) to every remaining ds000030 SCHZ participant with a
+resting run and a T1w, and to a further 20 controls. Of the 22 SCHZ candidates, 13
+passed, 8 failed censoring (fewer retained volumes than regressors) and one,
+sub-50085, was deferred after the container rebooted twice while it was being
+processed. Of the 29 spare controls, 3 have no T1w on the OpenNeuro bucket, 3
+failed censoring, 3 were not needed, and the first 20 that passed were kept. The
+enlarged sample is 73 (df 71); `results/enlarged_sample/subjects_summary_ext.tsv`
+has every per-subject value, and the "original 40" rows of that script reproduce
+the pilot tables above exactly.
+
+| | CONTROL (n = 40) | SCHZ (n = 33) | p |
+|---|---|---|---|
+| age, years (range) | 29.4 ± 7.9 (21–49) | 35.9 ± 9.2 (22–49) | 0.002 |
+| sex F / M | 18 / 22 | 8 / 25 | 0.087 (Fisher) |
+| motion, all volumes (mm) | 0.094 ± 0.036 | 0.125 ± 0.040 | 0.001 |
+| motion, retained volumes | 0.086 ± 0.029 | 0.107 ± 0.030 | 0.004 |
+| volumes censored | 4.5 % | 9.6 % | 0.002 |
+| residual SD handed to 3dReHo | 0.374 ± 0.051 | 0.319 ± 0.076 | < 0.001 |
+
+The groups now differ in age, motion, censoring and, most relevantly, residual
+amplitude: the extension SCHZ participants are older and move more than the
+pilot's. No covariate is used, as in the pilot; the comparison of interest is
+still between builds on identical inputs, and the amplitude difference is the
+mechanism by which the pre-fix error becomes group-dependent.
+
+**Per subject.** The pre-fix build returns NaN in 17.9 % of in-mask voxels on
+average (range 1.8–69.3 %), more in SCHZ (23.1 ± 15.6 %) than in CONTROL
+(13.6 ± 7.5 %; p = 0.001); over the valid voxels it returns 0.30 of the correct
+value with a relative error of 0.70; the two maps correlate 0.58 per subject
+(SCHZ 0.55, CONTROL 0.61; p = 0.003).
+
+**Group contrast, uncorrected** (`3dttest++`, 33 vs 40, same subjects, same mask):
+
+| | intersection mask (6,488 vox) | 90 %-coverage mask (24,403 vox) |
+|---|---|---|
+| voxels \|t\| > 3.43 (p < .001), pre-fix / post-fix | 83 / 28 | 215 / 93 |
+| overlap of those sets (pre ∩ post / pre ∪ post) | 7 / 104 | 15 / 293 |
+| voxels \|t\| > 1.96 (p < .05), pre-fix / post-fix | 1,621 / 1,622 | 6,016 / 5,112 |
+| overlap of the p < .05 sets (Jaccard) | 928 / 2,315 (0.40) | 2,807 / 8,321 (0.34) |
+| spatial correlation of t-maps, pre vs post | 0.64 | 0.63 |
+| voxels where t changes sign | 11 % | 12 % |
+
+**Cluster-level inference** (`3dttest++ -Clustsim`, 10,000 sign-flip randomisations,
+NN1, bi-sided, α = 0.05; `results/enlarged_sample/cluster_inference/`). With 73
+participants a published design now finds corrected clusters under both builds,
+all SCHZ < CONTROL, **but not the same ones**:
+
+| mask | cluster-forming p | build | size threshold | surviving clusters (voxels; peak label) | shared voxels, pre ∩ post / pre ∪ post |
+|---|---|---|---|---|---|
+| 90 %-coverage | 0.001 | pre-fix | 24 | 3 (91): precuneus 38, right fusiform / cerebellum VI 28, precuneus / mid-cingulate 25 | 0 / 120 |
+| | | post-fix | 24 | 1 (29): right middle temporal gyrus | |
+| | 0.01 | pre-fix | 145 | 3 (1,289): precuneus 793, SMA 295, right lingual / cerebellum 201 | 102 / 1,719 |
+| | | post-fix | 172 | 2 (532): cerebellar vermis VI 274, right middle temporal gyrus 258 | |
+| intersection | 0.001 | pre-fix | 14 | 3 (61): vermis III / lingual 21, posterior cingulate 20, precuneus 20 | 0 / 61 |
+| | | post-fix | 14 | 0 (largest 11) | |
+| | 0.01 | pre-fix | 79 | 3 (524): posterior cingulate 245, precuneus 150, vermis / lingual 129 | 146 / 610 |
+| | | post-fix | 72 | 2 (232): posterior cingulate 151, precuneus 81 | |
+
+Labels are the CA_ML_18_MNI (Macro Labels) atlas at the peak (MNI 2009c space).
+At the conventional p < .001 forming threshold the two builds' corrected results
+share **no voxel** in either mask: the code every paper ran reports reduced ReHo in
+schizophrenia in precuneus, posterior cingulate and fusiform cortex; the fixed code
+reports it in right middle temporal gyrus, or nothing. At p < .01 the midline
+posterior-cingulate / precuneus cluster is found by both builds (146 of 610 voxels
+shared in the intersection mask), while the SMA and right-lingual clusters exist
+only before the fix and the vermis cluster only after it.
+
+**Global mean ReHo** with 73:
+
+| SCZ − CONTROL, global mean ReHo | pre-fix (NaN as 0) | pre-fix (valid voxels only) | post-fix |
+|---|---|---|---|
+| difference | −0.031 | −0.022 | −0.040 |
+| Student t (df 71) | −3.46, p = 0.001 | −3.13, p = 0.003 | −3.60, p = 0.001 |
+| Cohen's d | −0.81 | −0.74 | −0.85 |
+
+The global reduction is now significant under every reading, so the pilot's
+p = 0.05 crossing was a matter of sample size rather than of build; the effect
+size is a fifth larger with the fixed code. What the enlarged sample adds is
+the cluster-level result: at the sample size and thresholds the exposed studies
+use, the before- and after-fix pipelines each produce a publishable corrected
+finding, and the findings are anatomically different.
+
 ### Reading this fairly
 
 - This is the *published design* (afni_proc.py with the default `scale`
@@ -214,6 +301,9 @@ S3 bucket (no credentials needed, ~9 min/subject on 4 cores);
 `scripts/group_analysis.sh` produces the group maps and logs;
 `scripts/subject_stats_v2.py` the per-subject table (nibabel, NaN-aware);
 `scripts/cluster_inference.sh` + `scripts/cluster_extract.sh` the cluster-level inference;
+`scripts/run_ext.sh` (+ `janitor_ext.sh`, `janitor2_ext.sh`, `stop_all.sh`) the extension
+batch, `scripts/group_analysis_ext.sh` its group maps and cluster inference, and
+`scripts/subject_stats_ext.py` its demographics and per-subject table;
 `scripts/make_figure1.py` the summary figure `results/figure1.png` (panel A: one
 subject's before/after maps; B: per-subject map fidelity vs residual SD; C: the
 SCZ-vs-CONTROL t-maps under each build); `scripts/make_mechanism_figure.py` the
