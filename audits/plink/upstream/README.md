@@ -7,6 +7,17 @@ _Prepared 2026-09-03 against `chrchang/plink-ng` `master` @ `8bfebe8` (2026-09-0
 (one commit, `08256aa`, on top of `8bfebe8`) exists only in the local scratch clone;
 its `git format-patch` output is `0001-PLINK-1.9-hwe-keeps-variants-whose-exact-p-is-at-or-.patch`._
 
+
+## Fork branches (pushed 2026-09-03)
+
+Each branch is one commit on top of `8bfebe8` (`master`) in the fork
+[cindykrafft/plink-ng](https://github.com/cindykrafft/plink-ng); PR compare URLs use
+`https://github.com/<upstream>/compare/master...cindykrafft:plink-ng:<branch>`.
+
+| branch | commit | patch |
+|---|---|---|
+| [`fix/hwe-threshold-tail-sum`](https://github.com/cindykrafft/plink-ng/tree/fix/hwe-threshold-tail-sum) | `6a7a10a` | 0001 (PL1) |
+
 ## What was read before preparing this (step 4 of the method)
 
 - Top-level `README.md`: points to the PLINK 1.9 / 2.0 documentation at

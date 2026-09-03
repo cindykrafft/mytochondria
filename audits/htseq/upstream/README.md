@@ -17,6 +17,18 @@ each other (they touch different files, except that both add a "Version 2.1.3 /
 Unreleased" section at the top of `doc/history.rst`, which conflicts trivially when
 both are applied).
 
+
+## Fork branches (pushed 2026-09-03)
+
+Each branch is one commit on top of `7672321` (`main`) in the fork
+[cindykrafft/htseq](https://github.com/cindykrafft/htseq); PR compare URLs use
+`https://github.com/<upstream>/compare/main...cindykrafft:htseq:<branch>`.
+
+| branch | commit | patch |
+|---|---|---|
+| [`fix/unmapped-mate-minaqual`](https://github.com/cindykrafft/htseq/tree/fix/unmapped-mate-minaqual) | `de52947` | 0001 (HC2) |
+| [`fix/bam-reader-interval-offset`](https://github.com/cindykrafft/htseq/tree/fix/bam-reader-interval-offset) | `9ba5be1` | 0002 (HC1) |
+
 ## What was read before preparing this (step 4 of the method)
 
 - No `CONTRIBUTING.md` in the repository. `doc/contrib.rst` ("Contributing"): source on

@@ -14,6 +14,19 @@ each is one commit on top of `dce5c40`:_
 PR compare URLs will be
 `https://github.com/OpenGene/fastp/compare/master...<fork>:<branch>`.
 
+
+## Fork branches (pushed 2026-09-03)
+
+Each branch is one commit on top of `dce5c40` (`master`) in the fork
+[cindykrafft/fastp](https://github.com/cindykrafft/fastp); PR compare URLs use
+`https://github.com/<upstream>/compare/master...cindykrafft:fastp:<branch>`.
+
+| branch | commit | patch |
+|---|---|---|
+| [`fix/cut-window-trim-front`](https://github.com/cindykrafft/fastp/tree/fix/cut-window-trim-front) | `5de9fbd` | 0001 (FP1) |
+| [`fix/known-adapter-truncation`](https://github.com/cindykrafft/fastp/tree/fix/known-adapter-truncation) | `91ef002` | 0002 (FP2) |
+| [`fix/adapter-indel-offset`](https://github.com/cindykrafft/fastp/tree/fix/adapter-indel-offset) | `154a750` | 0003 (FP3) |
+
 ## What was read before preparing this (step 4 of the method)
 
 - The repository has **no `CONTRIBUTING.md`, no issue templates, no pull-request

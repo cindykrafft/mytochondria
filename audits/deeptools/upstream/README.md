@@ -22,6 +22,23 @@ directory:_
 DT5 (BPM = CPM) and DT6 (smoothing at chunk edges) have issue texts but no patch: DT5 is
 a code-or-documentation decision for the maintainers, DT6 needs overlapping chunk reads.
 
+
+## Fork branches (pushed 2026-09-03)
+
+Each branch is one commit on top of `ea0f68bb` (`master`) in the fork
+[cindykrafft/deepTools](https://github.com/cindykrafft/deepTools); PR compare URLs use
+`https://github.com/<upstream>/compare/master...cindykrafft:deepTools:<branch>`.
+
+| branch | commit | patch |
+|---|---|---|
+| [`fix/bamcompare-skipzerooverzero-coordinates`](https://github.com/cindykrafft/deepTools/tree/fix/bamcompare-skipzerooverzero-coordinates) | `8710337` | 0001 (DT1) |
+| [`fix/plotpca-log2-rowcenter`](https://github.com/cindykrafft/deepTools/tree/fix/plotpca-log2-rowcenter) | `fb40d15` | 0002 (DT2) |
+| [`fix/plotcorrelation-mad-outliers`](https://github.com/cindykrafft/deepTools/tree/fix/plotcorrelation-mad-outliers) | `66471cd` | 0003 (DT3) |
+| [`fix/mnase-odd-fragment-centre`](https://github.com/cindykrafft/deepTools/tree/fix/mnase-odd-fragment-centre) | `4593dc1` | 0004 (DT4) |
+| [`fix/ignoreduplicates-scale-factor`](https://github.com/cindykrafft/deepTools/tree/fix/ignoreduplicates-scale-factor) | `5326074` | 0005 (DT7) |
+| [`fix/multibigwigsummary-exact-stats`](https://github.com/cindykrafft/deepTools/tree/fix/multibigwigsummary-exact-stats) | `572d041` | 0006 (DT8) |
+| [`fix/sumcoverage-partial-bins`](https://github.com/cindykrafft/deepTools/tree/fix/sumcoverage-partial-bins) | `70a0b1e` | 0007 (DT9) |
+
 ## What was read before preparing this (step 4 of the method)
 
 - `.github/CONTRIBUTING.md`: fork; "check out a feature or bug branch"; feature work on

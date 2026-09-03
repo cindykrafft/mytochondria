@@ -19,6 +19,19 @@ BT3 (closest tie order) and BT5 (`-pct` float) are confirmed but their fixes are
 invasive (a `RecDistList` redesign; option-parsing signature changes) and are
 filed as issues only, with the fix shape described.
 
+
+## Fork branches (pushed 2026-09-03)
+
+Each branch is one commit on top of `614e9a5` (`master`) in the fork
+[cindykrafft/bedtools2](https://github.com/cindykrafft/bedtools2); PR compare URLs use
+`https://github.com/<upstream>/compare/master...cindykrafft:bedtools2:<branch>`.
+
+| branch | commit | patch |
+|---|---|---|
+| [`fix/coverage-split-hit-count`](https://github.com/cindykrafft/bedtools2/tree/fix/coverage-split-hit-count) | `7aa51ae` | 0001 (BT1) |
+| [`fix/intersect-split-per-record-F`](https://github.com/cindykrafft/bedtools2/tree/fix/intersect-split-per-record-F) | `2e10dc7` | 0002 (BT2) |
+| [`fix/large-chrom-int-truncation`](https://github.com/cindykrafft/bedtools2/tree/fix/large-chrom-int-truncation) | `e6b83fb` | 0003 (BT4) |
+
 ## What was read before preparing this (step 4 of the method)
 
 - **No `CONTRIBUTING.md`, no `.github/ISSUE_TEMPLATE`, no
