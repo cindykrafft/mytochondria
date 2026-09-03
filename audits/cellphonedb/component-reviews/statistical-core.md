@@ -392,6 +392,22 @@ undetected therefore enters the analysis at half its measured expression, in bot
 id_multidata", so the behaviour is stated; the consequence is not, and a maximum or a sum would
 be the more usual choice. Recorded as a design note because it was not executed.
 
+### N6 — `db_utils.create_db` crashes when a `uniprot_N` column of `complex_input.csv` is entirely empty
+
+`sanity_test_report_unknown_proteins` (`db_utils.py:597-608`) merges the complex table against the
+protein table once per subunit column. If no complex in the file fills, say, `uniprot_4`, pandas
+reads that column as all-NaN float64 and refuses to merge it against the string `uniprot` column:
+`ValueError: You are trying to merge on float64 and str columns for key 'uniprot_4'`. Building a
+custom database — the documented `notebooks/T0_BuildDBfromFiles.ipynb` workflow — therefore fails
+whenever every complex has fewer subunits than the widest column in the header, which is the
+normal case for a small hand-made file. **Verified**
+(`../verify/note_create_db_empty_uniprot_column.py`, full traceback captured): a
+`complex_input.csv` containing one dimer raises; the same file plus one four-subunit complex
+builds successfully. The message names a column of the user's input, so it is diagnosable, but it
+comes from a sanity test whose purpose is to warn about unknown proteins, and no unknown protein
+is involved. A dtype-safe merge (skip all-NaN columns, or compare as strings) fixes it. This
+audit's own fixture had to carry a four-subunit complex for exactly this reason.
+
 ## What held up (executed, not just read)
 
 `../verify/heldup_reference_vs_shipped.py` reimplements the documented method in plain numpy and

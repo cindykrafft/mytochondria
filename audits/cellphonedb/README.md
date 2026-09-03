@@ -37,6 +37,7 @@ each release's own source was checked out and executed rather than inferred from
 | N3 | note, edge case | `pvalue=0` silently inverts the filter (`if min_significant_mean:` is falsy): 34 of 36 entries kept, 13 of them with p = 1.0, and the one p = 0 entry dropped. |
 | N4 | note, cosmetic | The scoring filter (`pct < threshold` drops) and the significance filter (`pct > threshold` keeps) disagree at an exact tie: the same gene scores 25.0 while its p-value is forced to 1. |
 | N5 | note, by reading (not executed) | Several counts rows mapping to one `id_multidata` are **averaged**, so an undetected second transcript halves a gene's expression. Stated in the docstring; the consequence is not. |
+| N6 | note, crash on a documented workflow | `db_utils.create_db` raises `ValueError: You are trying to merge on float64 and str columns for key 'uniprot_4'` when no complex in `complex_input.csv` fills the widest `uniprot_N` column — the normal case for a small custom database. Adding one four-subunit complex makes the same file build. |
 
 **Held up under execution:** an independent numpy port of the documented method reproduces every
 number the statistical pipeline produces on the fixture — cluster means (plain mean over all
@@ -145,6 +146,7 @@ cold PR. CPDB5 and CPDB6 are crisp, no-numerical-effect fixes and carry patches.
 | `verify/cpdb6_scoring_crashes_pandas3.py` (+ `.out`) | CPDB6: pandas 3 vs pandas 2, and the failing step in isolation |
 | `verify/note_pvalue_precision_cutoff.py` (+ `.out`) | N1, N2, N3 |
 | `verify/note_scoring_pipeline.py` (+ `.out`) | scoring port (held up) and N4 |
+| `verify/note_create_db_empty_uniprot_column.py` (+ `.out`) | N6: `create_db` on a complex table with an unused subunit column |
 | `upstream/` | filing kit: issue texts, patches for CPDB5 and CPDB6, PR bodies, and what was read |
 
 Harnesses need the master install:
