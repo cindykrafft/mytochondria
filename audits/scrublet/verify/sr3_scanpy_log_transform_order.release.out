@@ -13,11 +13,12 @@ synthetic data seed 2: 1650 cells, 150 true doublets
   original log_transform=True                          mean obs score 0.076  mean sim score 0.448  threshold  0.5854  called   32  recall 0.213  precision 1.000
 
 mechanism (seed 1): the matrices the port builds before z-scoring, log_transform=True
-Traceback (most recent call last):
-  File "/home/user/research-software-audit/audits/scrublet/verify/sr3_scanpy_log_transform_order.py", line 79, in <module>
-    ad_sim = sc.pp.scrublet_simulate_doublets(ad_obs, layer="raw", sim_doublet_ratio=2.0, random_state=0)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/scrublet/venv-rel/lib/python3.12/site-packages/legacy_api_wrap/__init__.py", line 88, in fn_compatible
-    return fn(*args_all, **kw)
-           ^^^^^^^^^^^^^^^^^^^
-TypeError: scrublet_simulate_doublets() got an unexpected keyword argument 'random_state'
+  per-cell sums over the 518 HVGs at the moment log1p is applied: observed (median-normalised) mean 1137.6, simulated (raw sums) mean 2565.3
+  after log1p then normalize_total(1e6): correlation of mean gene profiles obs vs sim = 0.9940
+  (the original applies log10(1+x) after both populations are normalised to 1e6 by their full-gene totals, so they share one transform)
+
+self-doublet test (seed 1): sim = raw counts of cell i added to itself, for 20 cells, then each package's transform sequence
+  scanpy   log_transform=False: relative distance between cell i and its self-doublet: max 1.23e-07, mean 5.88e-08
+  scanpy   log_transform=True : relative distance between cell i and its self-doublet: max 0.189, mean 0.0817
+  original log_transform=False: relative distance between cell i and its self-doublet: max 0, mean 0
+  original log_transform=True : relative distance between cell i and its self-doublet: max 0, mean 0

@@ -1,0 +1,127 @@
+From 661a4ed82388c703444304abb607eec898411f37 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 00:46:28 +0000
+Subject: [PATCH] fix: score scrublet doublets over k_adj neighbors, not k_adj
+ - 1
+
+`Neighbors` counts a cell as its own first neighbor, so asking it for
+`k_adj` neighbors and then either keeping the self column (sklearn/default
+backend) or dropping it (pynndescent) left `k_adj - 1` other cells in the
+count while the score still divided by `k_adj`. When the manifold contains
+coincident points (a parent pair drawn twice, or a cell paired with itself)
+the self column is not prepended at all and every cell is scored over
+`k_adj - 1` neighbors. Ask for `k_adj + 1` and drop the self column.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ .../+scrublet-knn-neighbour-count.fix.md      |  1 +
+ src/scanpy/preprocessing/_scrublet/core.py    | 16 +++++--
+ tests/test_scrublet.py                        | 44 +++++++++++++++++++
+ 3 files changed, 57 insertions(+), 4 deletions(-)
+ create mode 100644 docs/release-notes/+scrublet-knn-neighbour-count.fix.md
+
+diff --git a/docs/release-notes/+scrublet-knn-neighbour-count.fix.md b/docs/release-notes/+scrublet-knn-neighbour-count.fix.md
+new file mode 100644
+index 0000000..dd00298
+--- /dev/null
++++ b/docs/release-notes/+scrublet-knn-neighbour-count.fix.md
+@@ -0,0 +1 @@
++Fix {func}`~scanpy.pp.scrublet` scoring each cell over one neighbor fewer than the `k_adj` it computes (the cell itself was counted, or dropped without replacement), which lowered every observed cell's doublet score relative to the original Scrublet; doublet scores and the automatic threshold change slightly {smaller}`C Krafft`
+diff --git a/src/scanpy/preprocessing/_scrublet/core.py b/src/scanpy/preprocessing/_scrublet/core.py
+index 601bd57..a49f559 100644
+--- a/src/scanpy/preprocessing/_scrublet/core.py
++++ b/src/scanpy/preprocessing/_scrublet/core.py
+@@ -338,22 +338,30 @@ class Scrublet:
+         # Adjust k (number of nearest neighbors) based on the ratio of simulated to observed cells
+         k_adj = round(k * (1 + n_sim / float(n_obs)))
+ 
+-        # Find k_adj nearest neighbors
++        # Find the k_adj nearest *other* cells. `Neighbors` counts a cell as its own
++        # first neighbor, so ask for one more and drop that column below.
+         knn = Neighbors(manifold)
+         transformer = None
+         if use_approx_neighbors is not None:
+             transformer = "pynndescent" if use_approx_neighbors else "sklearn"
+         knn.compute_neighbors(
+-            k_adj,
++            k_adj + 1,
+             metric=distance_metric,
+             knn=True,
+             transformer=transformer,
+             method=None,
+             rng=self._rng,
+         )
+-        neighbors, _ = _get_indices_distances_from_sparse_matrix(knn.distances, k_adj)
+-        if use_approx_neighbors:
++        neighbors, _ = _get_indices_distances_from_sparse_matrix(
++            knn.distances, k_adj + 1
++        )
++        if neighbors.shape[1] == k_adj + 1:
++            # the self column `_get_indices_distances_from_sparse_matrix` prepends
++            # (it is not prepended when coincident cells make it keep another cell there)
+             neighbors = neighbors[:, 1:]
++        if neighbors.shape[1] != k_adj:  # pragma: no cover
++            msg = f"Expected {k_adj} neighbors per cell, got {neighbors.shape[1]}."
++            raise RuntimeError(msg)
+         # Calculate doublet score based on ratio of simulated cell neighbors vs. observed cell neighbors
+         doub_neigh_mask: NDArray[np.bool] = (
+             manifold.obs["doub_labels"].to_numpy()[neighbors] == "sim"
+diff --git a/tests/test_scrublet.py b/tests/test_scrublet.py
+index c607a64..21483ba 100644
+--- a/tests/test_scrublet.py
++++ b/tests/test_scrublet.py
+@@ -63,6 +63,50 @@ def test_scrublet(
+     )
+ 
+ 
++@pytest.mark.parametrize("coincident", [False, True], ids=["distinct", "coincident"])
++@pytest.mark.parametrize("use_approx_neighbors", [False, None])
++def test_scrublet_knn_uses_k_adj_neighbors(
++    *, coincident: bool, use_approx_neighbors: bool | None
++) -> None:
++    """The score must be over the k_adj nearest *other* cells, as in Scrublet.
++
++    Before the fix, `Neighbors` counted the cell itself and the classifier
++    scored k_adj - 1 real neighbors (plus the cell itself, or nothing when the
++    manifold contained coincident points) while still dividing by k_adj.
++    """
++    from sklearn.neighbors import NearestNeighbors
++
++    from scanpy.preprocessing._scrublet.core import Scrublet
++
++    rng = np.random.default_rng(0)
++    n_obs, n_sim, k = 150, 300, 6
++    manifold_obs = rng.normal(size=(n_obs, 5))
++    manifold_sim = rng.normal(size=(n_sim, 5)) + 0.5
++    if coincident:  # e.g. the same parent pair drawn twice
++        manifold_sim[1] = manifold_sim[0]
++    scrub = Scrublet(
++        counts_obs=np.ones((n_obs, 2)),
++        n_neighbors=k,
++        expected_doublet_rate=0.1,
++        stdev_doublet_rate=0.02,
++        rng=0,
++    )
++    scrub.set_manifold(manifold_obs, manifold_sim)
++    scrub.calculate_doublet_scores(use_approx_neighbors=use_approx_neighbors)
++
++    manifold = np.vstack([manifold_obs, manifold_sim])
++    labels = np.r_[np.zeros(n_obs), np.ones(n_sim)]
++    k_adj = round(k * (1 + n_sim / n_obs))
++    nn = NearestNeighbors(n_neighbors=k_adj).fit(manifold)
++    n_sim_neigh = labels[nn.kneighbors(return_distance=False)].sum(axis=1)
++    rho, r = 0.1, n_sim / n_obs
++    q = (n_sim_neigh + 1) / (k_adj + 2)
++    expected = q * rho / r / (1 - rho - q * (1 - rho - rho / r))
++    assert_allclose(
++        np.r_[scrub.doublet_scores_obs_, scrub.doublet_scores_sim_], expected
++    )
++
++
+ def test_scrublet_batched():
+     """Test that Scrublet run works with batched data."""
+     adata = pbmc200()
+-- 
+2.43.0
+
