@@ -1,0 +1,17 @@
+bedtools 614e9a5
+
+== A. 2000 features of length L, one include interval of size S, 5 seeds each
+   L=   50 S=   100:  4979 of 10000 shuffled features extend past the include interval (49.8 %); expected spill for uniform start: 49.0 %
+   L=   50 S=  1000:   508 of 10000 shuffled features extend past the include interval (5.1 %); expected spill for uniform start: 4.9 %
+   L=  200 S=  1000:  1953 of 10000 shuffled features extend past the include interval (19.5 %); expected spill for uniform start: 19.9 %
+   L= 1000 S=  1000:  9990 of 10000 shuffled features extend past the include interval (99.9 %); expected spill for uniform start: 99.9 %
+   L=   10 S= 10000:    11 of 10000 shuffled features extend past the include interval (0.1 %); expected spill for uniform start: 0.1 %
+   L=  500 S= 10000:   486 of 10000 shuffled features extend past the include interval (4.9 %); expected spill for uniform start: 5.0 %
+
+== B. realistic mix: 5000 features of 20-2000 bp, 300 include intervals of 500-20000 bp (two chromosomes)
+   475 of 5000 features not fully inside an include interval; 301843 bases placed outside the include set (of 5037800)
+   features starting outside any include interval: 0
+
+== C. -incl plus -noOverlapping / -excl (same mix)
+   -noOverlapping: 3393 features returned, 298 not fully inside an include interval
+   -excl (200 bp before each chr1 include interval): 5000 features, 0 overlap an -excl interval (expected 0), 475 not fully inside an include interval

@@ -1,0 +1,12 @@
+bedtools 614e9a5
+
+== minimal: A = [0, 16777217), B = [0, 16777216): A is one base longer than B
+   intersect -f 1.0 -u    -> 1 line(s) (expected 0)
+   intersect -F 1.0 -u, roles swapped -> 1 line(s) (expected 0)
+   control A = [0,17), B = [0,16): -f 1.0 -u -> 0 line(s)
+   float32(16777216/16777217) = 1.0
+
+== random: 20000 pairs of intervals of length 1e7-1e8 with overlap, -f 0.5 and -f 1.0, float rule vs exact rational
+   -f 0.5: 1934 of 20000 boundary-stressed pairs decided differently by float32 and exact arithmetic
+   -f 1.0: 1988 of 20000 boundary-stressed pairs decided differently by float32 and exact arithmetic
+   (pairs drawn uniformly at random almost never sit within 6e-8 of the threshold, so the practical rate is ~0 except for -f/-F 1.0 on > 16.7 Mb intervals)

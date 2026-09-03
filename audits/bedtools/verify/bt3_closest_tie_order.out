@@ -1,0 +1,20 @@
+bedtools 614e9a5
+
+== A. minimal: A = chr1:10-20 (-); B = chr1:5-6 (b1, +) and chr1:24-25 (b2, +), both at distance 5
+   -d -t first            -> b1 (dist 5)
+   -D ref -t first        -> b1 (dist -5)
+   -D a -t first          -> b2 (dist -5)
+   -D a -t last           -> b1 (dist 5)
+   -D b -t first          -> b2 (dist -5)
+   -D b -t last           -> b1 (dist 5)
+   -D a -t all            -> b2 (dist -5), b1 (dist 5)
+   (-t first documented as the first tie in the B file, i.e. b1 in every mode)
+
+== B. random: 2000 queries, each with one B record at distance d on the left and one on the right
+   -D ref -t first:    0 of 2000 not the first tie in file order 
+   -D ref -t last :    0 of 2000 not the last tie in file order 
+   -D a   -t first: 1027 of 2000 not the first tie in file order {'A-': 1027}
+   -D a   -t last : 1027 of 2000 not the last tie in file order {'A-': 1027}
+   -D b   -t first:  469 of 2000 not the first tie in file order {'B+': 469}
+   -D b   -t last :  469 of 2000 not the last tie in file order {'B+': 469}
+   -d -t first     :    0 of 2000 not the first tie (control)

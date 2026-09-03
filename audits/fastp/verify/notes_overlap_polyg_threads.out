@@ -1,0 +1,59 @@
+fastp: fastp 1.3.6
+
+== N1: where the mismatches sit inside an 80 nt overlap (200 pairs each, default --overlap_diff_limit 5, --overlap_diff_percent_limit 20)
+  mismatches   in overlap positions  pairs merged  corrected_bases
+           0                   0-49           200                0
+           0                  50-79           200                0
+           1                   0-49           200                0
+           1                  50-79           200                0
+           3                   0-49           200                0
+           3                  50-79           200                0
+           5                   0-49           200                0
+           5                  50-79           200                0
+           6                   0-49             0                0
+           6                  50-79           200                0
+          10                   0-49             0                0
+          10                  50-79           200                0
+          20                   0-49             0                0
+          20                  50-79           200                0
+          30                   0-49             0                0
+          30                  50-79           200                0
+
+== N2: --overlap_len_require 30, exact overlap lengths (200 pairs each)
+  overlap  28 nt: pairs merged    0/200   rejected
+  overlap  29 nt: pairs merged    0/200   rejected
+  overlap  30 nt: pairs merged    0/200   rejected
+  overlap  31 nt: pairs merged  200/200   accepted
+  overlap  32 nt: pairs merged  200/200   accepted
+  overlap  35 nt: pairs merged  200/200   accepted
+
+== N3: insert-size histogram vs --thread (4,000 pairs, insert size 120)
+  -w 1: peak  120  counted pairs   4000 of 4000  (bin 120 = 4000)
+  -w 2: peak  120  counted pairs   2000 of 4000  (bin 120 = 2000)
+  -w 3: peak  120  counted pairs   2000 of 4000  (bin 120 = 2000)
+  -w 4: peak  120  counted pairs   1000 of 4000  (bin 120 = 1000)
+  -w 8: peak  120  counted pairs   1000 of 4000  (bin 120 = 1000)
+
+== N4: --poly_g_min_len 10, reads ending in exactly k G (preceded by a non-G)
+  tail of  6 G: reads trimmed    3/200   kept
+  tail of  7 G: reads trimmed   12/200   kept
+  tail of  8 G: reads trimmed   52/200   kept
+  tail of  9 G: reads trimmed  200/200   trimmed
+  tail of 10 G: reads trimmed  200/200   trimmed
+  tail of 11 G: reads trimmed  200/200   trimmed
+  tail of 12 G: reads trimmed  200/200   trimmed
+
+== N5: -m/--merge and base correction
+  plain PE (no -c)   corrected_bases in the JSON:  absent   merged reads 0
+  PE with -c         corrected_bases in the JSON:     200   merged reads 0
+  PE with -m         corrected_bases in the JSON:     200   merged reads 200
+  PE with -m -c      corrected_bases in the JSON:     200   merged reads 200
+
+== N6: how many adapter bases at the 3' end are enough (-a, 33 nt adapter)
+  2 adapter bases at the read end: trimmed    0/200
+  3 adapter bases at the read end: trimmed    0/200
+  4 adapter bases at the read end: trimmed    0/200
+  5 adapter bases at the read end: trimmed  200/200
+  6 adapter bases at the read end: trimmed  200/200
+  7 adapter bases at the read end: trimmed  200/200
+  8 adapter bases at the read end: trimmed  200/200

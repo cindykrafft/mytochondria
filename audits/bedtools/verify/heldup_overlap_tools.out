@@ -1,0 +1,97 @@
+bedtools 614e9a5
+
+== intersect (400 A, 1500 B records)
+   -wo default : 3135 pairs, overlap widths                   ok 
+   -wo default -sorted: 3135 pairs, overlap widths            ok 
+   -c default                                                 ok 
+   -u default (once per A, A order)                           ok 
+   -v default                                                 ok 
+   -wo -f 0.5 : 1391 pairs, overlap widths                    ok 
+   -wo -f 0.5 -sorted: 1391 pairs, overlap widths             ok 
+   -c -f 0.5                                                  ok 
+   -u -f 0.5 (once per A, A order)                            ok 
+   -v -f 0.5                                                  ok 
+   -wo -F 0.5 : 1486 pairs, overlap widths                    ok 
+   -wo -F 0.5 -sorted: 1486 pairs, overlap widths             ok 
+   -c -F 0.5                                                  ok 
+   -u -F 0.5 (once per A, A order)                            ok 
+   -v -F 0.5                                                  ok 
+   -wo -f 0.3 -r : 1507 pairs, overlap widths                 ok 
+   -wo -f 0.3 -r -sorted: 1507 pairs, overlap widths          ok 
+   -c -f 0.3 -r                                               ok 
+   -u -f 0.3 -r (once per A, A order)                         ok 
+   -v -f 0.3 -r                                               ok 
+   -wo -f 0.9 -F 0.1 -e : 2843 pairs, overlap widths          ok 
+   -wo -f 0.9 -F 0.1 -e -sorted: 2843 pairs, overlap widths   ok 
+   -c -f 0.9 -F 0.1 -e                                        ok 
+   -u -f 0.9 -F 0.1 -e (once per A, A order)                  ok 
+   -v -f 0.9 -F 0.1 -e                                        ok 
+   -wo -s : 1042 pairs, overlap widths                        ok 
+   -wo -s -sorted: 1042 pairs, overlap widths                 ok 
+   -c -s                                                      ok 
+   -u -s (once per A, A order)                                ok 
+   -v -s                                                      ok 
+   -wo -S : 971 pairs, overlap widths                         ok 
+   -wo -S -sorted: 971 pairs, overlap widths                  ok 
+   -c -S                                                      ok 
+   -u -S (once per A, A order)                                ok 
+   -v -S                                                      ok 
+   -wo -f 0.5 -s : 493 pairs, overlap widths                  ok 
+   -wo -f 0.5 -s -sorted: 493 pairs, overlap widths           ok 
+   -c -f 0.5 -s                                               ok 
+   -u -f 0.5 -s (once per A, A order)                         ok 
+   -v -f 0.5 -s                                               ok 
+   -wao: pairs + zero rows for A without hit                  ok 
+   -loj: one row per pair, NULL B for A without hit           ok 
+   -C with two -b files                                       ok 
+   -wo -sorted with two -b files (file id column)             ok 
+
+== coverage
+   default: count, bases covered, length, fraction (float32, %0.7f) ok 
+   -counts                                                    ok 
+   -mean (%0.7f of float mean)                                ok 
+   -d (1-based position, depth)                               ok 
+   -hist per record and 'all' summary (float32 fractions)     ok 
+
+== subtract
+   subtract default                                           ok 
+   subtract -f 0.5                                            ok 
+   subtract -A                                                ok 
+   subtract -A -f 0.5                                         ok 
+   subtract -N -f 0.5                                         ok 
+
+== window
+   window -w 1000 (pairs; -sw flips '-' and '.'; strands as strings) ok 
+   window -w 1000 -c                                          ok 
+   window -w 1000 -u / -v                                     ok 
+   window -l 50 -r 300 (pairs; -sw flips '-' and '.'; strands as strings) ok 
+   window -l 50 -r 300 -c                                     ok 
+   window -l 50 -r 300 -u / -v                                ok 
+   window -l 50 -r 300 -sw (pairs; -sw flips '-' and '.'; strands as strings) ok 
+   window -l 50 -r 300 -sw -c                                 ok 
+   window -l 50 -r 300 -sw -u / -v                            ok 
+   window -w 200 -sm (pairs; -sw flips '-' and '.'; strands as strings) ok 
+   window -w 200 -sm -c                                       ok 
+   window -w 200 -sm -u / -v                                  ok 
+   window -w 200 -Sm (pairs; -sw flips '-' and '.'; strands as strings) ok 
+   window -w 200 -Sm -c                                       ok 
+   window -w 200 -Sm -u / -v                                  ok 
+
+== merge / cluster
+   merge -d 0                                                 ok 
+   merge -d 100                                               ok 
+   merge -d -1                                                ok 
+   merge -s (per strand; '.' records are dropped, FileRecordMergeMgr.cpp:54-58) ok 
+   merge -S +                                                 ok 
+   merge -d 100 -c 5 -o <18 operations> (file order within group) ok 
+   groupby -g 1 -c 2 -o <18 operations> (VectorOps path)      ok 
+   cluster -d 0 (partition)                                   ok 
+   cluster -d 100 (partition)                                 ok 
+   cluster -s (partition; '.' records dropped)                ok 
+
+== map
+      first mismatch: a92 sstdev got NA ref nan hits ['465']
+   map -c 5 -o <18 operations> -null NA (count/count_distinct give 0 for no hit) MISMATCH 
+   map -o sum -f 0.5 -s                                       ok 
+
+MISMATCHES: 1

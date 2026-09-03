@@ -1,0 +1,24 @@
+bamCoverage 3.3.1
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/deeptools/verify/heldup_fingerprint.py", line 54, in <module>
+    counts, metrics = run(nsamples)
+                      ^^^^^^^^^^^^^
+  File "/home/user/research-software-audit/audits/deeptools/verify/heldup_fingerprint.py", line 37, in run
+    S.run(["plotFingerprint", "-b", bam_ch, bam_in, "--labels", "chip", "input", "--outRawCounts", raw,
+  File "/home/user/research-software-audit/audits/deeptools/verify/_synth.py", line 38, in run
+    raise RuntimeError("command failed: %s\n%s" % (" ".join(cmd), r.stderr))
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-3.3.1/bin/plotFingerprint", line 14, in <module>
+    main(args)
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-3.3.1/lib/python3.12/site-packages/deeptools/plotFingerprint.py", line 470, in main
+    JSD = getJSD(args, idx, num_reads_per_bin)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-3.3.1/lib/python3.12/site-packages/deeptools/plotFingerprint.py", line 279, in getJSD
+    chip = np.zeros(MAXLEN, dtype=np.int)
+                                  ^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/deeptools/venv-3.3.1/lib/python3.12/site-packages/numpy/__init__.py", line 760, in __getattr__
+    raise AttributeError(__former_attrs__[attr], name=None)
+`np.int` was a deprecated alias for the builtin `int`. To avoid this error in existing code, use `int` by itself. Doing this will not modify any behavior and is safe. When replacing `np.int`, you may wish to use e.g. `np.int64` or `np.int32` to specify the precision. If you wish to review your current use, check the release note link for additional information.
+The aliases was originally deprecated in NumPy 1.20; for more details and guidance see the original release note at:
+    https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+

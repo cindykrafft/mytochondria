@@ -1,0 +1,108 @@
+cohort: 167
+full text: 0   survey-cache fallback: 167   ({'offline': 167})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  Bowtie2 / BWA / STAR aligner                     129
+  samtools                                         105
+  MACS2 / MACS3 peak calling                       95
+  bigWig / coverage track produced                 78
+  bamCoverage                                      64
+  bedtools                                         61
+  RNA-seq                                          53
+  Picard MarkDuplicates                            49
+  HOMER                                            41
+  deepTools version stated                         39
+  --binSize stated                                 32
+  paired-end                                       27
+  --minMappingQuality / MAPQ filter                25
+  ATAC-seq                                         24
+  ChIP-seq                                         23
+  PCA                                              19
+  --normalizeUsing named                           18
+  CPM normalisation                                18
+  IGV                                              17
+  RPKM normalisation                               14
+  computeMatrix                                    14
+  --scaleFactor / spike-in scaling                 13
+  --ignoreDuplicates                               13
+  blacklist                                        11
+  bamCompare                                       11
+  CUT&RUN / CUT&Tag                                9
+  nf-core / Snakemake pipeline                     9
+  plotHeatmap                                      8
+  Galaxy                                           7
+  fragment size / insert size                      6
+  TSS / TES named                                  6
+  k-means / hierarchical clustering of heatmap     6
+  --smoothLength                                   5
+  RPGC / 1x normalisation                          5
+  BPM normalisation                                5
+  --extendReads                                    4
+  Spearman correlation                             4
+  scale-regions mode                               4
+  plotProfile                                      4
+  --MNase                                          3
+  multiBamSummary                                  3
+  log2 ratio (bamCompare/bigwigCompare)            3
+  Pearson correlation                              2
+  bigwigCompare / bigwigAverage                    2
+  --averageType / --averageTypeBins                2
+  alignmentSieve                                   2
+  multiBigwigSummary                               2
+  Hi-C / 4C / HiChIP                               2
+  fingerprint / JSD / CHANCE                       1
+  reference-point mode                             1
+  --sortRegions / sorted heatmap                   1
+  bamPEFragmentSize                                1
+  plotEnrichment / plotCoverage                    1
+
+VERSION FAMILY: {'3.5': 40, '3.3': 10, '3.1': 8, '3.2': 6, '3.4': 5, '3.0': 4, '2.0': 2, '2.4': 1, '2.5': 1, '2.3': 1}
+VERSIONS (top 20): {'3.5.1': 20, '3.5.0': 7, '3.3.1': 6, '3.2.1': 4, '3.5.4': 3, '3.3.2': 3, '3.5.5': 3, '3.1.3': 3, '3.5.3': 2, '3.5.2': 2, '3.1.0': 2, '3.4.3': 2, '3.4.1': 2, '3.1.1': 2, '3.0.2': 2, '3.5': 2, '3.2.0': 2, '3.0.1': 1, '2.0.0': 1, '3.4.2': 1}
+
+bin sizes: {10: 6, 50: 2, 0: 1, 1: 1}
+extension lengths: {0: 1}
+smooth lengths: {100: 1}
+effective genome sizes: {'3209286105': 1, '12,000,000': 1}
+flanks: {'1 kb': 1}
+
+CO-PACKAGES (top 40):
+  SAMtools                 105
+  MACS2                    95
+  R                        94
+  Bowtie2                  85
+  DESeq2                   76
+  BEDTools                 66
+  ImageJ                   50
+  Seurat                   47
+  UMAP                     46
+  Picard                   46
+  STAR                     45
+  featureCounts            44
+  HOMER                    41
+  BWA                      40
+  Cutadapt                 38
+  GSEA                     34
+  Trim Galore              34
+  ggplot2                  34
+  edgeR                    31
+  Trimmomatic              31
+  FastQC                   27
+  HISAT2                   26
+  clusterProfiler          22
+  Bioconductor             17
+  fastp                    15
+  AlphaFold                15
+  HTSeq                    15
+  RepeatMasker             15
+  GATK                     14
+  pheatmap                 14
+  Bismark                  14
+  Scanpy                   12
+  scikit-learn             12
+  minimap2                 12
+  scDblFinder              11
+  limma                    11
+  Python                   10
+  RSEM                     10
+  Enrichr                  9
+  tidyverse                9

@@ -1,0 +1,69 @@
+== unmodified master: touched test modules
+........................................................                 [100%]
+56 passed in 0.65s
+== flake8 on master (project options): 14 findings
+
+== fix/bamcompare-skipzerooverzero-coordinates
+-- new test(s) on unmodified master:
+1 failed, 20 deselected in 0.45s
+-- touched test module(s) with the patch:
+54 passed in 0.63s
+-- doctests of the changed module(s):
+2 passed in 0.30s
+-- flake8 (project options) on changed files: 2 findings
+
+== fix/plotpca-log2-rowcenter
+-- new test(s) on unmodified master:
+2 failed in 1.76s
+-- touched test module(s) with the patch:
+1 failed, 54 passed in 2.09s
+-- doctests of the changed module(s):
+1 passed in 2.08s
+-- flake8 (project options) on changed files: 1 findings
+
+== fix/plotcorrelation-mad-outliers
+-- new test(s) on unmodified master:
+1 failed in 1.86s
+-- touched test module(s) with the patch:
+54 passed in 2.13s
+-- doctests of the changed module(s):
+1 passed in 1.79s
+-- flake8 (project options) on changed files: 0 findings
+
+== fix/mnase-odd-fragment-centre
+-- new test(s) on unmodified master:
+1 failed, 20 deselected in 0.64s
+-- touched test module(s) with the patch:
+1 failed, 53 passed in 0.79s
+-- doctests of the changed module(s):
+no tests ran in 0.36s
+-- flake8 (project options) on changed files: 0 findings
+
+== fix/ignoreduplicates-scale-factor
+-- new test(s) on unmodified master:
+1 failed, 20 deselected in 0.36s
+-- touched test module(s) with the patch:
+54 passed in 0.70s
+-- doctests of the changed module(s):
+no tests ran in 0.35s
+-- flake8 (project options) on changed files: 0 findings
+
+== fix/multibigwigsummary-exact-stats
+-- new test(s) on unmodified master:
+1 failed, 7 deselected in 0.34s
+-- touched test module(s) with the patch:
+1 failed, 53 passed in 0.65s
+-- doctests of the changed module(s):
+3 passed, 1 warning in 0.51s
+-- flake8 (project options) on changed files: 0 findings
+
+== fix/sumcoverage-partial-bins
+-- new test(s) on unmodified master:
+1 failed in 0.48s
+-- touched test module(s) with the patch:
+54 passed in 0.84s
+-- doctests of the changed module(s):
+1 passed, 1 warning in 0.43s
+-- flake8 (project options) on changed files: 0 findings
+
+== full test suite on master:

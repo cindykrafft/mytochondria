@@ -1,0 +1,26 @@
+bedtools 614e9a5
+
+== A. minimal: A = chr1:100-1000; one BED12 read with two 100-bp blocks inside A
+   coverage -split           -> chr1	100	1000	gene	2	200	900	0.2222222
+   coverage                  -> chr1	100	1000	gene	1	750	900	0.8333333
+   coverage -split -counts   -> chr1	100	1000	gene	2
+   intersect -c -split      -> chr1	100	1000	gene	1
+   (expected count 1: one B record; the project's test coverage.t10 expects 3 for a 3-block read)
+
+   A = chr1:100-200; one 10-bp single-block BED12 read inside; -f 0.5
+   coverage -split -f 0.5    -> chr1	100	200	gene	1	10	100	0.1000000
+   coverage -f 0.5           -> chr1	100	200	gene	0	0	100	0.0000000
+   intersect -c -split -f 0.5-> chr1	100	200	gene	0
+   (expected under -f 0.5: 0 hits, 0 bases; 10/100 = 0.10 < 0.5)
+
+== B. random: 300 A intervals, 3000 BED12 reads with 1-4 blocks on chr1
+   A intervals where records != blocks in the port: 198 of 300
+   coverage -split count == port records: 102 / 300;  == port blocks: 300 / 300
+   coverage -split bases covered == port union: 300 / 300
+   intersect -c -split == port records: 300 / 300
+   totals: coverage -split 1653, records 995, blocks 1653
+
+== C. -f 0.5 under -split on the same data
+   coverage -split -f 0.5 identical to coverage -split (no -f): 300 / 300 A intervals
+   A intervals with intersect -c -split -f 0.5 == 0 but coverage -split -f 0.5 count > 0: 276
+   A intervals where per-record semantic == 0 but coverage -split -f 0.5 count > 0: 276

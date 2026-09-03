@@ -1,0 +1,32 @@
+fastp: fastp 1.3.6
+
+== Part A: 100 reads of 60 nt, every base Q40 ('I'): no sliding window can fail
+  options                            expected len      observed lens   verdict
+  -f 5                                         55               [55]   ok
+  --cut_front                                  60               [60]   ok
+  --cut_front -f 5                             55               [52]   LOSES 3 EXTRA BASES
+  --cut_front -f 5 -W 10                       55               [46]   LOSES 9 EXTRA BASES
+  --cut_front -f 1                             59               [56]   LOSES 3 EXTRA BASES
+  -t 5                                         55               [55]   ok
+  --cut_tail                                   60               [60]   ok
+  --cut_tail -t 5                              55               [52]   LOSES 3 EXTRA BASES
+  --cut_tail -t 5 -W 10                        55               [46]   LOSES 9 EXTRA BASES
+  --cut_right -f 5                             55               [55]   ok
+  --cut_right -t 5                             55               [55]   ok
+  --cut_front --cut_tail -f 5 -t 5             50               [44]   LOSES 6 EXTRA BASES
+
+== Part B: 20,000 random reads (len 40-150, phred 2-40) vs independent ports
+  options                           == shipped port  == fixed port  reads differing  bases lost
+  --cut_front                           20000/20000     20000/20000                0           0
+  --cut_front -f 5                      20000/20000      8491/20000            11509       34527
+  --cut_front -f 5 -W 8 -M 25           20000/20000     16719/20000             3281       22967
+  --cut_tail                            20000/20000     20000/20000                0           0
+  --cut_tail -t 5                       20000/20000      8362/20000            11638       34914
+  --cut_tail -t 3 -W 6 -M 15            20000/20000      1900/20000            18100       90500
+  --cut_front --cut_tail -f 4 -t 4      20000/20000      3583/20000            16417       69312
+  --cut_right -f 5 -t 5                 20000/20000     20000/20000                0           0
+
+== Part C: cost on a realistic run (20,000 reads, default filters, -l 15)
+  --cut_front -f 5         shipped:  18119 reads  1571378 bases | with the fix:  19999 reads  1742512 bases | lost  1880 reads  171134 bases (9.82 %)
+  --cut_tail -t 5          shipped:  18084 reads  1569746 bases | with the fix:  19998 reads  1743533 bases | lost  1914 reads  173787 bases (9.97 %)
+  --cut_front -f 5 -W 10   shipped:  17827 reads  1428593 bases | with the fix:  19929 reads  1676889 bases | lost  2102 reads  248296 bases (14.81 %)

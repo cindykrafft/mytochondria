@@ -1,0 +1,13 @@
+bamCoverage 3.3.1
+
+100-bp reads, no extension: mapped reads 20000, sum of reads per bin 59613 (2.98 bins per read)
+  CPM track equals closed-form CPM: True (max |diff| 0)
+  BPM track identical to CPM track: True (max |diff| 0); sum of BPM track over bins = 2980650 (documented: 1e6)
+  emitted BPM / documented BPM = 2.981 on every covered bin (min 2.981, max 2.981)
+  RPKM track = CPM / (bin length in kb): True
+
+--extendReads 300: mapped reads 20000, sum of reads per bin 139570 (6.98 bins per read)
+  CPM track equals closed-form CPM: True (max |diff| 0)
+  BPM track identical to CPM track: True (max |diff| 0); sum of BPM track over bins = 6978500 (documented: 1e6)
+  emitted BPM / documented BPM = 6.979 on every covered bin (min 6.978, max 6.979)
+  RPKM track = CPM / (bin length in kb): True

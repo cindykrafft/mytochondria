@@ -1,0 +1,57 @@
+bedtools 614e9a5 pysam 0.24.0
+
+== closest (300 A, 600 B, two chromosomes, strands)
+   closest -d (all ties, signed distance)                         MISMATCH e.g. a117 got {('b465', 83)} ref {('b465', -83)}
+   closest -D ref (all ties, signed distance)                     ok 
+   closest -D a (all ties, signed distance)                       ok 
+   closest -D b (all ties, signed distance)                       ok 
+   closest -d -io (all ties, signed distance)                     MISMATCH e.g. a88 got {('b27', 70)} ref {('b27', -70)}
+   closest -d -s (all ties, signed distance)                      MISMATCH e.g. a181 got {('b21', 1266)} ref {('b21', -1266)}
+   closest -d -S (all ties, signed distance)                      MISMATCH e.g. a117 got {('b387', 88)} ref {('b387', -88)}
+   closest -d -k 3 (all ties, signed distance)                    MISMATCH e.g. a286 got {('b17', 0), ('b457', 0), ('b19', 0)} ref {('b336', 297), ('b19', 0), ('b17', 0), ('b457', 0), ('b169', 62)}
+   closest -D a -io -s (all ties, signed distance)                ok 
+   closest -mdb each with two -b files                            MISMATCH 
+   closest -mdb all with two -b files                             MISMATCH 
+   closest -N (skip same name)                                    ok 
+
+== genomecov on BED (chr1 20000, chr2 8000; 400 records incl. duplicates and book-ended)
+   -bg                                                            ok 
+   -bga (zero regions, empty chr3 included)                       ok 
+   -bg -max 3 (bedgraph caps at max)                              ok 
+   -bg -scale 0.25                                                ok 
+   -d (1-based, every position)                                   ok 
+   -dz (0-based, non-zero only)                                   ok 
+   default histogram per chromosome and genome (float32 fraction, %g) ok 
+   histogram -max 2 (>= max pooled)                               ok 
+   -bg -strand -                                                  ok 
+   -bg -5 (stranded records)                                      ok 
+   -bg -3 (stranded records)                                      ok 
+   -bg -split on BED12 (blocks only)                              ok 
+   -bg on BED12 without -split (whole span)                       ok 
+
+== genomecov on BAM (pysam-written: single reads with M/N/D/I/S, proper pairs)
+   BAM -bg (N and D counted as covered, I/S not)                  MISMATCH 
+   BAM -bg -split (N splits, D covered)                           MISMATCH 
+   BAM -bg -split -ignoreD (N and D split)                        MISMATCH 
+   BAM -bg -strand -                                              MISMATCH 
+   BAM -bg -strand - -du (second mates flipped)                   MISMATCH 
+   BAM -bg -5                                                     ok 
+   BAM -bg -3                                                     ok 
+   BAM -bg -fs 150 (reads extended to 150 bp from their 5' end)   ok 
+   BAM -bg -pc (one fragment per proper pair; unpaired reads contribute nothing) ok 
+
+== multicov on the same BAM (100 BED intervals)
+   multicov default                                               ok 
+   multicov -q 20                                                 ok 
+   multicov -p                                                    ok 
+   multicov -D                                                    ok 
+   multicov -F                                                    ok 
+   multicov -s                                                    ok 
+   multicov -S                                                    ok 
+   multicov -f 0.1                                                ok 
+   multicov -f 0.1 -r                                             ok 
+   multicov -split                                                ok 
+   multicov -split -f 0.5 (fraction of the read, strict >)        ok 
+   note N9: 20-kb interval, -f 0.5: without -split 0 reads (no read covers 50 % of 20 kb), with -split 571 (fraction taken of the read)
+
+MISMATCHES: 12

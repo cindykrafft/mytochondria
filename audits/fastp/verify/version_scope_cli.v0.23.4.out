@@ -1,0 +1,4 @@
+fastp 0.23.4 ( /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/fastp/rel/v0.23.4/fastp )
+FP1  --cut_front -f 5: output lengths [52] (expected [55])
+FP1  --cut_tail  -t 5: output lengths [52] (expected [55])
+FP1  control -f 5    : output lengths [55] (expected [55])

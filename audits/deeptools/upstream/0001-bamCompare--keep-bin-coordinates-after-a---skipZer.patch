@@ -1,0 +1,78 @@
+From c2a9c8a80826298670357c93c4dd6fd12dff878b Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 04:02:38 +0000
+Subject: [PATCH] bamCompare: keep bin coordinates after a --skipZeroOverZero
+ gap
+
+writeBedGraph_worker derives the coordinates of every written interval from the end of the previous one, so a bin skipped by --skipZeroOverZero shifted all following intervals of the chunk one bin to the left (issues #1108, #1130). Flush the current run and restart from the next bin's own coordinate, as the bigWig-input implementation (writeBedGraph_bam_and_bw) already does.
+
+Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/claude/software-package-audit-ablwee/audits/deeptools)
+---
+ CHANGES.txt                                   |  3 +++
+ .../test/test_bamCoverage_and_bamCompare.py   | 23 +++++++++++++++++++
+ deeptools/writeBedGraph.py                    |  7 ++++++
+ 3 files changed, 33 insertions(+)
+
+diff --git a/CHANGES.txt b/CHANGES.txt
+index 5f0bf0f0..53b1bf20 100755
+--- a/CHANGES.txt
++++ b/CHANGES.txt
+@@ -1,3 +1,6 @@
++unreleased
++* bamCompare --skipZeroOverZero no longer shifts the coordinates of the bins following a skipped bin (issues #1108, #1130)
++
+ 3.5.5
+ * drop support for python 3.7
+ * doc fixes (argparse properly displayed, minor changes in installation instructions)
+diff --git a/deeptools/test/test_bamCoverage_and_bamCompare.py b/deeptools/test/test_bamCoverage_and_bamCompare.py
+index ac1f23ce..5cb9fcc2 100644
+--- a/deeptools/test/test_bamCoverage_and_bamCompare.py
++++ b/deeptools/test/test_bamCoverage_and_bamCompare.py
+@@ -460,3 +460,26 @@ def test_bam_compare_filter_blacklist():
+                     '3R\t1050\t1500\t0\n']
+         assert f"{resp}" == f"{expected}", f"{resp} != {expected}"
+         unlink(outfile)
++
++
++def test_bam_compare_ZoverZ_interior_bins():
++    """
++    --skipZeroOverZero must not shift the coordinates of the bins that follow
++    a skipped (zero-over-zero) bin. test_filtering.bam has no reads between
++    positions 57 and 78, so with 10-bp bins the bin 60-70 is skipped while
++    bins on both sides are written. The --operation first output must equal
++    the bamCoverage track of the same file with the zero bins removed.
++    """
++    outfile = '/tmp/test_file_zz.bg'
++    reference = '/tmp/test_file_cov.bg'
++    args = "--bamfile1 {0} --bamfile2 {0} --outFileFormat bedgraph --scaleFactors 1:1 --operation first " \
++           "--binSize 10 --region 3R:0:200 -o {1} --skipZeroOverZero".format(BAMFILE_FILTER1, outfile).split()
++    bam_comp.main(args)
++    args = "--bam {} -o {} --outFileFormat bedgraph --binSize 10 --region 3R:0:200".format(BAMFILE_FILTER1, reference).split()
++    bam_cov.main(args)
++    resp = open(outfile).readlines()
++    expected = [x for x in open(reference).readlines() if not x.rstrip("\n").endswith("\t0")]
++    assert f"{resp}" == f"{expected}", f"{resp} != {expected}"
++    assert '3R\t60\t70\t0\n' not in resp
++    unlink(outfile)
++    unlink(reference)
+diff --git a/deeptools/writeBedGraph.py b/deeptools/writeBedGraph.py
+index dd83e9ad..d64985ea 100644
+--- a/deeptools/writeBedGraph.py
++++ b/deeptools/writeBedGraph.py
+@@ -244,6 +244,13 @@ class WriteBedGraph(cr.CountReadsPerBin):
+             else:
+                 tileCoverage = coverage[tileIndex, :]
+             if self.skipZeroOverZero and np.sum(tileCoverage) == 0:
++                # Flush the current run and start a new one after the gap:
++                # the coordinates of the next interval are derived from
++                # writeEnd, so a silently skipped bin would shift every
++                # later interval of this chunk to the left (issue #1108).
++                if previous_value is not None and not np.isnan(previous_value):
++                    _file.write(line_string.format(chrom, writeStart, writeEnd, previous_value))
++                previous_value = None
+                 continue
+ 
+             value = func_to_call(tileCoverage, func_args)
+-- 
+2.43.0
+

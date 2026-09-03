@@ -1,0 +1,16 @@
+bamCoverage 3.5.6
+multiBamSummary bins: matrix equals reads-per-bin reference            OK
+multiBamSummary bins --outRawCounts: consecutive 1-kb bins, values equal OK
+labels are the BAM basenames                                           OK
+--scalingFactors = 1 / DESeq2 median-of-ratios size factors            OK (deepTools [1.0408 0.6857 1.5611], 1/DESeq2 [1.0408 0.6857 1.5611])
+estimateSizeFactors() equals the hand-written DESeq2 rule              OK
+multiBamSummary BED-file: reads overlapping each region                OK
+plotCorrelation pearson = numpy corrcoef (4 d.p.)                      OK
+plotCorrelation spearman = scipy spearmanr (4 d.p.)                    OK
+plotCorrelation --skipZeros pearson: bins with all-zero rows removed   OK (250 of 250 bins kept)
+multiBigwigSummary bins: bin mean vs numpy nanmean (pyBigWig zoom-level stats) max rel diff 8.68e-02 over 496 bins; NaN bins agree: True
+multiBigwigSummary BED-file: region mean vs numpy                      max rel diff 2.57e-03
+bamPEFragmentSize --table: n, min/quartiles/median/mean/max/std(ddof=0)/MAD/percentiles = numpy OK
+plotCoverage sampled per-base mean/std (step 40) = numpy on the same positions OK (mean 1.50 vs 1.50, std 1.63 vs 1.63)
+plotCoverage --outCoverageMetrics percent of sampled bases >= 1, >= 3  OK
+plotEnrichment --outRawCounts: reads overlapping the BED file's regions / total, percent OK (['f.bed', '60.93', '4570', '7500'])

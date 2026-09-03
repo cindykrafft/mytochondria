@@ -1,0 +1,77 @@
+From 0b9aeb2151b9eb7b6e0a4fcbe1dafc3c8127ae77 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Thu, 3 Sep 2026 04:02:39 +0000
+Subject: [PATCH] multiBigwigSummary: compute bin means from the exact bigWig
+ values
+
+countFragmentsInRegions_worker called pyBigWig's stats() with its default exact=False, which answers from the zoom level whose span fits the query and averages every zoom record overlapping the region, records straddling the region edges included in full. On a bamCoverage track with peaks the 10-kb bin means deviated from the true means by a median of 3 % and up to several-fold next to peaks. computeMatrix, bigwigCompare and bigwigAverage already read the exact values.
+
+Found in a source-level correctness audit of research software (methods and harnesses: https://github.com/cindykrafft/research-software-audit/tree/claude/software-package-audit-ablwee/audits/deeptools)
+---
+ CHANGES.txt                                   |  3 +++
+ deeptools/getScorePerBigWigBin.py             |  4 ++-
+ ...st_bigwigCompare_and_multiBigwigSummary.py | 25 +++++++++++++++++++
+ 3 files changed, 31 insertions(+), 1 deletion(-)
+
+diff --git a/CHANGES.txt b/CHANGES.txt
+index 5f0bf0f0..a7c2779a 100755
+--- a/CHANGES.txt
++++ b/CHANGES.txt
+@@ -1,3 +1,6 @@
++unreleased
++* multiBigwigSummary: bin and region means are computed from the exact bigWig values instead of the zoom-level summaries
++
+ 3.5.5
+ * drop support for python 3.7
+ * doc fixes (argparse properly displayed, minor changes in installation instructions)
+diff --git a/deeptools/getScorePerBigWigBin.py b/deeptools/getScorePerBigWigBin.py
+index 6f0ff45e..b0caf425 100644
+--- a/deeptools/getScorePerBigWigBin.py
++++ b/deeptools/getScorePerBigWigBin.py
+@@ -104,7 +104,9 @@ def countFragmentsInRegions_worker(chrom, start, end,
+             scores = []
+             for exon in reg:
+                 weights.append(exon[1] - exon[0])
+-                score = bwh.stats(chrom, exon[0], exon[1])
++                # exact=True: the default answers from the bigWig zoom
++                # levels, whose records straddle the region boundaries
++                score = bwh.stats(chrom, exon[0], exon[1], exact=True)
+ 
+                 if score is None or score == [None] or np.isnan(score[0]):
+                     score = [np.nan]
+diff --git a/deeptools/test/test_bigwigCompare_and_multiBigwigSummary.py b/deeptools/test/test_bigwigCompare_and_multiBigwigSummary.py
+index 076baa21..51e05d0f 100644
+--- a/deeptools/test/test_bigwigCompare_and_multiBigwigSummary.py
++++ b/deeptools/test/test_bigwigCompare_and_multiBigwigSummary.py
+@@ -134,3 +134,28 @@ def test_multiBigwigSummary_metagene():
+     nt.assert_allclose(matrix, np.array([[20.28956028, 20.28956028],
+                                          [22.1923501, 22.1923501]]))
+     unlink(outfile)
++
++
++def test_multiBigwigSummary_bins_exact_mean():
++    """
++    Bin means must be the mean of the per-base values, not the zoom-level
++    summary (which covers the records overlapping the bin, whole).
++    """
++    import pyBigWig
++    bw = '/tmp/_test_zoom.bw'
++    rng = np.random.RandomState(0)
++    n = 400000
++    vals = rng.gamma(2.0, 1.0, n // 50).repeat(50)          # 50-bp steps, like a bamCoverage track
++    vals[100000:102000] += 40.0                              # a peak next to a bin boundary
++    fh = pyBigWig.open(bw, 'w')
++    fh.addHeader([('chr1', n)])
++    fh.addEntries(['chr1'] * (n // 50), list(range(0, n, 50)), ends=list(range(50, n + 1, 50)), values=[float(x) for x in vals[::50]])
++    fh.close()
++    outfile = '/tmp/_test_zoom.npz'
++    args = "bins -b {0} {0} --binSize 10000 -o {1}".format(bw, outfile).split()
++    bwCorr.main(args)
++    matrix = np.load(outfile)['matrix']
++    expected = vals.reshape(-1, 10000).mean(axis=1)
++    nt.assert_allclose(np.sort(matrix[:, 0]), np.sort(expected), rtol=1e-6)
++    unlink(outfile)
++    unlink(bw)
+-- 
+2.43.0
+

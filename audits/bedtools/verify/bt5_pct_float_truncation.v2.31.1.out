@@ -1,0 +1,38 @@
+bedtools v2.31.1
+
+== A. closed form: int(float32(p) * float32(n)) != p*n where p*n is an integer, n <= 20000
+   pct 0.13:  54 sizes affected, e.g. 900->116, 1700->220, 1800->233, 1900->246
+   pct 0.21:  19 sizes affected, e.g. 300->62, 600->125, 1200->251, 2400->503
+   pct 0.26: 113 sizes affected, e.g. 450->116, 850->220, 900->233, 950->246
+   pct 0.39:  70 sizes affected, e.g. 300->116, 600->233, 1100->428, 1200->467
+   pct 0.42:  37 sizes affected, e.g. 150->62, 300->125, 600->251, 1200->503
+   pct 0.52: 231 sizes affected, e.g. 225->116, 425->220, 450->233, 475->246
+   pct 0.53: 168 sizes affected, e.g. 100->52, 200->105, 300->158, 400->211
+   pct 0.59: 106 sizes affected, e.g. 100->58, 200->117, 300->176, 400->235
+   pct 0.65: 231 sizes affected, e.g. 180->116, 340->220, 360->233, 380->246
+   pct 0.71:   3 sizes affected, e.g. 5700->4046, 11400->8093, 11500->8164
+   pct 0.78: 139 sizes affected, e.g. 150->116, 300->233, 550->428, 600->467
+   pct 0.84:  73 sizes affected, e.g. 75->62, 150->125, 300->251, 600->503
+   affected pct values: [0.13, 0.21, 0.26, 0.39, 0.42, 0.52, 0.53, 0.59, 0.65, 0.71, 0.78, 0.84]; unaffected: the other 87 of 99
+
+== B. shipped binary: slop -pct -b P and flank -pct -l P -r 0 on a feature of size n at chr1:1000000
+   pct 0.13 size   900: exact  117  slop added  116  flank length  116
+   pct 0.13 size  1700: exact  221  slop added  220  flank length  220
+   pct 0.13 size  1800: exact  234  slop added  233  flank length  233
+   pct 0.21 size   300: exact   63  slop added   62  flank length   62
+   pct 0.21 size   600: exact  126  slop added  125  flank length  125
+   pct 0.21 size  1200: exact  252  slop added  251  flank length  251
+   pct 0.26 size   450: exact  117  slop added  116  flank length  116
+   pct 0.26 size   850: exact  221  slop added  220  flank length  220
+   pct 0.26 size   900: exact  234  slop added  233  flank length  233
+   pct 0.39 size   300: exact  117  slop added  116  flank length  116
+   pct 0.39 size   600: exact  234  slop added  233  flank length  233
+   pct 0.39 size  1100: exact  429  slop added  428  flank length  428
+   ... 36 cases: slop wrong in 36, flank wrong in 36
+   controls (pct 0.10, 0.25, 0.50 on 1000 bp):
+   pct 0.10 -> slop added 100
+   pct 0.25 -> slop added 250
+   pct 0.50 -> slop added 500
+
+== C. slop -b 20000001 on chr1:25000000-25000010 (expected 4999999-45000011)
+   got 5000000-45000010  (float32(20000001) = 20000000)

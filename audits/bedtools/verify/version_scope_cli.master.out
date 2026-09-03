@@ -1,0 +1,12 @@
+bedtools 614e9a5 ( /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/bedtools/src/bin/bedtools )
+BT1 coverage -split count: got 2, expected 1 -> AFFECTED
+BT1 coverage -split -f 0.5 count: got 1, expected 0 -> AFFECTED
+BT2 intersect -split -F 0.5 lines: got 0, expected 3 -> AFFECTED
+BT3 closest -D a -t first: got b2, expected b1 -> AFFECTED
+BT4 reldist -detail at 1.2e9: got [], expected ['0.100'] -> AFFECTED
+BT4 subtract at 3e9: got [(3000000000, -1294967286), (3000000000, -1294967196)], expected [(3000000000, 3000000010), (3000000020, 3000000100)] -> AFFECTED
+BT4 closest -d at gap 3e9: got 1294967295, expected 3000000001 -> AFFECTED
+BT4 flank -l 10 -r 10 at 3e9: got [(0, 3000000000)], expected [(2999999990, 3000000000), (3000000100, 3000000110)] -> AFFECTED
+BT5 slop -pct -b 0.53 on 100 bp, bases added: got 52, expected 53 -> AFFECTED
+BT5 slop -b 20000001 start: got 5000000, expected 4999999 -> AFFECTED
+BT6 shuffle -incl features past include end: got 1026, expected 0 -> AFFECTED

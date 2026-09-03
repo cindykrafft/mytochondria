@@ -1,0 +1,64 @@
+fastp: fastp 1.3.6
+
+== H1: filters, 20,000 reads, output compared read by read
+  options                              kept (fastp)  kept (reference)  identical sets
+  defaults (-q 15 -u 40 -n 5 -l 15)           10393             10393            True
+  -q 30 -u 20                                   152               152            True
+  -q 20 -u 0                                   3678              3678            True
+  -n 0                                        10049             10049            True
+  -n 3                                        10182             10182            True
+  -e 25                                        3715              3715            True
+  -e 30 -q 25 -u 30                            3674              3674            True
+  -l 50                                        7552              7552            True
+  -l 50 --length_limit 100                     3896              3896            True
+  -y (-Y 30)                                   6939              6939            True
+  -y -Y 50                                     5444              5444            True
+  -Q (quality filter off)                     18625             18625            True
+  -L (length filter off)                      11294             11294            True
+
+  filtering_result counts vs the reference reasons (-q 25 -u 30 -n 2 -e 20 -l 40 --length_limit 120 -y)
+    passed_filter_reads        fastp    1406   reference    1406   ok
+    low_quality_reads          fastp   14934   reference   14934   ok
+    too_many_N_reads           fastp    1168   reference    1168   ok
+    too_short_reads            fastp    1003   reference    1003   ok
+    too_long_reads             fastp     743   reference     743   ok
+    low_complexity_reads       fastp     746   reference     746   ok
+
+== H2: JSON summary before filtering vs direct counting
+  total_reads          fastp        20000   reference        20000   ok
+  total_bases          fastp      1546258   reference      1546258   ok
+  q20_bases            fastp       796047   reference       796047   ok
+  q30_bases            fastp       393806   reference       393806   ok
+  read1_mean_length    fastp           77   reference           77   ok
+  q20_rate             fastp     0.514822   reference     0.514822   ok
+  q30_rate             fastp     0.254683   reference     0.254683   ok
+  gc_content           fastp     0.474345   reference     0.474345   ok
+
+== H3: JSON kmer_count (1,024 5-mers) vs direct counting
+  entries: 1024   total counted: fastp 1217077 reference 1217077   mismatching entries: 0
+
+== H4: global trimming on its own (no sliding window)
+  -f 7                 reads matching the reference:  19593/19593   unexpected: 0
+  -t 7                 reads matching the reference:  19593/19593   unexpected: 0
+  -f 5 -t 5            reads matching the reference:  19170/19170   unexpected: 0
+  -b 40 (--max_len1)   reads matching the reference:  20000/20000   unexpected: 0
+  -f 10 -b 40          reads matching the reference:  19170/19170   unexpected: 0
+
+== H5: --phred64
+  phred+64 input with -6 gives the same surviving reads as phred+33: False
+  qualities converted to phred+33 in the output: False
+  q30_bases: phred64 175934, phred33 99155
+
+== H6: threshold boundaries (one read each, 100 nt)
+  -l 100 on a 100 nt read (kept: < is strict)    kept=True  expected=True  ok
+  -l 101 on a 100 nt read                        kept=False expected=False ok
+  --length_limit 100 on a 100 nt read            kept=True  expected=True  ok
+  --length_limit 99 on a 100 nt read             kept=False expected=False ok
+  -e 20 with mean quality exactly 20             kept=True  expected=True  ok
+  -e 21 with mean quality exactly 20             kept=False expected=False ok
+  -n 5 with exactly 5 N                          kept=True  expected=True  ok
+  -n 4 with exactly 5 N                          kept=False expected=False ok
+  -q 20 -u 40 with exactly 40 % below Q20        kept=True  expected=True  ok
+  -q 20 -u 39 with exactly 40 % below Q20        kept=False expected=False ok
+  -y -Y 50 on a sequence with complexity exactly 50 % kept=True  expected=True  ok
+  -y -Y 51 on the same sequence                  kept=False expected=False ok
