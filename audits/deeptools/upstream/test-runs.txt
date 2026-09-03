@@ -67,3 +67,4 @@ no tests ran in 0.35s
 -- flake8 (project options) on changed files: 0 findings
 
 == full test suite on master:
+1 failed, 99 passed in 19.99s
