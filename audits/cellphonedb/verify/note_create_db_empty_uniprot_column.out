@@ -1,0 +1,36 @@
+cellphonedb 5.0.1   pandas 3.0.5
+
+=== complex_input.csv with only a dimer (uniprot_3 and uniprot_4 empty)
+    complexes: 1, entirely empty subunit columns: ['uniprot_3', 'uniprot_4']
+
+    RESULT: raised ->
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/cellphonedb/verify/note_create_db_empty_uniprot_column.py", line 64, in try_build
+    db_utils.create_db(d)
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/CellphoneDB/cellphonedb/utils/db_utils.py", line 316, in create_db
+    run_sanity_tests(data_dfs, protein_column_names, version)
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/CellphoneDB/cellphonedb/utils/db_utils.py", line 687, in run_sanity_tests
+    sanity_test_report_unknown_proteins(protein_db_df, complex_db_df, protein_column_names)
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/CellphoneDB/cellphonedb/utils/db_utils.py", line 603, in sanity_test_report_unknown_proteins
+    aux_df = pd.merge(complex_db_df, protein_db_df, left_on=col, right_on='uniprot', how='outer')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/venv/lib/python3.12/site-packages/pandas/core/reshape/merge.py", line 385, in merge
+    op = _MergeOperation(
+         ^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/venv/lib/python3.12/site-packages/pandas/core/reshape/merge.py", line 1031, in __init__
+    self._maybe_coerce_merge_keys()
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/cellphonedb/venv/lib/python3.12/site-packages/pandas/core/reshape/merge.py", line 1835, in _maybe_coerce_merge_keys
+    raise ValueError(msg)
+ValueError: You are trying to merge on float64 and str columns for key 'uniprot_3'. If you wish to proceed you should use pd.concat
+
+=== the same file plus one four-subunit complex
+    complexes: 2, entirely empty subunit columns: none
+WARNING: The following complexes are not found in interaction_input.txt:
+BIGCPLX
+
+Created /tmp/tmplf962r4c/cellphonedb_09_03_2026_005528.zip successfully
+    RESULT: created successfully
+
+The only difference between the two runs is whether some complex happens to fill the
+widest subunit column. The fix is a dtype-safe merge (e.g. skip all-NaN columns, or
+compare as strings) in sanity_test_report_unknown_proteins.
