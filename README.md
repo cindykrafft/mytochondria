@@ -42,12 +42,24 @@ added after the DESeq2 round, where the audit filed four items without reading t
 project's pinned policy or CONTRIBUTING.md, claimed a NEWS entry was missing when it
 was not, and had all four closed by the maintainer within two hours.
 
+**5. File sparingly; hold the rest.** Volume from one account is what reads as a
+campaign to maintainers, not any single report. File now only a finding that changes a
+number that ends up in a paper, under default or common settings, on the current
+release. Crashes, rare-option paths, API-only paths, documentation drift and design
+questions are held in the filing kit. At most two filings per repository until a
+maintainer responds; after a positive signal, the held items for that repository follow
+one at a time. A comment on an issue the maintainers already keep open is a separate,
+low-cost category and does not count against the cap. Every prepared finding carries
+its tier in [`audits/TRIAGE.md`](audits/TRIAGE.md). This step was added after the first
+week of filings put seven FieldTrip PRs up in two days and a reviewer's reply read as
+"fine, but minor".
+
 What *held up* under the same scrutiny is recorded alongside what didn't, so findings
 are read in proportion.
 
 ## Status
 
-Filing follows the triage in [`audits/TRIAGE.md`](audits/TRIAGE.md): only findings that change published numbers under default or common settings are filed now, at most two per repository until a maintainer responds; the rest are held.
+Filing follows step 5 above; the per-finding tiers are in [`audits/TRIAGE.md`](audits/TRIAGE.md).
 
 | Audit | Papers exposed | Findings | Upstream |
 |---|---|---|---|
