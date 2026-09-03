@@ -59,7 +59,7 @@ full length and, for k ≥ 2, at some partial lengths; reads with fewer errors a
 unaffected. The default `-e 0.1` and the other decimal rates people type are not
 affected at any length up to 300.
 
-**Fix shape** (patch `../upstream/0001-Honour-an-absolute-number-of-errors-e-N-for-every-adap.patch`):
+**Fix shape** (patch `../upstream/0001-Honour-an-absolute-number-of-errors-e-N-for-every-ad.patch`):
 a tolerance of 1e-9 on every `length × rate` product, as a `DEF` constant in
 `_align.pyx` and a `max_errors_for_length()` helper in `align.py` used by
 `adapters.py` and `kmer_heuristic.py`. Tests added to `tests/test_align.py` and
@@ -147,7 +147,7 @@ indexed group is combined with a regular adapter in one `-g/-a` list or with
 choice and is kept by the patch; only the quantity that decides "best" and
 "ambiguous" changes.
 
-**Fix shape** (patch `0003-Choose-the-best-adapter-by-alignment-score-also-when-u.patch`):
+**Fix shape** (patch `0003-Choose-the-best-adapter-by-alignment-score-also-when.patch`):
 store the alignment score in the index (derivable from errors, matches and the two
 lengths), rank and detect ambiguity by it, stop the multi-length search on
 `length < best_score`. Two tests added to `tests/test_adapters.py` fail on `main`
@@ -216,7 +216,7 @@ or a deletion are unaffected. The effect is a loss of roughly 40 % of the reads 
 carry the adapter with one inserted base — a small fraction of most libraries, but
 exactly the fraction the error tolerance was set to keep, and it is silent.
 
-**Fix shape** (patch `0004-Fix-k-mer-heuristic-missing-anchored-adapters-with-an.patch`):
+**Fix shape** (patch `0004-Fix-k-mer-heuristic-missing-anchored-adapters-with-a.patch`):
 widen each class's window by its `max_errors` (`(-(length + max_errors), None)`),
 one line plus the four expected windows in `tests/test_kmer_heuristic.py`. Under the
 patch the harness loses 0 of 2,000/3,500/2,200 accepted reads for every affected

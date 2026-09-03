@@ -2,7 +2,7 @@ cutadapt 5.3.dev15+g50e9fb8d3
 N3 doc snippet on CGTACGTACGAAAAAAAAAAAA: returns 'CGTACGTACGAAAAAAAAAAAA'; shipped poly_a_trim_index -> 'CGTACGTACG'
 N7 --trim-n on nnACGTACGTNN: -> 'nnACGTACGT' (lowercase n kept)
 N7 --nextseq-trim=20 on ...GGGGGGGGGG (Q2) -> stop 8; on ...gggggggggg -> stop 8
-W3 --times 2 --action mask, order ['G', 'T']: NNNNNNNNACGTACGTACGNNNNNNNNN (MISMATCH)
-W3 --times 2 --action lowercase: ggggggggACGTACGTACGttttttttt (MISMATCH)
-W3 --times 2 --action mask, order ['T', 'G']: NNNNNNNNACGTACGTACGNNNNNNNNN (MISMATCH)
-W3 --times 2 --action lowercase: ggggggggACGTACGTACGttttttttt (MISMATCH)
+W3 --times 2 --action mask, order ['G', 'T']: NNNNNNNNACGTACGTACGANNNNNNNN (ok)
+W3 --times 2 --action lowercase: ggggggggACGTACGTACGAtttttttt (ok)
+W3 --times 2 --action mask, order ['T', 'G']: NNNNNNNNACGTACGTACGANNNNNNNN (ok)
+W3 --times 2 --action lowercase: ggggggggACGTACGTACGAtttttttt (ok)

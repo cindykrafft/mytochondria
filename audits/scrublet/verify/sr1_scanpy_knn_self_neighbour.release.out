@@ -42,3 +42,9 @@ manifold: 1650 observed + 3300 simulated, 30 PCs; k = 20, k_adj = 60, r = 2.0, r
 
 --- the port's own pipeline (sc.pp.scrublet, exact neighbours): which rule applied, by seed
   seed 1, n_obs 1650: simulated parents drawn as (i,i) 0, unordered pair drawn twice 2 -> neighbour matrix (4950, 59) for k_adj = 60: k_adj-1 neighbours, no self
+  seed 2, n_obs 1650: simulated parents drawn as (i,i) 0, unordered pair drawn twice 2 -> neighbour matrix (4950, 59) for k_adj = 60: k_adj-1 neighbours, no self
+  seed 3, n_obs 1650: simulated parents drawn as (i,i) 0, unordered pair drawn twice 2 -> neighbour matrix (4950, 59) for k_adj = 60: k_adj-1 neighbours, no self
+  seed 4, n_obs  660: simulated parents drawn as (i,i) 2, unordered pair drawn twice 3 -> neighbour matrix (1980, 38) for k_adj = 39: k_adj-1 neighbours, no self
+  seed 5, n_obs  330: simulated parents drawn as (i,i) 4, unordered pair drawn twice 0 -> neighbour matrix (990, 26) for k_adj = 27: k_adj-1 neighbours, no self
+  seed 6, n_obs  198: simulated parents drawn as (i,i) 2, unordered pair drawn twice 5 -> neighbour matrix (594, 20) for k_adj = 21: k_adj-1 neighbours, no self
+  seed 7, n_obs  198: simulated parents drawn as (i,i) 2, unordered pair drawn twice 5 -> neighbour matrix (594, 20) for k_adj = 21: k_adj-1 neighbours, no self

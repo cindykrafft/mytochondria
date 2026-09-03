@@ -83,8 +83,10 @@ tarball from GitHub, `-DBoost_INCLUDE_DIR`; IQ-TREE uses one header, for the sym
 test's binomial), and googletest at the commit the `cmaple` submodule pins (the
 `github.com/.../archive` zip is blocked by the proxy; cloned by git and passed as
 `-DFETCHCONTENT_SOURCE_DIR_GOOGLETEST`). The binary reports "IQ-TREE multicore version
-2.4.0 for Linux x86 64-bit". iqtree3 `master` was built the same way to execute the notes
-on the current development line (`verify/*.v3.out`). No R, no Europe PMC, no NCBI, no
+2.4.0 for Linux x86 64-bit". iqtree3 `master` (version string 3.1.3) was built the same way to execute the notes on the
+current development line (`verify/*.v3.out`): IQ1–IQ4 reproduce there with the same numbers
+(parametric aLRT 0.78; one-site UFBoot 100 % vs `-b` 61 %; thread dependence; rooted-tree `NA`
+and `__root__` abort), and the branch-test, UFBoot and concordance harnesses pass. No R, no Europe PMC, no NCBI, no
 `github.com` HTML; 1.6.12 was read (Cibiv/IQ-TREE tag), not built, because nothing rose to
 a confirmed defect.
 

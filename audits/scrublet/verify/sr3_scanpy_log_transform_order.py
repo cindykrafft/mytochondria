@@ -76,7 +76,11 @@ ad_obs.layers["raw"] = ad_obs.X.copy()
 sc.pp.normalize_total(ad_obs)
 ad_obs.layers["log1p"] = ad_obs.X.copy(); sc.pp.log1p(ad_obs, layer="log1p"); sc.pp.highly_variable_genes(ad_obs, layer="log1p")
 ad_obs = ad_obs[:, ad_obs.var["highly_variable"]].copy()
-ad_sim = sc.pp.scrublet_simulate_doublets(ad_obs, layer="raw", sim_doublet_ratio=2.0, random_state=0)
+import inspect  # noqa: E402
+
+_params = inspect.signature(sc.pp.scrublet_simulate_doublets).parameters
+seed_kw = "random_seed" if "random_seed" in _params else "random_state"
+ad_sim = sc.pp.scrublet_simulate_doublets(ad_obs, layer="raw", sim_doublet_ratio=2.0, **{seed_kw: 0})
 obs_before = np.asarray(ad_obs.X.sum(1)).ravel(); sim_before = np.asarray(ad_sim.X.sum(1)).ravel()
 print(f"  per-cell sums over the {ad_obs.n_vars} HVGs at the moment log1p is applied: observed (median-normalised) mean {obs_before.mean():.1f}, simulated (raw sums) mean {sim_before.mean():.1f}")
 sc.pp.log1p(ad_obs); sc.pp.log1p(ad_sim)

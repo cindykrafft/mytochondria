@@ -1,0 +1,21 @@
+binary: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/iqtree/iqtree3/build/iqtree3
+IQ-TREE version 3.1.3 for Linux x86 64-bit built Sep  3 2026
+A. seed 1: tree (A:0.0000010000,B:0.0000010000,(C:0.0000010000,D:0.0000010000)93.2/0.999/100:0.0099669240);   (labels: SH-aLRT/aBayes/UFBoot)
+   .ufboot split counts: {'A|B': 1000}  (P(site in replicate) = 63.4%);  standard bootstrap -b 200: ['61']%
+   log: ['Log-likelihood cutoff on original alignment: -147.108']
+A. seed 2: tree (A:0.0000010000,B:0.0000010000,(C:0.0000010000,D:0.0000010000)91.8/0.999/100:0.0099669240);   (labels: SH-aLRT/aBayes/UFBoot)
+   .ufboot split counts: {'A|B': 1000}  (P(site in replicate) = 63.4%);  standard bootstrap -b 200: ['61']%
+   log: ['Log-likelihood cutoff on original alignment: -147.108']
+A. seed 3: tree (A:0.0000010000,B:0.0000010000,(C:0.0000010000,D:0.0000010000)93.8/0.999/100:0.0099669240);   (labels: SH-aLRT/aBayes/UFBoot)
+   .ufboot split counts: {'A|B': 1000}  (P(site in replicate) = 63.4%);  standard bootstrap -b 200: ['61']%
+   log: ['Log-likelihood cutoff on original alignment: -147.108']
+   -te ((A,C),(B,D));   logL -153.4339
+   -te ((A,D),(B,C));   logL -153.4339
+   -te ((A,B),(C,D));   logL -146.7254
+   (tree/iqtree.cpp:3553: a tree is never assigned to a replicate if its original-alignment logL < cutoff - 1)
+B. all-constant alignment: completed; tree (A:0.0000000000,(B:0.0000010000,D:0.0000010000):0.0000010000,C:0.0000000000);
+   warnings: ['WARNING: Your alignment contains too many identical sequences!', 'WARNING: It makes no sense to perform bootstrap with less than 4 sequences.']
+C. duplicate sequence (E == A): tree (A:0.0000010000,(B:0.1019100256,(C:0.0930565436,D:0.1163133567)100:0.0627749428)100:0.1159568586,E:0.0000010000);
+   log: ['NOTE: E is identical to A but kept for subsequent analysis']
+   reported logL -991.4497; reference at the printed branch lengths -991.4497; diff 1.1e-05
+DEGENERATE-INPUT CHECKS DONE

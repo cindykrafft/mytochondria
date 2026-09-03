@@ -9,7 +9,8 @@ N7  --trim-n (NEndTrimmer, modifiers.py:906-907) and --nextseq-trim
     reads, these two do not.
 W3  remainder() (adapters.py:1588-1602) composes the untrimmed interval over
     several matches (--times 2 with --action mask/lowercase): executed on a
-    5'+3' read, both orders.
+    5'+3' read, both orders. (The insert must not begin/end with the adapter
+    base: a trailing T would join the poly-T adapter under the leftmost rule.)
 """
 import cutadapt
 from dnaio import SequenceRecord
@@ -46,12 +47,12 @@ rG = SequenceRecord("r", "ACGTACGT" + "G" * 10, "I" * 8 + "#" * 10)
 print(f"N7 --nextseq-trim=20 on ...GGGGGGGGGG (Q2) -> stop {nextseq_trim_index(rG, 20)}; on ...gggggggggg -> stop {nextseq_trim_index(rg, 20)}")
 
 front, back = FrontAdapter("GGGGGGGG", max_errors=0), BackAdapter("TTTTTTTT", max_errors=0)
-seq = "GGGGGGGG" + "ACGTACGTACGT" + "TTTTTTTT"
+seq = "GGGGGGGG" + "ACGTACGTACGA" + "TTTTTTTT"
 for adapters in ([front, back], [back, front]):
     rec = SequenceRecord("r", seq, "I" * len(seq))
     out = AdapterCutter(adapters, times=2, action="mask")(rec, ModificationInfo(rec))
     print(f"W3 --times 2 --action mask, order {[a.sequence[0] for a in adapters]}: {out.sequence} "
-          f"({'ok' if out.sequence == 'N' * 8 + 'ACGTACGTACGT' + 'N' * 8 else 'MISMATCH'})")
+          f"({'ok' if out.sequence == 'N' * 8 + 'ACGTACGTACGA' + 'N' * 8 else 'MISMATCH'})")
     rec = SequenceRecord("r", seq, "I" * len(seq))
     out = AdapterCutter(adapters, times=2, action="lowercase")(rec, ModificationInfo(rec))
-    print(f"W3 --times 2 --action lowercase: {out.sequence} ({'ok' if out.sequence == 'g' * 8 + 'ACGTACGTACGT' + 't' * 8 else 'MISMATCH'})")
+    print(f"W3 --times 2 --action lowercase: {out.sequence} ({'ok' if out.sequence == 'g' * 8 + 'ACGTACGTACGA' + 't' * 8 else 'MISMATCH'})")

@@ -24,18 +24,3 @@ PART A  smooth_knn_dist on the distance array with inf for disconnected neighbou
 
 PART B  UMAP.fit(disconnection_distance=5) on the same data
   exact path (n < 4096)                                      sigma==inf rows:   8;  cluster rows:  56 edges of weight 1.0 among  56 nonzero
-  pynndescent path (force_approximation_algorithm=True)      sigma==inf rows:   8;  cluster rows:  56 edges of weight 1.0 among  56 nonzero
-  metric='precomputed', dense matrix, disconnection_distance sigma==inf rows:   8;  cluster rows:  56 edges of weight 1.0 among  56 nonzero
-  metric='precomputed', inf entries, nearest_neighbors path  sigma==inf rows:   8;  cluster rows:  56 edges of weight 1.0 among  56 nonzero
-  control: no disconnection                                  sigma==inf rows:   0;  cluster rows:  10 edges of weight 1.0 among  56 nonzero
-  transform(X[:8]) graph rows (bipartite): 8 of 64 nonzero entries equal 1.0 (self edges: 8)
-
-PART C  default settings, metric='jaccard' on sparse binary data (default disconnection_distance = 1)
-  rows with sigma == inf: 0 of 400
-  in those rows: 0 of 0 nonzero graph entries equal exactly 1.0
-  in the other rows: 2218 of 6528 nonzero graph entries equal exactly 1.0
-
-PART D  smooth_knn_dist with the floor computed on finite distances (proposed fix), Part A array
-  rows with sigma == inf: 0
-  max |sigma fixed - reference| = 2.19e-06 (all rows), max |rho diff| = 0.00e+00
-  without any inf, fixed vs shipped: max |sigma diff| = 0.00e+00, max |rho diff| = 0.00e+00

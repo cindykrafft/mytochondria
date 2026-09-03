@@ -1,0 +1,18 @@
+binary: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/iqtree/iqtree3/build/iqtree3
+IQ-TREE version 3.1.3 for Linux x86 64-bit built Sep  3 2026
+
+== short internal branch (0.02), 400 sites: logL {'t0': -1231.5444, 't1': -1230.5062, 't2': -1231.7738}
+   ML tree in the -alrt run: (A,(B,D,C);   (best -te topology: t1)
+   aBayes:          reported 0.6120   reference 0.6114   diff 6.0e-04
+   parametric aLRT: reported 0.7800   port of Statistics_To_Probabilities(2.0764) = 0.7797   diff 2.6e-04
+     for comparison: chi2_1 cdf 0.8504; mixture 1/2chi2_0+1/2chi2_1 cdf 0.9252; mixture^3 0.7920
+   SH-aLRT:         reported 37.0%   RELL port 37.70% (R=20000; MC s.e. of the difference ~0.48)
+
+== long internal branch (0.15), 400 sites: logL {'t0': -1380.3823, 't1': -1428.8385, 't2': -1428.8384}
+   ML tree in the -alrt run: (A,B,(C,D);   (best -te topology: t0)
+   aBayes:          reported 1.0000   reference 1.0000   diff 0.0e+00
+   parametric aLRT: reported 1.0000   port of Statistics_To_Probabilities(96.9122) = 0.9999   diff 1.5e-04
+     for comparison: chi2_1 cdf 1.0000; mixture 1/2chi2_0+1/2chi2_1 cdf 1.0000; mixture^3 1.0000
+   SH-aLRT:         reported 100.0%   RELL port 100.00% (R=20000; MC s.e. of the difference ~0.00)
+
+ALL BRANCH-TEST CHECKS PASSED
