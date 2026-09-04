@@ -10,6 +10,8 @@ your pull request :**
 
 Fixes #1423.
 
+This is the `deeptoolsintervals/parse.py#L15` pattern you pointed at in the issue thread: the same `if not isinstance(line, str): line = line.decode('ascii')` guard that `getNext()` uses there and that `loadGTF()` already has a few lines further down in this file, applied to `loadBED()`. Opening it because nothing has landed since March and the issue is unassigned; if @WardDeb already has a branch for this, close it and I will not be offended.
+
 **Cause.** With the default `--sortRegions keep`, `computeMatrix` re-reads the regions file in `computeMatrixOperations.sortMatrix()` to restore the input order. `deeptoolsintervals.openPossiblyCompressed()` opens a gzipped file in binary mode; `getNext()` decodes the header/first line, but `loadBED()` then iterates the remaining lines of the handle as `bytes`, so `line.startswith("#")` raises `TypeError: startswith first arg must be bytes or a tuple of bytes, not str`. The matrix itself is computed fine (the deeptoolsintervals parser handles compressed files); the crash happens right before the matrix is written, so every `computeMatrix` run on a `.bed.gz` fails unless `--sortRegions no/ascend/descend` is given. `computeMatrixOperations sort -R regions.bed.gz` fails the same way. `loadGTF()` in the same file already decodes its lines.
 
 **Fix.** Decode non-`str` lines in `loadBED()` exactly as `loadGTF()` does (two lines in `deeptools/computeMatrixOperations.py`). No change for plain-text BED files.
