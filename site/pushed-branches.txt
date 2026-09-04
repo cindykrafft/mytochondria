@@ -13,3 +13,4 @@ plink-ng:fix/issue-140-bmerge-duplicate-id-counts
 freesurfer:fix/issue-1358-out-orientation-center
 scanpy:fix/issue-3809-distances-n-neighbors
 MACS:fix/issue-715-bdgdiff-score-truncation
+iqtree3:fix/issue-203-outgroup-absent-from-partition

@@ -1,6 +1,6 @@
 # iqtree/iqtree3 #203 — `setRootNode()` assertion when the `-o` outgroup is absent from a partition tree (also #89)
 
-_Prepared 2026-09-03 against `iqtree/iqtree3` `main` @ `8977d31a` (version string 3.1.3,
+_Prepared 2026-09-03 against `iqtree/iqtree3` `master` @ `8977d31a` (version string 3.1.3,
 2026-08-03). Nothing has been filed or pushed; this directory is the kit._
 
 ## The issue
@@ -23,7 +23,7 @@ _Prepared 2026-09-03 against `iqtree/iqtree3` `main` @ `8977d31a` (version strin
 No open or closed PR mentions `setRootNode`, the outgroup or these issue numbers
 (`mcp__github__search_pull_requests`, two queries, 0 results).
 
-## Diagnosis (`main` @ `8977d31a`)
+## Diagnosis (`master` @ `8977d31a`)
 
 `PhyloTree::setRootNode()` (`tree/phylotree.cpp:471-505`) looks the `-o` taxon up with
 `findNodeName()` and `ASSERT(root)`s (line 486 for a single taxon, 494 for a list). It is
@@ -79,7 +79,7 @@ which `sp06`–`sp12` and `outgroup_taxon` are gap-only in the second partition 
 shape of the reporter's data), plus the same alignment without the gaps for the `-lmap`
 cases, and runs seven commands. `IQTREE3=<binary> sh repro.sh <workdir>`.
 
-`repro.before.out` (`main` @ `8977d31a`, built here):
+`repro.before.out` (`master` @ `8977d31a`, built here):
 
 ```
 203a  -p parts.nex -m MFP -o outgroup_taxon    exit=134  ERROR: phylotree.cpp:486: ... Assertion `root' failed.
