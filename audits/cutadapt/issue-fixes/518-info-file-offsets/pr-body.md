@@ -6,6 +6,25 @@ When bases are removed from a read before adapter trimming (`--cut`, `--quality-
 
 The fix records in `ModificationInfo` how many bases `UnconditionalCutter`, `QualityTrimmer` and `NextseqQualityTrimmer` removed from either end (`removed_front`, `removed_back`). `InfoFileWriter` computes the records relative to the read the adapters were actually searched in (which also keeps `--times` and linked-adapter rows correct) and adds the removed bases back to the first record, so that the offsets in columns 3–4 and the sequences in columns 5–7 (qualities in 9–11) refer to the original read, as the documentation says. With `--revcomp` the removed prefix and suffix swap roles.
 
+**On your suggestion that all read modifications could result in a `Match` object**
+
+That is the more general fix, and it would also give #281 somewhere to live and make the row
+count in #586 well defined. I did not take it here because `info.matches` currently means
+"adapter matches" to four other places, and all of them would change behaviour:
+
+- `DiscardUntrimmed.test` is `not info.matches` (`predicates.py:153`), so `--discard-untrimmed`
+  and `--untrimmed-output` would treat every read as trimmed as soon as `-u` or `-q` is in use;
+- `IsTrimmed` inverts the same test;
+- `PrefixSuffixAdder` and `Renamer` resolve `{name}`, `{adapter_name}` and `{match_sequence}`
+  from `info.matches[-1]` (`modifiers.py:584`, `:775-777`), which would become the cutter rather
+  than the adapter;
+- the info file would gain a row per modification, which is a format change.
+
+Each of those is solvable, with a separate list or a type check at those four sites, but it is a
+larger change than I wanted to make unasked and it settles the info-file format along the way.
+This PR keeps the current format and only corrects the coordinates. If you would rather have the
+`Match`-object version, I am glad to rework it that way.
+
 Tests: `test_info_file_offsets_after_cut_or_quality_trim` (`-u 5`, `-u -3`, `-q 20,20`, `--nextseq-trim 20`, `-u 5 --revcomp`), `test_info_file_offsets_after_cut_reverse_complemented` (read actually reverse-complemented, with `-u -3 -q 20,0`) and `test_info_file_offsets_after_cut_times` (`--times 2`, FASTA); the two modifier tests assert the new counters. Five of the info-file cases and both modifier tests fail on `main`. The full suite passes (710 passed; `test_run_cutadapt_process` fails in my environment only because `cutadapt` is not on `PATH`). `black --check` (22.3.0), `flake8` and `mypy src/` are clean. A changelog entry and a sentence in the info-file format reference are included.
 
 Found while working through open issues in Mytochondria, a volunteer project that verifies fixes for the software behind published results (methods and harnesses: https://github.com/cindykrafft/mytochondria/tree/main/audits/cutadapt)
