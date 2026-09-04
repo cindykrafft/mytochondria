@@ -1,0 +1,120 @@
+WORKER 0 DONE Fri Sep  4 20:59:35 UTC 2026
+[ERN 1 prefix] [A] ERN sub 1: 398 trials (correct=346, error=52), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 1 prefix] [B] ERN sub 1 prefix: bad samples 927, trials with bad 12, bad channels 0 (), rejected trials 12
+[ERN 1 merged] [B] ERN sub 1 merged: bad samples 18754, trials with bad 81, bad channels 0 (), rejected trials 81
+WORKER 1 DONE Fri Sep  4 21:05:43 UTC 2026
+[ERN 2 prefix] [A] ERN sub 2: 400 trials (correct=384, error=16), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 2 prefix] [B] ERN sub 2 prefix: bad samples 296, trials with bad 2, bad channels 0 (), rejected trials 2
+[ERN 2 merged] [B] ERN sub 2 merged: bad samples 4087, trials with bad 19, bad channels 0 (), rejected trials 19
+WORKER 2 DONE Fri Sep  4 21:07:30 UTC 2026
+[ERN 3 prefix] [A] ERN sub 3: 396 trials (correct=353, error=43), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 3 prefix] [B] ERN sub 3 prefix: bad samples 1069, trials with bad 7, bad channels 0 (), rejected trials 7
+[ERN 3 merged] [B] ERN sub 3 merged: bad samples 319573, trials with bad 396, bad channels 2 (FP1,FP2), rejected trials 328
+[ERN 4 prefix] [A] ERN sub 4: 390 trials (correct=324, error=66), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 4 prefix] [B] ERN sub 4 prefix: bad samples 1968, trials with bad 11, bad channels 0 (), rejected trials 11
+[ERN 4 merged] [B] ERN sub 4 merged: bad samples 265534, trials with bad 390, bad channels 2 (FP1,FP2), rejected trials 381
+[ERN 5 prefix] [A] ERN sub 5: 400 trials (correct=398, error=2), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 5 prefix] [B] ERN sub 5 prefix: bad samples 3799, trials with bad 45, bad channels 0 (), rejected trials 45
+[ERN 5 merged] [B] ERN sub 5 merged: bad samples 68558, trials with bad 319, bad channels 0 (), rejected trials 316
+[ERN 6 prefix] [A] ERN sub 6: 240 trials (correct=181, error=59), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 6 prefix] [B] ERN sub 6 prefix: bad samples 1865, trials with bad 15, bad channels 0 (), rejected trials 15
+[ERN 6 merged] [B] ERN sub 6 merged: bad samples 31671, trials with bad 129, bad channels 0 (), rejected trials 129
+[ERN 7 prefix] [A] ERN sub 7: 400 trials (correct=386, error=14), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 7 prefix] [B] ERN sub 7 prefix: bad samples 0, trials with bad 0, bad channels 0 (), rejected trials 0
+[ERN 7 merged] [B] ERN sub 7 merged: bad samples 79988, trials with bad 272, bad channels 0 (), rejected trials 272
+[ERN 8 prefix] [A] ERN sub 8: 391 trials (correct=345, error=46), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 8 prefix] [B] ERN sub 8 prefix: bad samples 375, trials with bad 6, bad channels 0 (), rejected trials 6
+[ERN 8 merged] [B] ERN sub 8 merged: bad samples 285614, trials with bad 391, bad channels 2 (FP1,FP2), rejected trials 362
+[ERN 9 prefix] [A] ERN sub 9: 400 trials (correct=392, error=8), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 9 prefix] [B] ERN sub 9 prefix: bad samples 1444, trials with bad 15, bad channels 0 (), rejected trials 15
+[ERN 9 merged] [B] ERN sub 9 merged: bad samples 247827, trials with bad 400, bad channels 2 (FP1,FP2), rejected trials 370
+[ERN 10 prefix] [A] ERN sub 10: 397 trials (correct=323, error=74), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 10 prefix] [B] ERN sub 10 prefix: bad samples 21, trials with bad 2, bad channels 0 (), rejected trials 2
+[ERN 10 merged] [B] ERN sub 10 merged: bad samples 51507, trials with bad 232, bad channels 0 (), rejected trials 232
+[ERN 11 prefix] [A] ERN sub 11: 400 trials (correct=369, error=31), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 11 prefix] [B] ERN sub 11 prefix: bad samples 400, trials with bad 2, bad channels 0 (), rejected trials 2
+[ERN 11 merged] [B] ERN sub 11 merged: bad samples 42649, trials with bad 272, bad channels 0 (), rejected trials 272
+[ERN 12 prefix] [A] ERN sub 12: 392 trials (correct=322, error=70), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 12 prefix] [B] ERN sub 12 prefix: bad samples 324, trials with bad 7, bad channels 0 (), rejected trials 7
+[ERN 12 merged] [B] ERN sub 12 merged: bad samples 6379, trials with bad 26, bad channels 0 (), rejected trials 26
+[ERN 13 prefix] [A] ERN sub 13: 394 trials (correct=323, error=71), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 13 prefix] [B] ERN sub 13 prefix: bad samples 240, trials with bad 4, bad channels 0 (), rejected trials 4
+[ERN 13 merged] [B] ERN sub 13 merged: bad samples 32145, trials with bad 286, bad channels 0 (), rejected trials 286
+[ERN 14 prefix] [A] ERN sub 14: 400 trials (correct=387, error=13), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 14 prefix] [B] ERN sub 14 prefix: bad samples 1712, trials with bad 11, bad channels 0 (), rejected trials 11
+[ERN 14 merged] [B] ERN sub 14 merged: bad samples 37364, trials with bad 196, bad channels 0 (), rejected trials 196
+[ERN 15 prefix] [A] ERN sub 15: 396 trials (correct=350, error=46), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 15 prefix] [B] ERN sub 15 prefix: bad samples 563, trials with bad 2, bad channels 0 (), rejected trials 2
+[ERN 15 merged] [B] ERN sub 15 merged: bad samples 10990, trials with bad 61, bad channels 0 (), rejected trials 61
+[ERN 16 prefix] [A] ERN sub 16: 400 trials (correct=354, error=46), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 16 prefix] [B] ERN sub 16 prefix: bad samples 106, trials with bad 4, bad channels 0 (), rejected trials 4
+[ERN 16 merged] [B] ERN sub 16 merged: bad samples 5059, trials with bad 39, bad channels 0 (), rejected trials 39
+[ERN 17 prefix] [A] ERN sub 17: 400 trials (correct=381, error=19), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 17 prefix] [B] ERN sub 17 prefix: bad samples 38, trials with bad 1, bad channels 0 (), rejected trials 1
+[ERN 17 merged] [B] ERN sub 17 merged: bad samples 37280, trials with bad 328, bad channels 0 (), rejected trials 328
+[ERN 18 prefix] [A] ERN sub 18: 400 trials (correct=337, error=63), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 18 prefix] [B] ERN sub 18 prefix: bad samples 833, trials with bad 15, bad channels 0 (), rejected trials 15
+[ERN 18 merged] [B] ERN sub 18 merged: bad samples 251726, trials with bad 400, bad channels 2 (FP1,FP2), rejected trials 386
+[ERN 19 prefix] [A] ERN sub 19: 400 trials (correct=386, error=14), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 19 prefix] [B] ERN sub 19 prefix: bad samples 0, trials with bad 0, bad channels 0 (), rejected trials 0
+[ERN 19 merged] [B] ERN sub 19 merged: bad samples 7917, trials with bad 91, bad channels 0 (), rejected trials 91
+[ERN 20 prefix] [A] ERN sub 20: 400 trials (correct=390, error=10), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 20 prefix] [B] ERN sub 20 prefix: bad samples 1419, trials with bad 4, bad channels 0 (), rejected trials 4
+[ERN 20 merged] [B] ERN sub 20 merged: bad samples 20942, trials with bad 73, bad channels 0 (), rejected trials 73
+[ERN 21 prefix] [A] ERN sub 21: 400 trials (correct=347, error=53), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 21 prefix] [B] ERN sub 21 prefix: bad samples 120, trials with bad 4, bad channels 0 (), rejected trials 4
+[ERN 21 merged] [B] ERN sub 21 merged: bad samples 81194, trials with bad 207, bad channels 0 (), rejected trials 207
+[ERN 22 prefix] [A] ERN sub 22: 395 trials (correct=332, error=63), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 22 prefix] [B] ERN sub 22 prefix: bad samples 0, trials with bad 0, bad channels 0 (), rejected trials 0
+[ERN 22 merged] [B] ERN sub 22 merged: bad samples 1854, trials with bad 25, bad channels 0 (), rejected trials 25
+[ERN 23 prefix] [A] ERN sub 23: 397 trials (correct=373, error=24), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 23 prefix] [B] ERN sub 23 prefix: bad samples 328, trials with bad 3, bad channels 0 (), rejected trials 3
+[ERN 23 merged] [B] ERN sub 23 merged: bad samples 301449, trials with bad 397, bad channels 2 (FP1,FP2), rejected trials 372
+[ERN 24 prefix] [A] ERN sub 24: 400 trials (correct=370, error=30), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 24 prefix] [B] ERN sub 24 prefix: bad samples 127, trials with bad 1, bad channels 0 (), rejected trials 1
+[ERN 24 merged] [B] ERN sub 24 merged: bad samples 24629, trials with bad 183, bad channels 0 (), rejected trials 183
+[ERN 25 prefix] [A] ERN sub 25: 399 trials (correct=379, error=20), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 25 prefix] [B] ERN sub 25 prefix: bad samples 2449, trials with bad 9, bad channels 0 (), rejected trials 9
+[ERN 25 merged] [B] ERN sub 25 merged: bad samples 50152, trials with bad 216, bad channels 0 (), rejected trials 216
+[ERN 26 prefix] [A] ERN sub 26: 400 trials (correct=370, error=30), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 26 prefix] [B] ERN sub 26 prefix: bad samples 71, trials with bad 2, bad channels 0 (), rejected trials 2
+[ERN 26 merged] [B] ERN sub 26 merged: bad samples 23070, trials with bad 109, bad channels 0 (), rejected trials 108
+[ERN 27 prefix] [A] ERN sub 27: 398 trials (correct=315, error=83), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 27 prefix] [B] ERN sub 27 prefix: bad samples 285, trials with bad 4, bad channels 0 (), rejected trials 4
+[ERN 27 merged] [B] ERN sub 27 merged: bad samples 14907, trials with bad 95, bad channels 0 (), rejected trials 95
+[ERN 28 prefix] [A] ERN sub 28: 398 trials (correct=357, error=41), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 28 prefix] [B] ERN sub 28 prefix: bad samples 173, trials with bad 4, bad channels 0 (), rejected trials 4
+[ERN 28 merged] [B] ERN sub 28 merged: bad samples 17096, trials with bad 109, bad channels 0 (), rejected trials 109
+[ERN 29 prefix] [A] ERN sub 29: 398 trials (correct=352, error=46), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 29 prefix] [B] ERN sub 29 prefix: bad samples 905, trials with bad 8, bad channels 0 (), rejected trials 8
+[ERN 29 merged] [B] ERN sub 29 merged: bad samples 30555, trials with bad 149, bad channels 0 (), rejected trials 148
+[ERN 30 prefix] [A] ERN sub 30: 396 trials (correct=324, error=72), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 30 prefix] [B] ERN sub 30 prefix: bad samples 5613, trials with bad 47, bad channels 0 (), rejected trials 47
+[ERN 30 merged] [B] ERN sub 30 merged: bad samples 328754, trials with bad 396, bad channels 2 (FP1,FP2), rejected trials 327
+[ERN 31 prefix] [A] ERN sub 31: 400 trials (correct=364, error=36), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 31 prefix] [B] ERN sub 31 prefix: bad samples 31, trials with bad 3, bad channels 0 (), rejected trials 3
+[ERN 31 merged] [B] ERN sub 31 merged: bad samples 16102, trials with bad 140, bad channels 0 (), rejected trials 140
+[ERN 32 prefix] [A] ERN sub 32: 400 trials (correct=346, error=54), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 32 prefix] [B] ERN sub 32 prefix: bad samples 295, trials with bad 4, bad channels 0 (), rejected trials 4
+[ERN 32 merged] [B] ERN sub 32 merged: bad samples 258098, trials with bad 400, bad channels 2 (FP1,FP2), rejected trials 376
+[ERN 33 prefix] [A] ERN sub 33: 399 trials (correct=382, error=17), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 33 prefix] [B] ERN sub 33 prefix: bad samples 38, trials with bad 1, bad channels 0 (), rejected trials 1
+[ERN 33 merged] [B] ERN sub 33 merged: bad samples 24445, trials with bad 198, bad channels 0 (), rejected trials 198
+[ERN 34 prefix] [A] ERN sub 34: 400 trials (correct=364, error=36), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 34 prefix] [B] ERN sub 34 prefix: bad samples 3103, trials with bad 9, bad channels 0 (), rejected trials 9
+[ERN 34 merged] [B] ERN sub 34 merged: bad samples 29370, trials with bad 88, bad channels 0 (), rejected trials 88
+[ERN 35 prefix] [A] ERN sub 35: 395 trials (correct=316, error=79), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 35 prefix] [B] ERN sub 35 prefix: bad samples 3660, trials with bad 9, bad channels 0 (), rejected trials 9
+[ERN 35 merged] [B] ERN sub 35 merged: bad samples 70055, trials with bad 173, bad channels 0 (), rejected trials 173
+[ERN 36 prefix] [A] ERN sub 36: 400 trials (correct=362, error=38), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 36 prefix] [B] ERN sub 36 prefix: bad samples 1010, trials with bad 17, bad channels 0 (), rejected trials 17
+[ERN 36 merged] [B] ERN sub 36 merged: bad samples 55411, trials with bad 231, bad channels 0 (), rejected trials 230
+[ERN 37 prefix] [A] ERN sub 37: 399 trials (correct=352, error=47), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 37 prefix] [B] ERN sub 37 prefix: bad samples 102, trials with bad 2, bad channels 0 (), rejected trials 2
+[ERN 37 merged] [B] ERN sub 37 merged: bad samples 54918, trials with bad 356, bad channels 0 (), rejected trials 356
+[ERN 38 prefix] [A] ERN sub 38: 400 trials (correct=349, error=51), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 38 prefix] [B] ERN sub 38 prefix: bad samples 116, trials with bad 3, bad channels 0 (), rejected trials 3
+[ERN 38 merged] [B] ERN sub 38 merged: bad samples 3934, trials with bad 29, bad channels 0 (), rejected trials 29
+[ERN 40 prefix] [A] ERN sub 40: 396 trials (correct=378, error=18), 256 samples at 256 Hz, timeOnset -0.601562
+[ERN 40 prefix] [B] ERN sub 40 prefix: bad samples 5342, trials with bad 31, bad channels 0 (), rejected trials 31
+[ERN 40 merged] [B] ERN sub 40 merged: bad samples 137115, trials with bad 266, bad channels 0 (), rejected trials 264

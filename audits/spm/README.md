@@ -33,7 +33,10 @@ scipy/closed forms; the `spm_nlsi_GN` finding is confirmed by internal inconsist
 with its own M-step gradient. The SP3 and SP4 fixes have since been **reproduced on
 SPM's own MMN tutorial dataset by executing the real M/EEG code** in Octave
 (`reproductions/mmn_realdata/`), which also *shrank* both findings' reach — recorded
-there rather than papered over. Fixes 2 and 5 have **not** been executed in MATLAB.
+there rather than papered over — and SP3 was then **measured on ERP CORE (39
+participants, two paradigms)**, where response-locked epochs turn the shipped artefact
+marking into a no-op and change the group ERN by a quarter
+(`reproductions/erpcore_realdata/`). Fixes 2 and 5 have **not** been executed in MATLAB.
 "Exposed" means a study ran the affected code path — not that its conclusions are
 wrong.
 
@@ -87,8 +90,16 @@ epoched-data consumers; **not** the default `'reject'` mode, and not continuous 
 (`reproductions/mmn_realdata/`): masks shifted by exactly the 100 ms baseline, pre-fix
 excluding only 24 % of true artefact samples while 71 % of what it excluded was clean —
 yet the final robust-averaged MMN moved only ≈1.5 % RMS, because robust weights cushion
-the mask. Exposure anchor: Litvak et al. 2011 (the SPM8 M/EEG reference paper, ~1000
-cites, documents this exact machinery). Merged upstream as PR #163.
+the mask. **Then measured on ERP CORE, 39 participants, two paradigms**
+(`reproductions/erpcore_realdata/`): the shift equals the distance from epoch start to
+time zero, so on response-locked epochs starting at −600 ms the shipped code pushes 97 %
+of the detector's windows out of the epoch and excludes 0.5 % of the artefact it found;
+the same rejection settings kept 98 % of trials before the fix and 49 % after, six
+participants who have no clean error trials were silently given an ERN, and the group
+ERN amplitude was −10.4 µV before vs −8.3 µV after (paired p = 0.003, n = 30). Robust
+averaging with remove-bad-data was again cushioned (r = 0.99). Exposure anchor: Litvak
+et al. 2011 (the SPM8 M/EEG reference paper, ~1000 cites, documents this exact
+machinery). Merged upstream as PR #163.
 
 **SP4. `spm_eeg_downsample` stamps the requested, not the achieved, sampling rate.**
 CONFIRMED. The achieved rate is computed and *printed* (lines 52-61) but line 115
@@ -225,7 +236,7 @@ are open, as is SP5 ([#167](https://github.com/spm/spm/issues/167) / [PR #168](h
 | File | Contents |
 |---|---|
 | `component-reviews/*.md` | the eleven subsystem reviews with file:line evidence (all 83 confirmed + plausible findings) |
-| `reproductions/` | verification harnesses: SciPy transcriptions, the χ² Monte-Carlo, and the Octave old-vs-new regression of the SP1 fix |
+| `reproductions/` | verification harnesses: SciPy transcriptions, the χ² Monte-Carlo, the Octave old-vs-new regression of the SP1 fix, and the real-data runs of the merged fixes (SPM's MMN tutorial data; ERP CORE, 39 participants) |
 | `upstream/` | filing kit: fix branches, compare URLs, issue and PR bodies |
 
 ## Suggested next steps

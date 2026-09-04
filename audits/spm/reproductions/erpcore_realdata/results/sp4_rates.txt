@@ -1,0 +1,51 @@
+system                       acquired requested factor  achieved  reported/true time
+EGI                               250       200      1    250.00               1.250
+CTF MEG                           600       250      2    300.00               1.200
+CTF MEG                           600       500      1    600.00               1.200
+CTF MEG                          1200       500      2    600.00               1.200
+CTF MEG                           600       256      2    300.00               1.172
+Brain Products / Neuroscan        500       200      3    166.67               0.833
+EGI                               250       100      3     83.33               0.833
+EGI                               500       200      3    166.67               0.833
+Brain Products / Neuroscan        500       300      2    250.00               0.833
+EGI                               500       300      2    250.00               0.833
+Biosemi ActiveTwo                 512       200      3    170.67               0.853
+Biosemi ActiveTwo                 512       300      2    256.00               0.853
+Biosemi ActiveTwo                1024       300      3    341.33               1.138
+Brain Products / Neuroscan       1000       300      3    333.33               1.111
+Elekta / MEGIN MEG               1000       300      3    333.33               1.111
+EGI                              1000       300      3    333.33               1.111
+Elekta / MEGIN MEG               1100       250      4    275.00               1.100
+Elekta / MEGIN MEG               1100       500      2    550.00               1.100
+Elekta / MEGIN MEG               1100       300      4    275.00               0.917
+Elekta / MEGIN MEG               1100       200      6    183.33               0.917
+Elekta / MEGIN MEG               1100       256      4    275.00               1.074
+CTF MEG                          1200       256      5    240.00               0.938
+Brain Products / Neuroscan       2000       300      7    285.71               0.952
+Elekta / MEGIN MEG               2000       300      7    285.71               0.952
+CTF MEG                          2400       256      9    266.67               1.042
+CTF MEG                          1200       250      5    240.00               0.960
+CTF MEG                          2400       250     10    240.00               0.960
+CTF MEG                          2400       500      5    480.00               0.960
+Biosemi ActiveTwo                2048       300      7    292.57               0.975
+Biosemi ActiveTwo                 512       100      5    102.40               1.024
+Biosemi ActiveTwo                 512       250      2    256.00               1.024
+Biosemi ActiveTwo                 512       500      1    512.00               1.024
+Biosemi ActiveTwo                1024       100     10    102.40               1.024
+Biosemi ActiveTwo                1024       200      5    204.80               1.024
+Biosemi ActiveTwo                1024       250      4    256.00               1.024
+Biosemi ActiveTwo                1024       500      2    512.00               1.024
+Biosemi ActiveTwo                2048       100     20    102.40               1.024
+Biosemi ActiveTwo                2048       200     10    204.80               1.024
+Biosemi ActiveTwo                2048       250      8    256.00               1.024
+Biosemi ActiveTwo                2048       500      4    512.00               1.024
+Brain Products / Neuroscan        500       256      2    250.00               0.977
+Brain Products / Neuroscan       1000       256      4    250.00               0.977
+Brain Products / Neuroscan       2000       256      8    250.00               0.977
+Brain Products / Neuroscan       5000       256     20    250.00               0.977
+Elekta / MEGIN MEG               1000       256      4    250.00               0.977
+Elekta / MEGIN MEG               2000       256      8    250.00               0.977
+EGI                               500       256      2    250.00               0.977
+EGI                              1000       256      4    250.00               0.977
+Brain Products / Neuroscan       5000       300     17    294.12               0.980
+49 of 90 pairs are non-integer (the defect fires); 22 distort time by 5% or more
