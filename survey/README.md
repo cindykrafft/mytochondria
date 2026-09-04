@@ -353,7 +353,7 @@ each reported**, so a bug can be matched against the version range actually used
 
 - **Stage classification is heuristic.** It reads the one sentence naming the tool, so a tool
   described across several sentences may get an incomplete stage list. The evidence sentence
-  is included in every row precisely so this can be audited.
+  is included in every row precisely so this can be checked.
 
 - **Presence ≠ dependence.** A named package may have produced one supplementary figure rather
   than the central result. Read the evidence sentence before concluding a bug matters.

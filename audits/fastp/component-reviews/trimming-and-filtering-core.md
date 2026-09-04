@@ -392,7 +392,7 @@ recorded as a reading-level observation.
 - **fastp's own unit tests** (`./fastp test`) pass on master and on all three fix
   branches.
 
-## Not audited here
+## Not checked here
 
 The HTML report and its plots; gzip/BGZF reading and writing and the
 `--compression` path; `--stdin`/`--stdout`, `--interleaved_in` and the MGI id

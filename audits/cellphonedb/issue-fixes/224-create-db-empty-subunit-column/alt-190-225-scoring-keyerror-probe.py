@@ -1,6 +1,6 @@
 """Alternate candidate (not fixed here): issues #190 / #225, KeyError in score_interactions.
 
-Uses the audit fixture (../../verify/tiny_dataset.py) and makes one subunit (SUB1) of the complex RECCPLX
+Uses the project fixture (../../verify/tiny_dataset.py) and makes one subunit (SUB1) of the complex RECCPLX
 negative in one cell type, as scaled/z-scored input would be. The cluster-mean product of the subunits is
 then negative, scoring_utils._geometric_mean takes a fractional power of it -> NaN, MinMaxScaler keeps the
 NaN, and DataFrame.stack() in _get_lr_scores drops NaN cells (pandas < 3), so the pair is missing from

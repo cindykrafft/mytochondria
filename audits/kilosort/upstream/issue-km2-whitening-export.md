@@ -48,7 +48,7 @@ that the true transform is recoverable from `rez.Wrot` in `rez2.mat` —
 would let downstream tool authors and re-analysis efforts handle old
 outputs correctly. Happy to draft that note as a PR if useful.
 
-**Context:** found while auditing the Kilosort versions used by 60 papers in
+**Context:** found while checking the Kilosort versions used by 60 papers in
 six high-impact journals (2021–2026); 22 of them pin KS2.5 or KS3.
 ```
 

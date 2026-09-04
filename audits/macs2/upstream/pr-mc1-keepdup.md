@@ -11,7 +11,7 @@ control's.
 
 **Validation** (MACS3 3.0.4, synthetic BEDs where the treatment threshold is 1
 and the control's is 3 — script `keepdup_demo.py` in
-cindykrafft/research-software-audit, `audits/macs2/verify/`):
+cindykrafft/mytochondria, `audits/macs2/verify/`):
 
 | | control reads kept (of 60,000) |
 |---|---|

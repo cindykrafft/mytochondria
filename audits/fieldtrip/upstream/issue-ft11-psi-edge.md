@@ -31,7 +31,7 @@ The code is unchanged since the file's first commit (July 2010).
 
 Zero the last element after forming the products (and set its normalizer to 1), so windows reaching the top bin simply contain one fewer product — which is the behaviour of the definition at the edge. PR attached; verified to make the edge bins agree with the reference definition and be finite when normalized.
 
-**Environment:** FieldTrip master @ 2e14f72, Octave 8.4. Script: https://github.com/cindykrafft/research-software-audit/blob/main/audits/fieldtrip/verify/ft11_psi_edge.m
+**Environment:** FieldTrip master @ 2e14f72, Octave 8.4. Script: https://github.com/cindykrafft/mytochondria/blob/main/audits/fieldtrip/verify/ft11_psi_edge.m
 ```
 
 ---

@@ -97,7 +97,7 @@ file (releases are described on GitHub). Test added next to the existing unit te
 
 ## Status: issue is assigned
 
-The issue is assigned to the maintainer (carsen-stringer). Per the audit rule, no PR is
+The issue is assigned to the maintainer (carsen-stringer). Per the project rule, no PR is
 opened for an assigned issue: `comment.md` is a diagnosis plus an offer of the branch,
 `pr-body.md` is ready should the maintainer want the PR. Nothing has been filed or pushed.
 

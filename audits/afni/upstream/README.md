@@ -35,7 +35,7 @@ closure that the first review called AF1b was merged separately the day before
 
 PR #960 went out with a note that no R interpreter was available and asked the
 maintainer to run a parse check. That shifts verification onto the maintainer and
-must not happen again: `apt-get install r-base-core` works in the audit container,
+must not happen again: `apt-get install r-base-core` works in the project container,
 so any change touching `src/R_scripts/` is parse-checked here first
 (`Rscript -e "invisible(parse('file.R'))"` on both the PR head and the base), and
 the PR body says what was and was not run.
@@ -50,7 +50,7 @@ that limit.
 
 ## Verification honesty
 
-"CONFIRMED" in this audit means the defect was derived independently and, in most
+"CONFIRMED" in this project means the defect was derived independently and, in most
 cases, reproduced numerically in isolation — compiled C harnesses built from the
 actual translation units, comparisons against SciPy, fuzz tests against sorted
 references, and Monte-Carlo simulation. It does **not** mean anyone ran the shipped

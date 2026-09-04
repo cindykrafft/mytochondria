@@ -1,7 +1,7 @@
 # Component: resting-state & connectivity tools
 `3dReHo`, `3dRSFC`, `3dTproject`, `3dBandpass`, `3dNetCorr`, `3dTcorr*`, `3dGroupInCorr`
 
-AF1 CONFIRMED, numerically reproduced (the audit's one finding with documented
+AF1 CONFIRMED, numerically reproduced (the project's one finding with documented
    published exposure). `src/ptaylor/rsfc.c:63-118`. Ranks come from a true float
    sort, but tie *detection* compares int-truncated values: `int *sorted` receives
    `THD_get_voxel()` floats, so any two values sharing an integer part are declared
@@ -27,7 +27,7 @@ AF1b CONFIRMED (second defect in the same routine, and the reason AF1's curve tu
    So when a voxel's whole series falls inside one integer bin, no ranks are
    rewritten and no tie term accumulates -- the answer is exactly correct, by
    accident. This exonerates L2-normalised input (`3dTproject -norm`, sum of squares
-   = 1, |x| <= 1 by construction): a configuration an earlier pass of this audit had
+   = 1, |x| <= 1 by construction): a configuration an earlier pass of this project had
    classified as the maximal-tie regime. Corrected here.
 
 AF1c CONFIRMED, and the reason this is not merely a rescaling. The number of spurious

@@ -213,7 +213,7 @@ holds between two unseeded dense runs.
 - **`transform`** of the same points is bit-identical on repeat; the full training matrix
   returns `graph_`/`embedding_` itself.
 
-## Not audited here
+## Not checked here
 
 `umap/layouts.py` (the SGD, negative sampling, the `optimize_layout_*` kernels — the
 stochastic part the brief excluded), densMAP, ParametricUMAP, AlignedUMAP, the supervised

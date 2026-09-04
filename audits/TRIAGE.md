@@ -47,7 +47,7 @@ Sources: GitHub search for everything filed by the project account (45 issues, 3
 outside the project's own repositories), the upstream git logs, and a scan of every
 repository's contribution documents for an AI-contribution policy (none of the 19 has a
 written one; HTSeq's decision was made in the thread). Comment threads on other people's
-repositories cannot be read from the audit session, so "unread" below means the user has to
+repositories cannot be read from the project session, so "unread" below means the user has to
 read them.
 
 | repository | filed | state | next action |
@@ -73,11 +73,11 @@ one, and none gets more than two until a maintainer replies.
 ## Issue-fix round (from 2026-09-03 evening)
 
 Posture change, recorded in README step 6: instead of filing more audit findings, work
-through the audited repositories' own open issues, one reproducible bug each, and file a
+through the checked repositories' own open issues, one reproducible bug each, and file a
 PR against the issue. Deliverables under `audits/<package>/issue-fixes/<n>-<slug>/`. Rules:
 nothing for HTSeq (declines); for repositories with unanswered audit filings (AFNI,
 FreeSurfer, Suite2p, Kilosort, Scanpy, umap, Cutadapt, CellPhoneDB) the PR answers the
-maintainers' own issue and is the only new item until they reply; the audit-finding queue
+maintainers' own issue and is the only new item until they reply; the project-finding queue
 stays frozen meanwhile.
 
 Assigned issues (2026-09-04): no PR; comment with the diagnosis and a branch link instead. First case: SPM #104–#106 are assigned to the toolbox author.

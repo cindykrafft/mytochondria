@@ -61,7 +61,7 @@ is always cushioned as above. The exposure that is not cushioned:
   on continuous recordings) and the default `'reject'` artefact mode, which
   never calls `badsamples`.
 
-**Reach correction relative to the audit's Tier-1 write-up:** the defect fires
+**Reach correction relative to the project's Tier-1 write-up:** the defect fires
 only in `'mark'` mode (a documented, tutorial-taught workflow, but not the
 default `'reject'` mode), and its downstream effect on a robust average is
 small. It remains a correct, merged fix — but "high priority" was earned by the

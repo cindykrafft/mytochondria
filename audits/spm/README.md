@@ -4,7 +4,7 @@ _Companion to `../freesurfer/` and `../fsl/`. Generated 2026-09-01._
 
 ## What this is
 
-Unlike the FreeSurfer and FSL entries, this audit was **not driven by the six-journal
+Unlike the FreeSurfer and FSL entries, this project was **not driven by the six-journal
 survey**: instead of starting from papers and reviewing the components they used, the
 whole of SPM (`spm/spm` development version, commit `530ec52`, 2026-08-23) was divided
 into eleven subsystems and each was read adversarially in full — statistical
@@ -95,7 +95,7 @@ CONFIRMED. The achieved rate is computed and *printed* (lines 52-61) but line 11
 stores `S.fsample_new`. Fires only when the user explicitly selects `method='decimate'`
 or `'downsample'` with a non-integer ratio (`ft_preproc_resample` then rounds the
 factor); the default `'resample'` and the no-toolbox `'fft'` fallback are exact, which
-narrows the reach from the audit's first framing. **Reproduced with the real code on
+narrows the reach from the project's first framing. **Reproduced with the real code on
 SPM's MMN tutorial data** (`reproductions/mmn_realdata/`): 512→200 Hz with `decimate`,
 pre-fix prints 170.7 Hz and stamps 200 Hz, so the 915 s recording is reported as 781 s
 and a real 275 ms MMN peak would be reported at 235 ms; merged upstream as PR #165.

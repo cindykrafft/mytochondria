@@ -212,7 +212,7 @@
    "fork": "cindykrafft/plink-ng"
   }
  ],
- "audit_repo": "cindykrafft/research-software-audit",
+ "audit_repo": "cindykrafft/mytochondria",
  "items": [
   {
    "repo": "afni/afni",

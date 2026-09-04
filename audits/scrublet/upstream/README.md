@@ -30,7 +30,7 @@ Scrublet-original patches stay as `git format-patch` output because that reposit
   nothing that is not needed, complete traceback where there is one, expected vs got,
   what shrinking revealed), and a patch that adds a small `tests/` file because there is
   no suite to extend. The project's non-existent linter and test runner could not be
-  run; the new tests were run with pytest 9 in the audit venv.
+  run; the new tests were run with pytest 9 in the project venv.
 
 ### Scanpy
 

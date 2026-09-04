@@ -1,7 +1,7 @@
 # Reproductions
 
 Verification harnesses for the SPM audit (`../README.md`). Two kinds live
-here: SciPy/NumPy transcriptions used *during* the audit to confirm findings,
+here: SciPy/NumPy transcriptions used *during* the project to confirm findings,
 and the post-fix **Octave regression that executes the real MATLAB code** of
 the SP1 fix.
 
@@ -39,7 +39,7 @@ MATLAB-only string helpers shimmed — all in `octave_shims/`).
 | `sp4_result.md`, `sp4_demo.py` | SP4 (`spm_eeg_downsample`, PR #165) | with `method='decimate'`, 512→200 Hz: pre-fix **prints 170.7 Hz and stamps 200 Hz** — a 915 s recording reported as 781 s; a real 275 ms MMN peak reported at 235 ms. Fires only for explicit `decimate`/`downsample` (default `resample` and the no-toolbox `fft` fallback are exact). |
 | `sp3_result.md`, `sp3_pipeline.m`, `sp3_compare.py`, `sp3_run.log` | SP3 (`@meeg/badsamples`, PR #163) | SPM's own mark-mode + robust-averaging chapter on this dataset: bad windows shifted by exactly the 100 ms baseline; pre-fix excluded only 24 % of true artefact samples and 71 % of what it excluded was clean; **yet the final robust-averaged MMN changes by ≈1.5 % RMS** — robust weights cushion the mask. Uncushioned exposure: mark-mode bad-channel/trial classification and direct mask consumers. |
 
-## Other findings verified numerically during the audit
+## Other findings verified numerically during the project
 
 | File | Finding | Result |
 |---|---|---|

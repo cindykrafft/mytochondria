@@ -16,7 +16,7 @@ fractions, distances, coverage and p-values — was read in full on `master` and
 every suspicion was run through the built binary
 (`make`; the `v2.30.0` and `v2.31.1` release tags built from the same
 repository for version scope), against an independent Python port of the
-documented rule written for this audit (plain Python / numpy — **not**
+documented rule written for this project (plain Python / numpy — **not**
 pybedtools), against `scipy.stats.fisher_exact` for `fisher`, and against the
 project's own `intersect` where two tools should agree. BAM harnesses build
 their reads with pysam.
@@ -117,7 +117,7 @@ replace them with full-text records.
 | file | what |
 |---|---|
 | `bedtools_profile.py`, `bedtools_profiles.jsonl`, `profile_run.log` | profiling pass (offline; see caveat) |
-| `component-reviews/genome-arithmetic-core.md` | the review: BT1–BT6, N1–N9, held-up list, not-audited list |
+| `component-reviews/genome-arithmetic-core.md` | the review: BT1–BT6, N1–N9, held-up list, not-checked list |
 | `verify/btlib.py` | shared harness helpers: run the binary, independent interval arithmetic |
 | `verify/bt1_coverage_split_count.py` (+ `.out`, `.v2.31.1.out`) | BT1: minimal + random BED12 vs record/block counts vs `intersect -c -split`; `-f` |
 | `verify/bt2_intersect_split_F.py` (+ …) | BT2: minimal + random false-neg/pos vs the per-record reference; `-r`; the `-f`/#750 control |

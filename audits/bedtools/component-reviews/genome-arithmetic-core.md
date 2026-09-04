@@ -23,7 +23,7 @@ nuc (`src/nucBed/`), fisher (`src/fisher/fisher.cpp`, `src/fisher/kfunc.cpp`),
 jaccard (`src/jaccard/jaccard.cpp`) and reldist (`src/reldist/reldist.cpp`).
 
 Every suspect was **executed on the built binary** (`../verify/`), against an
-independent Python port of the documented rule written for this audit (plain
+independent Python port of the documented rule written for this project (plain
 Python / numpy — pybedtools was **not** used), against `scipy.stats.fisher_exact`
 for `fisher`, and against the project's own `intersect` where two tools should
 agree. Version scope was established by executing the same harnesses on the
@@ -361,7 +361,7 @@ below passed with **0 mismatches**.
   (`Random.cpp`, `std::mt19937_64`) with rejection sampling is unbiased on these
   tests.
 
-## Not audited here
+## Not checked here
 
 BAM/CRAM/VCF/GFF parsing and BED12 field handling beyond block coordinates;
 `getfasta`/`maskfasta` sequence extraction; `makewindows`; `sort`;

@@ -100,4 +100,4 @@ during review, then withdrawn by proof — pairing argument on the interval aver
 default-path findings dominate. DS1: 1 confirmed zinbwave + 62 single-cell
 candidates. DS2: 5 explicit lfcThreshold papers + silent users. LRT papers (55)
 unaffected in practice (DS-N1 negligible). Wald/default papers: no confirmed
-defect — the core default chain survived the audit.
+defect — the core default chain survived the project.

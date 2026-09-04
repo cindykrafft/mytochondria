@@ -6,7 +6,7 @@ Run from survey/scripts/ (it imports the survey's own extractor and fetcher):
     cd survey/scripts && python3 ../../audits/afni/afni_profile.py
 
 Writes afni_profiles.jsonl next to the cohort file and prints the feature /
-command / version tallies that the audit README quotes.
+command / version tallies that the project README quotes.
 """
 import json, re, sys, os, xml.etree.ElementTree as ET
 import concurrent.futures as cf
@@ -14,7 +14,7 @@ sys.path.insert(0, ".")
 import extract as E
 
 # AFNI ships ~600 programs; these are the ones that carry published numbers
-# and the ones the audit's findings live in.
+# and the ones the project's findings live in.
 COMMANDS = [
  "afni_proc.py", "uber_subject.py", "align_epi_anat.py", "@SSwarper",
  "@animal_warper", "auto_warp.py", "@auto_tlrc", "3dSkullStrip",

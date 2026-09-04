@@ -39,7 +39,7 @@ The permutation p-value is the proportion of randomizations *at least as extreme
 
 Use `>=`/`<=` in all of these comparisons (clusterstat lines 414, 433, 435, 447, 449, 494, 513, 515, 527, 529; ft_statistics_montecarlo lines 378-379, 384-385). This is consistent with the existing `+1/(N+1)` convention for random subsets (which was added in 2012 for bug 783 but left the enumerated path and the tie handling as they were). PR to follow.
 
-**Environment:** FieldTrip master @ 2e14f72; reproduced by running the shipped code under Octave 8.4. Standalone scripts: https://github.com/cindykrafft/research-software-audit/tree/main/audits/fieldtrip/verify
+**Environment:** FieldTrip master @ 2e14f72; reproduced by running the shipped code under Octave 8.4. Standalone scripts: https://github.com/cindykrafft/mytochondria/tree/main/audits/fieldtrip/verify
 ```
 
 ---

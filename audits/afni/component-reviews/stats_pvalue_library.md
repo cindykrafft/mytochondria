@@ -3,7 +3,7 @@
 
 No confirmed defects. This component is recorded because it is the one every other
 finding depends on, and because a clean result here is load-bearing for reading the
-rest of the audit in proportion.
+rest of the project in proportion.
 
 VERIFIED CORRECT, against SciPy to reference precision including extreme tails: the
 complete `mri_stats.c` p-value library -- t, F, correlation, chi-square, normal,

@@ -84,7 +84,7 @@ Python 3.12 venv (`uv venv --python /usr/bin/python3.12`; `uv pip install -e src
 | with the patch | 2 passed | 23 passed | 100 passed, 2 failed |
 
 The two persistent failures are unrelated and identical on both: `test_plotCoverage.py::test_plotCoverage_default`
-(pre-existing, also recorded in the audit's `upstream/test-runs.txt`) and `test_tools.py::test_tools`
+(pre-existing, also recorded in the project's `upstream/test-runs.txt`) and `test_tools.py::test_tools`
 (`FileNotFoundError: 'alignmentSieve'` — the console scripts are not on `PATH` in this venv).
 
 `flake8` with the CI options (`--ignore=E501,F403,E402,F999,F405,E722,W504,W605`) on the three
@@ -101,7 +101,7 @@ changed Python files: 0 findings (14 on `master` overall, none in these files).
 `PULL_REQUEST_TEMPLATE.md` (four checkboxes, in [`pr-body.md`](pr-body.md)), `flake8` + `pytest`
 as in `.github/workflows/test.yml`, `CHANGES.txt` bullet under `unreleased` (the top heading on
 `master` is 3.5.5). The `pyproject.toml` version is untouched. Open PRs checked 2026-09-03: 12,
-none touches BED parsing or #1423 (PR #1449 is the audit's DT1 fix). #1423 has no assignee (the `assignee`/`assignees` fields of the search result were empty on 2026-09-03) and no labels, so a PR is appropriate.
+none touches BED parsing or #1423 (PR #1449 is the project's DT1 fix). #1423 has no assignee (the `assignee`/`assignees` fields of the search result were empty on 2026-09-03) and no labels, so a PR is appropriate.
 
 ## Other candidates considered
 

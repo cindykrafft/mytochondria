@@ -114,7 +114,7 @@ which is not available here — so this suite is where a 1.9 regression test can
 | `git apply --check` / `git am` on `ff47b729` | OK |
 
 Linter/formatter: the repository has no `clang-format`, editorconfig or other formatter
-configuration (checked in the audit's `upstream/README.md` and re-checked here), so the patch
+configuration (checked in the project's `upstream/README.md` and re-checked here), so the patch
 follows the surrounding style (tabs at the existing indentation levels, braces on every `if`,
 comments dated in the maintainer's `bugfix (date):` idiom).
 
@@ -137,7 +137,7 @@ rerun of his data.
 
 The tracker has 35 open issues (enumerated in full on 2026-09-03 with
 `mcp__github__search_issues`, `is:open`, plus ~50 closed ones for context). Excluding the ten
-opened by this audit's own concurrent sessions (#341, #353, #362–#365, #377, #380 …):
+opened by this project's own concurrent sessions (#341, #353, #362–#365, #377, #380 …):
 
 | issue | why not |
 |---|---|

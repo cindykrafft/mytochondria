@@ -39,11 +39,11 @@ warning), I'd like to request:
   isolating the misalignment as the mechanism.
 
 **Reproduction:** `ds1_weights_misalignment.R` in
-https://github.com/cindykrafft/research-software-audit/tree/main/audits/deseq2/verify
+https://github.com/cindykrafft/mytochondria/tree/main/audits/deseq2/verify
 — runs on any affected release; prints the comparison and both controls.
 
 Found during a source audit of DESeq2 against 886 papers that used it in six
-high-impact journals 2021–2026. Thank you for DESeq2 — the audit's main outcome
+high-impact journals 2021–2026. Thank you for DESeq2 — the project's main outcome
 was how well the default analysis chain held up; this was the one confirmed
 defect, and you had already fixed it.
 

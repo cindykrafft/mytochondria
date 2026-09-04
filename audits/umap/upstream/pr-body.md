@@ -15,7 +15,7 @@ the point a membership strength of exactly 1.0. The global `mean_distances` was 
 as soon as any row contained an `inf`, which did the same to every row with `rho == 0`.
 
 This excludes non-finite distances from `rho` and from both means. Rows without a pruned
-neighbour are unchanged (bit-identical sigma on the audit's test data).
+neighbour are unchanged (bit-identical sigma on the project's test data).
 
 Tests:
 - `test_umap_nn.py::test_smooth_knn_dist_disconnected_neighbors`: a row with three `inf`

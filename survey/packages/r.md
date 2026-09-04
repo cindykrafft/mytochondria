@@ -8391,7 +8391,7 @@
 
 - DOI: 10.1073/pnas.2211007119 | PMCID: PMC9618128 | PMID: 36215520
 - Version used: **4.0**
-- Evidence: We statistically derived the mean and 95% confidence intervals of the auditory threshold curves using a GAMM with a random effect of individual ID, which was run in the “gamm4” package ( 29 ) in R 4.0.3 ( 30 ).
+- Evidence: We statistically derived the mean and 95% confidence intervals of the projectory threshold curves using a GAMM with a random effect of individual ID, which was run in the “gamm4” package ( 29 ) in R 4.0.3 ( 30 ).
 - Full pipeline: differential/statistical testing [R v4.0] -> stage not stated [lme4]
 
 ### Microbiome composition modulates secondary metabolism in a multispecies bacterial community. (PNAS 2022)

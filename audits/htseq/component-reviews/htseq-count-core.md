@@ -246,7 +246,7 @@ supplementary record counts twice (200 aligned records for 100 reads with
   minus-strand records counted in sequencing orientation and aligned/unaligned split
   as documented (`../verify/note_qa_statistics.py`).
 
-## Not audited here
+## Not checked here
 
 `HTSeq/scripts/count_old.py` (not installed), `correct_barcodes` UMI collapsing beyond
 reading it, the mtx/h5ad/loom writers and `--append-output`/`--with-header` (I/O),

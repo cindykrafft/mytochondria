@@ -11,7 +11,7 @@ means; those paths were verified by execution rather than by reading every line.
 
 Every suspicion was **executed on the shipped code**: PLINK 1.9 (`1.9/plink`, version
 string `v1.9.0-b.8`, LAPACK-linked against a locally built OpenBLAS) and PLINK 2.0
-(`2.0/build_dynamic/plink2`, `v2.0.0-b.1`) built from the audited tree; the exact-test
+(`2.0/build_dynamic/plink2`, `v2.0.0-b.1`) built from the checked tree; the exact-test
 functions were additionally linked verbatim from the build's object files into two
 small drivers (`../verify/stats_driver19.c`, `../verify/stats_driver2.cc`) so that they
 can be queried table by table. References are exact rational arithmetic
@@ -201,7 +201,7 @@ statsmodels to printed precision. Cosmetic.
   imputation: N4.)
 - **`--het` `O(HOM)`, `N(NM)` / `OBS_CT`** exact; `E(HOM)`/`F` as in N1.
 
-## Not audited
+## Not checked
 
 `--pca` (variance explained, `approx`), `--clump`, `--fst`, chrX / haploid handling in
 `--hardy`/`--freq`/`--hwe` (`HweXchrLnP` is in the driver but was not exercised),

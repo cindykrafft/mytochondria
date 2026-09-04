@@ -5,7 +5,7 @@ _Companion to `../freesurfer/` and `../fsl/`. Audit conducted 2026-08-27 against
 
 ## What this is
 
-Unlike the FreeSurfer and FSL entries, this audit ran in the other direction. Rather
+Unlike the FreeSurfer and FSL entries, this project ran in the other direction. Rather
 than starting from the survey cohort and reading only what those papers used, nine
 parallel subsystem audits swept the parts of AFNI where a correctness bug most
 directly changes a published number: the statistical distribution library and p-value

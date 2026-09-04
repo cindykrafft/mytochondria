@@ -18,7 +18,7 @@ Every suspicion was **executed on the shipped binary**: `master` built with gcc 
 environment lacked), the v2.4.0 release tag built the same way, and — because the manual
 now sends users to `iqtree/iqtree3` — the iqtree3 `master` too (see `../README.md`).
 Harnesses in `../verify/` with captured output (`.out` = master, `.v2.4.0.out` = release
-tag, `.v3.out` = iqtree3 3.1.3 for the four harnesses that carry the notes; all identical). The reference is an independent numpy/scipy implementation written for this audit
+tag, `.v3.out` = iqtree3 3.1.3 for the four harnesses that carry the notes; all identical). The reference is an independent numpy/scipy implementation written for this project
 (`../verify/iqt.py`: Felsenstein pruning under a reversible model, Yang's discrete gamma
 via `scipy.stats.gamma`, RELL resampling, quartet counting), or IQ-TREE's own slower
 alternatives (`-te` fully optimised alternative topologies; the standard bootstrap `-b`).
@@ -236,7 +236,7 @@ parameter count their names imply.
   users comparing it with UFBoot's 100 % and the standard bootstrap's 61 % should know the
   three numbers estimate different things.
 
-## Not audited here
+## Not checked here
 
 Tree search (NNI/SPR candidate set, stopping rules, `-nstop`), the AU/KH/SH topology tests
 (`-zb`), mixture and PoMo models, `--scfl` (likelihood-based sCF, iqtree3), AliSim, dating

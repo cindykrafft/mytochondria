@@ -14,7 +14,7 @@ repo_to_audit = {r.lower(): a["dir"] for a in cfg["audits"] for r in a["repos"]}
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
 def get(url):
-    req = urllib.request.Request(url, headers={"Accept": "application/vnd.github+json", "User-Agent": "research-software-audit-site",
+    req = urllib.request.Request(url, headers={"Accept": "application/vnd.github+json", "User-Agent": "mytochondria-site",
                                                **({"Authorization": f"Bearer {TOKEN}"} if TOKEN else {})})
     for attempt in range(5):
         try:

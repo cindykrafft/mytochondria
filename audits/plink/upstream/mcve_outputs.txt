@@ -1,4 +1,4 @@
-## master (8bfebe8), 1.9/plink built from the audited tree
+## master (8bfebe8), 1.9/plink built from the checked tree
    1 snp1  ALL(NP)    T    A                2/2/2   0.3333      0.5       0.4805
 kept after --hwe 0.48: ['snp2']
 expected: ['snp1', 'snp2']  (exact p = 185/385 = 0.480519 > 0.48)

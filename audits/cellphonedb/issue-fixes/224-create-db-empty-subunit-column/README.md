@@ -41,7 +41,7 @@ traceback or the files; the comments (0) add nothing.
   only **4 use `uniprot_4` and 1 uses `uniprot_5`**. Any subset that drops those five rows — or any
   hand-written file that keeps the documented header while its complexes are dimers — cannot be
   built. Converting the columns to strings before saving, as the reporter did, cannot help,
-  because `create_db` re-reads the CSVs and pandas infers `float64` again. The audit had noted the
+  because `create_db` re-reads the CSVs and pandas infers `float64` again. The project had noted the
   same crash as N6 (`../../verify/note_create_db_empty_uniprot_column.py`) without connecting it to
   a user report.
 - Every other consumer of those columns already tolerates NaN floats
@@ -91,7 +91,7 @@ interaction) with the standard four-column complex header; no download. Run from
 ## Tests
 
 New `CreateDbUnitTests` in `cellphonedb/src/tests/method_tests.py` (the project's single test
-file; a new `TestCase` with its own `setUp`, like the audit's earlier patches, so it needs no
+file; a new `TestCase` with its own `setUp`, like the project's earlier patches, so it needs no
 database download and can run in CI):
 
 | | `-k CreateDbUnitTests` | full `pytest method_tests.py` |
@@ -120,7 +120,7 @@ only #227 (a `set_index` KeyError on ~500k-cell inputs) and #210 (test paths); n
 this.
 
 - **#190 / #225 — `KeyError: 'COL11A1_integrin_a11b1_complex'` / `'BMP8A_ACVR_1A2B_receptor'` in
-  `score_product`** (8 and 0 comments). Reproduced here on the audit fixture with a **negative**
+  `score_product`** (8 and 0 comments). Reproduced here on the project fixture with a **negative**
   subunit mean (`alt-190-225-scoring-keyerror-probe.py`, `.out`): both reported keys involve a
   complex, and the cause is `scoring_utils._geometric_mean` taking a fractional power of a
   negative subunit product (scaled / z-scored input, cf. #192) → NaN → `MinMaxScaler` keeps NaN →
@@ -161,4 +161,4 @@ this.
   function that failed.
 - Not verified under pandas 3 in this session (the venv was pinned to pandas < 3 so that the
   scoring probe could run); the new code path uses only `dropna()` and set difference, which are
-  dtype-agnostic, and the audit's N6 harness shows the same crash on pandas 3.0.5.
+  dtype-agnostic, and the project's N6 harness shows the same crash on pandas 3.0.5.

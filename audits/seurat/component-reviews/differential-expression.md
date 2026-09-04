@@ -210,7 +210,7 @@ wrong, the workflow is. Out of numerical scope.
   `NormalizeData` command, else the integration command, else `NULL` → slot-based
   default, so a LogNormalize'd object with no command log still gets the `expm1` mean.
 
-## Not audited here
+## Not checked here
 
 `sctransform::correct_counts` (called by `PrepSCTFindMarkers`), `presto`'s AUC and
 rank machinery beyond the p-value, `MAST::zlm` internals, `limma::

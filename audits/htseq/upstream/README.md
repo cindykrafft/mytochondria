@@ -6,7 +6,7 @@ Default branch of `htseq/htseq`: **`main`**.
 
 _Prepared 2026-09-03 against `htseq/htseq` `main` @ `7672321` (2026-02-04, version
 string 2.1.2). **Nothing has been filed, pushed or posted.** The two fix branches
-exist only as local git worktrees of the audit clone; the `git am`-able patches are in
+exist only as local git worktrees of the project clone; the `git am`-able patches are in
 this directory:_
 
 | branch (local) | commit | patch | finding |
@@ -71,7 +71,7 @@ Each branch is one commit on top of `7672321` (`main`) in the fork
   `--secondary-alignments score/ignore` mean — the place to mention N3 if it is ever
   raised. Neither of the two findings has a matching prior issue, so both are drafted
   as new issues.
-- Matthew Rocklin's "Craft Minimal Bug Reports" as summarised in the audit brief: each
+- Matthew Rocklin's "Craft Minimal Bug Reports" as summarised in the project brief: each
   issue text carries a script that writes its own synthetic data, has no line that is
   not needed to reproduce, ends in an assertion, states expected vs got with the
   complete traceback, and says what shrinking revealed (HC2: only the presence of the

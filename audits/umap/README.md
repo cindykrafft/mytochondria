@@ -39,7 +39,7 @@ exactly symmetric, in [0, 1], and equals the numpy formula, for `set_op_mix_rati
 and 0; `find_ab_params` equals an independent least-squares fit (default a = 1.5769,
 b = 0.8951); `spectral_layout` spans the dense `eigh` eigenspace to 1.6e-05 degrees and the
 multi-component layout is finite; `precomputed` reproduces the euclidean fit; `transform`
-is deterministic under `transform_seed`. Not audited: the SGD layout (`layouts.py`),
+is deterministic under `transform_seed`. Not checked: the SGD layout (`layouts.py`),
 densMAP, Parametric/Aligned UMAP, the supervised intersection, `inverse_transform`,
 `update`, the other metrics, pynndescent internals.
 
@@ -99,7 +99,7 @@ replace them with full-text records.
 | file | what |
 |---|---|
 | `umap_profile.py`, `umap_profiles.jsonl`, `profile_run.log` | profiling pass (offline; see caveat) |
-| `component-reviews/numerical-core.md` | the review: U1–U3, W1–W2, held-up list, not-audited list |
+| `component-reviews/numerical-core.md` | the review: U1–U3, W1–W2, held-up list, not-checked list |
 | `verify/u1_disconnected_sigma_inf.py` (+ `.out`, `_0.5.12.out`, `_0.5.3.out`) | U1: `smooth_knn_dist` vs the brentq reference with pruned neighbours; all four `fit` routes; default jaccard; the fixed function |
 | `verify/note_duplicates_sigma_collapse.py` (+ `.out`) | U2: sigma and weights vs number of duplicates; `unique=True` |
 | `verify/note_transform_vs_fit_graph.py` (+ `.out`) | U3: transform graph vs fit graph on training points; determinism |

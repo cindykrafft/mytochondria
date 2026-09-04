@@ -1,17 +1,20 @@
-# Research software audit
+# Mytochondria
 
-An AI-assisted correctness audit of the open-source software that published science
-actually runs — driven by a full-text survey of what the literature reports using,
-then targeted source-level review of those exact components, with every suspected
-defect verified numerically before it is reported upstream.
+*"It's the powerhouse of the cell." This one's mine.*
+
+Maintainers of research software are short on time, not on care. Mytochondria spends
+machine time on the part of their job that scales worst: reading the numerical core of a
+package line by line, reproducing every suspicion by execution, and turning what survives
+into a patch with a test that fails without it. What reaches a maintainer should be
+something they can merge or decline in a few minutes, not another report to triage.
 
 Research software is unusually hard code: mathematically intricate, evolving alongside
 the science it serves, maintained for decades, and usually built by small teams under
-tight grant budgets. The packages audited here are careful, well-engineered work. The
-premise of this project is not that anyone was careless — it is that no team can read
-an entire codebase at the depth every line deserves, and that exhaustive machine-assisted
-review is a genuine complement to human testing. Findings go upstream as precise,
-verified, patch-ready reports.
+tight grant budgets. The packages read here are careful, well-engineered work. The premise
+is not that anyone was careless — it is that no team can read an entire codebase at the
+depth every line deserves, and that patient machine-assisted reading is a genuine
+complement to human testing. Nothing here carries any authority: every finding is an
+offer, the maintainers decide, and a "no" is a complete answer.
 
 ## How it works
 
@@ -21,11 +24,11 @@ every openly readable full text, and extract which open-source packages each pap
 with a quotable evidence sentence and version where stated. Papers that could not be
 read are listed individually rather than silently dropped.
 
-**2. Target.** For a package under audit, re-mine the papers that used it to determine
+**2. Target.** For a package being read, re-mine the papers that used it to determine
 *which parts* they ran — commands, options, versions — so review effort lands on the
 code paths that carry published numbers.
 
-**3. Audit and verify.** Read those components adversarially, then verify: compile the
+**3. Read and verify.** Read those components adversarially, then verify: compile the
 routine under test verbatim against high-precision arithmetic, port it faithfully to
 Python and test against ground truth, or simulate the full pipeline. Only then does a
 finding get written up, with file:line evidence, a runnable harness, and a patch where
@@ -38,7 +41,7 @@ fixed and announced is not a finding to file. Non-minor changes, and anything th
 changes numerical output, go to the project's preferred discussion venue first
 (for Bioconductor packages that is the support site, not a cold PR). Each filing kit
 records which documents were read and where the ask is being made. This step was
-added after the DESeq2 round, where the audit filed four items without reading the
+added after the DESeq2 round, where the project filed four items without reading the
 project's pinned policy or CONTRIBUTING.md, claimed a NEWS entry was missing when it
 was not, and had all four closed by the maintainer within two hours.
 
@@ -56,18 +59,18 @@ Some maintainers have said they do not want AI-generated contributions. That is 
 call and it is final for this project: the fork of their repository under
 `github.com/cindykrafft` gets the topic **`upstream-declines-ai-contributions`**, and from
 then on nothing is filed, commented, re-opened or pushed for that repository, held items
-included. Open filings are left to the maintainers to close as they see fit; the audit
+included. Open filings are left to the maintainers to close as they see fit; the project
 stays published here, with the outcome recorded in its README and in the status ledger.
 Before preparing or opening anything, check the fork's topics; the ledger's
 [`site/audits.json`](site/audits.json) and the filing console read the same topic. This step was added after the first
 week of filings put seven FieldTrip PRs up in two days and a reviewer's reply read as
 "fine, but minor".
 
-**6. Answer what the project already knows.** The audits kept finding bugs that users
+**6. Answer what the project already knows.** These reading passes kept finding bugs that users
 had already reported and nobody had claimed (deepTools #1108 and #1118, BEDTools #1142,
 fastp #474 and #518 among them), and a patch on a thread the maintainers keep open is the
 lowest-friction contribution there is. So the project now alternates: for each repository
-already audited, read its open issues, pick one reproducible bug with a wrong-number or
+already checked, read its open issues, pick one reproducible bug with a wrong-number or
 crash consequence and no existing PR, reproduce it on master by execution, fix it with a
 test that fails before and passes after, run the project's own tests and linter, and file
 the PR against the issue. Everything is recorded under `audits/<package>/issue-fixes/`,
@@ -76,19 +79,19 @@ candidates considered. The same limits apply: nothing for a repository that decl
 AI-generated contributions, and no new PR while the repository has an unanswered one from
 this project, unless it answers the maintainers' own issue. An issue with an assignee is
 someone's claimed work: no PR on it; a verified diagnosis goes on the thread as a comment
-with a link to the branch, and the assignee decides. The audit method from steps 1
-to 5 resumes once the open-issue backlog of the audited repositories is worked down.
+with a link to the branch, and the assignee decides. The project method from steps 1
+to 5 resumes once the open-issue backlog of the checked repositories is worked down.
 
 What *held up* under the same scrutiny is recorded alongside what didn't, so findings
 are read in proportion.
 
 ## Status
 
-A live ledger of every filing and its state on GitHub, refreshed four times a day: https://cindykrafft.github.io/research-software-audit/ (built from [`site/`](site/) by the `Status page` workflow).
+A live ledger of every filing and its state on GitHub, refreshed four times a day: https://cindykrafft.github.io/mytochondria/ (built from [`site/`](site/) by the `Status page` workflow).
 
 Filing follows step 5 above; the per-finding tiers are in [`audits/TRIAGE.md`](audits/TRIAGE.md).
 
-| Audit | Papers exposed | Findings | Upstream |
+| Package | Papers exposed | Findings | Upstream |
 |---|---|---|---|
 | [FreeSurfer](audits/freesurfer/) | 116 | 16, three reproduced numerically | 5 fix PRs + 9 issues filed on GitHub |
 | [FSL](audits/fsl/) | 114 | 12, six with patches | reports and patches ready; filing via the FSL mailing list |
@@ -165,7 +168,7 @@ preprint-spm/    LaTeX source, figure and compiled PDF of the SPM companion
 - **[cindykrafft/cutadapt](https://github.com/cindykrafft/cutadapt)**,
   **[cindykrafft/umap](https://github.com/cindykrafft/umap)**,
   **[cindykrafft/CellphoneDB](https://github.com/cindykrafft/CellphoneDB)** — forks carrying
-  the fix branches from those audits (one PR each opened 2026-09-03: cutadapt #893, umap #1287;
+  the fix branches from those passes (one PR each opened 2026-09-03: cutadapt #893, umap #1287;
   CellPhoneDB has an issue, #231, and two branches held).
 
 ## Reading these findings fairly
@@ -184,7 +187,7 @@ preprint-spm/    LaTeX source, figure and compiled PDF of the SPM companion
 - Upstream maintainers' reading wins. Where they have adjudicated, the outcome is
   recorded next to the finding: SPM and AFNI have merged fixes and left others open;
   DESeq2's maintainer closed all four filings, and on the central factual point (whether
-  the weights fix had been announced) he was right and this audit was wrong.
+  the weights fix had been announced) he was right and this project was wrong.
 
 ## Reproducing the survey
 

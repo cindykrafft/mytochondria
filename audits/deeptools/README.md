@@ -3,7 +3,7 @@
 _Fourteenth audit in the series. Generated 2026-09-03 against `deeptools/deepTools`
 `master` @ `ea0f68bb` (2025-01-20, version 3.5.6 — the `3.5.6` tag and PyPI's latest
 release are this commit; the remote has no `develop` branch, and a `4.0.0` Rust-backend
-branch was not audited). Focus: the code paths that produce published numbers —
+branch was not checked). Focus: the code paths that produce published numbers —
 bamCoverage/bamCompare counting and normalisation, computeMatrix binning and the
 plotProfile/plotHeatmap summaries, multiBamSummary/multiBigwigSummary, plotCorrelation,
 plotPCA, plotFingerprint metrics, bamPEFragmentSize, plotCoverage, estimateReadFiltering,
@@ -49,7 +49,7 @@ plotCorrelation Pearson/Spearman, `--skipZeros`, NaN rows; plotPCA default and
 `--transpose`; multiBigwigSummary on 1-kb bins and BED regions; bamPEFragmentSize's
 whole table; plotCoverage, estimateReadFiltering and plotEnrichment counts;
 plotFingerprint's default per-bin sums and its AUC, X-intercept, elbow, JS distance,
-CHANCE and synthetic-JSD metrics. Not audited: computeGCBias/correctGCBias (read, not
+CHANCE and synthetic-JSD metrics. Not checked: computeGCBias/correctGCBias (read, not
 executed — no 2bit tooling here), alignmentSieve, bigwigAverage,
 computeMatrixOperations, `--Offset`/`--filterRNAstrand`, GTF parsing, clustering,
 everything drawn.
@@ -115,7 +115,7 @@ survey's stored evidence snippets; every record in `deeptools_profiles.jsonl` is
 | file | what |
 |---|---|
 | `deeptools_profile.py`, `deeptools_profiles.jsonl`, `profile_run.log` | profiling pass (offline; see caveat) |
-| `component-reviews/coverage-and-summary-core.md` | the review: DT1–DT9, N1–N11, withdrawn suspicions, held-up list, not-audited list |
+| `component-reviews/coverage-and-summary-core.md` | the review: DT1–DT9, N1–N11, withdrawn suspicions, held-up list, not-checked list |
 | `verify/_synth.py` | shared helpers: synthetic BAM/bigWig writers, numpy reference quantities |
 | `verify/dt1_skipzerooverzero_coordinates.py` (+ `.out`, `.v3.5.1.out`, `.v3.3.1.out`) | DT1: bamCompare with/without the option vs closed form; bigwigCompare control |
 | `verify/dt2_plotpca_log2_rowcenter.py` (+ outs) | DT2: six option sets vs a numpy PCA reference |

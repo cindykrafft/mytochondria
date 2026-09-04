@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Research Software Audit Ledger</title>
-<meta name="description" content="Every correctness finding this project has filed upstream, with its current state on GitHub, refreshed four times a day.">
+<title>Mytochondria Ledger</title>
+<meta name="description" content="Every fix this project has offered upstream, with its current state on GitHub, refreshed four times a day.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{--ground:#F2F4F6;--surface:#FFFFFF;--ink:#1A2431;--muted:#5B6B7B;--line:#D6DDE4;--line-strong:#B5C0CB;--accent:#1F5C9E;--code:#E9EEF3;
@@ -52,29 +52,29 @@ ul.items li{display:grid;grid-template-columns:100px minmax(0,1fr) auto auto;gap
 <body>
 <main>
   <p class="stamp" id="stamp">loading…</p>
-  <h1>Research Software Audit Ledger</h1>
-  <p class="lede">Every issue and pull request this project has filed against a research software repository, with its state on GitHub right now, next to what each audit found. Counts are of findings the audit verified by executing the shipped code; the filing rule is at most two per repository until a maintainer answers.</p>
-  <p class="lede">Method, harnesses and filing kits: <a id="repolink" href="https://github.com/cindykrafft/research-software-audit">cindykrafft/research-software-audit</a>.</p>
+  <h1>Mytochondria Ledger</h1>
+  <p class="lede">Every issue and pull request this project has filed against a research software repository, with its state on GitHub right now, next to what each reading pass found. Counts are of findings the project verified by executing the shipped code; the filing rule is at most two per repository until a maintainer answers.</p>
+  <p class="lede">Method, harnesses and filing kits: <a id="repolink" href="https://github.com/cindykrafft/mytochondria">cindykrafft/mytochondria</a>.</p>
   <div class="totals" id="totals"></div>
   <h2>By repository</h2>
   <div class="tablewrap"><table id="ledger">
     <thead><tr>
-      <th>Audit · repository</th><th class="n">Papers</th><th class="n">Findings</th>
+      <th>Package · repository</th><th class="n">Papers</th><th class="n">Findings</th>
       <th class="n">Issues</th><th class="n">open</th><th class="n">resolved</th><th class="n">declined</th>
       <th class="n">PRs</th><th class="n">open</th><th class="n">merged</th><th class="n">closed</th>
       <th class="n">Answered</th><th>Last activity</th>
     </tr></thead><tbody></tbody></table></div>
   <dl class="foot">
     <dt>How to read the columns</dt>
-    <dd>Papers: papers in the survey cohort (six journals, 2021 to 2026) whose methods name the package; lower bounds where the full text could not be read. Findings: confirmed by executing the shipped code, from each audit's README. Resolved: issue closed as completed. Declined: issue closed as not planned. Closed: pull request closed without merge. Answered: filings with at least one comment from anyone but the author is not distinguishable here, so this counts filings with any comment.</dd>
+    <dd>Papers: papers in the survey cohort (six journals, 2021 to 2026) whose methods name the package; lower bounds where the full text could not be read. Findings: confirmed by executing the shipped code, from each package's README. Resolved: issue closed as completed. Declined: issue closed as not planned. Closed: pull request closed without merge. Answered: filings with at least one comment from anyone but the author is not distinguishable here, so this counts filings with any comment.</dd>
     <dt>Declines AI contributions</dt>
-    <dd>Some maintainers have said they do not want AI-generated issues or pull requests. That decision is recorded as a topic on the project's fork of their repository, this page reads it from there, and nothing further is filed, commented or pushed for that repository; what is already open is left to the maintainers. The audit itself stays published in the audit repository.</dd>
+    <dd>Some maintainers have said they do not want AI-generated issues or pull requests. That decision is recorded as a topic on the project's fork of their repository, this page reads it from there, and nothing further is filed, commented or pushed for that repository; what is already open is left to the maintainers. The project itself stays published in the project repository.</dd>
     <dt>Where the numbers come from</dt>
     <dd>A GitHub Actions job queries the GitHub search API for everything filed by the project's account since August 2026, four times a day, and publishes this page. Nothing here is edited by hand except the findings count and the repository map.</dd>
   </dl>
 </main>
 <script>
-const AUDIT_BASE = "https://github.com/cindykrafft/research-software-audit/tree/main/audits/";
+const AUDIT_BASE = "https://github.com/cindykrafft/mytochondria/tree/main/audits/";
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;")}
 function n(v){return v?`<span class="num">${v}</span>`:`<span class="zero">·</span>`}
 function fmt(d){return d?d.slice(0,10):""}
@@ -98,10 +98,10 @@ function render(D){
       rows.push({a,repo,items,c});
     }
   }
-  // repos with filings but no audit entry
+  // repos with filings but no package entry
   for(const repo of Object.keys(byRepo)) if(!D.audits.some(a=>a.repos.includes(repo))) rows.push({a:{name:"(unmapped)",dir:null,papers:null,findings:null},repo,items:byRepo[repo],c:null});
   document.getElementById("totals").innerHTML=[
-    ["Audits",T.audits,"packages reviewed"],["Findings",T.findings,"verified by execution"],["Issues filed",T.issues,`${T.resolved} resolved · ${T.declined} declined`],
+    ["Packages",T.audits,"read line by line"],["Findings",T.findings,"verified by execution"],["Issues filed",T.issues,`${T.resolved} resolved · ${T.declined} declined`],
     ["PRs filed",T.prs,`${T.merged} merged · ${T.closed} closed unmerged`],["Awaiting maintainers",T.open,"open right now"],["Answered",T.answered,"filings with a reply"]
   ].map(([k,v,s])=>`<div class="tile"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join("");
   const tb=document.querySelector("#ledger tbody"); tb.innerHTML="";

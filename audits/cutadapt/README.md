@@ -51,7 +51,7 @@ across ~100,000 random alignments of seven adapter types the reported errors equ
 the edit distance of the aligned substrings, the error-rate bound holds as an exact
 rational on the non-N part, overlap and anchoring constraints hold, both prefixes
 are never skipped, and for regular 3'/5' adapters the prefilter never suppresses an
-alignment. Not audited: `--revcomp` beyond its score comparison, linked-adapter
+alignment. Not checked: `--revcomp` beyond its score comparison, linked-adapter
 `required/optional` semantics, `--pair-adapters`, combinatorial demultiplexing, the
 5.2 `rightmost` adapters, `--rename`, the report/JSON statistics, BAM input.
 
@@ -111,7 +111,7 @@ survey's stored evidence snippets; every record in `cutadapt_profiles.jsonl` is
 | file | what |
 |---|---|
 | `cutadapt_profile.py`, `cutadapt_profiles.jsonl`, `profile_run.log` | profiling pass (offline; see caveat) |
-| `component-reviews/trimming-core.md` | the review: CA1–CA4, N1–N4, withdrawn suspicions, held-up list, not-audited list |
+| `component-reviews/trimming-core.md` | the review: CA1–CA4, N1–N4, withdrawn suspicions, held-up list, not-checked list |
 | `verify/ca1_absolute_errors_fp_boundary.py` (+ `.out`, `.v5.2.out`) | CA1: closed form over (N, n, L); shipped classes; CLI |
 | `verify/ca2_max_ee_quality_base.py` (+ `.out`, `.v5.2.out`) | CA2: CLI filters vs Python reference on Phred+33 and Phred+64 files |
 | `verify/ca3_index_vs_noindex.py` (+ `.out`, `.v5.2.out`) | CA3: minimal example, random barcode sets (three-way), score field, CLI |

@@ -129,7 +129,7 @@ v0.22.0 was built in its place.
 | file | what |
 |---|---|
 | `fastp_profile.py`, `fastp_profiles.jsonl`, `profile_run.log` | profiling pass (offline; see caveat) |
-| `component-reviews/trimming-and-filtering-core.md` | the review: FP1–FP3, N1–N7, five withdrawn suspicions, held-up list, not-audited list |
+| `component-reviews/trimming-and-filtering-core.md` | the review: FP1–FP3, N1–N7, five withdrawn suspicions, held-up list, not-checked list |
 | `verify/fastp_ref.py` | the independent ports (`trimAndCut` in both variants, poly-G/poly-X, `passFilter`) and the fastq/runner helpers |
 | `verify/fp1_cut_window_edge.py` (+ `.out`) | FP1: constant-quality matrix, 20,000 random reads vs both ports, cost under the default filters |
 | `verify/fp2_known_adapter_over60.py` (+ `.out`) | FP2: census of the built-in table, seven adapters SE, PE with `-2`, adapter bases left in the reads |
@@ -151,7 +151,7 @@ libhwy-dev nasm` is enough on Ubuntu 24.04), then
 1. Read the comment on #474, then post the FP1 and FP3 texts on #474 and #518,
    open the FP2 issue, and open the three PRs from `upstream/pr-bodies.md`.
    Record numbers and maintainer responses here and in the top-level table.
-2. Extend the review to the paths listed under "Not audited", above all the
+2. Extend the review to the paths listed under "Not checked", above all the
    overrepresented-sequence machinery (N7 is a reading-level observation) and
    the merging output.
 3. Full-text profiling rerun when Europe PMC is reachable, to settle how many of

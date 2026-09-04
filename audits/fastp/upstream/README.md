@@ -52,7 +52,7 @@ Each branch is one commit on top of `dce5c40` (`master`) in the fork
   intended behaviour that the findings are measured against.
 - `src/unittest.cpp`: `Filter::test`, `AdapterTrimmer::test` and the other
   per-class tests, which patches 0001 and 0003 extend.
-- Matthew Rocklin's "Craft Minimal Bug Reports" as summarised in the audit brief:
+- Matthew Rocklin's "Craft Minimal Bug Reports" as summarised in the project brief:
   each of the three texts carries a script that builds its own data, has no line
   that is not needed, prints got vs expected, and says what shrinking the example
   revealed. The scripts are `mcve_fp*.py`; `mcve_outputs.txt` is their captured

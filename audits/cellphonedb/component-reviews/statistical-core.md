@@ -472,7 +472,7 @@ the following matched:
   branch (`helper.py:73-74`), i.e. the threshold/relevance flag rather than a p-value, as its
   docstring says.
 
-## Not audited here
+## Not checked here
 
 `utils/search_utils.py` (result querying), `src/core/utils/cellsign.py` (the CellSign TF module
 beyond reading its call sites), `db_utils.create_db` sanity tests beyond using them,

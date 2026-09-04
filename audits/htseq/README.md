@@ -13,7 +13,7 @@ shipped code against an independent per-base port._
 > closed by the maintainer the same day they were opened. Nothing further is filed, commented
 > or pushed for `htseq/htseq`: HC1 stays in the kit unfiled, the fork carries (or is to carry)
 > the topic `upstream-declines-ai-contributions`, and the ledger marks the repository
-> accordingly. The audit and its harnesses remain as published here.
+> accordingly. The project and its harnesses remain as published here.
 
 ## What this is
 
@@ -54,13 +54,13 @@ single-end runs equal the documented port outright); `--nonunique random` conser
 counts; multiple `-i`/`-t` and `--feature-query`; both mate pairers on 1,866 truth
 pairs; `GenomicArrayOfSets` on 36,000 bases; GTF/GFF3 1-based→0-based conversion;
 `StepVector` against a dense vector; `overlaps`/`contains` for non-empty intervals;
-`htseq-qa` base and quality fractions to 0.0. Not audited: `count_old.py`, UMI
+`htseq-qa` base and quality fractions to 0.0. Not checked: `count_old.py`, UMI
 correction internals, the matrix writers, `StretchVector`, BigWig/bedGraph, VCF,
 multiprocessing.
 
 ## HC2 on real data (added 2026-09-03, after the maintainer asked)
 
-The audit above used synthetic BAMs. In answer to the maintainer's question, the same
+The project above used synthetic BAMs. In answer to the maintainer's question, the same
 check was run on two real Illumina paired-end samples from the public 1000 Genomes S3
 bucket, both aligned upstream with bwa 0.5.9 (`aln`/`sampe`, 2012), HG00096 chromosome 20,
 counted against Ensembl GRCh37 genes (harness [`verify/hc2_real_1000g.py`](verify/hc2_real_1000g.py),
@@ -141,7 +141,7 @@ a host with Europe PMC access to replace them with full-text records.
 | file | what |
 |---|---|
 | `htseq_profile.py`, `htseq_profiles.jsonl`, `profile_run.log` | profiling pass (offline; see caveat) |
-| `component-reviews/htseq-count-core.md` | the review: HC1–HC2, N1–N7, W1–W2, held-up list, not-audited list |
+| `component-reviews/htseq-count-core.md` | the review: HC1–HC2, N1–N7, W1–W2, held-up list, not-checked list |
 | `verify/htseq_port.py` | the independent per-base port of the documented semantics + pysam BAM/GTF generator (shared by the harnesses) |
 | `verify/hc2_unmapped_mate_minaqual.py` (+ `.out`, `.v2.1.2.out`, `.v0.13.5.out`, `.v0.12.4.out`, `.v0.11.2.out`, `.patched.out`) | HC2: three-pair minimal case with XF tags; 2,000-pair library under `-a 10`/`-a 0`/stripped, both orders |
 | `verify/hc1_bam_reader_interval_offset.py` (+ same set of `.out`) | HC1: minimal window; 300 random windows vs pysam and `overlaps`; TSS-style profile |

@@ -35,7 +35,7 @@ exonerations, not findings.
 
 **~870 of 886 papers run the silent defaults** — independent filtering, Cook's
 outlier gating, outlier replacement. Default-path code carries nearly the whole
-cohort, and it is precisely the default chain that survived the audit.
+cohort, and it is precisely the default chain that survived the project.
 
 ## Findings
 
@@ -51,7 +51,7 @@ single-cell workflow) + a numeric/list/non-reference contrast + ≥1 all-zero ge
 as 1.49.4) **with a NEWS entry** under 1.49.4: "The wrong weights matrix was
 being used when recomputing the SE within results() for the numeric-style
 contrast. Fixed." An earlier version of this page, and the issue filed upstream,
-claimed no NEWS entry existed. That was wrong: the audit checked the fix
+claimed no NEWS entry existed. That was wrong: the project checked the fix
 commit's diff, which does not touch NEWS, and missed the same-day version-bump
 commit (`5f5e305`) that added the entry. The entry does not name the affected
 release range (1.16.0–1.49.x) or the weights/zinbwave workflow, which is why a
@@ -108,7 +108,7 @@ DS1), issue #133 (visibility for DS2), and issue #131 + PR #132 (the one-line
 the project's pinned policy (issue #1): the DS1 and DS2 changes were already in
 NEWS, and the PR "would change DESeq2 results and so won't be taken on."
 
-He was right on each point. The audit's process failures, recorded here so the
+He was right on each point. The project's process failures, recorded here so the
 next audit does not repeat them:
 
 - **It misread the repository's own history.** The claim that no NEWS entry
@@ -117,7 +117,7 @@ next audit does not repeat them:
 - **It did not read the contribution guidelines.** DESeq2's pinned issue #1
   (since 2017) and `CONTRIBUTING.md` (July 2026) both say non-minor PRs should
   be discussed on the Bioconductor support site first, and the maintainer will
-  not take changes that alter results without prior discussion. The audit's own
+  not take changes that alter results without prior discussion. The project's own
   review rated the rounding bias "verified negligible" and still sent a
   results-changing PR cold. That is a cost to the maintainer with no benefit.
 - **It treated a GitHub repo like every other GitHub repo.** For Bioconductor

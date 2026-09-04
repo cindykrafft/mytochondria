@@ -12,11 +12,11 @@ verified by executing the built binaries and the shipped exact-test functions._
 > **Fixed upstream (2026-09-03).** The maintainer closed PR #381 and committed his own fix,
 > [`1fe42e5` "1.9: fix issue 380"](https://github.com/chrchang/plink-ng/commit/1fe42e5b11ec0709bbbb8179e0ba69d015e9b6e8),
 > which inserts the same `tailp1 + tailp2 >= exit_thresh` check at the same four points as
-> the audit's patch. Rebuilt at that commit and rerun: 0 of 9,061 tables wrongly removed
+> the project's patch. Rebuilt at that commit and rerun: 0 of 9,061 tables wrongly removed
 > through the shipped functions and the command line reports "unaffected"
 > (`verify/hwe19_version_scope.upstream-1fe42e5.out`, `verify/version_scope_hwe_cli.upstream-1fe42e5.out`).
 > Issue #380 was still open at the time of writing, with two maintainer comments not readable
-> from the audit session. Nothing further to file.
+> from the project session. Nothing further to file.
 
 ## What this is
 
@@ -25,7 +25,7 @@ and *Science* (5), 2021–2026, that used PLINK — for variant QC, PCA / LD pru
 before population-structure analysis, and association testing. Of the 100 papers
 that name a version, 84 name a 1.9 build (`1.9`, `1.90`, `1.90b…`) and 13 name 2.0.
 The QC and statistical core of both versions was read on `master` and every
-suspicion was run through the binaries built from the audited tree (1.9 linked
+suspicion was run through the binaries built from the checked tree (1.9 linked
 against a locally built OpenBLAS; 2.0 from `2.0/build_dynamic`), on synthetic
 genotypes with known truth against exact rational arithmetic, scipy/statsmodels
 and independent ports. The confirmed finding was additionally run on PLINK 1.9
@@ -56,7 +56,7 @@ versions; `--hardy`, `--hwe` at 0.05/1e-3/1e-6 away from the boundary (12 runs,
 linear regression with covariates, plink2 `--glm`; all `--adjust` columns and the
 GC λ; `--r2`, `--ld`; `--genome` against a first-principles PLINK 1.07 port;
 `--make-king-table` and `--king-cutoff`; `--score` in every mode but N4. Not
-audited: `--pca`, `--clump`, `--fst`, chrX/haploid paths, `--indep` (VIF), dosage
+checked: `--pca`, `--clump`, `--fst`, chrX/haploid paths, `--indep` (VIF), dosage
 input, permutations, `--homozyg`, `--check-sex`, I/O.
 
 ## How the papers use PLINK (lower bounds from the survey cache; see below)
@@ -113,7 +113,7 @@ survey's stored evidence snippets; every record in `plink_profiles.jsonl` is
 | file | what |
 |---|---|
 | `plink_profile.py`, `plink_profiles.jsonl`, `profile_run.log` | profiling pass (offline; see caveat) |
-| `component-reviews/qc-and-association-core.md` | the review: PL1, N1–N5, withdrawn suspicions, held-up list, not-audited list |
+| `component-reviews/qc-and-association-core.md` | the review: PL1, N1–N5, withdrawn suspicions, held-up list, not-checked list |
 | `verify/synth.py`, `verify/exact_ref.py` | shared: PED/MAP writer, binary paths, exact rational HWE / Fisher references |
 | `verify/stats_driver19.c`, `verify/stats_driver2.cc` | drivers linking the shipped exact-test functions from the build objects (build commands below) |
 | `verify/pl1_hwe_threshold_boundary.py` (+ `.out`, `.patched.out`) | PL1: exhaustive bisection of the flip threshold through both drivers; CLI cases on three tables |

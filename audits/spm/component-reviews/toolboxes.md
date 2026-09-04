@@ -7,7 +7,7 @@ Method: full read of Longitudinal/OldNorm/OldSeg/Spatial; FieldMap covered
 by the first reviewer up to interruption; DARTEL/Shoot spot-checked for major
 errors. Suspicious transforms ported to NumPy and round-tripped.
 
-**Coverage caveat, stated plainly:** this is the one subsystem the audit
+**Coverage caveat, stated plainly:** this is the one subsystem the project
 calls thoroughly-but-not-exhaustively covered. The original reviewer was
 interrupted mid-FieldMap (after confirming the finding below and clearing
 the phase-unwrap region merging examined to that point); a second reviewer

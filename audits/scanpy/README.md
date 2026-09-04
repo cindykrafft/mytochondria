@@ -33,7 +33,7 @@ exactly; the default-preset t-test equals Welch on the log values; BH/Bonferroni
 symmetric 1e-9 fold-change pseudocount (no group-size dependence of the Seurat v5
 kind); `highly_variable_genes` in all three flavours against Seurat's formulas;
 `scale`, `normalize_total`, `regress_out`, `score_genes_cell_cycle` phase logic and the
-QC percentages. Not audited: `pp.pca`, `pp.neighbors` beyond the kernels, Leiden/
+QC percentages. Not checked: `pp.pca`, `pp.neighbors` beyond the kernels, Leiden/
 Louvain, UMAP, Pearson residuals, dask paths, `illico` internals.
 
 ## How the papers use Scanpy (lower bounds from the survey cache; see below)
@@ -91,7 +91,7 @@ access to replace them with full-text records.
 | file | what |
 |---|---|
 | `scanpy_profile.py`, `scanpy_profiles.jsonl`, `profile_run.log` | profiling pass (offline; see caveat) |
-| `component-reviews/statistical-core.md` | the review: SC1–SC5, held-up list, not-audited list |
+| `component-reviews/statistical-core.md` | the review: SC1–SC5, held-up list, not-checked list |
 | `verify/sc1_ttest_scale.py` (+ `.out`) | SC1 on master: scores vs scipy Welch on log and linear values; null and DE datasets |
 | `verify/sc2_score_genes_bins.py` (+ `.out`) | SC2: closed-form bin sizes; shipped `score_genes` vs an equal-frequency patch on 20,000-gene data |
 | `verify/note_wilcoxon_tie_correct.py` (+ `.out`) | SC3: |z| shrinkage by sparsity, null and DE discoveries |

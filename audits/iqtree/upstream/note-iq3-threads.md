@@ -3,7 +3,7 @@
 Issue #228 (iqtree/iqtree2, "Sequence order in the input and parallelism affect
 reproducibility", opened 2024-06-11 on 2.3.4, closed 2024-06-17 after 5 comments) reports
 that `--seed` does not make multi-threaded runs reproducible; the reporter already found
-that `-nt 1` restores reproducibility. This audit reproduced the SH-aLRT part on 2.4.0
+that `-nt 1` restores reproducibility. This project reproduced the SH-aLRT part on 2.4.0
 (`../verify/heldup_ufboot.py`): `-alrt 1000 -seed 3` gives 95.8 / 97.6 / 95.3 / 99.8 /
 97.7 with `-T 1` and 96.1 / 97.3 / 95.8 / 99.8 / 98.1 with `-T 2`; two `-T 1` runs are
 byte-identical; 12 of 1,000 UFBoot replicate trees differ between `-T 1` and `-T 2` with

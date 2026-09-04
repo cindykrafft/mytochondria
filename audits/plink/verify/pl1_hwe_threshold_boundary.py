@@ -14,7 +14,7 @@ ever counting the second element.  The filter therefore acts on
 p - P(hets-2) instead of p.
 
 Part A (function level): the shipped SNPHWE_t / SNPHWE_midp_t, linked from the
-audited build's objects into stats_driver19, is queried for every genotype table
+checked build's objects into stats_driver19, is queried for every genotype table
 with n <= NMAX and hets <= HMAX; the threshold at which the verdict flips is found
 by bisection and compared with the exact p (fractions.Fraction reference).  A
 correct filter flips exactly at p (offset 0); a negative offset means the variant

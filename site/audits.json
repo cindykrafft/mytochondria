@@ -1,5 +1,5 @@
 {
- "_comment": "One entry per audit under audits/. `repos` maps upstream GitHub repositories to the audit; `findings` is the count of confirmed findings from the status table in README.md (hand-maintained; update when an audit changes). `channel` explains audits with no GitHub repository. `fork` is the project's fork of the upstream repository; if that fork carries the topic named in `declines_topic`, the maintainers have said they do not take AI-generated contributions and nothing further is filed, commented or pushed for that repository. `declines_ai: true` can also be set here by hand.",
+ "_comment": "One entry per audit under audits/. `repos` maps upstream GitHub repositories to the project; `findings` is the count of confirmed findings from the status table in README.md (hand-maintained; update when an audit changes). `channel` explains audits with no GitHub repository. `fork` is the project's fork of the upstream repository; if that fork carries the topic named in `declines_topic`, the maintainers have said they do not take AI-generated contributions and nothing further is filed, commented or pushed for that repository. `declines_ai: true` can also be set here by hand.",
  "audits": [
   {
    "dir": "freesurfer",
@@ -212,6 +212,6 @@
  ],
  "author": "cindykrafft",
  "since": "2026-08-01",
- "audit_repo": "cindykrafft/research-software-audit",
+ "audit_repo": "cindykrafft/mytochondria",
  "declines_topic": "upstream-declines-ai-contributions"
 }

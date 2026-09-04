@@ -59,7 +59,7 @@ Run with `FIELDTRIP=<checkout> FTSHIMS=../../verify/shims FTSHIMS2=../../verify/
 
 ## Tests
 
-`run_ft_test.sh <tree> <test>` (the audit's Octave runner; run it from a directory other than the FieldTrip
+`run_ft_test.sh <tree> <test>` (the project's Octave runner; run it from a directory other than the FieldTrip
 root, whose `private/` directory confuses Octave's private-function lookup). The 14 data-free
 `test/test_*.m` scripts that mention `mtmconvol`, plus the new test, on unpatched master and on the branch
 (`tests_master.out`, `tests_branch.out`):

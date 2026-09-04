@@ -6,7 +6,7 @@ Each runs on its own and needs no AFNI installation.
 | Harness | Finding | What it establishes |
 |---|---|---|
 | `reho_tie_sim.py` | AF1 / AF1b / AF1c | Faithful port of `CalcRanksForReHo` + `ReHoIt`, buggy vs fixed, across data scales and pipeline configurations |
-| `reho_tie_results.json` | — | The checked-in output the audit README and `../component-reviews/resting_state_connectivity.md` quote |
+| `reho_tie_results.json` | — | The checked-in output the project README and `../component-reviews/resting_state_connectivity.md` quote |
 
 ## reho_tie_sim.py
 
@@ -42,7 +42,7 @@ Two implementation details are deliberate and must not be "tidied":
    binaries built from `29384a2^` and from `4c2bd54` on synthetic volumes
    (`../reanalysis/README.md`, "Three builds").
 
-That second point corrected an earlier pass of this audit, which had classified
+That second point corrected an earlier pass of this project, which had classified
 sum-of-squares-normalised input (`3dTproject -norm`) as the maximal-tie, maximal-bias
 regime. It is the opposite: unaffected. One published paper moved out of the exposed
 set as a result — recorded in `../README.md`.

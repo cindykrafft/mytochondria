@@ -52,7 +52,7 @@ Kilosort 4 already fixed this by counting loop iterations
 
 or count iterations in the loop as KS4 does.
 
-**Context:** found while auditing the Kilosort versions used by 60 papers in
+**Context:** found while checking the Kilosort versions used by 60 papers in
 six high-impact journals (2021–2026); 41 of them pin KS2/2.5/3.
 ```
 

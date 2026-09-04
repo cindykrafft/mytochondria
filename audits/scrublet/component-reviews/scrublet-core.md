@@ -247,7 +247,7 @@ Shown in the SR1 mechanism section: for 12 points with rows 3 and 7 equal,
 `Neighbors.compute_neighbors(4)` stores `[7, 9, 10]` for row 7 — a self-edge in the
 graph that `sc.pp.neighbors` builds on such data. Cause: `_remove_self_column` drops
 column 0 by position (`_common.py:117-124`). Issue #2244 reports the same duplicate
-cells from the other side (no neighbours). Not audited further.
+cells from the other side (no neighbours). Not checked further.
 
 ### SR8 — NOTE (design): `simulate_doublets` reseeds the global numpy RNG
 
@@ -304,7 +304,7 @@ All in `../verify/heldup_reference_port.py` unless stated; both venvs give ident
 - **Port core given the original's matrices**: Spearman 0.996 with the original; the
   only remaining difference is SR1.
 
-## Not audited here
+## Not checked here
 
 The plotting and embedding helpers (`plot_histogram`, `plot_embedding`, `get_umap`,
 `get_tsne`, force layout), `rank_enriched_genes`, the loading helpers, the port's

@@ -55,7 +55,7 @@ heteromers — deliberately different from the minimum used by the inference met
 documented as such. The DEG method's two criteria (either partner a DEG, AND both above the
 percentage threshold) match the documentation.
 
-**Not audited:** `search_utils`, the CellSign TF module beyond its call sites, the subsampler
+**Not checked:** `search_utils`, the CellSign TF module beyond its call sites, the subsampler
 (`geosketch`), database generation beyond using it, the plotting notebooks, CellphoneDBViz, and
 the database *content* itself.
 
@@ -133,7 +133,7 @@ cold PR. CPDB5 and CPDB6 are crisp, no-numerical-effect fixes and carry patches.
 | file | what |
 |---|---|
 | `cellphonedb_profile.py`, `cellphonedb_profiles.jsonl`, `profile_run.log` | profiling pass (offline; see caveat) |
-| `component-reviews/statistical-core.md` | the review: CPDB1–CPDB6, N1–N5, held-up list, not-audited list |
+| `component-reviews/statistical-core.md` | the review: CPDB1–CPDB6, N1–N5, held-up list, not-checked list |
 | `verify/tiny_dataset.py` | shared fixture: hand-written database built by the package's own `create_db`, 9-cell counts matrix, and the independent numpy reference |
 | `verify/heldup_reference_vs_shipped.py` (+ `.out`) | held-up: every number of the pipeline vs the reference port |
 | `verify/cpdb1_thread_duplicate_permutations.py` (+ `.out`) | CPDB1: distinct permutations by thread count, session re-use, effective sample size |

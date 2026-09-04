@@ -149,7 +149,7 @@ the new code follows the surrounding style (4-space indent, braces on every `if`
 Fresh `git clone --depth 1` + submodules (`lsd2`, `cmaple`), `cmake -DCMAKE_C_COMPILER=gcc
 -DCMAKE_CXX_COMPILER=g++ -DEIGEN3_INCLUDE_DIR=<eigen 3.4.0 clone>
 -DFETCHCONTENT_SOURCE_DIR_GOOGLETEST=<googletest clone>`, `make iqtree3` (gcc 13.3,
-cmake 3.28, OpenMP, system Boost 1.83 headers; the audit's build used Boost 1.86 headers,
+cmake 3.28, OpenMP, system Boost 1.83 headers; the project's build used Boost 1.86 headers,
 which only matter for the symmetry test's binomial). "IQ-TREE version 3.1.3 for Linux x86
 64-bit". The disk filled once during the build (shared scratch); the `cmaple` binary
 target was skipped (`make iqtree3`), which does not affect `iqtree3`.
@@ -161,9 +161,9 @@ target was skipped (`make iqtree3`), which does not affect `iqtree3`.
 | **#203 / #89 / #135 / #102** (chosen) | four open reports of one assertion; reproduced in the first attempt from the reporter's description; fix is local, 35 lines with tests |
 | #196 "Jackknife proportion is inverted" (2026-08-01, 1 comment) | probably a real wrong-number: `tools.cpp` samples `floor((1-jack_prop)*n)` sites while the help says "subsampling proportion"; but the fix is a naming decision (swap the code, or reword the help) for the maintainers, and at the default 0.5 nothing changes |
 | #192 "+FU silently ignored for codon (GY) models in 3.1.2, correct in 2.4.0" (2026-07-23) | good wrong-number regression with a table of reproductions, but needs the codon model parser and a 61-frequency file; the reporter's data are in an attachment this session cannot fetch, and the fix may span the model string parser — left as second choice |
-| #204 alisim `free(): invalid next size` on partitioned simulation (2026-08-20, 0 comments) | crash on valid input, no comments; needs the reporter's partition file (attachment) to know which combination overflows; AliSim was not audited |
+| #204 alisim `free(): invalid next size` on partitioned simulation (2026-08-20, 0 comments) | crash on valid input, no comments; needs the reporter's partition file (attachment) to know which combination overflows; AliSim was not checked |
 | #143 / #100 / #110 / #107 ModelFinder `initFromNestedModel` assertion with `+ASC` (12 comments on #143) | most-discussed open bug; the 12 unreadable comments make it likely the maintainers are already on it, and the reporter says it depends on which sites are cut ("really random") |
-| #85 `-te` does not constrain the tree under `--scfl` | a documented option doing nothing, but needs the reporter's 400-locus data and `--scfl` was not audited |
+| #85 `-te` does not constrain the tree under `--scfl` | a documented option doing nothing, but needs the reporter's 400-locus data and `--scfl` was not checked |
 | #13 alrt + ufboot error, #65 `-madd` in MFP, #55 `-fs` with `+ASC+G4` | bodies mention data this session cannot get, or are unclear without the comments |
 
 ## Caveats

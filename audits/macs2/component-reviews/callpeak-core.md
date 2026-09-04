@@ -101,4 +101,4 @@ input control, so the no-control path dominates the ATAC side. MC2's low-λ
 regime is precisely that cohort. MC1 requires `--keep-dup auto` (subset of
 the 26 keep-dup papers) plus a depth imbalance. 43 papers feed peaks into
 DESeq2/edgeR and 28 into DiffBind — peak-list shifts propagate into the
-differential analyses audited in ../deseq2.
+differential analyses checked in ../deseq2.

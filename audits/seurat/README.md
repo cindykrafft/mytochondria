@@ -19,7 +19,7 @@ through it.
 Source under audit: `satijalab/seurat` `main` @ `084d9e4` (2026-08-28, version
 5.5.1.9003), with tags `v3.2.2`, `v4.0.0`–`v4.4.0`, `v5.0.0`–`v5.5.1` available for
 version dating. The papers pin v4 most (4.3.0, 4.1.0, 4.1.1), v3 in the early years, v5
-from 2025 on; the audit therefore has to read each code path across the v3 → v4 → v5
+from 2025 on; the project therefore has to read each code path across the v3 → v4 → v5
 lineage, not just `main`.
 
 ## Profiling pass: what was possible from this session

@@ -4,7 +4,7 @@ that scrublet's `pipeline_mean_center` produces (`csc_matrix - np.matrix`)?
 Run once per scikit-learn version:
   for v in 1.4.2 1.5.2 1.6.1 1.7.2; do uv venv --python 3.12 venv-skl-$v; . venv-skl-$v/bin/activate;
       uv pip install "scikit-learn==$v" numpy scipy; python sr4_sklearn_versions.py; done
-(plus the audit venv with 1.9.0). Output appended to sr4_sklearn_versions.out.
+(plus the project venv with 1.9.0). Output appended to sr4_sklearn_versions.out.
 """
 
 import importlib.metadata as md

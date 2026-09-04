@@ -242,7 +242,7 @@ def main():
       "  outside the JATS body; tools named only there are missed.\n")
     A("- **Stage classification is heuristic.** It reads the one sentence naming the tool, so a tool\n"
       "  described across several sentences may get an incomplete stage list. The evidence sentence\n"
-      "  is included in every row precisely so this can be audited.\n")
+      "  is included in every row precisely so this can be checked.\n")
     A("- **Presence ≠ dependence.** A named package may have produced one supplementary figure rather\n"
       "  than the central result. Read the evidence sentence before concluding a bug matters.\n")
     A("- **Some names denote a method or a database as often as a program.** UMAP, GSEA and\n"

@@ -28,7 +28,7 @@ numpy makes a temporary copy for overlapping assignments, but `torch.Tensor.copy
     print(bidi.shift(fr.copy(), 3)[0, 1])                    # numpy:  [ 8  9 10  8  9 10 11 12]
     print(bidi.shift(torch.from_numpy(fr.copy()), 3)[0, 1])  # torch:  [ 8  9 10  8  9 10  8  9]
 
-End-to-end through `register_frames` with identical frames (zero motion) and `bidiphase=3`, 34 % of odd-line pixels differ from the intended shift. Script: https://github.com/cindykrafft/research-software-audit/blob/main/audits/suite2p/verify/s2_bidiphase_torch.py
+End-to-end through `register_frames` with identical frames (zero motion) and `bidiphase=3`, 34 % of odd-line pixels differ from the intended shift. Script: https://github.com/cindykrafft/mytochondria/blob/main/audits/suite2p/verify/s2_bidiphase_torch.py
 
 **Fix**
 

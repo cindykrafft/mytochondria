@@ -143,8 +143,8 @@ two-pass/snapshot restructure and is filed as its own issue.
 
 ---
 
-_All five branches: authored with the audit documented in
-`audits/freesurfer/` of the companion repo (github.com/cindykrafft/research-software-audit); each
+_All five branches: authored with the work documented in
+`audits/freesurfer/` of the companion repo (github.com/cindykrafft/mytochondria); each
 commit message carries the full analysis._
 
 ---

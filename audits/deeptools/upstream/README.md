@@ -2,7 +2,7 @@
 
 **Default branch: `master`** (`deeptools/deepTools`; the remote has no `develop` branch —
 the last one was merged as PR #1356 on 2025-01-20 and deleted — so the fix branches are
-cut from `master`; a `4.0.0` branch exists and was not audited).
+cut from `master`; a `4.0.0` branch exists and was not checked).
 
 _Prepared 2026-09-03 against `deeptools/deepTools` `master` @ `ea0f68bb` (2025-01-20,
 version 3.5.6 = the `3.5.6` tag = PyPI's latest release). **Nothing has been filed.** The
@@ -76,7 +76,7 @@ Each branch is one commit on top of `ea0f68bb` (`master`) in the fork
   DT5 (nearest #1311, #1228), DT6 (nearest #99, #1144), DT7 (nearest #309 closed 2016,
   #5), DT8 (nearest #1296, #1270, #1139), DT9 (none). N1 is #1030 (open, 3 comments
   not readable from here).
-- Matthew Rocklin's "Craft Minimal Bug Reports" as summarised in the audit brief: each
+- Matthew Rocklin's "Craft Minimal Bug Reports" as summarised in the project brief: each
   issue text carries a script that makes its own data, has no line that is not needed,
   ends in an assertion, quotes the complete traceback, states expected vs got and says
   what shrinking revealed. The scripts are `mcve_dt*.py`; `mcve_outputs.txt` is their

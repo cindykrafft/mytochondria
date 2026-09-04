@@ -48,7 +48,7 @@ _Once a PR is opened, add its issue number to the `CHANGES.rst` bullet on that b
   `marcelm/cutadapt` issues): no prior report of CA1 (nearest #358, #457, #615),
   CA2 (nearest #17, #441), CA3 (nearest #734, #612, #205, #614, #671) or CA4
   (nearest #685 "Disable k-mer heuristic in some cases", #695, #565).
-- Matthew Rocklin's "Craft Minimal Bug Reports" as summarised in the audit brief:
+- Matthew Rocklin's "Craft Minimal Bug Reports" as summarised in the project brief:
   each issue text carries a script that makes its one read, has no line that is not
   needed, prints got vs expected, and says what shrinking revealed. The scripts are
   `mcve_ca*.py`; `mcve_outputs.txt` is their captured output on `main` and 5.2.

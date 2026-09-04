@@ -5,7 +5,7 @@ is the dominant spike sorter for high-density extracellular recordings —
 60 papers in our six-journal survey cohort (2021–2026) use it, more than any
 other spike sorter.
 
-This audit covers the sorting core across the version lineage that the papers
+This project covers the sorting core across the version lineage that the papers
 actually pin, with adversarial code review of KS2 (v2.0.2), KS2.5 (v2.5.2),
 KS3 (v3.0.2), and KS4 (v4.1.7), plus numerical verification of the new
 findings on the shipped KS4 package (CPU build, kilosort 4.1.7 + torch 2.14).
@@ -88,7 +88,7 @@ verify/km3_nskipcov.py             # KM3 arithmetic + whitening-scale demo (pure
 ```
 
 All three run headless on CPU; expected outputs are embedded in the module
-docstrings and were captured from this audit's runs.
+docstrings and were captured from this project's runs.
 
 ## Upstream status
 

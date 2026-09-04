@@ -30,7 +30,7 @@ doublets, with an independent numpy/scipy port as the reference.
 | **SR4** | original (master = 0.2.3) | **CONFIRMED** | `scrub_doublets(mean_center=True, normalize_variance=False)` raises `TypeError: np.matrix is not supported` from sklearn's PCA (CSC − `np.matrix` gives an `np.matrix`); reproduced with scikit-learn 1.4.2 through 1.9.0. The other three combinations run; the port converts to CSC and runs. One-line fix + test in the kit. |
 | SR5 | both | note, design | The doublet score `q·ρ/r / (1 − ρ − q(1 − ρ − ρ/r))` is `odds/(1 + odds)` under a model in which every observed neighbour is a singlet; in a pure doublet state it evaluates to 1/(2 − ρ) = 0.526 at ρ = 0.1, reaching 1 only when no observed cell is among the neighbours. Calls are unaffected (threshold on the same scale); the paper's derivation could not be fetched. |
 | SR6 | original | note, documentation | The v-score noise fit uses `np.percentile(·, 0.1)` — the 0.1th percentile, essentially the per-bin minimum — where the parameter name suggests a fraction. Deterministic and reproduced exactly. |
-| SR7 | Scanpy `Neighbors` | note, by execution | For coincident cells `compute_neighbors` stores a cell as its own neighbour (self-edge); issue #2244 reports the same duplicates from the other side. Not audited further. |
+| SR7 | Scanpy `Neighbors` | note, by execution | For coincident cells `compute_neighbors` stores a cell as its own neighbour (self-edge); issue #2244 reports the same duplicates from the other side. Not checked further. |
 | SR8 | original | note, design | `simulate_doublets` reseeds the *global* numpy RNG (`np.random.seed`), resetting the caller's session state. |
 | W1–W4 | — | withdrawn | ddof-1 z-scores (uniform factor, invariant); `sparse_var` precision (2e-15); SR3 as a detection-wrecking bug (recall 0.94 vs 0.98); my first reading of SR1's sklearn path as "always self-counted". |
 
@@ -41,7 +41,7 @@ errors, threshold, rates); dense/CSC/CSR/float32 inputs give identical scores;
 odds form, `se_q` is the Beta posterior sd, `se_Ld` is first-order error propagation
 (2e-10); annoy vs exact neighbours changes no call on this data; the threshold fallback
 behaves as documented; the port given the original's matrices agrees to Spearman 0.996
-with only SR1 left. Not audited: plotting/embedding helpers, `batch_key`, pynndescent
+with only SR1 left. Not checked: plotting/embedding helpers, `batch_key`, pynndescent
 accuracy, `threshold_minimum` internals.
 
 ## How the papers use the doublet tools (lower bounds from the survey cache)
@@ -102,7 +102,7 @@ Rerun without `--offline` from a host with Europe PMC access.
 | file | what |
 |---|---|
 | `scrublet_profile.py`, `scrublet_profiles.jsonl`, `profile_run.log` | profiling pass over the 179-paper doublet-tool cohort (offline; see caveat) |
-| `component-reviews/scrublet-core.md` | the review: SR1–SR8, withdrawn list, held-up list, not-audited list, and the original-vs-port table |
+| `component-reviews/scrublet-core.md` | the review: SR1–SR8, withdrawn list, held-up list, not-checked list, and the original-vs-port table |
 | `verify/synth.py`, `verify/reference.py` | synthetic counts with labelled doublets; the independent numpy/scipy port |
 | `verify/heldup_reference_port.py` (+ `.out`, `.release.out`) | original vs reference: helpers, v-scores, full pipeline, closed forms, annoy |
 | `verify/sr1_scanpy_knn_self_neighbour.py` (+ outs) | SR1: rule identification on a shared manifold, consequences, mechanism, per-seed branch taken |

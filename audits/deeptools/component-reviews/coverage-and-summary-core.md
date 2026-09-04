@@ -4,7 +4,7 @@ Read in full on `deeptools/deepTools` `master` at `ea0f68bb4a1587d713dacb3791861
 (the `3.5.6` tag; PyPI's latest release, 3.5.6, is this commit, so "master" and "latest
 release" are the same code below; the remote has no `develop` branch — the last one was
 merged as PR #1356 and deleted — and a `4.0.0` branch with a Rust backend that was not
-audited): `countReadsPerBin.py` (1,033 lines), `getScaleFactor.py` (305),
+checked): `countReadsPerBin.py` (1,033 lines), `getScaleFactor.py` (305),
 `bamCoverage.py` (416), `bamCompare.py` (314), `getRatio.py` (82), `writeBedGraph.py`
 (354), `writeBedGraph_bam_and_bw.py` (239), `SES_scaleFactor.py` (195), `utilities.py`
 (390), `mapReduce.py` (263), `heatmapper.py` (1,372), `computeMatrix.py` (429),
@@ -14,7 +14,7 @@ audited): `countReadsPerBin.py` (1,033 lines), `getScaleFactor.py` (305),
 (369), `plotCoverage.py` (344), `estimateReadFiltering.py` (376), the counting half of
 `plotEnrichment.py`, the summary-statistic lines of `plotProfile.py`/`plotHeatmap.py`,
 the option help in `parserCommon.py`, and the GC-bias core of `computeGCBias.py` /
-`correctGCBias.py` (read, not executed; see "Not audited").
+`correctGCBias.py` (read, not executed; see "Not checked").
 
 Every suspicion was **executed on the shipped code**: master installed in editable mode
 into a Python 3.12 venv (`bamCoverage --version` = 3.5.6, numpy 2.5.2, pysam 0.24.0,
@@ -410,7 +410,7 @@ and that `--ignoreForNormalization` drops the ignored chromosome from the output
   and the bedGraph run-length encoding without `--skipZeroOverZero` (DT1's default
   run: 0 of 400 wrong).
 
-## Not audited here
+## Not checked here
 
 `computeGCBias`/`correctGCBias` (read: the sampling is deterministic, `arange(start,
 end, stepSize)` per chunk, the ratio is `F_gc/N_gc × ΣN/ΣF` with reads above a Poisson

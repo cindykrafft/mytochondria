@@ -27,14 +27,14 @@ The maintainer was right on every point, and the filings cost him time
 instead of saving it.
 
 1. **The NEWS claim was false.** `issue-ds1-weights-erratum.md` says "there is
-   no NEWS entry or user-facing notice for this fix." The audit inspected the
+   no NEWS entry or user-facing notice for this fix." The project inspected the
    fix commit `abe5994`, which touches only `R/results.R` and a test, and
    concluded nothing was announced. The entry was added in the same-day
    version-bump commit `5f5e305`. A `grep -i weights NEWS` would have found it.
 2. **The guidelines were not read.** This kit never mentioned issue #1 or
    `CONTRIBUTING.md`, while the SPM kit did read SPM's. The PR was sent cold,
    contrary to a policy that had been pinned for nine years.
-3. **The PR contradicted the audit's own judgment.** The review classified the
+3. **The PR contradicted the project's own judgment.** The review classified the
    truncation bias as "verified negligible", and the project's stated policy is
    to keep results stable. A negligible, results-changing PR is the exact case
    the policy exists to decline.

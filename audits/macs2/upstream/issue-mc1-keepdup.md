@@ -15,7 +15,7 @@ control. The same code is in MACS2 2.1.x (`separate_dups(treatment_max_dup_tags)
 and 2.2.x, so this spans every release with `--keep-dup auto` + control.
 
 **Reproduction** (script: `keepdup_demo.py` in
-https://github.com/cindykrafft/research-software-audit/tree/main/audits/macs2/verify —
+https://github.com/cindykrafft/mytochondria/tree/main/audits/macs2/verify —
 synthetic BEDs with treatment threshold 1 and control threshold 3, run on
 MACS3 3.0.4):
 
@@ -41,7 +41,7 @@ unaffected (both thresholds are equal).
 A one-line PR (plus the four log/header lines) follows.
 
 Found during a source audit of MACS against 475 papers using it in six
-high-impact journals (2021–2026). The audit's broader outcome was positive —
+high-impact journals (2021–2026). The project's broader outcome was positive —
 the shift/extsize arithmetic, the local-lambda model, and the pileup algorithm
 all verified clean.
 

@@ -1,6 +1,6 @@
 """Shared helpers for the IQ-TREE 2 verification harnesses.
 
-Runs the shipped binary (path from $IQTREE2, default: the audit's master build) on
+Runs the shipped binary (path from $IQTREE2, default: the project's master build) on
 synthetic alignments made here, and provides an independent numpy implementation of
 the phylogenetic likelihood (Felsenstein pruning under a time-reversible model with
 discrete-gamma / invariable-site / Lewis +ASC extensions) as the reference.

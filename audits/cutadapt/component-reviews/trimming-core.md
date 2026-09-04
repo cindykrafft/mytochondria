@@ -334,7 +334,7 @@ reads from some pipelines); recorded, not filed.
 - **Absolute errors as documented for unaffected lengths.** `-e 1` on 48- and 50-nt
   adapters and `-e 2`/`-e 3` on 50/30 nt behave as specified (CA1 Part B controls).
 
-## Not audited here
+## Not checked here
 
 `--revcomp` beyond reading its score comparison; linked-adapter `required`/
 `optional` semantics beyond reading `parser.py:496-507` and `adapters.py:1215-1227`;

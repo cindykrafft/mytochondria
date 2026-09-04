@@ -1,7 +1,7 @@
 # cutadapt #518 — `--info-file` offsets and sequences are wrong after `--cut` / `-q` / `--nextseq-trim`
 
 _Prepared 2026-09-03 against `marcelm/cutadapt` `main` @ `50e9fb8d` (2026-06-26), the
-same commit as the audit. Fix branch `fix/issue-518-info-file-offsets`, one commit
+same commit as the project. Fix branch `fix/issue-518-info-file-offsets`, one commit
 (`00b47a7`), patch in this directory. Nothing has been pushed or posted._
 
 ## The issue
@@ -119,7 +119,7 @@ match of the planted adapter is a substring of it: **2,953 of 3,255 rows wrong o
   4-column no-match row is documented behaviour; changing it is a format decision.
 - **#855**, **#839**, **#631**, **#565**, **#466**: trimming-behaviour reports whose
   bodies read as expected-behaviour questions or that need the reporter's data.
-- #892 (this audit's CA1) and the held CA2-CA4 findings were skipped as instructed.
+- #892 (this project's CA1) and the held CA2-CA4 findings were skipped as instructed.
 
 ## Caveats
 

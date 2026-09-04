@@ -213,7 +213,7 @@ fold change of 1 (no filter) get a 2× filter.
 - **`describe_obs`/`calculate_qc_metrics`** percentages are `total_qc / total × 100`
   on the raw matrix; `pct_counts_in_top_N` from sorted per-cell segments.
 
-## Not audited here
+## Not checked here
 
 `pp.pca` (sparse implicit centering, solver choice), `pp.neighbors` beyond the
 connectivity kernels, `tl.leiden`/`louvain` (external libraries), `tl.umap`,

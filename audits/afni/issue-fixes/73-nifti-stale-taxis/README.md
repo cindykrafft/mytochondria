@@ -2,8 +2,8 @@
 
 _Issue-fix kit, 2026-09-03, against `afni/afni` master @ `c3fde703`
 (Merge pull request #971). This PR answers a **user-reported issue** that has been
-open since 2018; it is not an item from the audit's own backlog (the ten open
-`cindykrafft` issues/PRs on the repository are the audit's, and this kit does not add to
+open since 2018; it is not an item from the project's own backlog (the ten open
+`cindykrafft` issues/PRs on the repository are the project's, and this kit does not add to
 them)._
 
 ## The issue
@@ -138,7 +138,7 @@ make -j libmri.so; make 3dvolreg 3dinfo 3dcalc` (gcc 13.3, Ubuntu 24.04, after
 libglw1-mesa-dev`). Two things to know: `libmri.a` is not the target on this
 platform (`MRI_SHARED=Linux` selects `libmri.so`), and the `f2c/` and `coxplot/`
 sub-makes are not `-j`-safe (their `ar`/`ld` run before the objects exist), so build
-`libf2c.so` and `libcoxplot.a` sequentially first. The audit container's root
+`libf2c.so` and `libcoxplot.a` sequentially first. The project container's root
 filesystem filled up during this session (shared with other sessions); the build was
 done on `/dev/shm` (16 GB tmpfs) with `TMPDIR` pointed there.
 
@@ -183,4 +183,4 @@ users or maintainers. Read in full where it mattered:
   length 1 instead of the stale length; AFNI already handles `ntt = 1` datasets (e.g.
   `3dTcat` of one volume).
 - The reporter also asked about the exit code of `3dvolreg` generally; other error
-  paths that `exit(0)` were not audited.
+  paths that `exit(0)` were not checked.

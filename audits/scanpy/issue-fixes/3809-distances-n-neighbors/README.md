@@ -1,6 +1,6 @@
 # scanpy #3809 — `.obsp["distances"]` holds `n_neighbors` instead of `n_neighbors - 1` neighbors per cell
 
-_Prepared 2026-09-03 against `scverse/scanpy` `main` @ `ec374022` ("ci: fix autofix workflow (#4342)"), Python 3.12 venv with the clone installed editable plus `scikit-misc igraph leidenalg pytest pytest-mock pytest-xdist pytest-rerunfailures pooch` (the audit's recipe). Nothing was pushed, filed or posted._
+_Prepared 2026-09-03 against `scverse/scanpy` `main` @ `ec374022` ("ci: fix autofix workflow (#4342)"), Python 3.12 venv with the clone installed editable plus `scikit-misc igraph leidenalg pytest pytest-mock pytest-xdist pytest-rerunfailures pooch` (the project's recipe). Nothing was pushed, filed or posted._
 
 ## The issue
 

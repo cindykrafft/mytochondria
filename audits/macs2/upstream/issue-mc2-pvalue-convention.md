@@ -12,7 +12,7 @@ is P(X ≥ t).
 The two differ by the probability atom at t, and at peak-calling counts that
 atom is not small. At the default `-log10 p = 5` cutoff (exact Poisson, per
 position; script `tail_convention.py` in
-https://github.com/cindykrafft/research-software-audit/tree/main/audits/macs2/verify):
+https://github.com/cindykrafft/mytochondria/tree/main/audits/macs2/verify):
 
 | local lambda | boundary count t* | P(X ≥ t*) | P(X > t*) (MACS) | admitted null rate vs P(X ≥ t) |
 |---|---|---|---|---|

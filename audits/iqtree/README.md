@@ -16,7 +16,7 @@ likelihood under `+G`/`+I`/`+R`/`+F`/`+ASC`, the ultrafast bootstrap (UFBoot2) s
 percentages with and without `--bnni`, SH-aLRT, aBayes and the parametric aLRT, and the
 gene/site concordance factors — was read in full on `master` and every suspicion was
 executed on the shipped binary on synthetic alignments with known truth, with a numpy/
-scipy implementation written for this audit, or IQ-TREE's own exact alternatives (`-te`
+scipy implementation written for this project, or IQ-TREE's own exact alternatives (`-te`
 runs, the standard bootstrap `-b`), as the reference.
 
 ## Findings (details and line citations in [`component-reviews/statistical-core.md`](component-reviews/statistical-core.md); harnesses with captured output in [`verify/`](verify/))
@@ -41,7 +41,7 @@ models; aBayes; SH-aLRT against an independent RELL port (37.70 % vs 37.0 % prin
 trees, with and without `--bnni`; the bootstrap-correlation statistic; sCF exact on a
 single-quartet tree and within Monte-Carlo error of the exhaustive average on 6 taxa,
 every `.cf.quartet` row exact; gCF/gDF1/gDF2/gDFP exact on 17 gene trees with missing
-taxa; duplicate-sequence handling. Not audited: tree search, topology tests, mixture/PoMo
+taxa; duplicate-sequence handling. Not checked: tree search, topology tests, mixture/PoMo
 models, `--scfl`, AliSim, dating, MPI.
 
 ## How the papers use IQ-TREE (lower bounds from the survey cache; see below)
@@ -121,7 +121,7 @@ a confirmed defect.
 | file | what |
 |---|---|
 | `iqtree_profile.py`, `iqtree_profiles.jsonl`, `profile_run.log` | profiling pass (offline; see caveat) |
-| `component-reviews/statistical-core.md` | the review: IQ1–IQ5, held-up list, design notes, not-audited list |
+| `component-reviews/statistical-core.md` | the review: IQ1–IQ5, held-up list, design notes, not-checked list |
 | `verify/iqt.py` | shared helpers: binary runner, numpy pruning likelihood, scipy discrete gamma, simulator, Newick/split utilities |
 | `verify/heldup_likelihood_closed_form.py` (+ `.out`, `.v2.4.0.out`) | JC / +G mean & median / +I / +I+G / GTR+F / +ASC log-likelihoods and category rates vs reference; `+ASC` refusal |
 | `verify/heldup_information_criteria.py` (+ `.out`, `.v2.4.0.out`) | parameter counts and AIC/AICc/BIC arithmetic: full model, 92 ModelFinder rows, `-p`/`-q`/`-Q`, `-m MFP -p` |
