@@ -20,3 +20,6 @@ deepTools:fix4/plotcorrelation-mad-outliers
 deepTools:fix4/multibigwigsummary-exact-stats
 deepTools:fix4/sumcoverage-partial-bins
 deepTools:fix4/issue-1423-gzipped-bed-sortmatrix
+deepTools:fix4/bamcompare-operations
+deepTools:fix4/plotpca-loadings
+deepTools:fix4/computematrixoperations-sort-group
