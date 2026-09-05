@@ -26,7 +26,7 @@ with `-split` and a two-block BED12 record. Full `make test` passes.
 
 ### PR 2 — `fix/intersect-split-per-record-F` — "intersect: apply -F and -r to each database record under -split"
 
-Fixes #1142.
+Fixes #1142. Fixes #1141 (the same defect reported through `-wao -f`).
 
 `BlockMgr::findBlockedOverlaps` tested `-F` (and `-r`'s reciprocal test) against
 the summed block length of every database record that touched the query, with the

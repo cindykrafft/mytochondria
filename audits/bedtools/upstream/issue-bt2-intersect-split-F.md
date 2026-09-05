@@ -35,6 +35,12 @@ attached; the existing `intersect.t22.p` (`-F 0.20`) gains one line (the
 two-block read now qualifies on `exon2` at 20/100), and new cases cover the three
 identical reads and the #1142 isoform example. The full `make test` suite passes.
 
+#1141 is the same defect seen through `-wao -f` and closes with it. The
+workaround posted there (`-split -wo`, then `overlap / sum(blockSizes)` per pair)
+computes the same per-record fraction the patch now applies on the database side;
+the one place they differ is `-f` under `-r`, which the patch keeps cumulative over
+the surviving records per #750 rather than per pair.
+
 Found in Mytochondria, a volunteer project that checks the numerical core of research software and verifies every finding by execution (methods and harnesses: https://github.com/cindykrafft/mytochondria/tree/main/audits/bedtools)
 
 ---
