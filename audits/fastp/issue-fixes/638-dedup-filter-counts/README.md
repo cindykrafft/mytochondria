@@ -1,3 +1,5 @@
+**Filed 2026-09-04 as PR #715** (issue #638; comment posted on the issue).
+
 # fastp #638 / #528 — `--dedup` removals counted as "passed filter"
 
 _Prepared 2026-09-03 against `OpenGene/fastp` `master` @ `dce5c40` (version

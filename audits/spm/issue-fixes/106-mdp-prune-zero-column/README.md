@@ -1,3 +1,5 @@
+**Comment posted on #106 on 2026-09-03** (assigned issue: diagnosis and branch link, no PR).
+
 # spm/spm #106 — `spm_MDP_VB_prune` returns NaN priors when a column is left with no prior mass
 
 _Issue-fix kit, 2026-09-03. Not filed; PR not opened. Base: `spm/spm@4e20e07`

@@ -1,3 +1,5 @@
+**Filed 2026-09-04 as PR #232** (issue #224; comment posted on the issue).
+
 # Issue fix: #224 — `create_db` fails when a `uniprot_N` column of `complex_input.csv` is unused
 
 _Prepared 2026-09-03 against `ventolab/CellphoneDB` `master` @ `dc8abd15` (version string 5.0.1), in a

@@ -1,3 +1,5 @@
+**Filed 2026-09-04 as PR #207** (issue #203; comment posted on the issue).
+
 # iqtree/iqtree3 #203 — `setRootNode()` assertion when the `-o` outgroup is absent from a partition tree (also #89)
 
 _Prepared 2026-09-03 against `iqtree/iqtree3` `master` @ `8977d31a` (version string 3.1.3,

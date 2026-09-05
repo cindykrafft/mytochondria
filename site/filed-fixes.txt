@@ -1,0 +1,9 @@
+# pkg:issue:what:number:state  — issue-fix cards already acted on (read by the console builder)
+iqtree:203:pr:207:open
+fastp:638:pr:715:open
+cutadapt:518:pr:894:open
+cellphonedb:224:pr:232:open
+bedtools:1123:pr:1143:open
+afni:73:pr:974:open
+deeptools:1423:pr:1451:closed
+spm:106:comment:106:posted

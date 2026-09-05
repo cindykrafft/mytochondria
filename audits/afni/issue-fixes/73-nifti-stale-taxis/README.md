@@ -1,3 +1,5 @@
+**Filed 2026-09-04 as PR #974** (issue #73; comment posted on the issue).
+
 # afni/afni #73 — `3dvolreg` exits 0 after "NBL does not match nim" and leaves an empty file
 
 _Issue-fix kit, 2026-09-03, against `afni/afni` master @ `c3fde703`

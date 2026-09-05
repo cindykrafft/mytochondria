@@ -1,3 +1,5 @@
+**Filed 2026-09-04 as PR #1143** (issue #1123; comment posted on the issue).
+
 # bedtools #1123 — `flank -s` produces no output for records without a `+`/`-` strand
 
 _Prepared 2026-09-03 against `arq5x/bedtools2` **master** @ `614e9a5` (2026-06-10),

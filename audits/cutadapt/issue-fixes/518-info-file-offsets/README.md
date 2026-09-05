@@ -1,3 +1,5 @@
+**Filed 2026-09-04 as PR #894** (issue #518; comment posted on the issue).
+
 # cutadapt #518 — `--info-file` offsets and sequences are wrong after `--cut` / `-q` / `--nextseq-trim`
 
 _Prepared 2026-09-03 against `marcelm/cutadapt` `main` @ `50e9fb8d` (2026-06-26), the
