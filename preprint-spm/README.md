@@ -2,7 +2,7 @@
 
 `main.tex` + `figures/` is the arXiv source of *Exhaustive AI-assisted review of
 SPM: eighty-three verified defects, five fixes sent upstream, two merged and
-measured on SPM's own data*; `preprint.pdf` is the compiled draft. Build with
+measured on open data*; `preprint.pdf` is the compiled draft. Build with
 `pdflatex main.tex` twice (bibliography is inline).
 
 It is the SPM companion to `../preprint/` (the AFNI paper), kept separate so each
@@ -16,9 +16,15 @@ this one describes all five high-priority findings and gives each its upstream
 status (two merged, three open as of 3 September 2026). Update Table 1 and the
 abstract when the open pull requests are adjudicated.
 
-## Figure
+## Figures
 
-`figures/findings.pdf` (four panels) is drawn by `figures/make_figure1.py`:
+`figures/erpcore.pdf` (Figure 2, four panels) is drawn by `figures/make_figure2.py`
+from `../audits/spm/reproductions/erpcore_realdata/results/` (a copy of the
+script that lives there): `python3 make_figure2.py <results_dir> erpcore.pdf`,
+where the results directory holds the per-participant TSVs and
+`grand_averages.npz` written by `analyze.py`.
+
+`figures/findings.pdf` (Figure 1, four panels) is drawn by `figures/make_figure1.py`:
 
 ```
 python3 make_figure1.py <scratch_dir> findings.pdf

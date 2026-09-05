@@ -39,6 +39,28 @@ MATLAB-only string helpers shimmed — all in `octave_shims/`).
 | `sp4_result.md`, `sp4_demo.py` | SP4 (`spm_eeg_downsample`, PR #165) | with `method='decimate'`, 512→200 Hz: pre-fix **prints 170.7 Hz and stamps 200 Hz** — a 915 s recording reported as 781 s; a real 275 ms MMN peak reported at 235 ms. Fires only for explicit `decimate`/`downsample` (default `resample` and the no-toolbox `fft` fallback are exact). |
 | `sp3_result.md`, `sp3_pipeline.m`, `sp3_compare.py`, `sp3_run.log` | SP3 (`@meeg/badsamples`, PR #163) | SPM's own mark-mode + robust-averaging chapter on this dataset: bad windows shifted by exactly the 100 ms baseline; pre-fix excluded only 24 % of true artefact samples and 71 % of what it excluded was clean; **yet the final robust-averaged MMN changes by ≈1.5 % RMS** — robust weights cushion the mask. Uncushioned exposure: mark-mode bad-channel/trial classification and direct mask consumers. |
 
+## SP3 on an open multi-participant dataset (`erpcore_realdata/`)
+
+ERP CORE (Kappenman et al. 2021; 39 participants with raw files per task, Biosemi
+1024 Hz) processed with the real SPM M/EEG code in Octave under both versions of
+`badsamples.m`, everything else identical, for a stimulus-locked (P3, epoch from
+−200 ms) and a response-locked (ERN, epoch from −600 ms) paradigm, with mark-mode
+artefact detection feeding both event-based rejection + plain averaging and robust
+averaging with remove-bad-data.
+
+| Quantity | P3 | ERN |
+|---|---|---|
+| Detector windows pushed out of the epoch by the shift | 15 % | **97 %** |
+| Share of true artefact samples the shipped code excluded (median) | 30 % | **0.5 %** |
+| Trials rejected, same settings, before vs after | 50 % vs 56 % | **2 % vs 51 %** |
+| Participants left with no trials of interest, before vs after | 1 vs 3 | 0 vs 6 |
+| Group ERP measure (plain average, ≥ 6 trials in both builds) | 7.6 vs 7.4 µV, n = 24, paired p = 0.28 | **−10.4 vs −8.3 µV, n = 30, paired p = 0.003** |
+| Same, robust averaging with remove-bad-data | r = 0.9997 | r = 0.993 |
+| Channels classified bad, before vs after | 5 vs 20 | 0 vs 16 |
+
+Full tables, logs, pipeline and figure in `erpcore_realdata/`; the reading-it-fairly
+notes there apply (threshold-only pipeline, no ocular correction, Octave).
+
 ## Other findings verified numerically during the project
 
 | File | Finding | Result |
@@ -57,6 +79,6 @@ above were retained; results are recorded in `../component-reviews/` with
 the numbers they produced. Re-deriving any of them from the file:line
 evidence is mechanical.
 
-**Status note:** SP1 (unit test), SP3 and SP4 (real data, above) have been
-executed against real SPM code in Octave. SP2 and SP5 are verified by tracing
+**Status note:** SP1 (unit test), SP3 and SP4 (real data, above; SP3 also on 39
+ERP CORE participants) have been executed against real SPM code in Octave. SP2 and SP5 are verified by tracing
 and offline numerics only and have not been run in MATLAB.

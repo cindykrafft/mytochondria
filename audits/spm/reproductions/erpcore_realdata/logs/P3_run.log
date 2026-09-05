@@ -1,0 +1,117 @@
+WORKER 0 DONE Fri Sep  4 20:46:19 UTC 2026
+[P3 1 prefix] [A] P3 sub 1: 195 trials (standard=160, target=35), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 1 prefix] [B] P3 sub 1 prefix: bad samples 2148, trials with bad 20, bad channels 0 (), rejected trials 20
+[P3 1 merged] [B] P3 sub 1 merged: bad samples 4380, trials with bad 23, bad channels 0 (), rejected trials 23
+WORKER 1 DONE Fri Sep  4 20:48:48 UTC 2026
+[P3 2 prefix] [A] P3 sub 2: 198 trials (standard=159, target=39), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 2 prefix] [B] P3 sub 2 prefix: bad samples 1085, trials with bad 5, bad channels 0 (), rejected trials 5
+[P3 2 merged] [B] P3 sub 2 merged: bad samples 2875, trials with bad 7, bad channels 0 (), rejected trials 7
+WORKER 2 DONE Fri Sep  4 20:47:56 UTC 2026
+[P3 4 prefix] [A] P3 sub 4: 177 trials (standard=147, target=30), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 4 prefix] [B] P3 sub 4 prefix: bad samples 35242, trials with bad 165, bad channels 0 (), rejected trials 165
+[P3 4 merged] [B] P3 sub 4 merged: bad samples 134553, trials with bad 177, bad channels 2 (FP1,FP2), rejected trials 175
+[P3 5 prefix] [A] P3 sub 5: 194 trials (standard=156, target=38), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 5 prefix] [B] P3 sub 5 prefix: bad samples 25966, trials with bad 144, bad channels 0 (), rejected trials 142
+[P3 5 merged] [B] P3 sub 5 merged: bad samples 119194, trials with bad 194, bad channels 2 (FP1,FP2), rejected trials 174
+[P3 6 prefix] [A] P3 sub 6: 102 trials (standard=97, target=5), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 6 prefix] [B] P3 sub 6 prefix: bad samples 17826, trials with bad 56, bad channels 0 (), rejected trials 48
+[P3 6 merged] [B] P3 sub 6 merged: bad samples 27623, trials with bad 58, bad channels 0 (), rejected trials 49
+[P3 7 prefix] [A] P3 sub 7: 193 trials (standard=159, target=34), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 7 prefix] [B] P3 sub 7 prefix: bad samples 41390, trials with bad 125, bad channels 0 (), rejected trials 125
+[P3 7 merged] [B] P3 sub 7 merged: bad samples 105862, trials with bad 193, bad channels 1 (FP1), rejected trials 139
+[P3 9 prefix] [A] P3 sub 9: 183 trials (standard=151, target=32), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 9 prefix] [B] P3 sub 9 prefix: bad samples 129320, trials with bad 183, bad channels 1 (PO8), rejected trials 172
+[P3 9 merged] [B] P3 sub 9 merged: bad samples 239129, trials with bad 183, bad channels 3 (FP1,FP2,PO8), rejected trials 182
+[P3 10 prefix] [A] P3 sub 10: 151 trials (standard=143, target=8), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 10 prefix] [B] P3 sub 10 prefix: bad samples 17166, trials with bad 88, bad channels 0 (), rejected trials 88
+[P3 10 merged] [B] P3 sub 10 merged: bad samples 33111, trials with bad 102, bad channels 0 (), rejected trials 102
+[P3 11 prefix] [A] P3 sub 11: 199 trials (standard=160, target=39), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 11 prefix] [B] P3 sub 11 prefix: bad samples 19158, trials with bad 176, bad channels 0 (), rejected trials 176
+[P3 11 merged] [B] P3 sub 11 merged: bad samples 33167, trials with bad 191, bad channels 0 (), rejected trials 191
+[P3 12 prefix] [A] P3 sub 12: 183 trials (standard=153, target=30), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 12 prefix] [B] P3 sub 12 prefix: bad samples 2762, trials with bad 7, bad channels 0 (), rejected trials 7
+[P3 12 merged] [B] P3 sub 12 merged: bad samples 5571, trials with bad 10, bad channels 0 (), rejected trials 10
+[P3 13 prefix] [A] P3 sub 13: 170 trials (standard=140, target=30), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 13 prefix] [B] P3 sub 13 prefix: bad samples 7390, trials with bad 82, bad channels 0 (), rejected trials 81
+[P3 13 merged] [B] P3 sub 13 merged: bad samples 11010, trials with bad 92, bad channels 0 (), rejected trials 92
+[P3 14 prefix] [A] P3 sub 14: 182 trials (standard=152, target=30), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 14 prefix] [B] P3 sub 14 prefix: bad samples 19868, trials with bad 91, bad channels 0 (), rejected trials 91
+[P3 14 merged] [B] P3 sub 14 merged: bad samples 37419, trials with bad 124, bad channels 0 (), rejected trials 124
+[P3 15 prefix] [A] P3 sub 15: 195 trials (standard=157, target=38), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 15 prefix] [B] P3 sub 15 prefix: bad samples 6455, trials with bad 27, bad channels 0 (), rejected trials 27
+[P3 15 merged] [B] P3 sub 15 merged: bad samples 11873, trials with bad 53, bad channels 0 (), rejected trials 53
+[P3 16 prefix] [A] P3 sub 16: 199 trials (standard=160, target=39), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 16 prefix] [B] P3 sub 16 prefix: bad samples 2148, trials with bad 19, bad channels 0 (), rejected trials 19
+[P3 16 merged] [B] P3 sub 16 merged: bad samples 3254, trials with bad 26, bad channels 0 (), rejected trials 26
+[P3 17 prefix] [A] P3 sub 17: 199 trials (standard=159, target=40), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 17 prefix] [B] P3 sub 17 prefix: bad samples 15046, trials with bad 153, bad channels 0 (), rejected trials 153
+[P3 17 merged] [B] P3 sub 17 merged: bad samples 20884, trials with bad 166, bad channels 0 (), rejected trials 166
+[P3 18 prefix] [A] P3 sub 18: 191 trials (standard=158, target=33), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 18 prefix] [B] P3 sub 18 prefix: bad samples 112181, trials with bad 191, bad channels 2 (FP1,FP2), rejected trials 177
+[P3 18 merged] [B] P3 sub 18 merged: bad samples 116786, trials with bad 191, bad channels 2 (FP1,FP2), rejected trials 180
+[P3 19 prefix] [A] P3 sub 19: 198 trials (standard=159, target=39), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 19 prefix] [B] P3 sub 19 prefix: bad samples 2860, trials with bad 37, bad channels 0 (), rejected trials 37
+[P3 19 merged] [B] P3 sub 19 merged: bad samples 6225, trials with bad 51, bad channels 0 (), rejected trials 51
+[P3 20 prefix] [A] P3 sub 20: 197 trials (standard=159, target=38), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 20 prefix] [B] P3 sub 20 prefix: bad samples 7582, trials with bad 52, bad channels 0 (), rejected trials 52
+[P3 20 merged] [B] P3 sub 20 merged: bad samples 21924, trials with bad 70, bad channels 0 (), rejected trials 70
+[P3 21 prefix] [A] P3 sub 21: 193 trials (standard=158, target=35), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 21 prefix] [B] P3 sub 21 prefix: bad samples 32426, trials with bad 94, bad channels 0 (), rejected trials 94
+[P3 21 merged] [B] P3 sub 21 merged: bad samples 47866, trials with bad 104, bad channels 0 (), rejected trials 104
+[P3 22 prefix] [A] P3 sub 22: 173 trials (standard=146, target=27), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 22 prefix] [B] P3 sub 22 prefix: bad samples 166, trials with bad 4, bad channels 0 (), rejected trials 4
+[P3 22 merged] [B] P3 sub 22 merged: bad samples 768, trials with bad 7, bad channels 0 (), rejected trials 7
+[P3 23 prefix] [A] P3 sub 23: 196 trials (standard=159, target=37), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 23 prefix] [B] P3 sub 23 prefix: bad samples 43347, trials with bad 178, bad channels 0 (), rejected trials 177
+[P3 23 merged] [B] P3 sub 23 merged: bad samples 135231, trials with bad 196, bad channels 2 (FP1,FP2), rejected trials 181
+[P3 24 prefix] [A] P3 sub 24: 194 trials (standard=159, target=35), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 24 prefix] [B] P3 sub 24 prefix: bad samples 5364, trials with bad 62, bad channels 0 (), rejected trials 57
+[P3 24 merged] [B] P3 sub 24 merged: bad samples 11827, trials with bad 71, bad channels 0 (), rejected trials 66
+[P3 25 prefix] [A] P3 sub 25: 199 trials (standard=160, target=39), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 25 prefix] [B] P3 sub 25 prefix: bad samples 25675, trials with bad 93, bad channels 0 (), rejected trials 90
+[P3 25 merged] [B] P3 sub 25 merged: bad samples 40556, trials with bad 104, bad channels 0 (), rejected trials 98
+[P3 26 prefix] [A] P3 sub 26: 198 trials (standard=160, target=38), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 26 prefix] [B] P3 sub 26 prefix: bad samples 13254, trials with bad 87, bad channels 0 (), rejected trials 86
+[P3 26 merged] [B] P3 sub 26 merged: bad samples 26421, trials with bad 103, bad channels 0 (), rejected trials 102
+[P3 27 prefix] [A] P3 sub 27: 173 trials (standard=146, target=27), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 27 prefix] [B] P3 sub 27 prefix: bad samples 6211, trials with bad 34, bad channels 0 (), rejected trials 34
+[P3 27 merged] [B] P3 sub 27 merged: bad samples 11479, trials with bad 44, bad channels 0 (), rejected trials 43
+[P3 28 prefix] [A] P3 sub 28: 190 trials (standard=153, target=37), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 28 prefix] [B] P3 sub 28 prefix: bad samples 12982, trials with bad 62, bad channels 0 (), rejected trials 61
+[P3 28 merged] [B] P3 sub 28 merged: bad samples 28827, trials with bad 83, bad channels 0 (), rejected trials 81
+[P3 29 prefix] [A] P3 sub 29: 186 trials (standard=149, target=37), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 29 prefix] [B] P3 sub 29 prefix: bad samples 18199, trials with bad 66, bad channels 0 (), rejected trials 66
+[P3 29 merged] [B] P3 sub 29 merged: bad samples 29539, trials with bad 73, bad channels 0 (), rejected trials 72
+[P3 30 prefix] [A] P3 sub 30: 185 trials (standard=152, target=33), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 30 prefix] [B] P3 sub 30 prefix: bad samples 86196, trials with bad 127, bad channels 0 (), rejected trials 116
+[P3 30 merged] [B] P3 sub 30 merged: bad samples 211345, trials with bad 185, bad channels 2 (FP1,FP2), rejected trials 122
+[P3 31 prefix] [A] P3 sub 31: 198 trials (standard=158, target=40), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 31 prefix] [B] P3 sub 31 prefix: bad samples 18317, trials with bad 137, bad channels 0 (), rejected trials 137
+[P3 31 merged] [B] P3 sub 31 merged: bad samples 28627, trials with bad 144, bad channels 0 (), rejected trials 144
+[P3 32 prefix] [A] P3 sub 32: 191 trials (standard=156, target=35), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 32 prefix] [B] P3 sub 32 prefix: bad samples 29547, trials with bad 175, bad channels 0 (), rejected trials 175
+[P3 32 merged] [B] P3 sub 32 merged: bad samples 124531, trials with bad 191, bad channels 2 (FP1,FP2), rejected trials 185
+[P3 33 prefix] [A] P3 sub 33: 199 trials (standard=159, target=40), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 33 prefix] [B] P3 sub 33 prefix: bad samples 12139, trials with bad 147, bad channels 0 (), rejected trials 147
+[P3 33 merged] [B] P3 sub 33 merged: bad samples 26355, trials with bad 168, bad channels 0 (), rejected trials 168
+[P3 34 prefix] [A] P3 sub 34: 196 trials (standard=160, target=36), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 34 prefix] [B] P3 sub 34 prefix: bad samples 1760, trials with bad 18, bad channels 0 (), rejected trials 18
+[P3 34 merged] [B] P3 sub 34 merged: bad samples 3566, trials with bad 21, bad channels 0 (), rejected trials 21
+[P3 35 prefix] [A] P3 sub 35: 156 trials (standard=136, target=20), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 35 prefix] [B] P3 sub 35 prefix: bad samples 20318, trials with bad 62, bad channels 0 (), rejected trials 62
+[P3 35 merged] [B] P3 sub 35 merged: bad samples 34798, trials with bad 68, bad channels 0 (), rejected trials 67
+[P3 36 prefix] [A] P3 sub 36: 194 trials (standard=156, target=38), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 36 prefix] [B] P3 sub 36 prefix: bad samples 126915, trials with bad 194, bad channels 2 (FP1,FP2), rejected trials 186
+[P3 36 merged] [B] P3 sub 36 merged: bad samples 133895, trials with bad 194, bad channels 2 (FP1,FP2), rejected trials 190
+[P3 37 prefix] [A] P3 sub 37: 195 trials (standard=158, target=37), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 37 prefix] [B] P3 sub 37 prefix: bad samples 22639, trials with bad 167, bad channels 0 (), rejected trials 167
+[P3 37 merged] [B] P3 sub 37 merged: bad samples 33863, trials with bad 180, bad channels 0 (), rejected trials 179
+[P3 38 prefix] [A] P3 sub 38: 189 trials (standard=155, target=34), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 38 prefix] [B] P3 sub 38 prefix: bad samples 3314, trials with bad 33, bad channels 0 (), rejected trials 33
+[P3 38 merged] [B] P3 sub 38 merged: bad samples 6598, trials with bad 37, bad channels 0 (), rejected trials 37
+[P3 39 prefix] [A] P3 sub 39: 198 trials (standard=160, target=38), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 39 prefix] [B] P3 sub 39 prefix: bad samples 25252, trials with bad 160, bad channels 0 (), rejected trials 160
+[P3 39 merged] [B] P3 sub 39 merged: bad samples 31316, trials with bad 167, bad channels 0 (), rejected trials 167
+[P3 40 prefix] [A] P3 sub 40: 198 trials (standard=160, target=38), 256 samples at 256 Hz, timeOnset -0.199219
+[P3 40 prefix] [B] P3 sub 40 prefix: bad samples 16653, trials with bad 74, bad channels 0 (), rejected trials 74
+[P3 40 merged] [B] P3 sub 40 merged: bad samples 43123, trials with bad 98, bad channels 0 (), rejected trials 98
