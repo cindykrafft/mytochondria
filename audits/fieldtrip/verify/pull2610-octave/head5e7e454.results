@@ -1,0 +1,4 @@
+head 5e7e454 (maintainer commits 6a03c27, 5e7e454 on top of 9d99bac), Octave 8.4 + sum.m shim, 2026-09-05
+RESULT test_ft_connectivity_psi PASS
+RESULT test_pull2610 FAIL: normalized phase slope index differs from the reference definition (max abs diff 0.191258)
+RESULT test_ft_connectivityanalysis_hanning PASS

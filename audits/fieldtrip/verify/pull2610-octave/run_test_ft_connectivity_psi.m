@@ -1,5 +1,7 @@
 pkg load statistics signal
+addpath('/home/user/research-software-audit/audits/fieldtrip/verify/pull2610-octave'); addpath('/home/user/research-software-audit/audits/fieldtrip/verify/shims');
 addpath('/home/user/fieldtrip'); ft_defaults; addpath('/home/user/fieldtrip/test'); addpath('/home/user/fieldtrip/external/signal/dpss_hack');
+addpath('/home/user/research-software-audit/audits/fieldtrip/verify/pull2610-octave'); addpath('/home/user/research-software-audit/audits/fieldtrip/verify/shims');
 warning('off','all'); set(0,'DefaultFigureVisible','off');
 try
   test_ft_connectivity_psi;

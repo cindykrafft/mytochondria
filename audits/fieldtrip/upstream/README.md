@@ -19,8 +19,11 @@ the issue. Recommended order:
 
 - FT1 → [fieldtrip/fieldtrip#2608](https://github.com/fieldtrip/fieldtrip/pull/2608) (fixes #2607); branch now carries `test/test_pull2608.m` (commit 1df1958)
 - FT11 → [fieldtrip/fieldtrip#2610](https://github.com/fieldtrip/fieldtrip/pull/2610) (fixes #2609); branch now carries `test/test_pull2610.m` (commit b260b08) and an updated `test/test_ft_connectivity_psi.m` (commit 2f59b90: the existing test used `rpt_chan_chan` input, i.e. a single frequency bin, whose only nonzero output was the very contamination the fix removes; it now uses a 10-bin frequency axis and passes on both master and the branch)
+  - 2026-09-04: the maintainer (schoffelen) pushed two commits onto the PR branch (6a03c27 "reorganised code, added comments", 5e7e454 "added tests"): the `normalize='yes'` denominator is now built from the raw coherency magnitudes (`|C(f)||C(f+1)| + 1`, the `+1` kept with a FIXME), `nansum` became `sum(..., 'omitnan')`, and `test_ft_connectivity_psi` gained a two-channel time-shifted simulation with 501 bins plus a `rpt_chancmb_freq` case, both with and without `normalize`. He asked for `test_pull2610` to be removed (its reference reproduced the old denominator, so it is circular and fails with his change) and for a dpss issue.
+  - 2026-09-05: `test_pull2610` removed from the branch (9af1fc4). On head 5e7e454 under Octave 8.4 (`verify/pull2610-octave/head5e7e454.results`, `sum.m` shim for `'omitnan'`): `test_ft_connectivity_psi` PASS, `test_ft_connectivityanalysis` (hanning) PASS, `test_pull2610` fails on the normalized reference as expected. Replies drafted: `issue-ft13-reply-2610-tests.md` (PR #2610), `issue-ft14-reply-2609-edge-bins.md` (his NaN-or-data question on #2609); the dpss issue is `issue-ft12-dpss-hack-two-outputs.md` (reproduction `verify/ft12_dpss_hack_two_outputs.m`). The kit copy of `test_pull2610.m` in `tests/` is kept as the record.
+- FT2 → [#2613](https://github.com/fieldtrip/fieldtrip/pull/2613) **merged 2026-09-04** by schoffelen ("Looks good to me. Thanks."). #2608, #2611, #2612 open without comments.
 
-- FT7 → [fieldtrip/fieldtrip#2611](https://github.com/fieldtrip/fieldtrip/pull/2611); FTR → [#2612](https://github.com/fieldtrip/fieldtrip/pull/2612); FT2 → [#2613](https://github.com/fieldtrip/fieldtrip/pull/2613) (all filed 2026-09-02, open)
+- FT7 → [fieldtrip/fieldtrip#2611](https://github.com/fieldtrip/fieldtrip/pull/2611); FTR → [#2612](https://github.com/fieldtrip/fieldtrip/pull/2612) (filed 2026-09-02, open)
 
 Copies of both test scripts are in `tests/`. Each passes on its PR branch and
 fails on unpatched master (FieldTrip's `test_pullNNNN.m` convention: `DATA no`,
@@ -31,7 +34,7 @@ runnable outside the DCCN).
 | finding | branch | head | compare page |
 |---|---|---|---|
 | FT1 | `fix/permutation-pvalue-ties` | 3713810 | https://github.com/fieldtrip/fieldtrip/compare/master...cindykrafft:fieldtrip:fix/permutation-pvalue-ties?expand=1 |
-| FT11 | `fix/psi-edge-bin` | cf99d1d | https://github.com/fieldtrip/fieldtrip/compare/master...cindykrafft:fieldtrip:fix/psi-edge-bin?expand=1 |
+| FT11 | `fix/psi-edge-bin` | 9af1fc4 (7 commits: ours + 2 by the maintainer) | https://github.com/fieldtrip/fieldtrip/compare/master...cindykrafft:fieldtrip:fix/psi-edge-bin?expand=1 |
 | FT7 | `fix/correlationT-df` | a65f5a6 | https://github.com/fieldtrip/fieldtrip/compare/master...cindykrafft:fieldtrip:fix/correlationT-df?expand=1 |
 | FTR | `fix/depsamplesregrT-cvar` | 684f26c | https://github.com/fieldtrip/fieldtrip/compare/master...cindykrafft:fieldtrip:fix/depsamplesregrT-cvar?expand=1 |
 | FT2 | `fix/twosided-warning` | 656e974 | https://github.com/fieldtrip/fieldtrip/compare/master...cindykrafft:fieldtrip:fix/twosided-warning?expand=1 |

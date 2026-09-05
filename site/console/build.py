@@ -96,7 +96,8 @@ def r2(key, owner, repo, base, template, guide, issue_files, pr_needs, order_not
         if ex: d["existing"]=ex
         issues.append(d)
     prs=[]
-    for p,needs in zip(r2_prs(A+f"{key}/upstream/pr-bodies.md"), pr_needs):
+    import os as _os
+    for p,needs in zip(r2_prs(A+f"{key}/upstream/pr-bodies.md") if _os.path.exists(A+f"{key}/upstream/pr-bodies.md") else [], pr_needs):
         d=dict(id=needs, title=p["title"], body=p["body"], branch=p["branch"], needs=needs)
         ex=next((i.get("existing") for i in issues if i["id"]==needs), None)
         if ex: d["existing"]=ex
@@ -131,6 +132,10 @@ repos["deeptools"]=dict(owner="deeptools",repo="deepTools",fork="cindykrafft/dee
   guide="Markdown issue checklist and four-checkbox PR template; flake8 + pytest + cargo test on the 4.0.0 tree (Rust backend, Python in pydeeptools/). All patches here are against 4.0.0 master (branches fix4/* on the fork, made on 6f939b0). The maintainers closed #1108, #1130 and #1423 on 2026-09-05 with the 4.0.0 merge; #1118 (MNase) is still open. PyPI still ships 3.5.6.",
   issues=_dt_issues,prs=_dt_prs,
   order_note="4.0.0 is unreleased and being worked on today, so the two pre-release reports go first: DTN1 (bamCompare --operation first/second/add/mean write the log2 track) and DTN2 (plotPCA writes per-bin scores, not loadings), issue then PR each. The DT4 comment + PR on the open #1118 is exempt from the cap. DT8, DT1 (needs a fresh issue), DT3, DT5, DT9, DTN3 and the #1423 residual are held until a reply.")
+r2("fieldtrip","fieldtrip","fieldtrip","master",None,
+   "PRs against master from a fork; no issue template. Five PRs and two issues are up already (the maintainer, schoffelen, is active on them: #2613 merged, #2610 carries his own commits). FT12 is the issue he asked for on #2610; FT13 and FT14 are replies on threads he wrote in, so they are exempt from the two-unanswered cap.",
+   ["issue-ft12-dpss-hack-two-outputs.md","issue-ft13-reply-2610-tests.md","issue-ft14-reply-2609-edge-bins.md"], [],
+   order_note="Post FT13 on PR #2610 after filing FT12 (it cites the issue number: replace #NNNN). FT14 answers the design question on #2609.")
 r2("bedtools","arq5x","bedtools2","master",None,
    "No CONTRIBUTING, templates, linter or changelog convention; CI is make test; docs/content/history.rst is a hand-edited per-release changelog. BT2 is a comment on open #1142; BT1 relates to open #673 (2018, same defect); BT6 relates to #1089. All five change published numbers, so open the issue and wait for a signal before the PR. BT3 and BT5 are issues only (their fixes need invasive changes).",
    ["issue-bt1-coverage-split-count.md","issue-bt2-intersect-split-F.md","issue-bt3-closest-tie-order.md","issue-bt4-large-chrom-coordinates.md","issue-bt5-pct-float-truncation.md"],
@@ -144,8 +149,8 @@ r2("plink","chrchang","plink-ng","master",None,
 
 # ---- triage (2026-09-03): file only findings that change published numbers under default/common settings; at most two per repo until a maintainer responds
 TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460"},
-      "now":["HC2","PL1","FP2","BT1","CPDB2"],
-      "comment":["DT4","BT2","FP1","FP3"]}
+      "now":["HC2","PL1","FP2","BT1","CPDB2","FT12"],
+      "comment":["DT4","BT2","FP1","FP3","FT13","FT14"]}
 def tier_of(i):
     if i in TIER["filed"]: return "filed"
     if i in TIER["now"]: return "now"
@@ -159,7 +164,7 @@ for r in repos.values():
         p["tier"]=tier_of(p["needs"])
         if p["tier"]=="filed": p["filed_as"]=TIER["filed"][p["needs"]]
     for d in r.get("discussions",[]): d["tier"]="held"
-for k in ("htseq","deeptools","bedtools","fastp","plink"): repos[k]["forked"]=True
+for k in ("htseq","deeptools","bedtools","fastp","plink","fieldtrip"): repos[k]["forked"]=True
 # repositories whose maintainers decline AI-generated contributions (topic on the fork; mirrored in site/audits.json)
 import json as _j
 _cfg=_j.load(open(ROOT+"/site/audits.json"))
