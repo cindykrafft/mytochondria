@@ -7,3 +7,5 @@ bedtools:1123:pr:1143:open
 afni:73:pr:974:open
 deeptools:1423:pr:1451:closed
 spm:106:comment:106:posted
+macs2:715:pr:739:open
+plink:140:pr:387:closed

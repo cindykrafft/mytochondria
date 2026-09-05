@@ -1,0 +1,888 @@
+{
+"taken": "2026-09-05T17:00:00Z",
+"query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
+"items": [
+{
+"repo": "afni/afni",
+"number": 925,
+"kind": "issue",
+"state": "closed",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-28T13:25:00Z"
+},
+{
+"repo": "afni/afni",
+"number": 927,
+"kind": "issue",
+"state": "closed",
+"merged": false,
+"comments": 2,
+"updated": "2026-08-28T13:26:07Z"
+},
+{
+"repo": "afni/afni",
+"number": 945,
+"kind": "issue",
+"state": "closed",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-28T13:53:29Z"
+},
+{
+"repo": "afni/afni",
+"number": 946,
+"kind": "issue",
+"state": "closed",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-28T13:50:33Z"
+},
+{
+"repo": "afni/afni",
+"number": 952,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-28T22:23:14Z"
+},
+{
+"repo": "afni/afni",
+"number": 954,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-28T22:26:47Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1459,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:25:44Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1460,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:28:01Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1461,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:28:20Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1462,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:32:03Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1463,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:32:51Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1465,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:36:12Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1467,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:37:03Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1469,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:38:35Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1471,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:40:00Z"
+},
+{
+"repo": "afni/afni",
+"number": 955,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T20:57:35Z"
+},
+{
+"repo": "afni/afni",
+"number": 957,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T20:59:16Z"
+},
+{
+"repo": "afni/afni",
+"number": 959,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T21:00:59Z"
+},
+{
+"repo": "afni/afni",
+"number": 961,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T21:02:49Z"
+},
+{
+"repo": "afni/afni",
+"number": 963,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T21:03:56Z"
+},
+{
+"repo": "afni/afni",
+"number": 965,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T21:05:18Z"
+},
+{
+"repo": "afni/afni",
+"number": 967,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T21:07:24Z"
+},
+{
+"repo": "afni/afni",
+"number": 968,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T21:08:19Z"
+},
+{
+"repo": "spm/spm",
+"number": 158,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T21:11:45Z"
+},
+{
+"repo": "spm/spm",
+"number": 160,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T21:13:42Z"
+},
+{
+"repo": "spm/spm",
+"number": 162,
+"kind": "issue",
+"state": "closed",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-02T09:27:46Z"
+},
+{
+"repo": "spm/spm",
+"number": 164,
+"kind": "issue",
+"state": "closed",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-02T09:28:12Z"
+},
+{
+"repo": "thelovelab/DESeq2",
+"number": 130,
+"kind": "issue",
+"state": "closed",
+"merged": false,
+"comments": 1,
+"updated": "2026-09-01T18:10:29Z"
+},
+{
+"repo": "thelovelab/DESeq2",
+"number": 131,
+"kind": "issue",
+"state": "closed",
+"merged": false,
+"comments": 1,
+"updated": "2026-09-01T18:08:57Z"
+},
+{
+"repo": "thelovelab/DESeq2",
+"number": 133,
+"kind": "issue",
+"state": "closed",
+"merged": false,
+"comments": 1,
+"updated": "2026-09-01T18:08:24Z"
+},
+{
+"repo": "MouseLand/Kilosort",
+"number": 1044,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-01T21:59:22Z"
+},
+{
+"repo": "MouseLand/Kilosort",
+"number": 1046,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-01T22:00:37Z"
+},
+{
+"repo": "MouseLand/Kilosort",
+"number": 1047,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-01T22:00:54Z"
+},
+{
+"repo": "fieldtrip/fieldtrip",
+"number": 2607,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-01T22:45:03Z"
+},
+{
+"repo": "fieldtrip/fieldtrip",
+"number": 2609,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 1,
+"updated": "2026-09-03T11:21:15Z"
+},
+{
+"repo": "MouseLand/suite2p",
+"number": 1265,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-02T00:47:28Z"
+},
+{
+"repo": "MouseLand/suite2p",
+"number": 1269,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-02T00:48:40Z"
+},
+{
+"repo": "MouseLand/suite2p",
+"number": 1270,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-02T00:48:57Z"
+},
+{
+"repo": "spm/spm",
+"number": 167,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-02T17:23:22Z"
+},
+{
+"repo": "scverse/scanpy",
+"number": 4336,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-02T23:26:04Z"
+},
+{
+"repo": "marcelm/cutadapt",
+"number": 892,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-03T02:21:09Z"
+},
+{
+"repo": "lmcinnes/umap",
+"number": 1286,
+"kind": "issue",
+"state": "closed",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-05T05:22:39Z"
+},
+{
+"repo": "ventolab/CellphoneDB",
+"number": 231,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-03T02:26:20Z"
+},
+{
+"repo": "chrchang/plink-ng",
+"number": 380,
+"kind": "issue",
+"state": "closed",
+"merged": false,
+"comments": 2,
+"updated": "2026-09-03T21:49:59Z"
+},
+{
+"repo": "htseq/htseq",
+"number": 109,
+"kind": "issue",
+"state": "closed",
+"merged": false,
+"comments": 3,
+"updated": "2026-09-03T15:29:11Z"
+},
+{
+"repo": "deeptools/deepTools",
+"number": 1457,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-05T15:09:06Z"
+},
+{
+"repo": "deeptools/deepTools",
+"number": 1459,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-05T15:22:42Z"
+},
+{
+"repo": "afni/afni",
+"number": 926,
+"kind": "pr",
+"state": "closed",
+"merged": true,
+"comments": 0,
+"updated": "2026-08-28T13:24:59Z"
+},
+{
+"repo": "afni/afni",
+"number": 928,
+"kind": "pr",
+"state": "closed",
+"merged": true,
+"comments": 1,
+"updated": "2026-08-28T13:26:06Z"
+},
+{
+"repo": "afni/afni",
+"number": 944,
+"kind": "pr",
+"state": "closed",
+"merged": true,
+"comments": 1,
+"updated": "2026-08-28T13:53:28Z"
+},
+{
+"repo": "afni/afni",
+"number": 947,
+"kind": "pr",
+"state": "closed",
+"merged": true,
+"comments": 1,
+"updated": "2026-08-28T13:50:32Z"
+},
+{
+"repo": "afni/afni",
+"number": 951,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-28T22:23:42Z"
+},
+{
+"repo": "afni/afni",
+"number": 953,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-28T22:27:21Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1464,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:34:28Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1466,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:35:35Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1468,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:37:37Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1470,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:39:15Z"
+},
+{
+"repo": "freesurfer/freesurfer",
+"number": 1472,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-30T22:40:30Z"
+},
+{
+"repo": "afni/afni",
+"number": 956,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T20:58:49Z"
+},
+{
+"repo": "afni/afni",
+"number": 958,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T21:02:01Z"
+},
+{
+"repo": "afni/afni",
+"number": 960,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 1,
+"updated": "2026-09-02T21:27:28Z"
+},
+{
+"repo": "afni/afni",
+"number": 962,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T21:03:31Z"
+},
+{
+"repo": "afni/afni",
+"number": 964,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T21:04:50Z"
+},
+{
+"repo": "afni/afni",
+"number": 966,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-08-31T21:07:46Z"
+},
+{
+"repo": "spm/spm",
+"number": 159,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 3,
+"updated": "2026-09-02T08:19:12Z"
+},
+{
+"repo": "spm/spm",
+"number": 161,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 3,
+"updated": "2026-09-01T16:00:27Z"
+},
+{
+"repo": "spm/spm",
+"number": 163,
+"kind": "pr",
+"state": "closed",
+"merged": true,
+"comments": 3,
+"updated": "2026-09-02T09:27:45Z"
+},
+{
+"repo": "spm/spm",
+"number": 165,
+"kind": "pr",
+"state": "closed",
+"merged": true,
+"comments": 3,
+"updated": "2026-09-02T09:28:19Z"
+},
+{
+"repo": "thelovelab/DESeq2",
+"number": 132,
+"kind": "pr",
+"state": "closed",
+"merged": false,
+"comments": 1,
+"updated": "2026-09-01T18:05:50Z"
+},
+{
+"repo": "MouseLand/Kilosort",
+"number": 1043,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-01T21:59:01Z"
+},
+{
+"repo": "MouseLand/Kilosort",
+"number": 1045,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-01T22:01:51Z"
+},
+{
+"repo": "fieldtrip/fieldtrip",
+"number": 2608,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 3,
+"updated": "2026-09-02T00:14:02Z"
+},
+{
+"repo": "fieldtrip/fieldtrip",
+"number": 2610,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 11,
+"updated": "2026-09-04T08:11:02Z"
+},
+{
+"repo": "fieldtrip/fieldtrip",
+"number": 2611,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-02T00:17:21Z"
+},
+{
+"repo": "fieldtrip/fieldtrip",
+"number": 2612,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-02T00:17:46Z"
+},
+{
+"repo": "fieldtrip/fieldtrip",
+"number": 2613,
+"kind": "pr",
+"state": "closed",
+"merged": true,
+"comments": 2,
+"updated": "2026-09-04T14:30:43Z"
+},
+{
+"repo": "MouseLand/suite2p",
+"number": 1266,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-02T00:47:54Z"
+},
+{
+"repo": "MouseLand/suite2p",
+"number": 1267,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-02T00:48:13Z"
+},
+{
+"repo": "MouseLand/suite2p",
+"number": 1268,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-02T00:48:26Z"
+},
+{
+"repo": "spm/spm",
+"number": 168,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-02T17:23:43Z"
+},
+{
+"repo": "scverse/scanpy",
+"number": 4337,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 1,
+"updated": "2026-09-02T23:42:34Z"
+},
+{
+"repo": "marcelm/cutadapt",
+"number": 893,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-03T03:30:23Z"
+},
+{
+"repo": "lmcinnes/umap",
+"number": 1287,
+"kind": "pr",
+"state": "closed",
+"merged": true,
+"comments": 0,
+"updated": "2026-09-05T05:22:38Z"
+},
+{
+"repo": "chrchang/plink-ng",
+"number": 381,
+"kind": "pr",
+"state": "closed",
+"merged": false,
+"comments": 1,
+"updated": "2026-09-03T14:38:41Z"
+},
+{
+"repo": "htseq/htseq",
+"number": 110,
+"kind": "pr",
+"state": "closed",
+"merged": false,
+"comments": 1,
+"updated": "2026-09-03T15:30:02Z"
+},
+{
+"repo": "google-deepmind/alphafold3",
+"number": 734,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 1,
+"updated": "2026-09-03T20:47:15Z"
+},
+{
+"repo": "deeptools/deepTools",
+"number": 1449,
+"kind": "pr",
+"state": "closed",
+"merged": false,
+"comments": 1,
+"updated": "2026-09-05T06:38:44Z"
+},
+{
+"repo": "afni/afni",
+"number": 974,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-04T17:39:25Z"
+},
+{
+"repo": "arq5x/bedtools2",
+"number": 1143,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-04T17:42:30Z"
+},
+{
+"repo": "ventolab/CellphoneDB",
+"number": 232,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-04T17:45:43Z"
+},
+{
+"repo": "marcelm/cutadapt",
+"number": 894,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-04T17:51:57Z"
+},
+{
+"repo": "deeptools/deepTools",
+"number": 1451,
+"kind": "pr",
+"state": "closed",
+"merged": false,
+"comments": 1,
+"updated": "2026-09-05T06:38:22Z"
+},
+{
+"repo": "OpenGene/fastp",
+"number": 715,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-04T17:58:34Z"
+},
+{
+"repo": "iqtree/iqtree3",
+"number": 207,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-04T18:00:39Z"
+},
+{
+"repo": "deeptools/deepTools",
+"number": 1458,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-05T15:11:33Z"
+},
+{
+"repo": "deeptools/deepTools",
+"number": 1460,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-05T16:43:30Z"
+},
+{
+"repo": "macs3-project/MACS",
+"number": 739,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-05T15:34:46Z"
+},
+{
+"repo": "chrchang/plink-ng",
+"number": 387,
+"kind": "pr",
+"state": "closed",
+"merged": false,
+"comments": 1,
+"updated": "2026-09-05T15:36:47Z"
+}
+]
+}

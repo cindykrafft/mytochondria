@@ -28,7 +28,7 @@ in the kit indefinitely.
 | file now | BEDTools BT1 | `coverage -split` counts blocks, not records, and ignores `-f`/`-F` |
 | file now | CellPhoneDB CPDB2 | strict inequality drops ties, p = 0 for 42.6 % of tested entries; **read the replies on #179 and #60 first** |
 | comment | deepTools DT1 (#1108/#1130), DT4 (#1118); BEDTools BT2 (#1142); fastp FP1 (#474), FP3 (#518) | cause and patch on threads the maintainers keep open |
-| filed | Cutadapt CA1 (#892/#893), umap-learn U1 (#1286/#1287), CellPhoneDB CPDB1 (#231), Scanpy SC1 (#4336/#4337) | 2026-09-02/03, all open, no response yet |
+| filed | Cutadapt CA1 (#892/#893), umap-learn U1 (#1286/#1287), CellPhoneDB CPDB1 (#231), Scanpy SC1 (#4336/#4337) | 2026-09-02/03; umap #1287 merged 2026-09-05, the rest open |
 | held | HTSeq HC1 | API path (`BAM_Reader[iv]`), not `htseq-count` |
 | held | deepTools DT2, DT3, DT5, DT6, DT9 | plot options, an outlier heuristic, docs-vs-code (BPM), a small edge effect, a latent path |
 | held | BEDTools BT3, BT4, BT5 | tie order under one flag; chromosomes over 2.1 Gb; one base at some `-pct` values |
@@ -97,10 +97,10 @@ Assigned issues (2026-09-04): no PR; comment with the diagnosis and a branch lin
 | fieldtrip/fieldtrip | #2345 | `cfg.toi = 'NN%'` is the step, not the overlap | PR ready; every percentage but 50 changes the time axis |
 | afni/afni | #73 | stale AFNI extension time axis; `3dvolreg` zero-byte output with exit 0 | PR #974 open (filed 2026-09-04) |
 | lmcinnes/umap | #1194 | `transform` refuses precomputed distances above 4096 rows | PR ready |
-| chrchang/plink-ng | #140 | `--bmerge` duplicate-ID counts and warning asymmetric | PR ready |
+| chrchang/plink-ng | #140 | `--bmerge` duplicate-ID counts and warning asymmetric | PR #387 filed and closed 2026-09-05 within a minute, one comment (unread from the session; likely the maintainer's own fix, as with #381) |
 | freesurfer/freesurfer | #1358 | `mri_convert --out_orientation` shifts by one voxel per flipped axis | PR ready; large unanswered backlog from us |
 | scverse/scanpy | #3809 | `.distances` keeps `n_neighbors` entries on transformer paths (≥ 8192 cells by default) | PR ready; 6 unread comments on the issue |
-| macs3-project/MACS | #715 | `bdgdiff` scores truncated to integers | PR ready; two held findings in the kit README |
+| macs3-project/MACS | #715 | `bdgdiff` scores truncated to integers | PR #739 open (filed 2026-09-05); two held findings in the kit README |
 | iqtree/iqtree3 | #203 (+ #89, likely #135/#102) | `setRootNode` assertion when the outgroup is absent from a partition/quartet | PR #207 open (filed 2026-09-04) |
 
 Each kit under `audits/<package>/issue-fixes/<n>-<slug>/` records the alternates considered, so the next round can start from those.
