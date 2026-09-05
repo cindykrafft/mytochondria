@@ -90,6 +90,7 @@ matrices). The test builds a matrix with the Rust `computeMatrix` from the shipp
 | `issue-bamcompare-operations.md`, `issue-plotpca-loadings.md`, `issue-computematrixoperations-sort-group.md` | issue texts (Title line first, the four-item issue checklist, MCVE, output, cause with `file:line`, fix) |
 | `pr-body.md` | PR titles and bodies (Title line, `Fixes #NNN.`, the four PR checkboxes) for patches 0001–0003 |
 | `0001-bamCompare-operations.patch`, `0002-plotPCA-loadings.patch`, `0003-computeMatrixOperations-sort-group.patch` | one commit each on `4db9d816`, each `git am`-able alone on a clean tree (0002 carries the two regenerated PNGs as binary hunks); stacked, they conflict only in the `CHANGES.txt` bullet, like the patches of `../` |
+| `0002b-plotPCA-galaxy-wrapper-test.patch` | second commit of PR #1460 (`5df8588` on the fork, on top of `60535f8`): `galaxy/wrapper/plotPCA.xml` test 2 pinned the old per-bin scores, so the `tests_planemo` job failed on `60535f8`; the assertions now expect the loadings (±0.70710 on PC1, eigenvalue 2.9999, only the structure of the degenerate PC2 row) and the three Galaxy golden files are regenerated |
 | `mcve_*.py` + `.before.out` / `.after.out` | the reproductions embedded in the issues, run on the unmodified build and on the patched one |
 | `note_output_rounding.py`, `note_output_rounding.4.0.0.out` | item 3's measurement |
 | `test-runs.txt` | the before/after test numbers, flake8 deltas, `git am` check |
