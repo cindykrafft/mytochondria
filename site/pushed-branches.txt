@@ -14,3 +14,9 @@ freesurfer:fix/issue-1358-out-orientation-center
 scanpy:fix/issue-3809-distances-n-neighbors
 MACS:fix/issue-715-bdgdiff-score-truncation
 iqtree3:fix/issue-203-outgroup-absent-from-partition
+deepTools:fix4/bamcompare-skipzerooverzero-gap
+deepTools:fix4/mnase-odd-fragment-centre
+deepTools:fix4/plotcorrelation-mad-outliers
+deepTools:fix4/multibigwigsummary-exact-stats
+deepTools:fix4/sumcoverage-partial-bins
+deepTools:fix4/issue-1423-gzipped-bed-sortmatrix

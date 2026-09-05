@@ -104,3 +104,17 @@ Assigned issues (2026-09-04): no PR; comment with the diagnosis and a branch lin
 | iqtree/iqtree3 | #203 (+ #89, likely #135/#102) | `setRootNode` assertion when the outgroup is absent from a partition/quartet | PR ready once a fork of iqtree/iqtree3 exists |
 
 Each kit under `audits/<package>/issue-fixes/<n>-<slug>/` records the alternates considered, so the next round can start from those.
+
+### deepTools after the 4.0.0 rewrite (2026-09-04/05)
+
+`master` was replaced by the 4.0.0 squash merge (`4db9d816`, then `6f939b0`): Rust backend, Python
+in `pydeeptools/`. Re-verified by execution (`audits/deeptools/README.md`, top section): DT1 survives
+in part (no shift; a skipped bin is still merged into its neighbours), DT3, DT4, DT5, DT8 (wider:
+every bin ≥ 1280 bp is a zoom summary), DT9 survive; DT2 and DT6 fixed by the rewrite; DT7 not
+applicable (option removed). Six patches on `fix4/*` branches of the fork, all `git am`-clean on
+`6f939b0`, pytest 233 and `cargo test` 48/50 passing. The maintainers closed #1108, #1130, #1423
+and #1140 on 2026-09-05 with the merge; #1118 is still open. Filing plan under the cap: DT8 PR now
+(self-contained body, no prior issue), DT4 comment + PR on the open #1118; DT1 needs a fresh issue
+(its threads closed) and is held with DT3, DT5, DT9 and the residual #1423 sort fix. Two new
+4.0.0-only defects (bamCompare `--operation first|second|add|mean` write the log2 track; plotPCA
+writes per-bin scores instead of loadings) are being kitted as pre-release reports.
