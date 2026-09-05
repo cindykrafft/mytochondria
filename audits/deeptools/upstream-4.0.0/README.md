@@ -118,11 +118,13 @@ fragments wrong with 0002, and `mcve_dt1_skipzerooverzero_gap.py` passes its ass
   the tracker for anything opened since 2026-09-03 — in particular whether the 4.0.0
   merge closed or touched #1108/#1130/#1118/#1423 — before posting.
 
-## New on 4.0.0, outside the ten items (observed while re-verifying; not prepared for filing)
+## New on 4.0.0, outside the ten items (observed while re-verifying)
 
 These are wrong numbers or breaks introduced by the rewrite, seen by execution on
-`4db9d816`. They are recorded here for the lead to decide on; each would need its own
-harness, issue text and (where crisp) patch.
+`4db9d816`. **Items 1–4 are now kitted in [`new/`](new/)** (2026-09-05): items 1, 2 and 4
+with fix branches, patches, tests that fail on `4db9d816` and MCVEs; item 3 as a measured
+note with the defect-vs-design call (no patch). Item 5 is DT8's row above (patch 0004). The
+text below is the original observation.
 
 1. **`bamCompare --operation first|second|add|mean` produce the log2 track.** `calc_ratio`
    (`src/calc.rs:209-259`) has arms for `log2`, `ratio`, `reciprocal_ratio` and `subtract`
@@ -182,5 +184,6 @@ the released version), and for DT8 the numbers by the 4.0.0 row above.
    `CHANGES.txt` bullets. Open DT5 as an issue only.
 3. The #1423 PR from `../issue-fixes/1423-gzipped-bed-sortmatrix/v4.0.0/`, with its
    comment on the thread.
-4. Decide on the five "new on 4.0.0" items; items 1 and 2 change numbers under default or
-   offered settings on the tree upstream is about to release and would rank above DT3/DT9.
+4. The "new on 4.0.0" items 1 and 2 (kitted in [`new/`](new/)) change numbers under default
+   or offered settings on the tree upstream is about to release and rank above DT3/DT9;
+   item 4 follows them, item 3 is an issue without a patch. See `new/README.md`.

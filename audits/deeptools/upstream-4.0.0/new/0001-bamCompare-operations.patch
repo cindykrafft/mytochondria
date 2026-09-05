@@ -1,0 +1,185 @@
+From 37ff4a55910d4bcb6498083ca74752d8938457e1 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Sat, 5 Sep 2026 14:46:31 +0000
+Subject: [PATCH] bamCompare: compute --operation first/second/add/mean and
+ orient reciprocal_ratio as documented
+
+calc_ratio matched only log2, ratio, reciprocal_ratio and subtract; its
+catch-all arm computed the log2 ratio, so the four remaining choices the
+CLI offers (first, second, add, mean) wrote the log2 track.  The
+reciprocal_ratio arm returned b/a for a/b >= 1 and -a/b otherwise, the
+inverse of the documented "a/b if a/b >= 1 else -b/a" that the 3.5.x
+getRatio implemented (2/3 became -0.67 instead of -1.5).
+
+first/second/add/mean output the scaled signals without a pseudocount,
+as before (the --pseudocount help: only used with log2 / ratio).  The
+catch-all now panics on an unknown operation instead of silently
+computing something else.
+
+Tests: the existing test_calc_ratio expectation for reciprocal_ratio
+(6/22 -> -22/6 = -3.67) is corrected, two cargo tests are added, and a
+pytest checks all five operations on the shipped testA/testB.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.txt                                   |  1 +
+ .../test/test_bamCoverage_and_bamCompare.py   | 25 +++++++++++++
+ src/calc.rs                                   | 32 ++++++++++++-----
+ src/tests/test_calc.rs                        | 35 ++++++++++++++++++-
+ 4 files changed, 84 insertions(+), 9 deletions(-)
+
+diff --git a/CHANGES.txt b/CHANGES.txt
+index 56dfe791..7493abc4 100755
+--- a/CHANGES.txt
++++ b/CHANGES.txt
+@@ -16,6 +16,7 @@
+ * alignmentSieve output order matches input order exactly
+ * --missingDataAsZero no longer takes bases exceeding chromosome bounds as 0 values but rather purges the bins
+ * large scale values precision slightly altered with new backend (f32 vs f64)
++* bamCompare --operation first, second, add and mean output what they name (the Rust backend wrote the log2 ratio for all four), and reciprocal_ratio is a/b for a/b >= 1 and -b/a otherwise, as documented (it was inverted)
+ 
+ 3.5.6
+ * minimal supported python version raised to 3.9 (numpy >= 2 support); NaN handling switched to np.nan
+diff --git a/pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py b/pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py
+index 3ec543eb..d8a8054d 100644
+--- a/pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py
++++ b/pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py
+@@ -606,3 +606,28 @@ def test_bam_compare_filter_blacklist():
+         ]
+         assert f"{resp}" == f"{expected}", f"{resp} != {expected}"
+         unlink(outfile)
++
++
++def test_bam_compare_operations_first_second_add_mean_reciprocal():
++    """
++    Every --operation must compute what it names. With --scaleFactors 1:1 the
++    per-bin signals of testA/testB are A: 0,1,1,1 and B: 0,1,1,2 over the four
++    50-bp bins (see the read layout at the top of this file); the default
++    pseudocount (1) only enters reciprocal_ratio.
++    """
++    expected = {
++        'first': ['3R\t0\t100\t0\n', '3R\t100\t200\t1\n'],
++        'second': ['3R\t0\t50\t0\n', '3R\t50\t150\t1\n', '3R\t150\t200\t2\n'],
++        'add': ['3R\t0\t50\t0\n', '3R\t50\t100\t1\n', '3R\t100\t150\t2\n', '3R\t150\t200\t3\n'],
++        'mean': ['3R\t0\t50\t0\n', '3R\t50\t100\t0.5\n', '3R\t100\t150\t1\n', '3R\t150\t200\t1.5\n'],
++        # (A+1)/(B+1): 1, 1/2 -> -2, 1, 2/3 -> -1.5
++        'reciprocal_ratio': ['3R\t0\t50\t1\n', '3R\t50\t100\t-2\n', '3R\t100\t150\t1\n', '3R\t150\t200\t-1.5\n'],
++    }
++    for op, exp in expected.items():
++        _, outfile = tempfile.mkstemp(suffix=".bg")
++        args = "--bamfile1 {} --bamfile2 {} --scaleFactors 1:1 --operation {} " \
++               "-o {} -p 1 --outFileFormat bedgraph".format(BAMFILE_A, BAMFILE_B, op, outfile).split()
++        bam_comp.main(args)
++        resp = open(outfile, 'r').readlines()
++        assert resp == exp, "--operation {}: {} != {}".format(op, resp, exp)
++        unlink(outfile)
+diff --git a/src/calc.rs b/src/calc.rs
+index 0af033bd..5b1b7ff2 100644
+--- a/src/calc.rs
++++ b/src/calc.rs
+@@ -134,14 +134,15 @@ pub fn calc_ratio(
+             return (fcov * 100.0).round() / 100.0;
+         }
+         "reciprocal_ratio" => {
++            // a/b if a/b >= 1, else -b/a (negative fold change), as in the
++            // --operation help and the 3.5.x implementation.
+             let num: f32 = (cov1 * *sf1) + *pseudocount1;
+             let den: f32 = (cov2 * *sf2) + *pseudocount2;
+             let ratio: f32 = num / den;
+             if ratio >= 1.0 {
+-                let fcov: f32 = den / num;
+-                return (fcov * 100.0).round() / 100.0;
++                return (ratio * 100.0).round() / 100.0;
+             } else {
+-                let fcov: f32 = -num / den;
++                let fcov: f32 = -den / num;
+                 return (fcov * 100.0).round() / 100.0;
+             }
+         }
+@@ -151,13 +152,28 @@ pub fn calc_ratio(
+             let fcov: f32 = num - den;
+             return (fcov * 100.0).round() / 100.0;
+         }
+-        _ => {
+-            // No operation is never allowed (on the py arg level, so just default to log2)
+-            let num: f32 = (cov1 * *sf1) + *pseudocount1;
+-            let den: f32 = (cov2 * *sf2) + *pseudocount2;
+-            let fcov: f32 = (num / den).log2();
++        // The remaining operations output the scaled signal(s) without any
++        // pseudocount (the --pseudocount help: only used with log2 / ratio).
++        "first" => {
++            let fcov: f32 = cov1 * *sf1;
++            return (fcov * 100.0).round() / 100.0;
++        }
++        "second" => {
++            let fcov: f32 = cov2 * *sf2;
+             return (fcov * 100.0).round() / 100.0;
+         }
++        "add" => {
++            let fcov: f32 = (cov1 * *sf1) + (cov2 * *sf2);
++            return (fcov * 100.0).round() / 100.0;
++        }
++        "mean" => {
++            let fcov: f32 = ((cov1 * *sf1) + (cov2 * *sf2)) / 2.0;
++            return (fcov * 100.0).round() / 100.0;
++        }
++        _ => {
++            // The CLI restricts --operation to the eight choices above.
++            panic!("Unknown bamCompare operation '{}'", operation);
++        }
+     }
+ }
+ 
+diff --git a/src/tests/test_calc.rs b/src/tests/test_calc.rs
+index 06fce4bb..75d3ce0a 100644
+--- a/src/tests/test_calc.rs
++++ b/src/tests/test_calc.rs
+@@ -76,10 +76,43 @@ mod scalefactor_calculations_tests {
+         let r4 = calc_ratio(cov1, cov2, &sf1, &sf2, &pc1, &pc2, subtract);
+         assert_eq!(r1, -1.87);
+         assert_eq!(r2, 0.27);
+-        assert_eq!(r3, -0.27);
++        // 6/22 < 1, so the reciprocal ratio is -22/6
++        assert_eq!(r3, -3.67);
+         assert_eq!(r4, -16.0);
+     }
+ 
++    #[test]
++    fn test_calc_ratio_reciprocal_ratio_sign_and_orientation() {
++        // a/b if a/b >= 1 else -b/a (the 3.5.x getRatio doctest values)
++        let one: f32 = 1.0;
++        let zero: f32 = 0.0;
++        assert_eq!(calc_ratio(2.0, 1.0, &one, &one, &zero, &zero, "reciprocal_ratio"), 2.0);
++        assert_eq!(calc_ratio(1.0, 2.0, &one, &one, &zero, &zero, "reciprocal_ratio"), -2.0);
++        assert_eq!(calc_ratio(1.0, 1.0, &one, &one, &zero, &zero, "reciprocal_ratio"), 1.0);
++        assert_eq!(calc_ratio(3.0, 2.0, &one, &one, &zero, &zero, "reciprocal_ratio"), 1.5);
++        assert_eq!(calc_ratio(2.0, 3.0, &one, &one, &zero, &zero, "reciprocal_ratio"), -1.5);
++    }
++
++    #[test]
++    fn test_calc_ratio_first_second_add_mean() {
++        // The scaled signals themselves, without pseudocounts.
++        let cov1: f32 = 5.0;
++        let cov2: f32 = 10.0;
++        let sf1: f32 = 1.0;
++        let sf2: f32 = 2.0;
++        let pc1: f32 = 1.0;
++        let pc2: f32 = 2.0;
++        assert_eq!(calc_ratio(cov1, cov2, &sf1, &sf2, &pc1, &pc2, "first"), 5.0);
++        assert_eq!(calc_ratio(cov1, cov2, &sf1, &sf2, &pc1, &pc2, "second"), 20.0);
++        assert_eq!(calc_ratio(cov1, cov2, &sf1, &sf2, &pc1, &pc2, "add"), 25.0);
++        assert_eq!(calc_ratio(cov1, cov2, &sf1, &sf2, &pc1, &pc2, "mean"), 12.5);
++        // and none of them is the log2 ratio
++        let l2 = calc_ratio(cov1, cov2, &sf1, &sf2, &pc1, &pc2, "log2");
++        for op in ["first", "second", "add", "mean"] {
++            assert_ne!(calc_ratio(cov1, cov2, &sf1, &sf2, &pc1, &pc2, op), l2);
++        }
++    }
++
+     #[test]
+     fn test_deseq_scalefactors() {
+         let counts =
+-- 
+2.43.0
+

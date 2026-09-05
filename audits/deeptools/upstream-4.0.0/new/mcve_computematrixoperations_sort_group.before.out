@@ -1,0 +1,7 @@
+computeMatrix      group_labels ['regions']  regions ['geneA', 'geneB', 'geneC', 'geneD']
+   sort with order.bed: exit 1: The computeMatrix output is missing the 'genes' region group. It has {'regions'} but the specified regions have dict_keys(['genes']).
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/deeptools/upstream-4.0.0/new/mcve_computematrixoperations_sort_group.py", line 55, in <module>
+    assert r.returncode == 0, "computeMatrixOperations sort cannot sort the matrix computeMatrix wrote from regions.bed"
+           ^^^^^^^^^^^^^^^^^
+AssertionError: computeMatrixOperations sort cannot sort the matrix computeMatrix wrote from regions.bed

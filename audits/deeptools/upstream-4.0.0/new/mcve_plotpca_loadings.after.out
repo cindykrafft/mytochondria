@@ -1,0 +1,9 @@
+Component	a1	a2	a3	b1	b2	b3	Eigenvalue
+plotPCA 'Component 1' row:                         [-0.408 -0.408 -0.409  0.408  0.409  0.408]
+loadings of the six samples on PC1 (numpy V^T[0]): [-0.408 -0.408 -0.409  0.408  0.409  0.408] (sign arbitrary)
+scores of the first selected bin (numpy (U*S)[0]): [-1.059 -1.086 -0.027 -0.131  0.031 -0.003]
+norm of each Component row: [1. 1. 1. 1. 1. 1.] (loadings: all 1)
+table rows are the sample loadings V^T: True
+table rows are the first six bins' scores (U*S): False
+components whose loadings separate the a and b groups (numpy): [1]
+Component rows of the plotPCA table that separate them:       [1]

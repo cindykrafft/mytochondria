@@ -1,0 +1,36 @@
+# Test runs for the three new-on-4.0.0 fixes, 4db9d816 tree, Python 3.12 venv, deeptools built with 'maturin develop --release' (cargo 1.94.1)
+# CI on 4.0.0: pytest pydeeptools/deeptools/test/ (test_pytest.yml) and cargo test (test_rust.yml); no flake8 step. flake8 with the 3.5.6 CI options run for information (counts are baseline file -> branch file; all findings pre-exist).
+
+== unmodified 4db9d816 (rebuilt this session): full pytest suite 232 passed; cargo test 48 passed
+
+== fix4/bamcompare-operations (37ff4a55, patch 0001, Rust)
+-- new pytest (test_bam_compare_operations_first_second_add_mean_reciprocal) on the unmodified 4db9d816 build: 1 failed, 21 deselected
+   E  assert ['3R\t0\t50\t...200\t-0.58\n'] == ['3R\t0\t100\...00\t200\t1\n']   (--operation first wrote the log2 track)
+-- new/changed cargo tests against the unmodified calc.rs: test_calc_ratio FAILED (left: -0.27, right: -3.67); test_calc_ratio_reciprocal_ratio_sign_and_orientation FAILED (left: 0.5, right: 2.0)
+-- with the patch (maturin develop --release): cargo test 50 passed; test_bamCoverage_and_bamCompare.py 22 passed; full pytest suite 233 passed (69 s)
+-- mcve_bamcompare_operations.py: before 'operations with wrong output: [reciprocal_ratio, first, second, add, mean]' -> after '[]'; ../verify/note_v4_bamcompare_operations.py: all eight '(as expected)', 'identical to the log2 output: []'
+
+== fix4/plotpca-loadings (1c44afdd, patch 0002, Python)
+-- new/changed tests against the unmodified correlation.py: 2 failed, 1 passed, 13 deselected
+   test_plotPCA_default_table_holds_sample_loadings: 'Mismatched elements: 36 / 36' (W @ W.T vs I; [0,0]: 3.98 vs 1.0)
+   test_plotPCA_ntop_smaller_than_samples: 'SystemExit: Not enough principal components (2) to plot 6 samples'
+   test_plotPCA_requested_PC_beyond_ntop_errors_cleanly: passes before and after (kept coverage)
+-- RMS distance of the corrected plots from the old golden PNGs (compare_images, tolerance 0): default 6.81, ggplot 5.69 (image tolerance in the tests is 50)
+-- with the patch: test_plotPCA.py + test_plotcorrelation.py 20 passed; correlation.py doctests 1 passed; full pytest suite 233 passed (70 s)
+-- mcve_plotpca_loadings.py: before 'table rows are the sample loadings V^T: False' -> after 'True', row norms all 1, PC1 separates the groups
+
+== fix4/computematrixoperations-sort-group (8fb70660, patch 0003, Python)
+-- new test (testsort_single_bed_keeps_the_matrix_group_label) against the unmodified computeMatrixOperations.py: E                   SystemExit: The computeMatrix output is missing the 'genes' region group. It has {'input_computeMatrix_regions1'} but the specified regions have dict_keys(['genes']). 1 failed, 7 deselected in 0.16s 
+-- with the patch: test_computeMatrixOperations.py 8 passed; full pytest suite 233 passed (68 s)
+-- mcve_computematrixoperations_sort_group.py: before 'exit 1: The computeMatrix output is missing the 'genes' region group' -> after regions ['geneD', 'geneB', 'geneA', 'geneC']
+
+== flake8 (3.5.6 CI options), baseline file -> branch file
+   fix4/bamcompare-operations pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py: 19 -> 19
+   fix4/plotpca-loadings pydeeptools/deeptools/correlation.py: 6 -> 6
+   fix4/plotpca-loadings pydeeptools/deeptools/test/test_plotPCA.py: 4 -> 4
+   fix4/computematrixoperations-sort-group pydeeptools/deeptools/computeMatrixOperations.py: 0 -> 0
+   fix4/computematrixoperations-sort-group pydeeptools/deeptools/test/test_computeMatrixOperations.py: 0 -> 0
+
+== git am on a clean detached 4db9d816: each of the three patches applies alone. Stacked, the second stops at CHANGES.txt (every patch inserts its bullet at the same line, after the last 4.0.0 bullet), exactly as the five patches of ../ and the #1423 patch do among themselves: the CHANGES.txt hunk is the only textual conflict; re-add the bullet and 'git am --continue'.
+
+Note: the Python branches' full suites ran with the hp extension built from fix4/bamcompare-operations (calc.rs); the extension is not touched by those branches and cargo/pytest pass on both builds.

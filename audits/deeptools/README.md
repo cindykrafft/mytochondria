@@ -46,12 +46,17 @@ fails on `4db9d816` and passes with the patch; with each patch the full pytest s
 233 passed and `cargo test` 48 (50 with 0002's two new tests). Details in
 [`upstream-4.0.0/test-runs.txt`](upstream-4.0.0/test-runs.txt).
 
-**Seen on 4.0.0 outside the ten items** (recorded in `upstream-4.0.0/README.md`, no kit
-yet): `bamCompare --operation first|second|add|mean` write the log2 track and `reciprocal_ratio`
-is inverted against 3.5.6's definition (`src/calc.rs`); the re-implemented plotPCA writes and plots per-bin PC scores instead of
-sample loadings in its default layout; bamCoverage/bamCompare round every output value to
-two decimals; `computeMatrixOperations sort` cannot sort a single-BED Rust-`computeMatrix`
-matrix unless the BED is named `genes.bed`.
+**Seen on 4.0.0 outside the ten items**, now kitted in
+[`upstream-4.0.0/new/`](upstream-4.0.0/new/) (2026-09-05): `bamCompare --operation
+first|second|add|mean` write the log2 track and `reciprocal_ratio` is inverted against 3.5.6's
+definition (`src/calc.rs`; defect, Rust patch 0001); the re-implemented plotPCA writes and
+plots per-bin PC scores instead of sample loadings in its default layout (defect, Python
+patch 0002 with regenerated golden plots); bamCoverage/bamCompare/multiBamSummary round
+every output value to two decimals (12–100 % error on single-read bins at CPM depth — a
+defect in effect whose remedy is a design decision; note with measurements, no patch);
+`computeMatrixOperations sort` cannot sort a single-BED Rust-`computeMatrix` matrix unless
+the BED is named `genes.bed` (defect, Python patch 0003). Each patch's new test fails on
+`4db9d816`; with each, `cargo test` 48/50 and the full pytest suite 233 pass.
 
 ## What this is
 

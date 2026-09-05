@@ -1,0 +1,9 @@
+scale factor s   bamCoverage 4.0.0   bamCoverage_old   exact 1*s   relative error 4.0.0
+0.5              0.5                 0.5               0.5         0 %
+0.034            0.03                0.034             0.034       12 %
+0.012            0.01                0.012             0.012       17 %
+0.004            0                   0.004             0.004       100 %
+0.001            0                   0.001             0.001       100 %
+
+bamCompare log2 of a 1.03-fold change (--scaleFactors 1.03:1 on the same file, pseudocount 0):
+   4.0.0: 0.04   3.5.6 path: 0.0426443   exact: 0.04264

@@ -1,0 +1,4 @@
+computeMatrix      group_labels ['regions']  regions ['geneA', 'geneB', 'geneC', 'geneD']
+   sort with order.bed: regions ['geneD', 'geneB', 'geneA', 'geneC']
+computeMatrix_old  group_labels ['genes']    regions ['geneA', 'geneB', 'geneC', 'geneD']
+   sort with order.bed: regions ['geneD', 'geneB', 'geneA', 'geneC']

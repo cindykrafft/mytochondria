@@ -1,0 +1,10 @@
+bamCompare 4.0.0
+--operation log2             got [ 0.58   nan -1.58   nan  0.     nan]    expected [ 0.58   nan -1.58   nan  0.     nan]
+--operation ratio            got [1.5   nan 0.33  nan 1.    nan]          expected [1.5   nan 0.33  nan 1.    nan]
+--operation subtract         got [ 1.  0. -2.  0.  0.  0.]                expected [ 1.  0. -2.  0.  0.  0.]
+--operation reciprocal_ratio got [ 1.5  nan -3.   nan  1.   nan]          expected [ 1.5  nan -3.   nan  1.   nan]
+--operation first            got [3. 0. 1. 0. 2. 0.]                      expected [3. 0. 1. 0. 2. 0.]
+--operation second           got [2. 0. 3. 0. 2. 0.]                      expected [2. 0. 3. 0. 2. 0.]
+--operation add              got [5. 0. 4. 0. 4. 0.]                      expected [5. 0. 4. 0. 4. 0.]
+--operation mean             got [2.5 0.  2.  0.  2.  0. ]                expected [2.5 0.  2.  0.  2.  0. ]
+operations with wrong output: []

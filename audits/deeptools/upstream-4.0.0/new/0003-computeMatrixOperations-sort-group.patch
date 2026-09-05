@@ -1,0 +1,111 @@
+From 8fb70660a22137698fe34cf67be1a7d197fe5285 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Sat, 5 Sep 2026 14:54:33 +0000
+Subject: [PATCH] computeMatrixOperations sort: accept the single group label
+ the Rust computeMatrix writes
+
+sortMatrix assumed that a matrix built from one region file without
+group labels has its group called "genes" (what the Python computeMatrix
+wrote).  The Rust computeMatrix (4.0.0) names that group after the
+region file, so "computeMatrixOperations sort -R regions.bed" on its
+output exited with "The computeMatrix output is missing the 'genes'
+region group" unless the BED happened to be called genes.bed.  When the
+matrix has exactly one group, use that label as the default group for a
+single sort file; matrices from computeMatrix_old ("genes") and multi-
+group matrices are handled as before.
+
+Test: builds a matrix with computeMatrix from the shipped
+input_computeMatrix_regions1.bed and sorts it with a reversed copy under
+another file name (fails on master with the SystemExit above).
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.txt                                   |  1 +
+ .../deeptools/computeMatrixOperations.py      |  5 +++
+ .../test/test_computeMatrixOperations.py      | 43 +++++++++++++++++++
+ 3 files changed, 49 insertions(+)
+
+diff --git a/CHANGES.txt b/CHANGES.txt
+index 56dfe791..772741ab 100755
+--- a/CHANGES.txt
++++ b/CHANGES.txt
+@@ -16,6 +16,7 @@
+ * alignmentSieve output order matches input order exactly
+ * --missingDataAsZero no longer takes bases exceeding chromosome bounds as 0 values but rather purges the bins
+ * large scale values precision slightly altered with new backend (f32 vs f64)
++* computeMatrixOperations sort accepts a single-BED matrix from the Rust computeMatrix, whose one region group is named after the BED file rather than "genes"
+ 
+ 3.5.6
+ * minimal supported python version raised to 3.9 (numpy >= 2 support); NaN handling switched to np.nan
+diff --git a/pydeeptools/deeptools/computeMatrixOperations.py b/pydeeptools/deeptools/computeMatrixOperations.py
+index 0224f00a..733c53c9 100755
+--- a/pydeeptools/deeptools/computeMatrixOperations.py
++++ b/pydeeptools/deeptools/computeMatrixOperations.py
+@@ -697,7 +697,12 @@ def sortMatrix(hm, regionsFileName, transcriptID, transcript_id_designator, verb
+     regions = []
+     defaultGroup = None
+     if len(regionsFileName) == 1:
++        # A single region file without group labels is one group. The Python
++        # computeMatrix called it "genes"; the Rust computeMatrix names it
++        # after the file, so take the matrix's own label when it has one group.
+         defaultGroup = "genes"
++        if len(hm.parameters['group_labels']) == 1:
++            defaultGroup = hm.parameters['group_labels'][0]
+     for fname in regionsFileName:
+         fp = dti.openPossiblyCompressed(fname)
+         line = dti.getNext(fp)
+diff --git a/pydeeptools/deeptools/test/test_computeMatrixOperations.py b/pydeeptools/deeptools/test/test_computeMatrixOperations.py
+index 1f1af32c..fa7d2acb 100644
+--- a/pydeeptools/deeptools/test/test_computeMatrixOperations.py
++++ b/pydeeptools/deeptools/test/test_computeMatrixOperations.py
+@@ -164,3 +164,46 @@ class TestComputeMatrixOperations(object):
+         expectedh = '10ea07d1aa58f44625abe2142ef76094'
+         assert f'{h}' == f'{expectedh}'
+         os.remove(oname)
++
++    def testsort_single_bed_keeps_the_matrix_group_label(self):
++        """
++        computeMatrixOperations sort on a single-BED matrix from the Rust
++        computeMatrix, whose one region group is named after the BED file
++        (the Python computeMatrix called it "genes"); the sort file is a
++        reordered copy under another name.
++        """
++        import deeptools.computeMatrix2 as cm
++        cmroot = os.path.dirname(os.path.abspath(__file__)) + "/test_data/test_computematrix/"
++        bed = cmroot + "input_computeMatrix_regions1.bed"
++        bw = cmroot + "input_computeMatrix_bw1.bw"
++        _, mat = tempfile.mkstemp(suffix=".mat.gz")
++        cm.main(["reference-point", "-R", bed, "-S", bw, "-b", "20", "-a", "20", "-o", mat, "-p", "1"])
++        f = gzip.GzipFile(mat)
++        d = getHeader(f)
++        names = [line.decode().split("\t")[3] for line in f]
++        f.close()
++        assert d["group_labels"] == ["input_computeMatrix_regions1"]
++
++        # the sort file: the regions in reverse order, without the duplicated
++        # name (cda9 twice; computeMatrix renames the second one cda9_r1)
++        lines, seen = [], set()
++        for line in open(bed):
++            name = line.split("\t")[3]
++            if not line.startswith(("#", "track")) and name not in seen:
++                lines.append(line)
++                seen.add(name)
++        _, reordered = tempfile.mkstemp(suffix=".bed", prefix="reordered_")
++        open(reordered, "w").writelines(lines[::-1])
++        _, out = tempfile.mkstemp(suffix=".mat.gz")
++        cmo.main(["sort", "-m", mat, "-R", reordered, "-o", out])
++        f = gzip.GzipFile(out)
++        d = getHeader(f)
++        sorted_names = [line.decode().split("\t")[3] for line in f]
++        f.close()
++        expected = [n for n in [line.split("\t")[3] for line in lines[::-1]] if n in names]
++        assert d["group_labels"] == ["input_computeMatrix_regions1"]
++        assert d["group_boundaries"] == [0, len(expected)]
++        assert sorted_names == expected
++        os.remove(mat)
++        os.remove(reordered)
++        os.remove(out)
+-- 
+2.43.0
+
