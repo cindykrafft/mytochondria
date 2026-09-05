@@ -1,3 +1,4 @@
+> PR [#1451](https://github.com/deeptools/deepTools/pull/1451) was opened 2026-09-04 against the 3.5.6 tree and closed the next day (one comment, not readable from the working session).
 > **Closed upstream 2026-09-05** with the 4.0.0 merge: the Rust `computeMatrix` reads gzipped BEDs. The `computeMatrixOperations sort` path still fails on 4.0.0; the fix for it is in `v4.0.0/` and on the fork branch `fix4/issue-1423-gzipped-bed-sortmatrix`, held unless the maintainers want a follow-up.
 
 # deepTools issue #1423 — computeMatrix crashes on a gzipped BED

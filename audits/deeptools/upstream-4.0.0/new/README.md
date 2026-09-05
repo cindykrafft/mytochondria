@@ -1,3 +1,5 @@
+**Filed 2026-09-05:** item 1 as issue [#1457](https://github.com/deeptools/deepTools/issues/1457) + PR [#1458](https://github.com/deeptools/deepTools/pull/1458); item 2 as issue [#1459](https://github.com/deeptools/deepTools/issues/1459) + PR [#1460](https://github.com/deeptools/deepTools/pull/1460). Items 3 and 4 held.
+
 # deepTools 4.0.0 — the four defects introduced by the rewrite (filing kit)
 
 _Prepared 2026-09-05 against `deeptools/deepTools` `master` @ `4db9d816` ("4.0.0 cleanup

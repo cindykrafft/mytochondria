@@ -116,5 +116,6 @@ applicable (option removed). Six patches on `fix4/*` branches of the fork, all `
 and #1140 on 2026-09-05 with the merge; #1118 is still open. Filing plan under the cap: DT8 PR now
 (self-contained body, no prior issue), DT4 comment + PR on the open #1118; DT1 needs a fresh issue
 (its threads closed) and is held with DT3, DT5, DT9 and the residual #1423 sort fix. Two new
-4.0.0-only defects (bamCompare `--operation first|second|add|mean` write the log2 track; plotPCA
-writes per-bin scores instead of loadings) are being kitted as pre-release reports.
+4.0.0-only defects were filed 2026-09-05 as pre-release reports: bamCompare `--operation` (#1457, PR #1458) and
+plotPCA loadings (#1459, PR #1460). PR #1451 (the #1423 fix against 3.5.6) was closed after the merge.
+deepTools now has two unanswered filings; everything else there is held.
