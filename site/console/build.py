@@ -148,9 +148,9 @@ r2("plink","chrchang","plink-ng","master",None,
    ["issue-pl1-hwe-threshold-boundary.md"], ["PL1"])
 
 # ---- triage (2026-09-03): file only findings that change published numbers under default/common settings; at most two per repo until a maintainer responds
-TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460"},
+TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460","BT2":"comment on #1142 / PR #1144 (2026-09-05)"},
       "now":["HC2","PL1","FP2","BT1","CPDB2","FT12"],
-      "comment":["DT4","BT2","FP1","FP3","FT13","FT14"]}
+      "comment":["DT4","FP1","FP3","FT13","FT14"]}
 def tier_of(i):
     if i in TIER["filed"]: return "filed"
     if i in TIER["now"]: return "now"

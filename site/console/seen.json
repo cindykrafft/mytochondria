@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-05T17:00:00Z",
+"taken": "2026-09-05T18:50:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -314,8 +314,8 @@
 "kind": "issue",
 "state": "open",
 "merged": false,
-"comments": 1,
-"updated": "2026-09-03T11:21:15Z"
+"comments": 2,
+"updated": "2026-09-05T18:13:36Z"
 },
 {
 "repo": "MouseLand/suite2p",
@@ -656,8 +656,8 @@
 "kind": "pr",
 "state": "open",
 "merged": false,
-"comments": 11,
-"updated": "2026-09-04T08:11:02Z"
+"comments": 13,
+"updated": "2026-09-05T18:12:51Z"
 },
 {
 "repo": "fieldtrip/fieldtrip",
@@ -883,6 +883,24 @@
 "merged": false,
 "comments": 1,
 "updated": "2026-09-05T15:36:47Z"
+},
+{
+"repo": "fieldtrip/fieldtrip",
+"number": 2614,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-05T18:11:40Z"
+},
+{
+"repo": "arq5x/bedtools2",
+"number": 1144,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-05T17:05:26Z"
 }
 ]
 }

@@ -27,7 +27,7 @@ in the kit indefinitely.
 | file now | fastp FP2 | 85 built-in adapters longer than 60 nt are auto-detected and then discarded, so nothing is trimmed |
 | file now | BEDTools BT1 | `coverage -split` counts blocks, not records, and ignores `-f`/`-F` |
 | file now | CellPhoneDB CPDB2 | strict inequality drops ties, p = 0 for 42.6 % of tested entries; **read the replies on #179 and #60 first** |
-| comment | deepTools DT1 (#1108/#1130), DT4 (#1118); BEDTools BT2 (#1142); fastp FP1 (#474), FP3 (#518) | cause and patch on threads the maintainers keep open |
+| comment | deepTools DT1 (#1108/#1130), DT4 (#1118); fastp FP1 (#474), FP3 (#518) | cause and patch on threads the maintainers keep open; BEDTools BT2 posted 2026-09-05 as a comment on #1142 with PR #1144 |
 | filed | Cutadapt CA1 (#892/#893), umap-learn U1 (#1286/#1287), CellPhoneDB CPDB1 (#231), Scanpy SC1 (#4336/#4337) | 2026-09-02/03; umap #1287 merged 2026-09-05, the rest open |
 | held | HTSeq HC1 | API path (`BAM_Reader[iv]`), not `htseq-count` |
 | held | deepTools DT2, DT3, DT5, DT6, DT9 | plot options, an outlier heuristic, docs-vs-code (BPM), a small edge effect, a latent path |
