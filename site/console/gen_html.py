@@ -2,8 +2,9 @@ import json, html
 import os
 OUT=os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
 D=json.load(open(os.path.join(OUT,"data.json"))); FX=json.load(open(os.path.join(OUT,"fixes.json")))
-order=["plink","htseq","deeptools","bedtools","fastp","cutadapt","umap","cellphonedb","scanpy","iqtree"]
-labels={"plink":"PLINK 1.9","htseq":"HTSeq","deeptools":"deepTools","bedtools":"BEDTools","fastp":"fastp","cutadapt":"Cutadapt","umap":"umap-learn","cellphonedb":"CellPhoneDB","scanpy":"Scanpy (Scrublet port)","iqtree":"IQ-TREE 3"}
+order=["fieldtrip","plink","htseq","deeptools","bedtools","fastp","cutadapt","umap","cellphonedb","scanpy","iqtree"]
+order+=[k for k in D if k not in order]  # any repo the builder adds later still renders
+labels={"plink":"PLINK 1.9","htseq":"HTSeq","deeptools":"deepTools","bedtools":"BEDTools","fastp":"fastp","cutadapt":"Cutadapt","umap":"umap-learn","cellphonedb":"CellPhoneDB","scanpy":"Scanpy (Scrublet port)","iqtree":"IQ-TREE 3","fieldtrip":"FieldTrip"}
 page=r'''<title>Mytochondria Filing Console</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
