@@ -1,0 +1,11 @@
+bamCoverage 4.0.0
+--operation log2             3R 0 50 0 | 3R 50 100 -1 | 3R 100 150 0 | 3R 150 200 -0.58  (as expected)
+--operation ratio            3R 0 50 1 | 3R 50 100 0.5 | 3R 100 150 1 | 3R 150 200 0.67  (as expected)
+--operation subtract         3R 0 50 0 | 3R 50 100 -1 | 3R 100 150 0 | 3R 150 200 -1  (as expected)
+--operation reciprocal_ratio 3R 0 50 1 | 3R 50 100 -0.5 | 3R 100 150 1 | 3R 150 200 -0.67  <- expected: 3R 0 50 1 | 3R 50 100 -2 | 3R 100 150 1 | 3R 150 200 -1.5
+--operation first            3R 0 50 0 | 3R 50 100 -1 | 3R 100 150 0 | 3R 150 200 -0.58  <- expected: 3R 0 100 0 | 3R 100 200 1
+--operation second           3R 0 50 0 | 3R 50 100 -1 | 3R 100 150 0 | 3R 150 200 -0.58  <- expected: 3R 0 50 0 | 3R 50 150 1 | 3R 150 200 2
+--operation add              3R 0 50 0 | 3R 50 100 -1 | 3R 100 150 0 | 3R 150 200 -0.58  <- expected: 3R 0 50 0 | 3R 50 100 1 | 3R 100 150 2 | 3R 150 200 3
+--operation mean             3R 0 50 0 | 3R 50 100 -1 | 3R 100 150 0 | 3R 150 200 -0.58  <- expected: 3R 0 50 0 | 3R 50 100 0.5 | 3R 100 150 1 | 3R 150 200 1.5
+
+identical to the log2 output: ['first', 'second', 'add', 'mean']

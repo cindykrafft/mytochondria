@@ -1,0 +1,84 @@
+From 57c38f0b31c9951d74b0acd566331b9c5dea2d97 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Sat, 5 Sep 2026 14:30:28 +0000
+Subject: [PATCH] bamCompare: do not collapse across a bin skipped by
+ --skipZeroOverZero
+
+The run-length collapse of the output (itertools coalesce) merged
+neighbouring intervals whenever their values were equal, without
+checking that they touch.  A bin removed by --skipZeroOverZero (or
+--skipNonCoveredRegions) between two bins of the same value was
+therefore written as part of the run, with that value -- the second
+symptom reported in #1108 and #1130 (the coordinate shift of the
+Python implementation is gone in 4.0.0).  --no_collapse was unaffected.
+Require p.end == c.start before merging.
+
+Test: test_filtering.bam compared with itself (--operation subtract, 0
+everywhere) with 10-bp bins over 3R:0-200; the zero-over-zero bin 60-70
+must split the run into 0-60 and 70-200 (previously a single 0-200).
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.txt                                    |  1 +
+ .../test/test_bamCoverage_and_bamCompare.py    | 18 ++++++++++++++++++
+ src/bamcompare.rs                              |  5 ++++-
+ 3 files changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/CHANGES.txt b/CHANGES.txt
+index 56dfe791..8b23fb30 100755
+--- a/CHANGES.txt
++++ b/CHANGES.txt
+@@ -16,6 +16,7 @@
+ * alignmentSieve output order matches input order exactly
+ * --missingDataAsZero no longer takes bases exceeding chromosome bounds as 0 values but rather purges the bins
+ * large scale values precision slightly altered with new backend (f32 vs f64)
++* bamCompare --skipZeroOverZero: a skipped bin between two bins of equal value is no longer written with that value when adjacent bins are collapsed; the output run stops at the gap (#1108, #1130)
+ 
+ 3.5.6
+ * minimal supported python version raised to 3.9 (numpy >= 2 support); NaN handling switched to np.nan
+diff --git a/pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py b/pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py
+index 3ec543eb..290c1cce 100644
+--- a/pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py
++++ b/pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py
+@@ -606,3 +606,21 @@ def test_bam_compare_filter_blacklist():
+         ]
+         assert f"{resp}" == f"{expected}", f"{resp} != {expected}"
+         unlink(outfile)
++
++
++def test_bam_compare_ZoverZ_interior_bins():
++    """
++    A bin skipped by --skipZeroOverZero must stay absent from the output even
++    when the bins on both sides of it carry the same value: test_filtering.bam
++    has no reads between positions 57 and 78, so with 10-bp bins the bin 60-70
++    is zero-over-zero, and a file compared with itself is 0 everywhere else.
++    The collapsed output must not bridge the gap (#1108, #1130).
++    """
++    _, outfile = tempfile.mkstemp(suffix=".bg")
++    args = "--bamfile1 {0} --bamfile2 {0} --outFileFormat bedgraph --scaleFactors 1:1 --operation subtract " \
++           "--binSize 10 --region 3R:0:200 -o {1} --skipZeroOverZero".format(BAMFILE_FILTER1, outfile).split()
++    bam_comp.main(args)
++    resp = open(outfile).readlines()
++    expected = ['3R\t0\t60\t0\n', '3R\t70\t200\t0\n']
++    assert f"{resp}" == f"{expected}", f"{resp} != {expected}"
++    unlink(outfile)
+diff --git a/src/bamcompare.rs b/src/bamcompare.rs
+index 85dd8b8f..ca553293 100644
+--- a/src/bamcompare.rs
++++ b/src/bamcompare.rs
+@@ -379,7 +379,10 @@ pub fn r_bamcompare(
+ 
+     let lines: Box<dyn Iterator<Item = (String, Value)>> = if collapse {
+         Box::new(raw_lines.coalesce(|p, c| {
+-            if p.1.value == c.1.value && p.0 == c.0 {
++            // Merge equal neighbouring values only when the intervals touch:
++            // a bin removed by --skipZeroOverZero (or --skipNonCoveredRegions)
++            // must not be absorbed into the run around it (#1108, #1130).
++            if p.1.value == c.1.value && p.0 == c.0 && p.1.end == c.1.start {
+                 Ok((
+                     p.0,
+                     Value {
+-- 
+2.43.0
+

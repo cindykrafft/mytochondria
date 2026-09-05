@@ -1,0 +1,15 @@
+bamCoverage 4.0.0
+default (--ntop 1000): shipped loadings equal numpy reference: False; eigenvalues max rel diff 9.99e-01
+--transpose: shipped projections equal numpy reference: False
+
+option set                     equals no-option output?     equals its reference?        PC1 loadings (shipped)
+--log2                         False                        False                        [-0.607  -0.136  -0.1463  0.1461]
+--rowCenter                    False                        False                        [-2.9180e-01 -2.0284e+00  8.0000e-04  0.0000e+00]
+--ntop 0 --log2                False                        False                        [-0.1634  0.04    0.0661  0.1494]
+--ntop 0 --rowCenter           False                        False                        [-0.1615 -0.0275  0.0831  0.    ]
+--ntop 0 --log2 --rowCenter    False                        False                        [-0.2106  0.4641  0.4334  0.    ]
+--transpose --log2             False                        False                        [-17.3606 -13.8828  10.3997  20.8437]
+
+reference PC1 loadings with --log2 (ntop 1000): [0.5022 0.4981 0.5013 0.4985]
+reference PC1 loadings with --rowCenter (ntop 1000): [-0.5844 -0.5517 -0.1061  0.5855]
+exit 0

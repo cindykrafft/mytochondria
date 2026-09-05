@@ -1,0 +1,13 @@
+bamCoverage 4.0.0
+sample A: 9994 reads, 5952 after duplicate removal (40.4% duplicates); sample B: 6000 reads, 5950 after
+
+bamCoverage on A                                           scale factor   1e6/mapped used  track = dedup counts * 1e6 / dedup mapped?
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/deeptools/verify/dt7_ignoreduplicates_scaling.py", line 75, in <module>
+    t, fac = cpm(extra)
+             ^^^^^^^^^^
+  File "/home/user/research-software-audit/audits/deeptools/verify/dt7_ignoreduplicates_scaling.py", line 68, in cpm
+    fac = float(re.search(r"Final scaling factor: ([0-9.e+-]+)", r.stdout + r.stderr).group(1))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'group'
+exit 1

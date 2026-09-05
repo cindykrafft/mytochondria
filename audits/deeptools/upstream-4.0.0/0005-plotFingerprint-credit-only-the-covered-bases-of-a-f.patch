@@ -1,0 +1,110 @@
+From 12a443fcdcd664ad56670c9514ad4a6fd27e806a Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Sat, 5 Sep 2026 14:28:15 +0000
+Subject: [PATCH] plotFingerprint: credit only the covered bases of a
+ fragment's last bin
+
+SumCoveragePerBin.get_coverage_of_region added a whole tile to every
+bin up to the ceiling bin of the fragment end, so a fragment ending
+inside a bin credited that bin with the full tile and the branch for the
+partial last bin only ever added max(0, negative).  The path is taken
+when the sampling step equals --binSize (one multi-bin region per
+chunk); the default sampling uses one region per bin and was exact.
+Replace the three-part bookkeeping with the per-bin overlap.
+
+New test on testB.bam with 40-bp bins: expected sums [0, 30, 40, 50,
+80], previously [0, 30, 60, 60, 80].
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.txt                                   |  1 +
+ pydeeptools/deeptools/sumCoveragePerBin.py    | 29 ++++---------------
+ .../deeptools/test/test_sumCoveragePerBin.py  | 18 ++++++++++++
+ 3 files changed, 24 insertions(+), 24 deletions(-)
+ create mode 100644 pydeeptools/deeptools/test/test_sumCoveragePerBin.py
+
+diff --git a/CHANGES.txt b/CHANGES.txt
+index 56dfe791..714b00f4 100755
+--- a/CHANGES.txt
++++ b/CHANGES.txt
+@@ -16,6 +16,7 @@
+ * alignmentSieve output order matches input order exactly
+ * --missingDataAsZero no longer takes bases exceeding chromosome bounds as 0 values but rather purges the bins
+ * large scale values precision slightly altered with new backend (f32 vs f64)
++* plotFingerprint: a fragment's last bin is credited with the covered bases only, not a whole tile, when the sampling step equals --binSize (--numberOfSamples = genome length / bin size)
+ 
+ 3.5.6
+ * minimal supported python version raised to 3.9 (numpy >= 2 support); NaN handling switched to np.nan
+diff --git a/pydeeptools/deeptools/sumCoveragePerBin.py b/pydeeptools/deeptools/sumCoveragePerBin.py
+index 9cde4555..0f129d0b 100644
+--- a/pydeeptools/deeptools/sumCoveragePerBin.py
++++ b/pydeeptools/deeptools/sumCoveragePerBin.py
+@@ -167,35 +167,16 @@ class SumCoveragePerBin(countReadsPerBin.CountReadsPerBin):
+                         fragmentEnd = reg[0] + len(coverages) * tileSize
+ 
+                     sIdx = vector_start + max((fragmentStart - reg[0]) // tileSize, 0)
+-                    eIdx = vector_start + min(np.ceil(float(fragmentEnd - reg[0]) / tileSize).astype('int'), nRegBins)
+-                    if eIdx >= len(coverages):
+-                        eIdx = len(coverages) - 1
++                    eIdx = vector_start + min(int(np.ceil(float(fragmentEnd - reg[0]) / tileSize)), nRegBins)
+                     if last_eIdx is not None:
+                         sIdx = max(last_eIdx, sIdx)
+                         if sIdx >= eIdx:
+                             continue
+ 
+-                    # First bin
+-                    if fragmentEnd < reg[0] + (sIdx + 1) * tileSize:
+-                        _ = fragmentEnd - fragmentStart
+-                    else:
+-                        _ = reg[0] + (sIdx + 1) * tileSize - fragmentStart
+-                    if _ > tileSize:
+-                        _ = tileSize
+-                    coverages[sIdx] += _
+-                    _ = sIdx + 1
+-                    while _ < eIdx:
+-                        coverages[_] += tileSize
+-                        _ += 1
+-                    while eIdx - sIdx >= nRegBins:
+-                        eIdx -= 1
+-                    if eIdx > sIdx:
+-                        _ = fragmentEnd - (reg[0] + eIdx * tileSize)
+-                        if _ > tileSize:
+-                            _ = tileSize
+-                        elif _ < 0:
+-                            _ = 0
+-                        coverages[eIdx] += _
++                    # add to every bin the number of its bases the fragment covers
++                    for binIdx in range(int(sIdx), int(eIdx)):
++                        binStart = reg[0] + (binIdx - vector_start) * tileSize
++                        coverages[binIdx] += min(fragmentEnd, binStart + tileSize) - max(fragmentStart, binStart)
+                     last_eIdx = eIdx
+ 
+                 c += 1
+diff --git a/pydeeptools/deeptools/test/test_sumCoveragePerBin.py b/pydeeptools/deeptools/test/test_sumCoveragePerBin.py
+new file mode 100644
+index 00000000..3ce7bcfb
+--- /dev/null
++++ b/pydeeptools/deeptools/test/test_sumCoveragePerBin.py
+@@ -0,0 +1,18 @@
++import os
++import numpy as np
++import numpy.testing as nt
++import pysam
++from deeptools.sumCoveragePerBin import SumCoveragePerBin
++
++ROOT = os.path.dirname(os.path.abspath(__file__)) + "/test_data/"
++
++
++def test_sum_coverage_partial_bins():
++    """
++    testB.bam: reads 50-100, 100-150 and twice 150-200 on 3R. With 40-bp bins
++    each fragment ends inside a bin; the bin sums are the covered bases
++    (0, 30, 20+20, 30+10+10, 40+40), not a whole tile for the last bin.
++    """
++    c = SumCoveragePerBin([], stepSize=40, binLength=40)
++    cov = c.get_coverage_of_region(pysam.AlignmentFile(ROOT + "testB.bam"), '3R', [(0, 200, 40)])
++    nt.assert_equal(cov, np.array([0., 30., 40., 50., 80.]))
+-- 
+2.43.0
+

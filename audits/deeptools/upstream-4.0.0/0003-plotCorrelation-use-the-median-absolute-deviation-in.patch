@@ -1,0 +1,73 @@
+From abfe4a2924f75c66a3f28dbb794498405fb84a2f Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Sat, 5 Sep 2026 14:28:16 +0000
+Subject: [PATCH] plotCorrelation: use the median absolute deviation in
+ --removeOutliers
+
+get_outlier_indices scaled the deviation from the median by
+1.4826 * median(|x|) -- the median itself for counts -- instead of
+median(|x - median|), the MAD its docstring and the --removeOutliers
+help name.  Bins were only flagged beyond ~300 times the median, so the
+option removed nothing on count matrices.  One line; the default (no
+option) is unchanged.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.txt                                      |  1 +
+ pydeeptools/deeptools/correlation.py             |  2 +-
+ .../deeptools/test/test_plotcorrelation.py       | 16 ++++++++++++++++
+ 3 files changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/CHANGES.txt b/CHANGES.txt
+index 56dfe791..d94674b9 100755
+--- a/CHANGES.txt
++++ b/CHANGES.txt
+@@ -16,6 +16,7 @@
+ * alignmentSieve output order matches input order exactly
+ * --missingDataAsZero no longer takes bases exceeding chromosome bounds as 0 values but rather purges the bins
+ * large scale values precision slightly altered with new backend (f32 vs f64)
++* plotCorrelation --removeOutliers now uses the median absolute deviation its help text names (median(|x - median|)) instead of median(|x|); bins more than 200 MADs from the median in every sample are removed, which the option never did for count data
+ 
+ 3.5.6
+ * minimal supported python version raised to 3.9 (numpy >= 2 support); NaN handling switched to np.nan
+diff --git a/pydeeptools/deeptools/correlation.py b/pydeeptools/deeptools/correlation.py
+index cd7a35ac..39179f56 100644
+--- a/pydeeptools/deeptools/correlation.py
++++ b/pydeeptools/deeptools/correlation.py
+@@ -108,7 +108,7 @@ class Correlation:
+         """
+         median = np.median(data)
+         b_value = 1.4826  # value set for a normal distribution
+-        mad = b_value * np.median(np.abs(data))
++        mad = b_value * np.median(np.abs(data - median))
+         outliers = []
+         if mad > 0:
+             deviation = abs(data - median) / mad
+diff --git a/pydeeptools/deeptools/test/test_plotcorrelation.py b/pydeeptools/deeptools/test/test_plotcorrelation.py
+index cc05ed73..9efac3c7 100644
+--- a/pydeeptools/deeptools/test/test_plotcorrelation.py
++++ b/pydeeptools/deeptools/test/test_plotcorrelation.py
+@@ -77,3 +77,19 @@ def test_correlation_plot_scatter_ggplot():
+ 
+     res = compare_images(COR_PLOT_GG_2, out_png2_gg, 50)
+     assert res is None, "Plots do not match"
++
++
++def test_get_outlier_indices_uses_median_absolute_deviation():
++    """--removeOutliers documents the median absolute deviation (MAD) rule with
++    a threshold of 200; get_outlier_indices scaled by median(|x|), the median
++    itself for counts, so nothing below ~300x the median was ever flagged."""
++    import numpy as np
++    import numpy.testing as nt
++    from deeptools.correlation import Correlation
++    rng = np.random.RandomState(1)
++    data = rng.poisson(100.0, 5000).astype(float)
++    data[[5, 700, 4200]] = 5000.0
++    # |x - median| / (1.4826 * MAD) with MAD ~ 7 flags the three planted bins;
++    # with median(|x|) in place of the MAD nothing below ~30,000 was flagged
++    nt.assert_equal(sorted(Correlation.get_outlier_indices(data)), [5, 700, 4200])
++    assert len(Correlation.get_outlier_indices(rng.poisson(100.0, 5000).astype(float))) == 0
+-- 
+2.43.0
+

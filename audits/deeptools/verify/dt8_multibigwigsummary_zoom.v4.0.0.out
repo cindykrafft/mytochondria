@@ -1,0 +1,16 @@
+bamCoverage 4.0.0 pyBigWig 0.3.25
+zoom levels (reduction spans in bp) in the bamCoverage bigWig: [640, 2560]
+bins 10000 bp: 200 bins; |reported - exact| / exact: median 1.38e-02, 95th pct 4.39e-01, max 1.56e+00; bins off by > 1%: 110; stats(exact=True) equals numpy: True
+      replicate correlation from the reported values: Pearson 0.9991, Spearman 0.9473; from exact means: Pearson 0.9990, Spearman 0.9086
+      bin 1210000-1220000: reported 12.218, exact 5.510, exact mean of the 10 kb on either side 25.225 / 52.450
+      bin 1450000-1460000: reported 11.489, exact 5.165, exact mean of the 10 kb on either side 16.720 / 5.440
+      bin 150000-160000: reported 12.461, exact 4.865, exact mean of the 10 kb on either side 5.560 / 20.530
+bins  5000 bp: 400 bins; |reported - exact| / exact: median 6.01e-03, 95th pct 8.53e-02, max 1.37e+00; bins off by > 1%: 137; stats(exact=True) equals numpy: True
+bins  2000 bp: 1000 bins; |reported - exact| / exact: median 1.75e-02, 95th pct 2.15e-01, max 2.63e+00; bins off by > 1%: 672; stats(exact=True) equals numpy: True
+      replicate correlation from the reported values: Pearson 0.9989, Spearman 0.5249; from exact means: Pearson 0.9988, Spearman 0.4707
+      bin 342000-344000: reported 17.086, exact 6.550, exact mean of the 10 kb on either side 21.090 / 5.020
+      bin 376000-378000: reported 12.856, exact 4.550, exact mean of the 10 kb on either side 32.125 / 11.800
+      bin 1254000-1256000: reported 18.034, exact 4.975, exact mean of the 10 kb on either side 46.020 / 47.070
+bins  1000 bp: 2000 bins; |reported - exact| / exact: median 0.00e+00, 95th pct 0.00e+00, max 0.00e+00; bins off by > 1%: 0; stats(exact=True) equals numpy: True
+BED-file (200 regions of 200-1500 bp): |reported - exact| / exact: median 0.00e+00, 95th pct 3.53e-02, max 1.26e+00; regions off by > 1%: 20
+exit 0

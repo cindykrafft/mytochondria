@@ -1,0 +1,10 @@
+deeptools 4.0.0
+
+== computeMatrix (Rust backend) genes.bed (default --sortRegions keep)
+RESULT: ok, region order in the matrix: ['geneC', 'geneA', 'geneB']
+
+== computeMatrixOperations sort -R genes.bed
+RESULT: ok, region order after sort: ['geneC', 'geneA', 'geneB']
+
+== computeMatrixOperations sort -R genes.bed.gz
+RESULT: ok, region order after sort: ['geneC', 'geneA', 'geneB']

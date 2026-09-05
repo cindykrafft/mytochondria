@@ -1,0 +1,85 @@
+From 265aaa2149175fa66468b8d80b71c7dfbd9741f1 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Sat, 5 Sep 2026 14:28:16 +0000
+Subject: [PATCH] computeMatrixOperations: decode gzipped BED lines in
+ sortMatrix (#1423)
+
+openPossiblyCompressed opens a gzipped regions file in binary mode, and
+while getNext decodes the header lines, loadBED iterated the remaining
+lines as bytes, so 'computeMatrixOperations sort -R regions.bed.gz'
+crashed with
+
+    TypeError: startswith first arg must be bytes or a tuple of bytes, not str
+
+loadGTF already decoded its lines; do the same in loadBED.  The Rust
+backend of computeMatrix (4.0.0) reads gzipped BED files itself, so the
+computeMatrix half of #1423 is already fixed; this closes the sort path
+(and computeMatrix_old).  Test: sort on a gzipped copy of the existing
+computeMatrixOperations.bed, which fails before this change.
+
+Fixes #1423
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.txt                                   |  1 +
+ .../deeptools/computeMatrixOperations.py      |  2 ++
+ .../test/test_computeMatrixOperations.py      | 20 +++++++++++++++++++
+ 3 files changed, 23 insertions(+)
+
+diff --git a/CHANGES.txt b/CHANGES.txt
+index 56dfe791..894ad69b 100755
+--- a/CHANGES.txt
++++ b/CHANGES.txt
+@@ -16,6 +16,7 @@
+ * alignmentSieve output order matches input order exactly
+ * --missingDataAsZero no longer takes bases exceeding chromosome bounds as 0 values but rather purges the bins
+ * large scale values precision slightly altered with new backend (f32 vs f64)
++* computeMatrixOperations sort no longer crashes with `TypeError: startswith first arg must be bytes` when the regions file is gzipped; loadBED now decodes the lines it reads, as loadGTF already did (#1423; the Rust-backed computeMatrix reads gzipped BED files itself)
+ 
+ 3.5.6
+ * minimal supported python version raised to 3.9 (numpy >= 2 support); NaN handling switched to np.nan
+diff --git a/pydeeptools/deeptools/computeMatrixOperations.py b/pydeeptools/deeptools/computeMatrixOperations.py
+index 0224f00a..bd6c5435 100755
+--- a/pydeeptools/deeptools/computeMatrixOperations.py
++++ b/pydeeptools/deeptools/computeMatrixOperations.py
+@@ -595,6 +595,8 @@ def loadBED(line, fp, fname, labelColumn, labels, regions, defaultGroup):
+     localRegions[name] = len(localRegions)
+ 
+     for line in fp:
++        if not isinstance(line, str):
++            line = line.decode('ascii')
+         if line.startswith("#") and labelColumn is None:
+             if len(localRegions) > 0:
+                 label = line[1:].strip()
+diff --git a/pydeeptools/deeptools/test/test_computeMatrixOperations.py b/pydeeptools/deeptools/test/test_computeMatrixOperations.py
+index 1f1af32c..979307ad 100644
+--- a/pydeeptools/deeptools/test/test_computeMatrixOperations.py
++++ b/pydeeptools/deeptools/test/test_computeMatrixOperations.py
+@@ -164,3 +164,23 @@ class TestComputeMatrixOperations(object):
+         expectedh = '10ea07d1aa58f44625abe2142ef76094'
+         assert f'{h}' == f'{expectedh}'
+         os.remove(oname)
++
++    def testsortGzippedBED(self):
++        """
++        computeMatrixOperations sort with a gzipped BED (issue #1423)
++        """
++        bedgz = "/tmp/computeMatrixOperations.bed.gz"
++        with open(self.bed, "rb") as fin, gzip.open(bedgz, "wb") as fout:
++            fout.write(fin.read())
++        oname = "/tmp/sorted_gz.mat.gz"
++        args = "sort -m {} -o {} -R {}".format(self.matrix, oname, bedgz)
++        args = args.split()
++        cmo.main(args)
++        f = gzip.GzipFile(oname)
++        getHeader(f)  # Skip the header, which can be in a different order
++        h = hashlib.md5(f.read()).hexdigest()
++        f.close()
++        expectedh = '10ea07d1aa58f44625abe2142ef76094'
++        assert f'{h}' == f'{expectedh}'
++        os.remove(oname)
++        os.remove(bedgz)
+-- 
+2.43.0
+

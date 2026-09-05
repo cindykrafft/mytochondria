@@ -1,0 +1,9 @@
+bamCoverage 4.0.0
+column 0: median 100, median|x-median| 7, median|x| 100
+threshold on |x - median| for an outlier: documented rule 2076, shipped rule 29652
+bins flagged in column 0: documented rule 25, shipped get_outlier_indices 0 (planted hot bins: 25)
+
+shipped Pearson, no option        : off-diagonal [0.9984 0.9983 0.9985]  (numpy on all bins: [0.9984 0.9985 0.9983])
+shipped Pearson, --removeOutliers : off-diagonal [0.9984 0.9983 0.9985]  (bins removed: 0)
+documented MAD rule (numpy)       : off-diagonal [-0.0023  0.0008  0.0163]  (bins removed: 25)
+exit 0

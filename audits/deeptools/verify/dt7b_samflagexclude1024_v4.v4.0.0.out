@@ -1,0 +1,10 @@
+bamCoverage 4.0.0
+sample A: 9994 reads, 6000 unmarked (40.0% marked duplicates); sample B: 6000 reads
+
+bamCoverage on A, CPM                    scale factor   1e6/factor       track = dedup counts * 1e6 / dedup mapped (to the 2-decimal output rounding)?
+(no filter)                              100.0600       9994             False (max |diff| 333; 1e6/6000 = 166.6667, 1e6/9994 = 100.0600)
+--samFlagExclude 1024                    166.6667       6000             True (max |diff| 0.00338; 1e6/6000 = 166.6667, 1e6/9994 = 100.0600)
+
+bamCompare --scaleFactorsMethod readCount (A vs B):
+  (no filter)                  factors [0.6004 1.    ]; from deduplicated counts [1. 1.]; from raw counts [0.6004 1.    ]
+  --samFlagExclude 1024        factors [1. 1.]; from deduplicated counts [1. 1.]; from raw counts [0.6004 1.    ]

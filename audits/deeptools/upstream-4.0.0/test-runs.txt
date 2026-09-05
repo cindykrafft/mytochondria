@@ -1,0 +1,69 @@
+# Test runs on the 4.0.0 tree (4db9d816), Python 3.12 venv, deeptools built with 'maturin develop --release' (cargo 1.94.1)
+# CI on 4.0.0: pixi 'test' = pytest pydeeptools/deeptools/test/ (test_pytest.yml) and cargo test (test_rust.yml); no flake8 step.
+# flake8 was run with the 3.5.6 CI options (--ignore=E501,F403,E402,F999,F405,E722,W504,W605) for information only.
+
+== unmodified 4db9d816: full pytest suite:
+232 passed, 2 warnings in 86.00s (0:01:26)
+== unmodified 4db9d816: cargo test:
+test result: ok. 48 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.29s
+
+== Python patches (0003 DT3, 0004 DT8, 0005 DT9, #1423) -- before/after, captured by pytests.sh
+== fix4/multibigwigsummary-exact-stats (cd84ae6f)
+-- new/changed test(s) on unmodified 4db9d816: 
+-- touched test modules with the patch: 8 passed in 0.14s
+-- full suite with the patch: 233 passed, 2 warnings in 63.95s (0:01:03)
+-- flake8 (3.5.6 CI options) on changed files: 0 findings
+== fix4/sumcoverage-partial-bins (12a443fc)
+-- new/changed test(s) on unmodified 4db9d816: 1 failed in 0.10s
+-- touched test modules with the patch: 4 passed in 34.01s
+-- full suite with the patch: 233 passed, 2 warnings in 71.89s (0:01:11)
+-- flake8 (3.5.6 CI options) on changed files: 0 findings
+== fix4/issue-1423-sort-gzipped-bed (265aaa21)
+-- new/changed test(s) on unmodified 4db9d816: 1 failed, 7 deselected in 0.20s
+-- touched test modules with the patch: 8 passed in 2.49s
+-- full suite with the patch: 233 passed, 2 warnings in 68.85s (0:01:08)
+-- flake8 (3.5.6 CI options) on changed files: 0 findings
+== fix4/plotcorrelation-mad-outliers (abfe4a29)
+-- new/changed test(s) on unmodified 4db9d816: 1 failed, 4 deselected in 1.08s
+-- touched test modules with the patch: 20 passed, 1 warning in 9.48s
+-- full suite with the patch: 233 passed, 2 warnings in 66.06s (0:01:06)
+-- flake8 (3.5.6 CI options) on changed files: 10 findings
+-- doctests of the changed modules (with the patches):
+   getScorePerBigWigBin.py: 3 passed, 1 warning in 0.29s
+   sumCoveragePerBin.py: 1 passed, 1 warning in 0.29s
+   correlation.py: 1 passed in 1.50s
+DONE
+
+== Rust patches (0001 DT1, 0002 DT4) -- 'before' pytest against the unmodified 4db9d816 build, cargo test, rebuild, pytest, harnesses; captured by rusttests.sh
+(DT4 cargo test on the new tests with the unmodified filtering.rs: 'test result: FAILED. 1 passed; 1 failed' -- left: Some([173, 174, 175, 176]), right: Some([173, 174, 175]); with the fix: 50 passed)
+== (rerun) fix4/multibigwigsummary-exact-stats: new/changed tests on unmodified 4db9d816:
+   2 failed, 6 deselected in 0.15s
+== fix4/mnase-odd-fragment-centre: new pytest on unmodified 4db9d816 build:
+   1 failed, 21 deselected in 0.09s
+== fix4/bamcompare-skipzerooverzero-gap: new pytest on unmodified 4db9d816 build:
+   1 failed, 21 deselected in 0.10s
+== #1423 repro after the patch (src on fix4/issue-1423-sort-gzipped-bed):
+RESULT: ok, region order in the matrix: ['geneC', 'geneA', 'geneB']
+RESULT: ok, region order after sort: ['geneC', 'geneA', 'geneB']
+RESULT: ok, region order after sort: ['geneC', 'geneA', 'geneB']
+   (before, regenerated with genes.bed): RESULT: ok, region order in the matrix: ['geneC', 'geneA', 'geneB'] RESULT: ok, region order after sort: ['geneC', 'geneA', 'geneB'] RESULT: crashed 
+== fix4/mnase-odd-fragment-centre (acfed5b7): maturin develop --release
+🛠 Installed deeptools-4.0.0
+   hp module: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/issuefix/deeptools/src4fix/pydeeptools/deeptools/hp.cpython-312-x86_64-linux-gnu.so
+-- cargo test: test result: ok. 50 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+-- touched test module with the patch: 22 passed in 0.13s
+-- full suite with the patch: 233 passed, 2 warnings in 68.10s (0:01:08)
+-- flake8 (3.5.6 CI options) on changed .py files: 19 findings
+== fix4/bamcompare-skipzerooverzero-gap (57c38f0b): maturin develop --release
+🛠 Installed deeptools-4.0.0
+   hp module: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/issuefix/deeptools/src4fix/pydeeptools/deeptools/hp.cpython-312-x86_64-linux-gnu.so
+-- cargo test: test result: ok. 48 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.29s
+-- touched test module with the patch: 22 passed in 0.14s
+-- full suite with the patch: 233 passed, 2 warnings in 63.95s (0:01:03)
+-- flake8 (3.5.6 CI options) on changed .py files: 19 findings
+== harnesses against the patched builds
+   dt4 with 0002: fragments with wrong centre bases: 0 of 6 (all odd-length ones: False)
+   mcve_dt1 with 0001: chr1	200	300	0  
+RUSTTESTS-DONE
+
+# The 19 flake8 findings on test_bamCoverage_and_bamCompare.py are all pre-existing on 4db9d816 (17 x E265, 1 x E302, 1 x F401 in the unmodified file); the added tests contribute none (19 before, 19 after on both Rust branches).

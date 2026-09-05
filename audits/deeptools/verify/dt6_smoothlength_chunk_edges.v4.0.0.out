@@ -1,0 +1,10 @@
+bamCoverage 4.0.0
+
+--region chr1:0:3000000: bins differing from the chromosome-wide sliding mean: 0 of 60000
+  bins away from chunk edges equal the reference: True
+
+(genome-wide): bins differing from the chromosome-wide sliding mean: 0 of 60000
+  bins away from chunk edges equal the reference: True
+
+unsmoothed track equals bin counts: True
+exit 0

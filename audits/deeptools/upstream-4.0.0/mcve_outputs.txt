@@ -1,0 +1,20 @@
+== 4.0.0 (4db9d816, maturin build in a Python 3.12 venv): mcve_dt1_skipzerooverzero_gap.py
+got:
+chr1	0	300	0
+
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/deeptools/upstream-4.0.0/mcve_dt1_skipzerooverzero_gap.py", line 17, in <module>
+    assert got == expected, "expected:\n" + expected
+           ^^^^^^^^^^^^^^^
+AssertionError: expected:
+chr1	0	100	0
+chr1	200	300	0
+
+
+== 4.0.0: mcve_dt4_mnase.py (unchanged from the 3.5.6 kit)
+covered interval(s): [['173', '177']]
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/deeptools/upstream-4.0.0/mcve_dt4_mnase.py", line 18, in <module>
+    assert covered == [["173", "176"]], "expected [['173', '176']] (three bases 173, 174, 175)"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: expected [['173', '176']] (three bases 173, 174, 175)

@@ -1,0 +1,13 @@
+bamCoverage 4.0.0
+
+--ntop 500: eigenvalues in the table [2.6273 1.3492 0.0214 0.01  ]; replicated S^2/(n-1) [2.6273 1.3492 0.0214 0.01  ]
+  table row i == (U*S)[i, :], the scores of the i-th selected bin across components: True
+  table row i == Vt[i, :], the samples' loadings on component i (3.5.6 semantics):     False
+  table 'Component 1' row: [-2.8055  0.9591 -0.0033  0.033 ]   loadings of the samples on PC1 would be: [0.4985 0.4971 0.5008 0.5036]
+
+--ntop 0: eigenvalues in the table [3.5474 0.4282 0.0159 0.0095]; replicated S^2/(n-1) [3.5474 0.4282 0.0159 0.0095]
+  table row i == (U*S)[i, :], the scores of the i-th selected bin across components: True
+  table row i == Vt[i, :], the samples' loadings on component i (3.5.6 semantics):     False
+  table 'Component 1' row: [-0.5307  0.0435  0.0925 -0.099 ]   loadings of the samples on PC1 would be: [0.4993 0.4997 0.4996 0.5014]
+
+--transpose: table rows are each sample's projection on the components (Wt.T): first row [-14.1539  -1.9492 -19.2252  35.3283]

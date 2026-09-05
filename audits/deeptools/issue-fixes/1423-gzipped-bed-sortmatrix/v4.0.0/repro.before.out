@@ -1,0 +1,21 @@
+deeptools 4.0.0
+
+== computeMatrix (Rust backend) genes.bed (default --sortRegions keep)
+RESULT: ok, region order in the matrix: ['geneC', 'geneA', 'geneB']
+
+== computeMatrixOperations sort -R genes.bed
+RESULT: ok, region order after sort: ['geneC', 'geneA', 'geneB']
+
+== computeMatrixOperations sort -R genes.bed.gz
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/deeptools/issue-fixes/1423-gzipped-bed-sortmatrix/v4.0.0/repro.py", line 65, in <module>
+    cmo.main("sort -m {} -o {} -R {}".format(mat, out, regions).split())
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/issuefix/deeptools/src/pydeeptools/deeptools/computeMatrixOperations.py", line 846, in main
+    sortMatrix(hm, args.regionsFileName, args.transcriptID, args.transcript_id_designator)
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/issuefix/deeptools/src/pydeeptools/deeptools/computeMatrixOperations.py", line 722, in sortMatrix
+    loadBED(line, fp, fname, labelColumn, labels, regions, defaultGroup)
+  File "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/issuefix/deeptools/src/pydeeptools/deeptools/computeMatrixOperations.py", line 598, in loadBED
+    if line.startswith("#") and labelColumn is None:
+       ^^^^^^^^^^^^^^^^^^^^
+TypeError: startswith first arg must be bytes or a tuple of bytes, not str
+RESULT: crashed

@@ -1,0 +1,10 @@
+bamCoverage 4.0.0
+start    len    documented bases       bamCoverage bases      ok
+100      149    [173, 174, 175]        [173, 174, 175, 176]   False
+600      150    [674, 675]             [674, 675]             True
+1100     151    [1174, 1175, 1176]     [1174, 1175, 1176, 1177] False
+1600     200    [1699, 1700]           [1699, 1700]           True
+2100     131    [2164, 2165, 2166]     [2164, 2165, 2166, 2167] False
+2600     199    [2698, 2699, 2700]     [2698, 2699, 2700, 2701] False
+fragments with wrong centre bases: 4 of 6 (all odd-length ones: True)
+exit 0

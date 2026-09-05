@@ -1,0 +1,143 @@
+From acfed5b7146d92dfa3a14909acc89a5ea08bf40d Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Sat, 5 Sep 2026 14:30:25 +0000
+Subject: [PATCH] bamCoverage --MNase: three centre bases for odd fragment
+ lengths
+
+manipulate_record returned frag_start..frag_start + 4 for an odd
+template length, i.e. four bases -- one left and two right of the
+fragment centre -- where the --MNase help documents "only 3 nucleotides
+at the center of each fragment" (#1118; the Python implementation had
+the same defect through true division of read.tlen).  Even lengths are
+unchanged.
+
+Tests: cargo tests on synthetic proper-pair records of insert size 150,
+149 and 131; a pytest on the shipped test_paired2.bam (147-bp pairs give
+3 bases, 166/154-bp pairs give 2).
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.txt                                   |  1 +
+ .../test/test_bamCoverage_and_bamCompare.py   | 19 +++++++
+ src/filtering.rs                              |  4 +-
+ src/tests/test_filtering.rs                   | 49 +++++++++++++++++++
+ 4 files changed, 72 insertions(+), 1 deletion(-)
+
+diff --git a/CHANGES.txt b/CHANGES.txt
+index 56dfe791..7b9009ef 100755
+--- a/CHANGES.txt
++++ b/CHANGES.txt
+@@ -16,6 +16,7 @@
+ * alignmentSieve output order matches input order exactly
+ * --missingDataAsZero no longer takes bases exceeding chromosome bounds as 0 values but rather purges the bins
+ * large scale values precision slightly altered with new backend (f32 vs f64)
++* bamCoverage --MNase counts the three central bases of an odd-length fragment (it counted four: one left and two right of the centre), as the help text says (#1118)
+ 
+ 3.5.6
+ * minimal supported python version raised to 3.9 (numpy >= 2 support); NaN handling switched to np.nan
+diff --git a/pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py b/pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py
+index 3ec543eb..6a3a6727 100644
+--- a/pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py
++++ b/pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py
+@@ -606,3 +606,22 @@ def test_bam_compare_filter_blacklist():
+         ]
+         assert f"{resp}" == f"{expected}", f"{resp} != {expected}"
+         unlink(outfile)
++
++
++def test_bam_coverage_MNase_odd_fragment_length():
++    """
++    --MNase counts the two central bases of an even-length fragment and the
++    three central bases of an odd-length one. test_paired2.bam has proper
++    pairs of template length 147 (x2, start 5000384), 166 (start 5001010)
++    and 154 (x2, start 5001115) inside the default 130-200 window.
++    """
++    _, outfile = tempfile.mkstemp(suffix=".bg")
++    args = "--bam {} -o {} --MNase --binSize 1 --outFileFormat bedgraph --region chr2:5000000:5002000".format(
++        ROOT + "test_paired2.bam", outfile).split()
++    bam_cov.main(args)
++    resp = open(outfile).readlines()
++    expected = ['chr2\t5000000\t5000456\t0\n', 'chr2\t5000456\t5000459\t2\n', 'chr2\t5000459\t5001092\t0\n',
++                'chr2\t5001092\t5001094\t1\n', 'chr2\t5001094\t5001191\t0\n', 'chr2\t5001191\t5001193\t2\n',
++                'chr2\t5001193\t5002000\t0\n']
++    assert f"{resp}" == f"{expected}", f"{resp} != {expected}"
++    unlink(outfile)
+diff --git a/src/filtering.rs b/src/filtering.rs
+index 35396ec0..5ffec3f0 100644
+--- a/src/filtering.rs
++++ b/src/filtering.rs
+@@ -293,10 +293,12 @@ impl Alignmentfilters {
+                 let recpos: u32 = rec.pos() as u32;
+                 let frag_start = recpos - 1 + rinsertsize / 2;
+ 
++                // Even fragment length: the two central bases; odd: the central
++                // base and its two neighbours (three bases, as documented).
+                 if rinsertsize % 2 == 0 {
+                     return Some((frag_start..frag_start + 2).collect());
+                 } else {
+-                    return Some((frag_start..frag_start + 4).collect());
++                    return Some((frag_start..frag_start + 3).collect());
+                 }
+             }
+             return None;
+diff --git a/src/tests/test_filtering.rs b/src/tests/test_filtering.rs
+index 7b74efdc..7e9b3f47 100644
+--- a/src/tests/test_filtering.rs
++++ b/src/tests/test_filtering.rs
+@@ -242,3 +242,52 @@ mod alignmentfilters_new_tests {
+         assert!(af.filter);
+     }
+ }
++
++mod mnase_centre_tests {
++    use super::*;
++    use rust_htslib::bam::record::{Cigar, CigarString, Record};
++
++    fn mnase_filters() -> Alignmentfilters {
++        Alignmentfilters::new(
++            None, None, None, None, None, None,
++            Some(true), // MNase mode
++            None, None, None, None, None,
++        )
++    }
++
++    fn proper_pair_forward_read(pos: i64, insert_size: i64) -> Record {
++        let mut rec = Record::new();
++        rec.set(
++            b"frag",
++            Some(&CigarString(vec![Cigar::Match(50)])),
++            &[b'A'; 50],
++            &[30u8; 50],
++        );
++        rec.set_tid(0);
++        rec.set_pos(pos);
++        rec.set_flags(99); // paired, proper pair, mate reverse, first in pair
++        rec.set_mtid(0);
++        rec.set_mpos(pos + insert_size - 50);
++        rec.set_insert_size(insert_size);
++        rec
++    }
++
++    #[test]
++    fn test_mnase_even_fragment_two_central_bases() {
++        // fragment [100, 250): central bases 174 and 175
++        let af = mnase_filters();
++        let rec = proper_pair_forward_read(100, 150);
++        assert_eq!(af.manipulate_record(&rec), Some(vec![174, 175]));
++    }
++
++    #[test]
++    fn test_mnase_odd_fragment_three_central_bases() {
++        // fragment [100, 249): centre 174, documented bases 173, 174, 175
++        let af = mnase_filters();
++        let rec = proper_pair_forward_read(100, 149);
++        assert_eq!(af.manipulate_record(&rec), Some(vec![173, 174, 175]));
++        // fragment [1000, 1131): centre 1065
++        let rec = proper_pair_forward_read(1000, 131);
++        assert_eq!(af.manipulate_record(&rec), Some(vec![1064, 1065, 1066]));
++    }
++}
+-- 
+2.43.0
+
