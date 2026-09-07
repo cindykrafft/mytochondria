@@ -134,8 +134,8 @@ repos["deeptools"]=dict(owner="deeptools",repo="deepTools",fork="cindykrafft/dee
   order_note="4.0.0 is unreleased and being worked on today, so the two pre-release reports go first: DTN1 (bamCompare --operation first/second/add/mean write the log2 track) and DTN2 (plotPCA writes per-bin scores, not loadings), issue then PR each. The DT4 comment + PR on the open #1118 is exempt from the cap. DT8, DT1 (needs a fresh issue), DT3, DT5, DT9, DTN3 and the #1423 residual are held until a reply.")
 r2("fieldtrip","fieldtrip","fieldtrip","master",None,
    "PRs against master from a fork; no issue template. Five PRs and two issues are up already (the maintainer, schoffelen, is active on them: #2613 merged, #2610 carries his own commits). FT12 is the issue he asked for on #2610; FT13 and FT14 are replies on threads he wrote in, so they are exempt from the two-unanswered cap.",
-   ["issue-ft12-dpss-hack-two-outputs.md","issue-ft13-reply-2610-tests.md","issue-ft14-reply-2609-edge-bins.md"], [],
-   order_note="Post FT13 on PR #2610 after filing FT12 (it cites the issue number: replace #NNNN). FT14 answers the design question on #2609.")
+   ["issue-ft12-dpss-hack-two-outputs.md","issue-ft13-reply-2610-tests.md","issue-ft14-reply-2609-edge-bins.md","issue-ft15-reply-2610-bandwidth.md","issue-ft16-reply-2614-scope.md"], [],
+   order_note="FT12-FT14 are posted. FT15 answers his 2026-09-07 question on #2610 (the +1 as a bandwidth term; he says the PR is almost ready to merge). FT16 answers his two 2026-09-07 comments on #2614 (minor issue; FAQ draft in the kit; Octave survey offered).")
 r2("bedtools","arq5x","bedtools2","master",None,
    "No CONTRIBUTING, templates, linter or changelog convention; CI is make test; docs/content/history.rst is a hand-edited per-release changelog. BT2 is a comment on open #1142; BT1 relates to open #673 (2018, same defect); BT6 relates to #1089. All five change published numbers, so open the issue and wait for a signal before the PR. BT3 and BT5 are issues only (their fixes need invasive changes).",
    ["issue-bt1-coverage-split-count.md","issue-bt2-intersect-split-F.md","issue-bt3-closest-tie-order.md","issue-bt4-large-chrom-coordinates.md","issue-bt5-pct-float-truncation.md"],
@@ -150,7 +150,7 @@ r2("plink","chrchang","plink-ng","master",None,
 # ---- triage (2026-09-03): file only findings that change published numbers under default/common settings; at most two per repo until a maintainer responds
 TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)"},
       "now":["HC2","PL1","FP2","BT1","CPDB2"],
-      "comment":["DT4","FP1","FP3"]}
+      "comment":["DT4","FP1","FP3","FT15","FT16"]}
 def tier_of(i):
     if i in TIER["filed"]: return "filed"
     if i in TIER["now"]: return "now"
