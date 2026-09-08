@@ -239,6 +239,16 @@
    "repos": [],
    "fork": null,
    "channel": "Bioconductor support site (no GitHub tracker; bioc/edgeR is a read-only mirror)"
+  },
+  {
+   "dir": "lme4",
+   "name": "lme4",
+   "papers": 312,
+   "findings": 2,
+   "repos": [
+    "lme4/lme4"
+   ],
+   "fork": "cindykrafft/lme4"
   }
  ],
  "author": "cindykrafft",
