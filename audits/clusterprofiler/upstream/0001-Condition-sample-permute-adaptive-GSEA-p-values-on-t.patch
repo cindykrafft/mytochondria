@@ -1,0 +1,169 @@
+From 8a491bf2a09683e4ef79f3e0e56e5e727f35d842 Mon Sep 17 00:00:00 2001
+From: Mytochondria audit <cynthiacondra@gmail.com>
+Date: Tue, 8 Sep 2026 15:44:39 +0000
+Subject: [PATCH] Condition sample/permute/adaptive GSEA p-values on the sign
+ of the permutation ES
+
+gsea(method = "sample" | "permute") and adaptive = TRUE divided the number of
+permutations at least as extreme as the observed ES by the total number of
+permutations. GSEA (Subramanian et al. 2005), fgsea, DOSE and enrichit's own
+multilevel method use the permutations whose ES has the same sign as the
+observed one, so these p-values were about half of the multilevel ones for the
+same gene set (exact enumeration on 24 genes / sets of 3: 0.45 vs 0.88).
+
+The observed ES on the "sample" path is now compared through the same sparse
+routine that scores the permutations, so a set lying entirely at one end of the
+list (ES = +/-1) is no longer reported at the permutation floor.
+
+Adds a regression test against an exact enumeration and a NEWS entry.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ NEWS.md                    |  4 ++++
+ src/gsea.cpp               | 43 +++++++++++++++++++++++++++++---------
+ tests/testthat/test-gsea.R | 28 +++++++++++++++++++++++++
+ 3 files changed, 65 insertions(+), 10 deletions(-)
+
+diff --git a/NEWS.md b/NEWS.md
+index 3c807bc..7f49870 100644
+--- a/NEWS.md
++++ b/NEWS.md
+@@ -1,3 +1,7 @@
++# enrichit 0.2.2.001
++
+++ `gsea(method = "sample" | "permute")` and `adaptive = TRUE` now compute the nominal p-value against the permutation ES of the same sign as the observed ES (the GSEA convention used by `method = "multilevel"`, fgsea and DOSE); previously the denominator counted all permutations, so these p-values were about half of the multilevel ones. The observed ES of the "sample" path is now compared through the same routine that scores the permutations, so a gene set lying entirely at one end of the list (ES = ±1) is no longer reported at the permutation floor (2026-09-08, Tue)
++
+ # enrichit 0.2.2
+ 
+ + align `gsea_gson()` p-value filtering with the historical clusterProfiler/DOSE behavior: `pvalueCutoff` now requires both the raw p-value and the adjusted p-value (`p.adjust`) to pass the cutoff (previously only the raw p-value was filtered), restoring significant-pathway counts comparable to clusterProfiler <= 4.18.x (2026-08-14, Fri)
+diff --git a/src/gsea.cpp b/src/gsea.cpp
+index 1e4118a..2670483 100644
+--- a/src/gsea.cpp
++++ b/src/gsea.cpp
+@@ -324,19 +324,33 @@ Rcpp::DataFrame gsea(const Rcpp::NumericVector& stats,
+         double sum_neg_es = 0.0;
+         int count_pos = 0;
+         int count_neg = 0;
++        int count_same_sign = 0;   // permutations whose ES has the sign of the observed ES
++        
++        // For the "sample" method the null ES come from calculate_es_sparse(); compare the
++        // observed ES computed by the same routine so that an ES of exactly +1/-1 (all members
++        // at one end of the list) is not missed through a different rounding path.
++        double obs_cmp = obs_es;
++        if (method != "permute") {
++            std::vector<int> hit_idx;
++            for (int g = 0; g < n_genes; ++g) if (gs_bools[i][g]) hit_idx.push_back(g);
++            obs_cmp = calculate_es_sparse(gene_stats, hit_idx, exponent);
++        }
+         
+         for (int p = 0; p < nPerm; ++p) {
+             double pes = perm_es[i][p];
+             if (obs_es > 0) {
+-                if (pes >= obs_es) count_better++;
+-                if (pes >= 0) { sum_pos_es += pes; count_pos++; }
++                if (pes >= obs_cmp) count_better++;
++                if (pes >= 0) { sum_pos_es += pes; count_pos++; count_same_sign++; }
+             } else {
+-                if (pes <= obs_es) count_better++;
++                if (pes <= obs_cmp) count_better++;
+                 if (pes < 0) { sum_neg_es += pes; count_neg++; }
++                if (pes <= 0) count_same_sign++;
+             }
+         }
+         
+-        pvalues[i] = (double)(count_better + 1) / (double)(nPerm + 1);
++        // GSEA nominal p-value (Subramanian et al. 2005): the null distribution is the
++        // permutation ES of the same sign as the observed ES, as in fgsea and DOSE.
++        pvalues[i] = std::min(1.0, (double)(count_better + 1) / (double)(count_same_sign + 1));
+         
+         if (obs_es > 0) {
+             double mean_pos = (count_pos > 0) ? (sum_pos_es / count_pos) : 1.0;
+@@ -467,6 +481,14 @@ Rcpp::DataFrame gsea_adaptive(const Rcpp::NumericVector& stats,
+         double sum_neg_es = 0.0;
+         int count_pos = 0;
+         int count_neg = 0;
++        int count_same_sign = 0;
++        
++        double obs_cmp = obs_es;
++        if (method != "permute") {
++            std::vector<int> hit_idx;
++            for (int g = 0; g < n_genes; ++g) if (gs_bools[i][g]) hit_idx.push_back(g);
++            obs_cmp = calculate_es_sparse(gene_stats, hit_idx, exponent);
++        }
+         
+         int batch_size = minPerm;
+         bool converged = false;
+@@ -503,18 +525,19 @@ Rcpp::DataFrame gsea_adaptive(const Rcpp::NumericVector& stats,
+                 
+                 // Update counts
+                 if (obs_es > 0) {
+-                    if (perm_es >= obs_es) count_better++;
+-                    if (perm_es >= 0) { sum_pos_es += perm_es; count_pos++; }
++                    if (perm_es >= obs_cmp) count_better++;
++                    if (perm_es >= 0) { sum_pos_es += perm_es; count_pos++; count_same_sign++; }
+                 } else {
+-                    if (perm_es <= obs_es) count_better++;
++                    if (perm_es <= obs_cmp) count_better++;
+                     if (perm_es < 0) { sum_neg_es += perm_es; count_neg++; }
++                    if (perm_es <= 0) count_same_sign++;
+                 }
+             }
+             
+             total_perms += batch_size;
+             
+-            // Calculate current p-value
+-            double current_pval = (double)(count_better + 1) / (double)(total_perms + 1);
++            // Calculate current p-value (same-sign null, see gsea())
++            double current_pval = std::min(1.0, (double)(count_better + 1) / (double)(count_same_sign + 1));
+             
+             // Early stopping conditions
+             if (total_perms >= minPerm) {
+@@ -533,7 +556,7 @@ Rcpp::DataFrame gsea_adaptive(const Rcpp::NumericVector& stats,
+         }
+         
+         // Final p-value and NES calculation
+-        pvalues[i] = (double)(count_better + 1) / (double)(total_perms + 1);
++        pvalues[i] = std::min(1.0, (double)(count_better + 1) / (double)(count_same_sign + 1));
+         actual_perms[i] = total_perms;
+         
+         if (obs_es > 0) {
+diff --git a/tests/testthat/test-gsea.R b/tests/testthat/test-gsea.R
+index 609565a..6f6ab45 100644
+--- a/tests/testthat/test-gsea.R
++++ b/tests/testthat/test-gsea.R
+@@ -348,3 +348,31 @@ test_that("gsea_gson pvalueCutoff filters on both pvalue and p.adjust", {
+     }
+   }
+ })
++
++test_that("sample/permute/adaptive p-values use the same-sign permutation null (GSEA convention)", {
++  # 24 genes, sets of 3: the null of every C(24, 3) = 2024 gene sets is enumerated exactly
++  set.seed(124)
++  stats <- sort(rnorm(24), decreasing = TRUE)
++  names(stats) <- sprintf("g%02d", 1:24)
++  es_of <- function(idx) {
++    hits <- seq_along(stats) %in% idx
++    rs <- cumsum(ifelse(hits, abs(stats), 0)) / sum(abs(stats[hits])) - cumsum(!hits) / (length(stats) - length(idx))
++    if (abs(max(rs)) >= abs(min(rs))) max(rs) else min(rs)
++  }
++  null <- apply(combn(24, 3), 2, es_of)
++  p_exact <- function(es) if (es >= 0) mean(null[null >= 0] >= es) else mean(null[null < 0] <= es)
++  sets <- list(mid = names(stats)[c(8, 12, 16)], bottom = names(stats)[22:24], top = names(stats)[1:3])
++  exact <- vapply(sets, function(s) p_exact(es_of(match(s, names(stats)))), numeric(1))
++  for (m in c("sample", "permute")) {
++    res <- suppressWarnings(gsea(stats, sets, minGSSize = 1, maxGSSize = 23, method = m, nPerm = 20000, seed = 5, verbose = FALSE))
++    got <- setNames(res$pvalue, res$ID)[names(sets)]
++    # a same-sign null gives p ~ 0.88 for 'mid'; the unconditional null gave ~ 0.45
++    expect_equal(unname(got["mid"]), unname(exact["mid"]), tolerance = 0.05)
++    # sets at the very bottom (ES = -1 exactly) must count their own configuration
++    expect_gt(unname(got["bottom"]), 0.0005)
++    expect_equal(unname(got["top"]), unname(exact["top"]), tolerance = 0.5)
++  }
++  res <- suppressWarnings(gsea(stats, sets["mid"], minGSSize = 1, maxGSSize = 23, method = "sample", adaptive = TRUE,
++                               minPerm = 2000, maxPerm = 20000, seed = 7, verbose = FALSE))
++  expect_equal(res$pvalue, unname(exact["mid"]), tolerance = 0.05)
++})
+-- 
+2.43.0
+

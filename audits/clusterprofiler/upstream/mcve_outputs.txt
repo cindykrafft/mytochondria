@@ -1,0 +1,41 @@
+### mcve_cp1_gsea_table_rawp.R under clusterProfiler devel + enrichit 0.2.1 (CRAN release, 2026-08-04)
+clusterProfiler v4.21.1.002 Learn more at https://yulab-smu.top/contribution-knowledge-mining/
+Please cite:
+G Yu. Thirteen years of clusterProfiler. The Innovation. 2024,
+5(6):100722
+Attaching package: 'clusterProfiler'
+The following object is masked from 'package:stats':
+    filter
+enrichit 0.2.1 
+rows in the result table: 14   rows with p.adjust > 0.05: 14   max p.adjust: 0.965 
+Error: all(res$p.adjust <= 0.05) is not TRUE
+Execution halted
+### same under enrichit 0.2.2 (GitHub devel a261244)
+clusterProfiler v4.21.1.002 Learn more at https://yulab-smu.top/contribution-knowledge-mining/
+Please cite:
+T Wu, E Hu, S Xu, M Chen, P Guo, Z Dai, T Feng, L Zhou, W Tang, L Zhan,
+X Fu, S Liu, X Bo, and G Yu. clusterProfiler 4.0: A universal
+enrichment tool for interpreting omics data. The Innovation. 2021,
+2(3):100141
+Attaching package: 'clusterProfiler'
+The following object is masked from 'package:stats':
+    filter
+enrichit 0.2.2 
+rows in the result table: 0   rows with p.adjust > 0.05: 0   max p.adjust: -Inf 
+Warning message:
+In max(res$p.adjust) : no non-missing arguments to max; returning -Inf
+
+### mcve_cp4_sample_pvalue.R under enrichit 0.2.2 (devel a261244)
+enrichit 0.2.2: ES = 0.3810; exact p (same-sign null) = 0.8824; exact P(ES* >= ES) over all sets = 0.4521
+gsea(method = 'sample', nPerm = 2e5) p = 0.4458   gsea(method = 'multilevel') p = 0.8789
+Error: abs(r$pvalue - p_same_sign) < 0.05 is not TRUE
+Execution halted
+
+### mcve_cp5_ora_zero_overlap_bh.R under enrichit 0.1.4 (CRAN 2026-04-08)
+enrichit 0.1.4 
+rows in @result: 200   rows with Count = 0: 99   S1 p = 2.61e-18  p.adjust = 5.22e-16   (BH over the 101 sets with Count > 0 would give 2.64e-16 )
+Error: all(r$Count > 0) is not TRUE
+Execution halted
+### same under enrichit 0.2.1
+enrichit 0.2.1 
+rows in @result: 101   rows with Count = 0: 0   S1 p = 2.61e-18  p.adjust = 2.64e-16   (BH over the 101 sets with Count > 0 would give 2.64e-16 )
