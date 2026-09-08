@@ -203,6 +203,25 @@ for d in sorted(glob.glob(A+"*/issue-fixes/*/")):
     fixes.append(dict(filed=FILED.get((pkg,n)), stale=(pkg in STALE_OFF), pkg=pkg, owner=o, repo=r, base=base, fork=fork, assigned=assigned, forked=(fork.split("/")[1]+":"+branch) in PUSHED, issue=n, title=title, body=body, comment=foot(cm.strip()) if cm.strip() else "", branch=branch,
                       declines=(pkg in _declined)))
 json.dump(fixes, open(os.path.join(OUT,"fixes.json"),"w"), indent=1)
+# ---- ordered action list (2026-09-08): what to do next, top first; everything else waits for a signal
+ACTIONS=[
+ dict(kind="fix", pkg="umap", issue=1194, why="umap merged PR #1287 on 2026-09-05, so a second fix is in policy; the branch merges cleanly with today's master and its four precomputed-transform tests pass there"),
+ dict(kind="issue", key="deeptools", id="DT4", why="a comment on #1118, a thread the maintainers keep open, so it is exempt from the two-unanswered cap: cause and a one-token fix for the 4.0.0 Rust backend"),
+ dict(kind="pr", key="deeptools", id="DT4", why="the PR for that comment; open it right after the comment and fill in the number"),
+]
+WAITING=[
+ ("BEDTools BT1 (coverage -split counts blocks)", "a reply on #1142, PR #1143 or PR #1144 (cap reached)"),
+ ("CellPhoneDB CPDB2 (p-value ties, p = 0)", "a reply on #231 or PR #232 (cap reached)"),
+ ("fastp FP2 (adapter over 60 bases), FP1, FP3", "owner's hold of 2026-09-05; PR #715 unanswered"),
+ ("Scanpy #3809 fix, SR1/SR3 (Scrublet port)", "a reply on PR #4337 or #4336"),
+ ("Kilosort #1039 fix", "a reply on PR #1043, PR #1045 or issues #1044/#1046/#1047"),
+ ("Suite2p #1079 (assigned upstream; comment only)", "a reply on PR #1266-#1268 or issues #1265/#1269/#1270"),
+ ("FieldTrip #2345 fix", "#2608, #2610, #2611 or #2612 merged or answered (#2610 is 'almost ready to merge')"),
+ ("deepTools DT1, DT5, DT8, DT9, DTN3", "a reply on #1457/#1458 or #1459/#1460"),
+ ("SPM and AFNI second fixes", "not chosen yet; their first fixes were merged, so they are next to prepare"),
+ ("HTSeq HC1/HC2, FreeSurfer #1358", "never: the maintainers decline AI-generated contributions"),
+]
+json.dump(dict(actions=ACTIONS, waiting=WAITING), open(os.path.join(OUT,"actions.json"),"w"), indent=1)
 print("issue fixes:", [(f["pkg"], f["issue"], f["forked"]) for f in fixes])
 for k,msg in {}.items():
     if k in repos:

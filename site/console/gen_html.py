@@ -1,7 +1,7 @@
 import json, html
 import os
 OUT=os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
-D=json.load(open(os.path.join(OUT,"data.json"))); FX=json.load(open(os.path.join(OUT,"fixes.json")))
+D=json.load(open(os.path.join(OUT,"data.json"))); FX=json.load(open(os.path.join(OUT,"fixes.json"))); ACT=json.load(open(os.path.join(OUT,"actions.json")))
 order=["fieldtrip","plink","htseq","deeptools","bedtools","fastp","cutadapt","umap","cellphonedb","scanpy","iqtree"]
 order+=[k for k in D if k not in order]  # any repo the builder adds later still renders
 labels={"plink":"PLINK 1.9","htseq":"HTSeq","deeptools":"deepTools","bedtools":"BEDTools","fastp":"fastp","cutadapt":"Cutadapt","umap":"umap-learn","cellphonedb":"CellPhoneDB","scanpy":"Scanpy (Scrublet port)","iqtree":"IQ-TREE 3","fieldtrip":"FieldTrip"}
@@ -38,6 +38,7 @@ details{margin-top:10px;border-top:1px dashed var(--line);padding-top:6px}summar
 .field{margin-top:10px}.field .eyebrow{display:block;margin-bottom:4px}
 pre.body{margin:0;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:12.5px;line-height:1.5;white-space:pre-wrap;word-break:break-word;max-height:340px;overflow:auto}
 .tier-block{margin:14px 0 18px}.eyebrow.tier{margin:0 0 4px;color:var(--accent)}details.tier-held{margin:10px 0 18px;border:1px dashed var(--line-strong);border-radius:8px;padding:8px 14px}details.tier-held>summary{font-size:13.5px;color:var(--muted)}details.tier-held ol.steps{margin-top:8px}
+ol.actions>li.action{list-style:none}ol.actions>li.action>.eyebrow.tier{margin:18px 0 6px;font-size:12px;letter-spacing:.04em;text-transform:none;color:var(--ink)}ul.waiting{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--muted)}ul.waiting strong{color:var(--ink);font-weight:600}
 .done .card{border-color:var(--done)}.done h3::before{content:"✓ ";color:var(--done)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--ground);padding:9px 14px;border-radius:6px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}
 @media (prefers-reduced-motion:reduce){.toast{transition:none}}
@@ -45,12 +46,12 @@ pre.body{margin:0;background:var(--code);border:1px solid var(--line);border-rad
 <main>
   <p class="eyebrow">Mytochondria · sixteen packages · triaged 2026-09-04</p>
   <h1>Mytochondria Filing Console</h1>
-  <p class="lede">One section per repository, newest first. Each section is split into what to file now, comments on issues the maintainers already have open, what is filed, and what is held back until a maintainer gives a positive signal. Where a finding matches an issue that is already open, the card opens that issue and the text is a comment to paste. The Cutadapt, umap-learn and CellPhoneDB sections carry what was filed on 2026-09-03. Each button opens GitHub with the form prefilled where the text fits in a URL; where it does not, the button opens the form with the title only and the Copy button carries the body. Repositories you have not forked yet show their PR steps greyed out: fork them and tell me, and I will push the branches. Scrublet's original repository is skipped as unmaintained (last commit 2020, open issues unanswered).</p>
+  <p class="lede">The first section is the ordered list of what to do next, then what waits for a maintainer's signal. Below that, one section per repository, newest first. Each section is split into what to file now, comments on issues the maintainers already have open, what is filed, and what is held back until a maintainer gives a positive signal. Where a finding matches an issue that is already open, the card opens that issue and the text is a comment to paste. The Cutadapt, umap-learn and CellPhoneDB sections carry what was filed on 2026-09-03. Each button opens GitHub with the form prefilled where the text fits in a URL; where it does not, the button opens the form with the title only and the Copy button carries the body. Repositories you have not forked yet show their PR steps greyed out: fork them and tell me, and I will push the branches. Scrublet's original repository is skipped as unmaintained (last commit 2020, open issues unanswered).</p>
   <div id="root"></div>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
-const D = __DATA__; const FX = __FIXES__;
+const D = __DATA__; const FX = __FIXES__; const ACT = __ACTIONS__;
 const ORDER = __ORDER__; const LABELS = __LABELS__;
 const LIMIT = 6800;
 const state = load();
@@ -139,9 +140,21 @@ function fixCard(f){
 }
 function render(){
   const root=document.getElementById("root"); root.innerHTML="";
-  if (FX.length){
+  const taken=new Set();
+  const actionCards=ACT.actions.map((a,n)=>{
+    let inner="";
+    if (a.kind==="fix"){ const f=FX.find(x=>x.pkg===a.pkg&&x.issue===a.issue); if(!f) return ""; taken.add("fix|"+a.pkg+"|"+a.issue); inner=fixCard(f); }
+    else { const r=D[a.key]; if(!r) return ""; const it=(a.kind==="issue"?r.issues:r.prs).find(x=>x.id===a.id); if(!it) return ""; taken.add(a.kind+"|"+a.key+"|"+a.id); inner=(a.kind==="issue"?issueCard(r,a.key,it):prCard(r,a.key,it)); }
+    return `<li class="action"><p class="eyebrow tier">${n+1} · ${esc(a.why)}</p><ol class="steps">${inner}</ol></li>`;
+  }).join("");
+  const waiting=ACT.waiting.map(([what,until])=>`<li><strong>${esc(what)}</strong> — until ${esc(until)}</li>`).join("");
+  const top=document.createElement("section");
+  top.innerHTML=`<h2 class="repo">Do next <span class="eyebrow">in order · ${ACT.actions.length}</span></h2><div class="guide"><span class="eyebrow">how this list is made</span><br>One fix per repository at a time; a second only where the first was accepted. Nothing new on a repository with two unanswered filings, nothing at all where the maintainers decline AI-generated contributions, and comments on threads the maintainers keep open are exempt from the cap.</div><ol class="steps actions">${actionCards}</ol><details class="tier-held" open><summary>Waiting for a signal · ${ACT.waiting.length}</summary><ul class="waiting">${waiting}</ul></details>`;
+  root.appendChild(top);
+  const FXrest=FX.filter(f=>!taken.has("fix|"+f.pkg+"|"+f.issue));
+  if (FXrest.length){
     const sec=document.createElement("section");
-    sec.innerHTML=`<h2 class="repo">Fixes for the projects' own open issues <span class="eyebrow">README step 6 · ${FX.length}</span></h2><div class="guide"><span class="eyebrow">what this is</span><br>Each card answers a bug a user or maintainer already reported. Open the issue and read the thread first (its comments are not visible from the audit session), then open the PR, then paste the comment with the PR number.</div><ol class="steps">${FX.map(fixCard).join("")}</ol>`;
+    sec.innerHTML=`<h2 class="repo">Fixes for the projects' own open issues <span class="eyebrow">README step 6 · ${FXrest.length}</span></h2><div class="guide"><span class="eyebrow">what this is</span><br>Each card answers a bug a user or maintainer already reported: what is filed, what is held, and what cannot be filed. Cards on the Do-next list above are not repeated here.</div><ol class="steps">${FXrest.map(fixCard).join("")}</ol>`;
     root.appendChild(sec);
   }
   for (const key of ORDER){
@@ -151,8 +164,8 @@ function render(){
     if (r.declines_ai){ h+=`<div class="note"><strong>Do not file.</strong> The maintainers of ${esc(r.owner+"/"+r.repo)} have said they do not take AI-generated contributions (topic <span class="mono">upstream-declines-ai-contributions</span> on the fork). Nothing below is to be opened, commented or pushed; open items are theirs to close.</div>`; sec.innerHTML=h; root.appendChild(sec); continue; }
     if (r.order_note) h+=`<div class="note">${r.stale?"<strong>Upstream rewritten.</strong> ":""}${esc(r.order_note)}</div>`;
     const buckets={now:[],comment:[],filed:[],held:[]};
-    for (const i of r.issues){ buckets[i.tier].push(issueCard(r,key,i)); for (const p of r.prs) if (p.needs===i.id) buckets[p.tier].push(prCard(r,key,p)); }
-    for (const p of r.prs) if (!r.issues.some(i=>i.id===p.needs)) buckets[p.tier].push(prCard(r,key,p));
+    for (const i of r.issues){ if(!taken.has("issue|"+key+"|"+i.id)) buckets[i.tier].push(issueCard(r,key,i)); for (const p of r.prs) if (p.needs===i.id && !taken.has("pr|"+key+"|"+p.id)) buckets[p.tier].push(prCard(r,key,p)); }
+    for (const p of r.prs) if (!r.issues.some(i=>i.id===p.needs) && !taken.has("pr|"+key+"|"+p.id)) buckets[p.tier].push(prCard(r,key,p));
     for (const d of (r.discussions||[])) buckets[d.tier||"held"].push(discCard(r,key,d));
     for (const [t,label,why] of TIERS){
       const items=buckets[t]; if (!items.length) continue;
@@ -172,5 +185,5 @@ function render(){
 render();
 </script>
 '''
-page=page.replace("__DATA__", json.dumps(D).replace("</","<\\/")).replace("__ORDER__", json.dumps(order)).replace("__FIXES__", json.dumps(FX).replace("</","<\\/")).replace("__LABELS__", json.dumps(labels))
+page=page.replace("__DATA__", json.dumps(D).replace("</","<\\/")).replace("__ORDER__", json.dumps(order)).replace("__FIXES__", json.dumps(FX).replace("</","<\\/")).replace("__LABELS__", json.dumps(labels)).replace("__ACTIONS__", json.dumps(ACT).replace("</","<\\/"))
 open(os.path.join(OUT,"filing-console.html"),"w").write(page); print(len(page),"bytes")
