@@ -19,7 +19,7 @@ port <- function(y, lib.size, MinSampleSize, min.count=10, min.total.count=15, l
 }
 
 set.seed(11)
-mismatch <- 0; ntests <- 0; kept <- c()
+mismatch <- 0; ntests <- 0; kept <- c(); boundary <- 0
 for (rep in 1:30) {
   G <- 3000; n <- sample(4:30, 1)
   ngroups <- sample(2:4, 1)
@@ -50,13 +50,18 @@ for (rep in 1:30) {
   # (e) large.n / min.prop rule with a big group
   k5 <- filterByExpr(d, group=group, large.n=3, min.prop=0.5, min.count=mc)
   r5 <- port(y, L*nf, min(table(group)), large.n=3, min.prop=0.5, min.count=mc)
-  for (p in list(list(k1, r1), list(k2, r2), list(k3, r3), list(k4, r4), list(k5, r5))) {
+  # a disagreement is "at the boundary" (EG3) when the gene has exactly min.count reads in a
+  # library whose size equals the median library size used by that call
+  atb <- function(keep, ref, ls) { jm <- which(ls == median(ls)); if (!length(jm)) return(0); sum((keep != ref) & (y[, jm[1]] == mc)) }
+  for (p in list(list(k1, r1, L*nf), list(k2, r2, L*nf), list(k3, r3, colSums(y)), list(k4, r4, L), list(k5, r5, L*nf))) {
     ntests <- ntests + 1
     mismatch <- mismatch + sum(p[[1]] != p[[2]])
+    boundary <- boundary + atb(p[[1]], p[[2]], p[[3]])
   }
   kept <- c(kept, mean(k1))
 }
-cat("30 random datasets x 5 call forms:", ntests, "comparisons,", mismatch, "gene-level disagreements between filterByExpr and the port\n")
+cat("30 random datasets x 5 call forms:", ntests, "comparisons,", mismatch, "gene-level disagreements between filterByExpr and the port,",
+    boundary, "of them genes with exactly min.count reads in the median-size library (the EG3 boundary case)\n")
 cat("fraction of genes kept (group form), range:", signif(range(kept), 3), "\n")
 
 # The CPM cutoff and MinSampleSize for a concrete case, printed for the review

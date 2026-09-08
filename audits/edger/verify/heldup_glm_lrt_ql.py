@@ -108,9 +108,9 @@ print(f"  F = (LR/df.test)/s2.post: max |diff| {np.max(np.abs(Fstat - F_port)):.
 print(f"  p = pf(F, 1, df.total, lower=FALSE): max |diff| {np.max(np.abs(pQL - p_port)):.2e}   (Poisson bound: {int(np.sum(pQL > p_port + 1e-12))} genes raised)")
 
 # --- part 3: new QL (legacy=FALSE) ---------------------------------------------------------
-_, has_legacy = run_r('cat("legacy" %in% names(formals(edgeR:::glmQLFit.default)))', V)
+_, has_legacy = run_r('cat(packageVersion("edgeR") >= "4.2.0")', V)
 if has_legacy.strip() != "TRUE":
-    print("\npart 3: this version has no legacy=FALSE method (skipped)")
+    print("\npart 3: legacy=FALSE is not this version's default and top.proportion did not exist yet (skipped)")
     raise SystemExit(0)
 outs, txt = run_r("""
 o <- as.numeric(o)

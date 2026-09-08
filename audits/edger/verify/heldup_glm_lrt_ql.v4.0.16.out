@@ -12,16 +12,5 @@ part 2: glmQLFit(legacy=TRUE)/glmQLFTest arithmetic, 2000 genes (0 with exact-ze
   s2.post / df.prior vs limma::squeezeVar called directly: max |diff| 0.00e+00 / 0.00e+00  (df.prior 2.416)
   F = (LR/df.test)/s2.post: max |diff| 2.84e-13;  df.total = min(df.prior+df.res, sum df.res): max |diff| 0.00e+00
   p = pf(F, 1, df.total, lower=FALSE): max |diff| 1.94e-15   (Poisson bound: 0 genes raised)
-Traceback (most recent call last):
-  File "/home/user/research-software-audit/audits/edger/verify/heldup_glm_lrt_ql.py", line 115, in <module>
-    outs, txt = run_r("""
-                ^^^^^^^^^
-  File "/home/user/research-software-audit/audits/edger/verify/rrun.py", line 45, in run_r
-    raise RuntimeError("R failed:\n" + r.stderr + "\n" + r.stdout)
-RuntimeError: R failed:
-Error in glmQLFit.default(y, X, offset = off, AveLogCPM = A) : 
-  No dispersion values provided.
-Calls: glmQLFit -> glmQLFit.default
-Execution halted
 
-
+part 3: legacy=FALSE is not this version's default and top.proportion did not exist yet (skipped)

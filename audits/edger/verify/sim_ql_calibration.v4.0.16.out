@@ -29,3 +29,45 @@ P(p<.05)/P(p<.01): fraction of genes with raw p below the level (on null data: t
   QL           0.1286   0.0815    530.4    0.043    0.640
   QL.legacy    0.1286   0.0815    530.4    0.043    0.640
   exact        0.1364   0.0884    589.1    0.084    0.681
+
+[typical dispersions] 5 vs 5 samples, 10% DE genes (8 replicates, ~8000 genes before filtering):
+  test       P(p<.05) P(p<.01)   BH<.05      FDR    power
+  LRT          0.1446   0.1044    770.9    0.066    0.911
+  QL           0.1373   0.0992    733.9    0.042    0.889
+  QL.legacy    0.1373   0.0992    733.9    0.042    0.889
+  exact        0.1439   0.1040    767.0    0.062    0.910
+
+[moderate dispersions] 3 vs 3 samples, 0% DE genes (8 replicates, ~8000 genes before filtering):
+  test       P(p<.05) P(p<.01)   BH<.05      FDR    power
+  LRT          0.0560   0.0144      0.9    0.500       NA
+  QL           0.0462   0.0091      0.0    0.000       NA
+  QL.legacy    0.0462   0.0091      0.0    0.000       NA
+  exact        0.0537   0.0135      0.6    0.500       NA
+
+[moderate dispersions] 3 vs 3 samples, 10% DE genes (8 replicates, ~8000 genes before filtering):
+  test       P(p<.05) P(p<.01)   BH<.05      FDR    power
+  LRT          0.1205   0.0675    376.4    0.087    0.435
+  QL           0.1103   0.0586    286.6    0.041    0.348
+  QL.legacy    0.1103   0.0586    286.6    0.041    0.348
+  exact        0.1177   0.0661    364.4    0.080    0.424
+
+[harsh dispersions] 3 vs 3 samples, 0% DE genes (16 replicates, ~8000 genes before filtering):
+  test       P(p<.05) P(p<.01)   BH<.05      FDR    power
+  LRT          0.0554   0.0142      2.1    0.625       NA
+  QL           0.0414   0.0077      0.1    0.062       NA
+  QL.legacy    0.0414   0.0077      0.1    0.062       NA
+  exact        0.0494   0.0120      0.8    0.312       NA
+
+[harsh dispersions] 3 vs 3 samples, 10% DE genes (16 replicates, ~8000 genes before filtering):
+  test       P(p<.05) P(p<.01)   BH<.05      FDR    power
+  LRT          0.0932   0.0383     89.6    0.173    0.102
+  QL           0.0765   0.0278     24.9    0.024    0.033
+  QL.legacy    0.0765   0.0278     24.9    0.024    0.033
+  exact        0.0860   0.0350     75.1    0.125    0.090
+
+[harsh dispersions] 5 vs 5 samples, 10% DE genes (16 replicates, ~8000 genes before filtering):
+  test       P(p<.05) P(p<.01)   BH<.05      FDR    power
+  LRT          0.1055   0.0529    206.1    0.085    0.258
+  QL           0.0920   0.0426    135.9    0.023    0.182
+  QL.legacy    0.0920   0.0426    135.9    0.023    0.182
+  exact        0.1015   0.0504    196.6    0.073    0.249

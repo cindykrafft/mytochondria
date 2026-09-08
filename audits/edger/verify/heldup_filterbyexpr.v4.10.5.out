@@ -1,5 +1,5 @@
 edgeR 4.10.5 
-30 random datasets x 5 call forms: 150 comparisons, 62 gene-level disagreements between filterByExpr and the port
+30 random datasets x 5 call forms: 150 comparisons, 62 gene-level disagreements between filterByExpr and the port, 62 of them genes with exactly min.count reads in the median-size library (the EG3 boundary case)
 fraction of genes kept (group form), range: 0.325 0.719 
 
 lib sizes 1..6 million, min.count=10: CPM cutoff =  2.857143 ; MinSampleSize = 3

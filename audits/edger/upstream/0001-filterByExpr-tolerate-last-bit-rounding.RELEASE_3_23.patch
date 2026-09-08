@@ -1,0 +1,69 @@
+From 6a05bb340a6037bba37bc367e90037a083c298d2 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Tue, 8 Sep 2026 15:32:42 +0000
+Subject: [PATCH] filterByExpr(): tolerate last-bit rounding at the CPM cutoff
+
+A gene with exactly min.count reads in the median-size library has CPM
+mathematically equal to CPM.Cutoff and should count towards MinSampleSize.
+cpm() computes y*1e6/lib.size in C while the cutoff is min.count/lib.size*1e6
+in R; the two round to different last bits for about 12% of library sizes
+(17% with the pre-4.4 C++ code), so such genes fail the "CPM >= CPM.Cutoff"
+test by one ulp and are dropped although the documented rule keeps them.
+Compare against CPM.Cutoff*(1-tol) with the tolerance already used for the
+sample-count comparison, and add a boundary case to the tests.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ R/filterByExpr.R            | 6 +++++-
+ tests/edgeR-Tests.R         | 2 ++
+ tests/edgeR-Tests.Rout.save | 3 +++
+ 3 files changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/R/filterByExpr.R b/R/filterByExpr.R
+index 2b23af1..7cd4185 100644
+--- a/R/filterByExpr.R
++++ b/R/filterByExpr.R
+@@ -62,7 +62,11 @@ filterByExpr.default <- function(y, design=NULL, group=NULL, lib.size=NULL, min.
+ 	CPM.Cutoff <- min.count/MedianLibSize*1e6
+ 	CPM <- cpm(y,lib.size=lib.size)
+ 	tol <- 1e-14
+-	keep.CPM <- rowSums(CPM >= CPM.Cutoff) >= (MinSampleSize - tol)
++#	Relative tolerance on the CPM comparison. A count of exactly min.count in the
++#	median-size library has CPM equal to CPM.Cutoff, but cpm() (y*1e6/lib.size in C)
++#	and the cutoff expression above round to different last bits for many library
++#	sizes, so the exact comparison would fail for a fraction of such genes.
++	keep.CPM <- rowSums(CPM >= CPM.Cutoff*(1-tol)) >= (MinSampleSize - tol)
+ 
+ #	Total count cutoff
+ 	keep.TotalCount <- (rowSums(y) >= min.total.count - tol)
+diff --git a/tests/edgeR-Tests.R b/tests/edgeR-Tests.R
+index 694c45a..fa796bc 100644
+--- a/tests/edgeR-Tests.R
++++ b/tests/edgeR-Tests.R
+@@ -10,6 +10,8 @@ rownames(y) <- paste("Tag",1:nrow(y),sep=".")
+ d <- DGEList(counts=y,group=rep(1:2,each=2),lib.size=1001:1004)
+ 
+ filterByExpr(d)
++# a gene with exactly min.count reads in the median-size library is on the CPM cutoff and is kept
++filterByExpr(rbind(c(5,10,5),c(5,11,5)), group=c(1,2,1), lib.size=c(1e6,1000010,3e6))
+ 
+ # estimate common dispersion and find differences in expression
+ d <- estimateCommonDisp(d)
+diff --git a/tests/edgeR-Tests.Rout.save b/tests/edgeR-Tests.Rout.save
+index 5d0ba8a..e531ae8 100644
+--- a/tests/edgeR-Tests.Rout.save
++++ b/tests/edgeR-Tests.Rout.save
+@@ -34,6 +34,9 @@ Loading required package: limma
+  FALSE  FALSE  FALSE   TRUE  FALSE  FALSE   TRUE  FALSE  FALSE   TRUE   TRUE 
+ Tag.12 Tag.13 Tag.14 Tag.15 Tag.16 Tag.17 Tag.18 Tag.19 Tag.20 Tag.21 Tag.22 
+   TRUE   TRUE  FALSE  FALSE   TRUE   TRUE  FALSE  FALSE   TRUE   TRUE   TRUE 
++> # a gene with exactly min.count reads in the median-size library is on the CPM cutoff and is kept
++> filterByExpr(rbind(c(5,10,5),c(5,11,5)), group=c(1,2,1), lib.size=c(1e6,1000010,3e6))
++[1] TRUE TRUE
+ > 
+ > # estimate common dispersion and find differences in expression
+ > d <- estimateCommonDisp(d)
+-- 
+2.43.0
+

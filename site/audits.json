@@ -230,6 +230,15 @@
     "ShiLab-Bioinformatics/subread"
    ],
    "fork": "cindykrafft/subread"
+  },
+  {
+   "dir": "edger",
+   "name": "edgeR",
+   "papers": 318,
+   "findings": 3,
+   "repos": [],
+   "fork": null,
+   "channel": "Bioconductor support site (no GitHub tracker; bioc/edgeR is a read-only mirror)"
   }
  ],
  "author": "cindykrafft",
