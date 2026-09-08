@@ -249,6 +249,19 @@
     "lme4/lme4"
    ],
    "fork": "cindykrafft/lme4"
+  },
+  {
+   "dir": "clusterprofiler",
+   "name": "clusterProfiler + fgsea",
+   "papers": 244,
+   "findings": 8,
+   "repos": [
+    "YuLab-SMU/clusterProfiler",
+    "YuLab-SMU/enrichit",
+    "YuLab-SMU/DOSE",
+    "ctlab/fgsea"
+   ],
+   "fork": "cindykrafft/clusterProfiler"
   }
  ],
  "author": "cindykrafft",

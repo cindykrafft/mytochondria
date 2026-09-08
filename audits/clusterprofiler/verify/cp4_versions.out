@@ -1,0 +1,7 @@
+enrichit 0.1.4: ES=0.3810  sample p=0.4458  permute p=0.4479  multilevel p=0.8789   (exact same-sign 0.8824; unconditional 0.4521)
+enrichit 0.2.0: ES=0.3810  sample p=0.4458  permute p=0.4479  multilevel p=0.8789   (exact same-sign 0.8824; unconditional 0.4521)
+enrichit 0.2.1: ES=0.3810  sample p=0.4458  permute p=0.4479  multilevel p=0.8789   (exact same-sign 0.8824; unconditional 0.4521)
+(devel a261244)
+enrichit 0.2.2: ES=0.3810  sample p=0.4458  permute p=0.4479  multilevel p=0.8789   (exact same-sign 0.8824; unconditional 0.4521)
+(devel + patch 0001)
+enrichit 0.2.2: ES=0.3810  sample p=0.8791  permute p=0.8925  multilevel p=0.8789   (exact same-sign 0.8824; unconditional 0.4521)
