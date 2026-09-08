@@ -1,0 +1,70 @@
+YuLab-SMU/clusterProfiler issue #819, read in full 2026-09-08 16:40 UTC (helper-session export of the
+GitHub API record; bodies verbatim). State: open, no labels, no linked issues or PRs, 6 comments.
+
+Title: Big differences in enricher results between clusterProfiler 4.16.0 and clusterProfiler 4.20.0
+
+[ISSUE] ckeeling (NONE), 2026-05-14T20:42:23Z
+Hello @GuangchuangYu
+
+I recently updated to R 4.6.0 and thus clusterProfiler 4.20.0 from 4.16.0. I am seeing a large decrease in the number of significant terms returned across several comparisons. Is this expected based on the bugs fixed and switching internally from [DOSE](https://github.com/YuLab-SMU/DOSE)::enricher_internal to [enrichit](https://github.com/YuLab-SMU/enrichit) compared to 4.16.0?
+
+        pvalueCutoff = 0.05,
+        pAdjustMethod = "BH",
+        qvalueCutoff = 0.05,
+        minGSSize = 1,
+        maxGSSize = 1000
+
+Thanks
+
+[COMMENT 1] ckeeling (NONE), 2026-05-21T15:20:39Z (+1 x1)
+Hello @GuangchuangYu , following up on my above comment, I examined multiple enricher results when using the two versions of clusterProfiler.
+
+clusterProfiler      * 4.16.0     2025-04-15 [1] Bioconductor 3.21 (R 4.5.0)
+clusterProfiler      * 4.20.0     2026-04-28 [1] Bioconductor 3.23 (R 4.6.0)
+
+<img width="3144" height="2282" alt="Image" src="https://github.com/user-attachments/assets/4fcc9999-909a-4261-ab9a-b02a13774035" />
+
+I then tried the devel version on Bioconductor:
+clusterProfiler      * 4.21.0     2026-05-18 [1] Bioconductor 3.24 (R 4.6.0)
+Results were identical to the 4.20.0 version.
+
+The differences can be quite large between 4.16.0 and 4.20.0/4.21.0. In addition, 4.16.0 found 12 comparisons producing significant terms that 4.20.0/4.21.0 did not identify any terms. Any ideas why they might differ so much, and which result should be considered correct?
+
+Thanks,
+Chris
+
+[COMMENT 2] ftencaten (NONE), 2026-06-05T14:13:16Z (+1 x1)
+Just chiming in to say I was also getting different results from compareCluster with the GSEA function in a previous analysis after updating to the most recent version, even when setting a seed. I was able to reproduce the previous results only after reverting clusterProfiler to version 4.18.4
+
+[COMMENT 3] LinearParadox (NONE), 2026-06-09T23:16:07Z
+To add to this, it seems around 4.19, the implementation of the underlying enrichment tests was switched over to use the enrichit package instead of using external packages for running GSEA. While this may be faster, it is possible the behavior is different -- either due to differences in implementation or due to numeric differences, since enrichit seems to use C++
+
+[COMMENT 4] GuangchuangYu (MEMBER), 2026-06-22T09:12:16Z (+1 x2)
+Thanks for the report. We looked into this carefully and found that there are actually two separate issues behind the result differences.
+
+1. ORA / enrichment workflows
+For ORA-based workflows, part of the drift was caused by the backend migration to `enrichit`: zero-overlap gene sets were still included in the multiple-testing correction pool. That has now been fixed in `enrichit::ora_gson()` This explains a substantial part of the difference for ORA-like analyses.
+
+2. GSEA workflows
+For GSEA, the situation is more subtle. The enrichment scores themselves are already aligned very closely with `fgsea`, but the multilevel P-value estimation is Monte Carlo based, so single-run raw P-values can vary noticeably when `sampleSize` / `nPermSimple` are small. In other words, some of the observed drift is due to estimation variance rather than a systematic scoring error.
+
+Thanks for pointing this out — it helped us tighten both the ORA and GSEA compatibility paths.
+
+[COMMENT 5] clairelavergne (NONE), 2026-06-25T16:14:10Z
+Hi @ckeeling ,
+
+Thanks for this! I recently updated R from 4.3 to 4.6 and my gseGO results were all wonky and couldn't figure out why. I was getting 30 significant results (ont = "ALL") after simplifying, but now I'm only getting 9.
+How did you install earlier versions of clusterProfiler? I've tried re-installing the version of clusterProfiler I was using in R 4.3, but can't seem to install the package with BiocManager::install("clusterProfiler", version ="3.18", force = TRUE).  Do you have any tips?
+
+I've also tried installing the dev version of clusterProfiler (4.21.0.004), since it seemed like the issue had been patched? However, I'm still getting the same issue with my results. @GuangchuangYu - do you have any advice?
+
+Thank you,
+Claire
+
+[COMMENT 6] ckeeling (NONE), 2026-07-08T17:41:42Z
+Hi @clairelavergne
+
+Sorry, just saw your question. If you are using RStudio, you'll need to tell it which R version you would like to use. I used [RSwitch](https://rud.is/rswitch/) for this. I found success with R 4.5 to get clusterProfiler_4.16.0. Note that Bioconductor 3.23 needs R 4.6. You would need to revert to a prior Bioconductor to get the right version of clusterProfiler available to install. [This](https://cran.r-project.org/web/packages/BiocManager/vignettes/BiocManager.html#changing-version) might help you with that.
+
+Cheers,
+Chris

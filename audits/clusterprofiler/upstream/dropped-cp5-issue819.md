@@ -1,6 +1,11 @@
 Title: (comment on #819) "Big differences in enricher results between clusterProfiler 4.16.0 and clusterProfiler 4.20.0": the cause is enrichit 0.1.x BH over zero-overlap sets, fixed in 0.2.0
 
-<!-- post only after reading the 6 existing comments (not readable from the audit session); skip if the thread already names enrichit 0.2.0 -->
+<!-- DROPPED 2026-09-08 after reading the thread in full (thread-819.txt): the maintainer's comment
+of 2026-06-22 already names the cause (zero-overlap sets in the multiple-testing pool, fixed in
+enrichit::ora_gson()), and the fix has been on CRAN since 2026-07-01. The text below would repeat
+it. Kept only as the record of what was measured. The one point the thread lacks, that the fix
+lives in the separate CRAN package enrichit (>= 0.2.0) and not in clusterProfiler itself, is a
+two-line footnote, not a finding; it is offered to the owner as optional, not recommended. -->
 
 The drop in significant terms between 4.16 and 4.20 comes from the engine that 4.19.3+ delegates
 to, `enrichit`, and it depends on which enrichit version is installed rather than on the

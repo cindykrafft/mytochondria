@@ -146,9 +146,9 @@ r2("lme4","lme4","lme4","master",None,
    ["comment-lm2-hessian-se-867.md","issue-lm1-gamma-loglik-phi.md","issue-lm3-checkconv-component.md"], ["LM3","LM1","LM2"], forked=True,
    order_note="Post the LM2 comment on #867 first; its PR (patch 0003) follows once the comment is up. LM1 is worth a heads-up before the 2.x release; LM3 stays held.")
 r2("clusterprofiler","YuLab-SMU","clusterProfiler","devel","bug_report.md",
-   "CONTRIBUTING.md: reproducible example with dput in a fresh session; markdown issue template (latest release, docs read, reproducible example; questions go to Bioconductor support/Biostars). The maintainer's 'how to bug author' guide and book were unreachable from the audit session: read them before posting. CP5 is a comment on the open #819 (six comments, unreadable from here: read them first and skip if the thread already names enrichit 0.2.0). CP1 is a heads-up only: fixed on devel, waiting for enrichit 0.2.2 to reach CRAN.",
-   ["comment-cp5-issue819.md","issue-cp1-gsea-table-rawp.md"], [], no_prs=True,
-   order_note="Only CP5 is actionable, and only after reading #819's thread. CP1 is held: fixed and announced upstream. CP2/CP3/CP6/CP7 are fixed at master; CP8 is a design question.")
+   "CONTRIBUTING.md: reproducible example with dput in a fresh session; markdown issue template (latest release, docs read, reproducible example; questions go to Bioconductor support/Biostars). The maintainer's 'how to bug author' guide and book were unreachable from the audit session: read them before posting. #819 read in full 2026-09-08 (thread-819.txt): the maintainer already named the CP5 cause and fix on 2026-06-22, so CP5 is dropped. CP1 is a heads-up only: fixed on devel, waiting for enrichit 0.2.2 to reach CRAN.",
+   ["issue-cp1-gsea-table-rawp.md"], [], no_prs=True,
+   order_note="Nothing to post here: CP5 dropped after reading #819 (already answered by the maintainer). CP1 is held: fixed and announced upstream. CP2/CP3/CP6/CP7 are fixed at master; CP8 is a design question.")
 r2("enrichit","YuLab-SMU","enrichit","devel",None,
    "clusterProfiler's enrichment engine since 4.20 (CRAN package). No templates, NEWS + testthat. CP4 is a non-default option (gsea(method='sample'/'permute', adaptive=TRUE)) whose p-values are about half the GSEA convention; issue + git am-able patch with an exact-enumeration test. Fork exists; branch pushed.",
    ["issue-cp4-enrichit-sample-pvalue.md"], ["CP4"], dir="clusterprofiler", forked=True,
@@ -175,7 +175,7 @@ r2("plink","chrchang","plink-ng","master",None,
 # ---- triage (2026-09-03): file only findings that change published numbers under default/common settings; at most two per repo until a maintainer responds
 TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)","FT15":"posted on PR #2610 (2026-09-07, per the comment count)","FT16":"posted on #2614 (2026-09-07, per the comment count)","PL1":"#380 / PR #381 (closed 2026-09-03: the maintainer applied his own equivalent fix, 1fe42e5)","DT4":"comment on #1118 / PR #1466 (2026-09-08)","ST1":"#2378 / PR #2379 (2026-09-08)"},
       "now":["HC2","EG3"],
-      "comment":["LM2","CP5"]}
+      "comment":["LM2"]}
 def tier_of(i):
     if i in TIER["filed"]: return "filed"
     if i in TIER["now"]: return "now"
@@ -233,11 +233,10 @@ ACTIONS=[
  dict(kind="issue", key="lme4", id="LM2", why="comment on the maintainer's own open #867 (no comments yet): glmer's default Hessian standard errors were ~100x too small in 9 of 150 ordinary Bernoulli fits, with only a max-gradient warning; measurement plus a cheap guard"),
  dict(kind="pr", key="lme4", id="LM2", why="the guard as a PR (branch fix/vcov-hessian-fallback on the fork), after the comment is up"),
  dict(kind="issue", key="edger", id="EG3", why="support-site post, not a GitHub issue: filterByExpr drops a gene sitting exactly on the CPM cutoff by one ulp, every version, one-line fix attached; small effect, so post only if you are comfortable with a low-magnitude report"),
- dict(kind="issue", key="clusterprofiler", id="CP5", why="comment on #819 explaining the 4.16 vs 4.20 difference (enrichit 0.1.x ran BH over zero-overlap sets; fixed in 0.2.0), only after reading the six comments already there"),
 ]
 WAITING=[
  ("lme4 LM1 (master-only Gamma logLik dispersion mismatch), LM3", "a reply on the #867 comment; LM1 is a pre-release heads-up worth sending before 2.x ships"),
- ("enrichit CP4 (sample-permutation p-values halved, rare option)", "a positive signal on clusterProfiler #819"),
+ ("enrichit CP4 (sample-permutation p-values halved, rare option)", "the owner's call: #819 shows the maintainer fixing enrichit reports within weeks, so CP4 could go straight to YuLab-SMU/enrichit as issue + PR (branch on the fork) without waiting for a signal on a clusterProfiler thread"),
  ("featureCounts FC2 (read-type filter lost in 2.0.2), FC1", "confirmation that the maintainers answer GitHub issues on ShiLab-Bioinformatics/subread"),
  ("clusterProfiler CP1 (release GSEA table filtered on raw p)", "never as a report: fixed on devel; a heads-up only if enrichit 0.2.2 is slow to reach CRAN"),
  ("BEDTools BT1 (coverage -split counts blocks)", "a reply on #1142, PR #1143 or PR #1144 (cap reached)"),
