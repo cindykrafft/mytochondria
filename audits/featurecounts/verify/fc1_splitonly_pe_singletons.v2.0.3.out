@@ -1,0 +1,29 @@
+featureCounts 2.0.3
+
+Part A: --splitOnly, five fragments (manual: only alignments whose CIGAR contains N are counted)
+  -p --countReadPairs --splitOnly
+    pair_nonsplit          -> Unassigned_NonSplit          targets=NA
+    pair_split             -> Assigned                     targets=B
+    singleton_nonsplit     -> Assigned                     targets=A
+    singleton_split        -> Assigned                     targets=B
+    se_read_nonsplit       -> Assigned                     targets=A
+    counts A=2 B=2; summary Assigned=4 NonSplit=1
+  -p --countReadPairs --nonSplitOnly
+    pair_nonsplit          -> Assigned                     targets=A
+    pair_split             -> Unassigned_Split             targets=NA
+    singleton_nonsplit     -> Assigned                     targets=A
+    singleton_split        -> Unassigned_Split             targets=NA
+    se_read_nonsplit       -> Assigned                     targets=A
+    counts A=3 B=0; summary Assigned=3 NonSplit=2
+  -p --splitOnly (read-level counting)
+    pair_nonsplit          -> Unassigned_NonSplit          targets=NA
+    pair_split             -> Unassigned_NonSplit          targets=NA
+    singleton_nonsplit     -> Unassigned_Unmapped          targets=NA
+    singleton_split        -> Unassigned_Unmapped          targets=NA
+    se_read_nonsplit       -> Unassigned_NonSplit          targets=NA
+    counts A=0 B=2; summary Assigned=2 NonSplit=5
+
+Part B: 1000 non-split singletons + 200 non-split proper pairs in gene A, -p --countReadPairs --splitOnly
+  expected count for A: 0 (no fragment carries an N);  got A=1000
+  singletons Assigned: 1000/1000;  proper pairs Assigned: 0/200
+  summary: {'Assigned': 1000, 'Unassigned_NonSplit': 200}

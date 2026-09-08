@@ -1,0 +1,24 @@
+featureCounts 2.0.3
+
+-p --countReadPairs -s 2 (dUTP): counts S=800 AS=500; Unassigned_Read_Type=0; Unassigned_Singleton=0
+   pair     : {'Assigned->S': 300}
+   orphanR1 : {'Assigned->S': 500}
+   orphanR2 : {'Assigned->AS': 500}
+
+-p --countReadPairs -s 1: counts S=500 AS=800; Unassigned_Read_Type=0; Unassigned_Singleton=0
+   pair     : {'Assigned->AS': 300}
+   orphanR1 : {'Assigned->AS': 500}
+   orphanR2 : {'Assigned->S': 500}
+
+-p --countReadPairs -s 0: counts S=0 AS=0; Unassigned_Read_Type=0; Unassigned_Singleton=0
+   pair     : {'Unassigned_Ambiguity': 300}
+   orphanR1 : {'Unassigned_Ambiguity': 500}
+   orphanR2 : {'Unassigned_Ambiguity': 500}
+
+-p --countReadPairs -s 2 -B: counts S=300 AS=0; Unassigned_Read_Type=0; Unassigned_Singleton=1000
+   pair     : {'Assigned->S': 300}
+   orphanR1 : {'Unassigned_Singleton': 500}
+   orphanR2 : {'Unassigned_Singleton': 500}
+
+Manual: with -s 1/-s 2 the 1,000 single-end records should be excluded as Unassigned_Read_Type;
+with -s 0 they should be counted.  Expected S under -s 2 = 300 (pairs only).

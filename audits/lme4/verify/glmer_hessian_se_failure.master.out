@@ -1,0 +1,28 @@
+lme4 2.1.0 from /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/lme4/lib 
+
+25 replicates per size; Bernoulli y ~ x + (1|g), 10 obs per cluster, sd(RE) = 1.2, beta = (-0.5, 1)
+nobs   hess   med.ratio ratio<0.5 ratio>2   any.warn  bad&warn  bad&nowarn
+200    25     1.010     2         0         2         2         0        
+500    25     1.010     4         0         5         4         0        
+1000   25     1.010     2         0         2         2         0        
+2500   25     1.010     0         0         0         0         0        
+5000   25     1.011     1         0         1         1         0        
+9990   25     1.011     0         0         0         0         0        
+10010  0      NA        0         0         0         0         0        
+Warning message:
+In vcov.merMod(f, use.hessian = TRUE) :
+  variance-covariance matrix computed from finite-difference Hessian is
+not positive definite or contains NA values: falling back to var-cov estimated from RX
+
+Mechanism on one nobs = 9990 replicate: second differences of the deviance at the optimum
+  convergence warnings: none 
+  deviance at optimum 11435.285945 ; nobs 9990
+  delta = 0.0001 Hessian diag (theta, b0, b1) =    1134.58    1026.21    2393.16 -> SE(beta) 0.04450 0.03031
+  delta = 0.001  Hessian diag (theta, b0, b1) =    1134.58    1026.21    2393.16 -> SE(beta) 0.04450 0.03031
+  delta = 0.01   Hessian diag (theta, b0, b1) =    1134.61    1026.21    2393.16 -> SE(beta) 0.04450 0.03031
+  delta = 0.05   Hessian diag (theta, b0, b1) =    1135.49    1026.21    2393.26 -> SE(beta) 0.04450 0.03031
+  RX-based SE(beta): 0.04388 0.02870 
+  repeated evaluations of the deviance at the optimum (should be identical): 0 0 0 0 
+  deviance at optimum +/- 1e-4 in beta0:  4.71889e-05 -3.69268e-05 | expected from RX curvature: 5.19e-06 
+
+done

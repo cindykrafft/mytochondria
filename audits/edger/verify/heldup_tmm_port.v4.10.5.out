@@ -1,0 +1,19 @@
+edgeR/limma: 4.10.5 3.68.4
+rep 0: n=8, tie blocks in M (column 1 vs ref):  1159   edgeR vs port(average ranks) 4.3e-15   vs port(ordered ranks) 9.5e-04
+rep 0: TMM factors edgeR [1.03392 1.05286 1.05495 1.06778 0.91965 1.00976 0.93172 0.94255] port [1.03392 1.05286 1.05495 1.06778 0.91965 1.00976 0.93172 0.94255] (port reference column 3)
+rep 1: n=6, tie blocks in M (column 1 vs ref):   937   edgeR vs port(average ranks) 4.4e-15   vs port(ordered ranks) 5.8e-04
+rep 2: n=7, tie blocks in M (column 1 vs ref):  1220   edgeR vs port(average ranks) 1.9e-15   vs port(ordered ranks) 3.1e-04
+rep 3: n=8, tie blocks in M (column 1 vs ref):   991   edgeR vs port(average ranks) 3.7e-15   vs port(ordered ranks) 9.4e-04
+rep 4: n=7, tie blocks in M (column 1 vs ref):   669   edgeR vs port(average ranks) 2.0e-15   vs port(ordered ranks) 1.6e-04
+rep 5: n=6, tie blocks in M (column 1 vs ref):   935   edgeR vs port(average ranks) 3.2e-15   vs port(ordered ranks) 6.6e-06
+rep 6: n=7, tie blocks in M (column 1 vs ref):  1419   edgeR vs port(average ranks) 1.1e-15   vs port(ordered ranks) 2.4e-04
+rep 7: n=7, tie blocks in M (column 1 vs ref):  1477   edgeR vs port(average ranks) 4.7e-15   vs port(ordered ranks) 3.0e-04
+
+max relative difference edgeR vs port over 8 random datasets (3-8 samples, 4000 genes, 15 % DE, 5 % zeros; reps 4-7 tie-free):
+  TMM                                  4.66e-15
+  TMM-unweighted                       4.77e-15
+  TMM-refColumn                        4.00e-05
+  RLE                                  6.00e-15
+  upperquartile                        6.11e-15
+  TMMwsp==TMM(no zeros, same ref)      2.00e-03
+  TMM vs port with ordered ranks       9.52e-04   (the tie-block effect of rank(ties='average') at the trim boundary)

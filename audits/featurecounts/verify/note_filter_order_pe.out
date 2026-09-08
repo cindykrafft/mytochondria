@@ -1,0 +1,10 @@
+featureCounts 2.0.6
+-p --countReadPairs -Q 10 -C -B -P -d 50 -D 600 --ignoreDup --primary
+  lowQ_multi      manual order -> Unassigned_MappingQuality    got Unassigned_MultiMapping
+  lowQ_dup        manual order -> Unassigned_MappingQuality    got Unassigned_Duplicate
+  lowQ_chimeric   manual order -> Unassigned_MappingQuality    got Unassigned_Chimera
+  lowQ_fraglen    manual order -> Unassigned_MappingQuality    got Unassigned_FragmentLength
+  lowQ_secondary  manual order -> Unassigned_MappingQuality    got Unassigned_Secondary
+  lowQ_only       manual order -> Unassigned_MappingQuality    got Unassigned_MappingQuality
+  dup_multi       manual order -> Unassigned_Duplicate         got Unassigned_Duplicate
+summary: {'Unassigned_MappingQuality': 1, 'Unassigned_Chimera': 1, 'Unassigned_FragmentLength': 1, 'Unassigned_Duplicate': 2, 'Unassigned_MultiMapping': 1, 'Unassigned_Secondary': 1} | count A = 0.0

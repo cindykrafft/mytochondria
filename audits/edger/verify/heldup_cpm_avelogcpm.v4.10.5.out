@@ -1,0 +1,13 @@
+edgeR/limma: 4.10.5 3.68.4
+log2-CPM (prior 2)   max |edgeR - formula| = 5.15e-14
+log2-CPM (prior 0.5) max |edgeR - formula| = 5.15e-14
+/home/user/research-software-audit/audits/edger/verify/heldup_cpm_avelogcpm.py:47: RuntimeWarning: invalid value encountered in divide
+  print(f"CPM, normalized.lib.sizes=FALSE: max rel err vs y/L*1e6 = {np.max(np.abs(outs['cpm_raw']/(y/L*1e6) - 1)[y > 0]):.2e}")
+CPM, normalized.lib.sizes=FALSE: max rel err vs y/L*1e6 = 4.88e-15
+/home/user/research-software-audit/audits/edger/verify/heldup_cpm_avelogcpm.py:48: RuntimeWarning: invalid value encountered in divide
+  print(f"RPKM      max rel err vs CPM/(len/1000)       = {np.max(np.abs(outs['rpkm']/(y/Ln*1e6/(length[:, None]/1000)) - 1)[y > 0]):.2e}")
+RPKM      max rel err vs CPM/(len/1000)       = 5.00e-15
+log2-RPKM max |edgeR - (log2CPM - log2(len/1000))| = 4.80e-14
+aveLogCPM(prior.count=2, dispersion=0.05): max |edgeR - one-group NB MLE port| = 2.54e-11   (range -3.31..14.85)
+aveLogCPM(prior.count=1, dispersion=0.3): max |edgeR - one-group NB MLE port| = 2.43e-11   (range -4.31..14.85)
+aveLogCPM(prior.count=2, dispersion=0.0): max |edgeR - one-group NB MLE port| = 6.22e-14   (range -3.31..14.70)

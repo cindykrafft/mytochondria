@@ -1,0 +1,113 @@
+featureCounts 2.0.3 | seed 1 | fragments per file 400
+annotation: 49 genes, 115 exon lines
+
+== SE: 622 records, 400 fragments/records
+[default] (defaults): summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-O] -O: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-s 1] -s 1: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-s 2] -s 2: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-M] -M: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-M --fraction] -M --fraction: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--primary] --primary: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-M --primary] -M --primary: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-O --fraction] -O --fraction: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-M -O --fraction] -O -M --fraction: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-Q 10] -Q 10: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-Q 30 -s 2] -s 2 -Q 30: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--ignoreDup] --ignoreDup: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--splitOnly] --splitOnly: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--nonSplitOnly] --nonSplitOnly: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--minOverlap 10] --minOverlap 10: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--fracOverlap 0.5] --fracOverlap 0.5: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--fracOverlap 1] --fracOverlap 1.0: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--largestOverlap] --largestOverlap: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-O --largestOverlap] -O --largestOverlap: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--nonOverlap 5] --nonOverlap 5: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--fracOverlapFeature 0.5] --fracOverlapFeature 0.5: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--nonOverlapFeature 20] --nonOverlapFeature 20: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--minOverlap 10 --largestOverlap -O --fraction] -O --fraction --largestOverlap --minOverlap 10: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 27/49 -> MISMATCH
+    count: G017 expected 3.0 got 2.0
+    count: G040 expected 2.0 got 1.17
+    count: G041 expected 4.0 got 2.67
+    count: G031 expected 2.0 got 1.5
+    count: G013 expected 3.0 got 2.33
+    count: G039 expected 6.0 got 3.83
+[-f] -f: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/115 -> OK
+[-f -O] -O -f: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/115 -> OK
+[-f -O --fraction --largestOverlap] -O --fraction --largestOverlap -f: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 39/115 -> MISMATCH
+    count: LINE_0000027 expected 0.333 got 0.25
+    count: LINE_0000071 expected 1.0 got 0.33
+    count: LINE_0000050 expected 2.0 got 1.17
+    count: LINE_0000013 expected 4.0 got 2.58
+    count: LINE_0000112 expected 3.0 got 2.5
+    count: LINE_0000054 expected 1.0 got 0.83
+[--read2pos 5] --read2pos 5: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--read2pos 3 -s 1] -s 1 --read2pos 3: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--readExtension5 20] --readExtension5 20: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--readExtension3 20 -s 2] -s 2 --readExtension3 20: summary total 622 vs 622 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+
+== PE: 1036 records, 400 fragments/records
+[default] -p --countReadPairs: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-O] -p --countReadPairs -O: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-s 1] -p --countReadPairs -s 1: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-s 2] -p --countReadPairs -s 2: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-M] -p --countReadPairs -M: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-M --fraction] -p --countReadPairs -M --fraction: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--primary] -p --countReadPairs --primary: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-M --primary] -p --countReadPairs -M --primary: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-O --fraction] -p --countReadPairs -O --fraction: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-M -O --fraction] -p --countReadPairs -O -M --fraction: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-Q 10] -p --countReadPairs -Q 10: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-Q 30 -s 2] -p --countReadPairs -s 2 -Q 30: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--ignoreDup] -p --countReadPairs --ignoreDup: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--splitOnly] -p --countReadPairs --splitOnly: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--nonSplitOnly] -p --countReadPairs --nonSplitOnly: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--minOverlap 10] -p --countReadPairs --minOverlap 10: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--fracOverlap 0.5] -p --countReadPairs --fracOverlap 0.5: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--fracOverlap 1] -p --countReadPairs --fracOverlap 1.0: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--largestOverlap] -p --countReadPairs --largestOverlap: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-O --largestOverlap] -p --countReadPairs -O --largestOverlap: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--nonOverlap 5] -p --countReadPairs --nonOverlap 5: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--fracOverlapFeature 0.5] -p --countReadPairs --fracOverlapFeature 0.5: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--nonOverlapFeature 20] -p --countReadPairs --nonOverlapFeature 20: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--minOverlap 10 --largestOverlap -O --fraction] -p --countReadPairs -O --fraction --largestOverlap --minOverlap 10: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 33/49 -> MISMATCH
+    count: G043 expected 13.0 got 11.5
+    count: G017 expected 3.0 got 1.17
+    count: G040 expected 2.5 got 1.03
+    count: G041 expected 7.0 got 3.33
+    count: G031 expected 5.5 got 4.0
+    count: G011 expected 7.5 got 3.75
+[-f] -p --countReadPairs -f: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/115 -> OK
+[-f -O] -p --countReadPairs -O -f: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/115 -> OK
+[-f -O --fraction --largestOverlap] -p --countReadPairs -O --fraction --largestOverlap -f: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 68/115 -> MISMATCH
+    count: LINE_0000012 expected 2.0 got 1.5
+    count: LINE_0000069 expected 1.0 got 0.5
+    count: LINE_0000018 expected 3.0 got 2.5
+    count: LINE_0000027 expected 2.5 got 1.5
+    count: LINE_0000050 expected 1.0 got 0.25
+    count: LINE_0000013 expected 2.0 got 1.33
+[--read2pos 5] -p --countReadPairs --read2pos 5: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--read2pos 3 -s 1] -p --countReadPairs -s 1 --read2pos 3: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--readExtension5 20] -p --countReadPairs --readExtension5 20: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--readExtension3 20 -s 2] -p --countReadPairs -s 2 --readExtension3 20: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-B] -p --countReadPairs -B: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-C] -p --countReadPairs -C: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-B -C -s 2] -p --countReadPairs -B -C -s 2: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-P -B -d 50 -D 300] -p --countReadPairs -B -P -d 50 -D 300: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-P -B -C -d 100 -D 250 -Q 10] -p --countReadPairs -B -C -P -Q 10 -d 100 -D 250: summary total 531 vs 531 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+
+== PE-as-reads: 1036 records, 1036 fragments/records
+[default] -p: summary total 1036 vs 1036 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-O] -p -O: summary total 1036 vs 1036 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-s 1] -p -s 1: summary total 1036 vs 1036 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-s 2] -p -s 2: summary total 1036 vs 1036 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-M --fraction] -p -M --fraction: summary total 1036 vs 1036 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[-Q 10] -p -Q 10: summary total 1036 vs 1036 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--ignoreDup] -p --ignoreDup: summary total 1036 vs 1036 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+[--fracOverlap 0.5] -p --fracOverlap 0.5: summary total 1036 vs 1036 units; status/target mismatches 0/400; count mismatches 0/49 -> OK
+
+Option sets with any disagreement: 4
+   ('SE', '--minOverlap 10 --largestOverlap -O --fraction')
+   ('SE', '-f -O --fraction --largestOverlap')
+   ('PE', '--minOverlap 10 --largestOverlap -O --fraction')
+   ('PE', '-f -O --fraction --largestOverlap')

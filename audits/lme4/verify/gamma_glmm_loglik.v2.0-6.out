@@ -1,0 +1,10 @@
+lme4 2.0.6 from /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/lme4/lib-rel 
+R version 4.3.3 (2024-02-29) 
+
+Error in integrate(function(bb) exp(f(bb) - cmax) * dnorm(bb), -Inf, Inf,  : 
+  non-finite function value
+Calls: optim -> <Anonymous> -> fn -> exact_ll -> integrate
+In addition: Warning message:
+In dgamma(yj, shape = 1/phi, scale = exp(eta) * phi, log = TRUE) :
+  NaNs produced
+Execution halted

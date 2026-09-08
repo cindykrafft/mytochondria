@@ -1,0 +1,5 @@
+lme4 2.1.0 from /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/lme4/lib 
+gradient = 1e-06 0.5 1e-06 -> largest is component 2 
+warning text: Model failed to converge with max|grad| = 0.5 (tol = 0.002, component 1) 
+perturbed theta gradient = -0.895 53.072 -0.240 -> largest is component 2 
+warning text: Model failed to converge with max|grad| = 5.35565 (tol = 0.002, component 1) 

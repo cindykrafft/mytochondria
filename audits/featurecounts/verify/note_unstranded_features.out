@@ -1,0 +1,5 @@
+featureCounts 2.0.6
+10 forward + 10 reverse single-end reads inside each of a '+', a '.' and a '-' feature
+  -s 0: counts {'PLUS': 20.0, 'DOT': 20.0, 'MINUS': 20.0}
+  -s 1: counts {'PLUS': 10.0, 'DOT': 0.0, 'MINUS': 10.0}
+  -s 2: counts {'PLUS': 10.0, 'DOT': 20.0, 'MINUS': 10.0}

@@ -1,0 +1,5 @@
+lme4 1.1.35.1 from /usr/lib/R/site-library 
+gradient = 1e-06 0.5 1e-06 -> largest is component 2 
+warning text: Model failed to converge with max|grad| = 0.5 (tol = 0.002, component 1) 
+perturbed theta gradient = -0.895 53.072 -0.240 -> largest is component 2 
+warning text: Model failed to converge with max|grad| = 5.35565 (tol = 0.002, component 1) 

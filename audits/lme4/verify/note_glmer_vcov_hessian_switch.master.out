@@ -1,0 +1,88 @@
+lme4 2.1.0 from /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/lme4/lib 
+
+(1) Hessian-based vs RX-based SEs on the same fit (nobs < 1e4, npar < 20)
+cbpp binomial (1|herd), nAGQ=1                 hess.avail=TRUE  default basis=Hessian max|SE_hess/SE_RX - 1| = 0.0155
+Warning message:
+In vcov.merMod(f, use.hessian = FALSE) :
+  variance-covariance matrix computed from finite-difference Hessian
+and from RX differ by >1e-04: consider 'use.hessian=TRUE'
+        (Intercept)  period2  period3  period4
+Hessian    0.231214 0.303151 0.322830 0.422049
+RX         0.227852 0.305348 0.326001 0.428702
+Bernoulli J=40 nj=3 sd(RE)=0.5                 hess.avail=TRUE  default basis=Hessian max|SE_hess/SE_RX - 1| = 0.0658
+    SE(Intercept) Hessian 0.2412 RX 0.2263 ; SE(x) Hessian 0.2508 RX 0.2424
+Bernoulli J=40 nj=10 sd(RE)=0.5                hess.avail=TRUE  default basis=Hessian max|SE_hess/SE_RX - 1| = 0.0220
+    SE(Intercept) Hessian 0.1364 RX 0.1335 ; SE(x) Hessian 0.1345 RX 0.1326
+Bernoulli J=40 nj=3 sd(RE)=1.5                 hess.avail=TRUE  default basis=Hessian max|SE_hess/SE_RX - 1| = 0.5178
+    SE(Intercept) Hessian 0.6433 RX 0.5051 ; SE(x) Hessian 0.5796 RX 0.3819
+Bernoulli J=40 nj=10 sd(RE)=1.5                hess.avail=TRUE  default basis=Hessian max|SE_hess/SE_RX - 1| = 0.9927
+    SE(Intercept) Hessian 0.0018 RX 0.2484 ; SE(x) Hessian 0.0018 RX 0.1416
+Bernoulli J=40 nj=3 sd(RE)=3.0                 hess.avail=TRUE  default basis=Hessian max|SE_hess/SE_RX - 1| = 0.3639
+    SE(Intercept) Hessian 0.5057 RX 0.4561 ; SE(x) Hessian 0.4738 RX 0.3474
+Bernoulli J=40 nj=10 sd(RE)=3.0                hess.avail=TRUE  default basis=Hessian max|SE_hess/SE_RX - 1| = 0.0655
+    SE(Intercept) Hessian 0.4075 RX 0.3985 ; SE(x) Hessian 0.1815 RX 0.1704
+Warning messages:
+1: In vcov.merMod(f, use.hessian = FALSE) :
+  variance-covariance matrix computed from finite-difference Hessian
+and from RX differ by >1e-04: consider 'use.hessian=TRUE'
+2: In vcov.merMod(f, use.hessian = FALSE) :
+  variance-covariance matrix computed from finite-difference Hessian
+and from RX differ by >1e-04: consider 'use.hessian=TRUE'
+3: In vcov.merMod(f, use.hessian = FALSE) :
+  variance-covariance matrix computed from finite-difference Hessian
+and from RX differ by >1e-04: consider 'use.hessian=TRUE'
+4: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.0390259 (tol = 0.002, component 1)
+  See ?lme4::convergence and ?lme4::troubleshooting.
+5: In vcov.merMod(f, use.hessian = FALSE) :
+  variance-covariance matrix computed from finite-difference Hessian
+and from RX differ by >1e-04: consider 'use.hessian=TRUE'
+6: In vcov.merMod(f, use.hessian = FALSE) :
+  variance-covariance matrix computed from finite-difference Hessian
+and from RX differ by >1e-04: consider 'use.hessian=TRUE'
+7: In vcov.merMod(f, use.hessian = FALSE) :
+  variance-covariance matrix computed from finite-difference Hessian
+and from RX differ by >1e-04: consider 'use.hessian=TRUE'
+grouseticks Poisson, 3 RE terms                hess.avail=TRUE  default basis=Hessian max|SE_hess/SE_RX - 1| = 0.0314
+Warning message:
+In vcov.merMod(f, use.hessian = FALSE) :
+  variance-covariance matrix computed from finite-difference Hessian
+and from RX differ by >1e-04: consider 'use.hessian=TRUE'
+        (Intercept)   YEAR96   YEAR97    cHEIGHT
+Hessian    0.196366 0.238122 0.262776 0.00343836
+RX         0.190392 0.235624 0.262967 0.00342833
+
+(2) same generating process, default SE basis by parameter count / nobs / singularity
+npar = 19 (1 theta + 18 beta)                  hess.avail=TRUE  default basis=Hessian max|SE_hess/SE_RX - 1| = 0.0470
+npar = 20 (1 theta + 19 beta)                  hess.avail=FALSE default basis=RX      max|SE_hess/SE_RX - 1| = NA
+Warning message:
+In vcov.merMod(f, use.hessian = FALSE) :
+  variance-covariance matrix computed from finite-difference Hessian
+and from RX differ by >1e-04: consider 'use.hessian=TRUE'
+nobs = 9990                                    hess.avail=TRUE  default basis=Hessian max|SE_hess/SE_RX - 1| = 0.9918
+    SE(Intercept) default 0.00037 Hessian 0.00037 RX 0.04537
+nobs = 10010                                   hess.avail=FALSE default basis=RX      max|SE_hess/SE_RX - 1| = NA
+    SE(Intercept) default 0.04668 Hessian n/a RX 0.04668
+Warning messages:
+1: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.18941 (tol = 0.002, component 1)
+  See ?lme4::convergence and ?lme4::troubleshooting.
+2: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model is nearly unidentifiable: very large eigenvalue
+ - Rescale variables?
+3: In vcov.merMod(f, use.hessian = FALSE) :
+  variance-covariance matrix computed from finite-difference Hessian
+and from RX differ by >1e-04: consider 'use.hessian=TRUE'
+singular fit (sd(RE) = 0)                      hess.avail=FALSE default basis=RX      max|SE_hess/SE_RX - 1| = NA
+calc.derivs = FALSE                            hess.avail=FALSE default basis=RX      max|SE_hess/SE_RX - 1| = NA
+
+(3) Monte-Carlo: sampling SD of beta-hat vs mean SE from each basis (Bernoulli, J=30, nj=4, sd(RE)=2)
+There were 50 or more warnings (use warnings() to see the first 50)
+  300 of 300 replicates used (non-singular fits with a Hessian)
+                           (Intercept)        x
+sampling SD of beta-hat      0.4856378 0.367592
+mean Hessian SE              0.4558209 0.337037
+mean RX SE                   0.4321282 0.301912
+median |SE_hess/SE_RX - 1|   0.0488954 0.114390
+
+done

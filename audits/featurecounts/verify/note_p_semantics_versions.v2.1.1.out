@@ -1,0 +1,3 @@
+featureCounts 2.1.1
+  -p                    : counts {'A': 636.0, 'B': 305.0}; Assigned=941 Ambiguity=59 (500 pairs in the file)
+  -p --countReadPairs   : counts {'A': 329.0, 'B': 171.0}; Assigned=500 Ambiguity=0 (500 pairs in the file)

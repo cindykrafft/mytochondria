@@ -1,0 +1,89 @@
+cohort: 331
+full text: 0   survey-cache fallback: 331   ({'offline': 331})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  DESeq2 / edgeR / limma downstream                        263
+  STAR aligner                                             148
+  RNA-seq                                                  108
+  Bowtie2 / BWA                                            98
+  featureCounts version stated                             77
+  HISAT2 / TopHat                                          62
+  GENCODE / Ensembl / RefSeq annotation                    58
+  single-cell                                              49
+  paired-end / fragment counting (-p, --countReadPairs)    49
+  Subread / Subjunc aligner                                48
+  ATAC / ChIP / CUT&RUN / CUT&Tag                          45
+  MAPQ filter (-Q)                                         35
+  TPM / FPKM / RPKM / CPM computed                         35
+  Rsubread (R interface)                                   25
+  feature level (-f, exon counts)                          24
+  nanopore / long reads (-L)                               23
+  strand-specific counting (-s 1/2, isStrandSpecific)      19
+  GTF/GFF annotation                                       16
+  multi-overlapping reads counted (-O)                     15
+  multi-mapping reads counted (-M)                         14
+  attribute type (-g)                                      13
+  feature type (-t)                                        10
+  unstranded stated (-s 0)                                 7
+  both ends mapped (-B)                                    7
+  small RNA / miRNA                                        7
+  fractional counts (--fraction)                           6
+  chimeric fragments excluded (-C)                         5
+  threads (-T)                                             5
+  primary alignments only (--primary)                      4
+  duplicates ignored (--ignoreDup)                         2
+  minimum overlap (--minOverlap)                           2
+  SAF annotation                                           1
+  junction counting (-J)                                   1
+  ribosome profiling                                       1
+  fragment length check (-P -d -D)                         1
+
+VERSION FAMILY: {'2.0': 69, '1.6': 42, '1.5': 23, '1.4': 5, '2.6': 2, '2.4': 1, '2.12': 1, '2.10': 1, '2.1': 1, '1.64': 1, '89.1': 1}
+VERSIONS (top 25): {'2.0.1': 41, '2.0.0': 15, '1.6.4': 12, '1.5.0': 11, '1.6.3': 10, '2.0.6': 8, '1.5.2': 8, '1.6.2': 8, '1.6.0': 6, '1.6.1': 4, '2.0.3': 2, '1.5.3': 2, '1.4.6': 2, '1.5.1': 2, '2.0.2': 2, '2.6.1': 2, '1.4.4': 2, '2.0.8': 1, '2.4': 1, '1.6.1.0': 1, '2.12.2': 1, '2.10.5': 1, '1.4.5': 1, '2.1.1': 1, '1.64': 1}
+
+strand modes (-s): {'1': 6, '0': 6, '2': 6}
+MAPQ cutoffs (-Q): {10: 3, 1: 1, 20: 1, 30: 1, 40: 1, 5: 1}
+attribute types (-g): {'gene_id': 2, '1': 2, 'mm': 1, '2': 1, 'amma': 1, 'CCTTGGCACCCGAGAATTCCANNNNNNNGTCAG': 1, '2456432000': 1, 'transcript_id': 1}
+feature types (-t): {'ransformed': 7, 'exon': 5, 'gene': 2, '32': 1, 'etramethylethylenediamine': 1, 'transcript': 1, 'reated': 1, 'est': 1}
+
+CO-PACKAGES (top 40):
+  DESeq2                   211
+  R                        180
+  STAR                     125
+  Bowtie2                  99
+  SAMtools                 98
+  ImageJ                   97
+  UMAP                     83
+  Cutadapt                 78
+  FastQC                   77
+  MACS2                    75
+  Seurat                   75
+  GSEA                     72
+  edgeR                    65
+  HISAT2                   63
+  Trimmomatic              56
+  ggplot2                  55
+  BEDTools                 48
+  limma                    44
+  deepTools                44
+  BWA                      42
+  clusterProfiler          41
+  Trim Galore              40
+  Picard                   40
+  Bioconductor             34
+  pheatmap                 33
+  Python                   27
+  fgsea                    25
+  HOMER                    25
+  AlphaFold                24
+  GATK                     23
+  minimap2                 23
+  Scanpy                   22
+  fastp                    21
+  MultiQC                  21
+  BLAST                    19
+  ComplexHeatmap           19
+  scikit-learn             18
+  tidyverse                18
+  Enrichr                  17
+  scDblFinder              17

@@ -1,0 +1,19 @@
+edgeR/limma: 4.0.16 3.58.1
+part 1: 400 genes, n1=3, n2=2, group sums up to 2787
+  NB doubletail p: max |edgeR - enumeration| over 398 genes below big.count = 1.43e-02
+  max relative |diff| on p < 0.05 genes = 1.41e-14
+  Poisson (dispersion=0) via binomTest vs binomial doubletail: max |diff| = 2.40e-01  (binomTest uses the small-probability rejection region, not doubled tails; see below)
+  ... of which 253 genes differ by more than 1e-9
+
+part 2: beta approximation (used when both group sums > big.count=900) vs enumeration
+      s1     s2   phi |  beta approx   edgeR enum   scipy enum
+    1000   1000  0.05 |   4.9730e-02   4.9702e-02   4.9702e-02
+    1000   1300  0.05 |   1.1688e-03   1.1713e-03   1.1713e-03
+    1000   1300  0.20 |   9.7494e-02   9.7506e-02   9.7506e-02
+    2000   3000  0.10 |   4.5539e-03   4.5586e-03   4.5586e-03
+    5000   5600  0.02 |   5.7601e-05   5.7584e-05   5.7584e-05
+     901   1500  0.50 |   1.4978e-01   1.4980e-01   1.4980e-01
+
+part 3: exactTest(DGEList) with equal library sizes, dispersion given: p vs enumeration, logFC vs formula
+  p-values: max |edgeR - enumeration| = 1.67e-15  (library sizes equal, so q2qnbinom is the identity)
+  logFC: max |edgeR - log2 of prior-augmented group means| = 7.33e-15

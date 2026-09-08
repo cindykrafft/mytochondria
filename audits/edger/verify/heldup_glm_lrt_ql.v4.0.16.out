@@ -1,0 +1,11 @@
+edgeR/limma: 4.0.16 3.58.1
+part 1: glmFit/glmLRT on ~group+x, 2000 genes, dispersion 0.1, n=8
+  unshrunk coefficients: max |edgeR - port| = 2.32e-03
+  deviance:              max |edgeR - port| = 2.44e-06
+  LR statistic:          max |edgeR - port| = 3.29e-06;  p-value max |diff| = 4.66e-06
+  shrunk coefficients (predFC, prior.count 0.125): max |edgeR - port on y+p_j| = 2.43e-03; logFC column = coef/log2: max |diff| = 4.26e-14
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/edger/verify/heldup_glm_lrt_ql.py", line 109, in <module>
+    df_res, dev, s2post, dfprior, Fstat, pQL, dftot, LRr, nzero = Q.T
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 9, got 8)

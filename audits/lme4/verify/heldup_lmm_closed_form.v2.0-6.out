@@ -1,0 +1,64 @@
+lme4 2.0.6 from /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/lme4/lib-rel 
+nlme 3.1.164 | R version 4.3.3 (2024-02-29) 
+
+A. balanced one-way, a = 12 groups x n = 5 ; MSA = 8.543748615  MSE = 2.113892138 
+  REML sigma_a^2 lmer 1.285971354 closed 1.285971295 | sigma_e^2 lmer 2.113892122 closed 2.113892138 | max rel err 4.56e-08
+       intercept 10.16823443 (closed 10.16823443), SE 0.3773537 (closed 0.3773536938) | -2logL lmer 231.0557714 dense 231.0557714
+       nlme::lme sigma_a^2 1.285971971 sigma_e^2 2.113891956 logLik lme -115.5278857 lmer -115.5278857
+  ML   sigma_a^2 lmer 1.143575492 closed 1.143575485 | sigma_e^2 lmer 2.113892135 closed 2.113892138 | max rel err 6.18e-09
+       intercept 10.16823443 (closed 10.16823443), SE 0.3612886564 (closed 0.3612886557) | -2logL lmer 230.9003672 dense 230.9003672
+       nlme::lme sigma_a^2 1.143575978 sigma_e^2 2.113891982 logLik lme -115.4501836 lmer -115.4501836
+  ranef vs shrinkage closed form: max abs diff 1.53e-15 ; condVar lmer 0.3181746969 closed 0.3181746969
+
+B. balanced nested A/B ( 6 x 4 x 3 ): REML lmer vs closed form
+                sa2         sb2          se2
+lmer   0.5469263313 1.501543877 0.7594164187
+closed 0.5469347125 1.501540740 0.7594163238
+  max rel err 1.53e-05
+  nlme::lme: sigma_a^2 0.5469370967 sigma_b^2 1.501543252 sigma_e^2 0.7594157116 ; logLik lme -117.4021489 lmer -117.4021489
+
+C. sleepstudy Reaction ~ Days + (Days | Subject)
+  REML -2logL lmer 1743.628272 | direct optim 1743.628272 | diff 1.462e-09
+       var(Int) 612.100158 / 612.089919 ; var(Days) 35.07171445 / 35.07166102 ; cov 9.604408951 / 9.604337824 ; sigma^2 654.9400083 / 654.9410982
+       fixef lmer 251.40510485  10.46728596 / direct 251.40510485  10.46728596 ; SE lmer 6.824596695 1.545789644 / direct 6.824556552 1.545788921
+       nlme::lme fixef 251.40510485  10.46728596 ; SE 6.824516025 1.545782750 ; sd(Int) 24.74024072 sd(Days) 5.922102819 cor 0.066 sigma 25.59184252 ; logLik -871.814136 (lmer -871.814136)
+       ranef vs G Z' V^-1 r: max abs diff 2.03e-13 ; condVar[,,1] lme4 145.705587520 -21.444503598 -21.444503598   5.312282912 ref 145.705587520 -21.444503598 -21.444503598   5.312282912
+  ML   -2logL lmer 1751.939344 | direct optim 1751.939344 | diff 2.579e-08
+       var(Int) 565.4769661 / 565.5153227 ; var(Days) 32.68178525 / 32.68220449 ; cov 11.05512239 / 11.05540581 ; sigma^2 654.9457058 / 654.9410317
+       fixef lmer 251.40510485  10.46728596 / direct 251.40510485  10.46728596 ; SE lmer 6.632122742 1.502230214 / direct 6.632276629 1.502236918
+       nlme::lme fixef 251.40510485  10.46728596 ; SE 6.632240641 1.502231314 ; sd(Int) 23.78037574 sd(Days) 5.716807261 cor 0.081 sigma 25.59184173 ; logLik -875.9696722 (lmer -875.9696722)
+       ranef vs G Z' V^-1 r: max abs diff 5.73e-13 ; condVar[,,1] lme4 140.964905813 -20.604099828 -20.604099828   5.157735222 ref 140.964905813 -20.604099828 -20.604099828   5.157735222
+
+D. prior weights (REML fit): REMLcrit 235.1215576 dense 235.1215576 
+   ML fit: deviance 234.8865631 dense 234.8865631 
+   deviance(REMLfit, REML=FALSE) 234.9228104 | dense ML crit at REML theta, sigma^2 = pwrss/n: 234.9228104 
+   REMLcrit(MLfit) 235.15661 | dense REML crit at ML theta, sigma^2 = pwrss/(n-p): 235.15661 
+   nlme::lme(varFixed(~1/w)) logLik -117.5607788 lmer -117.5607788 
+
+E. profile CIs (balanced one-way, ML profile as lme4 documents)
+                   2.5 %       97.5 %                          
+.sig01      0.5623224812  1.876559991 0.5623131246  1.876560698
+.sigma      1.2052898754  1.801428871 1.2052928956  1.801428027
+(Intercept) 9.3994818877 10.936986960 9.3994836271 10.936985233
+  max rel diff 1.66e-05
+  Wald (fixed effect only):  9.428634769 10.907834091 | closed:  9.428634769 10.907834091 
+
+F. anova(m0, m1): Chisq 0.649217045 | 2*diff(ML logLik) 0.649217045 | p 0.4203927455 | pchisq 0.4203927455 
+   logLik in table: -115.4501836 -115.1255751 | ML refits: -115.4501836 -115.1255751 | REML logLik would be: -115.5278857 -115.7419427 
+   refit=FALSE: Chisq 0 | 2*diff(REML logLik) -0.4281140299 
+
+G. predict re.form=NA vs X beta: max abs diff 0 ; predict() vs X beta + Z b:  8.33e-16 
+   newdata (known level g01, new level):  9.218467327 9.996743620 | expected: 9.218467327 9.996743620 
+   simulate(re.form=NA): mean-Xb 0.060 ; var 3.427 (sa2+se2 = 3.442) ; within-group cov 1.301 (sa2 = 1.324)
+   simulate(re.form=NULL): mean-(Xb+Zb) 0.062 ; var 2.118 (se2 = 2.118) ; within-group cov 0.024 (0 expected)
+   bootMer (parametric, 400 sims): t0 = 10.1851342248 -0.1883906052  1.4553911113  1.1505148650 
+     boot mean = 10.1958753471 -0.1951409724  1.4427820968  1.1011662461 
+     boot sd of fixef = 0.3754378340 0.2284075022 | model SE = 0.3821547060 0.2318199215 
+     boot 95% percentile CI (confint method='boot' machinery):
+                    2.5 %        97.5 %
+(Intercept)  9.4815798096 10.9454667334
+x           -0.6733327217  0.2927589225
+sigma        1.1377924008  1.7195563374
+sd_g         0.3607548692  1.7911042155
+
+done

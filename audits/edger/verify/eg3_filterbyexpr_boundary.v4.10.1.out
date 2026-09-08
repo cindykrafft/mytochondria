@@ -1,0 +1,16 @@
+edgeR 4.10.1 
+part A: count 10 in a library of size L: cpm() < min.count/L*1e6 for 24875 of 200000 library sizes (12.44%), > for 25040 (12.52%), equal for the rest
+  example: L = 75512763.173389256   cpm() = 0.13242794436006025   cutoff = 0.13242794436006028
+  min.count= 5: fraction of library sizes where the exact-boundary gene fails the CPM test: 0.1244
+  min.count=10: fraction of library sizes where the exact-boundary gene fails the CPM test: 0.1244
+  min.count=15: fraction of library sizes where the exact-boundary gene fails the CPM test: 0.1291
+  min.count=20: fraction of library sizes where the exact-boundary gene fails the CPM test: 0.1244
+
+part B: 40 data sets, 5 or more samples (odd), 20,000 genes each, defaults
+  genes exactly at the margin (min.count reads in the median library, exactly MinSampleSize samples at/above cutoff): 1589
+  of these, dropped by filterByExpr although the documented rule keeps them: 148
+  total filterByExpr-vs-rule disagreements: 148 (of 800000 gene decisions); disagreements not explained by the margin: 0
+
+part C: L = (1e6, 1234567, 3e6), min.count=10, group sizes 2/1 -> MinSampleSize 1
+  cpm(gene with 10 reads in the median library) = 8.1000059130043169, cutoff = 8.1000059130043152
+  filterByExpr keeps (10 reads / 11 reads / 15,10,15): FALSE FALSE TRUE 

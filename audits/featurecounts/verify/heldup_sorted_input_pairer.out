@@ -1,0 +1,5 @@
+featureCounts 2.0.6
+179309 records
+-s 2                    : Assigned=5255 of 91123 fragments; identical to name-adjacent -T 1: {'coordinate-sorted -T 1': True, 'coordinate-sorted -T 8': True, 'name-adjacent -T 8': True}
+-s 2 -M --fraction -O   : Assigned=13174 of 91123 fragments; identical to name-adjacent -T 1: {'coordinate-sorted -T 1': True, 'coordinate-sorted -T 8': True, 'name-adjacent -T 8': True}
+-B -C -Q 10             : Assigned=3813 of 91123 fragments; identical to name-adjacent -T 1: {'coordinate-sorted -T 1': True, 'coordinate-sorted -T 8': True, 'name-adjacent -T 8': True}

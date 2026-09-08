@@ -1,0 +1,22 @@
+edgeR/limma: 4.10.5 3.68.4
+part 1: adjustedProfileLik() vs port, 300 genes, n=7
+  design ~group    phi=0.001 : max |edgeR - port| = 4.30e-11  (APL range -346.3..-16.7)
+  design ~group    phi=0.01  : max |edgeR - port| = 4.35e-11  (APL range -92.2..-16.6)
+  design ~group    phi=0.1   : max |edgeR - port| = 4.33e-11  (APL range -63.2..-17.0)
+  design ~group    phi=0.5   : max |edgeR - port| = 2.27e-11  (APL range -65.4..-18.8)
+  design ~group    phi=2     : max |edgeR - port| = 4.56e-11  (APL range -69.2..-22.1)
+  design ~group+x  phi=0.001 : max |edgeR - port| = 5.26e-07  (APL range -345.2..-18.1)
+  design ~group+x  phi=0.01  : max |edgeR - port| = 1.51e-06  (APL range -95.1..-18.1)
+  design ~group+x  phi=0.1   : max |edgeR - port| = 3.65e-06  (APL range -63.5..-18.3)
+  design ~group+x  phi=0.5   : max |edgeR - port| = 7.91e-06  (APL range -66.2..-19.7)
+  design ~group+x  phi=2     : max |edgeR - port| = 3.86e-06  (APL range -69.7..-22.5)
+
+part 2: estimateDisp(trend.method='none'), 300 genes
+  common dispersion: edgeR 0.081414; maximizeInterpolant on the port grid 0.081414; continuous argmax of the port's summed APL 0.081474
+  prior.df: edgeR 21.2953; squeezeVar on port-independent deviances at the common dispersion 21.2953; prior.n 4.2591 (= prior.df/(n-p) = 4.2591)
+  tagwise dispersions: max |log2 ratio| edgeR vs WLEB on the port grid = 1.27e-11
+  grid+spline vs exact maximiser of the same objective: median |log2 ratio| 2.68e-01, max 4.71e-01 (interpolation error of the 21-point grid)
+
+part 3: estimateDisp() defaults (locfit trend): common 0.081414, prior.df 64.8967, span 0.6852
+  trended: max |log2 ratio| edgeR vs locfit(degree 0) of the port grid + maximizeInterpolant = 5.97e-03
+  tagwise: max |log2 ratio| edgeR vs WLEB(port grid, same m0, edgeR prior.n)              = 5.46e-03

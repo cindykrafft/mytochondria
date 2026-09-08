@@ -1,0 +1,65 @@
+enrichit 0.2.2 
+enrichit default      rows=259  |universe slot|=3000  min p=3.563e-51
+enrichit user         rows=245  |universe slot|=2000  min p=7.275e-31
+enrichit size1_inf    rows=305  |universe slot|=3000  min p=3.563e-51
+enrichit default cutoffs: table rows=1; all pvalue<=0.05: TRUE; all p.adjust<=0.05: TRUE; all qvalue<=0.2: TRUE
+  rows in @result with p<=0.05 but p.adjust>0.05: 6 (hidden by as.data.frame)
+DOSE 3.30.0 
+DOSE     default      rows=259  |universe slot|=3000  min p=3.563e-51
+DOSE     user         rows=263  |universe slot|=2000  min p=2.308e-22
+done
+----- python
+
+== enrichit_default.tsv: N=3000  n(new)=194  n(legacy)=194  rows=259
+   terms in size window with overlap>=1: 259; in table: 259; missing: []; extra: []
+   terms in size window with zero overlap (should NOT be in table/BH): 31
+   BgRatio numerator == M: True; BgRatio denominator == N: True
+   GeneRatio numerator == k == Count: True; GeneRatio denominator == n: True (table says 194)
+   max |pvalue - scipy hypergeom.sf(k-1,N,M,n)| = 1.11e-15  (max rel 1.63e-14)
+   max |p.adjust - BH over table rows| = 2.78e-15
+   max |zScore - (k-mu)/sqrt(var_hypergeom)| = 2.49e-14
+   RichFactor == k/M: True; FoldEnrichment == (k/n)/(M/N): True
+   |universe| slot = 3000 (N=3000)
+
+== enrichit_user.tsv: N=2000  n(new)=119  n(legacy)=194  rows=245
+   terms in size window with overlap>=1: 245; in table: 245; missing: []; extra: []
+   terms in size window with zero overlap (should NOT be in table/BH): 32
+   BgRatio numerator == M: True; BgRatio denominator == N: True
+   GeneRatio numerator == k == Count: True; GeneRatio denominator == n: True (table says 119)
+   max |pvalue - scipy hypergeom.sf(k-1,N,M,n)| = 1.33e-15  (max rel 1.77e-14)
+   max |p.adjust - BH over table rows| = 3.22e-15
+   max |zScore - (k-mu)/sqrt(var_hypergeom)| = 3.91e-14
+   RichFactor == k/M: True; FoldEnrichment == (k/n)/(M/N): True
+   |universe| slot = 2000 (N=2000)
+
+== enrichit_size1_inf.tsv: N=3000  n(new)=194  n(legacy)=194  rows=305
+   terms in size window with overlap>=1: 305; in table: 305; missing: []; extra: []
+   terms in size window with zero overlap (should NOT be in table/BH): 95
+   BgRatio numerator == M: True; BgRatio denominator == N: True
+   GeneRatio numerator == k == Count: True; GeneRatio denominator == n: True (table says 194)
+   max |pvalue - scipy hypergeom.sf(k-1,N,M,n)| = 1.11e-15  (max rel 1.63e-14)
+   max |p.adjust - BH over table rows| = 9.99e-16
+   max |zScore - (k-mu)/sqrt(var_hypergeom)| = 2.49e-14
+   RichFactor == k/M: True; FoldEnrichment == (k/n)/(M/N): True
+   |universe| slot = 3000 (N=3000)
+
+== dose_default.tsv: N=3000  n(new)=194  n(legacy)=194  rows=259
+   terms in size window with overlap>=1: 259; in table: 259; missing: []; extra: []
+   terms in size window with zero overlap (should NOT be in table/BH): 31
+   BgRatio numerator == M: True; BgRatio denominator == N: True
+   GeneRatio numerator == k == Count: True; GeneRatio denominator == n: True (table says 194)
+   max |pvalue - scipy hypergeom.sf(k-1,N,M,n)| = 1.11e-15  (max rel 1.63e-14)
+   max |p.adjust - BH over table rows| = 2.78e-15
+   |universe| slot = 3000 (N=3000)
+
+== dose_user.tsv: N=2000  n(new)=119  n(legacy)=194  rows=263
+   terms in size window with overlap>=1: 245; in table: 263; missing: []; extra: ['T016', 'T030', 'T067', 'T069', 'T079']
+   terms in size window with zero overlap (should NOT be in table/BH): 32
+   BgRatio numerator == M: True; BgRatio denominator == N: True
+   GeneRatio numerator == k == Count: True; GeneRatio denominator == n: True (table says 194)
+   max |pvalue - scipy hypergeom.sf(k-1,N,M,n)| = 8.88e-16  (max rel 6.32e-15)
+   max |p.adjust - BH over table rows| = 1.56e-34
+   |universe| slot = 2000 (N=2000)
+
+== enrichit vs DOSE, default universe: 259 common rows; max |p diff| = 0.00e+00; max |p.adjust diff| = 0.00e+00; max |qvalue diff| = 1.79e-01
+== enrichit vs DOSE, user universe:    245 common rows; max |p diff| = 8.42e-01  (n: new 119 vs old 194)

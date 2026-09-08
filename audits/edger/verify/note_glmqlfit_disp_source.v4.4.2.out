@@ -1,0 +1,4 @@
+edgeR 4.4.2 
+NB dispersion used by glmQLFit: without estimateDisp 0.10307  (length 1 ); after estimateDisp 0.1191  (length 1 )
+QL p-values identical with/without a prior estimateDisp(): FALSE ; genes with BH<0.05: 15 vs 15 ; max |log10 p ratio| 0.053 
+legacy=FALSE: poisson.bound=TRUE vs FALSE identical: TRUE 

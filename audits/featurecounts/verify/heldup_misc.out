@@ -1,0 +1,12 @@
+featureCounts 2.0.6
+1. -J junction counts (manual: identified from ALL exon-spanning reads, filters not applied):
+   expected {('chr1', 1700, 2000): 153, ('chr1', 1200, 1500): 151}
+   got      {('chr1', 1200, 1500): 151, ('chr1', 1700, 2000): 153}  -> equal
+   (assigned reads under -Q 10 --ignoreDup: 98 of 300; junction totals count every N read)
+2. -T 1 vs -T 4 vs -T 8 on 10159 records: counts identical: True; summaries identical: True; Assigned=1324
+3. -s 1,2 over two files equals separate -s 1 / -s 2 runs: True
+4. GTF attribute parsing, default -t exon -g gene_id: rows=['G1', 'G2', 'G3 with space', 'G5b']; targets=['G1', 'G2', 'G3 with space', 'NA', 'G5b']
+   -t exon,CDS: rows=['G1', 'G2', 'G3 with space', 'G4', 'G5b']; a3 -> ('Assigned', 1, 'G4')
+5. GTF == SAF counts: True ({'L1': 1.0, 'L2': 1.0, 'L3': 0.0}); Length column: {'L1': 702, 'L2': 501, 'L3': 101} (L1 union of 1000-1600 + 1800-1900 = 701)
+   -O -M --fraction: read m over L1+L2 -> 0.50 each; x (NH=3, all three alignments over L1+L2) -> 1/(3*2) each: {'L1': 1.0, 'L2': 1.0, 'L3': 0.0}
+6. annotation chromosome '1', BAM 'chr1': read m -> Unassigned_NoFeatures (P1=0); 'chr' prefix is matched automatically (undocumented)

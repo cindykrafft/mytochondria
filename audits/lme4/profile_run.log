@@ -1,0 +1,90 @@
+cohort: 312
+full text: 0   survey-cache fallback: 312   ({'offline': 312})
+
+JOURNALS: {'PNAS': 239, 'Nature': 64, 'Science': 5, 'Lancet': 2, 'Cell': 2}
+YEARS: {'2021': 28, '2022': 61, '2023': 46, '2024': 73, '2025': 79, '2026': 25}
+in_methods: 302
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  lmer named                                       142
+  lmerTest / Satterthwaite                         70
+  emmeans / post hoc                               59
+  glmer named                                      47
+  lme4 version stated                              26
+  binomial / logistic family                       24
+  random intercept only                            23
+  ML stated                                        14
+  nested design                                    13
+  repeated measures / longitudinal                 10
+  nlme also used                                   9
+  bootstrap / bootMer                              8
+  REML stated                                      7
+  R2 (MuMIn / r.squaredGLMM / performance)         7
+  p-values reported                                6
+  glmer.nb / negative binomial                     6
+  sjPlot / broom.mixed / DHARMa                    6
+  brms / Bayesian alternative                      5
+  poisson family                                   5
+  trial / item random effect                       5
+  glmmTMB also used                                5
+  likelihood-ratio test / anova                    5
+  convergence / singular handling                  4
+  subject / participant random effect              3
+  gamma family                                     2
+  Kenward-Roger / pbkrtest                         2
+  optimizer stated (bobyqa/NM/allFit)              2
+  afex / mixed()                                   2
+  random slope                                     2
+  maximal random structure                         1
+  AIC / BIC model selection                        1
+  nAGQ stated                                      1
+  confint / profile / Wald                         1
+
+VERSION FAMILY: {'1.1': 45, '1.2': 1}
+VERSIONS (top 20): {'1.1': 30, '3.1': 5, '1.1-27.1': 3, '1.1.27.1': 2, '1.1-30': 2, '1.1.26': 2, '1.1-21': 2, '1.1.35.3': 1, '1.1-35.5': 1, '1.1-28': 1, '1.1.32': 1, '1.1-35.3': 1, '1.1-34': 1, '4.3.2': 1, '1.1.34': 1, '3.1.3': 1, '1.1-26': 1, '4.1.1': 1, '1.1-29': 1, '1.1-17': 1}
+
+family= strings: {}
+padj cutoffs: {'0.05': 3}
+alpha stated: {}
+
+CO-PACKAGES (top 40):
+  R                        233
+  emmeans                  55
+  ggplot2                  42
+  Python                   26
+  ImageJ                   25
+  tidyverse                24
+  UMAP                     22
+  DESeq2                   21
+  SAMtools                 20
+  BWA                      19
+  Seurat                   16
+  FreeSurfer               16
+  edgeR                    14
+  BCFtools                 14
+  GATK                     14
+  GSEA                     13
+  SciPy                    13
+  Cutadapt                 13
+  STAR                     12
+  NumPy                    11
+  scikit-learn             11
+  vegan                    11
+  PLINK                    10
+  FSL                      10
+  fgsea                    9
+  limma                    9
+  FastQC                   9
+  MACS2                    9
+  Trimmomatic              9
+  Picard                   9
+  VCFtools                 9
+  WGCNA                    8
+  clusterProfiler          8
+  Bowtie2                  8
+  MAFFT                    8
+  pheatmap                 8
+  SPM                      8
+  fMRIPrep                 8
+  Scanpy                   7
+  ggpubr                   7

@@ -1,0 +1,7 @@
+lme4 1.1.35.1 from /usr/lib/R/site-library 
+R version 4.3.3 (2024-02-29) 
+
+Error in integrate(function(b) exp(f(b) - cmax) * dnorm(b), -Inf, Inf,  : 
+  roundoff error was detected
+Calls: maximise ... optim -> <Anonymous> -> fn -> exact_ll -> integrate
+Execution halted

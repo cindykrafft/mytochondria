@@ -1,0 +1,19 @@
+featureCounts 2.0.6
+40 reads: 20 in RG g1, 20 in g2; 10 have MAPQ 0, 4 are duplicates; --byReadGroup -Q 10 --ignoreDup
+Status	/tmp/fcn3_mgk2bk8x/a.bam:g1	/tmp/fcn3_mgk2bk8x/a.bam:g2
+Assigned	13	13
+Unassigned_Unmapped	0	0
+Unassigned_Read_Type	0	0
+Unassigned_Singleton	0	0
+Unassigned_MappingQuality	0	0
+Unassigned_Chimera	0	0
+Unassigned_FragmentLength	0	0
+Unassigned_Duplicate	2	2
+Unassigned_MultiMapping	0	0
+Unassigned_Secondary	0	0
+Unassigned_NonSplit	0	0
+Unassigned_NoFeatures	0	0
+Unassigned_Overlapping_Length	0	0
+Unassigned_Ambiguity	0	0
+
+A	chr1	1000	2000	+	1001	13	13

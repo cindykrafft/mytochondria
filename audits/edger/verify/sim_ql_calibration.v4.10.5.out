@@ -1,0 +1,36 @@
+edgeR 4.10.5  limma 3.68.4 
+
+3 vs 3 samples, 0% DE genes (6 replicates, ~8000 genes before filtering):
+  test       P(p<.05) P(p<.01)   BH<.05      FDR    power
+  LRT          0.0551   0.0147      3.5    0.833       NA
+  QL           0.0662   0.0155      0.3    0.167       NA
+  QL.legacy    0.0447   0.0087      0.0    0.000       NA
+  exact        0.0508   0.0130      2.0    0.833       NA
+
+2 vs 2 samples, 0% DE genes (6 replicates, ~8000 genes before filtering):
+  test       P(p<.05) P(p<.01)   BH<.05      FDR    power
+  LRT          0.0596   0.0182      3.2    1.000       NA
+  QL           0.0661   0.0157      0.2    0.167       NA
+  QL.legacy    0.0463   0.0092      0.0    0.000       NA
+  exact        0.0530   0.0153      1.0    0.500       NA
+
+3 vs 3 samples, 10% DE genes (6 replicates, ~8000 genes before filtering):
+  test       P(p<.05) P(p<.01)   BH<.05      FDR    power
+  LRT          0.0829   0.0298     16.2    0.262    0.015
+  QL           0.0955   0.0330     10.2    0.042    0.012
+  QL.legacy    0.0728   0.0220      1.5    0.000    0.002
+  exact        0.0781   0.0275     12.2    0.174    0.013
+
+2 vs 2 samples, 10% DE genes (6 replicates, ~8000 genes before filtering):
+  test       P(p<.05) P(p<.01)   BH<.05      FDR    power
+  LRT          0.0766   0.0255     13.3    0.582    0.007
+  QL           0.0847   0.0240      0.3    0.000    0.000
+  QL.legacy    0.0623   0.0163      0.2    0.000    0.000
+  exact        0.0697   0.0226      6.3    0.457    0.004
+
+5 vs 5 samples, 10% DE genes (6 replicates, ~8000 genes before filtering):
+  test       P(p<.05) P(p<.01)   BH<.05      FDR    power
+  LRT          0.0978   0.0403     79.5    0.086    0.093
+  QL           0.1125   0.0450     68.2    0.071    0.081
+  QL.legacy    0.0874   0.0335     37.8    0.017    0.048
+  exact        0.0943   0.0387     71.5    0.063    0.086

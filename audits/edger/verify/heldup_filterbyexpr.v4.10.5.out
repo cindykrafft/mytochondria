@@ -1,0 +1,7 @@
+edgeR 4.10.5 
+30 random datasets x 5 call forms: 150 comparisons, 62 gene-level disagreements between filterByExpr and the port
+fraction of genes kept (group form), range: 0.325 0.719 
+
+lib sizes 1..6 million, min.count=10: CPM cutoff =  2.857143 ; MinSampleSize = 3
+with 12 samples per group and defaults: MinSampleSize ->  11.4 
+boundary genes (3 samples exactly at the cutoff / 2 samples high / total 15 spread thin): FALSE FALSE FALSE 
