@@ -53,7 +53,7 @@ read them.
 | repository | filed | state | next action |
 |---|---|---|---|
 | afni/afni | 12 PRs, 14 issues | 4 PRs merged, 4 issues resolved; 8 PRs + 10 issues open; PR #960 has one unread comment (2026-09-02) | read #960 and act on it; **no new filings** (the open backlog is already far over the cap) |
-| freesurfer/freesurfer | 5 PRs, 9 issues | all open, no comment in four days | **freeze**: nothing more until a maintainer replies; 7 confirmed findings stay held |
+| freesurfer/freesurfer | 5 PRs, 9 issues | all open; on 2026-09-08 the maintainers declined AI-generated analysis | **declined**: `declines_ai` set in site/audits.json; nothing further filed, commented or pushed; the #1358 fix stays in the repository |
 | spm/spm | 5 PRs, 5 issues | 2 PRs merged + 2 issues resolved; #159 and #161 open with 3 unread comments each; #167/#168 new | read #159/#161 and respond; no new filings |
 | fieldtrip/fieldtrip | 5 PRs, 2 issues | #2613 merged; #2610 'almost ready to merge' (2026-09-07), maintainer asks about the +1 as a bandwidth term; #2614 judged minor by the maintainer, who asked for a website FAQ and an Octave survey instead; #2608, #2611, #2612 no comments | replies drafted 2026-09-07: FT15 (#2610, with the bandwidth measurement) and FT16 (#2614, FAQ draft in the kit, Octave survey offered) — on the console |
 | MouseLand/Kilosort | 2 PRs, 3 issues | all open, no comment | **freeze** |
@@ -98,7 +98,7 @@ Assigned issues (2026-09-04): no PR; comment with the diagnosis and a branch lin
 | afni/afni | #73 | stale AFNI extension time axis; `3dvolreg` zero-byte output with exit 0 | PR #974 open (filed 2026-09-04) |
 | lmcinnes/umap | #1194 | `transform` refuses precomputed distances above 4096 rows | PR ready |
 | chrchang/plink-ng | #140 | `--bmerge` duplicate-ID counts and warning asymmetric | PR #387 filed and closed 2026-09-05 within a minute, one comment (unread from the session; likely the maintainer's own fix, as with #381) |
-| freesurfer/freesurfer | #1358 | `mri_convert --out_orientation` shifts by one voxel per flipped axis | PR ready; large unanswered backlog from us |
+| freesurfer/freesurfer | #1358 | `mri_convert --out_orientation` shifts by one voxel per flipped axis | not to be filed: the maintainers decline AI-generated contributions (2026-09-08) |
 | scverse/scanpy | #3809 | `.distances` keeps `n_neighbors` entries on transformer paths (≥ 8192 cells by default) | PR ready; 6 unread comments on the issue |
 | macs3-project/MACS | #715 | `bdgdiff` scores truncated to integers | PR #739 open (filed 2026-09-05); two held findings in the kit README |
 | iqtree/iqtree3 | #203 (+ #89, likely #135/#102) | `setRootNode` assertion when the outgroup is absent from a partition/quartet | PR #207 open (filed 2026-09-04) |

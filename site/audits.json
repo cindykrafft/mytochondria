@@ -9,7 +9,8 @@
    "repos": [
     "freesurfer/freesurfer"
    ],
-   "fork": "cindykrafft/freesurfer"
+   "fork": "cindykrafft/freesurfer",
+  "declines_ai": true
   },
   {
    "dir": "fsl",
