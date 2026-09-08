@@ -44,7 +44,7 @@ ol.actions>li.action{list-style:none}ol.actions>li.action>.eyebrow.tier{margin:1
 @media (prefers-reduced-motion:reduce){.toast{transition:none}}
 </style>
 <main>
-  <p class="eyebrow">Mytochondria · sixteen packages · triaged 2026-09-04</p>
+  <p class="eyebrow">Mytochondria · twenty-six packages · Do-next list updated 2026-09-08</p>
   <h1>Mytochondria Filing Console</h1>
   <p class="lede">The first section is the ordered list of what to do next, then what waits for a maintainer's signal. Below that, one section per repository, newest first. Each section is split into what to file now, comments on issues the maintainers already have open, what is filed, and what is held back until a maintainer gives a positive signal. Where a finding matches an issue that is already open, the card opens that issue and the text is a comment to paste. The Cutadapt, umap-learn and CellPhoneDB sections carry what was filed on 2026-09-03. Each button opens GitHub with the form prefilled where the text fits in a URL; where it does not, the button opens the form with the title only and the Copy button carries the body. Repositories you have not forked yet show their PR steps greyed out: fork them and tell me, and I will push the branches. Scrublet's original repository is skipped as unmaintained (last commit 2020, open issues unanswered).</p>
   <div id="root"></div>
