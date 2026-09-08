@@ -1,0 +1,75 @@
+From 10fb0eb9f7ee35d5a5d7d96fa92a216e4bb51ac7 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Tue, 8 Sep 2026 15:29:41 +0000
+Subject: [PATCH] Report the gradient component that triggered the max|grad|
+ convergence warning
+
+checkConv() built the "Model failed to converge with max|grad| = ... (component %d)"
+warning from which.max(maxmingrad), where maxmingrad is already the scalar
+max(mingrad), so the reported component was always 1. Use which.max(mingrad).
+
+Adds tests/testthat/test-checkConv.R and a NEWS entry.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ R/checkConv.R                   |  2 +-
+ inst/NEWS.Rd                    |  4 ++++
+ tests/testthat/test-checkConv.R | 17 +++++++++++++++++
+ 3 files changed, 22 insertions(+), 1 deletion(-)
+ create mode 100644 tests/testthat/test-checkConv.R
+
+diff --git a/R/checkConv.R b/R/checkConv.R
+index 92ec3ca3..87611069 100644
+--- a/R/checkConv.R
++++ b/R/checkConv.R
+@@ -83,7 +83,7 @@ checkConv <- function(derivs, coefs, ctrl, lbound, ubound, debug = FALSE,
+             mingrad <- pmin(abs(scgrad),abs(derivs$gradient))
+             maxmingrad <- max(mingrad)
+             if (maxmingrad > ccl$tol) {
+-                w <- which.max(maxmingrad)
++                w <- which.max(mingrad)
+                 res$code <- -1L
+                 wstr <- gettextf("Model failed to converge with max|grad| = %g (tol = %g, component %d)",
+                                  maxmingrad, ccl$tol,w)
+diff --git a/inst/NEWS.Rd b/inst/NEWS.Rd
+index 946d9845..8c807e19 100644
+--- a/inst/NEWS.Rd
++++ b/inst/NEWS.Rd
+@@ -44,6 +44,10 @@
+   } % user-visible changes
+   \subsection{BUG FIXES}{
+     \itemize{
++      \item the \dQuote{Model failed to converge with max|grad| = ...
++      (component \emph{i})} warning now reports the index of the
++      gradient component that triggered it; it previously always
++      reported component 1
+       \item \code{ar1} and \code{cs} covariance structures with zero
+       variances (making correlation unidentifiable) now return
+       \code{NA} with a warning rather than throwing an error;
+diff --git a/tests/testthat/test-checkConv.R b/tests/testthat/test-checkConv.R
+new file mode 100644
+index 00000000..5b6b1829
+--- /dev/null
++++ b/tests/testthat/test-checkConv.R
+@@ -0,0 +1,17 @@
++library("testthat")
++library("lme4")
++
++test_that("max|grad| warning names the offending component", {
++    ctrl <- lmerControl()$checkConv
++    ## gradient is large only in the second component
++    derivs <- list(gradient = c(1e-6, 0.5, 1e-6), Hessian = diag(3))
++    expect_warning(res <- lme4:::checkConv(derivs, coefs = c(1, 1, 1), ctrl = ctrl,
++                                           lbound = c(0, 0, 0)),
++                   "max\\|grad\\| = 0.5 .*component 2\\)")
++    expect_equal(res$code, -1L)
++    ## and the third component when that one is largest
++    derivs$gradient <- c(1e-6, 1e-6, 0.25)
++    expect_warning(lme4:::checkConv(derivs, coefs = c(1, 1, 1), ctrl = ctrl,
++                                    lbound = c(0, 0, 0)),
++                   "max\\|grad\\| = 0.25 .*component 3\\)")
++})
+-- 
+2.43.0
+

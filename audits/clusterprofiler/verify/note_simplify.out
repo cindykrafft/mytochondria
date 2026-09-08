@@ -1,0 +1,16 @@
+clusterProfiler 4.21.1.2 GOSemSim 2.39.2 
+seed 5: 267 enriched terms -> 95 kept, 172 removed
+   better similar terms exist but all were removed too            66
+   no similar term kept at all                                    8
+   redundant with a kept, better-ranked term                      98
+   orphans (removed, not similar to any kept term), first 5: GO:0002791, GO:0051048, GO:0046890, GO:0045725, GO:0006094; their p.adjust ranks among 267 terms: 8, 48, 60, 78, 101
+seed 6: 102 enriched terms -> 42 kept, 60 removed
+   better similar terms exist but all were removed too            18
+   no similar term kept at all                                    4
+   redundant with a kept, better-ranked term                      38
+   orphans (removed, not similar to any kept term), first 5: GO:0051310, GO:0090307, GO:0000819, GO:0006904; their p.adjust ranks among 102 terms: 20, 21, 46, 85
+seed 7: 298 enriched terms -> 103 kept, 195 removed
+   better similar terms exist but all were removed too            70
+   no similar term kept at all                                    12
+   redundant with a kept, better-ranked term                      113
+   orphans (removed, not similar to any kept term), first 5: GO:0090287, GO:1904752, GO:1904738, GO:0002688, GO:0032769; their p.adjust ranks among 298 terms: 42, 62, 70, 123, 138

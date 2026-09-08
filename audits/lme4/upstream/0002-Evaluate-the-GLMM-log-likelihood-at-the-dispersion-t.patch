@@ -1,0 +1,168 @@
+From 87ffeaad6a58181c4258d38ef2f901f8be2a3e87 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Tue, 8 Sep 2026 15:30:58 +0000
+Subject: [PATCH] Evaluate the GLMM log-likelihood at the dispersion the fit
+ actually uses
+
+For families with an estimated dispersion parameter (Gamma, inverse Gaussian,
+gaussian with a non-identity link), glmResp::Laplace() added the family's aic()
+value, which evaluates the log-density at a plain deviance/n plug-in dispersion.
+The fit itself (PIRLS working weights, profilePhi()) and sigma() use the
+profiled phi, which with the default glmerControl(disp_dof_correction = TRUE)
+is deviance/(n - rank[X, Z]). logLik(), AIC(), BIC() and anova() therefore
+reported a value that is not the Laplace approximation at the fitted
+parameters: for a Gamma(log) random-intercept model with n = 320 and
+rank[X, Z] = 42 the reported log-likelihood was 2.3 units above both the exact
+marginal log-likelihood and an independent Laplace approximation evaluated at
+the fitted parameters, while disp_dof_correction = FALSE agreed to 0.01.
+
+Hand aic() the deviance value that makes its internal plug-in equal to phi.
+The existing consistency test in test-gamma_glmm_bias.R recomputed -2 logLik
+at deviance/n; it now uses sigma(fit)^2 and covers both settings of
+disp_dof_correction. NEWS entry added.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ inst/NEWS.Rd                          | 10 ++++++
+ src/respModule.cpp                    | 37 +++++++++++++++++++++-
+ tests/testthat/test-gamma_glmm_bias.R | 44 +++++++++++++++++----------
+ 3 files changed, 74 insertions(+), 17 deletions(-)
+
+diff --git a/inst/NEWS.Rd b/inst/NEWS.Rd
+index 946d9845..9ac18f94 100644
+--- a/inst/NEWS.Rd
++++ b/inst/NEWS.Rd
+@@ -44,6 +44,16 @@
+   } % user-visible changes
+   \subsection{BUG FIXES}{
+     \itemize{
++      \item the log-likelihood (hence \code{AIC}, \code{BIC},
++      \code{anova}) of GLMMs with an estimated dispersion parameter is
++      now evaluated at the same dispersion that the fit uses and that
++      \code{sigma()} reports; with the default
++      \code{glmerControl(disp_dof_correction = TRUE)} it was previously
++      evaluated at the uncorrected \code{deviance/n}, so
++      \code{logLik()} was not the Laplace approximation at the fitted
++      parameters (too large by about \eqn{n/2 (r - 1 - \log r)} with
++      \eqn{r = n/(n - q)}; 2.3 log-likelihood units for \eqn{n = 320,
++      q = 42})
+       \item \code{ar1} and \code{cs} covariance structures with zero
+       variances (making correlation unidentifiable) now return
+       \code{NA} with a warning rather than throwing an error;
+diff --git a/src/respModule.cpp b/src/respModule.cpp
+index 14a98183..82e251f2 100644
+--- a/src/respModule.cpp
++++ b/src/respModule.cpp
+@@ -174,7 +174,42 @@ namespace lme4 {
+         // the dispersion parameter when useSc/hasFreeDispersion is TRUE).
+         // Fixed-dispersion families (Poisson, binomial) have no such
+         // constant in their aic() to begin with, so are unaffected.
+-        double ans = ldL2 + sqrL + aic();
++        //
++        // The family aic() methods estimate the dispersion internally
++        // from the deviance they are handed (Gamma, inverse Gaussian:
++        // dev / sum(weights); Gaussian: dev / n) and evaluate the
++        // log-density at that plug-in value. For free-dispersion
++        // families the dispersion actually used by this fit is d_phi
++        // (profiled in profilePhi(), external.cpp, with the
++        // degrees-of-freedom correction of glmerControl(disp_dof_correction=)
++        // and reported by sigma()), which differs from the plain
++        // deviance/n plug-in whenever the correction is on. Hand aic()
++        // the deviance value that makes its internal plug-in equal to
++        // d_phi, so that the log-likelihood is evaluated at the same
++        // dispersion as the PIRLS working weights and the reported
++        // sigma(); otherwise logLik()/AIC()/anova() report a value that is
++        // not the Laplace approximation at the fitted parameters (off by
++        // ~ n/2 * (phi_dof/phi_n - 1 - log(phi_dof/phi_n))).
++        double aicval = aic();
++        if (hasFreeDispersion()) {
++            const std::string& fam = family();
++            double dev = resDev();
++            if (fam == "Gamma") {
++                // gammaDist::aic() evaluates dgamma() at disp = dev / sum(wt):
++                // hand it the deviance whose plug-in equals d_phi
++                aicval = d_fam.aic(d_y, d_n, d_mu, d_weights, d_phi * d_weights.sum());
++            } else if (fam == "gaussian" || fam == "inverse.gaussian") {
++                // these aic() methods are written in profiled form,
++                // N * (log(dev/N) + 1) + ..., i.e. with the plug-in
++                // dispersion already substituted; swap that term for
++                // the log-density term at d_phi, N * log(d_phi) + dev/d_phi
++                double N = (fam == "gaussian") ? double(d_mu.size()) : d_weights.sum();
++                aicval += -N * (std::log(dev / N) + 1.) + N * std::log(d_phi) + dev / d_phi;
++            }
++            // user-defined families with a dispersion component keep the
++            // family's own aic() (evaluated at its plug-in dispersion)
++        }
++        double ans = ldL2 + sqrL + aicval;
+         if (hasFreeDispersion()) ans -= 2.;
+         return ans;
+     }
+diff --git a/tests/testthat/test-gamma_glmm_bias.R b/tests/testthat/test-gamma_glmm_bias.R
+index 38649966..1bf68ff4 100644
+--- a/tests/testthat/test-gamma_glmm_bias.R
++++ b/tests/testthat/test-gamma_glmm_bias.R
+@@ -77,6 +77,16 @@ if (testLevel > 1) {
+ ## dgamma()/dnorm(), never touching the family's aic() method -- using the
+ ## fitted model's own converged conditional modes/means, and checking it
+ ## matches logLik(fit) exactly (not just up to an additive constant).
++##
++## The dispersion used in the recomputation is the one the fit reports,
++## sigma(fit)^2, i.e. the profiled phi (with the degrees-of-freedom
++## correction of glmerControl(disp_dof_correction=) when that is on). The
++## family's aic() method evaluates the density at a plain deviance/n
++## plug-in instead, which is why glmResp::Laplace() now hands it the
++## deviance value that makes the two agree; a logLik evaluated at a
++## different dispersion than the one used by the working weights and
++## reported by sigma() is not the Laplace approximation at the fitted
++## parameters. Both settings of disp_dof_correction are checked.
+ test_that("Laplace deviance for free-dispersion GLMMs has no aic() bookkeeping leak", {
+   ldL2 <- function(fit) {
+     L <- getME(fit, "L")
+@@ -88,25 +98,27 @@ test_that("Laplace deviance for free-dispersion GLMMs has no aic() bookkeeping l
+   n <- 200
+   dd <- data.frame(x = rnorm(n), f = factor(rep(1:20, each = 10)))
+   dd$y <- rgamma(n, shape = 2, scale = exp(1 + 0.5*dd$x)/2)
+-  gfit <- glmer(y ~ x + (1|f), data = dd, family = Gamma(link = "log"))
+-
+-  mu <- fitted(gfit)
+-  dev <- sum(Gamma()$dev.resids(dd$y, mu, 1))
+-  phihat <- dev / n
+-  recomputed <- -2 * sum(dgamma(dd$y, shape = 1/phihat, scale = mu*phihat, log = TRUE)) +
+-    sum(getME(gfit, "u")^2) + ldL2(gfit)
+-  expect_equal(recomputed, -2*as.numeric(logLik(gfit)), tolerance = 1e-6)
++  for (dof in c(TRUE, FALSE)) {
++    gfit <- glmer(y ~ x + (1|f), data = dd, family = Gamma(link = "log"),
++                  control = glmerControl(disp_dof_correction = dof))
++    mu <- fitted(gfit)
++    phihat <- sigma(gfit)^2
++    recomputed <- -2 * sum(dgamma(dd$y, shape = 1/phihat, scale = mu*phihat, log = TRUE)) +
++      sum(getME(gfit, "u")^2) + ldL2(gfit)
++    expect_equal(recomputed, -2*as.numeric(logLik(gfit)), tolerance = 1e-6)
++  }
+ 
+   set.seed(202)
+   dd$y <- pmax(rnorm(n, exp(1 + 0.3*dd$x), 0.3*exp(1 + 0.3*dd$x)), 0.01)
+-  ggfit <- glmer(y ~ x + (1|f), data = dd, family = gaussian(link = "log"))
+-
+-  mu <- fitted(ggfit)
+-  dev <- sum(gaussian()$dev.resids(dd$y, mu, 1))
+-  phihat <- dev / n
+-  recomputed <- -2 * sum(dnorm(dd$y, mu, sqrt(phihat), log = TRUE)) +
+-    sum(getME(ggfit, "u")^2) + ldL2(ggfit)
+-  expect_equal(recomputed, -2*as.numeric(logLik(ggfit)), tolerance = 1e-6)
++  for (dof in c(TRUE, FALSE)) {
++    ggfit <- glmer(y ~ x + (1|f), data = dd, family = gaussian(link = "log"),
++                   control = glmerControl(disp_dof_correction = dof))
++    mu <- fitted(ggfit)
++    phihat <- sigma(ggfit)^2
++    recomputed <- -2 * sum(dnorm(dd$y, mu, sqrt(phihat), log = TRUE)) +
++      sum(getME(ggfit, "u")^2) + ldL2(ggfit)
++    expect_equal(recomputed, -2*as.numeric(logLik(ggfit)), tolerance = 1e-6)
++  }
+ })
+ 
+ ## Regression test for the nAGQ>1/dispersion fix noted in
+-- 
+2.43.0
+

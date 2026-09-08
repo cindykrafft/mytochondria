@@ -1,0 +1,22 @@
+Warning message:
+In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.0218679 (tol = 0.002, component 1)
+  See ?lme4::convergence and ?lme4::troubleshooting.
+            Estimate Std. Error z value  Pr(>|z|)
+(Intercept)  -0.3868     0.3378  -1.145 2.522e-01
+x             1.2031     0.2185   5.505 3.683e-08
+Warning messages:
+1: In vcov.merMod(object, use.hessian = use.hessian) :
+  variance-covariance matrix computed from finite-difference Hessian gives standard errors that differ from the
+RX-based ones by a factor of up to 105: falling back to var-cov estimated from RX
+2: In vcov.merMod(object, correlation = correlation, sigm = sig) :
+  variance-covariance matrix computed from finite-difference Hessian gives standard errors that differ from the
+RX-based ones by a factor of up to 105: falling back to var-cov estimated from RX
+Warning message:
+In vcov.merMod(fit) :
+  variance-covariance matrix computed from finite-difference Hessian gives standard errors that differ from the
+RX-based ones by a factor of up to 105: falling back to var-cov estimated from RX
+        (Intercept)      x
+default      0.3378 0.2185
+RX           0.3378 0.2185
+lme4 2.1.0 | R version 4.3.3 (2024-02-29) 

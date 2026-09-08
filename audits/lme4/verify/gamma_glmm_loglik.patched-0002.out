@@ -1,0 +1,28 @@
+lme4 2.1.0 from /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/lme4/lib-B 
+R version 4.3.3 (2024-02-29) 
+
+exact ML: logLik -593.644975 (AGH-40) | integrate() -593.644975
+          beta 1.0184764539 0.4977628013 ; sd(RE) 0.7721910762 ; phi 0.276606656 ; SE(beta) 0.12566003969 0.03136847295
+independent Laplace ML: logLik -593.7337153 ; beta 1.0184138809 0.4977653659 ; sd(RE) 0.7717004552 ; phi 0.2764900524
+glmer(Gamma(log)) defaults
+  beta 1.0019991716 0.4977498111 ; sd(RE) 0.7742659182 ; sigma(fit)^2 0.2943203427 ; SE(beta) 0.12588712803 0.03130025172
+  logLik(fit) -594.0583862 | exact logLik at these estimates -593.9473183 (diff -0.1111) | independent Laplace at these estimates -594.0402655 (diff -0.0181)
+  residual deviance 82.11218609 ; deviance/n 0.2566005815 ; deviance/(n - rank[X,Z]) 0.2953675758
+  devcomp$cmp: ldL2  114.0161555945 ldRX2   11.0168272316 wrss   76.6436368855 ussq   37.3992633948 pwrss  114.0429002803 drsum   82.1121860855 REML              NA dev 1188.1167723847 sigmaML    0.5425129885 sigmaREML              NA tolPwrss    0.0000001000
+glmer(..., disp_method = 'old/buggy')
+  beta 1.0128562395 0.5027411411 ; sd(RE) 0.7182118338 ; sigma(fit)^2 0.3719487506 ; SE(beta) 0.12692791418 0.05909814894
+  logLik(fit) -685.8653622 | exact logLik at these estimates -600.005611 (diff -85.8598) | independent Laplace at these estimates -600.1087088 (diff -85.7567)
+  residual deviance 88.82814195 ; deviance/n 0.2775879436 ; deviance/(n - rank[X,Z]) 0.3195256905
+  devcomp$cmp: ldL2   65.3779089801 ldRX2    9.8051481698 wrss   86.8253206819 ussq   32.1982795057 pwrss  119.0236001877 drsum   88.8281419495 REML              NA dev 1371.7307243948 sigmaML    0.6098760125 sigmaREML              NA tolPwrss    0.0000001000
+glmer(..., disp_dof_correction = FALSE)
+  beta 1.0020453444 0.4977754043 ; sd(RE) 0.7709068052 ; sigma(fit)^2 0.256163623 ; SE(beta) 0.12539412666 0.03142123696
+  logLik(fit) -594.2170007 | exact logLik at these estimates -594.1186844 (diff -0.0983) | independent Laplace at these estimates -594.202386 (diff -0.0146)
+  residual deviance 81.96892831 ; deviance/n 0.256152901 ; deviance/(n - rank[X,Z]) 0.2948522601
+  devcomp$cmp: ldL2  118.9391429857 ldRX2   11.1705437732 wrss   76.4037359198 ussq   38.2489294148 pwrss  114.6526653347 drsum   81.9689283133 REML              NA dev 1188.4340014599 sigmaML    0.5061260939 sigmaREML              NA tolPwrss    0.0000001000
+
+Gamma()$aic at the reported mu with dispersion = deviance/n (base R convention, includes +2): 1033.827863 
+-2 sum log dgamma(y | mu, phi = sigma(fit)^2): 1036.701353 
+-2 sum log dgamma(y | mu, phi = deviance/n): 1031.827863 
+ldL2 + sqrL from the fit: 151.415419 ; -2 logLik(fit): 1188.116772 
+
+done

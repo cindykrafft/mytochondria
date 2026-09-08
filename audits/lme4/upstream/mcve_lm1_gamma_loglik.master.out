@@ -1,0 +1,7 @@
+disp_dof_correction = TRUE  sigma(fit)^2 = 0.29432  deviance/n = 0.25660
+     reported     at_sigma2 at_dev_over_n 
+    1183.2433     1188.1168     1183.2433 
+disp_dof_correction = FALSE sigma(fit)^2 = 0.25616  deviance/n = 0.25615
+     reported     at_sigma2 at_dev_over_n 
+    1188.4334     1188.4340     1188.4334 
+lme4 2.1.0 | R version 4.3.3 (2024-02-29) 

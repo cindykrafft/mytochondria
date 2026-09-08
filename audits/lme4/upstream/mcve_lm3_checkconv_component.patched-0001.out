@@ -1,0 +1,11 @@
+$code
+[1] -1
+
+$messages
+[1] "Model failed to converge with max|grad| = 0.5 (tol = 0.002, component 2)\n  See ?lme4::convergence and ?lme4::troubleshooting."
+
+Warning message:
+In lme4:::checkConv(derivs, coefs = c(1, 1, 1), ctrl = ctrl, lbound = c(0,  :
+  Model failed to converge with max|grad| = 0.5 (tol = 0.002, component 2)
+  See ?lme4::convergence and ?lme4::troubleshooting.
+lme4 2.1.0 | R version 4.3.3 (2024-02-29) 

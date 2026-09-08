@@ -15,3 +15,23 @@ GSEA (multilevel, eps 1e-10, default cutoff 0.05): result rows = 718; rows with 
    engine gsea(): 6379 sets tested (terms with 10 <= overlap <= 500 in this list: 6379); pvalue <= 0.05: 718; BH p.adjust <= 0.05: 204
 GSEA on a pure-null ranked list: result rows = 292 (p.adjust <= 0.05 among them: 0)
 (master = GitHub a261244, 0.2.2)
+== enrichit 0.2.2
+GO BP: 15709 terms, 18870 annotated genes, 6379 terms with 10 <= size <= 500
+ORA default universe: query 198 genes (198 annotated); @result rows = 3856 (Count = 0 rows: 0) -> BH over 3856 terms; terms with p.adjust <= 0.05: 694; rows shown (p, p.adjust <= 0.05 & q <= 0.2): 694; planted GO:0021543 p.adjust = 1.08e-59, GO:0043523 p.adjust = 4.39e-58
+   qvalue on the 3856 tested p-values: legacy (lambda=0.05, bootstrap) pi0 = 0.699, terms q <= 0.2: 2255; default qvalue() pi0 = NA, terms q <= 0.2: 0; terms crossing 0.2 between the two: 0; engine column matches: legacy TRUE / default FALSE
+ORA user universe (12,000 genes; 20 of 200 query genes outside it): enrichit n = 180, rows = 3590, terms p.adjust <= 0.05: 1130
+GSEA (multilevel, eps 1e-10, default cutoff 0.05): result rows = 204; rows with p.adjust > 0.05 = 0 (p.adjust > 0.5: 0, max 0.049); planted terms in result: 10 of 10 (all with p.adjust <= 0.05: TRUE); 47.78844 secs
+   engine gsea(): 6379 sets tested (terms with 10 <= overlap <= 500 in this list: 6379); pvalue <= 0.05: 718; BH p.adjust <= 0.05: 204
+GSEA on a pure-null ranked list: result rows = 0 (p.adjust <= 0.05 among them: 0)
+(master + legacy DOSE 3.30.0 for the ORA comparisons)
+== enrichit 0.2.2 + DOSE 3.30.0
+GO BP: 15709 terms, 18870 annotated genes, 6379 terms with 10 <= size <= 500
+ORA default universe: query 198 genes (198 annotated); @result rows = 3856 (Count = 0 rows: 0) -> BH over 3856 terms; terms with p.adjust <= 0.05: 694; rows shown (p, p.adjust <= 0.05 & q <= 0.2): 694; planted GO:0021543 p.adjust = 1.08e-59, GO:0043523 p.adjust = 4.39e-58
+   qvalue on the 3856 tested p-values: legacy (lambda=0.05, bootstrap) pi0 = 0.699, terms q <= 0.2: 2255; default qvalue() pi0 = NA, terms q <= 0.2: 0; terms crossing 0.2 between the two: 0; engine column matches: legacy TRUE / default FALSE
+ORA user universe (12,000 genes; 20 of 200 query genes outside it): enrichit n = 180, rows = 3590, terms p.adjust <= 0.05: 1130
+   legacy DOSE: n = 200, rows = 3615 (with Count = 0: 25), terms p.adjust <= 0.05: 939; common terms 3590: p ratio old/new median 1.212 (min 1.015); terms whose p.adjust <= 0.05 call differs: 191
+   legacy DOSE, default universe: rows = 3856, max |p diff| vs enrichit = 0.0e+00, max |p.adjust diff| = 0.0e+00, max |qvalue diff| = 0.000, terms whose q <= 0.2 call differs: 0, shown rows 694
+GSEA (multilevel, eps 1e-10, default cutoff 0.05): result rows = 204; rows with p.adjust > 0.05 = 0 (p.adjust > 0.5: 0, max 0.049); planted terms in result: 10 of 10 (all with p.adjust <= 0.05: TRUE); 48.80253 secs
+   engine gsea(): 6379 sets tested (terms with 10 <= overlap <= 500 in this list: 6379); pvalue <= 0.05: 718; BH p.adjust <= 0.05: 204
+GSEA on a pure-null ranked list: result rows = 0 (p.adjust <= 0.05 among them: 0)
+[exited with code 0]

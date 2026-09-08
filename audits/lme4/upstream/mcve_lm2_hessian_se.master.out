@@ -1,0 +1,11 @@
+Warning message:
+In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.0218679 (tol = 0.002, component 1)
+  See ?lme4::convergence and ?lme4::troubleshooting.
+            Estimate Std. Error z value Pr(>|z|)
+(Intercept)  -0.3868   0.003230  -119.7        0
+x             1.2031   0.003233   372.2        0
+        (Intercept)        x
+default     0.00323 0.003233
+RX          0.33781 0.218529
+lme4 2.1.0 | R version 4.3.3 (2024-02-29) 

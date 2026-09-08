@@ -1,0 +1,24 @@
+clusterProfiler 4.21.1.2 enrichit 0.2.2 GOSemSim 2.39.2 org.Hs.eg.db 3.18.0 
+enrichGO(ENTREZID) rows 3343, engine rows 3343, identical pvalue/p.adjust/Count: TRUE; universe = all BP-annotated genes: 18870 (annotated 18870)
+SYMBOL keys mapping to > 1 ENTREZID among BP-annotated genes: 0 of 18870 (e.g. )
+'select()' returned 1:1 mapping between keys and columns
+'select()' returned 1:1 mapping between keys and columns
+enrichGO(SYMBOL) with 200 symbols: n in GeneRatio = 200 (symbols mapped to 200 Entrez ids); the ENTREZID run on those ids gives identical p-values: TRUE
+   geneID column is in symbols: TRUE; keytype slot: ENTREZID
+setReadable: 61 ids -> 61 symbols, equal to mapIds(ENTREZID->SYMBOL) in order: TRUE; numbers untouched: TRUE
+Warning message:
+semData is not provided. It will be calculated automatically. 
+simplify(cutoff 0.7, Wang): 267 -> 95 terms in 9.185017 secs; every kept term is in the input: TRUE; p-values unchanged: TRUE
+preparing gene to GO mapping data...
+Warning message:
+In GOSemSim::godata("org.Hs.eg.db", ont = "BP", computeIC = FALSE) :
+  use 'annoDb' instead of 'OrgDb'
+   every removed term has a >0.7-similar term with p.adjust <= its own: FALSE; pairs of kept terms still > 0.7 similar: 0; removed terms whose only better neighbour was itself removed: 66
+compareCluster(enrichGO): cluster A rows 3343 == enrichGO(A) rows 3343 with identical p.adjust: TRUE; cluster B identical to enrichGO(B): TRUE (BH is per cluster, not over both)
+   default cutoffs: compareCluster table rows 369 (A 267, B 102) vs as.data.frame(enrichGO) A 267, B 102
+gseGO wrapper vs enrichit::gsea_gson (same seed): rows 6379 / 6379, identical NES and pvalue: TRUE; planted term GO:0030072 NES = 3.59 p.adjust = 1.59e-08
+   GSEA(method = "fgsea"): ERROR: 'arg' should be one of "sample", "permute", "multilevel"
+   GSEA(method = "monte carlo"): ERROR: 'arg' should be one of "sample", "permute", "multilevel"
+   GSEA(method = "sample"): runs
+   GSEA(method = "permute"): runs
+   GSEA(by = "fgsea") (the <= 4.18 argument): ERROR: unused argument (by = "fgsea")
