@@ -136,7 +136,7 @@ repos["deeptools"]=dict(owner="deeptools",repo="deepTools",fork="cindykrafft/dee
 r2("samtools","samtools","samtools","develop","bug_report.md",
    "CONTRIBUTING.md (new in 1.24) accepts AI-assisted work on conditions: every generated line reviewed by the submitter; an `Assisted-by: Claude:claude-fable-5-1` trailer on each commit and in the PR body; NO Signed-off-by from an agent (the DCO sign-off must be yours, real name); the commit message and PR description written by a human. The branch is already pushed to cindykrafft/samtools with the trailer and no sign-off: before opening the PR, `git fetch` it, rewrite the commit message in your own words and `git commit --amend -s`, then force-push the branch (or send me the message you want and I will amend it and add your Signed-off-by line at your instruction). Markdown bug-report template (3 headings), no PR template, NEWS.md bullet per change, `make test`. No prior issue for ST1 (nearest #1003, #640, #969). Fork exists; branch pushed.",
    ["issue-st1-stats-cov-ring-buffer.md"], ["ST1"], forked=True,
-   order_note="ST1 is the strongest new finding of round 3: samtools stats coverage numbers are wrong on any spliced (RNA-seq) alignment and on mixed-length reads, in every version. Issue first, PR the same day; both are in the kit.")
+   order_note="ST1 filed 2026-09-08 as #2378 with PR #2379 (commit signed off by the submitter per the DCO). Waiting for the maintainers; nothing else to file here.")
 r2("edger","bioc","edgeR","devel",None,
    "No tracker, no PRs: bioc/edgeR is a read-only mirror. The channel is the Bioconductor support site (support.bioconductor.org, tag edgeR) or the maintainers' e-mail; the 'issue' text below is the support-site post with the reproducible example, and the two patches (devel; RELEASE_3_23 with --keep-cr) are attached as diffs for the maintainers to apply. Search the support site for filterByExpr first (unreachable from the audit session). No fork applies.",
    ["issue-eg3-filterbyexpr-boundary.md"], [], no_prs=True,
@@ -173,8 +173,8 @@ r2("plink","chrchang","plink-ng","master",None,
    ["issue-pl1-hwe-threshold-boundary.md"], ["PL1"])
 
 # ---- triage (2026-09-03): file only findings that change published numbers under default/common settings; at most two per repo until a maintainer responds
-TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)","FT15":"posted on PR #2610 (2026-09-07, per the comment count)","FT16":"posted on #2614 (2026-09-07, per the comment count)","PL1":"#380 / PR #381 (closed 2026-09-03: the maintainer applied his own equivalent fix, 1fe42e5)","DT4":"comment on #1118 / PR #1466 (2026-09-08)"},
-      "now":["HC2","ST1","EG3"],
+TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)","FT15":"posted on PR #2610 (2026-09-07, per the comment count)","FT16":"posted on #2614 (2026-09-07, per the comment count)","PL1":"#380 / PR #381 (closed 2026-09-03: the maintainer applied his own equivalent fix, 1fe42e5)","DT4":"comment on #1118 / PR #1466 (2026-09-08)","ST1":"#2378 / PR #2379 (2026-09-08)"},
+      "now":["HC2","EG3"],
       "comment":["LM2","CP5"]}
 def tier_of(i):
     if i in TIER["filed"]: return "filed"
@@ -230,8 +230,6 @@ for d in sorted(glob.glob(A+"*/issue-fixes/*/")):
 json.dump(fixes, open(os.path.join(OUT,"fixes.json"),"w"), indent=1)
 # ---- ordered action list (2026-09-08): what to do next, top first; everything else waits for a signal
 ACTIONS=[
- dict(kind="issue", key="samtools", id="ST1", why="round 3's strongest finding: samtools stats coverage numbers (COV rows, -t/-g percentage covered) are wrong on any spliced alignment and on mixed-length reads, in every version since at least 1.9; issue first"),
- dict(kind="pr", key="samtools", id="ST1", why="the fix with two regression tests and a NEWS bullet; samtools' AI policy applies: rewrite the commit message yourself, keep the Assisted-by trailer, add your own sign-off (git commit --amend -s), no sign-off from an agent"),
  dict(kind="issue", key="lme4", id="LM2", why="comment on the maintainer's own open #867 (no comments yet): glmer's default Hessian standard errors were ~100x too small in 9 of 150 ordinary Bernoulli fits, with only a max-gradient warning; measurement plus a cheap guard"),
  dict(kind="pr", key="lme4", id="LM2", why="the guard as a PR (branch fix/vcov-hessian-fallback on the fork), after the comment is up"),
  dict(kind="issue", key="edger", id="EG3", why="support-site post, not a GitHub issue: filterByExpr drops a gene sitting exactly on the CPM cutoff by one ulp, every version, one-line fix attached; small effect, so post only if you are comfortable with a low-magnitude report"),

@@ -928,6 +928,24 @@
 "merged": false,
 "comments": 0,
 "updated": "2026-09-08T14:20:42Z"
+},
+{
+"repo": "samtools/samtools",
+"number": 2378,
+"kind": "issue",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-08T16:31:21Z"
+},
+{
+"repo": "samtools/samtools",
+"number": 2379,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-08T16:33:35Z"
 }
 ]
 }

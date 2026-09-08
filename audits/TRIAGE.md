@@ -131,7 +131,7 @@ clusterProfiler CP1/CP2/CP3/CP6/CP7) are recorded and not raised.
 
 | tier | finding | reason |
 |---|---|---|
-| file now | samtools ST1 (+ ST2, same patch) | `samtools stats` coverage distribution (COV rows, `-t`/`-g` target percentage) is accumulated in a ring of 5 × read length indexed modulo its size, so spliced (RNA-seq) alignments wrap around and mixed-length reads lose counts on buffer reallocation; every version since at least 1.9; issue then PR the same day |
+| filed 2026-09-08 (#2378 / PR #2379) | samtools ST1 (+ ST2, same patch) | `samtools stats` coverage distribution (COV rows, `-t`/`-g` target percentage) is accumulated in a ring of 5 × read length indexed modulo its size, so spliced (RNA-seq) alignments wrap around and mixed-length reads lose counts on buffer reallocation; every version since at least 1.9; issue then PR the same day |
 | comment | lme4 LM2 on the maintainers' open #867 | default `glmer` Hessian standard errors about 100× too small in 9 of 150 ordinary Bernoulli fits, with only a `max|grad|` warning; measurement plus a guard (patch 0003) as the PR once the comment is up |
 | file now (low magnitude, lead's call) | edgeR EG3 | `filterByExpr` drops a gene sitting exactly on the CPM cutoff by one ulp when the median library is a real library; all versions; one-line fix; goes to the Bioconductor support site because bioc/edgeR is a read-only mirror |
 | comment | clusterProfiler CP5 on the open #819 | the 4.16 vs 4.20 difference the reporter saw is enrichit 0.1.x running BH over zero-overlap sets, fixed in enrichit 0.2.0; post only after reading the six comments already there |

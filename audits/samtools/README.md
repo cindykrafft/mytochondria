@@ -131,9 +131,10 @@ ncurses dev packages).
 
 ## Next steps
 
-1. File ST1 from the kit as an issue, then the PR from a fork after the human review,
-   rewrite and sign-off that `CONTRIBUTING.md` requires. Record numbers and responses
-   here and in the top-level table. The notes wait for a maintainer signal.
+1. ST1 filed 2026-09-08: issue samtools/samtools#2378 and PR #2379 from the fork
+   branch `fix/stats-coverage-ring-buffer` (commit `43069a1`, reviewed and signed off by
+   the submitter, `Assisted-by:` trailer kept, per `CONTRIBUTING.md`). Waiting for the
+   maintainers; the notes wait for a maintainer signal.
 2. Extend the review to `stats` GC-depth (`GCD`; #1003 is open for long reads) and the
    per-cycle tables, `bedcov`, `consensus`, and BAQ's arithmetic in HTSlib.
 3. Full-text profiling rerun when Europe PMC is reachable, to see which papers report
