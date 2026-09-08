@@ -101,7 +101,7 @@ Assigned issues (2026-09-04): no PR; comment with the diagnosis and a branch lin
 | freesurfer/freesurfer | #1358 | `mri_convert --out_orientation` shifts by one voxel per flipped axis | not to be filed: the maintainers decline AI-generated contributions (2026-09-08) |
 | scverse/scanpy | #3809 | `.distances` keeps `n_neighbors` entries on transformer paths (≥ 8192 cells by default) | PR ready; 6 unread comments on the issue |
 | macs3-project/MACS | #715 | `bdgdiff` scores truncated to integers | PR #739 open (filed 2026-09-05); two held findings in the kit README |
-| iqtree/iqtree3 | #203 (+ #89, likely #135/#102) | `setRootNode` assertion when the outgroup is absent from a partition/quartet | PR #207 open (filed 2026-09-04) |
+| iqtree/iqtree3 | #203 (+ #89, likely #135/#102) | `setRootNode` assertion when the outgroup is absent from a partition/quartet | PR #207 **merged 2026-09-08** (no discussion); closes #203 and #89 |
 
 Each kit under `audits/<package>/issue-fixes/<n>-<slug>/` records the alternates considered, so the next round can start from those.
 
