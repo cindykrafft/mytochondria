@@ -53,7 +53,7 @@ read them.
 | repository | filed | state | next action |
 |---|---|---|---|
 | afni/afni | 12 PRs, 14 issues | 4 PRs merged, 4 issues resolved; 8 PRs + 10 issues open; PR #960 has one unread comment (2026-09-02) | read #960 and act on it; **no new filings** (the open backlog is already far over the cap) |
-| freesurfer/freesurfer | 5 PRs, 9 issues | all open; on 2026-09-08 the maintainers declined AI-generated analysis | **declined**: `declines_ai` set in site/audits.json; nothing further filed, commented or pushed; the #1358 fix stays in the repository |
+| freesurfer/freesurfer | 5 PRs, 9 issues | 2026-09-08 01:00-01:06Z: the maintainers closed all nine issues, one comment each (unread from the session; the owner reports they decline AI-generated analysis); the five PRs still open at 01:15Z | **declined**: `declines_ai` set in site/audits.json; nothing further filed, commented or pushed; the #1358 fix stays in the repository |
 | spm/spm | 5 PRs, 5 issues | 2 PRs merged + 2 issues resolved; #159 and #161 open with 3 unread comments each; #167/#168 new | read #159/#161 and respond; no new filings |
 | fieldtrip/fieldtrip | 5 PRs, 2 issues | #2613 merged; #2610 'almost ready to merge' (2026-09-07), maintainer asks about the +1 as a bandwidth term; #2614 judged minor by the maintainer, who asked for a website FAQ and an Octave survey instead; #2608, #2611, #2612 no comments | replies drafted 2026-09-07: FT15 (#2610, with the bandwidth measurement) and FT16 (#2614, FAQ draft in the kit, Octave survey offered) — on the console |
 | MouseLand/Kilosort | 2 PRs, 3 issues | all open, no comment | **freeze** |

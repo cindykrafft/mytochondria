@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-07T15:50:00Z",
+"taken": "2026-09-08T01:15:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -60,82 +60,82 @@
 "repo": "freesurfer/freesurfer",
 "number": 1459,
 "kind": "issue",
-"state": "open",
+"state": "closed",
 "merged": false,
-"comments": 0,
-"updated": "2026-08-30T22:25:44Z"
+"comments": 1,
+"updated": "2026-09-08T01:00:36Z"
 },
 {
 "repo": "freesurfer/freesurfer",
 "number": 1460,
 "kind": "issue",
-"state": "open",
+"state": "closed",
 "merged": false,
-"comments": 0,
-"updated": "2026-08-30T22:28:01Z"
+"comments": 1,
+"updated": "2026-09-08T01:01:20Z"
 },
 {
 "repo": "freesurfer/freesurfer",
 "number": 1461,
 "kind": "issue",
-"state": "open",
+"state": "closed",
 "merged": false,
-"comments": 0,
-"updated": "2026-08-30T22:28:20Z"
+"comments": 1,
+"updated": "2026-09-08T01:01:46Z"
 },
 {
 "repo": "freesurfer/freesurfer",
 "number": 1462,
 "kind": "issue",
-"state": "open",
+"state": "closed",
 "merged": false,
-"comments": 0,
-"updated": "2026-08-30T22:32:03Z"
+"comments": 1,
+"updated": "2026-09-08T01:02:20Z"
 },
 {
 "repo": "freesurfer/freesurfer",
 "number": 1463,
 "kind": "issue",
-"state": "open",
+"state": "closed",
 "merged": false,
-"comments": 0,
-"updated": "2026-08-30T22:32:51Z"
+"comments": 1,
+"updated": "2026-09-08T01:02:44Z"
 },
 {
 "repo": "freesurfer/freesurfer",
 "number": 1465,
 "kind": "issue",
-"state": "open",
+"state": "closed",
 "merged": false,
-"comments": 0,
-"updated": "2026-08-30T22:36:12Z"
+"comments": 1,
+"updated": "2026-09-08T01:03:17Z"
 },
 {
 "repo": "freesurfer/freesurfer",
 "number": 1467,
 "kind": "issue",
-"state": "open",
+"state": "closed",
 "merged": false,
-"comments": 0,
-"updated": "2026-08-30T22:37:03Z"
+"comments": 1,
+"updated": "2026-09-08T01:04:04Z"
 },
 {
 "repo": "freesurfer/freesurfer",
 "number": 1469,
 "kind": "issue",
-"state": "open",
+"state": "closed",
 "merged": false,
-"comments": 0,
-"updated": "2026-08-30T22:38:35Z"
+"comments": 1,
+"updated": "2026-09-08T01:05:10Z"
 },
 {
 "repo": "freesurfer/freesurfer",
 "number": 1471,
 "kind": "issue",
-"state": "open",
+"state": "closed",
 "merged": false,
-"comments": 0,
-"updated": "2026-08-30T22:40:00Z"
+"comments": 1,
+"updated": "2026-09-08T01:06:24Z"
 },
 {
 "repo": "afni/afni",
