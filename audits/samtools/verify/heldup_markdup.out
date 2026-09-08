@@ -1,0 +1,29 @@
+samtools: samtools ce612d2 / Using htslib 1.24-1-ge503e04
+
+--- A. duplicate counts, no optical
+  OK  PAIRED                         samtools     2202  truth 2202
+  OK  SINGLE                         samtools      164  truth 164
+  OK  DUPLICATE PAIR                 samtools     1158  truth 1158
+  OK  DUPLICATE SINGLE               samtools       86  truth 86
+  OK  DUPLICATE PAIR OPTICAL         samtools        0  truth 0
+  OK  DUPLICATE NON PRIMARY          samtools        0  truth 0
+  OK  DUPLICATE TOTAL                samtools     1244  truth 1244
+  OK  EXAMINED                       samtools     2366  truth 2366
+  OK  READ                           samtools     2424  truth 2424
+  OK  ESTIMATED_LIBRARY_SIZE         samtools      633  truth 633
+  flagstat after markdup: 1244 + 0 duplicates   (expected 1244 + 0)
+  OK  in each of 639 duplicate groups exactly one record is unmarked and it has the highest quality sum
+  wrong: 0
+
+--- B. -S marks supplementary records of duplicates
+  OK  DUPLICATE NON PRIMARY samtools 29  supplementary records of duplicate-marked reads 29  supplementary records flagged DUP 29 (of 58); DUPLICATE TOTAL 1273 = 1244 + 29
+
+--- C. optical duplicates with -d 100 (Illumina-style names, groups of at most 2)
+  OK  PAIRED                         samtools     1320  truth 1320
+  OK  DUPLICATE PAIR                 samtools      304  truth 304
+  OK  DUPLICATE PAIR OPTICAL         samtools      156  truth 156
+  OK  DUPLICATE SINGLE               samtools       27  truth 27
+  OK  DUPLICATE SINGLE OPTICAL       samtools       19  truth 19
+  OK  ESTIMATED_LIBRARY_SIZE         samtools     2090  truth 2090
+  dt:SQ records 175 (truth 175), dt:LB records 156 (truth 156)
+  wrong: 0

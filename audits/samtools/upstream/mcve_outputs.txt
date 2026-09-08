@@ -1,0 +1,36 @@
+== unmodified develop (ce612d2)
+samtools ce612d2-dirty
+expected: COV [1-1] 1 50 / COV [2-2] 2 50
+got:
+COV	[3-3]	3	50
+with a 1,000-bp intron instead:
+COV	[1-1]	1	50
+COV	[2-2]	2	50
+
+== apt samtools 1.19.2
+samtools 1.19.2
+expected: COV [1-1] 1 50 / COV [2-2] 2 50
+got:
+COV	[3-3]	3	50
+with a 1,000-bp intron instead:
+COV	[1-1]	1	50
+COV	[2-2]	2	50
+
+== samtools 1.9
+samtools 1.9
+expected: COV [1-1] 1 50 / COV [2-2] 2 50
+got:
+COV	[3-3]	3	50
+with a 1,000-bp intron instead:
+COV	[1-1]	1	50
+COV	[2-2]	2	50
+
+== patched (fc25542)
+samtools fc25542
+expected: COV [1-1] 1 50 / COV [2-2] 2 50
+got:
+COV	[1-1]	1	50
+COV	[2-2]	2	50
+with a 1,000-bp intron instead:
+COV	[1-1]	1	50
+COV	[2-2]	2	50

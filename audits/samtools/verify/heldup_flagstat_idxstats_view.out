@@ -1,0 +1,46 @@
+samtools: samtools ce612d2 / Using htslib 1.24-1-ge503e04
+
+--- flagstat (default format) vs truth
+  OK  4073 + 171 in total (QC-passed reads + QC-failed reads)   [truth 4073 + 171]
+  OK  3838 + 162 primary   [truth 3838 + 162]
+  OK  130 + 5 secondary   [truth 130 + 5]
+  OK  105 + 4 supplementary   [truth 105 + 4]
+  OK  386 + 17 duplicates   [truth 386 + 17]
+  OK  362 + 16 primary duplicates   [truth 362 + 16]
+  OK  3551 + 157 mapped (87.18% : 91.81%)   [truth 3551 + 157]
+  OK  3316 + 148 primary mapped (86.40% : 91.36%)   [truth 3316 + 148]
+  OK  3838 + 162 paired in sequencing   [truth 3838 + 162]
+  OK  1919 + 81 read1   [truth 1919 + 81]
+  OK  1919 + 81 read2   [truth 1919 + 81]
+  OK  2766 + 128 properly paired (72.07% : 79.01%)   [truth 2766 + 128]
+  OK  3128 + 138 with itself and mate mapped   [truth 3128 + 138]
+  OK  188 + 10 singletons (4.90% : 6.17%)   [truth 188 + 10]
+  OK  362 + 10 with mate mapped to a different chr   [truth 362 + 10]
+  OK  272 + 4 with mate mapped to a different chr (mapQ>=5)   [truth 272 + 4]
+  percentages: mapped 87.18% properly paired 72.07% singletons 4.90%
+  flagstat lines wrong: 0
+  tsv total line: 4073	171	total (QC-passed reads + QC-failed reads) | json QC-passed total: 4073 primary mapped %: 86.4
+
+--- idxstats (indexed BAM) and slow path (SAM stream) vs truth
+  OK  chr1	100000	2252	123   slow: chr1	100000	2252	123   truth [2252, 123]
+  OK  chr2	50000	727	34   slow: chr2	50000	727	34   truth [727, 34]
+  OK  chrM	16000	729	41   slow: chrM	16000	729	41   truth [729, 41]
+  OK  *	0	0	338   slow: *	0	0	338   truth [0, 338]
+
+--- view -c filters vs truth
+  OK  view -c                                            ->   4244  truth 4244  
+  OK  view -c -q 20                                      ->   1140  truth 1140  
+  OK  view -c -q 1                                       ->   3008  truth 3008  
+  OK  view -c -f 2                                       ->   3068  truth 3068  
+  OK  view -c -F 4                                       ->   3708  truth 3708  
+  OK  view -c -F 0x904                                   ->   3464  truth 3464  
+  OK  view -c -f 0x42 -F 0x400                           ->   1392  truth 1392  
+  OK  view -c --rf 0x100 --rf 0x800                      ->    244  truth 244  
+  OK  view -c -G 0xC                                     ->   3906  truth 3906  
+  OK  view -c -m 100                                     ->   3708  truth 3708  
+  OK  view -c -e mapq>=30 && flag.proper_pair            ->    479  truth 479  
+  OK  view -c -e [NM]<=1                                 ->   2527  truth 2527  
+  OK  view -c -e !flag.unmap && [NM]==0 && qlen>=100     ->   1426  truth 1426  
+  OK  view -c -e rname=="chr2" || tlen>0                 ->   1919  truth 1919  
+  OK  view -c -q 5 -F 0x4 chr1:1000-2000                 ->     17  truth 17  
+  view -c cases wrong: 0

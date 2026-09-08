@@ -1,0 +1,5 @@
+samtools: samtools ce612d2 / Using htslib 1.24-1-ge503e04
+  --rf 0x42: coverage numreads 40   reads with ALL bits 10   reads with ANY bit 40   | depth --require-flags total depth 500 = 10 reads
+  --rf 0x2: coverage numreads 20   reads with ALL bits 20   reads with ANY bit 20   | depth --require-flags total depth 1000 = 20 reads
+  --rf 0x40: coverage numreads 30   reads with ALL bits 30   reads with ANY bit 30   | depth --require-flags total depth 1500 = 30 reads
+  --rf 0x43: coverage numreads 60   reads with ALL bits 10   reads with ANY bit 60   | depth --require-flags total depth 500 = 10 reads

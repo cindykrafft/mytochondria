@@ -1,0 +1,19 @@
+samtools: samtools ce612d2-dirty / Using htslib 1.24-1-ge503e04
+
+[A_splice_wraps_onto_read_start]  OK
+  truth COV   : {1: 50, 2: 50}
+  samtools COV: {1: 50, 2: 50}
+
+[A2_short_intron_no_wrap]  OK
+  truth COV   : {1: 50, 2: 50}
+  samtools COV: {1: 50, 2: 50}
+
+[B_spliced_rnaseq_3000_reads]  OK
+  truth COV   : 146 depth values, 2197 positions, sum depth 300000
+  samtools COV: 146 depth values, 2197 positions, sum depth 300000
+  truth    : covered positions 2197, mean depth over covered 136.55, median 142, max 172
+  samtools : covered positions 2197, mean depth over covered 136.55, median 142, max 172
+  -g 0: samtools 99.86 %   truth 99.86 %
+  -g 5: samtools 99.50 %   truth 99.50 %
+  -g 10: samtools 99.14 %   truth 99.14 %
+  -g 20: samtools 98.73 %   truth 98.73 %

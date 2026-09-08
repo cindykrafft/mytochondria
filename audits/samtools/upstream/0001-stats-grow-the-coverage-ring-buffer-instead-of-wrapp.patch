@@ -1,0 +1,216 @@
+From fc255426b7d9484a43cce837ef16cddfa1a947fe Mon Sep 17 00:00:00 2001
+From: Cynthia Krafft <cynthiacondra@gmail.com>
+Date: Tue, 8 Sep 2026 15:10:03 +0000
+Subject: [PATCH] stats: grow the coverage ring buffer instead of wrapping
+ around
+
+The coverage distribution (COV rows, and the -t/-g "percentage of target
+genome with coverage" summary) is accumulated in a ring buffer of five times
+the longest read length seen, indexed modulo its size relative to the
+current read start.  An aligned block that ends further than that beyond
+the read start, such as the far exon of a spliced RNA-seq alignment, wrapped
+around and was added to positions near the read start.  With 100 bp reads
+the buffer holds 1,500 positions, so any intron longer than about 1.4 kb
+triggered it; on a simulated six-exon gene the covered-position count came
+out 18% too high and "percentage of target genome with coverage > 0" was
+reported as 117.77%.
+
+round_buffer_insert_read() now grows the buffer (doubling) whenever a block
+would reach beyond it, linearising the pending counts.  The same helper
+replaces the copy in realloc_buffers(), which passed element counts to
+memcpy() where byte counts were needed and so dropped three quarters of the
+pending counts whenever a read longer than every read seen so far arrived
+while coverage was pending near the end of the ring (mixed-length or
+long-read data).
+
+Two regression tests cover the two cases; both fail on the previous code.
+
+Assisted-by: Claude:claude-fable-5-1
+---
+ NEWS.md                        | 12 ++++++++
+ stats.c                        | 54 ++++++++++++++++++++++++----------
+ test/stat/20.stats.expected    |  2 ++
+ test/stat/20_spliced.sam       |  4 +++
+ test/stat/21.stats.expected    | 11 +++++++
+ test/stat/21_mixed_lengths.sam | 13 ++++++++
+ test/test.pl                   |  4 +++
+ 7 files changed, 85 insertions(+), 15 deletions(-)
+ create mode 100644 test/stat/20.stats.expected
+ create mode 100644 test/stat/20_spliced.sam
+ create mode 100644 test/stat/21.stats.expected
+ create mode 100644 test/stat/21_mixed_lengths.sam
+
+diff --git a/NEWS.md b/NEWS.md
+index d2e97f9..2a7f24d 100644
+--- a/NEWS.md
++++ b/NEWS.md
+@@ -15,6 +15,18 @@ New work and changes:
+ * NEW.  `samtools rmdup` now adds a `@PG` line and accepts `--no-PG` to
+   suppress it, matching the other subcommands.
+ 
++Bug fixes:
++
++* FIX.  The `samtools stats` coverage distribution (`COV` rows and the
++  `-t`/`-g` "percentage of target genome with coverage" line) was computed in
++  a fixed-size ring buffer of five times the read length, so an aligned block
++  starting further than that beyond the read start -- the far exon of a
++  spliced RNA-seq alignment -- was added to positions near the read start
++  instead.  The buffer now grows as needed.  Also fixed the copying of pending
++  coverage counts when the buffer is reallocated for a longer read, which
++  used byte lengths where element counts were required and could drop
++  pending counts on mixed-length or long-read data.
++
+ Release 1.24 (9th July 2026)
+ ----------------------------
+ 
+diff --git a/stats.c b/stats.c
+index 3bf891f..a34ad39 100644
+--- a/stats.c
++++ b/stats.c
+@@ -367,15 +367,50 @@ void round_buffer_flush(stats_t *stats, hts_pos_t pos)
+     stats->cov_rbuf.pos   = new_pos;
+ }
+ 
++// Grow the coverage round buffer so that it can hold the reference
++// positions [rbuf->pos, rbuf->pos + needed).  The pending counts are
++// linearised into the new buffer, so afterwards rbuf->start is 0 and
++// rbuf->buffer[i] holds position rbuf->pos + i.
++static void round_buffer_resize(round_buffer_t *rbuf, hts_pos_t needed)
++{
++    if ( needed <= rbuf->size )
++        return;
++    if ( needed > INT_MAX/2 )
++        error("The coverage buffer would need %"PRIhts_pos" entries\n", needed);
++
++    int new_size = rbuf->size > 0 ? rbuf->size : 1;
++    while ( new_size < needed )
++        new_size *= 2;
++
++    int *nbuf = calloc(new_size, sizeof(*nbuf));
++    if ( !nbuf )
++        error("Could not allocate coverage distribution buffer\n");
++
++    if ( rbuf->buffer )
++    {
++        int n = rbuf->size - rbuf->start;
++        memcpy(nbuf, rbuf->buffer + rbuf->start, n * sizeof(*nbuf));
++        if ( rbuf->start > 0 )
++            memcpy(nbuf + n, rbuf->buffer, rbuf->start * sizeof(*nbuf));
++        free(rbuf->buffer);
++    }
++    rbuf->buffer = nbuf;
++    rbuf->size   = new_size;
++    rbuf->start  = 0;
++}
++
+ /**
+  * [from, to) - 0 based half-open
+  */
+ static void round_buffer_insert_read(round_buffer_t *rbuf, hts_pos_t from, hts_pos_t to)
+ {
+-    if ( to-from > rbuf->size )
+-        error("The read length too big (%"PRIhts_pos"), please increase the buffer length (currently %d)\n", to-from, rbuf->size);
+     if ( from < rbuf->pos )
+         error("The reads are not sorted (%"PRIhts_pos" comes after %"PRIhts_pos").\n", from, rbuf->pos);
++    // The buffer is indexed modulo its size relative to rbuf->pos, so a
++    // block ending beyond rbuf->pos + size (e.g. the far exon of a spliced
++    // alignment) would wrap around onto positions near the read start.
++    if ( to - rbuf->pos > rbuf->size )
++        round_buffer_resize(rbuf, to - rbuf->pos);
+ 
+     int ifrom, ito, ibuf;
+     ifrom = round_buffer_lidx2ridx(rbuf->start, rbuf->size, rbuf->pos, from);
+@@ -763,19 +798,8 @@ void realloc_buffers(stats_t *stats, int seq_len)
+ 
+     stats->nbases = n;
+ 
+-    // Realloc the coverage distribution buffer
+-    int *rbuffer = calloc(sizeof(int),seq_len*5);
+-    if (!rbuffer) {
+-        error("Could not allocate coverage distribution buffer");
+-    }
+-    n = stats->cov_rbuf.size-stats->cov_rbuf.start;
+-    memcpy(rbuffer,stats->cov_rbuf.buffer+stats->cov_rbuf.start,n);
+-    if ( stats->cov_rbuf.start>1 )
+-        memcpy(rbuffer+n,stats->cov_rbuf.buffer,stats->cov_rbuf.start);
+-    stats->cov_rbuf.start = 0;
+-    free(stats->cov_rbuf.buffer);
+-    stats->cov_rbuf.buffer = rbuffer;
+-    stats->cov_rbuf.size = seq_len*5;
++    // Realloc the coverage distribution buffer, keeping the pending counts
++    round_buffer_resize(&stats->cov_rbuf, (hts_pos_t)seq_len*5);
+ 
+     realloc_rseq_buffer(stats);
+ }
+diff --git a/test/stat/20.stats.expected b/test/stat/20.stats.expected
+new file mode 100644
+index 0000000..cbd6010
+--- /dev/null
++++ b/test/stat/20.stats.expected
+@@ -0,0 +1,2 @@
++COV	[1-1]	1	50
++COV	[2-2]	2	50
+diff --git a/test/stat/20_spliced.sam b/test/stat/20_spliced.sam
+new file mode 100644
+index 0000000..1dce557
+--- /dev/null
++++ b/test/stat/20_spliced.sam
+@@ -0,0 +1,4 @@
++@HD	VN:1.4	SO:coordinate
++@SQ	SN:ref	LN:5000
++r1	0	ref	1	60	50M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++r2	0	ref	1	60	50M1450N50M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+diff --git a/test/stat/21.stats.expected b/test/stat/21.stats.expected
+new file mode 100644
+index 0000000..4ac803d
+--- /dev/null
++++ b/test/stat/21.stats.expected
+@@ -0,0 +1,11 @@
++COV	[1-1]	1	260
++COV	[2-2]	2	10
++COV	[3-3]	3	10
++COV	[4-4]	4	10
++COV	[5-5]	5	10
++COV	[6-6]	6	10
++COV	[7-7]	7	10
++COV	[8-8]	8	10
++COV	[9-9]	9	10
++COV	[10-10]	10	10
++COV	[11-11]	11	50
+diff --git a/test/stat/21_mixed_lengths.sam b/test/stat/21_mixed_lengths.sam
+new file mode 100644
+index 0000000..e58f34c
+--- /dev/null
++++ b/test/stat/21_mixed_lengths.sam
+@@ -0,0 +1,13 @@
++@HD	VN:1.4	SO:coordinate
++@SQ	SN:ref	LN:5000
++s0	0	ref	1401	60	100M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++s1	0	ref	1406	60	100M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++s2	0	ref	1411	60	100M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++s3	0	ref	1416	60	100M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++s4	0	ref	1421	60	100M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++s5	0	ref	1426	60	100M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++s6	0	ref	1431	60	100M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++s7	0	ref	1436	60	100M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++s8	0	ref	1441	60	100M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++s9	0	ref	1446	60	100M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++long	0	ref	1451	60	350M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+diff --git a/test/test.pl b/test/test.pl
+index e6237f4..fb40743 100755
+--- a/test/test.pl
++++ b/test/test.pl
+@@ -3457,6 +3457,10 @@ sub test_stats
+     test_cmd($opts,out=>'stat/14.rg.grp3.expected',cmd=>"$$opts{bin}/samtools stats -I grp3 $$opts{path}/stat/11_target.bam | tail -n +4", exp_fix=>$efix);
+     test_cmd($opts,out=>'stat/14.rg.Sample.expected',cmd=>"$$opts{bin}/samtools stats -I Sample $$opts{path}/stat/11_target.bam | tail -n +4", exp_fix=>$efix);
+     test_cmd($opts,out=>'stat/15.stats.expected',cmd=>"$$opts{bin}/samtools stats -r $$opts{path}/mpileup/ce.fa $$opts{path}/stat/15.big_del.sam | tail -n +4", exp_fix=>$efix);
++    # coverage distribution: spliced alignment whose far block lies beyond the coverage buffer
++    test_cmd($opts,out=>'stat/20.stats.expected',cmd=>"$$opts{bin}/samtools stats $$opts{path}/stat/20_spliced.sam | grep -e\"^COV\"", exp_fix=>$efix);
++    # coverage distribution: buffer reallocation (longer read) while coverage is pending
++    test_cmd($opts,out=>'stat/21.stats.expected',cmd=>"$$opts{bin}/samtools stats $$opts{path}/stat/21_mixed_lengths.sam | grep -e\"^COV\"", exp_fix=>$efix);
+ 
+     #reference statistics tests
+     #with ref-stats, no ref file
+-- 
+2.43.0
+

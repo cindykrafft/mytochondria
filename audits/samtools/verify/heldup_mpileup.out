@@ -1,0 +1,19 @@
+samtools: samtools ce612d2 / Using htslib 1.24-1-ge503e04
+
+--- depth column vs Python
+  OK  mpileup (defaults: -Q 13, overlaps removed): 19838 rows, total depth 109499, truth rows 19718 total 109499, mismatching positions 0
+  OK  mpileup -x (no overlap removal)           : 19838 rows, total depth 114302, truth rows 19704 total 114302, mismatching positions 0
+  OK  mpileup -x -Q 0                           : 19838 rows, total depth 174599, truth rows 19838 total 174599, mismatching positions 0
+  OK  mpileup -x -Q 30                          : 19838 rows, total depth 64839, truth rows 18863 total 64839, mismatching positions 0
+  OK  mpileup -Q 30 (overlaps removed)          : 19838 rows, total depth 63727, truth rows 18963 total 63727, mismatching positions 0
+  OK  mpileup -x -q 30                          : 19804 rows, total depth 82035, truth rows 19448 total 82035, mismatching positions 0
+  OK  mpileup -x --ff UNMAP,SECONDARY           : 19838 rows, total depth 131499, truth rows 19766 total 131499, mismatching positions 0
+  OK  mpileup -x -B -f ref.fa (BAQ off)         : 19838 rows, total depth 114302, truth rows 19704 total 114302, mismatching positions 0
+  note: default BAQ (-f, no -B) changes the depth at 301 of 19838 positions (BAQ lowers qualities near indels/mismatches; design)
+  mismatching positions in total (excluding the BAQ note): 0
+
+--- -d depth cap: 10,000 identical 100M reads at one position
+  mpileup -x            : depth at 5001 = 8000, at 5100 = 8000  (true depth 10000)
+  mpileup -x -d 0       : depth at 5001 = 10000, at 5100 = 10000  (true depth 10000)
+  mpileup -x -d 100     : depth at 5001 = 100, at 5100 = 100  (true depth 10000)
+  mpileup -x -d 20000   : depth at 5001 = 10000, at 5100 = 10000  (true depth 10000)

@@ -1,0 +1,137 @@
+samtools: samtools ce612d2 / Using htslib 1.24-1-ge503e04
+
+--- stats   [all reads]
+  OK  raw total sequences                        samtools           4000  truth 4000
+  OK  filtered sequences                         samtools              0  truth 0
+  OK  sequences                                  samtools           4000  truth 4000
+  OK  1st fragments                              samtools           2000  truth 2000
+  OK  last fragments                             samtools           2000  truth 2000
+  OK  reads mapped                               samtools           3683  truth 3683
+  OK  reads mapped and paired                    samtools           3582  truth 3582
+  OK  reads unmapped                             samtools            317  truth 317
+  OK  reads properly paired                      samtools           3394  truth 3394
+  OK  reads paired                               samtools           4000  truth 4000
+  OK  reads duplicated                           samtools            357  truth 357
+  OK  reads MQ0                                  samtools           1220  truth 1220
+  OK  reads QC failed                            samtools            132  truth 132
+  OK  non-primary alignments                     samtools             88  truth 88
+  OK  supplementary alignments                   samtools             64  truth 64
+  OK  total length                               samtools         361460  truth 361460
+  OK  bases mapped                               samtools         333395  truth 333395
+  OK  bases mapped (cigar)                       samtools         335955  truth 335955
+  OK  bases duplicated                           samtools          31980  truth 31980
+  OK  mismatches                                 samtools           4685  truth 4685
+  OK  error rate                                 samtools   1.394532e-02  truth 1.394532e-02
+  OK  average length                             samtools             90  truth 90
+  OK  maximum length                             samtools            100  truth 100
+  OK  average quality                            samtools           24.5  truth 24.5
+  OK  insert size average                        samtools          421.3  truth 421.3
+  OK  insert size standard deviation             samtools          935.9  truth 935.9
+  OK  inward oriented pairs                      samtools           1697  truth 1697
+  OK  outward oriented pairs                     samtools              0  truth 0
+  OK  pairs with other orientation               samtools              0  truth 0
+  OK  pairs on different chromosomes             samtools             94  truth 94
+  OK  percentage of properly paired reads (%)    samtools           84.8  truth 84.8
+  wrong: 0
+
+--- stats -F 0x600  [-F DUP,QCFAIL]
+  OK  raw total sequences                        samtools           4005  truth 4005
+  OK  filtered sequences                         samtools            483  truth 483
+  OK  sequences                                  samtools           3522  truth 3522
+  OK  1st fragments                              samtools           1761  truth 1761
+  OK  last fragments                             samtools           1761  truth 1761
+  OK  reads mapped                               samtools           3240  truth 3240
+  OK  reads mapped and paired                    samtools           3152  truth 3152
+  OK  reads unmapped                             samtools            282  truth 282
+  OK  reads properly paired                      samtools           2984  truth 2984
+  OK  reads paired                               samtools           3522  truth 3522
+  OK  reads duplicated                           samtools              0  truth 0
+  OK  reads MQ0                                  samtools           1060  truth 1060
+  OK  reads QC failed                            samtools              0  truth 0
+  OK  non-primary alignments                     samtools             88  truth 88
+  OK  supplementary alignments                   samtools             59  truth 59
+  OK  total length                               samtools         318425  truth 318425
+  OK  bases mapped                               samtools         293320  truth 293320
+  OK  bases mapped (cigar)                       samtools         295680  truth 295680
+  OK  bases duplicated                           samtools              0  truth 0
+  OK  mismatches                                 samtools           4098  truth 4098
+  OK  error rate                                 samtools   1.385958e-02  truth 1.385958e-02
+  OK  average length                             samtools             90  truth 90
+  OK  maximum length                             samtools            100  truth 100
+  OK  average quality                            samtools           24.5  truth 24.5
+  OK  insert size average                        samtools          423.6  truth 423.6
+  OK  insert size standard deviation             samtools          947.6  truth 947.6
+  OK  inward oriented pairs                      samtools           1492  truth 1492
+  OK  outward oriented pairs                     samtools              0  truth 0
+  OK  pairs with other orientation               samtools              0  truth 0
+  OK  pairs on different chromosomes             samtools             84  truth 84
+  OK  percentage of properly paired reads (%)    samtools           84.7  truth 84.7
+  wrong: 0
+
+--- stats -d  [-d (remove dups)]
+  OK  raw total sequences                        samtools           4005  truth 4005
+  OK  filtered sequences                         samtools            357  truth 357
+  OK  sequences                                  samtools           3648  truth 3648
+  OK  1st fragments                              samtools           1824  truth 1824
+  OK  last fragments                             samtools           1824  truth 1824
+  OK  reads mapped                               samtools           3351  truth 3351
+  OK  reads mapped and paired                    samtools           3260  truth 3260
+  OK  reads unmapped                             samtools            297  truth 297
+  OK  reads properly paired                      samtools           3084  truth 3084
+  OK  reads paired                               samtools           3648  truth 3648
+  OK  reads duplicated                           samtools              0  truth 0
+  OK  reads MQ0                                  samtools           1090  truth 1090
+  OK  reads QC failed                            samtools            126  truth 126
+  OK  non-primary alignments                     samtools             88  truth 88
+  OK  supplementary alignments                   samtools             59  truth 59
+  OK  total length                               samtools         329680  truth 329680
+  OK  bases mapped                               samtools         303310  truth 303310
+  OK  bases mapped (cigar)                       samtools         305670  truth 305670
+  OK  bases duplicated                           samtools              0  truth 0
+  OK  mismatches                                 samtools           4240  truth 4240
+  OK  error rate                                 samtools   1.387117e-02  truth 1.387117e-02
+  OK  average length                             samtools             90  truth 90
+  OK  maximum length                             samtools            100  truth 100
+  OK  average quality                            samtools           24.5  truth 24.5
+  OK  insert size average                        samtools          423.4  truth 423.4
+  OK  insert size standard deviation             samtools          942.3  truth 942.3
+  OK  inward oriented pairs                      samtools           1542  truth 1542
+  OK  outward oriented pairs                     samtools              0  truth 0
+  OK  pairs with other orientation               samtools              0  truth 0
+  OK  pairs on different chromosomes             samtools             88  truth 88
+  OK  percentage of properly paired reads (%)    samtools           84.5  truth 84.5
+  wrong: 0
+
+--- stats -f 0x2  [-f PROPER_PAIR]
+  OK  raw total sequences                        samtools           4000  truth 4000
+  OK  filtered sequences                         samtools            606  truth 606
+  OK  sequences                                  samtools           3394  truth 3394
+  OK  1st fragments                              samtools           1697  truth 1697
+  OK  last fragments                             samtools           1697  truth 1697
+  OK  reads mapped                               samtools           3394  truth 3394
+  OK  reads mapped and paired                    samtools           3394  truth 3394
+  OK  reads unmapped                             samtools              0  truth 0
+  OK  reads properly paired                      samtools           3394  truth 3394
+  OK  reads paired                               samtools           3394  truth 3394
+  OK  reads duplicated                           samtools            315  truth 315
+  OK  reads MQ0                                  samtools           1110  truth 1110
+  OK  reads QC failed                            samtools            106  truth 106
+  OK  non-primary alignments                     samtools             88  truth 88
+  OK  supplementary alignments                   samtools             64  truth 64
+  OK  total length                               samtools         307040  truth 307040
+  OK  bases mapped                               samtools         307040  truth 307040
+  OK  bases mapped (cigar)                       samtools         309600  truth 309600
+  OK  bases duplicated                           samtools          28265  truth 28265
+  OK  mismatches                                 samtools           4347  truth 4347
+  OK  error rate                                 samtools   1.404070e-02  truth 1.404070e-02
+  OK  average length                             samtools             90  truth 90
+  OK  maximum length                             samtools            100  truth 100
+  OK  average quality                            samtools           24.5  truth 24.5
+  OK  insert size average                        samtools          421.3  truth 421.3
+  OK  insert size standard deviation             samtools          935.9  truth 935.9
+  OK  inward oriented pairs                      samtools           1697  truth 1697
+  OK  outward oriented pairs                     samtools              0  truth 0
+  OK  pairs with other orientation               samtools              0  truth 0
+  OK  pairs on different chromosomes             samtools              0  truth 0
+  OK  percentage of properly paired reads (%)    samtools          100.0  truth 100.0
+  wrong: 0

@@ -1,0 +1,12 @@
+samtools: samtools ce612d2 / Using htslib 1.24-1-ge503e04
+
+--- N2: reads duplicated vs sequences with duplicate-flagged supplementary records
+  sequences (excludes supplementary): 2000   reads duplicated: 500   supplementary alignments: 500
+  primary records with DUP: 400   supplementary records with DUP: 100
+  reads duplicated / sequences = 25.0 %   primary DUP / sequences = 20.0 %
+  flagstat: 500 + 0 duplicates | 400 + 0 primary duplicates
+
+--- N3: insert size SD with same-chromosome pairs whose TLEN is 0
+  pairs: 1000, of which TLEN 0: 100
+  samtools: insert size average 297.0, standard deviation 36.6
+  population SD over all 1000 pairs: 100.8   SD with the TLEN-0 bin left out of the sum of squares but in the denominator: 36.6

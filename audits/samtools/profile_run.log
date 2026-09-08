@@ -1,0 +1,88 @@
+cohort: 692
+full text: 0   survey-cache fallback: 692   ({'offline': 692})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  samtools named                                   692
+  BWA / Bowtie / STAR / minimap2 aligner           534
+  markdup / rmdup / duplicates                     267
+  samtools version stated                          196
+  Picard also used                                 193
+  variant calling                                  193
+  RNA-seq / spliced                                166
+  bcftools also used                               96
+  ATAC / ChIP / CUT&RUN                            84
+  MAPQ filter stated                               81
+  duplication rate reported                        65
+  view / filtering                                 60
+  mpileup                                          57
+  index                                            56
+  long reads (nanopore / PacBio)                   55
+  sort                                             47
+  -f/-F flag filter                                43
+  WGS / WES / exome                                36
+  mean depth / coverage reported                   18
+  htslib named                                     16
+  flagstat                                         7
+  mapping rate / % mapped reported                 7
+  depth                                            6
+  insert size reported                             6
+  coverage                                         6
+  fixmate                                          6
+  merge                                            6
+  idxstats                                         6
+  error / mismatch rate reported                   5
+  fastq / bam2fq                                   4
+  consensus / calmd                                3
+  stats                                            3
+  faidx                                            1
+
+VERSION FAMILY: {'1.9': 92, '1.3': 40, '1.10': 36, '1.11': 21, '1.16': 19, '1.12': 16, '0.1.x': 14, '1.13': 13, '1.6': 12, '1.17': 12, '1.15': 11, '1.14': 11, '1.7': 10, '1.19': 9, '1.20': 9, '1.2': 8, '1.5': 8, '1.8': 7, '1.21': 5, '1.18': 4, '1.4': 4, '1.0': 3, '1.1': 3, '1.31': 1, '1.22': 1}
+VERSIONS (top 20): {'1.9': 91, '1.10': 36, '1.3.1': 26, '1.11': 19, '1.16.1': 17, '1.12': 16, '1.3': 14, '1.6': 12, '1.13': 12, '1.17': 12, '1.14': 11, '1.7': 10, '1.15.1': 10, '1.20': 9, '0.1.19': 9, '1.2': 8, '1.5': 8, '1.8': 7, '1.19.2': 6, '1.21': 5}
+
+MAPQ thresholds: {'30': 25, '0': 18, '20': 13, '10': 12, '5': 4, '1': 4, '60': 4, '25': 2, '42': 1, '37': 1}
+depth (x): {'50': 1, '18': 1, '48': 1, '60': 1, '5': 1, '3': 1}
+duplication rate %: {}
+mapping rate %: {'99.8': 1, '93': 1}
+insert sizes (bp): {180: 1}
+
+CO-PACKAGES (top 40):
+  R                        384
+  Bowtie2                  224
+  BWA                      221
+  DESeq2                   190
+  Picard                   179
+  BEDTools                 172
+  GATK                     154
+  MACS2                    149
+  ImageJ                   141
+  BCFtools                 133
+  ggplot2                  122
+  STAR                     121
+  Cutadapt                 121
+  UMAP                     117
+  FastQC                   109
+  Trimmomatic              108
+  Seurat                   105
+  deepTools                105
+  featureCounts            98
+  minimap2                 97
+  GSEA                     83
+  Python                   79
+  Trim Galore              77
+  MAFFT                    74
+  edgeR                    70
+  RepeatMasker             66
+  BUSCO                    65
+  HISAT2                   65
+  PLINK                    64
+  VCFtools                 64
+  BLAST                    63
+  IQ-TREE                  60
+  HOMER                    52
+  fastp                    52
+  RAxML                    49
+  AlphaFold                48
+  ADMIXTURE                48
+  clusterProfiler          45
+  ANGSD                    44
+  tidyverse                44

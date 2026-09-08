@@ -1,0 +1,36 @@
+samtools: samtools ce612d2 / Using htslib 1.24-1-ge503e04
+
+--- samtools depth vs Python (chr1 only; default flags UNMAP,SECONDARY,QCFAIL,DUP)
+  OK  depth                             : 29635 rows, 210772 total depth, truth rows 29520, mismatching positions 0
+  OK  depth -a                          : 30000 rows, 210772 total depth, truth rows 30000, mismatching positions 0
+  OK  depth -J                          : 29635 rows, 211204 total depth, truth rows 29520, mismatching positions 0
+  OK  depth -q 20                       : 29635 rows, 132073 total depth, truth rows 28914, mismatching positions 0
+  OK  depth -Q 20                       : 29635 rows, 158624 total depth, truth rows 29350, mismatching positions 0
+  OK  depth -q 30 -Q 40                 : 29557 rows, 74790 total depth, truth rows 26800, mismatching positions 0
+  OK  depth -g 0x400                    : 29635 rows, 218238 total depth, truth rows 29520, mismatching positions 0
+  OK  depth -G 0x800                    : 29635 rows, 207114 total depth, truth rows 29520, mismatching positions 0
+  OK  depth -l 100                      : 29635 rows, 198980 total depth, truth rows 29514, mismatching positions 0
+  OK  depth -s                          : 29635 rows, 199228 total depth, truth rows 29520, mismatching positions 0
+  OK  depth -s -q 30                    : 29635 rows, 98099 total depth, truth rows 28327, mismatching positions 0
+  OK  depth -r chr1:10001-12000: 2000 rows, truth 2000, mismatching 0
+  OK  depth f.bam f.bam: both columns equal on 29735 rows
+  depth mismatching positions in total: 0
+
+--- samtools coverage vs Python
+  OK  coverage                                  got {'numreads': 2126, 'covbases': 29520, 'coverage': 98.4, 'meandepth': 7.02573, 'meanbaseq': 22.8, 'meanmapq': 38.5}
+      truth {'numreads': 2126, 'covbases': 29520, 'coverage': 98.4, 'meandepth': 7.02573, 'meanbaseq': 22.8, 'meanmapq': 38.5}
+  OK  coverage -q 20                            got {'numreads': 1597, 'covbases': 29350, 'coverage': 97.8333, 'meandepth': 5.28747, 'meanbaseq': 23.6, 'meanmapq': 50.3}
+      truth {'numreads': 1597, 'covbases': 29350, 'coverage': 97.8333, 'meandepth': 5.28747, 'meanbaseq': 23.6, 'meanmapq': 50.3}
+  OK  coverage -Q 30                            got {'numreads': 2126, 'covbases': 28425, 'coverage': 94.75, 'meandepth': 3.5292, 'meanbaseq': 35.0, 'meanmapq': 38.5}
+      truth {'numreads': 2126, 'covbases': 28425, 'coverage': 94.75, 'meandepth': 3.5292, 'meanbaseq': 35.0, 'meanmapq': 38.5}
+  OK  coverage -q 5 -Q 20                       got {'numreads': 1870, 'covbases': 28644, 'coverage': 95.48, 'meandepth': 3.8932, 'meanbaseq': 32.3, 'meanmapq': 43.7}
+      truth {'numreads': 1870, 'covbases': 28644, 'coverage': 95.48, 'meandepth': 3.8932, 'meanbaseq': 32.3, 'meanmapq': 43.7}
+  OK  coverage -l 100                           got {'numreads': 2126, 'covbases': 29520, 'coverage': 98.4, 'meandepth': 7.02573, 'meanbaseq': 22.8, 'meanmapq': 38.5}
+      truth {'numreads': 2126, 'covbases': 29520, 'coverage': 98.4, 'meandepth': 7.02573, 'meanbaseq': 22.8, 'meanmapq': 38.5}
+  OK  coverage --ff UNMAP,SECONDARY,QCFAIL      got {'numreads': 2202, 'covbases': 29520, 'coverage': 98.4, 'meandepth': 7.2746, 'meanbaseq': 22.7, 'meanmapq': 38.0}
+      truth {'numreads': 2202, 'covbases': 29520, 'coverage': 98.4, 'meandepth': 7.2746, 'meanbaseq': 22.7, 'meanmapq': 38.0}
+  OK  coverage --min-depth 3                    got {'numreads': 2126, 'covbases': 27731, 'coverage': 92.4367, 'meandepth': 6.9324, 'meanbaseq': 22.8, 'meanmapq': 38.5}
+      truth {'numreads': 2126, 'covbases': 27731, 'coverage': 92.4367, 'meandepth': 6.9324, 'meanbaseq': 22.8, 'meanmapq': 38.5}
+  OK  coverage -r chr1:5001-9000                got {'numreads': 323, 'covbases': 4000, 'coverage': 100.0, 'meandepth': 7.706, 'meanbaseq': 23.0, 'meanmapq': 37.3}
+      truth {'numreads': 323, 'covbases': 4000, 'coverage': 100.0, 'meandepth': 7.706, 'meanbaseq': 23.0, 'meanmapq': 37.3}
+  coverage cases wrong: 0

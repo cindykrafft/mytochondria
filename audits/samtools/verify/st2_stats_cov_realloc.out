@@ -1,0 +1,15 @@
+samtools: samtools ce612d2 / Using htslib 1.24-1-ge503e04
+
+[D_realloc_with_pending_coverage_near_ring_end]  MISMATCH
+  truth COV   : {1: 260, 2: 10, 3: 10, 4: 10, 5: 10, 6: 10, 7: 10, 8: 10, 9: 10, 10: 10, 11: 50}
+  samtools COV: {1: 300, 2: 10, 3: 10, 4: 10, 5: 10, 6: 10, 7: 10, 8: 10, 9: 10, 10: 10, 11: 10}
+
+[D2_realloc_with_empty_buffer]  OK
+  truth COV   : {1: 205, 2: 10, 3: 10, 4: 10, 5: 10, 6: 10, 7: 10, 8: 10, 9: 10, 10: 10, 11: 55}
+  samtools COV: {1: 205, 2: 10, 3: 10, 4: 10, 5: 10, 6: 10, 7: 10, 8: 10, 9: 10, 10: 10, 11: 55}
+
+[E_growing_long_reads]  MISMATCH
+  truth COV   : 71 depth values, 65528 positions, sum depth 2190000
+  samtools COV: 71 depth values, 65528 positions, sum depth 2188454
+  truth    : covered positions 65528, mean depth over covered 33.42, median 28, max 71
+  samtools : covered positions 65528, mean depth over covered 33.40, median 28, max 71

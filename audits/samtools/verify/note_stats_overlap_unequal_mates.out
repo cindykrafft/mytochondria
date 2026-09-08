@@ -1,0 +1,21 @@
+samtools: samtools ce612d2 / Using htslib 1.24-1-ge503e04
+
+[equal mates 100/100, insert 150 (overlap 50)]
+  bases mapped (cigar) with -p: 30000   truth (overlap counted once): 30000   without overlap removal: 40000
+  COV rows with -p: {1: 30000}   truth: {1: 30000}
+
+[equal mates 100/100, insert 190 (overlap 10)]
+  bases mapped (cigar) with -p: 38000   truth (overlap counted once): 38000   without overlap removal: 40000
+  COV rows with -p: {1: 38000}   truth: {1: 38000}
+
+[unequal mates 150/90, insert 200 (overlap 40)]
+  bases mapped (cigar) with -p: 48000   truth (overlap counted once): 40000   without overlap removal: 48000
+  COV rows with -p: {1: 32000, 2: 8000}   truth: {1: 40000}
+
+[unequal mates 150/70, insert 170 (overlap 50)]
+  bases mapped (cigar) with -p: 44000   truth (overlap counted once): 34000   without overlap removal: 44000
+  COV rows with -p: {1: 24000, 2: 10000}   truth: {1: 34000}
+
+[unequal mates 120/60, insert 130 (overlap 50)]
+  bases mapped (cigar) with -p: 36000   truth (overlap counted once): 26000   without overlap removal: 36000
+  COV rows with -p: {1: 16000, 2: 10000}   truth: {1: 26000}
