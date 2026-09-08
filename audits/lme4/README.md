@@ -26,7 +26,7 @@ one-dimensional marginal likelihood (adaptive Gauss–Hermite certified with
 | id | status | tier | finding |
 |---|---|---|---|
 | **LM1** | **CONFIRMED on `master` (2.1-0 dev) only**; 2.0-6 and 1.1-35.1 not applicable (they carry the older Gamma defects, LM6) | held (pre-release report) | The log-likelihood of a GLMM with an estimated dispersion (Gamma, inverse Gaussian, log-link Gaussian) is evaluated at φ = deviance/n while the fit uses, and `sigma()` reports, φ = deviance/(n − rank[X, Z]) under the new default `disp_dof_correction = TRUE`. On a Gamma(log) random-intercept model (n = 320, rank 42) `logLik` is −591.62 where the exact value at the fit's own parameters is −593.95 and an independent Laplace approximation −594.04; with the correction off the reported and independent values agree to 0.01. The offset depends on the random-effect structure, so AIC/`anova` comparisons across structures shift; point estimates are fine. Patch with test ready. |
-| **LM2** | **CONFIRMED on `master`, 2.0-6 and 1.1-35.1** | comment on the maintainers' open #867 (+ offered patch) | The default `glmer` standard errors (finite-difference Hessian of the Laplace deviance) are about 100× too small in 9 of 150 ordinary Bernoulli random-intercept fits below 10⁴ observations (|z| 198–978 instead of 1.7–7.4); every such fit carries only a `max|grad|` warning that the documentation calls often spurious, and `vcov()`'s Hessian-vs-RX check runs only when the user opts *out* of the Hessian. Where the Hessian is sound it beats RX (Monte Carlo: sampling SD 0.486 vs mean SEs 0.456 Hessian / 0.432 RX). A guard that falls back to RX when the two SEs differ by more than 2× fires on exactly the nine bad fits. |
+| **LM2** | **CONFIRMED on `master`, 2.0-6 and 1.1-35.1** | posted 2026-09-08 as a comment on #867, PR #1000 (branch `fix/vcov-hessian-fallback`) | The default `glmer` standard errors (finite-difference Hessian of the Laplace deviance) are about 100× too small in 9 of 150 ordinary Bernoulli random-intercept fits below 10⁴ observations (|z| 198–978 instead of 1.7–7.4); every such fit carries only a `max|grad|` warning that the documentation calls often spurious, and `vcov()`'s Hessian-vs-RX check runs only when the user opts *out* of the Hessian. Where the Hessian is sound it beats RX (Monte Carlo: sampling SD 0.486 vs mean SEs 0.456 Hessian / 0.432 RX). A guard that falls back to RX when the two SEs differ by more than 2× fires on exactly the nine bad fits. |
 | LM3 | NOTE (message text), confirmed on all three | held | The `max|grad|` warning always says "component 1" (`which.max` of a scalar). One-token fix with test. |
 | LM4 | NOTE (undocumented behaviour change, 1.1-38 and later) | held (documentation) | Which formula the GLMM standard errors come from switches silently to RX at ≥ 10⁴ observations, ≥ 20 parameters (fixed effects counted), on singular fits or with `calc.derivs = FALSE`; `?vcov.merMod` still says the Hessian is used for every GLMM with `nAGQ > 0`, and the two differ by 1.5–52 % on ordinary fits. |
 | LM5 | NOTE (known; fixed on `master`, present on 2.0-6 and 1.1-35.1) | none (NEWS 2.1-0, #868) | `nAGQ > 1` log-likelihoods omit the saturated-model term: +310.45 (binomial, sizes 5–15) and +262.57 (Poisson), exactly minus the saturated log-likelihood. Estimates and LRTs between `nAGQ > 1` fits are unaffected; AIC comparisons with `nAGQ = 1`/`glm` are off; Bernoulli data unaffected. |
@@ -127,8 +127,9 @@ from Ubuntu's apt or a GitHub tag.
 
 ## Next steps
 
-1. Post the LM2 comment on #867 from the kit; if the maintainer engages, offer PR 3 and
-   then the LM1 report and PR 2 (before 2.1-0 reaches CRAN if possible).
+1. LM2 posted 2026-09-08 as a comment on #867 with PR #1000 (branch
+   `fix/vcov-hessian-fallback` on the fork). If the maintainer engages, the LM1 report and
+   PR 2 follow (before 2.1-0 reaches CRAN if possible).
 2. Extend the review to the structured covariance code (`cs`, `ar1`, `diag`) and to
    lmerTest's Satterthwaite path, which 70 cohort papers name.
 3. Full-text profiling rerun when Europe PMC is reachable.
