@@ -1,0 +1,135 @@
+From 21ab74e77ca5e3569ab4c12cfc31830b8ff95d59 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Tue, 8 Sep 2026 13:39:10 +0000
+Subject: [PATCH] Honour user-defined codon frequencies (+FU) for GY-type
+ models
+
+ModelCodon::init replaced a user-defined frequency type with the model's
+default for every mechanistic model. The MG family needs that (its
+frequencies are nucleotide-targeted and +FU is turned into F3X4), but
+initGY94() returns FREQ_EMPIRICAL, so GY{...}+FU{f1,...,f61} became GY+F:
+the 61 values were never read, the report said GY+F with 60 free
+parameters and every +FU vector gave the same likelihood. 2.4.0 honoured
+the request.
+
+Apply the fallback only when codon_freq_style == CF_TARGET_NT. GY-type
+models now keep FREQ_USER_DEFINED, read the frequencies and report +FU
+with no free frequency parameters; MG behaviour is unchanged.
+
+Test: test_iqtree.sh/.ps1 run GY+FU with frequencies from
+test_data/codon_freq.txt and a GY+F3X4 control on a small codon
+alignment; expect_ans.txt carries their log-likelihoods. The +FU row
+fails by 26.4 on unmodified master.
+
+Fixes #192
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ model/modelcodon.cpp                  | 6 +++++-
+ test_scripts/test_data/codon.fa       | 8 ++++++++
+ test_scripts/test_data/codon.tree     | 1 +
+ test_scripts/test_data/codon_freq.txt | 1 +
+ test_scripts/test_data/expect_ans.txt | 2 ++
+ test_scripts/test_iqtree.ps1          | 5 +++++
+ test_scripts/test_iqtree.sh           | 6 ++++++
+ 7 files changed, 28 insertions(+), 1 deletion(-)
+ create mode 100644 test_scripts/test_data/codon.fa
+ create mode 100644 test_scripts/test_data/codon.tree
+ create mode 100644 test_scripts/test_data/codon_freq.txt
+
+diff --git a/model/modelcodon.cpp b/model/modelcodon.cpp
+index 8c7df792..8c33a136 100644
+--- a/model/modelcodon.cpp
++++ b/model/modelcodon.cpp
+@@ -393,7 +393,11 @@ void ModelCodon::init(const char *model_name, string model_params, StateFreqType
+     size_t pos;
+ 	if ((pos=name.find('_')) == string::npos) {
+ 		def_freq = initCodon(model_name, freq, true, freq_params);
+-        if (freq == FREQ_USER_DEFINED && def_freq != FREQ_USER_DEFINED) // mechanistic model
++        // A mechanistic model with nucleotide-targeted frequencies (MG-style,
++        // CF_TARGET_NT) cannot take user-defined codon frequencies: keep the
++        // frequency type the model chose (F3X4). A codon-targeted model
++        // (GY-style) can, so a +FU{...} request is honoured (issue #192).
++        if (freq == FREQ_USER_DEFINED && def_freq != FREQ_USER_DEFINED && codon_freq_style == CF_TARGET_NT)
+             freq = def_freq;
+ 	} else {
+ 		def_freq = initCodon(name.substr(0, pos).c_str(), freq, false, freq_params);
+diff --git a/test_scripts/test_data/codon.fa b/test_scripts/test_data/codon.fa
+new file mode 100644
+index 00000000..1fc21ad6
+--- /dev/null
++++ b/test_scripts/test_data/codon.fa
+@@ -0,0 +1,8 @@
++>A
++CTAAATACCTATCAAGGCTATATCAAGAATTCTAACTTTGGCGATATCCTGACACTCTGGCCTATCACCGATACAATCCGTAAGGAATACCTCAAGTACGACGGAACTCAGGGTTTTAGCGCTTCTAAAGTGAATTTACCAGCTTTCGCGTTTAACATCAACGTCGGCGAGCAGGTTGCC
++>B
++CTAGAAACCTATCAAGGCAACATCAAGAATTCTAACTTTGGCGATATCCTGACACGCTGGGTTATCACCAAGACAATCCGTAAGGAATACTTGAAGCAAGAAGGAACTCAGGTATTTAGCGCTTCTTGTGTGACGTTAATGGCTTTCGCGGAACCTATCCCGGTCGGCGAGCAGGTTGTA
++>C
++CTAAATACCTATCAAGGCAACATCAAGAATTCTAAGTTTGGCGATATCCTGACACCGTGGTTGATCTTGTTAACAATGCGTAAGCAGTACCTCAAGATTGAAACAGTCCAGTGCATTAATGCTTCTTGTGCAAATTTACCAGCTTTCGTAGAACCTATCACCCGAGGCTTCCAGGTTGCC
++>D
++CTAAATACCTATCAAGGCAACATCGTGAATTCTAACTTTTACGATATCCTGACACTCTGGGTTATCATCTCGACAATCCGTAAGGAAGCTCTCAAGTACGAAACACCGGTCGGGTGCAGCGCTTCTTGTGTGAATTTACCAGCTTTCGCGGAACCTATCAACGTCGGCGAGCAGGTTGCC
+diff --git a/test_scripts/test_data/codon.tree b/test_scripts/test_data/codon.tree
+new file mode 100644
+index 00000000..61730ff5
+--- /dev/null
++++ b/test_scripts/test_data/codon.tree
+@@ -0,0 +1 @@
++((A:0.1,B:0.1):0.05,(C:0.1,D:0.1):0.05);
+diff --git a/test_scripts/test_data/codon_freq.txt b/test_scripts/test_data/codon_freq.txt
+new file mode 100644
+index 00000000..1fcb15f2
+--- /dev/null
++++ b/test_scripts/test_data/codon_freq.txt
+@@ -0,0 +1 @@
++0.006730,0.006889,0.024338,0.011576,0.013103,0.018368,0.020609,0.004870,0.012589,0.014976,0.016145,0.009653,0.018481,0.027196,0.013910,0.017521,0.007513,0.011175,0.020372,0.007357,0.025591,0.026099,0.006989,0.026865,0.013517,0.022890,0.022535,0.011664,0.020618,0.020104,0.023682,0.010960,0.022461,0.027337,0.020546,0.017329,0.007375,0.016333,0.012997,0.021611,0.020680,0.018040,0.008991,0.019906,0.019558,0.008924,0.025656,0.020135,0.007606,0.026643,0.008036,0.012512,0.021667,0.018771,0.017770,0.019949,0.015482,0.012062,0.008860,0.006323,0.021558
+\ No newline at end of file
+diff --git a/test_scripts/test_data/expect_ans.txt b/test_scripts/test_data/expect_ans.txt
+index b373fcb8..277b12aa 100644
+--- a/test_scripts/test_data/expect_ans.txt
++++ b/test_scripts/test_data/expect_ans.txt
+@@ -8,6 +8,8 @@ turtle.mix.link.iqtree	Log-likelihood of the tree	-5625.6391	1
+ turtle.mixfinder.iqtree	Log-likelihood of the tree	-5332.2489	1
+ turtle.nex.outgroup.iqtree	Log-likelihood of the tree	-5352.2653	1
+ turtle.lmap.outgroup.iqtree	Log-likelihood of the tree	-5377.9500	1
++codon.gy.fu.iqtree	Log-likelihood of the tree	-674.5579	1
++codon.gy.f3x4.iqtree	Log-likelihood of the tree	-665.0301	1
+ turtle.nex.constr.iqtree	Log-likelihood of the tree	-5360.0758	1
+ turtle.nex.constr2.iqtree	Log-likelihood of the tree	-5360.0758	1
+ turtle.nex.iqtree	Log-likelihood of the tree	-5360.0759	1
+diff --git a/test_scripts/test_iqtree.ps1 b/test_scripts/test_iqtree.ps1
+index 24f1b1ec..d48ddde8 100755
+--- a/test_scripts/test_iqtree.ps1
++++ b/test_scripts/test_iqtree.ps1
+@@ -100,6 +100,11 @@ Measure-IQTree "$IQTreeBin -s $WD/turtle.fa -m `"MIX+MF`" --prefix $OutDir/turtl
+ Measure-IQTree "$IQTreeBin -s $WD/turtle.fa -p $WD/turtle.nex -o phrynops -m GTR+G --prefix $OutDir/turtle.nex.outgroup -T 1 -seed $SEED"
+ Measure-IQTree "$IQTreeBin -s $WD/turtle.fa -lmap 100 -o phrynops -m GTR+G --prefix $OutDir/turtle.lmap.outgroup -T 1 -seed $SEED"
+ 
++# user-defined codon frequencies must be honoured by GY-type models (issue #192)
++$CodonFreq = (Get-Content $WD/codon_freq.txt -Raw).Trim()
++Measure-IQTree "$IQTreeBin -s $WD/codon.fa -st CODON -te $WD/codon.tree -blfix -m `"GY{0.8,1.07}+FU{$CodonFreq}`" --prefix $OutDir/codon.gy.fu -T 1 -seed $SEED"
++Measure-IQTree "$IQTreeBin -s $WD/codon.fa -st CODON -te $WD/codon.tree -blfix -m `"GY{0.8,1.07}+F3X4`" --prefix $OutDir/codon.gy.f3x4 -T 1 -seed $SEED"
++
+ ## amino acid test cases
+ Write-Host "Running amino acid test cases..."
+ 
+diff --git a/test_scripts/test_iqtree.sh b/test_scripts/test_iqtree.sh
+index 95603b95..b2b24f7d 100755
+--- a/test_scripts/test_iqtree.sh
++++ b/test_scripts/test_iqtree.sh
+@@ -92,6 +92,12 @@ run_timed ${IQTREE_BIN} -s ${WD}/turtle.fa -p ${WD}/turtle.nex -o phrynops -m GT
+ 
+ run_timed ${IQTREE_BIN} -s ${WD}/turtle.fa -lmap 100 -o phrynops -m GTR+G --prefix ${OUT_DIR}/turtle.lmap.outgroup -T 1 -seed $SEED
+ 
++# user-defined codon frequencies must be honoured by GY-type models (issue #192)
++
++run_timed ${IQTREE_BIN} -s ${WD}/codon.fa -st CODON -te ${WD}/codon.tree -blfix -m "GY{0.8,1.07}+FU{$(cat ${WD}/codon_freq.txt)}" --prefix ${OUT_DIR}/codon.gy.fu -T 1 -seed $SEED
++
++run_timed ${IQTREE_BIN} -s ${WD}/codon.fa -st CODON -te ${WD}/codon.tree -blfix -m "GY{0.8,1.07}+F3X4" --prefix ${OUT_DIR}/codon.gy.f3x4 -T 1 -seed $SEED
++
+ 
+ ## amino acid test cases
+ echo "Running amino acid test cases..."
+-- 
+2.43.0
+

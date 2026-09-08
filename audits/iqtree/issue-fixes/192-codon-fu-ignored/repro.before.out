@@ -1,0 +1,6 @@
+IQ-TREE version 3.1.3 for Linux x86 64-bit (master, built from the fork clone before the fix)
+GY+FU(skew):  Log-likelihood of the tree: -648.1018  | Model of substitution: GY+F | 60 free parameters
+GY+FU(uniform):  Log-likelihood of the tree: -648.1018  | Model of substitution: GY+F | 60 free parameters
+GY{0.8,1.07}+F3X4:  Log-likelihood of the tree: -665.0301  | Model of substitution: GY+F3X4 | 9 free parameters
+GY{0.8,1.07}+F:  Log-likelihood of the tree: -648.1018  | Model of substitution: GY+F | 60 free parameters
+MG{0.8}+F3X4:  Log-likelihood of the tree: -661.7879  | Model of substitution: MG+F3X4 | 9 free parameters

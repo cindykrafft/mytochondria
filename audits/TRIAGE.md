@@ -102,6 +102,7 @@ Assigned issues (2026-09-04): no PR; comment with the diagnosis and a branch lin
 | scverse/scanpy | #3809 | `.distances` keeps `n_neighbors` entries on transformer paths (≥ 8192 cells by default) | PR ready; 6 unread comments on the issue |
 | macs3-project/MACS | #715 | `bdgdiff` scores truncated to integers | PR #739 open (filed 2026-09-05); two held findings in the kit README |
 | iqtree/iqtree3 | #203 (+ #89, likely #135/#102) | `setRootNode` assertion when the outgroup is absent from a partition/quartet | PR #207 **merged 2026-09-08** (no discussion); closes #203 and #89 |
+| iqtree/iqtree3 | #192 | `GY{...}+FU{61 freqs}` silently becomes `GY+F`: user codon frequencies ignored, 60 free parameters, wrong likelihood (2.4.0 correct) | PR ready (second fix, after #207 merged): one-line fix in `ModelCodon::init`, regression rows in `expect_ans.txt`, likelihood checked against an independent GY94 computation |
 
 Each kit under `audits/<package>/issue-fixes/<n>-<slug>/` records the alternates considered, so the next round can start from those.
 
