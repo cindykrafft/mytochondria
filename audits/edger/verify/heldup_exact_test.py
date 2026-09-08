@@ -71,8 +71,12 @@ def tails(s1, s2, phi):
     size1, size2 = n1/phi, n2/phi
     top = nbinom.pmf(x, size1, size1/(size1+n1*mu_))*nbinom.pmf(s-x, size2, size2/(size2+n2*mu_))
     c = top/top.sum(); return c[:s1+1].sum(), c[s1:].sum()
-both_big = np.array([min(tails(int(y1[g].sum()), int(y2[g].sum()), phi[g])) > 0.5 for g in range(G)])[small]
-print(f"  genes whose two conditional tails both exceed 0.5 (p ~ 1 either way): {both_big.sum()}; max |diff| on the remaining {(~both_big & ~atmean).sum()} genes: {d[~both_big & ~atmean].max():.2e}")
+tl = np.array([tails(int(y1[g].sum()), int(y2[g].sum()), phi[g]) for g in range(G)])[small]
+edger_side_big = np.where((s1 < mu1)[small], tl[:, 0], tl[:, 1]) >= 0.5      # the tail edgeR doubles is >= 0.5 -> p = 1
+print(f"  genes where the tail on s1's side of the null mean is >= 0.5 (edgeR doubles that tail and returns p = 1): {edger_side_big.sum()};"
+      f" edgeR p on them: min {outs['p'][small][edger_side_big].min():.3f}; port (2 x smaller tail) min {ref[small][edger_side_big].min():.3f}")
+rest = ~edger_side_big & ~atmean
+print(f"  max |diff| on the remaining {rest.sum()} genes: {d[rest].max():.2e}")
 print(f"  Poisson (dispersion=0) via binomTest vs binomial doubletail: max |diff| = {np.max(np.abs(outs['p0']-ref0)):.2e}"
       f"  (binomTest uses the small-probability rejection region, not doubled tails; see below)")
 print(f"  ... of which {np.sum(np.abs(outs['p0']-ref0) > 1e-9)} genes differ by more than 1e-9")

@@ -1,11 +1,27 @@
 edgeR/limma: 4.0.16 3.58.1
 part 1: glmFit/glmLRT on ~group+x, 2000 genes, dispersion 0.1, n=8
   unshrunk coefficients: max |edgeR - port| = 2.32e-03
-  deviance:              max |edgeR - port| = 2.44e-06
+    median 6.4e-06; max over genes with mean count > 20: 2.3e-03; the worst gene has mean count 1937.2
+  deviance:              max |edgeR - port| = 2.44e-06; min(edgeR - port) = -1.52e-06 (negative would mean edgeR found a lower deviance than the port)
+  log-likelihood at the port's vs edgeR's coefficients: max(edgeR - port) = 4.69e-13, max(port - edgeR) = 1.59e-06
   LR statistic:          max |edgeR - port| = 3.29e-06;  p-value max |diff| = 4.66e-06
   shrunk coefficients (predFC, prior.count 0.125): max |edgeR - port on y+p_j| = 2.43e-03; logFC column = coef/log2: max |diff| = 4.26e-14
+
+part 2: glmQLFit(legacy=TRUE)/glmQLFTest arithmetic, 2000 genes (0 with exact-zero fitted values)
+  df.residual.zeros vs n - p - zeros (rank-adjusted): 0 genes differ
+  s2.post / df.prior vs limma::squeezeVar called directly: max |diff| 0.00e+00 / 0.00e+00  (df.prior 2.416)
+  F = (LR/df.test)/s2.post: max |diff| 2.84e-13;  df.total = min(df.prior+df.res, sum df.res): max |diff| 0.00e+00
+  p = pf(F, 1, df.total, lower=FALSE): max |diff| 1.94e-15   (Poisson bound: 0 genes raised)
 Traceback (most recent call last):
-  File "/home/user/research-software-audit/audits/edger/verify/heldup_glm_lrt_ql.py", line 109, in <module>
-    df_res, dev, s2post, dfprior, Fstat, pQL, dftot, LRr, nzero = Q.T
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: not enough values to unpack (expected 9, got 8)
+  File "/home/user/research-software-audit/audits/edger/verify/heldup_glm_lrt_ql.py", line 115, in <module>
+    outs, txt = run_r("""
+                ^^^^^^^^^
+  File "/home/user/research-software-audit/audits/edger/verify/rrun.py", line 45, in run_r
+    raise RuntimeError("R failed:\n" + r.stderr + "\n" + r.stdout)
+RuntimeError: R failed:
+Error in glmQLFit.default(y, X, offset = off, AveLogCPM = A) : 
+  No dispersion values provided.
+Calls: glmQLFit -> glmQLFit.default
+Execution halted
+
+

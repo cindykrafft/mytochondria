@@ -35,11 +35,10 @@ cat("QL p-values identical with/without a prior estimateDisp():", isTRUE(all.equ
 # while glmQLFit() on a fresh DGEList computes it at the default dispersion 0.05; the QL trend
 # covariate therefore differs slightly. Equalising it should make the p-values identical.
 cat("max |AveLogCPM difference| between the two fits:", signif(max(abs(f1$AveLogCPM - f2$AveLogCPM)), 3), "\n")
-d3 <- d2; d3$AveLogCPM <- d$AveLogCPM
 if ("legacy" %in% names(formals(edgeR:::glmQLFit.DGEList))) {
-  d1 <- d; d1$AveLogCPM <- aveLogCPM(d)
+  d3 <- d2; d3$AveLogCPM <- f1$AveLogCPM        # the fresh DGEList's AveLogCPM (dispersion 0.05)
   p3 <- glmQLFTest(glmQLFit(d3, design, legacy=FALSE), coef=2)$table$PValue
-  cat("after giving both DGELists the same AveLogCPM: p-values identical:", isTRUE(all.equal(p1, p3)), "\n")
+  cat("after giving the estimateDisp'ed DGEList the fresh AveLogCPM: p-values identical to the fresh fit:", isTRUE(all.equal(p1, p3)), "\n")
 }
 # poisson.bound is documented as used only when legacy=TRUE
 if ("legacy" %in% names(formals(edgeR:::glmQLFit.DGEList))) {

@@ -1,0 +1,15 @@
+lme4 2.1.0 from /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/lme4/lib 
+
+A. anova(lmer) F: 46.012351896  0.056467753 | anova(lme, sequential) F: 46.008488411  0.056455542 
+   Sum Sq / sigma^2: 46.012351896  0.056467753 
+B. drop1 LRT for z: 0.065506579 p 0.79799521 | anova(ML fits): 0.065506605 p 0.79799517 
+   AIC(fm) = -2 logLik + 2 npar: 1754.1564 1754.1564 | BIC with log(nobs): 1776.5071 1776.5071 | df = 7 (2 fixed + 3 theta + sigma)
+C. refit(gm1): max |fixef diff| 0.000555 | theta 0.64206993 -> 0.64224253 | logLik -92.026566 -> -92.026352 
+D. predict(re.form=NA): link vs X beta max diff 0 | response vs plogis(X beta) 2.78e-17 
+   predict(type='response') vs fitted(): 0 
+   simulate(re.form=NULL) mean proportion vs fitted: max abs diff 0.00758 ; mean var vs p(1-p)/n: 0.01011 vs 0.009978 
+   simulate(re.form=NA): logit-scale within-herd correlation of simulated proportions (herd 1, periods 1,2): 0.346 (> 0 expected; sd(herd) = 0.642 )
+E. Wald CI max diff from fixef +/- 1.96 SE: 2.22e-16 
+F. zero between-group variance: message = 'boundary (singular) fit: see help('isSingular')' ; isSingular = TRUE ; theta = 4.3794419e-17 ; derivs kept = FALSE 
+
+done

@@ -1,0 +1,9 @@
+lme4 2.0.6 from /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/lme4/lib-rel 
+
+exact ML: logLik -612.7009783 (AGH-40) | integrate() -612.7009783
+          beta 0.5706824341 0.6407292178 ; sd(RE) 0.6453146734 ; theta 1.913489817
+glmer.nb: logLik -612.8180234 (exact max -0.1170) ; beta 0.5463556429 0.6341585170 ; sd(RE) 0.6410670573 ; theta 1.9165833 ; SE(beta) 0.12039561894 0.06482006967
+exact logLik at the glmer.nb estimates: -612.7314996 
+logLik df = 4 (2 fixed + 1 theta + NB dispersion expected: 4)
+
+done

@@ -24,30 +24,7 @@ from rrun import run_r, version_arg, edger_version
 V = version_arg()
 print("edgeR/limma:", edger_version(V))
 
-def nb_fit(y, X, o, phi, tol=1e-13, maxit=300):
-    beta = np.linalg.lstsq(X, np.log(y + 0.5) - o, rcond=None)[0]
-    def ll(b):
-        mu = np.exp(X @ b + o)
-        r = 1/phi
-        return np.sum(gammaln(y + r) - gammaln(r) + r*np.log(r/(r + mu)) + y*np.log(mu/(r + mu)))
-    cur = ll(beta)
-    for it in range(maxit):
-        mu = np.exp(X @ beta + o)
-        w = mu/(1 + phi*mu)
-        score = X.T @ ((y - mu)/(1 + phi*mu))
-        info = X.T @ (w[:, None]*X)
-        step = np.linalg.solve(info, score)
-        t = 1.0
-        while True:
-            nb = beta + t*step
-            new = ll(nb)
-            if new >= cur - 1e-12 or t < 1e-8:
-                break
-            t /= 2
-        beta, cur = nb, new
-        if np.max(np.abs(t*step)) < tol:
-            break
-    return beta
+from nbglm import nb_fit, nb_loglik
 
 def nb_dev(y, mu, phi):
     r = 1/phi
@@ -88,7 +65,10 @@ print(f"  unshrunk coefficients: max |edgeR - port| = {np.max(np.abs(F[:, :3] - 
 cd = np.max(np.abs(F[:, :3] - b_port), axis=1); rm = y.mean(1)
 print(f"    median {np.median(cd):.1e}; max over genes with mean count > 20: {cd[rm > 20].max():.1e}; the worst gene has mean count {rm[np.argmax(cd)]:.1f}")
 dd = F[:, 6] - dev_port
-print(f"  deviance:              max |edgeR - port| = {np.max(np.abs(dd)):.2e}; edgeR - port >= -1e-9 for all genes: {bool((dd >= -1e-9).all())} (edgeR's Levenberg fit stops at its tolerance, never below the port's optimum)")
+print(f"  deviance:              max |edgeR - port| = {np.max(np.abs(dd)):.2e}; min(edgeR - port) = {dd.min():.2e} (negative would mean edgeR found a lower deviance than the port)")
+llp = np.array([nb_loglik(y[g], np.exp(X @ b_port[g] + o), phi) for g in range(G)])
+lle = np.array([nb_loglik(y[g], np.exp(X @ F[g, :3] + o), phi) for g in range(G)])
+print(f"  log-likelihood at the port's vs edgeR's coefficients: max(edgeR - port) = {np.max(lle - llp):.2e}, max(port - edgeR) = {np.max(llp - lle):.2e}")
 print(f"  LR statistic:          max |edgeR - port| = {np.max(np.abs(F[:, 7] - LR)):.2e};  p-value max |diff| = {np.max(np.abs(F[:, 8] - chi2.sf(LR, 1))):.2e}")
 print(f"  shrunk coefficients (predFC, prior.count 0.125): max |edgeR - port on y+p_j| = {np.max(np.abs(F[:, 3:6] - b_shr)):.2e}; logFC column = coef/log2: max |diff| = {np.max(np.abs(F[:, 9] - F[:, 4]/np.log(2))):.2e}")
 

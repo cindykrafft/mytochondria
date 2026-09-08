@@ -2,6 +2,10 @@ edgeR/limma: 4.0.16 3.58.1
 part 1: 400 genes, n1=3, n2=2, group sums up to 2787
   NB doubletail p: max |edgeR - enumeration| over 398 genes below big.count = 1.43e-02
   max relative |diff| on p < 0.05 genes = 1.41e-14
+  genes with s1 exactly equal to its null expectation n1*s/(n1+n2): 4; edgeR returns p=1 for them, 2*min(tails) gives min 1.000
+  max |diff| on the other genes: 1.43e-02
+  genes where the tail on s1's side of the null mean is >= 0.5 (edgeR doubles that tail and returns p = 1): 27; edgeR p on them: min 1.000; port (2 x smaller tail) min 0.986
+  max |diff| on the remaining 371 genes: 2.22e-15
   Poisson (dispersion=0) via binomTest vs binomial doubletail: max |diff| = 2.40e-01  (binomTest uses the small-probability rejection region, not doubled tails; see below)
   ... of which 253 genes differ by more than 1e-9
 

@@ -17,6 +17,9 @@ sim <- function(seed, n1, n2, G=8000, de=0, regime="typical") {
   if (regime == "typical") {
     # BCV ~ 0.2 for well-measured genes, rising for low counts (a typical inbred-mouse experiment)
     phi <- 0.04 * exp(rnorm(G, 0, 0.3)) + 1/mu0
+  } else if (regime == "moderate") {
+    # BCV ~ 0.4 (human tissue samples)
+    phi <- 0.16 * exp(rnorm(G, 0, 0.3)) + 1/mu0
   } else {
     # harsh: BCV 0.3-1 at moderate counts, small counts
     mu0 <- exp(rnorm(G, 3, 2)); phi <- 0.1 + 2/sqrt(mu0) * exp(rnorm(G, 0, 0.4))
@@ -60,5 +63,8 @@ report(2, 2, 0)
 report(3, 3, 0.1)
 report(2, 2, 0.1)
 report(5, 5, 0.1)
-report(3, 3, 0, regime="harsh")
-report(3, 3, 0.1, regime="harsh")
+report(3, 3, 0, regime="moderate")
+report(3, 3, 0.1, regime="moderate")
+report(3, 3, 0, regime="harsh", nrep=16)
+report(3, 3, 0.1, regime="harsh", nrep=16)
+report(5, 5, 0.1, regime="harsh", nrep=16)

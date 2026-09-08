@@ -1,10 +1,18 @@
 lme4 1.1.35.1 from /usr/lib/R/site-library 
 R version 4.3.3 (2024-02-29) 
 
-Error in integrate(function(bb) exp(f(bb) - cmax) * dnorm(bb), -Inf, Inf,  : 
-  non-finite function value
-Calls: optim -> <Anonymous> -> fn -> exact_ll -> integrate
-In addition: Warning message:
-In dgamma(yj, shape = 1/phi, scale = exp(eta) * phi, log = TRUE) :
-  NaNs produced
-Execution halted
+exact ML: logLik -593.644975 (AGH-40) | integrate() -593.644975
+          beta 1.0184764539 0.4977628013 ; sd(RE) 0.7721910762 ; phi 0.276606656 ; SE(beta) 0.12566003969 0.03136847295
+independent Laplace ML: logLik -593.7337153 ; beta 1.0184138809 0.4977653659 ; sd(RE) 0.7717004552 ; phi 0.2764900524
+glmer(Gamma(log)) defaults
+  beta 0.9893981586 0.4971715393 ; sd(RE) 0.5434570992 ; sigma(fit)^2 0.3164869008 ; SE(beta) 0.13973389264 0.02996171816
+  logLik(fit) -574.3476926 | exact logLik at these estimates -600.101542 (diff +25.7538) | independent Laplace at these estimates -600.1733284 (diff +25.8256)
+  residual deviance 84.16738893 ; deviance/n 0.2630230904 ; deviance/(n - rank[X,Z]) 0.3027603918
+  devcomp$cmp: ldL2   85.4404408343 ldRX2    9.2932399219 wrss   80.0997720882 ussq   21.1760361815 pwrss  101.2758082697 drsum   84.1673889259 REML              NA dev 1148.6953851345 sigmaML    0.5625716851 sigmaREML              NA tolPwrss    0.0000001000
+
+Gamma()$aic at the reported mu with dispersion = deviance/n (base R convention, includes +2): 1042.078908 
+-2 sum log dgamma(y | mu, phi = sigma(fit)^2): 1048.062735 
+-2 sum log dgamma(y | mu, phi = deviance/n): 1040.078908 
+ldL2 + sqrL from the fit: 106.616477 ; -2 logLik(fit): 1148.695385 
+
+done

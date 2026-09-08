@@ -25,37 +25,7 @@ from rrun import run_r, version_arg, edger_version
 V = version_arg()
 print("edgeR/limma:", edger_version(V))
 
-def nb_fit(y, X, o, phi, tol=1e-13, maxit=200):
-    """NB GLM with log link and fixed dispersion by Fisher scoring with step halving."""
-    # start from a Poisson-style least-squares fit on log(y+0.5)-o
-    beta = np.linalg.lstsq(X, np.log(y + 0.5) - o, rcond=None)[0]
-    def ll(b):
-        mu = np.exp(X @ b + o)
-        return nb_loglik(y, mu, phi)
-    cur = ll(beta)
-    for it in range(maxit):
-        mu = np.exp(X @ beta + o)
-        w = mu/(1 + phi*mu)
-        score = X.T @ ((y - mu)/(1 + phi*mu))
-        info = X.T @ (w[:, None]*X)
-        step = np.linalg.solve(info, score)
-        t = 1.0
-        while True:
-            nb = beta + t*step
-            new = ll(nb)
-            if new >= cur - 1e-12 or t < 1e-8:
-                break
-            t /= 2
-        beta, cur = nb, new
-        if np.max(np.abs(t*step)) < tol:
-            break
-    return beta
-
-def nb_loglik(y, mu, phi):
-    if phi <= 0:
-        return np.sum(y*np.log(mu) - mu - gammaln(y + 1))
-    r = 1/phi
-    return np.sum(gammaln(y + r) - gammaln(r) - gammaln(y + 1) + r*np.log(r/(r + mu)) + y*np.log(mu/(r + mu)))
+from nbglm import nb_fit, nb_loglik
 
 def apl(y, X, o, phi):
     b = nb_fit(y, X, o, phi)

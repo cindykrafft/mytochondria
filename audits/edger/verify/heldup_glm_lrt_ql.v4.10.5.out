@@ -1,7 +1,9 @@
 edgeR/limma: 4.10.5 3.68.4
 part 1: glmFit/glmLRT on ~group+x, 2000 genes, dispersion 0.1, n=8
   unshrunk coefficients: max |edgeR - port| = 2.32e-03
-  deviance:              max |edgeR - port| = 2.44e-06
+    median 6.4e-06; max over genes with mean count > 20: 2.3e-03; the worst gene has mean count 1937.2
+  deviance:              max |edgeR - port| = 2.44e-06; min(edgeR - port) = -1.52e-06 (negative would mean edgeR found a lower deviance than the port)
+  log-likelihood at the port's vs edgeR's coefficients: max(edgeR - port) = 4.69e-13, max(port - edgeR) = 1.59e-06
   LR statistic:          max |edgeR - port| = 3.29e-06;  p-value max |diff| = 4.66e-06
   shrunk coefficients (predFC, prior.count 0.125): max |edgeR - port on y+p_j| = 2.43e-03; logFC column = coef/log2: max |diff| = 4.26e-14
 
@@ -10,8 +12,9 @@ part 2: glmQLFit(legacy=TRUE)/glmQLFTest arithmetic, 2000 genes (0 with exact-ze
   s2.post / df.prior vs limma::squeezeVar called directly: max |diff| 0.00e+00 / 0.00e+00  (df.prior 2.416)
   F = (LR/df.test)/s2.post: max |diff| 5.68e-13;  df.total = min(df.prior+df.res, sum df.res): max |diff| 0.00e+00
   p = pf(F, 1, df.total, lower=FALSE): max |diff| 1.67e-15   (Poisson bound: 0 genes raised)
-Traceback (most recent call last):
-  File "/home/user/research-software-audit/audits/edger/verify/heldup_glm_lrt_ql.py", line 141, in <module>
-    dft_port = np.minimum(H[5] + df_adj, dfr.sum())
-                          ~^^^
-IndexError: invalid index to scalar variable.
+
+part 3: glmQLFit(legacy=FALSE, default since 4.2.0)/glmQLFTest arithmetic
+  top.proportion: fit 0.1815, chooseLowessSpan(G*sqrt(df), 20, 0.02) 0.1815; NB dispersion: fit 0.61785, estimateGLMCommonDisp on the top genes 0.61785; average QL dispersion 1.0000; df.prior 2.036
+  F = (LR/df.test)/s2.post with LR from the working-dispersion null fit: max |diff| 3.41e-13
+  df.total = min(df.prior + df.residual.adj, sum df.residual): max |diff| 3.91e-14;  p = pf(): max |diff| 2.00e-15
+  adjusted df in (0, n-p]: min 4.057, max 9.353; s2 = deviance.adj/df.adj: max |s2.post - squeeze input| irrelevant; deviance.adj >= 0: True

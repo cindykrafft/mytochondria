@@ -21,7 +21,7 @@ set.seed(31)
 R <- 25
 cat(sprintf("%d replicates per size; Bernoulli y ~ x + (1|g), 10 obs per cluster, sd(RE) = 1.2, beta = (-0.5, 1)\n", R))
 cat(sprintf("%-6s %-6s %-9s %-9s %-9s %-9s %-9s %-9s\n", "nobs", "hess", "med.ratio", "ratio<0.5", "ratio>2", "any.warn", "bad&warn", "bad&nowarn"))
-summ <- list()
+bad.cases <- list()
 for (J in c(20, 50, 100, 250, 500, 999, 1001)) {
     rat <- rep(NA_real_, R); warn <- logical(R); hess <- logical(R)
     for (r in seq_len(R)) {
@@ -30,16 +30,23 @@ for (J in c(20, 50, 100, 250, 500, 999, 1001)) {
         hess[r] <- !is.null(f@optinfo$derivs$Hessian)
         warn[r] <- length(o$warn) > 0
         if (hess[r]) {
-            se.h <- sqrt(diag(as.matrix(vcov(f, use.hessian = TRUE))))
+            se.h <- sqrt(diag(as.matrix(suppressWarnings(vcov(f, use.hessian = TRUE)))))
             se.r <- sqrt(diag(as.matrix(suppressWarnings(vcov(f, use.hessian = FALSE)))))
+            se.d <- sqrt(diag(as.matrix(suppressWarnings(vcov(f)))))          # what summary() reports
             rat[r] <- se.h[1] / se.r[1]
+            if (is.na(rat[r]) || rat[r] < 0.5 || rat[r] > 2)
+                bad.cases[[length(bad.cases) + 1]] <- data.frame(
+                    nobs = J * 10, rep = r, beta0 = fixef(f)[[1]], SE_default = se.d[1], SE_hess = se.h[1], SE_RX = se.r[1],
+                    z_default = fixef(f)[[1]] / se.d[1], z_RX = fixef(f)[[1]] / se.r[1],
+                    warning = if (length(o$warn)) sub("\n.*", "", o$warn[1]) else "none")
         }
     }
     bad <- !is.na(rat) & (rat < 0.5 | rat > 2)
-    summ[[as.character(J * 10)]] <- rat
     cat(sprintf("%-6d %-6d %-9.3f %-9d %-9d %-9d %-9d %-9d\n", J * 10, sum(hess), median(rat, na.rm = TRUE),
                 sum(rat < 0.5, na.rm = TRUE), sum(rat > 2, na.rm = TRUE), sum(warn), sum(bad & warn), sum(bad & !warn)))
 }
+cat("\nThe replicates with SE_hess/SE_RX outside [0.5, 2] (SE_default is what summary() prints):\n")
+print(do.call(rbind, bad.cases), row.names = FALSE, digits = 4)
 
 ## mechanism: the deviance returned by the PIRLS-based devfun is only accurate to ~tolPwrss * deviance,
 ## and the Hessian divides second differences by delta^2 = 1e-8

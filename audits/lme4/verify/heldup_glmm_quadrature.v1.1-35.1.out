@@ -1,7 +1,32 @@
 lme4 1.1.35.1 from /usr/lib/R/site-library 
 R version 4.3.3 (2024-02-29) 
 
-Error in integrate(function(b) exp(f(b) - cmax) * dnorm(b), -Inf, Inf,  : 
-  roundoff error was detected
-Calls: maximise ... optim -> <Anonymous> -> fn -> exact_ll -> integrate
-Execution halted
+Bernoulli random intercept, J = 40 clusters x 8 
+  exact maximum: logLik -188.3076772 (AGH-40) | certified by integrate(): -188.3076772 | plain GH-100: -188.3076772
+                 beta -0.6797818600  0.7457268039 ; sd(RE) 0.9617533577
+  Laplace  logLik -188.6429029 (exact max -3.352e-01) ; beta -0.6766753877  0.7454462705 ; sd(RE) 0.9299650702 ; SE(beta) 0.2008153264 0.1539647475
+           exact logLik at these estimates (integrate) -188.3178322
+  nAGQ25   logLik -188.3076772 (exact max -6.753e-10) ; beta -0.6797869370  0.7457295459 ; sd(RE) 0.9617596705 ; SE(beta) 0.2058919899 0.1553420367
+           exact logLik at these estimates (integrate) -188.3076772
+  exact-likelihood SE(beta) from the observed information: 0.2058910087 0.1553417636 
+  nAGQ=25 vcov(use.hessian=FALSE) SE: 0.2007283327 0.1515615802 
+
+Binomial (sizes 5-15) random intercept
+  exact maximum: logLik -538.5550771 (AGH-40) | certified by integrate(): -538.5550771 | plain GH-100: -538.5545484
+                 beta -0.743653211  1.044623902 ; sd(RE) 1.168660347
+  Laplace  logLik -538.6973653 (exact max -1.423e-01) ; beta -0.7434228291  1.0446491896 ; sd(RE) 1.166816341 ; SE(beta) 0.19090059057 0.05562698602
+           exact logLik at these estimates (integrate) -538.5551557
+  nAGQ25   logLik -228.1039528 (exact max +3.105e+02) ; beta -0.7436389625  1.0446204485 ; sd(RE) 1.168657719 ; SE(beta) 0.19133017824 0.05574410998
+           exact logLik at these estimates (integrate) -538.5550771
+  saturated binomial log-likelihood, sum(dbinom(y, size, y/size, log)) = -310.4511243 
+
+Poisson random intercept
+  exact maximum: logLik -481.3176206 (AGH-40) | certified by integrate(): -481.3176206 | plain GH-100: -481.3203428
+                 beta 0.08830518016 0.53335781060 ; sd(RE) 0.6923115189
+  Laplace  logLik -481.4169069 (exact max -9.929e-02) ; beta 0.08916713222 0.53344132726 ; sd(RE) 0.6887766356 ; SE(beta) 0.12439310547 0.04665455756
+           exact logLik at these estimates (integrate) -481.3182537
+  nAGQ25   logLik -218.7476428 (exact max +2.626e+02) ; beta 0.08830230713 0.53335878926 ; sd(RE) 0.692307128 ; SE(beta) 0.12553109742 0.04719368679
+           exact logLik at these estimates (integrate) -481.3176206
+  saturated Poisson log-likelihood, sum(dpois(y, y, log)) = -262.5699778 
+
+done

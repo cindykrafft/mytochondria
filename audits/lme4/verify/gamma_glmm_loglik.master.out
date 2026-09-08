@@ -1,10 +1,28 @@
 lme4 2.1.0 from /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/lme4/lib 
 R version 4.3.3 (2024-02-29) 
 
-Error in integrate(function(bb) exp(f(bb) - cmax) * dnorm(bb), -Inf, Inf,  : 
-  non-finite function value
-Calls: optim -> <Anonymous> -> fn -> exact_ll -> integrate
-In addition: Warning message:
-In dgamma(yj, shape = 1/phi, scale = exp(eta) * phi, log = TRUE) :
-  NaNs produced
-Execution halted
+exact ML: logLik -593.644975 (AGH-40) | integrate() -593.644975
+          beta 1.0184764539 0.4977628013 ; sd(RE) 0.7721910762 ; phi 0.276606656 ; SE(beta) 0.12566003969 0.03136847295
+independent Laplace ML: logLik -593.7337153 ; beta 1.0184138809 0.4977653659 ; sd(RE) 0.7717004552 ; phi 0.2764900524
+glmer(Gamma(log)) defaults
+  beta 1.0020322072 0.4977599762 ; sd(RE) 0.7739446573 ; sigma(fit)^2 0.2943241282 ; SE(beta) 0.1258645908 0.0314048895
+  logLik(fit) -591.6216348 | exact logLik at these estimates -593.9472845 (diff +2.3256) | independent Laplace at these estimates -594.0402113 (diff +2.4186)
+  residual deviance 82.11324138 ; deviance/n 0.2566038793 ; deviance/(n - rank[X,Z]) 0.2953713719
+  devcomp$cmp: ldL2  113.9843905578 ldRX2   11.0176018915 wrss   76.6453681503 ussq   37.4267285643 pwrss  114.0720967146 drsum   82.1132413842 REML              NA dev 1183.2432695065 sigmaML    0.5425164773 sigmaREML              NA tolPwrss    0.0000001000
+glmer(..., disp_method = 'old/buggy')
+  beta 0.9893980983 0.4971716476 ; sd(RE) 0.9660234382 ; sigma(fit)^2 0.316486821 ; SE(beta) 0.13973394421 0.02996171795
+  logLik(fit) -573.3476925 | exact logLik at these estimates -596.6420419 (diff +23.2943) | independent Laplace at these estimates -596.750843 (diff +23.4032)
+  residual deviance 84.16738304 ; deviance/n 0.263023072 ; deviance/(n - rank[X,Z]) 0.3027603706
+  devcomp$cmp: ldL2   85.4404842263 ldRX2    9.2932388198 wrss   80.0997668085 ussq   21.1760159256 pwrss  101.2757827341 drsum   84.1673830371 REML              NA dev 1146.6953849065 sigmaML    0.5625716141 sigmaREML              NA tolPwrss    0.0000001000
+glmer(..., disp_dof_correction = FALSE)
+  beta 1.0020453510 0.4977754117 ; sd(RE) 0.7709051714 ; sigma(fit)^2 0.2561636361 ; SE(beta) 0.12539387878 0.03142124772
+  logLik(fit) -594.2167165 | exact logLik at these estimates -594.1186844 (diff -0.0980) | independent Laplace at these estimates -594.2023858 (diff -0.0143)
+  residual deviance 81.96893251 ; deviance/n 0.2561529141 ; deviance/(n - rank[X,Z]) 0.2948522752
+  devcomp$cmp: ldL2  118.9389801584 ldRX2   11.1705477698 wrss   76.4037431814 ussq   38.2490751780 pwrss  114.6528183594 drsum   81.9689325065 REML              NA dev 1188.4334329829 sigmaML    0.5061261069 sigmaREML              NA tolPwrss    0.0000001000
+
+Gamma()$aic at the reported mu with dispersion = deviance/n (base R convention, includes +2): 1033.83215 
+-2 sum log dgamma(y | mu, phi = sigma(fit)^2): 1036.705667 
+-2 sum log dgamma(y | mu, phi = deviance/n): 1031.83215 
+ldL2 + sqrL from the fit: 151.4111191 ; -2 logLik(fit): 1183.24327 
+
+done

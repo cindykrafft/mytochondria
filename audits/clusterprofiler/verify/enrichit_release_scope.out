@@ -1,0 +1,25 @@
+== enrichit 0.1.4
+ORA: rows in @result = 290 (with Count = 0: 31); BH denominator implied = 290; T010 p = 3.563e-51 p.adjust = 1.033e-48; rows shown by as.data.frame (p<=0.05 & p.adjust<=0.05 & q<=0.2) = 1
+GSEA: sets in result = 4; tested SMALL(6) FALSE BIG(600) FALSE RAW520_OV480 FALSE RAW16_OV6 FALSE; rows with p.adjust > 0.05 in the result table = 2 of 4 (max p.adjust 0.296)
+      UP1 NES=2.958 p=2.280e-19; DOWN1 NES=-2.653 p=2.855e-12; R01 p=NA (if present)
+      engine gsea(): 35 sets tested; setSize reported for RAW520_OV480 = not tested, RAW16_OV6 = 6, ABSENT = 12
+      multilevel on stats*1e-7: UP1 ES=NaN NES=NaN p=NaN  (same list at native scale: ES=0.7536 NES=2.995 p=2.336e-19)
+== enrichit 0.2.0
+ORA: rows in @result = 259 (with Count = 0: 0); BH denominator implied = 259; T010 p = 3.563e-51 p.adjust = 9.229e-49; rows shown by as.data.frame (p<=0.05 & p.adjust<=0.05 & q<=0.2) = 1
+GSEA: sets in result = 4; tested SMALL(6) FALSE BIG(600) FALSE RAW520_OV480 FALSE RAW16_OV6 FALSE; rows with p.adjust > 0.05 in the result table = 2 of 4 (max p.adjust 0.296)
+      UP1 NES=2.958 p=2.053e-19; DOWN1 NES=-2.653 p=2.855e-12; R01 p=NA (if present)
+      engine gsea(): 35 sets tested; setSize reported for RAW520_OV480 = not tested, RAW16_OV6 = 6, ABSENT = 12
+      multilevel on stats*1e-7: UP1 ES=0.7536 NES=2.995 p=1.69e-19  (same list at native scale: ES=0.7536 NES=2.995 p=2.104e-19)
+== enrichit 0.2.1
+ORA: rows in @result = 259 (with Count = 0: 0); BH denominator implied = 259; T010 p = 3.563e-51 p.adjust = 9.229e-49; rows shown by as.data.frame (p<=0.05 & p.adjust<=0.05 & q<=0.2) = 1
+GSEA: sets in result = 4; tested SMALL(6) FALSE BIG(600) FALSE RAW520_OV480 FALSE RAW16_OV6 FALSE; rows with p.adjust > 0.05 in the result table = 2 of 4 (max p.adjust 0.368)
+      UP1 NES=2.974 p=2.057e-19; DOWN1 NES=-2.654 p=2.752e-12; R01 p=NA (if present)
+      engine gsea(): 35 sets tested; setSize reported for RAW520_OV480 = 480, RAW16_OV6 = not tested, ABSENT = 12
+      multilevel on stats*1e-7: UP1 ES=0.7536 NES=2.995 p=1.69e-19  (same list at native scale: ES=0.7536 NES=2.995 p=2.104e-19)
+(master = GitHub a261244, 0.2.2)
+== enrichit 0.2.2
+ORA: rows in @result = 259 (with Count = 0: 0); BH denominator implied = 259; T010 p = 3.563e-51 p.adjust = 9.229e-49; rows shown by as.data.frame (p<=0.05 & p.adjust<=0.05 & q<=0.2) = 1
+GSEA: sets in result = 2; tested SMALL(6) FALSE BIG(600) FALSE RAW520_OV480 FALSE RAW16_OV6 FALSE; rows with p.adjust > 0.05 in the result table = 0 of 2 (max p.adjust 0.000)
+      UP1 NES=2.974 p=2.057e-19; DOWN1 NES=-2.654 p=2.752e-12; R01 p=NA (if present)
+      engine gsea(): 35 sets tested; setSize reported for RAW520_OV480 = 480, RAW16_OV6 = not tested, ABSENT = 12
+      multilevel on stats*1e-7: UP1 ES=0.7536 NES=2.995 p=1.69e-19  (same list at native scale: ES=0.7536 NES=2.995 p=2.104e-19)

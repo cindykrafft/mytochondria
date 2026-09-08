@@ -1,0 +1,64 @@
+fgsea 1.39.4  enrichit 0.2.2 
+DOSE 3.30.0 
+N24k3 top      ES=+1.0000 fgseaSimple p=0.001164  fgseaML 0.001065±0.00036  enrichit sample 0.00047  permute 0.00048  adaptive 0.000495 (n=200000)  enrichit ML 0.001109±0.00033  DOSE perm 0.001004
+N24k3 top_mid  ES=+0.9402 fgseaSimple p=0.006171  fgseaML 0.006939±0.0021  enrichit sample 0.003285  permute 0.00362  adaptive 0.00339 (n=200000)  enrichit ML 0.007022±0.0017  DOSE perm 0.006611
+N24k3 mid      ES=+0.3810 fgseaSimple p=0.8745  fgseaML 0.8782±0.012  enrichit sample 0.4458  permute 0.4479  adaptive 0.4456 (n=1000)  enrichit ML 0.8869±0.013  DOSE perm 0.8819
+N24k3 bottom   ES=-1.0000 fgseaSimple p=0.0007717  fgseaML 0.00108±0.00039  enrichit sample 5e-06  permute 0.00058  adaptive 5e-06 (n=200000)  enrichit ML 0.001155±0.00041  DOSE perm 0.000611
+N24k3 mixed    ES=+0.4528 fgseaSimple p=0.7439  fgseaML 0.7472±0.017  enrichit sample 0.3822  permute 0.3816  adaptive 0.3636 (n=1000)  enrichit ML 0.7529±0.022  DOSE perm 0.7606
+N40k4 top      ES=+1.0000 fgseaSimple p=3.008e-05  fgseaML 2.163e-05±1e-05  enrichit sample 2e-05  permute 4e-05  adaptive 2e-05 (n=200000)  enrichit ML 1.914e-05±7.4e-06  DOSE perm 0.0001509
+N40k4 top2     ES=+0.8611 fgseaSimple p=0.01481  fgseaML 0.01614±0.0046  enrichit sample 0.00946  permute 0.00982  adaptive 0.00932 (n=200000)  enrichit ML 0.01441±0.0042  DOSE perm 0.01768
+N40k4 mid      ES=+0.4072 fgseaSimple p=0.8522  fgseaML 0.8558±0.015  enrichit sample 0.5678  permute 0.5628  adaptive 0.5345 (n=1000)  enrichit ML 0.8549±0.013  DOSE perm 0.8489
+N40k4 bottom   ES=-1.0000 fgseaSimple p=2.982e-05  fgseaML 3.874e-05±1.4e-05  enrichit sample 5e-06  permute 2e-05  adaptive 5e-06 (n=200000)  enrichit ML 3.785e-05±1.6e-05  DOSE perm 0.0003019
+N40k4 mixed    ES=+0.6046 fgseaSimple p=0.3767  fgseaML 0.3821±0.02  enrichit sample 0.2498  permute 0.25  adaptive 0.2428 (n=1000)  enrichit ML 0.3802±0.019  DOSE perm 0.3734
+N30k5 top      ES=+1.0000 fgseaSimple p=1.934e-05  fgseaML 1.478e-05±7.1e-06  enrichit sample 5e-06  permute 4e-05  adaptive 5e-06 (n=200000)  enrichit ML 1.694e-05±7.1e-06  DOSE perm 0.0001949
+N30k5 top2     ES=+0.9872 fgseaSimple p=7.735e-05  fgseaML 4.426e-05±2e-05  enrichit sample 2e-05  permute 2e-05  adaptive 2e-05 (n=200000)  enrichit ML 4.833e-05±1.8e-05  DOSE perm 0.0001913
+N30k5 bottom   ES=-1.0000 fgseaSimple p=4.109e-05  fgseaML 1.506e-05±5.8e-06  enrichit sample 5e-06  permute 4e-05  adaptive 5e-06 (n=200000)  enrichit ML 1.497e-05±5.8e-06  DOSE perm 0.0002044
+N30k5 mixed    ES=+0.5528 fgseaSimple p=0.3663  fgseaML 0.376±0.023  enrichit sample 0.1918  permute 0.192  adaptive 0.1588 (n=1000)  enrichit ML 0.3721±0.021  DOSE perm 0.3775
+done
+----- python (exact enumeration)
+ES: max |fgsea - ref| = 4.25e-09, max |enrichit - ref| = 8.88e-16
+
+Exact conditional p = P(ES* >= ES | same sign)  vs engines  (multilevel: mean over 40 runs)
+design     set  ES_ref  n_subsets  p_exact_cond  p_exact_uncond  fgsea_simple  fgsea_ml  enrichit_ml  enrichit_sample  enrichit_permute  enrichit_adaptive  dose_perm
+ N24k3     top       1       2024     0.0009643       0.0004941      0.001164  0.001065     0.001109          0.00047           0.00048           0.000495   0.001004
+ N24k3 top_mid  0.9402       2024       0.00675        0.003458      0.006171  0.006939     0.007022         0.003285           0.00362            0.00339   0.006611
+ N24k3     mid   0.381       2024        0.8824          0.4521        0.8745    0.8782       0.8869           0.4458            0.4479             0.4456     0.8819
+ N24k3  bottom      -1       2024      0.001013       0.0004941     0.0007717   0.00108     0.001155            5e-06           0.00058              5e-06   0.000611
+ N24k3   mixed  0.4528       2024        0.7464          0.3824        0.7439    0.7472       0.7529           0.3822            0.3816             0.3636     0.7606
+ N40k4     top       1      91390     1.647e-05       1.094e-05     3.008e-05 2.163e-05    1.914e-05            2e-05             4e-05              2e-05  0.0001509
+ N40k4    top2  0.8611      91390       0.01456        0.009673       0.01481   0.01614      0.01441          0.00946           0.00982            0.00932    0.01768
+ N40k4     mid  0.4072      91390        0.8532          0.5668        0.8522    0.8558       0.8549           0.5678            0.5628             0.5345     0.8489
+ N40k4  bottom      -1      91390      3.26e-05       1.094e-05     2.982e-05 3.874e-05    3.785e-05            5e-06             2e-05              5e-06  0.0003019
+ N40k4   mixed  0.6046      91390        0.3772          0.2506        0.3767    0.3821       0.3802           0.2498              0.25             0.2428     0.3734
+ N30k5     top       1     142506     1.358e-05       7.017e-06     1.934e-05 1.478e-05    1.694e-05            5e-06             4e-05              5e-06  0.0001949
+ N30k5    top2  0.9872     142506     4.075e-05       2.105e-05     7.735e-05 4.426e-05    4.833e-05            2e-05             2e-05              2e-05  0.0001913
+ N30k5  bottom      -1     142506     1.452e-05       7.017e-06     4.109e-05 1.506e-05    1.497e-05            5e-06             4e-05              5e-06  0.0002044
+ N30k5   mixed  0.5528     142506          0.37          0.1911        0.3663     0.376       0.3721           0.1918             0.192             0.1588     0.3775
+
+ratio engine / exact conditional p:
+   fgsea_simple       median 0.999  min 0.762  max 2.831
+   fgsea_ml           median 1.052  min 0.995  max 1.313
+   enrichit_ml        median 1.036  min 0.990  max 1.247
+   enrichit_sample    median 0.498  min 0.005  max 1.214
+   enrichit_permute   median 0.593  min 0.491  max 2.945
+   enrichit_adaptive  median 0.496  min 0.005  max 1.214
+   dose_perm          median 1.030  min 0.603  max 14.344
+
+ratio enrichit sample / exact UNconditional p: median 0.965 (min 0.010, max 1.828)
+
+NES vs exact ES/mean(same-sign null ES):
+design     set  NES_exact  NES_fgsea  NES_enrichit_sample  NES_dose
+ N24k3     top     1.7320     1.7493               1.7248    1.7171
+ N24k3 top_mid     1.6285     1.6447               1.6217    1.6016
+ N24k3     mid     0.6598     0.6664               0.6571    0.6617
+ N24k3  bottom    -1.7518    -1.7802              -1.7583   -1.7551
+ N24k3   mixed     0.7842     0.7920               0.7809    0.7779
+ N40k4     top     1.7889     1.7901               1.7903    1.7878
+ N40k4    top2     1.5404     1.5415               1.5416    1.5370
+ N40k4     mid     0.7284     0.7289               0.7290    0.7326
+ N40k4  bottom    -2.0446    -2.0435              -2.0389   -2.0529
+ N40k4   mixed     1.0816     1.0824               1.0825    1.0843
+ N30k5     top     1.9467     1.9618               1.9407    1.9419
+ N30k5    top2     1.9218     1.9366               1.9158    1.9074
+ N30k5  bottom    -1.9250    -1.9421              -1.9303   -1.9439
+ N30k5   mixed     1.0762     1.0845               1.0729    1.0664

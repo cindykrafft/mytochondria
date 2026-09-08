@@ -11,6 +11,6 @@ part B: 40 data sets, 5 or more samples (odd), 20,000 genes each, defaults
   of these, dropped by filterByExpr although the documented rule keeps them: 150
   total filterByExpr-vs-rule disagreements: 150 (of 800000 gene decisions); disagreements not explained by the margin: 0
 
-part C: L = (1e6, 1234567, 3e6), min.count=10, group sizes 2/1 -> MinSampleSize 1
-  cpm(gene with 10 reads in the median library) = 8.1000059130043169, cutoff = 8.1000059130043152
-  filterByExpr keeps (10 reads / 11 reads / 15,10,15): FALSE FALSE TRUE 
+part C: L = (1e6, 1000010, 3e6), min.count=10, group sizes 2/1 -> MinSampleSize 1
+  cpm() of 10 reads in the median library = 9.9999000009999897, cutoff min.count/median(L)*1e6 = 9.9999000009999914, exact value 9.99990000099999...
+  filterByExpr keeps gene 1 (5,10,5): FALSE   gene 2 (5,11,5): TRUE 

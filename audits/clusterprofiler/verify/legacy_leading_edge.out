@@ -1,0 +1,14 @@
+DOSE 3.30.0  clusterProfiler 4.12.0 
+positive-ES sets: 143, leading edge == reference: 143
+negative-ES sets: 457, leading edge == reference: 429 (6.1% differ)
+  among the differing negative sets: DOSE lists 1..31 extra genes (median 4), misses 0..0; reference size 5..216
+  extra genes as a fraction of the reference leading edge: median 12%, max 225%
+  planted (down) sets differing: 8 of 300; random negative sets differing: 20 of 157
+  rank column == reference for all sets: TRUE
+  clusterProfiler 4.12.0 GSEA() on R092: ES=-0.1976 NES=-1.039; core_enrichment has 74 genes, reference leading edge 43, extra 31; leading_edge='tags=23%, list=12%, signal=21%'
+  enrichit 0.2.2 on the same set: core_enrichment has 43 genes
+No gene set have size between [10, 500]...
+--> return NULL...
+No gene set have size between [10, 500]...
+--> return NULL...
+  DOSE::geneSet_filter on two equal-sized sets returns class 'NULL' (list expected); length 0
