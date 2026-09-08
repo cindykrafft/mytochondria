@@ -1,0 +1,20 @@
+== featureCounts v2.0.6 (featurecounts/bin_master)
+bin_master/featureCounts: count for gene A = 2 (expected 0: no fragment has an N in its CIGAR); Assigned=2 Unassigned_NonSplit=1
+== featureCounts v2.1.1 (subread-2.1.1-source/src)
+rel/subread-2.1.1-source/src/featureCounts: count for gene A = 2 (expected 0: no fragment has an N in its CIGAR); Assigned=2 Unassigned_NonSplit=1
+== featureCounts v2.0.3 (subread-2.0.3-source/src)
+rel/subread-2.0.3-source/src/featureCounts: count for gene A = 2 (expected 0: no fragment has an N in its CIGAR); Assigned=2 Unassigned_NonSplit=1
+== featureCounts v2.0.6 (featurecounts/bin_fc1)
+bin_fc1/featureCounts: count for gene A = 0 (expected 0: no fragment has an N in its CIGAR); Assigned=0 Unassigned_NonSplit=3
+
+== featureCounts v2.0.6 (featurecounts/bin_master)
+bin_master/featureCounts: S=2 AS=1 Unassigned_Read_Type=0 (manual: S=1, AS=0, Unassigned_Read_Type=2)
+== featureCounts v2.1.1 (subread-2.1.1-source/src)
+rel/subread-2.1.1-source/src/featureCounts: S=2 AS=1 Unassigned_Read_Type=0 (manual: S=1, AS=0, Unassigned_Read_Type=2)
+== featureCounts v2.0.3 (subread-2.0.3-source/src)
+rel/subread-2.0.3-source/src/featureCounts: S=2 AS=1 Unassigned_Read_Type=0 (manual: S=1, AS=0, Unassigned_Read_Type=2)
+== featureCounts v2.0.6 (featurecounts/bin_fc2)
+bin_fc2/featureCounts: S=1 AS=0 Unassigned_Read_Type=2 (manual: S=1, AS=0, Unassigned_Read_Type=2)
+== featureCounts v2.0.1 (-p only; --countReadPairs does not exist)
+rel/subread-2.0.1-source/src/featureCounts: S=1 AS=0 Unassigned_Read_Type=2 (manual: S=1, AS=0, Unassigned_Read_Type=2)
+rel/subread-2.0.1-source/src/featureCounts: count for gene A = 2 (expected 0: no fragment has an N in its CIGAR); Assigned=2 Unassigned_NonSplit=1

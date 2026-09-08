@@ -18,7 +18,7 @@ import pysam
 FC = os.environ.get(
     "FEATURECOUNTS",
     "/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/"
-    "scratchpad/featurecounts/src/src/featureCounts",
+    "scratchpad/featurecounts/bin_master/featureCounts",
 )
 
 SUMMARY_ROWS = [

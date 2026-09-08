@@ -1,0 +1,117 @@
+From 2c28bce5be0b6bd1bbbf991004922cc6e001da77 Mon Sep 17 00:00:00 2001
+From: Mytochondria <cynthiacondra@gmail.com>
+Date: Tue, 8 Sep 2026 15:20:35 +0000
+Subject: [PATCH] featureCounts: restore the read-type filter for stranded
+ counting
+
+The users guide ("Read filtering", "Program output") says that single-end
+reads found in a paired-end library are excluded from strand-specific
+counting as Unassigned_Read_Type, because their strand cannot be related
+to the strand of the fragment. Release 2.0.1 did this; the 2.0.2 changes
+(1f24de1) removed the branch while keeping the counter and the summary
+row, so since then such reads are counted as first reads: an orphaned
+second read is compared with the wrong strand and, under -s 2, lands on
+the antisense gene.
+
+Restore the exclusion where the inconsistent read type is detected, with
+the counter routed through the read-group tables and the scRNA pool like
+the neighbouring filters. It applies whenever `-p` is given with `-s 1`
+or `-s 2`, i.e. to fragment counting and to read-level counting of a
+paired-end library.
+
+Adds test/featureCounts/data/corner-READTYPE.{sam,ora}: four proper pairs
+from the + strand gene and four single-end records inside it, counted
+with `-p --countReadPairs -s 1`; expected simu_gene1 = 4. Unmodified code
+gives 6 (the two forward single-end reads).
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ src/readSummary.c                           | 17 +++++++++++++++++
+ test/featureCounts/data/corner-READTYPE.ora |  9 +++++++++
+ test/featureCounts/data/corner-READTYPE.sam | 16 ++++++++++++++++
+ test/featureCounts/test_corner_cases.sh     |  1 +
+ 4 files changed, 43 insertions(+)
+ create mode 100644 test/featureCounts/data/corner-READTYPE.ora
+ create mode 100644 test/featureCounts/data/corner-READTYPE.sam
+
+diff --git a/src/readSummary.c b/src/readSummary.c
+index ebc0f1b..af76f11 100644
+--- a/src/readSummary.c
++++ b/src/readSummary.c
+@@ -3029,6 +3029,23 @@ void process_line_buffer(fc_thread_global_context_t * global_context, fc_thread_
+ 		}
+ 
+ 		if(this_is_inconsistent_read_type){
++			if(global_context -> is_strand_checked){
++				// Strand-specific counting: the strand of a single-end read found in a paired-end
++				// library cannot be related to the strand of its fragment (it may be an orphaned
++				// first or second read), so the read is excluded as Unassigned_Read_Type, as the
++				// users guide ("Read filtering") describes and as release 2.0.1 did.
++				if(global_context -> read_details_out_FP)
++					write_read_details_FP(global_context, thread_context, "Unassigned_Read_Type", 0, NULL, bin1, bin2);
++				if(RG_ptr){
++					void ** tab4s = get_RG_tables(global_context, thread_context, RG_ptr);
++					fc_read_counters * sumtab = tab4s[1];
++					sumtab -> unassigned_read_type++;
++				}else thread_context->read_counters.unassigned_read_type ++;
++
++				if(global_context -> do_scRNA_table) add_scRNA_read_to_pool(global_context, thread_context, -1, read_name, bin1, NULL);
++				return;
++			}
++
+ 			if(global_context -> is_both_end_required && 0 == ( alignment_masks & SAM_FLAG_PAIRED_TASK )){
+ 				if(global_context -> read_details_out_FP)
+ 					write_read_details_FP(global_context , thread_context ,"Unassigned_Singleton",0, NULL, bin1, bin2);
+diff --git a/test/featureCounts/data/corner-READTYPE.ora b/test/featureCounts/data/corner-READTYPE.ora
+new file mode 100644
+index 0000000..0b1285e
+--- /dev/null
++++ b/test/featureCounts/data/corner-READTYPE.ora
+@@ -0,0 +1,9 @@
++## featureCounts output gene_level; single-end reads in a paired-end file under stranded fragment counting are Unassigned_Read_Type
++geneid	nreads
++simu_gene1	4
++simu_gene2	0
++simu_gene3	0
++simu_gene4	0
++simu_gene5	0
++simu_gene6	0
++simu_gene7	0
+diff --git a/test/featureCounts/data/corner-READTYPE.sam b/test/featureCounts/data/corner-READTYPE.sam
+new file mode 100644
+index 0000000..8e651f7
+--- /dev/null
++++ b/test/featureCounts/data/corner-READTYPE.sam
+@@ -0,0 +1,16 @@
++@HD	VN:1.0	SO:unsorted
++@SQ	SN:chr3	LN:999950
++@SQ	SN:chr4	LN:999950
++@SQ	SN:chr5	LN:999950
++PAIR.0	99	chr3	500	60	50M	=	650	200	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR.0	147	chr3	650	60	50M	=	500	-200	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR.1	99	chr3	5000	60	50M	=	5150	200	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR.1	147	chr3	5150	60	50M	=	5000	-200	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR.2	99	chr3	21000	60	50M	=	21150	200	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR.2	147	chr3	21150	60	50M	=	21000	-200	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR.3	99	chr3	45000	60	50M	=	45150	200	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR.3	147	chr3	45150	60	50M	=	45000	-200	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++SE_FWD.0	0	chr3	700	60	50M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++SE_FWD.1	0	chr3	25000	60	50M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++SE_REV.0	16	chr3	900	60	50M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++SE_REV.1	16	chr3	26000	60	50M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+diff --git a/test/featureCounts/test_corner_cases.sh b/test/featureCounts/test_corner_cases.sh
+index 3046040..de6391f 100644
+--- a/test/featureCounts/test_corner_cases.sh
++++ b/test/featureCounts/test_corner_cases.sh
+@@ -17,6 +17,7 @@ $SH_CMD data/compare.sh data/test-minimum.sam data/test-minimum-FL.ora data/test
+ $SH_CMD data/compare.sh data/test-minimum.sam data/test-minimum.ora data/test-minimum.GTF "-p --countReadPairs " "gene-level summarization"
+ $SH_CMD data/compare.sh data/corner-NH.sam data/corner-NH.ora data/test-minimum.GTF "-p --countReadPairs" "multi-mapping reads"
+ $SH_CMD data/compare.sh data/corner-NH.sam data/corner-NH-PM.ora data/test-minimum.GTF "-p --countReadPairs --countReadPairs --primary -M " "multi-mapping reads (primary only)"
++$SH_CMD data/compare.sh data/corner-READTYPE.sam data/corner-READTYPE.ora data/test-minimum.GTF "-p --countReadPairs -s 1" "read type filter (single-end reads in stranded fragment counting)"
+ $SH_CMD data/compare.sh data/test-junc.sam data/corner-BothEnds.ora data/test-minimum.SAF "-p --countReadPairs -F SAF -B " "both ends mapped"
+ $SH_CMD data/compare.sh data/test-junc.sam data/corner-Chimeric.ora data/test-minimum.SAF "-p --countReadPairs -F SAF -C " "disallowing chimeric fragments"
+ $SH_CMD data/compare.sh data/test-junc.sam data/corner-MultiMapping.ora data/test-minimum.SAF "-p --countReadPairs -F SAF -M " "Allowing multi-mapped reads"
+-- 
+2.43.0
+

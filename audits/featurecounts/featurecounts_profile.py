@@ -47,8 +47,8 @@ FEATURES = {
  "primary alignments only (--primary)":                  r"--primary|primaryOnly|primary alignments? only",
  "MAPQ filter (-Q)":                                     r"(?<![\w-])-Q\s*\d|minMQS|mapping quality (?:score )?(?:of |>=?|above |at least |threshold)\s*\d|MAPQ\s*(?:>=?|of|≥)\s*\d",
  "feature level (-f, exon counts)":                      r"(?<![\w-])-f\b|useMetaFeatures\s*=\s*F|exon[- ]level|per[- ]exon|exon counts",
- "feature type (-t)":                                    r"(?<![\w-])-t\s+\w+|GTF\.featureType",
- "attribute type (-g)":                                  r"(?<![\w-])-g\s+\w+|GTF\.attrType|gene_name|gene_id",
+ "feature type (-t)":                                    r"(?<![\w-])-t\s+[A-Za-z_]\w*|GTF\.featureType",
+ "attribute type (-g)":                                  r"(?<![\w-])-g\s+[A-Za-z_]\w*|GTF\.attrType|gene_name|gene_id",
  "minimum overlap (--minOverlap)":                       r"--minOverlap|minOverlap",
  "fractional overlap (--fracOverlap)":                   r"--fracOverlap|fracOverlap",
  "largest overlap (--largestOverlap)":                   r"--largestOverlap|largestOverlap",
@@ -87,8 +87,8 @@ FEATURES = {k: re.compile(v, re.I if k in CI else 0) for k, v in FEATURES.items(
 VER   = re.compile(r"(?:[Ff]eature[Cc]ounts|Subread|Rsubread)(?![A-Za-z])[^.;(]{0,25}?(?:v(?:ersion)?\.?\s*)?(\d+\.\d+(?:\.\d+)*)")
 STRND = re.compile(r"(?<![\w-])-s\s*([012])\b|isStrandSpecific\s*=\s*([012])|strandSpecific\s*=\s*([012])")
 MAPQ  = re.compile(r"(?:(?<![\w-])-Q|minMQS)\s*=?\s*(\d{1,3})")
-GATTR = re.compile(r"(?:(?<![\w-])-g|GTF\.attrType)\s*=?\s*[\"']?(\w+)")
-FTYPE = re.compile(r"(?:(?<![\w-])-t|GTF\.featureType)\s*=?\s*[\"']?(\w+)")
+GATTR = re.compile(r"(?:(?<![\w-])-g\s+|GTF\.attrType\s*=\s*)[\"']?([A-Za-z_]\w*)")
+FTYPE = re.compile(r"(?:(?<![\w-])-t\s+|GTF\.featureType\s*=\s*)[\"']?([A-Za-z_]\w*)")
 KWIN  = re.compile(r"[Ff]eature[Cc]ounts(?![A-Za-z])|Rsubread")
 
 def family(v):

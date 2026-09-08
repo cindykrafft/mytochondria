@@ -220,6 +220,16 @@
     "samtools/htslib"
    ],
    "fork": "cindykrafft/samtools"
+  },
+  {
+   "dir": "featurecounts",
+   "name": "featureCounts",
+   "papers": 331,
+   "findings": 2,
+   "repos": [
+    "ShiLab-Bioinformatics/subread"
+   ],
+   "fork": "cindykrafft/subread"
   }
  ],
  "author": "cindykrafft",

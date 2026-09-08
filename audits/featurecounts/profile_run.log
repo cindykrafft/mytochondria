@@ -22,8 +22,8 @@ FEATURES (papers; lower bounds where source=survey_cache):
   GTF/GFF annotation                                       16
   multi-overlapping reads counted (-O)                     15
   multi-mapping reads counted (-M)                         14
-  attribute type (-g)                                      13
-  feature type (-t)                                        10
+  attribute type (-g)                                      9
+  feature type (-t)                                        9
   unstranded stated (-s 0)                                 7
   both ends mapped (-B)                                    7
   small RNA / miRNA                                        7
@@ -43,8 +43,8 @@ VERSIONS (top 25): {'2.0.1': 41, '2.0.0': 15, '1.6.4': 12, '1.5.0': 11, '1.6.3':
 
 strand modes (-s): {'1': 6, '0': 6, '2': 6}
 MAPQ cutoffs (-Q): {10: 3, 1: 1, 20: 1, 30: 1, 40: 1, 5: 1}
-attribute types (-g): {'gene_id': 2, '1': 2, 'mm': 1, '2': 1, 'amma': 1, 'CCTTGGCACCCGAGAATTCCANNNNNNNGTCAG': 1, '2456432000': 1, 'transcript_id': 1}
-feature types (-t): {'ransformed': 7, 'exon': 5, 'gene': 2, '32': 1, 'etramethylethylenediamine': 1, 'transcript': 1, 'reated': 1, 'est': 1}
+attribute types (-g): {'gene_id': 2, 'mm': 1, 'CCTTGGCACCCGAGAATTCCANNNNNNNGTCAG': 1, 'transcript_id': 1, 'ID': 1, 'CTTGTCTTCGTTGGGAGTGAATTAGCCCTTCCA': 1, 'gene_name': 1, 'dm': 1}
+feature types (-t): {'exon': 5, 'gene': 2, 'transcript': 1, 'CDS': 1}
 
 CO-PACKAGES (top 40):
   DESeq2                   211

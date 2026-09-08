@@ -1,0 +1,170 @@
+From 3ad59a3ed535c11ff7d6ca8331ae31e4752dcfed Mon Sep 17 00:00:00 2001
+From: Mytochondria <cynthiacondra@gmail.com>
+Date: Tue, 8 Sep 2026 15:19:28 +0000
+Subject: [PATCH] featureCounts: apply --splitOnly to singleton fragments in
+ read-pair mode
+
+With `-p --countReadPairs --splitOnly`, a fragment was excluded only after
+two mapped non-split records had been seen. A fragment whose mate is
+unmapped, or a single-end record in a paired-end file (which gets an
+unmapped placeholder mate), never reached that count and was counted as
+if it were split. The manual: "only split alignments (CIGAR strings
+contain letter 'N') will be counted. All the other alignments will be
+ignored."
+
+Count an unmapped record as a non-split record in read-pair mode, so a
+fragment is excluded when none of its mapped records is split. The
+bookkeeping for Unassigned_NonSplit/Unassigned_Split moves into a helper.
+
+Adds test/featureCounts/data/corner-SPLITONLY.{sam,ora}: three non-split
+singleton fragments, two single-end non-split records, two non-split
+pairs, two split pairs and one split singleton; expected simu_gene1 = 3.
+Unmodified code gives 8.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ src/readSummary.c                            | 49 ++++++++++++--------
+ test/featureCounts/data/corner-SPLITONLY.ora |  9 ++++
+ test/featureCounts/data/corner-SPLITONLY.sam | 22 +++++++++
+ test/featureCounts/test_corner_cases.sh      |  1 +
+ 4 files changed, 61 insertions(+), 20 deletions(-)
+
+diff --git a/src/readSummary.c b/src/readSummary.c
+index ebc0f1b..f83cd3a 100644
+--- a/src/readSummary.c
++++ b/src/readSummary.c
+@@ -2921,6 +2921,20 @@ void warning_anno_BAM_chromosomes(fc_thread_global_context_t * global_context){
+ 
+ void add_scRNA_read_to_pool( fc_thread_global_context_t * global_context,  fc_thread_thread_context_t * thread_context, srInt_64 assign_target_number, char * read_name, char * read_bin, ArrayList * target_list );
+ 
++// Record a read or fragment that is excluded by --splitOnly or --nonSplitOnly.
++void mark_unassigned_junction_condition(fc_thread_global_context_t * global_context, fc_thread_thread_context_t * thread_context, char * RG_ptr, char * read_name, char * bin1, char * bin2){
++	if(global_context -> read_details_out_FP)
++		write_read_details_FP(global_context, thread_context, (global_context->is_split_or_exonic_only == 2)?"Unassigned_Split":"Unassigned_NonSplit", -1, NULL, bin1, bin2);
++
++	if(RG_ptr){
++		void ** tab4s = get_RG_tables(global_context, thread_context, RG_ptr);
++		fc_read_counters * sumtab = tab4s[1];
++		sumtab -> unassigned_junction_condition++;
++	}else thread_context->read_counters.unassigned_junction_condition ++;
++
++	if(global_context -> do_scRNA_table) add_scRNA_read_to_pool(global_context, thread_context, -1, read_name, bin1, NULL);
++}
++
+ void process_line_buffer(fc_thread_global_context_t * global_context, fc_thread_thread_context_t * thread_context, char * bin1, char * bin2)
+ {
+ 	if(global_context -> is_input_bad_format) return;
+@@ -3131,7 +3145,19 @@ void process_line_buffer(fc_thread_global_context_t * global_context, fc_thread_
+ 
+ 		}
+ 
+-		if(SAM_FLAG_UNMAPPED & alignment_masks) continue;
++		if(SAM_FLAG_UNMAPPED & alignment_masks){
++			// --splitOnly: an unmapped mate (or the placeholder mate of a single-end read in
++			// paired-end mode) is a non-split record as well. Without counting it here, a
++			// fragment whose only mapped read is non-split was counted as if it were split.
++			if(global_context->is_split_or_exonic_only == 1 && global_context -> is_paired_end_mode_assign){
++				skipped_for_exonic ++;
++				if(skipped_for_exonic == 2){
++					mark_unassigned_junction_condition(global_context, thread_context, RG_ptr, read_name, bin1, bin2);
++					return;
++				}
++			}
++			continue;
++		}
+ 
+ 		if( NH_value > 1 ) {
+ 			if(global_context -> is_multi_mapping_allowed == 0) {
+@@ -3191,31 +3217,14 @@ void process_line_buffer(fc_thread_global_context_t * global_context, fc_thread_
+ 			skipped_for_exonic ++;
+ 
+ 			if(skipped_for_exonic == 1 + global_context -> is_paired_end_mode_assign){
+-				if(global_context -> read_details_out_FP)
+-					write_read_details_FP(global_context, thread_context, (global_context->is_split_or_exonic_only == 2)?"Unassigned_Split":"Unassigned_NonSplit", -1, NULL, bin1, bin2);
+-
+-				if(RG_ptr){
+-					void ** tab4s = get_RG_tables(global_context, thread_context, RG_ptr);
+-					fc_read_counters * sumtab = tab4s[1];
+-					sumtab -> unassigned_junction_condition++;
+-				}else thread_context->read_counters.unassigned_junction_condition ++;
+-
+-				if(global_context -> do_scRNA_table) add_scRNA_read_to_pool(global_context, thread_context, -1, read_name, bin1, NULL);
++				mark_unassigned_junction_condition(global_context, thread_context, RG_ptr, read_name, bin1, bin2);
+ 				return;
+ 			}
+ 		}
+ 
+ 
+ 		if(global_context->is_split_or_exonic_only == 2 && is_junction_read) {
+-			if(global_context -> read_details_out_FP)
+-				write_read_details_FP(global_context, thread_context,(global_context->is_split_or_exonic_only == 2)?"Unassigned_Split":"Unassigned_NonSplit", -1, NULL, bin1, bin2);
+-			if(RG_ptr){
+-				void ** tab4s = get_RG_tables(global_context, thread_context, RG_ptr);
+-				fc_read_counters * sumtab = tab4s[1];
+-				sumtab -> unassigned_junction_condition++;
+-			}else thread_context->read_counters.unassigned_junction_condition ++;
+-
+-			if(global_context -> do_scRNA_table) add_scRNA_read_to_pool(global_context, thread_context, -1, read_name, bin1, NULL);
++			mark_unassigned_junction_condition(global_context, thread_context, RG_ptr, read_name, bin1, bin2);
+ 			return;
+ 		}
+ 
+diff --git a/test/featureCounts/data/corner-SPLITONLY.ora b/test/featureCounts/data/corner-SPLITONLY.ora
+new file mode 100644
+index 0000000..54bb37b
+--- /dev/null
++++ b/test/featureCounts/data/corner-SPLITONLY.ora
+@@ -0,0 +1,9 @@
++## featureCounts output gene_level; --splitOnly with singleton fragments and single-end reads in a paired-end file
++geneid	nreads
++simu_gene1	3
++simu_gene2	0
++simu_gene3	0
++simu_gene4	0
++simu_gene5	0
++simu_gene6	0
++simu_gene7	0
+diff --git a/test/featureCounts/data/corner-SPLITONLY.sam b/test/featureCounts/data/corner-SPLITONLY.sam
+new file mode 100644
+index 0000000..d045934
+--- /dev/null
++++ b/test/featureCounts/data/corner-SPLITONLY.sam
+@@ -0,0 +1,22 @@
++@HD	VN:1.0	SO:unsorted
++@SQ	SN:chr3	LN:999950
++@SQ	SN:chr4	LN:999950
++@SQ	SN:chr5	LN:999950
++SINGLE_NONSPLIT.0	73	chr3	500	60	50M	=	500	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++SINGLE_NONSPLIT.0	133	chr3	500	0	*	=	500	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++SINGLE_NONSPLIT.1	73	chr3	5000	60	50M	=	5000	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++SINGLE_NONSPLIT.1	133	chr3	5000	0	*	=	5000	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++SINGLE_NONSPLIT.2	73	chr3	25000	60	50M	=	25000	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++SINGLE_NONSPLIT.2	133	chr3	25000	0	*	=	25000	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++SE_NONSPLIT.0	0	chr3	700	60	50M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++SE_NONSPLIT.1	0	chr3	45000	60	50M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR_NONSPLIT.0	99	chr3	1000	60	50M	=	1150	200	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR_NONSPLIT.0	147	chr3	1150	60	50M	=	1000	-200	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR_NONSPLIT.1	99	chr3	21000	60	50M	=	21150	200	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR_NONSPLIT.1	147	chr3	21150	60	50M	=	21000	-200	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR_SPLIT.0	99	chr3	9976	60	25M9999N25M	=	20100	174	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR_SPLIT.0	147	chr3	20100	60	50M	=	9976	-174	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR_SPLIT.1	99	chr3	9976	60	25M9999N25M	=	20100	174	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++PAIR_SPLIT.1	147	chr3	20100	60	50M	=	9976	-174	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++SINGLE_SPLIT.0	73	chr3	9976	60	25M9999N25M	=	9976	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
++SINGLE_SPLIT.0	133	chr3	9976	0	*	=	9976	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+diff --git a/test/featureCounts/test_corner_cases.sh b/test/featureCounts/test_corner_cases.sh
+index 3046040..e9eabea 100644
+--- a/test/featureCounts/test_corner_cases.sh
++++ b/test/featureCounts/test_corner_cases.sh
+@@ -17,6 +17,7 @@ $SH_CMD data/compare.sh data/test-minimum.sam data/test-minimum-FL.ora data/test
+ $SH_CMD data/compare.sh data/test-minimum.sam data/test-minimum.ora data/test-minimum.GTF "-p --countReadPairs " "gene-level summarization"
+ $SH_CMD data/compare.sh data/corner-NH.sam data/corner-NH.ora data/test-minimum.GTF "-p --countReadPairs" "multi-mapping reads"
+ $SH_CMD data/compare.sh data/corner-NH.sam data/corner-NH-PM.ora data/test-minimum.GTF "-p --countReadPairs --countReadPairs --primary -M " "multi-mapping reads (primary only)"
++$SH_CMD data/compare.sh data/corner-SPLITONLY.sam data/corner-SPLITONLY.ora data/test-minimum.GTF "-p --countReadPairs --splitOnly" "split reads only (singleton fragments, single-end reads)"
+ $SH_CMD data/compare.sh data/test-junc.sam data/corner-BothEnds.ora data/test-minimum.SAF "-p --countReadPairs -F SAF -B " "both ends mapped"
+ $SH_CMD data/compare.sh data/test-junc.sam data/corner-Chimeric.ora data/test-minimum.SAF "-p --countReadPairs -F SAF -C " "disallowing chimeric fragments"
+ $SH_CMD data/compare.sh data/test-junc.sam data/corner-MultiMapping.ora data/test-minimum.SAF "-p --countReadPairs -F SAF -M " "Allowing multi-mapped reads"
+-- 
+2.43.0
+

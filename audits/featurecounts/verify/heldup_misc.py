@@ -153,13 +153,20 @@ with open(os.path.join(wd, "counts.txt")) as f:
             continue
         t = line.split("\t")
         lengths[t[0]] = int(t[5])
-print(f"5. GTF == SAF counts: {cg == cs} ({cg}); Length column: {lengths} (L1 union of 1000-1600 + 1800-1900 = 701)")
+print(f"5. GTF == SAF counts: {cg == cs} ({cg}); Length column: {lengths} (L1 = union 1000-1600 (601) + 1800-1900 (101) = 702)")
 print(f"   -O -M --fraction: read m over L1+L2 -> 0.50 each; x (NH=3, all three alignments over L1+L2) -> 1/(3*2) each: "
       f"{cg}")
 # chr prefix
 gtf6 = os.path.join(wd, "nochr.gtf")
 with open(gtf6, "w") as f:
-    f.write('1\tx\texon\t1000\t1400\t.\t+\t.\tgene_id "P1";\n')
+    f.write('1\tx\texon\t1000\t1500\t.\t+\t.\tgene_id "P1";\n')
 counts, summary, det, log = fclib.run_fc(gtf6, bam5, [], workdir=wd)
+gtf7 = os.path.join(wd, "chr.gtf")
+with open(gtf7, "w") as f:
+    f.write('chr1\tx\texon\t1000\t1500\t.\t+\t.\tgene_id "P1";\n')
+bam7 = os.path.join(wd, "nochr.bam")
+fclib.make_bam(bam7, {"1": 20000}, [fclib.single("m", "1", 1450, "20M")])
+counts7, _, det7, _ = fclib.run_fc(gtf7, bam7, [], workdir=wd)
 print(f"6. annotation chromosome '1', BAM 'chr1': read m -> {det['m'][0]} (P1={counts['P1']:g}); "
-      f"'chr' prefix is matched automatically (undocumented)")
+      f"annotation 'chr1', BAM '1': {det7['m'][0]} (P1={counts7['P1']:g}); the 'chr' prefix is matched "
+      f"automatically in both directions (undocumented)")
