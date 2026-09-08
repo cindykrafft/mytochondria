@@ -24,3 +24,8 @@ deepTools:fix4/bamcompare-operations
 deepTools:fix4/plotpca-loadings
 deepTools:fix4/computematrixoperations-sort-group
 iqtree3:fix/issue-192-codon-fu
+samtools:fix/stats-coverage-ring-buffer
+lme4:fix/checkconv-component
+lme4:fix/gamma-loglik-phi
+lme4:fix/vcov-hessian-fallback
+enrichit:fix/gsea-sign-conditioned-pvalue

@@ -87,7 +87,7 @@ def r2_prs(path):
     for m in re.finditer(r'^### PR (\d+) — `([^`]+)` — "(.+?)"\s*\n(.*?)(?=^### PR |\Z)', s, re.S|re.M):
         out.append(dict(n=int(m.group(1)), branch=m.group(2), title=m.group(3).strip(), body=foot(m.group(4).strip())))
     return out
-def r2(key, owner, repo, base, template, guide, issue_files, pr_needs, order_note="", dir=None, no_prs=False):
+def r2(key, owner, repo, base, template, guide, issue_files, pr_needs, order_note="", dir=None, no_prs=False, forked=False):
     key_dir = dir or key
     issues=[]
     for f in issue_files:
@@ -104,7 +104,7 @@ def r2(key, owner, repo, base, template, guide, issue_files, pr_needs, order_not
         if ex: d["existing"]=ex
         prs.append(d)
     assert len(prs)==len(pr_needs), (key, len(prs), pr_needs)
-    repos[key]=dict(owner=owner, repo=repo, fork=f"cindykrafft/{repo}", forked=False, base=base, template=template, guide=guide, issues=issues, prs=prs, order_note=order_note)
+    repos[key]=dict(owner=owner, repo=repo, fork=f"cindykrafft/{repo}", forked=forked, base=base, template=template, guide=guide, issues=issues, prs=prs, order_note=order_note)
 r2("htseq","htseq","htseq","main","bug_report.md",
    "Markdown bug-report template (versions, description, minimal example, exact command); no CONTRIBUTING, PR template or linter; doc/history.rst is the changelog and stops at 2.0.9. No prior issue for either finding (nearest #99, #94, #96, #106, #80, #14).",
    ["issue-hc2-unmapped-mate-minaqual.md","issue-hc1-bam-reader-window.md"], ["HC2","HC1"])
@@ -134,24 +134,24 @@ repos["deeptools"]=dict(owner="deeptools",repo="deepTools",fork="cindykrafft/dee
   issues=_dt_issues,prs=_dt_prs,
   order_note="4.0.0 is unreleased and being worked on today, so the two pre-release reports go first: DTN1 (bamCompare --operation first/second/add/mean write the log2 track) and DTN2 (plotPCA writes per-bin scores, not loadings), issue then PR each. The DT4 comment + PR on the open #1118 is exempt from the cap. DT8, DT1 (needs a fresh issue), DT3, DT5, DT9, DTN3 and the #1423 residual are held until a reply.")
 r2("samtools","samtools","samtools","develop","bug_report.md",
-   "CONTRIBUTING.md (new in 1.24) accepts AI-assisted work on conditions: every generated line reviewed by the submitter; an `Assisted-by: Claude:claude-fable-5-1` trailer on each commit and in the PR body; NO Signed-off-by from an agent (the DCO sign-off must be yours, real name); the commit message and PR description written by a human. The kit's patch carries the trailer and no sign-off: after `git am`, rewrite the message in your words and `git commit --amend -s`. Markdown bug-report template (3 headings), no PR template, NEWS.md bullet per change, `make test`. No prior issue for ST1 (nearest #1003, #640, #969). Fork samtools/samtools first for the PR.",
-   ["issue-st1-stats-cov-ring-buffer.md"], ["ST1"],
+   "CONTRIBUTING.md (new in 1.24) accepts AI-assisted work on conditions: every generated line reviewed by the submitter; an `Assisted-by: Claude:claude-fable-5-1` trailer on each commit and in the PR body; NO Signed-off-by from an agent (the DCO sign-off must be yours, real name); the commit message and PR description written by a human. The branch is already pushed to cindykrafft/samtools with the trailer and no sign-off: before opening the PR, `git fetch` it, rewrite the commit message in your own words and `git commit --amend -s`, then force-push the branch (or send me the message you want and I will amend it and add your Signed-off-by line at your instruction). Markdown bug-report template (3 headings), no PR template, NEWS.md bullet per change, `make test`. No prior issue for ST1 (nearest #1003, #640, #969). Fork exists; branch pushed.",
+   ["issue-st1-stats-cov-ring-buffer.md"], ["ST1"], forked=True,
    order_note="ST1 is the strongest new finding of round 3: samtools stats coverage numbers are wrong on any spliced (RNA-seq) alignment and on mixed-length reads, in every version. Issue first, PR the same day; both are in the kit.")
 r2("edger","bioc","edgeR","devel",None,
    "No tracker, no PRs: bioc/edgeR is a read-only mirror. The channel is the Bioconductor support site (support.bioconductor.org, tag edgeR) or the maintainers' e-mail; the 'issue' text below is the support-site post with the reproducible example, and the two patches (devel; RELEASE_3_23 with --keep-cr) are attached as diffs for the maintainers to apply. Search the support site for filterByExpr first (unreachable from the audit session). No fork applies.",
    ["issue-eg3-filterbyexpr-boundary.md"], [], no_prs=True,
    order_note="EG3 is real on every version but small (about four genes per twenty thousand on the cutoff); a support-site post is cheap and the fix is one line. The two offset bugs found (EG1, EG2) are already fixed upstream and are not to be raised.")
 r2("lme4","lme4","lme4","master",None,
-   "README: issues for bugs, PRs welcome but open an issue first; no templates, no linter; NEWS in inst/NEWS.Rd; testthat. Fork lme4/lme4 for the PRs. LM2 goes as a comment on the maintainer's own open #867 (0 comments) with patch 0003 as the PR; LM1 is a pre-release report on master's new disp_dof_correction default (patch 0002); LM3 is a warning-text nit (patch 0001).",
-   ["comment-lm2-hessian-se-867.md","issue-lm1-gamma-loglik-phi.md","issue-lm3-checkconv-component.md"], ["LM3","LM1","LM2"],
+   "README: issues for bugs, PRs welcome but open an issue first; no templates, no linter; NEWS in inst/NEWS.Rd; testthat. Fork exists; all three branches pushed. LM2 goes as a comment on the maintainer's own open #867 (0 comments) with patch 0003 as the PR; LM1 is a pre-release report on master's new disp_dof_correction default (patch 0002); LM3 is a warning-text nit (patch 0001).",
+   ["comment-lm2-hessian-se-867.md","issue-lm1-gamma-loglik-phi.md","issue-lm3-checkconv-component.md"], ["LM3","LM1","LM2"], forked=True,
    order_note="Post the LM2 comment on #867 first; its PR (patch 0003) follows once the comment is up. LM1 is worth a heads-up before the 2.x release; LM3 stays held.")
 r2("clusterprofiler","YuLab-SMU","clusterProfiler","devel","bug_report.md",
    "CONTRIBUTING.md: reproducible example with dput in a fresh session; markdown issue template (latest release, docs read, reproducible example; questions go to Bioconductor support/Biostars). The maintainer's 'how to bug author' guide and book were unreachable from the audit session: read them before posting. CP5 is a comment on the open #819 (six comments, unreadable from here: read them first and skip if the thread already names enrichit 0.2.0). CP1 is a heads-up only: fixed on devel, waiting for enrichit 0.2.2 to reach CRAN.",
    ["comment-cp5-issue819.md","issue-cp1-gsea-table-rawp.md"], [], no_prs=True,
    order_note="Only CP5 is actionable, and only after reading #819's thread. CP1 is held: fixed and announced upstream. CP2/CP3/CP6/CP7 are fixed at master; CP8 is a design question.")
 r2("enrichit","YuLab-SMU","enrichit","devel",None,
-   "clusterProfiler's enrichment engine since 4.20 (CRAN package). No templates, NEWS + testthat. CP4 is a non-default option (gsea(method='sample'/'permute', adaptive=TRUE)) whose p-values are about half the GSEA convention; issue + git am-able patch with an exact-enumeration test. Fork YuLab-SMU/enrichit for the PR.",
-   ["issue-cp4-enrichit-sample-pvalue.md"], ["CP4"], dir="clusterprofiler",
+   "clusterProfiler's enrichment engine since 4.20 (CRAN package). No templates, NEWS + testthat. CP4 is a non-default option (gsea(method='sample'/'permute', adaptive=TRUE)) whose p-values are about half the GSEA convention; issue + git am-able patch with an exact-enumeration test. Fork exists; branch pushed.",
+   ["issue-cp4-enrichit-sample-pvalue.md"], ["CP4"], dir="clusterprofiler", forked=True,
    order_note="Held: a rare option. File after a positive signal on the clusterProfiler thread.")
 r2("featurecounts","ShiLab-Bioinformatics","subread","master",None,
    "The developers' GitHub mirror of Subread (release channel is SourceForge; user forum is the Subread Google Group; Rsubread goes to Bioconductor support). The GitHub tracker could not be read from the audit session (search returns nothing for the repo): check whether the maintainers answer issues there before sending anything. No CONTRIBUTING, templates, changelog or linter; tests are shell scripts with .ora expectations. FC2 changes numbers only for mixed single-end/paired-end libraries under stranded counting; FC1 is a rare option. Both patches add a test that fails on unmodified master.",
@@ -233,7 +233,7 @@ ACTIONS=[
  dict(kind="issue", key="samtools", id="ST1", why="round 3's strongest finding: samtools stats coverage numbers (COV rows, -t/-g percentage covered) are wrong on any spliced alignment and on mixed-length reads, in every version since at least 1.9; issue first"),
  dict(kind="pr", key="samtools", id="ST1", why="the fix with two regression tests and a NEWS bullet; samtools' AI policy applies: rewrite the commit message yourself, keep the Assisted-by trailer, add your own sign-off (git commit --amend -s), no sign-off from an agent"),
  dict(kind="issue", key="lme4", id="LM2", why="comment on the maintainer's own open #867 (no comments yet): glmer's default Hessian standard errors were ~100x too small in 9 of 150 ordinary Bernoulli fits, with only a max-gradient warning; measurement plus a cheap guard"),
- dict(kind="pr", key="lme4", id="LM2", why="the guard as a PR (patch 0003), after the comment is up; fork lme4/lme4 first"),
+ dict(kind="pr", key="lme4", id="LM2", why="the guard as a PR (branch fix/vcov-hessian-fallback on the fork), after the comment is up"),
  dict(kind="issue", key="edger", id="EG3", why="support-site post, not a GitHub issue: filterByExpr drops a gene sitting exactly on the CPM cutoff by one ulp, every version, one-line fix attached; small effect, so post only if you are comfortable with a low-magnitude report"),
  dict(kind="issue", key="clusterprofiler", id="CP5", why="comment on #819 explaining the 4.16 vs 4.20 difference (enrichit 0.1.x ran BH over zero-overlap sets; fixed in 0.2.0), only after reading the six comments already there"),
 ]
