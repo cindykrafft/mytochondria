@@ -1,6 +1,6 @@
 # iqtree/iqtree3 #192 — `+FU{...}` silently ignored for GY-type codon models
 
-Second issue-fix for IQ-TREE 3 (after #203 / PR #207, merged 2026-09-08). Chosen because it is a
+Second issue-fix for IQ-TREE 3 (after #203 / PR #207, merged 2026-09-08). **Filed as PR #210 on 2026-09-08.** Chosen because it is a
 silent wrong-number regression (2.4.0 correct, 3.1.x wrong) reported with a complete table by the
 maintainer of another phylogenetics package, open since 2026-07-23 with one unread comment.
 

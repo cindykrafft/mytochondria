@@ -49,7 +49,7 @@ names=["issue-cpdb1-thread-duplicate-permutations.md","issue-cpdb2-pvalue-strict
 cpi=[title_body_titleline(read(A+"cellphonedb/upstream/"+n)) for n in names]
 cpp=pr_sections(read(A+"cellphonedb/upstream/pr-bodies.md"))
 repos["cellphonedb"]=dict(owner="ventolab", repo="CellphoneDB", fork="cindykrafft/CellphoneDB", forked=True, base="master", template=None,
-  guide="No CONTRIBUTING, no templates, no changelog. CI: Python 3.8, flake8, pytest method_tests.py (needs the database download). Maintainer replies on prior issues #179 and #60 (p-value definition) could not be read from the audit session: read them before filing CPDB2.",
+  guide="HOLD (2026-09-08): #231 and PR #232 are unanswered, the two-unanswered cap; CPDB2 waits for a maintainer signal. No CONTRIBUTING, no templates, no changelog. CI: Python 3.8, flake8, pytest method_tests.py (needs the database download). Maintainer replies on prior issues #179 and #60 (p-value definition) could not be read from the audit session: read them before filing CPDB2.",
   issues=[dict(id=f"CPDB{i+1}", title=t, body=b) for i,(t,b) in enumerate(cpi)],
   prs=[dict(id="CPDB5", title=cpp[0][0], body=cpp[0][1], branch="fix/iterations-zero-progress-step", needs="CPDB5"), dict(id="CPDB6", title=cpp[1][0], body=cpp[1][1], branch="fix/scoring-pandas3-index", needs="CPDB6")],
   order_note="Only CPDB5 and CPDB6 carry patches (they change no result). CPDB1-4 change numbers and go as issues for the maintainers' decision first; last commit on master was 2025-06-06.")
@@ -137,20 +137,20 @@ r2("fieldtrip","fieldtrip","fieldtrip","master",None,
    ["issue-ft12-dpss-hack-two-outputs.md","issue-ft13-reply-2610-tests.md","issue-ft14-reply-2609-edge-bins.md","issue-ft15-reply-2610-bandwidth.md","issue-ft16-reply-2614-scope.md"], [],
    order_note="FT12-FT14 are posted. FT15 answers his 2026-09-07 question on #2610 (the +1 as a bandwidth term; he says the PR is almost ready to merge). FT16 answers his two 2026-09-07 comments on #2614 (minor issue; FAQ draft in the kit; Octave survey offered).")
 r2("bedtools","arq5x","bedtools2","master",None,
-   "No CONTRIBUTING, templates, linter or changelog convention; CI is make test; docs/content/history.rst is a hand-edited per-release changelog. BT2 is a comment on open #1142; BT1 relates to open #673 (2018, same defect); BT6 relates to #1089. All five change published numbers, so open the issue and wait for a signal before the PR. BT3 and BT5 are issues only (their fixes need invasive changes).",
+   "HOLD (2026-09-08): PR #1143, PR #1144 and the #1142 comment are unanswered, which is the two-unanswered cap; BT1 waits for a maintainer signal. No CONTRIBUTING, templates, linter or changelog convention; CI is make test; docs/content/history.rst is a hand-edited per-release changelog. BT2 is a comment on open #1142; BT1 relates to open #673 (2018, same defect); BT6 relates to #1089. All five change published numbers, so open the issue and wait for a signal before the PR. BT3 and BT5 are issues only (their fixes need invasive changes).",
    ["issue-bt1-coverage-split-count.md","issue-bt2-intersect-split-F.md","issue-bt3-closest-tie-order.md","issue-bt4-large-chrom-coordinates.md","issue-bt5-pct-float-truncation.md"],
    ["BT1","BT2","BT4"])
 r2("fastp","OpenGene","fastp","master",None,
-   "No CONTRIBUTING, templates, changelog or linter; CI builds and smoke-tests; ./fastp test and scripts/*.sh are the test conventions (PR 2 adds a script in that style). FP1 and FP3 are comments on open #474 and #518 (both 2023); #474 has one comment that could not be read from the audit session, read it before posting. FP2 is new.",
+   "HOLD (owner, 2026-09-05): fastp is up to date for now, PR #715 unanswered; FP1-FP3 wait. No CONTRIBUTING, templates, changelog or linter; CI builds and smoke-tests; ./fastp test and scripts/*.sh are the test conventions (PR 2 adds a script in that style). FP1 and FP3 are comments on open #474 and #518 (both 2023); #474 has one comment that could not be read from the audit session, read it before posting. FP2 is new.",
    ["issue-fp1-cut-window-trim-front.md","issue-fp2-known-adapter-over60.md","issue-fp3-indel-adapter-offset.md"], ["FP1","FP2","FP3"])
 r2("plink","chrchang","plink-ng","master",None,
    "No CONTRIBUTING, templates, changelog or linter; PLINK 1.9 has no unit-test runner (1.9/tests needs a PLINK 1.07 build), so the PR carries its own exhaustive driver. No prior issue (nearest #128); several other audit-style issues (#341, #353, #363, #365) landed 2026-08-31 to 09-02, so read those first to avoid a duplicate. PLINK 2.0 is unaffected: the fix is to 1.9/plink_stats.c only.",
    ["issue-pl1-hwe-threshold-boundary.md"], ["PL1"])
 
 # ---- triage (2026-09-03): file only findings that change published numbers under default/common settings; at most two per repo until a maintainer responds
-TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)"},
-      "now":["HC2","PL1","FP2","BT1","CPDB2"],
-      "comment":["DT4","FP1","FP3","FT15","FT16"]}
+TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)","FT15":"posted on PR #2610 (2026-09-07, per the comment count)","FT16":"posted on #2614 (2026-09-07, per the comment count)","PL1":"#380 / PR #381 (closed 2026-09-03: the maintainer applied his own equivalent fix, 1fe42e5)"},
+      "now":["HC2"],
+      "comment":["DT4"]}
 def tier_of(i):
     if i in TIER["filed"]: return "filed"
     if i in TIER["now"]: return "now"
