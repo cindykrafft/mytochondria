@@ -2,9 +2,9 @@ import json, html
 import os
 OUT=os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
 D=json.load(open(os.path.join(OUT,"data.json"))); FX=json.load(open(os.path.join(OUT,"fixes.json"))); ACT=json.load(open(os.path.join(OUT,"actions.json")))
-order=["fieldtrip","plink","htseq","deeptools","bedtools","fastp","cutadapt","umap","cellphonedb","scanpy","iqtree"]
+order=["samtools","lme4","edger","clusterprofiler","enrichit","featurecounts","fieldtrip","plink","htseq","deeptools","bedtools","fastp","cutadapt","umap","cellphonedb","scanpy","iqtree"]
 order+=[k for k in D if k not in order]  # any repo the builder adds later still renders
-labels={"plink":"PLINK 1.9","htseq":"HTSeq","deeptools":"deepTools","bedtools":"BEDTools","fastp":"fastp","cutadapt":"Cutadapt","umap":"umap-learn","cellphonedb":"CellPhoneDB","scanpy":"Scanpy (Scrublet port)","iqtree":"IQ-TREE 3","fieldtrip":"FieldTrip"}
+labels={"plink":"PLINK 1.9","htseq":"HTSeq","deeptools":"deepTools","bedtools":"BEDTools","fastp":"fastp","cutadapt":"Cutadapt","umap":"umap-learn","cellphonedb":"CellPhoneDB","scanpy":"Scanpy (Scrublet port)","iqtree":"IQ-TREE 3","fieldtrip":"FieldTrip","samtools":"samtools","lme4":"lme4","edger":"edgeR","clusterprofiler":"clusterProfiler","enrichit":"enrichit (clusterProfiler engine)","featurecounts":"featureCounts (Subread)"}
 page=r'''<title>Mytochondria Filing Console</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>

@@ -87,17 +87,18 @@ def r2_prs(path):
     for m in re.finditer(r'^### PR (\d+) — `([^`]+)` — "(.+?)"\s*\n(.*?)(?=^### PR |\Z)', s, re.S|re.M):
         out.append(dict(n=int(m.group(1)), branch=m.group(2), title=m.group(3).strip(), body=foot(m.group(4).strip())))
     return out
-def r2(key, owner, repo, base, template, guide, issue_files, pr_needs, order_note=""):
+def r2(key, owner, repo, base, template, guide, issue_files, pr_needs, order_note="", dir=None, no_prs=False):
+    key_dir = dir or key
     issues=[]
     for f in issue_files:
-        iid=re.search(r"issue-([a-z]+\d+)-", f).group(1).upper()
-        t,b,ex=r2_issue(A+f"{key}/upstream/{f}")
+        iid=re.search(r"(?:issue|comment)-([a-z]+\d+)-", f).group(1).upper()
+        t,b,ex=r2_issue(A+f"{key_dir}/upstream/{f}")
         d=dict(id=iid, title=t, body=b)
         if ex: d["existing"]=ex
         issues.append(d)
     prs=[]
     import os as _os
-    for p,needs in zip(r2_prs(A+f"{key}/upstream/pr-bodies.md") if _os.path.exists(A+f"{key}/upstream/pr-bodies.md") else [], pr_needs):
+    for p,needs in zip(r2_prs(A+f"{key_dir}/upstream/pr-bodies.md") if (not no_prs and _os.path.exists(A+f"{key_dir}/upstream/pr-bodies.md")) else [], pr_needs):
         d=dict(id=needs, title=p["title"], body=p["body"], branch=p["branch"], needs=needs)
         ex=next((i.get("existing") for i in issues if i["id"]==needs), None)
         if ex: d["existing"]=ex
@@ -132,6 +133,30 @@ repos["deeptools"]=dict(owner="deeptools",repo="deepTools",fork="cindykrafft/dee
   guide="Markdown issue checklist and four-checkbox PR template; flake8 + pytest + cargo test on the 4.0.0 tree (Rust backend, Python in pydeeptools/). All patches here are against 4.0.0 master (branches fix4/* on the fork, made on 6f939b0). The maintainers closed #1108, #1130 and #1423 on 2026-09-05 with the 4.0.0 merge; #1118 (MNase) is still open. PyPI still ships 3.5.6.",
   issues=_dt_issues,prs=_dt_prs,
   order_note="4.0.0 is unreleased and being worked on today, so the two pre-release reports go first: DTN1 (bamCompare --operation first/second/add/mean write the log2 track) and DTN2 (plotPCA writes per-bin scores, not loadings), issue then PR each. The DT4 comment + PR on the open #1118 is exempt from the cap. DT8, DT1 (needs a fresh issue), DT3, DT5, DT9, DTN3 and the #1423 residual are held until a reply.")
+r2("samtools","samtools","samtools","develop","bug_report.md",
+   "CONTRIBUTING.md (new in 1.24) accepts AI-assisted work on conditions: every generated line reviewed by the submitter; an `Assisted-by: Claude:claude-fable-5-1` trailer on each commit and in the PR body; NO Signed-off-by from an agent (the DCO sign-off must be yours, real name); the commit message and PR description written by a human. The kit's patch carries the trailer and no sign-off: after `git am`, rewrite the message in your words and `git commit --amend -s`. Markdown bug-report template (3 headings), no PR template, NEWS.md bullet per change, `make test`. No prior issue for ST1 (nearest #1003, #640, #969). Fork samtools/samtools first for the PR.",
+   ["issue-st1-stats-cov-ring-buffer.md"], ["ST1"],
+   order_note="ST1 is the strongest new finding of round 3: samtools stats coverage numbers are wrong on any spliced (RNA-seq) alignment and on mixed-length reads, in every version. Issue first, PR the same day; both are in the kit.")
+r2("edger","bioc","edgeR","devel",None,
+   "No tracker, no PRs: bioc/edgeR is a read-only mirror. The channel is the Bioconductor support site (support.bioconductor.org, tag edgeR) or the maintainers' e-mail; the 'issue' text below is the support-site post with the reproducible example, and the two patches (devel; RELEASE_3_23 with --keep-cr) are attached as diffs for the maintainers to apply. Search the support site for filterByExpr first (unreachable from the audit session). No fork applies.",
+   ["issue-eg3-filterbyexpr-boundary.md"], [], no_prs=True,
+   order_note="EG3 is real on every version but small (about four genes per twenty thousand on the cutoff); a support-site post is cheap and the fix is one line. The two offset bugs found (EG1, EG2) are already fixed upstream and are not to be raised.")
+r2("lme4","lme4","lme4","master",None,
+   "README: issues for bugs, PRs welcome but open an issue first; no templates, no linter; NEWS in inst/NEWS.Rd; testthat. Fork lme4/lme4 for the PRs. LM2 goes as a comment on the maintainer's own open #867 (0 comments) with patch 0003 as the PR; LM1 is a pre-release report on master's new disp_dof_correction default (patch 0002); LM3 is a warning-text nit (patch 0001).",
+   ["comment-lm2-hessian-se-867.md","issue-lm1-gamma-loglik-phi.md","issue-lm3-checkconv-component.md"], ["LM3","LM1","LM2"],
+   order_note="Post the LM2 comment on #867 first; its PR (patch 0003) follows once the comment is up. LM1 is worth a heads-up before the 2.x release; LM3 stays held.")
+r2("clusterprofiler","YuLab-SMU","clusterProfiler","devel","bug_report.md",
+   "CONTRIBUTING.md: reproducible example with dput in a fresh session; markdown issue template (latest release, docs read, reproducible example; questions go to Bioconductor support/Biostars). The maintainer's 'how to bug author' guide and book were unreachable from the audit session: read them before posting. CP5 is a comment on the open #819 (six comments, unreadable from here: read them first and skip if the thread already names enrichit 0.2.0). CP1 is a heads-up only: fixed on devel, waiting for enrichit 0.2.2 to reach CRAN.",
+   ["comment-cp5-issue819.md","issue-cp1-gsea-table-rawp.md"], [], no_prs=True,
+   order_note="Only CP5 is actionable, and only after reading #819's thread. CP1 is held: fixed and announced upstream. CP2/CP3/CP6/CP7 are fixed at master; CP8 is a design question.")
+r2("enrichit","YuLab-SMU","enrichit","devel",None,
+   "clusterProfiler's enrichment engine since 4.20 (CRAN package). No templates, NEWS + testthat. CP4 is a non-default option (gsea(method='sample'/'permute', adaptive=TRUE)) whose p-values are about half the GSEA convention; issue + git am-able patch with an exact-enumeration test. Fork YuLab-SMU/enrichit for the PR.",
+   ["issue-cp4-enrichit-sample-pvalue.md"], ["CP4"], dir="clusterprofiler",
+   order_note="Held: a rare option. File after a positive signal on the clusterProfiler thread.")
+r2("featurecounts","ShiLab-Bioinformatics","subread","master",None,
+   "The developers' GitHub mirror of Subread (release channel is SourceForge; user forum is the Subread Google Group; Rsubread goes to Bioconductor support). The GitHub tracker could not be read from the audit session (search returns nothing for the repo): check whether the maintainers answer issues there before sending anything. No CONTRIBUTING, templates, changelog or linter; tests are shell scripts with .ora expectations. FC2 changes numbers only for mixed single-end/paired-end libraries under stranded counting; FC1 is a rare option. Both patches add a test that fails on unmodified master.",
+   ["issue-fc2-read-type-filter.md","issue-fc1-splitonly-singletons.md"], ["FC1","FC2"],
+   order_note="Both held. If the maintainers do use the GitHub tracker, FC2 goes first as an issue (a 2.0.2 regression against the manual's own sentence), PR after their view.")
 r2("fieldtrip","fieldtrip","fieldtrip","master",None,
    "PRs against master from a fork; no issue template. Five PRs and two issues are up already (the maintainer, schoffelen, is active on them: #2613 merged, #2610 carries his own commits). FT12 is the issue he asked for on #2610; FT13 and FT14 are replies on threads he wrote in, so they are exempt from the two-unanswered cap.",
    ["issue-ft12-dpss-hack-two-outputs.md","issue-ft13-reply-2610-tests.md","issue-ft14-reply-2609-edge-bins.md","issue-ft15-reply-2610-bandwidth.md","issue-ft16-reply-2614-scope.md"], [],
@@ -149,8 +174,8 @@ r2("plink","chrchang","plink-ng","master",None,
 
 # ---- triage (2026-09-03): file only findings that change published numbers under default/common settings; at most two per repo until a maintainer responds
 TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)","FT15":"posted on PR #2610 (2026-09-07, per the comment count)","FT16":"posted on #2614 (2026-09-07, per the comment count)","PL1":"#380 / PR #381 (closed 2026-09-03: the maintainer applied his own equivalent fix, 1fe42e5)","DT4":"comment on #1118 / PR #1466 (2026-09-08)"},
-      "now":["HC2"],
-      "comment":[]}
+      "now":["HC2","ST1","EG3"],
+      "comment":["LM2","CP5"]}
 def tier_of(i):
     if i in TIER["filed"]: return "filed"
     if i in TIER["now"]: return "now"
@@ -205,9 +230,18 @@ for d in sorted(glob.glob(A+"*/issue-fixes/*/")):
 json.dump(fixes, open(os.path.join(OUT,"fixes.json"),"w"), indent=1)
 # ---- ordered action list (2026-09-08): what to do next, top first; everything else waits for a signal
 ACTIONS=[
- # 2026-09-08 15:00Z: the list of the morning was done (umap PR #1288, deepTools #1118 comment + PR #1466); nothing is ready to file until a maintainer answers or a new package is checked
+ dict(kind="issue", key="samtools", id="ST1", why="round 3's strongest finding: samtools stats coverage numbers (COV rows, -t/-g percentage covered) are wrong on any spliced alignment and on mixed-length reads, in every version since at least 1.9; issue first"),
+ dict(kind="pr", key="samtools", id="ST1", why="the fix with two regression tests and a NEWS bullet; samtools' AI policy applies: rewrite the commit message yourself, keep the Assisted-by trailer, add your own sign-off (git commit --amend -s), no sign-off from an agent"),
+ dict(kind="issue", key="lme4", id="LM2", why="comment on the maintainer's own open #867 (no comments yet): glmer's default Hessian standard errors were ~100x too small in 9 of 150 ordinary Bernoulli fits, with only a max-gradient warning; measurement plus a cheap guard"),
+ dict(kind="pr", key="lme4", id="LM2", why="the guard as a PR (patch 0003), after the comment is up; fork lme4/lme4 first"),
+ dict(kind="issue", key="edger", id="EG3", why="support-site post, not a GitHub issue: filterByExpr drops a gene sitting exactly on the CPM cutoff by one ulp, every version, one-line fix attached; small effect, so post only if you are comfortable with a low-magnitude report"),
+ dict(kind="issue", key="clusterprofiler", id="CP5", why="comment on #819 explaining the 4.16 vs 4.20 difference (enrichit 0.1.x ran BH over zero-overlap sets; fixed in 0.2.0), only after reading the six comments already there"),
 ]
 WAITING=[
+ ("lme4 LM1 (master-only Gamma logLik dispersion mismatch), LM3", "a reply on the #867 comment; LM1 is a pre-release heads-up worth sending before 2.x ships"),
+ ("enrichit CP4 (sample-permutation p-values halved, rare option)", "a positive signal on clusterProfiler #819"),
+ ("featureCounts FC2 (read-type filter lost in 2.0.2), FC1", "confirmation that the maintainers answer GitHub issues on ShiLab-Bioinformatics/subread"),
+ ("clusterProfiler CP1 (release GSEA table filtered on raw p)", "never as a report: fixed on devel; a heads-up only if enrichit 0.2.2 is slow to reach CRAN"),
  ("BEDTools BT1 (coverage -split counts blocks)", "a reply on #1142, PR #1143 or PR #1144 (cap reached)"),
  ("CellPhoneDB CPDB2 (p-value ties, p = 0)", "a reply on #231 or PR #232 (cap reached)"),
  ("fastp FP2 (adapter over 60 bases), FP1, FP3", "owner's hold of 2026-09-05; PR #715 unanswered"),

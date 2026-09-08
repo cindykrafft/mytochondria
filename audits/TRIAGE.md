@@ -120,3 +120,27 @@ and #1140 on 2026-09-05 with the merge; #1118 is still open. Filing plan under t
 4.0.0-only defects were filed 2026-09-05 as pre-release reports: bamCompare `--operation` (#1457, PR #1458) and
 plotPCA loadings (#1459, PR #1460). PR #1451 (the #1423 fix against 3.5.6) was closed after the merge.
 deepTools now has two unanswered filings; everything else there is held.
+
+## Round 3 (2026-09-08): samtools, featureCounts, edgeR, lme4, clusterProfiler
+
+Five new packages, chosen for citation volume outside the neuroscience/single-cell set already
+covered. Every finding below was verified by execution (READMEs under `audits/<package>/`); the
+kits live under `audits/<package>/upstream/` and the console carries them in the "Do next" list.
+Fixes that are already on the upstream development branch (edgeR EG1/EG2, lme4 LM5/LM6,
+clusterProfiler CP1/CP2/CP3/CP6/CP7) are recorded and not raised.
+
+| tier | finding | reason |
+|---|---|---|
+| file now | samtools ST1 (+ ST2, same patch) | `samtools stats` coverage distribution (COV rows, `-t`/`-g` target percentage) is accumulated in a ring of 5 × read length indexed modulo its size, so spliced (RNA-seq) alignments wrap around and mixed-length reads lose counts on buffer reallocation; every version since at least 1.9; issue then PR the same day |
+| comment | lme4 LM2 on the maintainers' open #867 | default `glmer` Hessian standard errors about 100× too small in 9 of 150 ordinary Bernoulli fits, with only a `max|grad|` warning; measurement plus a guard (patch 0003) as the PR once the comment is up |
+| file now (low magnitude, lead's call) | edgeR EG3 | `filterByExpr` drops a gene sitting exactly on the CPM cutoff by one ulp when the median library is a real library; all versions; one-line fix; goes to the Bioconductor support site because bioc/edgeR is a read-only mirror |
+| comment | clusterProfiler CP5 on the open #819 | the 4.16 vs 4.20 difference the reporter saw is enrichit 0.1.x running BH over zero-overlap sets, fixed in enrichit 0.2.0; post only after reading the six comments already there |
+| held | featureCounts FC1, FC2 | FC1 is a rare option (`--splitOnly` with unmapped mates); FC2 needs a mixed single/paired-end file; the ShiLab tracker's conventions could not be read from the session, so FC2 goes issue-first when a signal comes |
+| held | lme4 LM1, LM3, LM4, LM7 | LM1 is a pre-release defect on `master` only (worth a heads-up before 2.x ships); LM3 is a warning-text nit; LM4 and LM7 are documentation |
+| held | clusterProfiler CP4 (enrichit), CP8 | CP4 is a non-default `gsea(method = "sample")` path with an issue + patch ready for YuLab-SMU/enrichit, to follow a positive signal on #819; CP8 is a design question about `simplify()` |
+
+Channel notes. samtools' CONTRIBUTING.md accepts AI-assisted work with an `Assisted-by` trailer,
+a human-written commit message and PR description, and a human DCO sign-off; the kit's patch carries
+the trailer and no sign-off. edgeR has no tracker or PRs. clusterProfiler's maintainer guide and
+book were unreachable from the session and must be read before posting. Forks needed for the PRs:
+samtools/samtools, lme4/lme4, YuLab-SMU/enrichit.

@@ -1,4 +1,4 @@
-Title: comment on YuLab-SMU/clusterProfiler #819 — "Big differences in enricher results between clusterProfiler 4.16.0 and clusterProfiler 4.20.0"
+Title: (comment on #819) "Big differences in enricher results between clusterProfiler 4.16.0 and clusterProfiler 4.20.0": the cause is enrichit 0.1.x BH over zero-overlap sets, fixed in 0.2.0
 
 <!-- post only after reading the 6 existing comments (not readable from the audit session); skip if the thread already names enrichit 0.2.0 -->
 

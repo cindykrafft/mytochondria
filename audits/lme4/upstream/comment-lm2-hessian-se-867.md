@@ -1,4 +1,4 @@
-Title: (comment on #867 "revisit use.hess default") a failure-rate measurement for the default Hessian-based SEs, and a cheap guard
+Title: (comment on #867) "revisit use.hess default": a failure-rate measurement for the default Hessian-based SEs, and a cheap guard
 
 <!-- to be posted as a comment on https://github.com/lme4/lme4/issues/867 (open, opened by the maintainer 2025-08-29, no comments); #994 is about the one-sided mismatch warning -->
 
