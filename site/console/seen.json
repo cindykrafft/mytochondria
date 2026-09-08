@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-08T01:15:00Z",
+"taken": "2026-09-08T12:50:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -843,10 +843,10 @@
 "repo": "iqtree/iqtree3",
 "number": 207,
 "kind": "pr",
-"state": "open",
-"merged": false,
+"state": "closed",
+"merged": true,
 "comments": 0,
-"updated": "2026-09-04T18:00:39Z"
+"updated": "2026-09-08T07:49:42Z"
 },
 {
 "repo": "deeptools/deepTools",
