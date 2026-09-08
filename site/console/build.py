@@ -148,9 +148,9 @@ r2("plink","chrchang","plink-ng","master",None,
    ["issue-pl1-hwe-threshold-boundary.md"], ["PL1"])
 
 # ---- triage (2026-09-03): file only findings that change published numbers under default/common settings; at most two per repo until a maintainer responds
-TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)","FT15":"posted on PR #2610 (2026-09-07, per the comment count)","FT16":"posted on #2614 (2026-09-07, per the comment count)","PL1":"#380 / PR #381 (closed 2026-09-03: the maintainer applied his own equivalent fix, 1fe42e5)"},
+TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)","FT15":"posted on PR #2610 (2026-09-07, per the comment count)","FT16":"posted on #2614 (2026-09-07, per the comment count)","PL1":"#380 / PR #381 (closed 2026-09-03: the maintainer applied his own equivalent fix, 1fe42e5)","DT4":"comment on #1118 / PR #1466 (2026-09-08)"},
       "now":["HC2"],
-      "comment":["DT4"]}
+      "comment":[]}
 def tier_of(i):
     if i in TIER["filed"]: return "filed"
     if i in TIER["now"]: return "now"
@@ -205,9 +205,7 @@ for d in sorted(glob.glob(A+"*/issue-fixes/*/")):
 json.dump(fixes, open(os.path.join(OUT,"fixes.json"),"w"), indent=1)
 # ---- ordered action list (2026-09-08): what to do next, top first; everything else waits for a signal
 ACTIONS=[
- dict(kind="fix", pkg="umap", issue=1194, why="umap merged PR #1287 on 2026-09-05, so a second fix is in policy; the branch merges cleanly with today's master and its four precomputed-transform tests pass there"),
- dict(kind="issue", key="deeptools", id="DT4", why="a comment on #1118, a thread the maintainers keep open, so it is exempt from the two-unanswered cap: cause and a one-token fix for the 4.0.0 Rust backend"),
- dict(kind="pr", key="deeptools", id="DT4", why="the PR for that comment; open it right after the comment and fill in the number"),
+ # 2026-09-08 15:00Z: the list of the morning was done (umap PR #1288, deepTools #1118 comment + PR #1466); nothing is ready to file until a maintainer answers or a new package is checked
 ]
 WAITING=[
  ("BEDTools BT1 (coverage -split counts blocks)", "a reply on #1142, PR #1143 or PR #1144 (cap reached)"),
@@ -217,8 +215,9 @@ WAITING=[
  ("Kilosort #1039 fix", "a reply on PR #1043, PR #1045 or issues #1044/#1046/#1047"),
  ("Suite2p #1079 (assigned upstream; comment only)", "a reply on PR #1266-#1268 or issues #1265/#1269/#1270"),
  ("FieldTrip #2345 fix", "#2608, #2610, #2611 or #2612 merged or answered (#2610 is 'almost ready to merge')"),
- ("deepTools DT1, DT5, DT8, DT9, DTN3", "a reply on #1457/#1458 or #1459/#1460"),
+ ("deepTools DT1, DT5, DT8, DT9, DTN3", "a reply on #1457/#1458, #1459/#1460 or PR #1466"),
  ("SPM and AFNI second fixes", "not chosen yet; their first fixes were merged, so they are next to prepare"),
+ ("umap third fix, IQ-TREE third fix", "PR #1288 / PR #210 answered"),
  ("HTSeq HC1/HC2, FreeSurfer #1358", "never: the maintainers decline AI-generated contributions"),
 ]
 json.dump(dict(actions=ACTIONS, waiting=WAITING), open(os.path.join(OUT,"actions.json"),"w"), indent=1)

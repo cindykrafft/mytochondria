@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-08T14:00:00Z",
+"taken": "2026-09-08T15:00:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -910,6 +910,24 @@
 "merged": false,
 "comments": 0,
 "updated": "2026-09-08T13:44:58Z"
+},
+{
+"repo": "lmcinnes/umap",
+"number": 1288,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-08T14:19:13Z"
+},
+{
+"repo": "deeptools/deepTools",
+"number": 1466,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-08T14:20:42Z"
 }
 ]
 }
