@@ -37,3 +37,22 @@ posts them.
 
 Repositories whose forks carry the `declines_ai` flag get nothing: no pushes, no drafts, only the
 state recorded.
+
+## Reading a thread
+
+Comment bodies on repositories the author does not own are not readable from the working
+session (the GitHub tools are scoped to the attached forks; api.github.com and the issue pages'
+client-rendered comments are unreachable). Before any comment is drafted on an existing issue or
+PR, and before any reply to a maintainer, the thread is read in full this way:
+
+1. Start a helper session on the upstream repository (`create_session` with `source_url` set to
+   the upstream repo, `permission_mode` acceptEdits) with a read-only task: read the issue or PR
+   and every comment, plus the threads it links to, and publish a verbatim transcript (author,
+   association, timestamp, body) to the shared export artifact
+   `https://claude.ai/code/artifact/371dd757-fc21-45a4-aea0-566f4ae06dfb`, updating it in place.
+2. Read the artifact (`Artifact` action `read`), then draft or, if the thread already carries
+   the point, drop the item and record why in the kit README.
+3. Note in the kit README the date the thread was read and what it contained.
+
+A helper in default mode can block on an Artifact permission prompt; acceptEdits avoids it. A
+helper that still cannot publish is told to put the transcript in its final message instead.

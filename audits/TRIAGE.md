@@ -11,6 +11,17 @@ repository until a maintainer responds; after a positive signal, the held items 
 repository follow one at a time. A comment on an issue the maintainers already keep open
 is a separate, low-cost category and is not counted against the cap.
 
+**Read the whole thread first (from 2026-09-08).** No comment on an existing issue or PR, and
+no issue that cites a prior thread, is drafted before every comment on that thread (and on the
+threads it links to) has been read in full. Comment counts and titles are not enough: a thread
+with six replies may already carry the diagnosis, the fix, or the maintainer's decision, and a
+draft written from the opener alone repeats or contradicts it. Comment bodies on repositories
+this project does not own cannot be read from the audit session; a helper session started on the
+upstream repository exports them verbatim to the "FieldTrip Threads" artifact
+(`site/console/WATCH.md`, "Reading a thread"), and the kit's `README.md` records the date the
+thread was read and what it already contained. The same applies before replying on our own
+filings.
+
 **Declined repositories.** A fork carrying the topic `upstream-declines-ai-contributions`
 means the maintainers do not take AI-generated contributions. Nothing further goes to that
 repository: no issue, no comment, no PR, no follow-up on open items. Its held findings stay
