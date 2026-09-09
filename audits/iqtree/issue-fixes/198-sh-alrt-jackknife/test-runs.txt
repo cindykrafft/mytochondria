@@ -1,0 +1,13 @@
+Full test_scripts/test_iqtree.sh + verify_results.sh with the branch binary (build/iqtree3, master
+6799c7fa + the fix), 2026-09-09, -T 1, seed 73073, GNU time installed for run_timed:
+
+- 32 runs; the inline #198 check (SH-aLRT labels of turtle.alrt.boot vs turtle.alrt.jack) passed;
+  on the unmodified master binary the same check fails (98.4 89.8 98.2 61.7 47.6 47.9 98 100 81.1
+  vs 100 100 100 91.7 86 81.5 100 100 99.7).
+- verify_results.sh: "All checks passed"; 27 PASS rows including the two new ones
+  (turtle.alrt.boot.iqtree and turtle.alrt.jack.iqtree, -5370.3730, abs-diff 0).
+- One run exits 1 in this environment, before and after the fix: turtle_aa.mutsel
+  ("Mutsel support not compiled in!"), a build option this local build lacks; its .iqtree file
+  is therefore reported as "File not found" by verify_results.sh, as for the previous two kits.
+- A first attempt without /usr/bin/time made every run_timed call fail with exit 127; apt
+  `time` fixed it. Nothing else changed.
