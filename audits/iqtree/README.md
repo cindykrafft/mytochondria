@@ -145,5 +145,5 @@ IQTREE_RUNDIR=<scratch dir> python3 verify/<harness>.py` (numpy, scipy).
 3. Full-text profiling rerun when Europe PMC is reachable (gCF/sCF and `-alrt 0` usage
    are invisible in the cache).
 4. Issue-fix round (`issue-fixes/`): #203 (PR #207) and #192 (PR #210) merged 2026-09-08/09;
-   #198 (SH-aLRT inflated under `-j`/`-J`) ready 2026-09-09 as the third, one at a time. The
+   #198 (SH-aLRT inflated under `-j`/`-J`) filed 2026-09-09 as PR #214, the third, one at a time. The
    topology tests share the #198 pattern (`treetesting.cpp`) and are the natural fourth.

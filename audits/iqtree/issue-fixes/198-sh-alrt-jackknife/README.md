@@ -1,7 +1,7 @@
 # iqtree/iqtree3 #198 — SH-aLRT values change when the jackknife (`-j`/`-J`) is requested
 
 Third issue-fix for IQ-TREE 3 (after #203 / PR #207 and #192 / PR #210, both merged without
-discussion). Branch `fix/issue-198-sh-alrt-jackknife` on `cindykrafft/iqtree3` (one commit,
+discussion). **Filed as PR #214 on 2026-09-09.** Branch `fix/issue-198-sh-alrt-jackknife` on `cindykrafft/iqtree3` (one commit,
 `e8ca14f3`, on upstream master `6799c7fa`). Chosen because it is a silent wrong-number in a
 support value that ends up in papers: anyone who runs `--ufjack` (or `-j`) together with `-alrt`
 gets inflated SH-aLRT supports, with no warning, in every 3.x release (and 2.x, where the same
