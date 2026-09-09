@@ -114,6 +114,7 @@ Assigned issues (2026-09-04): no PR; comment with the diagnosis and a branch lin
 | macs3-project/MACS | #715 | `bdgdiff` scores truncated to integers | PR #739 open (filed 2026-09-05); two held findings in the kit README |
 | iqtree/iqtree3 | #203 (+ #89, likely #135/#102) | `setRootNode` assertion when the outgroup is absent from a partition/quartet | PR #207 **merged 2026-09-08** (no discussion); closes #203 and #89 |
 | iqtree/iqtree3 | #192 | `GY{...}+FU{61 freqs}` silently becomes `GY+F`: user codon frequencies ignored, 60 free parameters, wrong likelihood (2.4.0 correct) | PR #210 **merged 2026-09-09** (no discussion); closes #192 |
+| iqtree/iqtree3 | #198 | SH-aLRT support values inflated whenever `-j`/`-J` is given (RELL replicates drawn as delete-half jackknife samples, so the centred statistics are not centred); turtle.fa 47.6 → 86, 61.7 → 91.7 | PR ready 2026-09-09 (branch on the fork, patch + test in the kit); third IQ-TREE fix after two merges |
 
 Each kit under `audits/<package>/issue-fixes/<n>-<slug>/` records the alternates considered, so the next round can start from those.
 

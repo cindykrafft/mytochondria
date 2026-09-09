@@ -1,0 +1,20 @@
+log-likelihoods: ML -13195.3540  NNI1 -13195.5167  NNI2 -13195.5177
+branch 34.7/62: aLRT = 0.163 over 800 sites, 20000 RELL replicates
+  bootstrap RELL               : SH-aLRT = 60.3
+  delete-half jackknife RELL   : SH-aLRT = 74.0
+  delete-half jackknife x 2    : SH-aLRT = 57.5
+log-likelihoods: ML -13195.3540  NNI1 -13199.0221  NNI2 -13196.9568
+branch 72.3/70: aLRT = 1.603 over 800 sites, 20000 RELL replicates
+  bootstrap RELL               : SH-aLRT = 54.6
+  delete-half jackknife RELL   : SH-aLRT = 82.9
+  delete-half jackknife x 2    : SH-aLRT = 53.8
+log-likelihoods: ML -13195.3540  NNI1 -13196.3253  NNI2 -13196.3271
+branch 71.5/76: aLRT = 0.971 over 800 sites, 20000 RELL replicates
+  bootstrap RELL               : SH-aLRT = 74.6
+  delete-half jackknife RELL   : SH-aLRT = 97.6
+  delete-half jackknife x 2    : SH-aLRT = 74.0
+log-likelihoods: ML -13195.3540  NNI1 -13198.1616  NNI2 -13198.1619
+branch 86.9/94: aLRT = 2.808 over 800 sites, 20000 RELL replicates
+  bootstrap RELL               : SH-aLRT = 85.8
+  delete-half jackknife RELL   : SH-aLRT = 100.0
+  delete-half jackknife x 2    : SH-aLRT = 85.1

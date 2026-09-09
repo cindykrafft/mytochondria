@@ -29,3 +29,4 @@ lme4:fix/checkconv-component
 lme4:fix/gamma-loglik-phi
 lme4:fix/vcov-hessian-fallback
 enrichit:fix/gsea-sign-conditioned-pvalue
+iqtree3:fix/issue-198-sh-alrt-jackknife
