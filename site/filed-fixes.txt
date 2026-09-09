@@ -9,5 +9,5 @@ deeptools:1423:pr:1451:closed
 spm:106:comment:106:posted
 macs2:715:pr:739:open
 plink:140:pr:387:closed
-iqtree:192:pr:210:open
+iqtree:192:pr:210:merged
 umap:1194:pr:1288:open
