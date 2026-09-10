@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-10T14:40:00Z",
+"taken": "2026-09-10T18:50:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -1007,8 +1007,8 @@
 "kind": "pr",
 "state": "open",
 "merged": false,
-"comments": 0,
-"updated": "2026-09-10T14:19:31Z"
+"comments": 1,
+"updated": "2026-09-10T14:56:21Z"
 }
 ]
 }
