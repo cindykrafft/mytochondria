@@ -282,6 +282,16 @@
     "bioc/limma"
    ],
    "fork": null
+  },
+  {
+   "dir": "trimmomatic",
+   "name": "Trimmomatic",
+   "papers": 291,
+   "findings": 10,
+   "repos": [
+    "usadellab/Trimmomatic"
+   ],
+   "fork": "cindykrafft/Trimmomatic"
   }
  ],
  "author": "cindykrafft",

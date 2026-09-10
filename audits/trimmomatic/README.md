@@ -116,8 +116,9 @@ around the word "Trimmomatic" in a software table.
 Every source build below therefore added `-Dmaven.compiler.release=21`; the
 sources compile unchanged under 21. The upstream-built release JARs were run as
 shipped; the 0.41 release JAR is compiled to class file version 69 and refuses to
-start under Java 21 (`UnsupportedClassVersionError`), which is why
-`openjdk-25-jre-headless` was installed. It reproduces TC1 identically to the
+start under Java 21 (`UnsupportedClassVersionError`, `verify/env_java_versions.out`),
+which is why `openjdk-25-jre-headless` was installed; the 0.39 release JAR runs
+under 21. The 0.41 release JAR reproduces TC1 identically to the
 locally built `main`, so the release override does not affect any finding
 (`upstream/mcve_outputs.txt`). Maven ran offline against a warm `~/.m2`.
 The 0.35 tag, which 4 cohort papers name, was not built: the five tags built
@@ -161,6 +162,7 @@ are the survey's five `top_versions`.
 | `verify/heldup_illuminaclip_simple.py` (+ `.out`) | simple mode: 3,600 reads at three thresholds, the coded-vs-documented rule split by cause, the partial-3'-adapter length sweep, three adapter length classes |
 | `verify/heldup_simple_trimmers.py` (+ `.out`) | SLIDINGWINDOW, LEADING/TRAILING, MAXINFO, the seven length/quality filters, Phred conversion and detection, and a four-step pipeline — 4,000 reads each |
 | `verify/heldup_pe_bookkeeping.py` (+ `.out`) | paired-end outputs, the five `-summary` counters, `-trimlog`, `-threads` invariance, unequal-length inputs, SE mode |
+| `verify/env_java_versions.out` | the JDK/JRE/Maven versions this audit ran, and the class-file-version error that made the JRE 25 necessary |
 | `verify/notes_misc.py` (+ `.out`) | N1–N7 as worked single-record examples |
 | `verify/version_scope_cli.py` (+ `.master.out`, `.master-patched.out`, `.v0.41.out`, `.v0.40.out`, `.v0.39.out`, `.v0.39-src.out`, `.v0.38.out`, `.v0.36.out`, `.v0.33.out`, `.v0.32.out`) | TC1 through the command line only, on every build, with SLIDINGWINDOW/TRAILING/MAXINFO sentinels |
 | `upstream/` | filing kit: issue text, MCVE and its outputs, patch 0001, PR body, patch verification, documents read |

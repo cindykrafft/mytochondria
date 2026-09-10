@@ -1,0 +1,23 @@
+Build/runtime environment for this audit (2026-09-10)
+
+$ java -version   (default on PATH)
+openjdk version "25.0.4" 2026-07-21
+OpenJDK Runtime Environment (build 25.0.4+7-1-24.04-Ubuntu)
+OpenJDK 64-Bit Server VM (build 25.0.4+7-1-24.04-Ubuntu, mixed mode, sharing)
+
+$ javac -version
+javac 21.0.10
+
+$ mvn -version | head -1
+Apache Maven 3.9.11 (3e54c93a704957b63ee3494413a2b544fd3d825b)
+
+$ JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 java -jar releases/trimmomatic-0.41.jar -version
+Error: LinkageError occurred while loading main class org.usadellab.trimmomatic.Trimmomatic
+	java.lang.UnsupportedClassVersionError: org/usadellab/trimmomatic/Trimmomatic has been compiled by a more recent version of the Java Runtime (class file version 69.0), this version of the Java Runtime only recognizes class file versions up to 65.0
+
+$ JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64 java -jar releases/Trimmomatic-0.39/trimmomatic-0.39.jar -version
+0.39
+
+(class file version 65 = Java 21, 69 = Java 25. The project's pom sets
+ maven.compiler.release=25, so every source build in this audit added
+ -Dmaven.compiler.release=21; the sources compile unchanged under 21.)

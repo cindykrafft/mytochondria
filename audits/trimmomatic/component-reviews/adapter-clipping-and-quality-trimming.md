@@ -98,7 +98,7 @@ forward read is cut to the inferred insert and, with the default
   | Q19 | **21.11** (below 30) | 26.51 (below 30) | untouched, 50 nt / 50 nt |
   | Q10 | 26.51 | 26.51 | untouched (control: the geometry is right) |
   | Q2 | 31.31 (above 30) | 32.51 | clipped / dropped under both rules |
-  | none | 36.12 | 36.12 | clipped / dropped (positive control) |
+  | none | 60 × 0.60206 = 36.12 (closed form, no penalty term) | same | clipped / dropped (positive control) |
 
   The arithmetic: 60 aligned bases, 54 matches × 0.60206 = 32.51; six mismatches
   at Q9 cost 6 × 0.9 = 5.4 by the README and 6 × 0 as coded.

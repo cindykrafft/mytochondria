@@ -159,7 +159,7 @@ else.
 and the `*BZ` tags do not exist in 1.9 or 1.10.2 — `grep -c calc_mwu_biasZ bam2bcf.c`
 returns 0 in both, and those releases emit the older `MQB`/`BQB`/`RPB` p-values from
 `calc_mwu_bias_cdf()`, which has no tie correction at all (it is commented out at
-`bam2bcf.c:722-727`) and no overflow. The two most-cited versions in this cohort (1.9,
+`bam2bcf.c:725-730`) and no overflow. The two most-cited versions in this cohort (1.9,
 1.10.2) therefore predate the annotation; every version from 1.11 on that ships this
 function carries the defect, and 1.13 and 1.24 were executed.
 
@@ -231,8 +231,8 @@ is known, and matched.
   frequency. **0 mismatches.**
 - **`norm`** ([`heldup_norm_split_join.out`](../verify/heldup_norm_split_join.out)).
   Left-alignment of 120 indels (homopolymers, di/tri/tetranucleotide repeats, padded
-  representations) — **0 differ** from an independent Python left-aligner, and the
-  `realigned` counter agrees (101). `-m -any` splitting recomputes `AC`/`AF` correctly
+  representations) — **0 differ** from an independent Python left-aligner (`norm`'s own
+  summary line reports 101 of the 120 realigned). `-m -any` splitting recomputes `AC`/`AF` correctly
   (2/0.25 and 3/0.375 for the constructed genotypes), takes the right slots out of
   `Number=A`, `Number=R` and `Number=G` fields (`AD`, `PL`), and `-m +any` joins them back
   to the original `GT`, `AD` and `AC`/`AF`, with the un-recoverable `1/2` `PL` cell
