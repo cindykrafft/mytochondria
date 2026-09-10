@@ -2,9 +2,9 @@ import json, html
 import os
 OUT=os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
 D=json.load(open(os.path.join(OUT,"data.json"))); FX=json.load(open(os.path.join(OUT,"fixes.json"))); ACT=json.load(open(os.path.join(OUT,"actions.json")))
-order=["samtools","lme4","edger","clusterprofiler","enrichit","featurecounts","fieldtrip","plink","htseq","deeptools","bedtools","fastp","cutadapt","umap","cellphonedb","scanpy","iqtree"]
+order=["gsea","bcftools","star","trimmomatic","limma","samtools","lme4","edger","clusterprofiler","enrichit","featurecounts","fieldtrip","plink","htseq","deeptools","bedtools","fastp","cutadapt","umap","cellphonedb","scanpy","iqtree"]
 order+=[k for k in D if k not in order]  # any repo the builder adds later still renders
-labels={"plink":"PLINK 1.9","htseq":"HTSeq","deeptools":"deepTools","bedtools":"BEDTools","fastp":"fastp","cutadapt":"Cutadapt","umap":"umap-learn","cellphonedb":"CellPhoneDB","scanpy":"Scanpy (Scrublet port)","iqtree":"IQ-TREE 3","fieldtrip":"FieldTrip","samtools":"samtools","lme4":"lme4","edger":"edgeR","clusterprofiler":"clusterProfiler","enrichit":"enrichit (clusterProfiler engine)","featurecounts":"featureCounts (Subread)"}
+labels={"gsea":"GSEA (desktop)","bcftools":"BCFtools","star":"STAR","trimmomatic":"Trimmomatic","limma":"limma","plink":"PLINK 1.9","htseq":"HTSeq","deeptools":"deepTools","bedtools":"BEDTools","fastp":"fastp","cutadapt":"Cutadapt","umap":"umap-learn","cellphonedb":"CellPhoneDB","scanpy":"Scanpy (Scrublet port)","iqtree":"IQ-TREE 3","fieldtrip":"FieldTrip","samtools":"samtools","lme4":"lme4","edger":"edgeR","clusterprofiler":"clusterProfiler","enrichit":"enrichit (clusterProfiler engine)","featurecounts":"featureCounts (Subread)"}
 page=r'''<title>Mytochondria Filing Console</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -44,7 +44,7 @@ ol.actions>li.action{list-style:none}ol.actions>li.action>.eyebrow.tier{margin:1
 @media (prefers-reduced-motion:reduce){.toast{transition:none}}
 </style>
 <main>
-  <p class="eyebrow">Mytochondria · twenty-six packages · Do-next list updated 2026-09-08</p>
+  <p class="eyebrow">Mytochondria · thirty-one packages · Do-next list updated 2026-09-10</p>
   <h1>Mytochondria Filing Console</h1>
   <p class="lede">The first section is the ordered list of what to do next, then what waits for a maintainer's signal. Below that, one section per repository, newest first. Each section is split into what to file now, comments on issues the maintainers already have open, what is filed, and what is held back until a maintainer gives a positive signal. Where a finding matches an issue that is already open, the card opens that issue and the text is a comment to paste. The Cutadapt, umap-learn and CellPhoneDB sections carry what was filed on 2026-09-03. Each button opens GitHub with the form prefilled where the text fits in a URL; where it does not, the button opens the form with the title only and the Copy button carries the body. Repositories you have not forked yet show their PR steps greyed out: fork them and tell me, and I will push the branches. Scrublet's original repository is skipped as unmaintained (last commit 2020, open issues unanswered).</p>
   <div id="root"></div>

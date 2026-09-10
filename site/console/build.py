@@ -153,6 +153,26 @@ r2("enrichit","YuLab-SMU","enrichit","devel",None,
    "clusterProfiler's enrichment engine since 4.20 (CRAN package). No templates, NEWS + testthat. CP4 is a non-default option (gsea(method='sample'/'permute', adaptive=TRUE)) whose p-values are about half the GSEA convention; issue + git am-able patch with an exact-enumeration test. Fork exists; branch pushed.",
    ["issue-cp4-enrichit-sample-pvalue.md"], ["CP4"], dir="clusterprofiler", forked=True,
    order_note="Held: a rare option. File after a positive signal on the clusterProfiler thread.")
+r2("gsea","GSEA-MSigDB","gsea-desktop","master",None,
+   "CONTRIBUTING.md is the only contributing document: search the tracker first, include an executable test case, one focused problem per PR. No .github directory at all (no issue or PR template), no changelog file, no AI policy, no linter, and no wired-up test task in build.gradle (the JUnit jars sit unused). Tiny tracker (16 issues, 2017-2022); no prior report of either finding (nearest #5, #14, #26, #42, #50). Released binaries could not be downloaded (two Broad domains are blocked by the proxy), so every version was built from its tag; master and the v4.4.0 release tag differ only in a readme. Fork GSEA-MSigDB/gsea-desktop for the PRs.",
+   ["issue-gs1-weighted-p15-negative-scores.md","issue-gs2-set-size-filter-equal-bounds.md"], ["GS1","GS2"],
+   order_note="GS1 first and alone: the highest-cited package of the round (720 papers) returning an enrichment score of the wrong sign, and on two older releases outside the legal range. GS2 follows once GS1 has an answer.")
+r2("bcftools","samtools","bcftools","develop",None,
+   "CONTRIBUTING.md is the samtools document verbatim, so the samtools rules apply again: a real-name DCO sign-off that an agent may not add, an `Assisted-by:` trailer on the commit and in the PR body, and a human-written commit message and PR description. The kit's patch carries the trailer and no sign-off: after `git am`, rewrite the message in your own words and `git commit --amend -s`. No issue or PR template; NEWS bullets under `* bcftools <command>`; `make test` runs 2,480 tests (green before and after the patch, and the new test fails 2 of 4 checks without it). No prior report (nearest #897, #962, #1930, #1767, #2185).",
+   ["issue-bf1-mwu-bias-int-overflow.md"], ["BF1"],
+   order_note="One filing only. Note the exposure: the annotation does not exist in 1.9 or 1.10.2, the cohort's two most-cited versions, so this bites 1.13 onward.")
+r2("star","alexdobin","STAR","master",None,
+   "CONTRIBUTING.md is the only contributing document: questions go to the rna-star Google group rather than the tracker, and a bug report needs the exact command, copy-pasteable snippets, Log.out, observed vs expected and system information. PRs must state their purpose and guarantee that default behaviour does not change. No issue or PR template, no .github directory, no CI and no test suite, so the kit's patch adds the first executable regression test in the tree (2 failures on unmodified master, 2 passes with it). CHANGES.md bullets are the changelog convention. No prior report across five phrasings; the nearest open issue (#1922, five comments, unreadable from the session) is a different bug in the same area. The fork could not be resolved from the session: re-check the declines-AI topic before sending.",
+   ["issue-st1-strandless-transcript-strand.md"], ["ST1"],
+   order_note="Issue first; the PR is offered in the issue's last line rather than opened unsolicited, as CONTRIBUTING asks.")
+r2("trimmomatic","usadellab","Trimmomatic","main",None,
+   "No contributing document, no issue or PR template, no code of conduct and no linter; the changelog is versionHistory.txt (`Fix:` / `Feature:` lines), whose newest entry is another fix to the same class. CI runs `mvn -B clean verify` on every push and PR to `main`. The maintainers answered issues up to #88 (2026-07-01); the exact open-issue count could not be read from the session. No prior report across seven phrasings; #52 and #56 are nearby and their comments must be read before filing. No fork exists, so the declines-AI topic could not be checked.",
+   ["issue-tc1-palindrome-integer-penalty.md"], ["TC1"],
+   order_note="Issue first, then the PR: the fix is two characters plus a regression test (259 tests green before, 263 after; the new test fails on unmodified main).")
+r2("limma","bioc","limma","devel",None,
+   "No tracker and no PRs: bioc/limma is a read-only mirror. The channel is the Bioconductor support site (tag limma) or the maintainer's e-mail, and both are unreachable from the audit session, so searching the support site for prior reports is step 1 and yours to do. The text below is the support-site post; the two patches (devel C kernel, and RELEASE_3_23 R) are attached as diffs for the maintainers to apply. No fork applies.",
+   ["issue-l1-arrayweights-reml-convergence.md"], [], no_prs=True,
+   order_note="Worth sending before limma 4.0.0: no released default path reaches the REML weighting code, but devel's new voomLmFit(sample.weights=TRUE) calls it directly and reproduces the unconverged answer exactly.")
 r2("featurecounts","ShiLab-Bioinformatics","subread","master",None,
    "The developers' GitHub mirror of Subread (release channel is SourceForge; user forum is the Subread Google Group; Rsubread goes to Bioconductor support). The GitHub tracker could not be read from the audit session (search returns nothing for the repo): check whether the maintainers answer issues there before sending anything. No CONTRIBUTING, templates, changelog or linter; tests are shell scripts with .ora expectations. FC2 changes numbers only for mixed single-end/paired-end libraries under stranded counting; FC1 is a rare option. Both patches add a test that fails on unmodified master.",
    ["issue-fc2-read-type-filter.md","issue-fc1-splitonly-singletons.md"], ["FC1","FC2"],
@@ -174,7 +194,7 @@ r2("plink","chrchang","plink-ng","master",None,
 
 # ---- triage (2026-09-03): file only findings that change published numbers under default/common settings; at most two per repo until a maintainer responds
 TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)","FT15":"posted on PR #2610 (2026-09-07, per the comment count)","FT16":"posted on #2614 (2026-09-07, per the comment count)","PL1":"#380 / PR #381 (closed 2026-09-03: the maintainer applied his own equivalent fix, 1fe42e5)","DT4":"comment on #1118 / PR #1466 (2026-09-08)","ST1":"#2378 / PR #2379 (2026-09-08)","LM2":"comment on #867 / PR #1000 (2026-09-08)"},
-      "now":["HC2","EG3"],
+      "now":["HC2","EG3","GS1","BF1","ST1","TC1","L1"],
       "comment":[]}
 def tier_of(i):
     if i in TIER["filed"]: return "filed"
@@ -234,10 +254,23 @@ for d in sorted(glob.glob(A+"*/issue-fixes/*/")):
 json.dump(fixes, open(os.path.join(OUT,"fixes.json"),"w"), indent=1)
 # ---- ordered action list (2026-09-08): what to do next, top first; everything else waits for a signal
 ACTIONS=[
+ dict(kind="issue", key="gsea", id="GS1", why="round 4's strongest finding and the most-cited package audited so far (720 papers): the weighted_p1.5 scoring scheme raises a signed metric to a fractional power, so every negatively ranked gene contributes a fallback constant; a hand-computable case returns -1.000 for a true -0.706, two older releases return -1.500, and a real gene set flips sign"),
+ dict(kind="pr", key="gsea", id="GS1", why="the fix with a regression test that fails on unmodified master; fork GSEA-MSigDB/gsea-desktop first"),
+ dict(kind="issue", key="bcftools", id="BF1", why="mpileup's Mann-Whitney bias annotations overflow a 32-bit accumulator at 1291 reads in one bin, always downward: a 1500-read site reports MQBZ -5.76 for a true -23.98, and 41 of 160 realistic pileups flip the usual MQBZ < -3 filter from drop to keep"),
+ dict(kind="pr", key="bcftools", id="BF1", why="the 64-bit fix plus test/test-mwu.c; the samtools AI policy applies, so rewrite the commit message yourself and add your own sign-off (git commit --amend -s), never a sign-off from an agent"),
+ dict(kind="issue", key="star", id="ST1", why="a GTF feature with '.' in the strand column makes TranscriptomeSAM transform coordinates as plus and set the flag as minus (every flag inverted, 1524 sequence mismatches against zero), and stranded STARsolo counts such genes as zero; issue first, PR offered in its last line as CONTRIBUTING asks"),
+ dict(kind="issue", key="trimmomatic", id="TC1", why="ILLUMINACLIP's palindrome mode computes the per-mismatch penalty with integer division, so mismatches below Q10 cost nothing; the error is one-sided, so pairs below the threshold are clipped anyway and the reverse read is dropped (1.2 percent of 4000 synthetic pairs)"),
+ dict(kind="pr", key="trimmomatic", id="TC1", why="two characters plus a regression test (259 tests green before, 263 after); fork usadellab/Trimmomatic first"),
+ dict(kind="issue", key="limma", id="L1", why="a Bioconductor support-site post, not a GitHub issue: arrayWeights' REML path divides its convergence criterion by the gene count twice and stops after one to three iterations; no released default path reaches it, but devel's voomLmFit(sample.weights=TRUE) does, so this is worth sending before limma 4.0.0"),
  dict(kind="fix", pkg="iqtree", issue=198, why="reply on PR #214 (drafted, needs your approval): the maintainer asked for the CI additions to be removed, so the branch is now code-only (force-pushed, commit 04f81848) and the reproduction moves into the thread; the comment text is in the card below"),
  dict(kind="issue", key="edger", id="EG3", why="support-site post, not a GitHub issue: filterByExpr drops a gene sitting exactly on the CPM cutoff by one ulp, every version, one-line fix attached; small effect, so post only if you are comfortable with a low-magnitude report"),
 ]
 WAITING=[
+ ("GSEA GS2 (set_min == set_max skips the size filter and can abort the run)", "an answer on GS1: same repository, two-filing cap"),
+ ("STAR N1/N2 (soft-clip extension drops short-overhang reads; undocumented N_unmapped rows)", "a maintainer signal on ST1"),
+ ("Trimmomatic N1-N9 (MAXINFO aborts over 1000 nt, N scored as Q0, TRAILING never examines base 0, SLIDINGWINDOW cut position vs the manual)", "a maintainer signal on TC1; several are documentation rather than wrong numbers"),
+ ("BCFtools N1/N2 (undocumented PSC average-depth denominator; DP=0 genotypes omitted from the DP distribution)", "a maintainer signal on BF1"),
+ ("limma N1-N7 (contrasts.fit approximation under voom weights, topTable/decideTests cutoff convention, cyclicloess default iterations)", "a reply on the L1 support-site post"),
  ("lme4 LM1 (master-only Gamma logLik dispersion mismatch), LM3", "a reply on the #867 comment or PR #1000 (both filed 2026-09-08, the two-unanswered cap); LM1 is a pre-release heads-up worth sending before 2.x ships"),
  ("enrichit CP4 (sample-permutation p-values halved, rare option)", "the owner's call: #819 shows the maintainer fixing enrichit reports within weeks, so CP4 could go straight to YuLab-SMU/enrichit as issue + PR (branch on the fork) without waiting for a signal on a clusterProfiler thread"),
  ("featureCounts FC2 (read-type filter lost in 2.0.2), FC1", "confirmation that the maintainers answer GitHub issues on ShiLab-Bioinformatics/subread"),

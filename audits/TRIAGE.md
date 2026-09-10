@@ -156,3 +156,31 @@ a human-written commit message and PR description, and a human DCO sign-off; the
 the trailer and no sign-off. edgeR has no tracker or PRs. clusterProfiler's maintainer guide and
 book were unreachable from the session and must be read before posting. Forks needed for the PRs:
 samtools/samtools, lme4/lme4, YuLab-SMU/enrichit.
+
+## Round 4 (2026-09-10): GSEA, STAR, Trimmomatic, limma, BCFtools
+
+The five most-cited tools in the survey that had not been audited and whose numeric core can be
+executed here. Every finding below was verified by execution against an independent
+implementation; the kits are under `audits/<package>/upstream/`.
+
+| tier | finding | reason |
+|---|---|---|
+| file now | GSEA GS1 | `-scoring_scheme weighted_p1.5` raises the signed metric to a fractional power, which is not a number for negatively ranked genes, so each contributes a fallback constant: a hand-computable case gives -1.000 for a true -0.706, releases 4.0.3 and 4.1.0 give -1.500 (outside the legal range), and a real gene set flips sign. Present on the current release tag and three older ones |
+| file now | BCFtools BF1 | the tie correction of `mpileup`'s Mann-Whitney bias annotations accumulates in a 32-bit int and overflows at 1291 reads in one bin, always downward: MQBZ -5.76 for a true -23.98 at 1500 reads, and 41 of 160 realistic pileups flip the usual `MQBZ < -3` filter. Absent from 1.9 and 1.10.2 (the annotation did not exist), so it bites 1.13 onward |
+| file now | STAR ST1 | a GTF feature with `.` in the strand column makes `TranscriptomeSAM` transform coordinates as plus while setting the flag as minus (every flag inverted, 1524 sequence mismatches against zero) and makes stranded STARsolo count such genes as zero. Silent on every version tested |
+| file now | Trimmomatic TC1 | ILLUMINACLIP's palindrome mode computes the per-mismatch penalty with integer division, so mismatches below Q10 cost nothing; the error is one-sided, so pairs below `palindromeClipThreshold` are clipped anyway and the reverse read is dropped under the default. 1.2 % of 4,000 synthetic pairs; every obtainable build affected |
+| file now (support site) | limma L1 | `arrayWeights(method = "reml")` with prior weights divides its convergence criterion by the gene count twice, so it stops after one to three iterations: weights differ by 0.549 from the unweighted call on identical data, and a voom run moves from 18 to 16 genes. No released default path reaches it; `devel`'s `voomLmFit(sample.weights = TRUE)` does, so it is worth sending before limma 4.0.0 |
+| held | GSEA GS2 | `-set_min N -set_max N` skips the size filter instead of selecting sets of size N, so the multiple-testing family is wrong, and the same branch is where sets are intersected with the list, so a missing gene aborts the run. Waits for an answer on GS1 (two-filing cap) |
+| held | STAR N1-N3, Trimmomatic N1-N9, BCFtools N1-N2, limma N1-N7 | documentation gaps, design choices and rare paths: soft-clip extension dropping short-overhang reads; MAXINFO aborting over 1000 nt; `N` always scored as Q0; `TRAILING` never examining base 0; the `SLIDINGWINDOW` cut position; the `PSC` average-depth denominator; `contrasts.fit`'s documented approximation; the `topTable`/`decideTests` cutoff convention |
+
+Channel notes. BCFtools ships samtools' contributing document verbatim, so the same AI policy
+applies: an `Assisted-by` trailer, a human-written commit message and PR body, and a sign-off
+that an agent may not add. STAR asks that questions go to its mailing list and that PRs not
+change default behaviour, and has no test suite, so its patch adds the first executable
+regression test in the tree. GSEA and Trimmomatic have no templates and no changelog convention
+beyond a plain file. bioc/limma is a read-only mirror: the channel is the Bioconductor support
+site, which is unreachable from the audit session, so searching it for prior reports is step 1
+and the owner's to do. Forks needed for the PRs: GSEA-MSigDB/gsea-desktop, samtools/bcftools,
+alexdobin/STAR, usadellab/Trimmomatic.
+
+Withdrawn by execution this round: 5 (STAR), 5 (Trimmomatic), 3 (BCFtools), 2 (limma), 0 (GSEA).
