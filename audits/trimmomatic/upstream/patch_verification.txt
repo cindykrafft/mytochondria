@@ -1,0 +1,72 @@
+Patch verification — Trimmomatic TC1
+====================================
+
+Repository: usadellab/Trimmomatic, default branch `main`, commit
+ef98d6252abeae80cfee36acf9e0e1055097da0b ("Merge branch 'V0.41' — release v0.41").
+Patch: 0001-Fix-charge-Q-10-per-mismatch-in-ILLUMINACLIP-palindr.patch
+Branch used locally: fix/palindrome-mismatch-penalty
+
+Build note: this environment has javac 21 only (openjdk-21-jdk) plus a JRE 25,
+while the project's pom sets <maven.compiler.release>25</maven.compiler.release>.
+Every maven run below therefore adds -Dmaven.compiler.release=21; the sources
+compile unchanged under 21. The upstream-built 0.41 release jar (class file
+version 69, i.e. release 25) was run separately through the MCVE and gives the
+same result, so the release override does not affect the finding
+(see mcve_outputs.txt).
+
+$ git apply --check 0001-Fix-charge-Q-10-per-mismatch-in-ILLUMINACLIP-palindr.patch
+(clean, no output)
+
+1. The project's own test suite on UNMODIFIED main @ ef98d62
+-------------------------------------------------------------
+$ mvn -o -B -Dmaven.compiler.release=21 test
+[INFO] Tests run: 259, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS
+
+2. The new regression test ALONE on UNMODIFIED main @ ef98d62
+--------------------------------------------------------------
+(IlluminaPalindromeMismatchPenaltyTest.java copied in, source otherwise untouched)
+$ mvn -o -B -Dmaven.compiler.release=21 -Dtest=IlluminaPalindromeMismatchPenaltyTest test
+[ERROR] Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.813 s <<< FAILURE! -- in org.usadellab.trimmomatic.trim.IlluminaPalindromeMismatchPenaltyTest
+[ERROR]   IlluminaPalindromeMismatchPenaltyTest.testSixMismatchesAtQ9StayBelowThreshold:73 expected: not <null>
+[ERROR] Tests run: 4, Failures: 1, Errors: 0, Skipped: 0
+[INFO] BUILD FAILURE
+
+The failing assertion is `assertNotNull(result[1])` in
+testSixMismatchesAtQ9StayBelowThreshold: unmodified Trimmomatic drops the reverse
+read of a pair whose documented palindrome score (27.11) is below the threshold (30).
+The other three tests — the perfect read-through positive control, the Q19 case and
+the Q2 case — pass unmodified, so the test class is not merely asserting the fix.
+
+3. The project's own test suite WITH the patch (fix + 4 new tests)
+-------------------------------------------------------------------
+$ mvn -o -B -Dmaven.compiler.release=21 test
+[INFO] Tests run: 263, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS
+
+259 -> 263 tests, 0 failures either side: the patch breaks nothing.
+
+4. End to end, through the command line, on the built jar
+----------------------------------------------------------
+$ python3 ../verify/version_scope_cli.py <main @ ef98d62 jar> master
+== master
+  Q9:      read1 40 nt    read2 dropped
+  Q10:     read1 50 nt    read2 50 nt
+  perfect: read1 40 nt    read2 dropped
+  TC1 (integer Q/10 penalty in palindrome mode): AFFECTED
+  sentinels: SLIDINGWINDOW:4:20 keeps 6 nt (master 6); TRAILING:20 first-base-only read -> dropped (master dropped); MAXINFO:40:0.8 keeps 60 nt
+
+$ python3 ../verify/version_scope_cli.py <main @ ef98d62 + patch 0001 jar> "master + patch 0001"
+== master + patch 0001
+  Q9:      read1 50 nt    read2 50 nt
+  Q10:     read1 50 nt    read2 50 nt
+  perfect: read1 40 nt    read2 dropped
+  TC1 (integer Q/10 penalty in palindrome mode): not affected
+  sentinels: SLIDINGWINDOW:4:20 keeps 6 nt (master 6); TRAILING:20 first-base-only read -> dropped (master dropped); MAXINFO:40:0.8 keeps 60 nt
+
+5. Linter
+----------
+The repository has no linter configuration: no checkstyle, spotbugs, pmd or
+spotless plugin in pom.xml, no .editorconfig, no formatter config under .settings/
+beyond the Eclipse defaults committed with the project. The patch follows the
+surrounding file's style (tabs, same brace placement).

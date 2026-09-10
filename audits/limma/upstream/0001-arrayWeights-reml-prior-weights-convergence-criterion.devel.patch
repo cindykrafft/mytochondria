@@ -1,0 +1,105 @@
+From 7ba85c1bf825fb1486eb58c0c9c9a32deb9982f3 Mon Sep 17 00:00:00 2001
+From: Mytochondria audit <audit@example.invalid>
+Date: Wed, 9 Sep 2026 22:35:54 +0000
+Subject: [PATCH] arrayWeights(method="reml") with prior weights: fix the
+ convergence criterion
+
+.arrayWeightsPrWtsREML (C kernel awreml.c) divided the Fisher-scoring
+convergence criterion by (ngenes + prior.n) a second time after info2 and
+z had already been averaged over genes, so the criterion was
+(ngenes + prior.n) times smaller than in .arrayWeightsREML and the
+iteration stopped after one or two steps at the default tol = 1e-5.
+arrayWeights(y, design, weights=matrix(1,...), method="reml") then
+differed from arrayWeights(y, design, method="reml") by up to 0.55 on
+3000 genes x 9 arrays, and voomLmFit(sample.weights=TRUE) returned
+under-converged sample weights.
+
+Use the same per-gene-average criterion as .arrayWeightsREML, add
+tests/arrayweights-reml.R and a NEWS entry.
+---
+ inst/NEWS.Rd              | 11 +++++++++++
+ src/awreml.c              |  8 +++++++-
+ tests/arrayweights-reml.R | 28 ++++++++++++++++++++++++++++
+ 3 files changed, 46 insertions(+), 1 deletion(-)
+ create mode 100644 tests/arrayweights-reml.R
+
+diff --git a/inst/NEWS.Rd b/inst/NEWS.Rd
+index 3735976..fb9823e 100644
+--- a/inst/NEWS.Rd
++++ b/inst/NEWS.Rd
+@@ -89,6 +89,17 @@
+   \item
+   Add test files dupcor.R, gls-series-c.R, lmfit-contrasts.R,
+   lm-series-c.R, and voomlmfit-contrasts.R.
++
++  \item
++  Bug fix to arrayWeights() with `method="reml"` and prior weights
++  (used by voomLmFit() for sample weights). The Fisher-scoring
++  convergence criterion was divided by the number of genes twice, so
++  the iteration stopped after one or two steps at the default `tol`
++  and the returned weights were not converged. The criterion is now
++  the same as for arrayWeights() without prior weights.
++
++  \item
++  Add test file arrayweights-reml.R.
+ }}
+ 
+ 
+diff --git a/src/awreml.c b/src/awreml.c
+index 19942c3..bcbbdb8 100644
+--- a/src/awreml.c
++++ b/src/awreml.c
+@@ -398,9 +398,15 @@ int awreml(const double *y, const double *design, const double *weights, const d
+ 			w[i] = exp(-s);
+ 		}
+ 
++		/* Convergence criterion. info2 and z were divided by denom above, so
++		 * dl = Z2'z and the step are already per-gene averages and num = dl'step
++		 * is on the same scale as crossprod(dl,gamstep)/(ngenes+prior.n) in
++		 * .arrayWeightsREML, whose dl is a sum over genes. Dividing by denom a
++		 * second time made the criterion (ngenes+prior.n) times too small and
++		 * stopped the scoring after one or two iterations at the default tol. */
+ 		for(c = 0; c < ngam; c++)
+ 			num += dl[c] * sol[c];
+-		convcrit = num / denom / ngam;
++		convcrit = num / ngam;
+ 
+ 		if(trace)
+ 		{
+diff --git a/tests/arrayweights-reml.R b/tests/arrayweights-reml.R
+new file mode 100644
+index 0000000..f3caf93
+--- /dev/null
++++ b/tests/arrayweights-reml.R
+@@ -0,0 +1,28 @@
++library(limma)
++
++#	Tests for arrayWeights(method="reml") with prior observation weights
++#	(.arrayWeightsPrWtsREML, C backend): unit prior weights must reproduce
++#	the no-weights REML fit, and the fit must be converged at the default tol.
++
++set.seed(2026)
++n <- 8L
++sdv <- exp(c(-0.5,0,0.5,0,0,0,0.6,-0.6))
++y <- matrix(rnorm(500*n), 500L, n) * rep(sdv, each=500L) + 6
++design <- cbind(Int=1, Trt=rep(c(0,1), each=4))
++
++#	1. Unit prior weights: same model, same data, same answer.
++aw0 <- arrayWeights(y, design, method="reml")
++aw1 <- arrayWeights(y, design, weights=matrix(1, 500L, n), method="reml")
++stopifnot(max(abs(aw0-aw1)) < 1e-8)
++
++#	2. Genuine prior weights: the default tol must give a nearly converged fit,
++#	so tightening tol by 1000x moves the weights only slightly. With the
++#	criterion divided by ngenes the scoring stops after 3 steps and this is 0.10.
++w <- matrix(rexp(500L*n), 500L, n)
++aw2 <- arrayWeights(y, design, weights=w, method="reml")
++aw3 <- suppressWarnings(arrayWeights(y, design, weights=w, method="reml", tol=1e-8, maxiter=200L))
++stopifnot(max(abs(log(aw2/aw3))) < 0.02)
++
++#	3. Sample weights must track the planted array variances (geometric mean 1)
++stopifnot(abs(mean(log(aw2))) < 1e-10)
++stopifnot(cor(log(aw2), -2*log(sdv)) > 0.95)
+-- 
+2.43.0
+

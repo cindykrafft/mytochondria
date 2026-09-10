@@ -1,3 +1,0 @@
-set_min=15 set_max=500: exit=0 report written=True; sets reported: ALL_PRESENT(size 20), ONE_ABSENT(size 19); first error line: -
-set_min=20 set_max=20: exit=1 report written=False; sets reported: -; first error line: java.lang.IllegalArgumentException: No such name: NOT_IN_LIST 
-set_min=19 set_max=19: exit=1 report written=False; sets reported: -; first error line: java.lang.IllegalArgumentException: No such name: NOT_IN_LIST 

@@ -1,0 +1,166 @@
+From c31cd2372298a85bf7cfc871b24f6634d1b4c124 Mon Sep 17 00:00:00 2001
+From: Mytochondria audit <noreply@example.invalid>
+Date: Thu, 10 Sep 2026 14:29:51 +0000
+Subject: [PATCH] Fix: charge Q/10 per mismatch in ILLUMINACLIP palindrome mode
+
+IlluminaPrefixPair.calculateDifferenceQuality computed the per-mismatch
+penalty as -qual1 / 10 on int operands, so the result was truncated
+towards zero before being stored in the float likelihood array: a
+mismatch at Q0-Q9 cost 0.0 instead of 0.0-0.9, one at Q10-Q19 cost 1.0
+instead of 1.0-1.9, and so on.
+
+The README documents one rule for both modes -- "each matching base adds
+just over 0.6, while each mismatch reduces the alignment score by Q/10"
+-- and simple mode already implements it as -quals[recPos] / 10.0f
+(IlluminaClippingSeq.calculateDifferenceQuality). Palindrome mode was the
+only place where the division was integer.
+
+The effect is one-sided: the penalty is always too small, so the
+palindrome score is too high and pairs whose read-through alignment is
+below palindromeClipThreshold are clipped and the reverse read dropped.
+With the shipped TruSeq3-PE-2 adapters, a 40 nt insert in 50 nt reads
+and six mismatches at Q9, the documented score is 27.1 (below the
+default threshold of 30, nothing to clip) but the coded score is 32.5,
+so read 1 is clipped to 40 nt and read 2 is dropped.
+
+Divide by 10.0f, as simple mode does.
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ .../trim/IlluminaClippingTrimmer.java         |  4 +-
+ ...IlluminaPalindromeMismatchPenaltyTest.java | 95 +++++++++++++++++++
+ versionHistory.txt                            |  2 +
+ 3 files changed, 99 insertions(+), 2 deletions(-)
+ create mode 100644 src/test/java/org/usadellab/trimmomatic/trim/IlluminaPalindromeMismatchPenaltyTest.java
+
+diff --git a/src/main/java/org/usadellab/trimmomatic/trim/IlluminaClippingTrimmer.java b/src/main/java/org/usadellab/trimmomatic/trim/IlluminaClippingTrimmer.java
+index ffec342..b82a131 100644
+--- a/src/main/java/org/usadellab/trimmomatic/trim/IlluminaClippingTrimmer.java
++++ b/src/main/java/org/usadellab/trimmomatic/trim/IlluminaClippingTrimmer.java
+@@ -491,9 +491,9 @@ public class IlluminaClippingTrimmer implements Trimmer {
+ 					likelihood[i] = 0;
+ 				else if (ch1 != ch2) {
+ 					if (qual1 < qual2)
+-						likelihood[i] = -qual1 / 10;
++						likelihood[i] = -qual1 / 10.0f;
+ 					else
+-						likelihood[i] = -qual2 / 10;
++						likelihood[i] = -qual2 / 10.0f;
+ 				} else
+ 					likelihood[i] = LOG10_4;
+ 			}
+diff --git a/src/test/java/org/usadellab/trimmomatic/trim/IlluminaPalindromeMismatchPenaltyTest.java b/src/test/java/org/usadellab/trimmomatic/trim/IlluminaPalindromeMismatchPenaltyTest.java
+new file mode 100644
+index 0000000..2854a4a
+--- /dev/null
++++ b/src/test/java/org/usadellab/trimmomatic/trim/IlluminaPalindromeMismatchPenaltyTest.java
+@@ -0,0 +1,95 @@
++package org.usadellab.trimmomatic.trim;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++import static org.junit.jupiter.api.Assertions.assertNotNull;
++import static org.junit.jupiter.api.Assertions.assertNull;
++import static org.mockito.Mockito.mock;
++
++import org.junit.jupiter.api.Test;
++import org.usadellab.trimmomatic.fastq.FastqRecord;
++import org.usadellab.trimmomatic.util.Logger;
++
++/**
++ * Palindrome mode must charge Q/10 per mismatch, as the README states and as
++ * simple mode does ({@code -quals[recPos] / 10.0f}). With an integer division a
++ * mismatch at Q0-9 costs nothing and one at Q10-19 costs 1 instead of 1.0-1.9,
++ * so pairs below the palindrome threshold get clipped.
++ *
++ * Geometry: a 40 nt insert read through into the TruSeq3 adapters, 50 nt reads,
++ * 60 aligned bases. A perfect match scores 60 x 0.602 = 36.1 (>= 30: clip).
++ * Six mismatches in read 2, placed outside the two 16-mer seeds, leave 54 matches
++ * = 32.5 before penalties.
++ */
++public class IlluminaPalindromeMismatchPenaltyTest {
++	private static final String PREFIX1 = "TACACTCTTTCCCTACACGACGCTCTTCCGATCT"; // PrefixPE/1
++	private static final String PREFIX2 = "GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT"; // PrefixPE/2
++
++	private static final String READ1 = "CCGTAATGCCTTTCCCTAACAGAGTTTTTCGAACTCGTGTAGATCGGAAG";
++	private static final String READ2_PERFECT = "ACACGAGTTCGAAAAACTCTGTTAGGGAAAGGCATTACGGAGATCGGAAG";
++	private static final String READ2_SIX_MISMATCHES = "CCCCGAGTTCGAAAAACTCTGTTAGGGAAAGGCATTAGGTAGCTCTGAAG";
++	private static final int[] MISMATCH_POS = { 0, 2, 37, 39, 42, 45 };
++
++	private static String quality(int q, int len) {
++		StringBuilder sb = new StringBuilder(len);
++		for (int i = 0; i < len; i++)
++			sb.append((char) (33 + q));
++		return sb.toString();
++	}
++
++	private static String read2Quality(int mismatchQ) {
++		char[] q = quality(35, READ2_SIX_MISMATCHES.length()).toCharArray();
++		for (int p : MISMATCH_POS)
++			q[p] = (char) (33 + mismatchQ);
++		return new String(q);
++	}
++
++	private static IlluminaClippingTrimmer trimmer() {
++		IlluminaClippingTrimmer trimmer = new IlluminaClippingTrimmer(mock(Logger.class), 2, 30, 10, 8, false);
++		trimmer.addPrefixPair(PREFIX1, PREFIX2);
++		return trimmer;
++	}
++
++	private static FastqRecord[] process(String read2, String qual2) {
++		FastqRecord rec1 = new FastqRecord("r1", READ1, "", quality(35, READ1.length()), 33);
++		FastqRecord rec2 = new FastqRecord("r2", read2, "", qual2, 33);
++		return trimmer().processRecords(new FastqRecord[] { rec1, rec2 });
++	}
++
++	@Test
++	public void testPerfectReadThroughIsClipped() {
++		// 60 x 0.602 = 36.1 >= 30: read 1 clipped to the 40 nt insert, read 2 dropped
++		FastqRecord[] result = process(READ2_PERFECT, quality(35, READ2_PERFECT.length()));
++		assertNotNull(result[0]);
++		assertEquals(40, result[0].getLength());
++		assertNull(result[1]);
++	}
++
++	@Test
++	public void testSixMismatchesAtQ9StayBelowThreshold() {
++		// 54 x 0.602 - 6 x 0.9 = 27.1 < 30: nothing to clip.
++		// Integer division charges 6 x 0 and reaches 32.5.
++		FastqRecord[] result = process(READ2_SIX_MISMATCHES, read2Quality(9));
++		assertNotNull(result[0]);
++		assertNotNull(result[1]);
++		assertEquals(50, result[0].getLength());
++		assertEquals(50, result[1].getLength());
++	}
++
++	@Test
++	public void testSixMismatchesAtQ19StayBelowThreshold() {
++		// 54 x 0.602 - 6 x 1.9 = 21.1 < 30; integer division charges 6 x 1 = 26.5 (also below)
++		FastqRecord[] result = process(READ2_SIX_MISMATCHES, read2Quality(19));
++		assertNotNull(result[0]);
++		assertNotNull(result[1]);
++		assertEquals(50, result[0].getLength());
++	}
++
++	@Test
++	public void testSixMismatchesAtQ2StillReachThreshold() {
++		// 54 x 0.602 - 6 x 0.2 = 31.3 >= 30: clipped under either rule
++		FastqRecord[] result = process(READ2_SIX_MISMATCHES, read2Quality(2));
++		assertNotNull(result[0]);
++		assertEquals(40, result[0].getLength());
++		assertNull(result[1]);
++	}
++}
+diff --git a/versionHistory.txt b/versionHistory.txt
+index f6c9240..7a8aa35 100644
+--- a/versionHistory.txt
++++ b/versionHistory.txt
+@@ -83,3 +83,5 @@ Version 0.41: Fix: Bug in IlluminaClippingTrimmer calculateMaximumRange
+               Internal: SerializedBlock manual Future<BlockData> replaced with CompletableFuture, removing synchronized/wait/notifyAll
+               Internal: Switch statements converted to switch expressions throughout (CompressionFormat, FastaRecord, IlluminaClippingTrimmer)
+               Fix: ILLUMINACLIP adapter lookup now also searches adapters/ subdirectory in the current working directory, fixing simplified invocation when the JAR is not co-located with the adapters/ folder
++
++Version 0.42 (unreleased): Fix: ILLUMINACLIP palindrome mode charged an integer Q/10 mismatch penalty, so mismatches at Q0-Q9 cost nothing and Q10-Q19 cost 1.0 instead of 1.0-1.9; it now uses the same Q/10.0f penalty as simple mode and as the README describes
+-- 
+2.43.0
+

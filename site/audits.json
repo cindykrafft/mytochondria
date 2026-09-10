@@ -262,6 +262,16 @@
     "ctlab/fgsea"
    ],
    "fork": "cindykrafft/clusterProfiler"
+  },
+  {
+   "dir": "star",
+   "name": "STAR",
+   "papers": 489,
+   "findings": 4,
+   "repos": [
+    "alexdobin/STAR"
+   ],
+   "fork": "cindykrafft/STAR"
   }
  ],
  "author": "cindykrafft",

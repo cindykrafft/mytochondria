@@ -1,0 +1,33 @@
+binary: bcftools 7abcc0d6-dirty / Using htslib 1.24-1-ge503e04
+shipped function: calc_mwu_biasZ() linked out of /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/bcftools/src/bam2bcf.o
+INT32_MAX = 2147483647 ; cube root = 1290.16
+
+[cross-check] truth() vs scipy.stats.mannwhitneyu (tie-corrected, no continuity correction) on 400 ref / 50 alt reads: |Z| 12.925547 vs 12.925547
+  (scipy's U is taken over the first sample, so only |Z| is comparable; bcftools' sign convention is U(ref<alt) - mean.)
+  agree
+
+[boundary] one tie bin of p reads, 40 alt reads in a second bin.
+     p            p^3  int32      truth Z   bcftools Z    replica Z  
+  1286     2126781656   fits     -35.9399     -35.9399     -35.9399  ok
+  1287     2131746903   fits     -35.9535     -35.9535     -35.9535  ok
+  1288     2136719872   fits     -35.9671     -35.9671     -35.9671  ok
+  1289     2141700569   fits     -35.9806     -35.9806     -35.9806  ok
+  1290     2146689000   fits     -35.9942     -35.9942     -35.9942  ok
+  1291     2151685171    OVF     -36.0077     -36.0077      -7.7068  ok
+  1292     2156689088    OVF     -36.0213     -36.0213      -7.7153  ok
+  1293     2161700757    OVF     -36.0348     -36.0348      -7.7239  ok
+  1294     2166720184    OVF     -36.0483     -36.0483      -7.7324  ok
+  1295     2171747375    OVF     -36.0619     -36.0619      -7.7409  ok
+  first p that is wrong: None (smallest p with p^3 > INT32_MAX: 1291)
+  no divergence anywhere in this range -- this is a build in which the accumulators are wide enough (i.e. patched)
+
+[direction] 5% alt fraction, half the alt reads at MQ30; total reads at the site swept.
+  431 cases, 0 wrong; |Z| too LARGE in 0, exactly 0 in 0, nan/inf in 0
+  no case diverges from the truth: nothing to report a direction for.
+
+[filter impact] `MQBZ < -3` is the mapping-quality-bias cut in the bcftools/samtools "calling SNPs/INDELs" workflow and in the filter recipes built on it.  Sweep of pileups: total reads at the site x alt fraction x fraction of the alt reads carrying the lower MQ.
+  160 pileups swept, 0 get a wrong Z; in 0 of them the MQBZ < -3 verdict FLIPS from drop to keep.
+  total_altpct_lopct        tie p      truth Z   bcftools Z
+
+harness self-check failures (scipy cross-check + boundary): 0
+cases where this build disagrees with the int32-wrapping replica: 435 (0 on an unpatched build -- the replica is exact; all of them on a build whose accumulators have been widened)

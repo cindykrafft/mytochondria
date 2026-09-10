@@ -1,0 +1,96 @@
+=== unmodified master (dc35c76) + the two audit test classes + the project's XMathTest and VectorTest
+PASS edu.mit.broad.genome.alg.gsea.GeneSetScoringTablesTest.weighted_hitWeightsAreSymmetricInSign
+PASS edu.mit.broad.genome.alg.gsea.GeneSetScoringTablesTest.weightedSquared_hitWeightsAreSymmetricInSign
+FAIL edu.mit.broad.genome.alg.gsea.GeneSetScoringTablesTest.weightedOnePointFive_hitWeightsAreSymmetricInSign: org.opentest4j.AssertionFailedError: negative-score hit (p=1.5) ==> expected: <0.5> but was: <1.0E-6>
+FAIL edu.mit.broad.genome.alg.gsea.GeneSetScoringTablesTest.weightedOnePointFive_hitWeightsAreAbsScoreToThe1_5: org.opentest4j.AssertionFailedError: expected: <0.8888889> but was: <1.0E-6>
+Sep 10, 2026 2:31:20 PM edu.mit.broad.genome.alg.gsea.GeneSetCohort$Generator filterGeneSetsByMembersAndSize
+INFO: Got gsets: 4 now preprocessing them ... min: 5 max: 10
+Sep 10, 2026 2:31:20 PM edu.mit.broad.genome.alg.gsea.GeneSetCohort$Generator filterGeneSetsByMembersAndSize
+INFO: Done preproc for smaller than: 5
+Sep 10, 2026 2:31:20 PM edu.mit.broad.genome.alg.gsea.GeneSetCohort$Generator filterGeneSetsByMembersAndSize
+INFO: Done preproc for larger than: 10
+PASS edu.mit.broad.genome.alg.gsea.GeneSetCohortSizeFilterTest.filtersOnBothBoundsWhenTheyDiffer
+Sep 10, 2026 2:31:20 PM edu.mit.broad.genome.alg.gsea.GeneSetCohort$Generator filterGeneSetsByMembersAndSize
+INFO: Skipped gene set size filtering: max and min thresholds are equal
+FAIL edu.mit.broad.genome.alg.gsea.GeneSetCohortSizeFilterTest.equalBoundsSelectTheSetsOfThatSize: org.opentest4j.AssertionFailedError: array lengths differ, expected: <1> but was: <4>
+Sep 10, 2026 2:31:20 PM edu.mit.broad.genome.alg.gsea.GeneSetCohort$Generator filterGeneSetsByMembersAndSize
+INFO: Skipped gene set size filtering: max and min thresholds are equal
+FAIL edu.mit.broad.genome.alg.gsea.GeneSetCohortSizeFilterTest.membersMissingFromTheRankedListAreDroppedFromTheSize: org.opentest4j.AssertionFailedError: expected: <4> but was: <5>
+PASS edu.mit.broad.genome.math.XMathTest.max_normalCasePos
+PASS edu.mit.broad.genome.math.XMathTest.max_normalCaseNeg
+PASS edu.mit.broad.genome.math.XMathTest.max_normalCaseMix
+PASS edu.mit.broad.genome.math.XMathTest.max_normalCaseNaN
+Sep 10, 2026 2:31:20 PM edu.mit.broad.genome.math.XMath max
+WARNING: FIX ME Zero length array
+PASS edu.mit.broad.genome.math.XMathTest.max_errorEmpty
+PASS edu.mit.broad.genome.math.XMathTest.sum_normalCasePos
+PASS edu.mit.broad.genome.math.XMathTest.sum_normalCaseNeg
+PASS edu.mit.broad.genome.math.XMathTest.sum_normalCaseMix
+PASS edu.mit.broad.genome.math.XMathTest.sum_normalCaseNaN
+PASS edu.mit.broad.genome.math.XMathTest.sum_normalCaseEmpty
+PASS edu.mit.broad.genome.math.XMathTest.mean_normalCasePos
+PASS edu.mit.broad.genome.math.XMathTest.mean_normalCaseNeg
+PASS edu.mit.broad.genome.math.XMathTest.mean_normalCaseMix
+PASS edu.mit.broad.genome.math.XMathTest.mean_normalCaseNaN
+PASS edu.mit.broad.genome.math.XMathTest.mean_normalCaseEmpty
+PASS edu.mit.broad.genome.math.XMathTest.median_normalCasePos
+PASS edu.mit.broad.genome.math.XMathTest.median_normalCaseNeg
+PASS edu.mit.broad.genome.math.XMathTest.median_normalCaseMix
+PASS edu.mit.broad.genome.math.XMathTest.median_normalCaseNaN
+PASS edu.mit.broad.genome.math.XMathTest.median_normalCaseEmpty
+PASS edu.mit.broad.genome.math.XMathTest.max_smallVector
+PASS edu.mit.broad.genome.math.XMathTest.max_smallVectorWithNaN
+PASS edu.mit.broad.genome.math.XMathTest.max_largeVector
+PASS edu.mit.broad.genome.math.XMathTest.sum_smallVector
+PASS edu.mit.broad.genome.math.XMathTest.sum_smallVectorWithNaN
+PASS edu.mit.broad.genome.math.XMathTest.sum_largeVector
+PASS edu.mit.broad.genome.math.XMathTest.mean_smallVector
+PASS edu.mit.broad.genome.math.XMathTest.mean_smallVectorWithNaN
+PASS edu.mit.broad.genome.math.XMathTest.mean_largeVector
+PASS edu.mit.broad.genome.math.XMathTest.median_smallVector
+PASS edu.mit.broad.genome.math.XMathTest.median_smallVectorWithNaN
+PASS edu.mit.broad.genome.math.XMathTest.median_largeVector
+PASS edu.mit.broad.genome.math.VectorTest.max_normalCasePos
+PASS edu.mit.broad.genome.math.VectorTest.max_normalCaseNeg
+PASS edu.mit.broad.genome.math.VectorTest.max_normalCaseMix
+PASS edu.mit.broad.genome.math.VectorTest.max_normalCaseNaN
+PASS edu.mit.broad.genome.math.VectorTest.sum_normalCasePos
+PASS edu.mit.broad.genome.math.VectorTest.sum_normalCaseNeg
+PASS edu.mit.broad.genome.math.VectorTest.sum_normalCaseMix
+PASS edu.mit.broad.genome.math.VectorTest.sum_normalCaseEmpty
+PASS edu.mit.broad.genome.math.VectorTest.mean_normalCasePos
+PASS edu.mit.broad.genome.math.VectorTest.mean_normalCaseNeg
+PASS edu.mit.broad.genome.math.VectorTest.mean_normalCaseMix
+PASS edu.mit.broad.genome.math.VectorTest.mean_normalCaseEmpty
+PASS edu.mit.broad.genome.math.VectorTest.median_normalCasePos
+PASS edu.mit.broad.genome.math.VectorTest.median_normalCaseNeg
+PASS edu.mit.broad.genome.math.VectorTest.median_normalCaseMix
+PASS edu.mit.broad.genome.math.VectorTest.median_normalCaseNaN
+PASS edu.mit.broad.genome.math.VectorTest.median_normalCaseEmpty
+WARNING: could not find max for: 
+PASS edu.mit.broad.genome.math.VectorTest.max_normalEmpty
+PASS edu.mit.broad.genome.math.VectorTest.sum_expectNaN
+PASS edu.mit.broad.genome.math.VectorTest.sumNaNsafe_normalCaseNaN
+PASS edu.mit.broad.genome.math.VectorTest.mean_expectNaN
+PASS edu.mit.broad.genome.math.VectorTest.meanNaNsafe_normalCaseNaN
+passed 57 failed 4
+
+=== with fix/weighted-p1.5-negative-scores (GS1 patch)
+PASS edu.mit.broad.genome.alg.gsea.GeneSetScoringTablesTest.weighted_hitWeightsAreSymmetricInSign
+PASS edu.mit.broad.genome.alg.gsea.GeneSetScoringTablesTest.weightedSquared_hitWeightsAreSymmetricInSign
+PASS edu.mit.broad.genome.alg.gsea.GeneSetScoringTablesTest.weightedOnePointFive_hitWeightsAreSymmetricInSign
+PASS edu.mit.broad.genome.alg.gsea.GeneSetScoringTablesTest.weightedOnePointFive_hitWeightsAreAbsScoreToThe1_5
+PASS edu.mit.broad.genome.alg.gsea.GeneSetCohortSizeFilterTest.filtersOnBothBoundsWhenTheyDiffer
+FAIL edu.mit.broad.genome.alg.gsea.GeneSetCohortSizeFilterTest.equalBoundsSelectTheSetsOfThatSize: org.opentest4j.AssertionFailedError: array lengths differ, expected: <1> but was: <4>
+FAIL edu.mit.broad.genome.alg.gsea.GeneSetCohortSizeFilterTest.membersMissingFromTheRankedListAreDroppedFromTheSize: org.opentest4j.AssertionFailedError: expected: <4> but was: <5>
+passed 59 failed 2
+
+=== with fix/set-size-filter-min-equals-max (GS2 patch)
+PASS edu.mit.broad.genome.alg.gsea.GeneSetScoringTablesTest.weighted_hitWeightsAreSymmetricInSign
+PASS edu.mit.broad.genome.alg.gsea.GeneSetScoringTablesTest.weightedSquared_hitWeightsAreSymmetricInSign
+FAIL edu.mit.broad.genome.alg.gsea.GeneSetScoringTablesTest.weightedOnePointFive_hitWeightsAreSymmetricInSign: org.opentest4j.AssertionFailedError: negative-score hit (p=1.5) ==> expected: <0.5> but was: <1.0E-6>
+FAIL edu.mit.broad.genome.alg.gsea.GeneSetScoringTablesTest.weightedOnePointFive_hitWeightsAreAbsScoreToThe1_5: org.opentest4j.AssertionFailedError: expected: <0.8888889> but was: <1.0E-6>
+PASS edu.mit.broad.genome.alg.gsea.GeneSetCohortSizeFilterTest.filtersOnBothBoundsWhenTheyDiffer
+PASS edu.mit.broad.genome.alg.gsea.GeneSetCohortSizeFilterTest.equalBoundsSelectTheSetsOfThatSize
+PASS edu.mit.broad.genome.alg.gsea.GeneSetCohortSizeFilterTest.membersMissingFromTheRankedListAreDroppedFromTheSize
+passed 59 failed 2

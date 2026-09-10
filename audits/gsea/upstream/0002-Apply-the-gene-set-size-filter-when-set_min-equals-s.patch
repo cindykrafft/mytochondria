@@ -1,0 +1,144 @@
+From 4a23c1fb0744af9a52feef2a8c0ff0b241f63206 Mon Sep 17 00:00:00 2001
+From: Mytochondria audit <audit@example.invalid>
+Date: Thu, 10 Sep 2026 14:30:34 +0000
+Subject: [PATCH] Apply the gene set size filter when set_min equals set_max
+
+GeneSetCohort.Generator.filterGeneSetsByMembersAndSize ran the size filter only
+when geneSetMinSize != geneSetMaxSize; the equal case fell into an
+"@note hack" branch that did nothing at all.  Asking for one exact size --
+-set_min 20 -set_max 20 -- therefore did not select the size-20 sets, it turned
+the filter off, and every set in the GMT was scored and reported with an NES, a
+nominal p and an FDR q, silently and with no warning beyond an INFO line.
+
+The same branch also skipped GeneSetGenerators.removeGeneSetsSmallerThan(gsets,
+min, rl), which is where each set is restricted (GeneSet.cloneDeep(rl)) to the
+genes present in the ranked list.  A set with a member absent from the ranked
+list then reached the scoring table and aborted the run with
+java.lang.IllegalArgumentException: No such name: <gene>.
+
+Run the two filters unconditionally.  When the bounds are equal they keep
+exactly the sets whose in-list size equals that value, which is what the
+parameter help ("Gene sets smaller than this number are EXLCUDED from the
+analysis") describes.
+
+Adds GeneSetCohortSizeFilterTest covering unequal bounds, equal bounds, and a
+set with a member missing from the ranked list.
+---
+ .../broad/genome/alg/gsea/GeneSetCohort.java  | 16 ++--
+ .../alg/gsea/GeneSetCohortSizeFilterTest.java | 77 +++++++++++++++++++
+ 2 files changed, 83 insertions(+), 10 deletions(-)
+ create mode 100644 src/test/java/edu/mit/broad/genome/alg/gsea/GeneSetCohortSizeFilterTest.java
+
+diff --git a/src/main/java/edu/mit/broad/genome/alg/gsea/GeneSetCohort.java b/src/main/java/edu/mit/broad/genome/alg/gsea/GeneSetCohort.java
+index 894d69b..549d776 100755
+--- a/src/main/java/edu/mit/broad/genome/alg/gsea/GeneSetCohort.java
++++ b/src/main/java/edu/mit/broad/genome/alg/gsea/GeneSetCohort.java
+@@ -185,16 +185,12 @@ public class GeneSetCohort {
+         public GeneSet[] filterGeneSetsByMembersAndSize(final RankedList rl, GeneSet[] gsets) throws Exception {
+             if (geneSetMaxSize < geneSetMinSize) { throw new IllegalArgumentException("Max size cannot be less than min size"); }
+ 
+-            if (geneSetMinSize != geneSetMaxSize) {
+-                log.info("Got gsets: " + gsets.length + " now preprocessing them ... min: " + geneSetMinSize + " max: " + geneSetMaxSize);
+-                gsets = GeneSetGenerators.removeGeneSetsSmallerThan(gsets, geneSetMinSize, rl);
+-                log.info("Done preproc for smaller than: " + geneSetMinSize);
+-                // TODO: eval for performance: no need to filter by RL here since we already did it in the min filter
+-                gsets = GeneSetGenerators.removeGeneSetsLargerThan(gsets, geneSetMaxSize, rl);
+-                log.info("Done preproc for larger than: " + geneSetMaxSize);
+-           } else { // @note hack
+-                log.info("Skipped gene set size filtering: max and min thresholds are equal");
+-            }
++            log.info("Got gsets: " + gsets.length + " now preprocessing them ... min: " + geneSetMinSize + " max: " + geneSetMaxSize);
++            gsets = GeneSetGenerators.removeGeneSetsSmallerThan(gsets, geneSetMinSize, rl);
++            log.info("Done preproc for smaller than: " + geneSetMinSize);
++            // TODO: eval for performance: no need to filter by RL here since we already did it in the min filter
++            gsets = GeneSetGenerators.removeGeneSetsLargerThan(gsets, geneSetMaxSize, rl);
++            log.info("Done preproc for larger than: " + geneSetMaxSize);
+ 
+             // Finally remove all 0 size gene sets (if min is 0 these will still be in there)
+             gsets = removeAllZeroMemberSets(gsets);
+diff --git a/src/test/java/edu/mit/broad/genome/alg/gsea/GeneSetCohortSizeFilterTest.java b/src/test/java/edu/mit/broad/genome/alg/gsea/GeneSetCohortSizeFilterTest.java
+new file mode 100644
+index 0000000..3170c5e
+--- /dev/null
++++ b/src/test/java/edu/mit/broad/genome/alg/gsea/GeneSetCohortSizeFilterTest.java
+@@ -0,0 +1,77 @@
++/*
++ * Copyright (c) 2003-2025 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
++ */
++package edu.mit.broad.genome.alg.gsea;
++
++import static org.junit.jupiter.api.Assertions.assertArrayEquals;
++import static org.junit.jupiter.api.Assertions.assertEquals;
++
++import java.util.ArrayList;
++import java.util.Arrays;
++import java.util.List;
++
++import org.junit.jupiter.api.Test;
++
++import edu.mit.broad.genome.math.Vector;
++import edu.mit.broad.genome.objects.DefaultRankedList;
++import edu.mit.broad.genome.objects.GeneSet;
++import edu.mit.broad.genome.objects.RankedList;
++
++/**
++ * The gene set size filter of GeneSetCohort.Generator.  "set_min" and "set_max" are
++ * inclusive bounds on the number of set members present in the ranked list, so a set
++ * survives exactly when set_min <= size <= set_max -- including when the two bounds are
++ * equal, which selects the sets of that one size.
++ */
++public class GeneSetCohortSizeFilterTest {
++    private static final int N = 40;
++
++    private static RankedList rankedList() {
++        List<String> names = new ArrayList<String>(N);
++        float[] scores = new float[N];
++        for (int i = 0; i < N; i++) {
++            names.add("g" + i);
++            scores[i] = N - i;
++        }
++        return new DefaultRankedList("rl", names, new Vector(scores));
++    }
++
++    private static GeneSet setOfSize(String name, int size) {
++        String[] members = new String[size];
++        for (int i = 0; i < size; i++) { members[i] = "g" + i; }
++        return new GeneSet(name, members);
++    }
++
++    private static String[] survivingNames(int min, int max) throws Exception {
++        GeneSet[] gsets = new GeneSet[] { setOfSize("s3", 3), setOfSize("s5", 5),
++                setOfSize("s10", 10), setOfSize("s20", 20) };
++        GeneSet[] kept = new GeneSetCohort.Generator(new GeneSetScoringTables.Weighted(), min, max)
++                .filterGeneSetsByMembersAndSize(rankedList(), gsets);
++        String[] names = new String[kept.length];
++        for (int i = 0; i < kept.length; i++) { names[i] = kept[i].getName(); }
++        Arrays.sort(names);
++        return names;
++    }
++
++    @Test
++    void filtersOnBothBoundsWhenTheyDiffer() throws Exception {
++        assertArrayEquals(new String[] { "s10", "s5" }, survivingNames(5, 10));
++    }
++
++    @Test
++    void equalBoundsSelectTheSetsOfThatSize() throws Exception {
++        assertArrayEquals(new String[] { "s10" }, survivingNames(10, 10));
++        assertArrayEquals(new String[] { "s3" }, survivingNames(3, 3));
++    }
++
++    @Test
++    void membersMissingFromTheRankedListAreDroppedFromTheSize() throws Exception {
++        // s5x has 5 members but only 4 of them are on the ranked list, so its size is 4
++        GeneSet[] gsets = new GeneSet[] {
++                new GeneSet("s5x", new String[] { "g0", "g1", "g2", "g3", "not_on_the_list" }) };
++        GeneSet[] kept = new GeneSetCohort.Generator(new GeneSetScoringTables.Weighted(), 4, 4)
++                .filterGeneSetsByMembersAndSize(rankedList(), gsets);
++        assertEquals(1, kept.length);
++        assertEquals(4, kept[0].getNumMembers());
++    }
++}
+-- 
+2.43.0
+

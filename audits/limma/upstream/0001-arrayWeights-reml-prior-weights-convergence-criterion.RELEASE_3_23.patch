@@ -1,0 +1,91 @@
+From 84afdf692bc43f00ec0f8b5e82715a7abad4f08e Mon Sep 17 00:00:00 2001
+From: Mytochondria audit <audit@example.invalid>
+Date: Wed, 9 Sep 2026 22:35:54 +0000
+Subject: [PATCH] arrayWeights(method="reml") with prior weights: fix the
+ convergence criterion
+
+.arrayWeightsPrWtsREML divided the Fisher-scoring convergence criterion
+by (ngenes + prior.n) a second time after info2 and z had already been
+averaged over genes, so the criterion was (ngenes + prior.n) times
+smaller than in .arrayWeightsREML and the iteration stopped after one or
+two steps at the default tol = 1e-5. arrayWeights(y, design,
+weights=matrix(1,...), method="reml") then differed from
+arrayWeights(y, design, method="reml") by up to 0.55 on 3000 genes x 9
+arrays, and voomLmFit(sample.weights=TRUE) (edgeR) returns
+under-converged sample weights when it takes this path.
+
+Use the same per-gene-average criterion as .arrayWeightsREML and add
+the unit-weights case to tests/limma-Tests.R (saved output updated).
+---
+ R/arrayWeightsPrWtsREML.R   |  6 ++++--
+ tests/limma-Tests.R         | 10 ++++++++++
+ tests/limma-Tests.Rout.save | 11 +++++++++++
+ 3 files changed, 25 insertions(+), 2 deletions(-)
+
+diff --git a/R/arrayWeightsPrWtsREML.R b/R/arrayWeightsPrWtsREML.R
+index f76c7cb..69ce41e 100644
+--- a/R/arrayWeightsPrWtsREML.R
++++ b/R/arrayWeightsPrWtsREML.R
+@@ -4,7 +4,7 @@
+ #	Uses an exact Fisher scoring algorithm similar to statmod::remlscor.
+ #	Gordon Smyth
+ #	Created 12 Feb 2019 from .arrayWeightsREML.
+-#	Last revised 15 Feb 2019.
++#	Last revised 9 Sep 2026.
+ {
+ #	y should be a numeric matrix
+ 	narrays <- ncol(y)
+@@ -74,7 +74,9 @@
+ 		w <- drop(exp(Z2 %*% (-gam)))
+ 
+ #		Test for convergence
+-		convcrit <- crossprod(dl,gamstep) / (ngenes+prior.n) / ngam
++#		info2 and z are already averaged per gene, so dl and gamstep are on the
++#		same scale as crossprod(dl,gamstep)/(ngenes+prior.n) in .arrayWeightsREML
++		convcrit <- crossprod(dl,gamstep) / ngam
+ 		if(trace) cat(iter,convcrit,range(w),"\n")
+ 		if(is.na(convcrit)) {
+ 			warning("convergence tolerance not achievable, stopping prematurely")
+diff --git a/tests/limma-Tests.R b/tests/limma-Tests.R
+index 29033e3..7544cbb 100755
+--- a/tests/limma-Tests.R
++++ b/tests/limma-Tests.R
+@@ -289,3 +289,13 @@ EB <- c("133746","1339","134","1340","134083","134111","134147","134187","134218
+ go <- goana(fit,FDR=0.8,geneid=EB)
+ topGO(go,number=10,truncate.term=30)
+ topGO(go,number=10,truncate.term=30,sort="down")
++
++### arrayWeights with prior weights (REML)
++
++set.seed(12)
++sdv <- exp(c(-0.5,0,0.5,0,0,0,0.6,-0.6))
++yaw <- matrix(rnorm(500*8),500,8) * rep(sdv,each=500) + 6
++designaw <- cbind(1,rep(0:1,each=4))
++aw0 <- arrayWeights(yaw,designaw,method="reml")
++aw1 <- arrayWeights(yaw,designaw,weights=matrix(1,500,8),method="reml")
++all.equal(aw0,aw1,tolerance=1e-8)
+diff --git a/tests/limma-Tests.Rout.save b/tests/limma-Tests.Rout.save
+index 74d5143..c1f1205 100755
+--- a/tests/limma-Tests.Rout.save
++++ b/tests/limma-Tests.Rout.save
+@@ -1271,6 +1271,17 @@ GO:0003006 developmental process invol...  BP 3  0    2    1 0.025788497
+ GO:0007276              gamete generation  BP 3  0    2    1 0.025788497
+ GO:0007507              heart development  BP 3  0    2    1 0.025788497
+ > 
++> ### arrayWeights with prior weights (REML)
++> 
++> set.seed(12)
++> sdv <- exp(c(-0.5,0,0.5,0,0,0,0.6,-0.6))
++> yaw <- matrix(rnorm(500*8),500,8) * rep(sdv,each=500) + 6
++> designaw <- cbind(1,rep(0:1,each=4))
++> aw0 <- arrayWeights(yaw,designaw,method="reml")
++> aw1 <- arrayWeights(yaw,designaw,weights=matrix(1,500,8),method="reml")
++> all.equal(aw0,aw1,tolerance=1e-8)
++[1] TRUE
++> 
+ > proc.time()
+    user  system elapsed 
+    2.76    0.89    4.57 
+-- 
+2.43.0
+

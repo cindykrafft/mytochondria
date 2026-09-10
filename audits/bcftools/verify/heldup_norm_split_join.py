@@ -88,7 +88,10 @@ for k, r in enumerate(rs, start=1):
     e_gt = []
     for g in gts:
         a, b = (int(x) for x in g.split("/"))
-        m = lambda x: "0" if x == 0 else ("1" if x == k else ".")
+        # bcftools norm --multi-overlaps defaults to `0` (vcfnorm.c:2600
+        # "Fill in the reference (0) or missing (.) allele ... [0]"), so an
+        # allele belonging to the *other* record becomes REF, not missing.
+        m = lambda x: "0" if x == 0 else ("1" if x == k else "0")
         e_gt.append(m(a) + "/" + m(b))
     e_ad = [[a[0], a[k]] for a in ad]
     e_pl = [[p[idx(0, 0)], p[idx(0, k)], p[idx(k, k)]] for p in pl]
@@ -98,9 +101,13 @@ for k, r in enumerate(rs, start=1):
         and [r["samples"][s]["AD"] for s in samples] == [",".join(map(str, x)) for x in e_ad] and [r["samples"][s]["PL"] for s in samples] == [",".join(map(str, x)) for x in e_pl]
     if not ok: nb2 += 1; line += "   MISMATCH (expected GT %s AD %s PL %s)" % (e_gt, e_ad, e_pl)
     print(line)
-print("  the other ALT allele in a genotype becomes '.' (--multi-overlaps . default); AN, DP, QUAL are copied; Number=A/R/G fields take the allele's slots")
-out2, _ = run(BIN, ["norm", "-m", "-any", "--multi-overlaps", "0", vcf2])
-print("  with --multi-overlaps 0: GT =", [[r["samples"][s]["GT"] for s in samples] for r in vcf_records(out2)])
+print("  the other ALT allele in a genotype becomes REF (--multi-overlaps 0, the")
+print("  documented default); AN, DP, QUAL are copied; Number=A/R/G fields take the allele's slots.")
+print("  NOTE: this is lossy in the AC/AF direction -- a 1/2 sample contributes an")
+print("  extra REF allele to *each* biallelic record, so summing AC over the split")
+print("  records double-counts nothing but summing the REF count does.")
+out2, _ = run(BIN, ["norm", "-m", "-any", "--multi-overlaps", ".", vcf2])
+print("  with --multi-overlaps . : GT =", [[r["samples"][s]["GT"] for s in samples] for r in vcf_records(out2)])
 # join back
 split_path = os.path.join(tmp, "split.vcf"); open(split_path, "w").write(out)
 out3, _ = run(BIN, ["norm", "-m", "+any", split_path])

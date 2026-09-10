@@ -1,0 +1,68 @@
+############################################################
+# current master / release 2.7.11b
+############################################################
+2.7.11b
+--- GTF strand column '+'
+Aligned.toTranscriptome.out.bam  (QNAME FLAG POS SEQ-vs-transcript):
+    sense flag=0 pos=21  SEQ matches the transcript at this position
+    anti flag=16 pos=61  SEQ matches the transcript at this position
+  STARsolo --soloStrand Forward Gene UMI count: 4
+  STARsolo --soloStrand Forward GeneFull UMI count: 4
+--- GTF strand column '.'
+Aligned.toTranscriptome.out.bam  (QNAME FLAG POS SEQ-vs-transcript):
+    sense flag=16 pos=21  SEQ DOES NOT MATCH the transcript at this position
+    anti flag=0 pos=61  SEQ DOES NOT MATCH the transcript at this position
+  STARsolo --soloStrand Forward Gene UMI count: 0
+  STARsolo --soloStrand Forward GeneFull UMI count: 0
+
+############################################################
+# release 2.7.10a
+############################################################
+2.7.10a
+--- GTF strand column '+'
+Aligned.toTranscriptome.out.bam  (QNAME FLAG POS SEQ-vs-transcript):
+    sense flag=0 pos=21  SEQ matches the transcript at this position
+    anti flag=16 pos=61  SEQ matches the transcript at this position
+  STARsolo --soloStrand Forward Gene UMI count: 4
+  STARsolo --soloStrand Forward GeneFull UMI count: 4
+--- GTF strand column '.'
+Aligned.toTranscriptome.out.bam  (QNAME FLAG POS SEQ-vs-transcript):
+    sense flag=16 pos=21  SEQ DOES NOT MATCH the transcript at this position
+    anti flag=0 pos=61  SEQ DOES NOT MATCH the transcript at this position
+  STARsolo --soloStrand Forward Gene UMI count: 0
+  STARsolo --soloStrand Forward GeneFull UMI count: 0
+
+############################################################
+# release 2.7.9a
+############################################################
+2.7.9a
+--- GTF strand column '+'
+Aligned.toTranscriptome.out.bam  (QNAME FLAG POS SEQ-vs-transcript):
+    sense flag=0 pos=21  SEQ matches the transcript at this position
+    anti flag=16 pos=61  SEQ matches the transcript at this position
+  STARsolo --soloStrand Forward Gene UMI count: 4
+  STARsolo --soloStrand Forward GeneFull UMI count: 4
+--- GTF strand column '.'
+Aligned.toTranscriptome.out.bam  (QNAME FLAG POS SEQ-vs-transcript):
+    sense flag=16 pos=21  SEQ DOES NOT MATCH the transcript at this position
+    anti flag=0 pos=61  SEQ DOES NOT MATCH the transcript at this position
+  STARsolo --soloStrand Forward Gene UMI count: 0
+  STARsolo --soloStrand Forward GeneFull UMI count: 0
+
+############################################################
+# master + the patch in this kit
+############################################################
+2.7.11b
+--- GTF strand column '+'
+Aligned.toTranscriptome.out.bam  (QNAME FLAG POS SEQ-vs-transcript):
+    sense flag=0 pos=21  SEQ matches the transcript at this position
+    anti flag=16 pos=61  SEQ matches the transcript at this position
+  STARsolo --soloStrand Forward Gene UMI count: 4
+  STARsolo --soloStrand Forward GeneFull UMI count: 4
+--- GTF strand column '.'
+Aligned.toTranscriptome.out.bam  (QNAME FLAG POS SEQ-vs-transcript):
+    sense flag=0 pos=21  SEQ matches the transcript at this position
+    anti flag=16 pos=61  SEQ matches the transcript at this position
+  STARsolo --soloStrand Forward Gene UMI count: 4
+  STARsolo --soloStrand Forward GeneFull UMI count: 4
+

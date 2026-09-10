@@ -1,0 +1,32 @@
+limma 3.99.0 
+--- .arrayWeightsREML trace (no prior weights), tol=1e-5
+iter convcrit range(w)
+1 0.2138735 0.3294516 1.938922 
+2 0.01236459 0.3096127 2.757036 
+3 0.001221143 0.3002686 3.167702 
+4 6.861573e-05 0.297645 3.283304 
+5 2.762911e-06 0.2970446 3.306318 
+--- .arrayWeightsPrWtsREML trace (unit prior weights), tol=1e-5
+1 0.213873 0.329452 1.93892
+2 0.0123646 0.309613 2.75704
+3 0.00122114 0.300269 3.1677
+4 6.86157e-05 0.297645 3.2833
+5 2.76291e-06 0.297045 3.30632
+weights no-prior-weights : 2.6562 1.0539 0.3775 1.0147 1.0369 0.9507 0.2970 3.3063 0.9632
+weights unit-prior-weights: 2.6562 1.0539 0.3775 1.0147 1.0369 0.9507 0.2970 3.3063 0.9632
+max |diff| 8.882e-16
+independent REML+prior score |Z2'z|/(G+prior.n): no-weights path 2.98e-04, unit-weights path 2.98e-04
+unit-weights path tol=1e-05: max |diff| vs no-weights path 8.88e-16, score 2.98e-04
+unit-weights path tol=1e-08: max |diff| vs no-weights path 4.91e-03, score 1.69e-05
+unit-weights path tol=1e-11: max |diff| vs no-weights path 5.08e-03, score 1.00e-06
+unit-weights path tol=1e-14: max |diff| vs no-weights path 5.08e-03, score 1.38e-08
+random prior weights: default tol -> 2.5599 1.1180 0.3605 1.0123 1.1227 0.9678 0.2675 3.1392 1.0497
+                      tol=1e-14  -> 2.5700 1.1164 0.3601 1.0107 1.1209 0.9652 0.2672 3.1591 1.0487
+  max |diff| 1.983e-02; scores 1.11e-03 vs 4.73e-08
+--- voom weights, method='reml' trace
+1 0.00021302 0.973831 1.03709
+2 1.08906e-05 0.96815 1.04581
+3 5.74909e-07 0.966871 1.04778
+voom + reml: default 1.0123 1.0478 0.9932 1.0129 0.9971 0.9819 0.9669 1.0114 0.9787
+             tol=1e-14 1.0125 1.0484 0.9930 1.0133 0.9971 0.9817 0.9665 1.0114 0.9785
+  max |diff| 5.805e-04

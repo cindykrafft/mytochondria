@@ -1,0 +1,12 @@
+jar/classpath: /tmp/gseawork/patched/gsea-gs2-patched.jar:/tmp/gseawork/src/modules/*
+
+A. size filter, GMT with sets of sizes [5, 15, 20, 100, 600]
+  -set_min  20 -set_max 500: sets reported ['SET_100', 'SET_20'] sizes [20, 100]; expected sizes [20, 100]  -> ok
+  -set_min  20 -set_max 100: sets reported ['SET_100', 'SET_20'] sizes [20, 100]; expected sizes [20, 100]  -> ok
+  -set_min  20 -set_max  20: sets reported ['SET_20'] sizes [20]; expected sizes [20]  -> ok
+  -set_min 100 -set_max 100: sets reported ['SET_100'] sizes [100]; expected sizes [100]  -> ok
+  -set_min   5 -set_max   5: sets reported ['SET_5'] sizes [5]; expected sizes [5]  -> ok
+
+B. same thresholds, GMT that also holds one set with a member absent from the .rnk
+  -set_min  20 -set_max 500: sets reported ['SET_100', 'SET_20'] sizes [20, 100]
+  -set_min  20 -set_max  20: sets reported ['SET_20'] sizes [20]
