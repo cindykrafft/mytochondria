@@ -207,6 +207,8 @@ FORK={"spm":"cindykrafft/spm","fieldtrip":"cindykrafft/fieldtrip","afni":"cindyk
       "scanpy":"cindykrafft/scanpy","umap":"cindykrafft/umap","cutadapt":"cindykrafft/cutadapt","cellphonedb":"cindykrafft/CellphoneDB","plink":"cindykrafft/plink-ng","deeptools":"cindykrafft/deepTools",
       "bedtools":"cindykrafft/bedtools2","fastp":"cindykrafft/fastp","iqtree":"cindykrafft/iqtree3","macs2":"cindykrafft/MACS"}
 PUSHED=set(open(ROOT+"/site/pushed-branches.txt").read().split()) if os.path.exists(ROOT+"/site/pushed-branches.txt") else set()
+# replies drafted for a thread and not yet posted by the owner
+PENDING_REPLY={("iqtree",198)}
 FILED={}
 for line in open(ROOT+"/site/filed-fixes.txt"):
     line=line.strip()
@@ -218,6 +220,8 @@ for d in sorted(glob.glob(A+"*/issue-fixes/*/")):
     if not (os.path.exists(d+"pr-body.md") and os.path.exists(d+"README.md") and glob.glob(d+"0001-*.patch")): continue
     pb=read(d+"pr-body.md"); m=re.search(r"^Title:\s*(.+)$", pb, re.M); title=m.group(1).strip(); body=foot(pb[m.end():].strip())
     cm=read(d+"comment.md") if os.path.exists(d+"comment.md") else ""
+    # the kit's internal "Title: ..." first line is never part of what gets pasted
+    cm=re.sub(r"\A\s*Title:[^\n]*\n+", "", cm)
     patches=sorted(glob.glob(d+"0001-*.patch")); branch=None
     rm=re.search(r"`(fix/issue-\d+[^`]*)`", read(d+"README.md")) if os.path.exists(d+"README.md") else None
     branch=rm.group(1) if rm else f"fix/issue-{n}"
@@ -225,7 +229,7 @@ for d in sorted(glob.glob(A+"*/issue-fixes/*/")):
     pushed=[p.split(":",1)[1] for p in PUSHED if p.split(":",1)[0]==fork.split("/")[1] and p.split(":",1)[1].startswith(f"fix/issue-{n}")]
     if pushed: branch=pushed[0]
     assigned=read(d+"assigned.txt").strip() if os.path.exists(d+"assigned.txt") else ""
-    fixes.append(dict(filed=FILED.get((pkg,n)), stale=(pkg in STALE_OFF), pkg=pkg, owner=o, repo=r, base=base, fork=fork, assigned=assigned, forked=(fork.split("/")[1]+":"+branch) in PUSHED, issue=n, title=title, body=body, comment=foot(cm.strip()) if cm.strip() else "", branch=branch,
+    fixes.append(dict(comment_pending=((pkg,n) in PENDING_REPLY), filed=FILED.get((pkg,n)), stale=(pkg in STALE_OFF), pkg=pkg, owner=o, repo=r, base=base, fork=fork, assigned=assigned, forked=(fork.split("/")[1]+":"+branch) in PUSHED, issue=n, title=title, body=body, comment=foot(cm.strip()) if cm.strip() else "", branch=branch,
                       declines=(pkg in _declined)))
 json.dump(fixes, open(os.path.join(OUT,"fixes.json"),"w"), indent=1)
 # ---- ordered action list (2026-09-08): what to do next, top first; everything else waits for a signal

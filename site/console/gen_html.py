@@ -60,7 +60,14 @@ function save(){ try{ localStorage.setItem("audit-filing-v1", JSON.stringify(sta
 function q(o){ return Object.entries(o).filter(([k,v])=>v!==undefined&&v!=="").map(([k,v])=>encodeURIComponent(k)+"="+encodeURIComponent(v)).join("&"); }
 function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
 function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),1800); }
-async function copy(t){ try{ await navigator.clipboard.writeText(t); toast("Copied"); }catch(e){ toast("Copy failed: use the expander and select the text"); } }
+async function copy(t){
+  try{ await navigator.clipboard.writeText(t); toast("Copied as plain text"); return; }catch(e){}
+  try{ const ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly","");
+       ta.style.cssText="position:fixed;top:0;left:0;opacity:0"; document.body.appendChild(ta);
+       ta.select(); ta.setSelectionRange(0,t.length); const ok=document.execCommand("copy");
+       document.body.removeChild(ta); if(ok){ toast("Copied as plain text"); return; } }catch(e){}
+  toast("Copy blocked: open \u201cShow the text\u201d below and select it");
+}
 function fillBody(body, key, r, ex){ return body.replace(/#<[^>]*issue[^>]*>|#ISSUE\d|#<issue number>|#NNN/gi, (m)=>{ const n=state[r+"_"+key+"_num"]||ex; return n?("#"+n):m; }); }
 function issueUrl(r, i){
   const base=`https://github.com/${r.owner}/${r.repo}/issues/new?`;
@@ -125,7 +132,7 @@ function fixCard(f){
     <details><summary>Show the comment</summary><div class="field"><pre class="body">${esc(f.comment)}</pre></div></details>`);
   if (f.filed){ const w=f.filed.what==="pr"?`PR #${f.filed.num} (${f.filed.state})`:`comment posted on #${f.filed.num}`;
     return card("done", `<header><h3>${esc(f.owner+"/"+f.repo)} #${f.issue} · ${esc(f.title)}</h3><span class="eyebrow">filed · ${esc(w)}</span></header>
-    <div class="actions"><a class="btn" href="https://github.com/${f.owner}/${f.repo}/issues/${f.issue}" target="_blank" rel="noopener">Open issue #${f.issue} ↗</a>${f.filed.what==="pr"?`<a class="btn" href="https://github.com/${f.owner}/${f.repo}/pull/${f.filed.num}" target="_blank" rel="noopener">Open PR #${f.filed.num} ↗</a>`:""}${f.comment?`<button class="primary" data-fixcopy="${f.pkg}|${f.issue}|comment">Copy reply</button>`:""}</div>${f.comment?`<p class="hint">A reply is drafted for this thread and waits for your approval; read the thread, then paste.</p><details><summary>Show the reply</summary><div class="field"><pre class="body">${esc(f.comment)}</pre></div></details>`:""}`); }
+    <div class="actions"><a class="btn" href="https://github.com/${f.owner}/${f.repo}/issues/${f.issue}" target="_blank" rel="noopener">Open issue #${f.issue} ↗</a>${f.filed.what==="pr"?`<a class="btn" href="https://github.com/${f.owner}/${f.repo}/pull/${f.filed.num}" target="_blank" rel="noopener">Open PR #${f.filed.num} ↗</a>`:""}${f.comment&&f.comment_pending?`<button class="primary" data-fixcopy="${f.pkg}|${f.issue}|comment">Copy reply</button>`:""}</div>${f.comment&&f.comment_pending?`<p class="hint">A reply is drafted for this thread and waits for your approval. It is plain markdown: copy it, or open the expander and select it, then paste into the comment box. Do not copy a link from the address bar.</p><details open><summary>Show the reply (select and copy from here if the button is blocked)</summary><div class="field"><pre class="body">${esc(f.comment)}</pre></div></details>`:""}`); }
   if (f.stale) return card("", `<header><h3>${esc(f.owner+"/"+f.repo)} #${f.issue} · ${esc(f.title)}</h3><span class="eyebrow">held · issue closed upstream</span></header><p class="hint">PR #1451 was opened against 3.5.6 on 2026-09-04 and closed the next day; deepTools closed the issue on 2026-09-05 with the 4.0.0 merge: the Rust computeMatrix reads gzipped BEDs. The residual failure in computeMatrixOperations sort is fixed on branch fix4/issue-1423-gzipped-bed-sortmatrix on the fork; hold it unless the maintainers want a follow-up.</p>`);
   if (f.declines) return card("", `<header><h3>${esc(f.repo)} #${f.issue} · ${esc(f.title)}</h3><span class="eyebrow">not to be filed</span></header><p class="hint">This repository declines AI-generated contributions; the fix stays in the audit repository.</p>`);
   return card(done?"done":"", `<header><h3>${esc(f.owner+"/"+f.repo)} #${f.issue} · ${esc(f.title)}</h3><span class="eyebrow">issue fix · <span class="mono">${esc(f.branch)}</span></span></header>
