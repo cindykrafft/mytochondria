@@ -21,6 +21,6 @@ for nref in 1140 1400; do
     }' >> in.sam
 
     printf 'reads at ref:100 = %d   ' $((nref + 100))
-    $B mpileup -f ref.fa -a INFO/MQBZ -d 100000 in.sam 2>/dev/null |
+    $B mpileup -f ref.fa -d 100000 in.sam 2>/dev/null |
         awk -F'\t' '$2==100 {n=split($8,a,";"); for(i=1;i<=n;i++) if(a[i]~/^MQBZ=/) print a[i]}'
 done

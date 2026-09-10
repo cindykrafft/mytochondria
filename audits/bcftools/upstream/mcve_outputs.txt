@@ -1,16 +1,28 @@
 $ sh mcve_bf1_mqbz_overflow.sh <bcftools>
+(MQBZ is in the default mpileup INFO output from 1.11 on; 1.9 and 1.10.2
+ have no MQBZ tag at all -- they emit the tie-uncorrected p-value MQB.)
 
 --- bcftools 1.9 / Using htslib 1.9 ---
 reads at ref:100 = 1240   reads at ref:100 = 1500   
+
 --- bcftools 1.10.2 / Using htslib 1.10-dirty ---
 reads at ref:100 = 1240   reads at ref:100 = 1500   
+
 --- bcftools 1.13 / Using htslib 1.13 ---
-reads at ref:100 = 1240   reads at ref:100 = 1500   
+reads at ref:100 = 1240   MQBZ=-21.6984
+reads at ref:100 = 1500   MQBZ=-5.75778
+
+
 --- bcftools 1.24 / Using htslib 1.24 ---
 reads at ref:100 = 1240   MQBZ=-21.6984
 reads at ref:100 = 1500   MQBZ=-5.75778
 
---- develop 7abcc0d (unpatched) / Using htslib 1.24-1-ge503e04 ---
+
+--- develop 7abcc0d (unpatched) / htslib 1.24-1-ge503e04 ---
 reads at ref:100 = 1240   MQBZ=-21.6984
 reads at ref:100 = 1500   MQBZ=-5.75778
 
+
+--- develop 7abcc0d + patch 22e3099f / htslib 1.24-1-ge503e04 ---
+reads at ref:100 = 1240   MQBZ=-21.6984
+reads at ref:100 = 1500   MQBZ=-23.9783

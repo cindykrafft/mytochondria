@@ -272,6 +272,16 @@
     "alexdobin/STAR"
    ],
    "fork": "cindykrafft/STAR"
+  },
+  {
+   "dir": "limma",
+   "name": "limma",
+   "papers": 234,
+   "findings": 8,
+   "repos": [
+    "bioc/limma"
+   ],
+   "fork": null
   }
  ],
  "author": "cindykrafft",

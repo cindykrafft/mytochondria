@@ -1,21 +1,26 @@
-From 97cd35e603af22f4936730ef66be9328f8af7620 Mon Sep 17 00:00:00 2001
+From 74c80986497db627a383fc10fe35c759acd75d7b Mon Sep 17 00:00:00 2001
 From: Mytochondria audit <audit@example.invalid>
 Date: Wed, 9 Sep 2026 22:35:54 +0000
 Subject: [PATCH] arrayWeights(method="reml") with prior weights: fix the
  convergence criterion
 
-.arrayWeightsPrWtsREML divided the Fisher-scoring convergence criterion
-by (ngenes + prior.n) a second time after info2 and z had already been
-averaged over genes, so the criterion was (ngenes + prior.n) times
-smaller than in .arrayWeightsREML and the iteration stopped after one or
-two steps at the default tol = 1e-5. arrayWeights(y, design,
-weights=matrix(1,...), method="reml") then differed from
-arrayWeights(y, design, method="reml") by up to 0.55 on 3000 genes x 9
-arrays, and voomLmFit(sample.weights=TRUE) (edgeR) returns
-under-converged sample weights when it takes this path.
+.arrayWeightsPrWtsREML averages the REML information matrix and score
+over genes and then divides the Fisher-scoring convergence criterion by
+(ngenes + prior.n) a second time, so the criterion is (ngenes+prior.n)
+times smaller than in .arrayWeightsREML and the scoring stops after one
+to three steps at the default tol = 1e-5.
 
-Use the same per-gene-average criterion as .arrayWeightsREML and add
-the unit-weights case to tests/limma-Tests.R (saved output updated).
+arrayWeights(y, design, weights=matrix(1,...), method="reml") then
+differs from arrayWeights(y, design, method="reml") on identical data by
+up to 0.55 on 3000 genes x 9 arrays, and the returned weights are not
+converged: an independent REML+prior score at them is 4.4e-02 against
+3.0e-04 for the unweighted path. On voom data with real prior weights,
+voomWithQualityWeights(method="reml") sample weights are 4% off the
+converged fit.
+
+Use the same per-gene criterion as .arrayWeightsREML, and add the
+unit-weights case to tests/limma-Tests.R with its output in
+limma-Tests.Rout.save.
 ---
  R/arrayWeightsPrWtsREML.R   |  6 ++++--
  tests/limma-Tests.R         | 10 ++++++++++

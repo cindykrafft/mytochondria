@@ -8,6 +8,10 @@
 #   3.68.4  Ubuntu pool orig tarball (Bioconductor 3.23 release)
 #   3.68.5  bioc/limma mirror, branch RELEASE_3_23 @ 825d1c83 (2026-08-10)
 #   devel   bioc/limma mirror, branch devel @ 57a8de72 (3.99.0, 2026-08-30)
+# and the two builds carrying the patch in ../upstream/ (same sources + the patch,
+# R CMD INSTALL --no-docs into their own libraries):
+#   devel-patched   devel @ 57a8de72 + ...devel.patch
+#   3.68.5-patched  RELEASE_3_23 @ 825d1c83 + ...RELEASE_3_23.patch
 S=${LIMMA_SCRATCH:-/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/limma}
 case "$1" in
   3.58.1|system) unset R_LIBS_USER ;;
@@ -17,5 +21,7 @@ case "$1" in
   3.68.4)  export R_LIBS_USER=$S/lib_3.68.4 ;;
   3.68.5)  export R_LIBS_USER=$S/lib_rel323 ;;
   devel)   export R_LIBS_USER=$S/lib_devel ;;
+  devel-patched)  export R_LIBS_USER=$S/lib_patch_devel ;;
+  3.68.5-patched) export R_LIBS_USER=$S/lib_patch_rel ;;
   *) echo "unknown version $1" >&2; exit 1 ;;
 esac
