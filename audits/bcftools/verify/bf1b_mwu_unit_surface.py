@@ -162,6 +162,12 @@ def main():
                          capture_output=True, text=True).stdout.split("\n")
     print("binary: %s / %s" % (ver[0].strip(), ver[1].strip()))
     print("shipped function: calc_mwu_biasZ() linked out of %s/bam2bcf.o" % srcdir)
+    # the version string alone cannot tell a patched tree from an unpatched one,
+    # so echo the declaration that decides the arithmetic
+    for ln in open(os.path.join(srcdir, "bam2bcf.c")):
+        if "l = 0, na = 0, nb = 0" in ln:
+            print("accumulator declaration in bam2bcf.c: %s" % ln.strip())
+            break
     print("INT32_MAX = %d ; cube root = %.2f\n" % (INT32_MAX, INT32_MAX ** (1 / 3.)))
 
     fails = 0          # real problems: scipy cross-check, unexpected boundary

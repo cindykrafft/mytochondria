@@ -137,7 +137,7 @@ the survey's stored evidence snippets; every record in `bcftools_profiles.jsonl`
 | `component-reviews/mpileup-and-annotation-core.md` | the review: BF1, N1–N2, three withdrawn suspicions, held-up list, not-audited list |
 | `verify/_synth.py` | shared VCF/BAM builders, runner and truth helpers |
 | `verify/bf1_mwu_tie_overflow.py` (+ `.out`, `.v1.24.out`, `.v1.13.out`, `.v1.10.2.out`, `.v1.9.out`, `.patched.out`) | BF1 end to end through `bcftools mpileup`, with an int32-wrapping replica of the C code as a third column |
-| `verify/bf1b_mwu_unit_surface.py` (+ `.out`, `.patched.out`) | BF1 at the unit level: the shipped `calc_mwu_biasZ()` linked out of `bam2bcf.o`; scipy cross-check, the p = 1291 boundary, the direction sweep, the `MQBZ < -3` verdict sweep |
+| `verify/bf1b_mwu_unit_surface.py` (+ `.out`, `.patched.out`) | BF1 at the unit level: the shipped `calc_mwu_biasZ()` linked out of `bam2bcf.o`; scipy cross-check, the p = 1291 boundary, the direction sweep, the `MQBZ < -3` verdict sweep. Both runs are on the same tree, so the header echoes the accumulator declaration (`int …` vs `int64_t …`) to say which build produced which file |
 | `verify/heldup_mpileup_pl.py` (+ `.out`) | held-up: `PL`, `AD`, `SP`, `I16` in four `-Q`/`-q` settings |
 | `verify/heldup_call_m.py` (+ `.out`) | held-up: `call -m` (`-v`, `--ploidy`, `-P`) and `call -c` |
 | `verify/heldup_fill_tags_hwe.py` (+ `.out`) | held-up: `+fill-tags` `AF`/`AC`/`AN`/`MAF`/`F_MISSING`/`HWE`/`ExcHet` vs the exact Wigginton test |

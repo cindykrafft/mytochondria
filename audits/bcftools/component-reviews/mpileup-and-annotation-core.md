@@ -99,7 +99,9 @@ pileup run with `-d` above the default 250.
 
 `verify/bf1b_mwu_unit_surface.py` links `calc_mwu_biasZ()` out of the audited build's
 `bam2bcf.o` into a five-line C driver, so the arithmetic tested is the shipped
-arithmetic. Truth is the same statistic in exact Python integers, cross-checked against
+arithmetic; its header echoes the accumulator declaration it linked against (`int e = 0,
+l = 0, na = 0, nb = 0;` vs the patched `int64_t …`), so the unpatched and patched
+captures are distinguishable. Truth is the same statistic in exact Python integers, cross-checked against
 `scipy.stats.mannwhitneyu` (asymptotic, tie-corrected, no continuity correction) on a
 case small enough to expand — they agree to |Z| 12.925547 vs 12.925547
 ([`bf1b_mwu_unit_surface.out`](../verify/bf1b_mwu_unit_surface.out)).

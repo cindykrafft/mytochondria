@@ -1,5 +1,6 @@
-binary: bcftools 7abcc0d6-dirty / Using htslib 1.24-1-ge503e04
+binary: bcftools 22e3099f-dirty / Using htslib 1.24-1-ge503e04
 shipped function: calc_mwu_biasZ() linked out of /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/bcftools/src/bam2bcf.o
+accumulator declaration in bam2bcf.c: int e = 0, l = 0, na = 0, nb = 0;
 INT32_MAX = 2147483647 ; cube root = 1290.16
 
 [cross-check] truth() vs scipy.stats.mannwhitneyu (tie-corrected, no continuity correction) on 400 ref / 50 alt reads: |Z| 12.925547 vs 12.925547
