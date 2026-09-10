@@ -292,6 +292,16 @@
     "usadellab/Trimmomatic"
    ],
    "fork": "cindykrafft/Trimmomatic"
+  },
+  {
+   "dir": "gsea",
+   "name": "GSEA",
+   "papers": 720,
+   "findings": 6,
+   "repos": [
+    "GSEA-MSigDB/gsea-desktop"
+   ],
+   "fork": "cindykrafft/gsea-desktop"
   }
  ],
  "author": "cindykrafft",
