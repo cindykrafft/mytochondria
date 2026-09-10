@@ -1,0 +1,72 @@
+reads: 4000, lengths 1-160
+
+== SLIDINGWINDOW (as-coded reference: keep to the end of the last passing window, then strip trailing bases < quality)
+SLIDINGWINDOW:4:20                                   kept 3282 dropped  718 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+SLIDINGWINDOW:4:15                                   kept 3741 dropped  259 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+SLIDINGWINDOW:5:20                                   kept 3299 dropped  701 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+SLIDINGWINDOW:10:25                                  kept 2367 dropped 1633 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+SLIDINGWINDOW:1:20                                   kept 3178 dropped  822 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+SLIDINGWINDOW:4:30                                   kept 1520 dropped 2480 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+SLIDINGWINDOW:3:3                                    kept 3952 dropped   48 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+  -- the README's wording read literally (cut at the start of the first failing window) differs from the jar on:
+     SLIDINGWINDOW:4:20  2501/4000 reads (design choice, see review N-notes)
+     SLIDINGWINDOW:4:15  2591/4000 reads (design choice, see review N-notes)
+  -- reads shorter than the window (78 of 4000 here for w=4) are dropped by the jar (as-coded reference agrees above)
+
+== LEADING / TRAILING
+LEADING:3                                            kept 3999 dropped    1 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+TRAILING:3 (as coded, base 0 never checked)          kept 3979 dropped   21 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+     TRAILING:3: reads whose only base >= 3 is base 0 (dropped by the jar, 1 nt by the README): 20/4000
+LEADING:10                                           kept 3997 dropped    3 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+TRAILING:10 (as coded, base 0 never checked)         kept 3971 dropped   29 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+     TRAILING:10: reads whose only base >= 10 is base 0 (dropped by the jar, 1 nt by the README): 26/4000
+LEADING:20                                           kept 3989 dropped   11 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+TRAILING:20 (as coded, base 0 never checked)         kept 3960 dropped   40 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+     TRAILING:20: reads whose only base >= 20 is base 0 (dropped by the jar, 1 nt by the README): 29/4000
+LEADING:30                                           kept 3958 dropped   42 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+TRAILING:30 (as coded, base 0 never checked)         kept 3929 dropped   71 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+     TRAILING:30: reads whose only base >= 30 is base 0 (dropped by the jar, 1 nt by the README): 29/4000
+
+== MAXINFO (float reference of the coded formula; ties may differ in the last ulp)
+MAXINFO:40:0.8                                       kept 4000 dropped    0 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+MAXINFO:50:0.5                                       kept 4000 dropped    0 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+MAXINFO:36:0.9                                       kept 4000 dropped    0 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+MAXINFO:100:0.2                                      kept 4000 dropped    0 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+MAXINFO:75:0.5                                       kept 4000 dropped    0 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+
+== MINLEN / MAXLEN / CROP / HEADCROP / TAILCROP / AVGQUAL / BASECOUNT
+MINLEN:36                                            kept 3097 dropped  903 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+MINLEN:50                                            kept 2749 dropped 1251 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+MINLEN:1                                             kept 4000 dropped    0 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+MINLEN:160                                           kept   23 dropped 3977 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+MAXLEN:100                                           kept 2563 dropped 1437 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+MAXLEN:20                                            kept  510 dropped 3490 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+CROP:100                                             kept 4000 dropped    0 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+CROP:36                                              kept 4000 dropped    0 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+CROP:1                                               kept 4000 dropped    0 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+HEADCROP:10 (read of <= n bases dropped)             kept 3751 dropped  249 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+TAILCROP:10                                          kept 3751 dropped  249 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+HEADCROP:1 (read of <= n bases dropped)              kept 3981 dropped   19 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+TAILCROP:1                                           kept 3981 dropped   19 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+HEADCROP:50 (read of <= n bases dropped)             kept 2727 dropped 1273 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+TAILCROP:50                                          kept 2727 dropped 1273 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+AVGQUAL:20                                           kept 3598 dropped  402 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+AVGQUAL:25                                           kept 1199 dropped 2801 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+AVGQUAL:30                                           kept 1035 dropped 2965 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+BASECOUNT:N:0:2                                      kept 2335 dropped 1665 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+BASECOUNT:GC:20                                      kept 2977 dropped 1023 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+
+== TOPHRED64 / TOPHRED33 and -phred64 input
+TOPHRED64 on phred33 input                           4000/4000 records identical after re-decoding with offset 64
+TOPHRED33 on phred64 input                           4000/4000 records identical after re-decoding with offset 33
+LEADING:20 TRAILING:20 with -phred64                 4000/4000 reads agree with the reference (3950 kept)
+
+== automatic Phred detection (no -phred flag)
+phred33 data, mixed qualities                        Quality encoding detected as phred33; 2000/2000 records round-trip
+phred64 data, mixed qualities                        Quality encoding detected as phred64; 2000/2000 records round-trip
+phred33 data, all Q30-41                             FAILED: ['Error: Unable to detect quality encoding']
+
+== pipeline: ILLUMINACLIP-free multi-step order (LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36)
+LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36    kept 1642 dropped 2358 | jar==ref on 4000/4000 reads, 0 unexpected in output, order kept
+
+TOTAL record mismatches across all checks: 0

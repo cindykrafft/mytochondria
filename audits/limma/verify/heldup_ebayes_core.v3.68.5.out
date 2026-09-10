@@ -1,0 +1,20 @@
+limma 3.68.5 
+[fitFDist] df.prior 4.000740 vs port 4.000740 (diff 0.0e+00; truth 4); s2.prior 0.089410 vs port 0.089410 (diff 8.3e-17; truth 0.0900)
+[eBayes] s2.post 2.2e-16  t 4.3e-14  df.total 0.0e+00  p 6.7e-16
+[B-stat coef 1] max |diff| 7.1e-15  (var.prior 178.9513)
+[B-stat coef 2] max |diff| 6.2e-15  (var.prior 38.7336)
+[B-stat coef 3] max |diff| 7.1e-15  (var.prior 52.2262)
+[var.prior] port vs eBayes: 0.0e+00 2.1e-14 3.6e-14
+[F] max |diff| 3.1e-13; F.p.value vs pf(F,2,df) 1.2e-15; single-coef F == t^2 2.8e-13, F p == t p 6.7e-16
+[topTable] adj.P vs p.adjust(BH) 1.6e-15; logFC 0.0e+00; CI half-width vs qt(.975,df.total)*se 1.8e-15; sorted by B: TRUE; p.value filter <= : TRUE
+[treat] p 2.2e-16  t 4.3e-14  df.prior same as eBayes TRUE
+[squeezeVar] var.post 2.2e-16 df.prior 0.0e+00
+[trend] df.prior 1.8e-15  s2.prior(vector) 3.0e-15
+[robust, clean data] df.prior: non-robust 4.001, robust min 0.203 median 4.020 max 4.020 (truth 4); genes with df.prior < non-robust: 1
+[robust, 100 outlier genes] non-robust df.prior 2.550; robust df.prior median 3.573, median over outlier genes 0.264, min 0.264; outlier genes have smaller df.prior than the median: 100 of 100
+[winsorized moments df1=5 df2=4] quadrature vs integrate: mean 4.0e-16 var 6.7e-16
+[winsorized moments df1=5 df2=20] quadrature vs integrate: mean 8.3e-17 var 2.2e-16
+[winsorized moments df1=5 df2=Inf] quadrature vs integrate: mean 1.9e-16 var 2.2e-16
+Warning message:
+Partial NA coefficients for 20 probe(s) 
+[NA genes] 20 genes with df 0; their t/p NA: TRUE; adj.P on the rest equals BH over non-NA: 0.0e+00

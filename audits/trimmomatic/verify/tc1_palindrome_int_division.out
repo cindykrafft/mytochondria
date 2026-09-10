@@ -1,0 +1,39 @@
+Part A: constructed pair, reads 50 nt, insert 40 nt (60 aligned bases), ILLUMINACLIP:TruSeq3-PE-2.fa:2:30:10
+  mismatches at Q9:  README score 27.11  coded score 32.51  -> jar: read1 40 nt,   read2 dropped  (README expects both untouched, 50 nt; as-coded port clip/drop)
+  mismatches at Q2:  README score 31.31  coded score 32.51  -> jar: read1 40 nt,   read2 dropped  (README expects clip to 40 / drop; as-coded port clip/drop)
+  mismatches at Q10: README score 26.51  coded score 26.51  -> jar: read1 50 nt,   read2 50 nt    (README expects both untouched, 50 nt; as-coded port untouched)
+  mismatches at Q19: README score 21.11  coded score 26.51  -> jar: read1 50 nt,   read2 50 nt    (README expects both untouched, 50 nt; as-coded port untouched)
+  mismatches at Q35: README score 11.51  coded score 14.51  -> jar: read1 50 nt,   read2 50 nt    (README expects both untouched, 50 nt; as-coded port untouched)
+  (60 aligned bases: 54 matches x 0.60206 = 32.51; six mismatches at Q9 cost 6 x 0.9 = 5.4 by the README and 6 x 0 as coded)
+  MCVE input (Q9 case):
+    read1 CCGTAATGCCTTTCCCTAACAGAGTTTTTCGAACTCGTGTAGATCGGAAG
+    read2 CCCCGAGTTCGAAAAACTCTGTTAGGGAAAGGCATTAGGTAGCTCTGAAG
+    mismatch positions in read2 (0-based): [0, 2, 37, 39, 42, 45]
+
+Part C: 4000 synthetic pairs (insert 0-130 nt, reads 100 nt, quality-correlated errors, 'mixed' profile with a low-quality tail)
+  jar == as-coded port (integer penalty, seeds): 4000/4000 pairs; pairs touched by the jar: 2689/4000 (read-through planted in 3041)
+  pairs whose outcome changes when the penalty is Q/10 as documented (seeds unchanged): 49/4000
+     of these, the coded clip equals the planted insert length in 49, the documented clip in 13
+     e.g. q142_L2: planted insert 2, coded keeps 2 (score at that geometry 35.5 as coded, 29.6 by the README), documented keeps 2
+     e.g. q235_L92: planted insert 92, coded keeps 92 (score at that geometry 41.8 as coded, 29.1 by the README), documented keeps 100
+     e.g. q342_L2: planted insert 2, coded keeps 2 (score at that geometry 34.7 as coded, 29.3 by the README), documented keeps 2
+     e.g. q376_L72: planted insert 72, coded keeps 72 (score at that geometry 46.6 as coded, 27.7 by the README), documented keeps 100
+  seed heuristic for scale: README rule without seeds vs coded seeds (float penalty in both): 208/4000 pairs differ
+  mismatches inside the planted read-through overlaps by the lower quality: {'Q<10': 29948, 'Q10-19': 6246, 'Q20-29': 1014, 'Q>=30': 72}
+
+Part E1: NovaSeq-like binned profile (Q2/Q12/Q23/Q37)
+  jar == as-coded port (integer penalty, seeds): 4000/4000 pairs; pairs touched by the jar: 2861/4000 (read-through planted in 3131)
+  pairs whose outcome changes when the penalty is Q/10 as documented (seeds unchanged): 0/4000
+     of these, the coded clip equals the planted insert length in 0, the documented clip in 0
+  seed heuristic for scale: README rule without seeds vs coded seeds (float penalty in both): 49/4000 pairs differ
+  mismatches inside the planted read-through overlaps by the lower quality: {'Q<10': 18089, 'Q10-19': 4147, 'Q20-29': 497, 'Q>=30': 126}
+
+Part E2: high-quality profile (Q30-41 throughout)
+  jar == as-coded port (integer penalty, seeds): 4000/4000 pairs; pairs touched by the jar: 2823/4000 (read-through planted in 3043)
+  pairs whose outcome changes when the penalty is Q/10 as documented (seeds unchanged): 0/4000
+     of these, the coded clip equals the planted insert length in 0, the documented clip in 0
+  seed heuristic for scale: README rule without seeds vs coded seeds (float penalty in both): 0/4000 pairs differ
+  mismatches inside the planted read-through overlaps by the lower quality: {'Q<10': 0, 'Q10-19': 0, 'Q20-29': 0, 'Q>=30': 361}
+
+Part F: false positives. 3,000 pairs of independent random 100 nt reads (no insert, no adapter), 'mixed' profile with errors
+  pairs touched: jar 0, as-coded port 0, port with Q/10 penalty 0, README rule without seeds 0  (of 3000)

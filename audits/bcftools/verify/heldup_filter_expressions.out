@@ -1,0 +1,50 @@
+binary: bcftools 7abcc0d / Using htslib 1.24-1-ge503e04
+  ok  QUAL>20                          -i selects 124 of 300 sites, -e the complement
+  ok  QUAL>=20                         -i selects 161 of 300 sites, -e the complement
+  ok  QUAL<20                          -i selects  98 of 300 sites, -e the complement
+  ok  QUAL="."                         -i selects  41 of 300 sites, -e the complement
+  ok  QUAL!="."                        -i selects 259 of 300 sites, -e the complement
+  ok  INFO/DP>10                       -i selects 113 of 300 sites, -e the complement
+  ok  INFO/DP<10                       -i selects  86 of 300 sites, -e the complement
+  ok  INFO/DP="."                      -i selects  55 of 300 sites, -e the complement
+  ok  INFO/DP!="."                     -i selects 245 of 300 sites, -e the complement
+  ok  MQ<30                            -i selects  61 of 300 sites, -e the complement
+  ok  MQ>=30                           -i selects 193 of 300 sites, -e the complement
+  ok  QUAL>20 && INFO/DP>10            -i selects  44 of 300 sites, -e the complement
+  ok  QUAL>20 || INFO/DP>10            -i selects 193 of 300 sites, -e the complement
+  ok  INDEL=1                          -i selects  61 of 300 sites, -e the complement
+  ok  INDEL=0                          -i selects 239 of 300 sites, -e the complement
+  ok  N_ALT=2                          -i selects  95 of 300 sites, -e the complement
+  ok  AF[0]>0.5                        -i selects 143 of 300 sites, -e the complement
+  ok  MAX(AF)>0.5                      -i selects 165 of 300 sites, -e the complement
+  ok  MIN(AF)<0.1                      -i selects  51 of 300 sites, -e the complement
+  ok  FMT/DP>10                        -i selects 238 of 300 sites, -e the complement
+  ok  FMT/GQ>=20                       -i selects 280 of 300 sites, -e the complement
+  ok  FMT/DP>10 & FMT/GQ>=20           -i selects 161 of 300 sites, -e the complement
+  ok  FMT/DP>10 && FMT/GQ>=20          -i selects 220 of 300 sites, -e the complement
+  ok  FMT/DP>10 | FMT/GQ>=20           -i selects 298 of 300 sites, -e the complement
+  ok  FMT/DP>10 || FMT/GQ>=20          -i selects 298 of 300 sites, -e the complement
+  ok  QUAL>20 & FMT/DP>10              -i selects 104 of 300 sites, -e the complement
+  ok  GT="het"                         -i selects 213 of 300 sites, -e the complement
+  ok  GT="hom"                         -i selects 231 of 300 sites, -e the complement
+  ok  GT="mis"                         -i selects 181 of 300 sites, -e the complement
+  ok  GT="RR"                          -i selects 170 of 300 sites, -e the complement
+  ok  GT="AA"                          -i selects 124 of 300 sites, -e the complement
+  ok  GT="alt"                         -i selects 281 of 300 sites, -e the complement
+  ok  GT="het" & FMT/GQ>=20            -i selects 131 of 300 sites, -e the complement
+  ok  MAX(FMT/DP)>10                   -i selects 238 of 300 sites, -e the complement
+  ok  MIN(FMT/DP)<3                    -i selects 145 of 300 sites, -e the complement
+  ok  AVG(FMT/DP)>10                   -i selects 169 of 300 sites, -e the complement
+  ok  MEDIAN(FMT/DP)>=8                -i selects 184 of 300 sites, -e the complement
+  ok  SUM(FMT/DP)>30                   -i selects 179 of 300 sites, -e the complement
+  ok  STDEV(FMT/DP)>10                 -i selects 150 of 300 sites, -e the complement
+  ok  COUNT(GT="het")>1                -i selects  88 of 300 sites, -e the complement
+  ok  N_PASS(GQ>=20)>=2                -i selects 211 of 300 sites, -e the complement
+  ok  F_PASS(FMT/DP>10)>0.5            -i selects  31 of 300 sites, -e the complement
+  ok  F_MISSING>0.25                   -i selects  60 of 300 sites, -e the complement
+  ok  SMPL_MAX(FMT/AD)>10              -i selects 275 of 300 sites, -e the complement
+  ok  SMPL_SUM(FMT/AD)>20              -i selects 202 of 300 sites, -e the complement
+  ok  fisher(INFO/DP4)<0.05            -i selects 117 of 300 sites, -e the complement
+  ok  binom(FMT/AD)<0.05               -i selects  56 of 300 sites, -e the complement
+
+47 expressions, 0 mismatches

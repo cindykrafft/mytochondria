@@ -1,0 +1,12 @@
+== v0.41
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/trimmomatic/verify/version_scope_cli.py", line 44, in <module>
+    out, log = R.run_pe(target, [("p", R1, q1)], [("p", r2, q2)], [STEP])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/research-software-audit/audits/trimmomatic/verify/trimmomatic_ref.py", line 104, in run_pe
+    raise RuntimeError("Trimmomatic failed:\n" + log)
+RuntimeError: Trimmomatic failed:
+Picked up JAVA_TOOL_OPTIONS: 
+Error: LinkageError occurred while loading main class org.usadellab.trimmomatic.Trimmomatic
+	java.lang.UnsupportedClassVersionError: org/usadellab/trimmomatic/Trimmomatic has been compiled by a more recent version of the Java Runtime (class file version 69.0), this version of the Java Runtime only recognizes class file versions up to 65.0
+

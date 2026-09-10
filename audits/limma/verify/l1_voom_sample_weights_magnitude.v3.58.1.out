@@ -1,0 +1,16 @@
+limma 3.58.1 
+iter convcrit range(w)
+1 1.529943e-05 0.3333556 1.439261 
+2 2.371486e-07 0.3269408 1.590615 
+planted quality (sd multiplier): 1.00 1.00 3.00 1.00 1.00 0.50 1.00 2.00
+reml default tol : 1.2614 1.2976 0.3269 1.1977 1.2690 1.5906 1.2103 0.6387
+reml converged   : 1.2595 1.3068 0.3240 1.1932 1.2753 1.6563 1.2059 0.6170
+genebygene       : 1.2048 1.3214 0.3302 1.2226 1.2195 1.7108 1.1945 0.6244
+max |default-converged| 0.0657, max |log ratio| 0.0404
+DE genes (BH<0.05, BH<0.01): default-tol weights 16 10; converged 18 10; genebygene 18 10; no sample weights 2 0
+First sample weights (min/max) 0.3301788/1.7107886
+Final sample weights (min/max) 0.3278786/1.7158613
+voomLmFit(sample.weights=TRUE) [edgeR]: 1.2047 1.3218 0.3279 1.2223 1.2228 1.7159 1.1971 0.6239
+two-pass recipe with converged REML weights: 1.2594 1.3069 0.3217 1.1928 1.2791 1.6604 1.2091 0.6166
+two-pass recipe with genebygene weights   : 1.2047 1.3218 0.3279 1.2223 1.2228 1.7159 1.1971 0.6239
+max |voomLmFit - converged REML| 0.0563, max |voomLmFit - genebygene| 0.0000

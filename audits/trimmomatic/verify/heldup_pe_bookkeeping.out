@@ -1,0 +1,22 @@
+pairs: 3000 (insert 0-200, read lengths 75/100/150, errors 0-5%, 1% N)
+
+== ILLUMINACLIP variants, -threads 1
+ILLUMINACLIP:...:2:30:10 (default 8, keep=false) outputs 1P/1U/2P/2U identical | counts jar=(3000, 459, 995, 298, 1248) port=(3000, 459, 995, 298, 1248) match, sum=ok | percents match | -summary match | trimlog 6000 lines match
+ILLUMINACLIP:...:2:30:10:8:true (keepBothReads) outputs 1P/1U/2P/2U identical | counts jar=(3000, 840, 614, 556, 990) port=(3000, 840, 614, 556, 990) match, sum=ok | percents match | -summary match | trimlog 6000 lines match
+ILLUMINACLIP:...:2:30:10:1:true (minAdapterLength 1) outputs 1P/1U/2P/2U identical | counts jar=(3000, 840, 614, 556, 990) port=(3000, 840, 614, 556, 990) match, sum=ok | percents match | -summary match | trimlog 6000 lines match
+ILLUMINACLIP:...:2:30:10:12 (minAdapterLength 12) outputs 1P/1U/2P/2U identical | counts jar=(3000, 474, 980, 309, 1237) port=(3000, 474, 980, 309, 1237) match, sum=ok | percents match | -summary match | trimlog 6000 lines match
+ILLUMINACLIP:...:1:20:7                        outputs 1P/1U/2P/2U identical | counts jar=(3000, 475, 972, 313, 1240) port=(3000, 475, 972, 313, 1240) match, sum=ok | percents match | -summary match | trimlog 6000 lines match
+
+== thread-count invariance (same pipeline, -threads 2/4/8)
+ILLUMINACLIP:...:2:30:10 -threads 2            outputs 1P/1U/2P/2U identical | counts jar=(3000, 459, 995, 298, 1248) port=(3000, 459, 995, 298, 1248) match, sum=ok | percents match | -summary match | trimlog 6000 lines match
+     -threads 2: four outputs byte-identical to -threads 1: True
+ILLUMINACLIP:...:2:30:10 -threads 4            outputs 1P/1U/2P/2U identical | counts jar=(3000, 459, 995, 298, 1248) port=(3000, 459, 995, 298, 1248) match, sum=ok | percents match | -summary match | trimlog 6000 lines match
+     -threads 4: four outputs byte-identical to -threads 1: True
+ILLUMINACLIP:...:2:30:10 -threads 8            outputs 1P/1U/2P/2U identical | counts jar=(3000, 459, 995, 298, 1248) port=(3000, 459, 995, 298, 1248) match, sum=ok | percents match | -summary match | trimlog 6000 lines match
+     -threads 8: four outputs byte-identical to -threads 1: True
+
+== inputs of unequal length (file 1 has 7 extra reads at the end)
+  summary: Input Read Pairs 3000, Both Surviving 3000 (pairs in common: 3000); extra reads written to any output: 0
+
+== SE summary and trimlog on the same reads (read 1 only)
+  output identical; summary line Input 3000 Surviving 1770 (59.00%) Dropped 1230 (41.00%) vs port 3000/1770/59.00%/1230; trimlog match (3000 lines)

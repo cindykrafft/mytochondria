@@ -1,0 +1,26 @@
+Part A: 3600 reads (1600 with a planted TruSeq3 adapter at positions 0-99, 2000 adapter-free)
+  ILLUMINACLIP:TruSeq3-SE.fa:2:30:10  jar == as-coded port on 3600/3600 reads; 15 dropped, 810 clipped, 2775 untouched (jar)
+     planted adapters clipped at exactly the planted position: 819/1600; adapter-free reads touched: 0/2000
+  ILLUMINACLIP:TruSeq3-SE.fa:2:30:7   jar == as-coded port on 3600/3600 reads; 15 dropped, 893 clipped, 2692 untouched (jar)
+  ILLUMINACLIP:TruSeq3-SE.fa:2:30:15  jar == as-coded port on 3600/3600 reads; 12 dropped, 539 clipped, 3049 untouched (jar)
+
+Part B: as-coded port vs the README's rule (plain sum, every offset), ILLUMINACLIP:...:2:30:10
+  reads where the coded result differs from the README rule: 67/3600
+    explained by the seed requirement alone: 21; by the maximum-range score alone: 37; by both/neither: 9
+    e.g. a595_p48_e0.5: coded keep=75, README keep=48, coded-without-seeds=48, coded-with-plain-sum=75
+    e.g. a623_p55_e0.5: coded keep=55, README keep=100, coded-without-seeds=55, coded-with-plain-sum=100
+    e.g. a675_p68_e0.5: coded keep=100, README keep=68, coded-without-seeds=68, coded-with-plain-sum=100
+    e.g. a689_p72_e0.5: coded keep=100, README keep=72, coded-without-seeds=100, coded-with-plain-sum=100
+  maximum-range vs plain sum (same seeds): 27 reads clipped more/dropped with max-range, 10 clipped less
+
+Part C: partial IndexedAdapter at the 3' end of a 100 nt read, all Q35, no errors (ILLUMINACLIP:...:2:30:10)
+  k(adapter bases) : clipped by jar / by port  (of 50); README threshold 10 needs k*0.602 >= 10, i.e. k >= 17
+  1:0/0  2:0/0  3:0/0  4:0/0  5:0/0  6:0/0  7:0/0  8:0/0  9:0/0  10:0/0  11:0/0  12:0/0  13:0/0  14:0/0  15:0/0  16:0/0  17:50/50  18:50/50  19:50/50  20:50/50  21:50/50  22:50/50  23:50/50  24:50/50  25:50/50  26:50/50  27:50/50  28:50/50  29:50/50  30:50/50  31:50/50  32:50/50  33:50/50
+
+Part D: adapter classes. Custom adapters: short 12 nt, medium 20 nt, long 30 nt; planted at position 60 of 100 nt reads, Q35, no errors
+  threshold  7  short(12)   clipped at 60: jar 100/100, port 100/100  (full-length score 7.22)
+  threshold  7  medium(20)  clipped at 60: jar 100/100, port 100/100  (full-length score 12.04)
+  threshold  7  long(30)    clipped at 60: jar 100/100, port 100/100  (full-length score 18.06)
+  threshold 10  short(12)   clipped at 60: jar   0/100, port   0/100  (full-length score 7.22)
+  threshold 10  medium(20)  clipped at 60: jar 100/100, port 100/100  (full-length score 12.04)
+  threshold 10  long(30)    clipped at 60: jar 100/100, port 100/100  (full-length score 18.06)

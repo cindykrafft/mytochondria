@@ -1,0 +1,79 @@
+cohort: 234
+full text: 0   survey-cache fallback: 234   ({'offline': 234})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  edgeR also used (TMM/calcNormFactors)            70
+  batch / covariate in design                      69
+  DESeq2 also used                                 69
+  voom (any variant)                               54
+  pseudo-bulk / single-cell                        46
+  adjusted p / FDR / BH                            44
+  lmFit / eBayes / topTable named                  35
+  ATAC / ChIP / CUT&RUN                            24
+  R version stated                                 23
+  limma version stated                             22
+  log fold change cutoff                           16
+  proteomics / metabolomics                        16
+  removeBatchEffect                                14
+  Bioconductor version stated                      11
+  microarray (Affy/Illumina/Agilent)               10
+  methylation / EPIC / 450K                        9
+  robust / trend eBayes                            9
+  duplicateCorrelation / block                     7
+  quantile / cyclic loess normalisation            7
+  voomWithQualityWeights / voomLmFit               2
+  contrasts.fit / makeContrasts                    2
+  goana / kegga                                    2
+  camera / roast / fry / romer                     1
+  treat / fold-change threshold test               1
+
+VERSION FAMILY: {'3.46': 7, '3.60': 6, '3.50': 6, '3.58': 5, '3.34': 4, '3.54': 4, '3.52': 3, '3.62': 3, '3.48': 3, '3.32': 2, '3.42': 2, '3.40': 2, '3.38': 2, '3.56': 2, '3.5': 1, '3.64': 1, '3.1': 1, '3.36': 1, '3.18': 1, '3.44': 1, '3.43': 1}
+VERSIONS (top 20): {'3.46.0': 6, '3.58.1': 5, '3.34.9': 3, '3.48.3': 3, '3.50.0': 3, '3.62.2': 2, '3.60.3': 2, '3.60.6': 2, '3.54.2': 2, '3.50.3': 2, '3.42.2': 2, '3.40.6': 2, '3.38.3': 2, '3.60.2': 2, '3.34.5': 1, '3.5.4': 1, '3.64.1': 1, '3.52.4': 1, '3.62.1': 1, '3.32.2': 1}
+
+resolutions: {'2.4': 1, '1.2': 1, '0.5': 1}
+mito %: {'10': 1}
+padj cutoffs: {'0.05': 16, '0.10': 1}
+lfc cutoffs: {'1': 3, '0.5': 1, '0.25': 1, '0.8': 1, '2': 1}
+dims: {20: 5, 30: 3, 200: 2, 50: 2, 2: 1, 6: 1, 1: 1, 8: 1, 10: 1, 75: 1}
+
+CO-PACKAGES (top 40):
+  R                        161
+  UMAP                     83
+  GSEA                     80
+  edgeR                    77
+  DESeq2                   69
+  Seurat                   67
+  ImageJ                   66
+  STAR                     55
+  clusterProfiler          53
+  MACS2                    48
+  ggplot2                  48
+  Bioconductor             47
+  featureCounts            44
+  SAMtools                 38
+  FastQC                   32
+  Python                   30
+  fgsea                    29
+  Bowtie2                  29
+  scDblFinder              27
+  Cutadapt                 25
+  Scanpy                   24
+  Picard                   23
+  BEDTools                 23
+  Trim Galore              22
+  tidyverse                20
+  RSEM                     19
+  BWA                      19
+  ComplexHeatmap           19
+  pheatmap                 19
+  HOMER                    19
+  AlphaFold                18
+  HISAT2                   18
+  kallisto                 17
+  scikit-learn             16
+  HTSeq                    15
+  NumPy                    14
+  ChimeraX                 14
+  Cytoscape                14
+  PHENIX                   13
+  Trimmomatic              13

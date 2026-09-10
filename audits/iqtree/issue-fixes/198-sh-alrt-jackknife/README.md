@@ -54,7 +54,17 @@ branches, bootstrap RELL 60.3 / 54.6 / 74.6 / 85.8, delete-half jackknife 74.0 /
 100.0, jackknife × 2 (pseudo-value) 57.5 / 53.8 / 74.0 / 85.1, 20,000 replicates each. The
 inflation is the missing centring.
 
-## Test added to the PR
+## Filed, and the maintainers' first response (2026-09-10)
+
+PR #214. The maintainer asked for the `test_scripts` additions to be removed: the CI is meant to
+cover a few popular use cases and to build beta binaries within about twenty minutes, not to be an
+extensive test suite, and further testing should go in the PR description as input files and
+commands. The three `test_scripts` files were reverted and the branch force-pushed as commit
+`04f81848` (code only, six files, same fix); the reproduction moved into the PR body and into
+`comment-214-ci-removed.md`, using `turtle.fa`, which the repository already ships, so no
+attachments are needed. The full suite result below stays in the kit as our own evidence.
+
+## Test that was removed from the PR at the maintainers' request
 
 `test_iqtree.sh` / `.ps1`: `turtle.fa -B 1000 -alrt 1000` and `turtle.fa -J 1000 -alrt 1000`,
 same seed, followed by a check that the SH-aLRT labels of the two `.treefile`s are identical

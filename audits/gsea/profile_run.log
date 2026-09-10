@@ -1,0 +1,80 @@
+cohort: 720
+full text: 0   survey-cache fallback: 720   ({'offline': 720})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  ranked by DESeq2/limma/edgeR statistic           315
+  single-cell / pseudobulk input                   259
+  GSEA desktop / Broad / MSigDB named              105
+  GO / C5 sets                                     99
+  Hallmark gene sets                               96
+  fgsea also                                       95
+  clusterProfiler also                             85
+  log2 ratio / fold-change ranking                 77
+  KEGG / Reactome / C2 sets                        61
+  FDR cutoff quoted                                53
+  ssGSEA / GSVA                                    51
+  GSEAPreranked / preranked                        41
+  WebGestalt / other web GSEA                      35
+  weighted / classic scoring                       26
+  GSEA version stated                              24
+  NES quoted                                       18
+  number of permutations stated                    12
+  GSEApy / gseapy also                             7
+  nominal p-value quoted                           5
+  collapse / probe / chip                          4
+  Signal2Noise / signal-to-noise                   3
+  MSigDB version stated                            3
+  t-test metric                                    3
+  leading edge                                     2
+  gene-set permutation                             1
+  min/max gene set size stated                     1
+  FDR < 0.25 quoted                                1
+
+VERSION FAMILY: {'4.3': 10, '4.1': 8, '4.0': 7, '4.2': 4, '3.0': 2, '2.2': 2, '2.0': 1}
+VERSIONS (top 20): {'4.1.0': 8, '4.3.2': 7, '4.0.3': 7, '4.3.3': 3, '4.2.3': 3, '3.0': 2, '2.2.3': 2, '4.2.1': 1, '2.0': 1}
+
+permutations stated: {'1,000': 3, '2000': 1, '10,000': 1}
+FDR cutoffs: {'0.05': 22, '0.1': 2, '0.2': 1, '0.001': 1, '0.01': 1}
+NES cutoffs: {'1.5': 1, '1': 1}
+
+CO-PACKAGES (top 40):
+  R                        271
+  UMAP                     255
+  DESeq2                   236
+  Seurat                   193
+  ImageJ                   176
+  STAR                     118
+  MACS2                    109
+  edgeR                    90
+  fgsea                    89
+  clusterProfiler          84
+  SAMtools                 83
+  ggplot2                  81
+  limma                    80
+  FastQC                   75
+  featureCounts            72
+  Bowtie2                  71
+  Bioconductor             61
+  Python                   53
+  Picard                   53
+  Cutadapt                 50
+  Scanpy                   49
+  QuPath                   45
+  RSEM                     43
+  ComplexHeatmap           42
+  HOMER                    41
+  scDblFinder              40
+  GSVA                     39
+  BWA                      38
+  Trim Galore              37
+  HTSeq                    37
+  BEDTools                 37
+  GATK                     36
+  deepTools                34
+  pheatmap                 34
+  Trimmomatic              33
+  HISAT2                   30
+  Cytoscape                26
+  scikit-learn             25
+  CellChat                 25
+  Enrichr                  25

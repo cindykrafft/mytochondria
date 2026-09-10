@@ -1,0 +1,4 @@
+fgsea 1.39.4, R R version 4.3.3 (2024-02-29); 41 sets in fgsea, 41 in the GSEA report
+max |ES_fgsea - ES_gsea| = 4.27e-07 over 41 sets; sizes equal: TRUE
+NES sign agreement: 41 of 41; max |NES_fgsea - NES_gsea| = 0.092 (different nulls)
+leading-edge gene sets identical: 41 of 41

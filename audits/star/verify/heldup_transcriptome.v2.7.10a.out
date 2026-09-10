@@ -1,0 +1,95 @@
+STAR 2.7.10a | workdir /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/star/work_v2.7.10a
+
+== SE: transcriptome records STAR 11189 / port 11189; reads with >=1 record STAR 9547 / port 9547 (genome-mapped reads 10299)
+  only in STAR: 400
+     ('r009500', 0, 'T14', 240, False, '100M')
+     ('r009501', 0, 'T14', 397, False, '100M')
+     ('r009502', 0, 'T14', 500, True, '100M')
+     ('r009503', 0, 'T14', 317, True, '100M')
+     ('r009504', 0, 'T14', 497, True, '100M')
+     ('r009505', 0, 'T14', 158, False, '100M')
+     ('r009506', 0, 'T14', 397, True, '100M')
+     ('r009507', 0, 'T14', 70, False, '100M')
+  only in port: 400
+     ('r009500', 0, 'T14', 240, True, '100M')
+     ('r009501', 0, 'T14', 397, True, '100M')
+     ('r009502', 0, 'T14', 500, False, '100M')
+     ('r009503', 0, 'T14', 317, False, '100M')
+     ('r009504', 0, 'T14', 497, False, '100M')
+     ('r009505', 0, 'T14', 158, True, '100M')
+     ('r009506', 0, 'T14', 397, False, '100M')
+     ('r009507', 0, 'T14', 70, True, '100M')
+  differences confined to the strand flag of records on the strand-less transcript T14 (finding ST1): True
+  genome alignments without a transcriptome record, by port reason:
+     no compatible transcript                                               1793
+     indel                                                                  200
+     no compatible transcript (soft-clipped; compatible before extension)   50
+     no compatible transcript (soft-clipped)                                47
+  reads on >1 transcript 1642; NH != number of transcript alignments: 0; reads without exactly one primary: 0
+
+== PE: transcriptome records STAR 20748 / port 20748; reads with >=1 record STAR 9441 / port 9441 (genome-mapped reads 9600)
+  only in STAR: 800
+     ('r020300', 1, 'T14', 154, True, '75M')
+     ('r020300', 2, 'T14', 371, False, '75M')
+     ('r020301', 1, 'T14', 56, True, '75M')
+     ('r020301', 2, 'T14', 297, False, '75M')
+     ('r020302', 1, 'T14', 301, True, '75M')
+     ('r020302', 2, 'T14', 491, False, '75M')
+     ('r020303', 1, 'T14', 117, True, '75M')
+     ('r020303', 2, 'T14', 320, False, '75M')
+  only in port: 800
+     ('r020300', 1, 'T14', 154, False, '75M')
+     ('r020300', 2, 'T14', 371, True, '75M')
+     ('r020301', 1, 'T14', 56, False, '75M')
+     ('r020301', 2, 'T14', 297, True, '75M')
+     ('r020302', 1, 'T14', 301, False, '75M')
+     ('r020302', 2, 'T14', 491, True, '75M')
+     ('r020303', 1, 'T14', 117, False, '75M')
+     ('r020303', 2, 'T14', 320, True, '75M')
+  differences confined to the strand flag of records on the strand-less transcript T14 (finding ST1): True
+  genome alignments without a transcriptome record, by port reason:
+     no compatible transcript                                               1117
+     no compatible transcript (soft-clipped; compatible before extension)   152
+     no compatible transcript (soft-clipped)                                55
+     too many mismatches after extension                                    2
+  reads on >1 transcript 933; NH != number of transcript alignments: 0; reads without exactly one primary: 0
+
+== note: simulated single-end reads by true junction overhang (min distance from a read end to an exon boundary inside the read)
+  default (ExtendSoftclip):
+     overhang      reads  genome-unique  in trscript BAM
+     1                23             20                5
+     2                17             16                4
+     3                27             25               26
+     4                21             21               19
+     5                27             27               27
+     6                35             35               35
+     7                27             27               26
+     8                32             31               31
+     9                35             35               35
+     10               33             33               33
+     11               25             25               25
+     12               31             31               31
+     >12            1065           1063             1058
+     none           8502           7387             8192
+     overhang 1-2 nt: 40 reads, 9 in the transcriptome BAM
+  soft clips allowed:
+     overhang      reads  genome-unique  in trscript BAM
+     1                23             20               23
+     2                17             16               17
+     3                27             25               27
+     4                21             21               21
+     5                27             27               27
+     6                35             35               35
+     7                27             27               27
+     8                32             31               32
+     9                35             35               35
+     10               33             33               33
+     11               25             25               25
+     12               31             31               31
+     >12            1065           1063             1063
+     none           8502           7387             8201
+     overhang 1-2 nt: 40 reads, 40 in the transcriptome BAM
+  SE softclip-allowed: 9797 reads in the transcriptome BAM (default run: 9547); 250 reads present only with soft clips allowed
+  PE softclip-allowed: 9595 reads in the transcriptome BAM (default run: 9441); 154 reads present only with soft clips allowed
+
+RESULT: transcriptome records equal the port apart from ST1 (strand-less transcript), if present

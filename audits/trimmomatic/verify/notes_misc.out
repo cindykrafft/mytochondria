@@ -1,0 +1,31 @@
+N1: MAXINFO:40:0.8 on reads of 999, 1000 and 1001 nt
+   999 nt: kept 887 nt
+  1000 nt: kept 887 nt
+  1001 nt: FAILED - Exception processing read: r
+
+N2: N bases scored as Q0. Read of 50 nt, all Q35, with Ns at positions 45-49 carrying quality character 'I' (Q40)
+  TRAILING:20          -> 45 nt
+  SLIDINGWINDOW:4:20   -> 45 nt
+  AVGQUAL:35           -> dropped
+  MAXINFO:50:0.9       -> 45 nt
+
+N3: automatic Phred detection on 100 reads whose qualities are all Q30-41 (chars '?'..'J')
+  Error: Unable to detect quality encoding
+  Q26-46 (chars 59-79, impossible as phred64): Error: Unable to detect quality encoding
+  Q25-44 (one char in 33-58): ['Quality encoding detected as phred33']
+
+N4: TRAILING:20 on '?' + 20 x '+' (base 0 is Q30, the rest Q10)
+  -> dropped (README: 1 nt); LEADING:20 on the mirror image: 1 nt
+
+N5: HEADCROP:10 on a 10 nt read and SLIDINGWINDOW:4:20 on 1-3 nt reads of Q40
+  HEADCROP:10 on 10 nt: dropped
+  SLIDINGWINDOW:4:20 on 1,2,3,4 nt of Q40: kept [4]
+
+N6: SLIDINGWINDOW:4:20 on Q [30,30,30,30,30,30,10,10,10,10,30,30]
+  jar keeps 6 nt; first window below 20 starts at base 5 (avg 25 -> base 4: [30,30,10,10] = 20 passes; base 5: [30,10,10,10] = 15 fails)
+  as coded: keep to the end of window 4 (8 nt), then strip trailing bases < 20 -> 6 nt; literal README: cut at base 5 -> 5 nt
+
+N7: ILLUMINACLIP simple mode, maximum-range score vs plain sum; adapter 'AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC' (33 nt), threshold 10
+  (a) 20 matching adapter bases followed by 13 mismatching Q30 bases: plain sum -27.0, max-range 12.0 -> jar clipped to 40
+  (b) two Q35 mismatches at adapter positions 11 and 15: plain sum 11.7, max-range 10.2, threshold 10 -> jar clipped to 40
+  (b) two Q35 mismatches at adapter positions 11 and 15: plain sum 11.7, max-range 10.2, threshold 11 -> jar not clipped

@@ -1,0 +1,16 @@
+limma 3.68.5 
+[separate] mismatches 0; counts Up/Down: 121 111 101 124
+[global] mismatches 0
+[hierarchical] mismatches 0 (selected genes 470, row-level threshold 0.0078)
+[nestedF] mismatches 0; F from classifyTestsF equals t'R^-1t/2: 2.3e-13
+[lfc=1] equals separate result masked by |logFC|>1: 0 mismatches
+[threshold convention] with p.value set to an attained adj.P (0.050424): topTable keeps 233 genes (<=), decideTests flags 232 (<)
+[arrayWeights] true 1/sd^2 = 2.718 1.000 0.368 1.000 1.000 1.000 0.301 3.320 1.000
+  reml       = 2.510 1.022 0.376 1.043 1.038 1.010 0.308 3.176 0.970
+  genebygene = 2.322 1.050 0.383 1.087 1.076 1.042 0.315 2.789 1.001
+  reml vs truth max |log ratio| 0.080; genebygene vs truth 0.174; product of weights (geometric mean 1): 1.5e-17 5.9e-18
+[arrayWeights reml, unit prior weights] vs reml without weights: 4.9e-01
+[arrayWeights reml, random prior weights] = 1.92031 1.19136 0.40835 1.15006 1.06397 1.07947 0.33358 2.35294 1.03251
+  genebygene with the same weights = 2.34317 1.14566 0.35526 1.14654 1.10742 1.02843 0.30020 2.68077 0.99781
+  REML+prior score at the returned weights: max |Z2'z|/(G+prior.n) = 7.32e-02 (tol 1e-5 on the scoring criterion)
+[var.group] weights constant within group: TRUE; values 0.934 1.275 0.840

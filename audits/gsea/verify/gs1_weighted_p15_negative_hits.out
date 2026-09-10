@@ -1,0 +1,22 @@
+jar/classpath: /tmp/gseawork/src/build/libs/gsea-minimal-user.jar:/tmp/gseawork/src/modules/*
+N = 8000; scores of DOWN_MID members: max = -0.907 (all negative)
+
+scheme = weighted (p = 1.0)
+  DOWN_MID  ES gsea =  -0.8225  ES ref =  -0.8225  rank-at-ES gsea =  6546 ref =  6546  NES =  -3.061  ok
+  UP_MID    ES gsea =   0.8271  ES ref =   0.8271  rank-at-ES gsea =  1415 ref =  1415  NES =   3.188  ok
+  MIXED     ES gsea =  -0.4885  ES ref =  -0.4885  rank-at-ES gsea =  7716 ref =  7716  NES =  -1.817  ok
+  RANDOM    ES gsea =   0.2549  ES ref =   0.2549  rank-at-ES gsea =  1905 ref =  1905  NES =   0.989  ok
+
+scheme = weighted_p2 (p = 2.0)
+  DOWN_MID  ES gsea =  -0.8225  ES ref =  -0.8225  rank-at-ES gsea =  6546 ref =  6546  NES =  -2.118  ok
+  UP_MID    ES gsea =   0.8271  ES ref =   0.8271  rank-at-ES gsea =  1415 ref =  1415  NES =   2.182  ok
+  MIXED     ES gsea =  -0.5129  ES ref =  -0.5129  rank-at-ES gsea =  7716 ref =  7716  NES =  -1.334  ok
+  RANDOM    ES gsea =   0.4240  ES ref =   0.4240  rank-at-ES gsea =   648 ref =   648  NES =   1.196  ok
+
+scheme = weighted_p1.5 (p = 1.5)
+  DOWN_MID  ES gsea =  -1.0000  ES ref =  -0.8225  rank-at-ES gsea =  7999 ref =  6546  NES =  -1.907  MISMATCH
+  UP_MID    ES gsea =   0.8271  ES ref =   0.8271  rank-at-ES gsea =  1415 ref =  1415  NES =   1.948  ok
+  MIXED     ES gsea =  -0.5334  ES ref =  -0.5004  rank-at-ES gsea =  7999 ref =  7716  NES =  -1.013  MISMATCH
+  RANDOM    ES gsea =  -0.3630  ES ref =   0.3430  rank-at-ES gsea =  7999 ref =  1033  NES =  -0.692  MISMATCH
+
+mismatching (scheme, set) pairs: 3

@@ -230,6 +230,7 @@ for d in sorted(glob.glob(A+"*/issue-fixes/*/")):
 json.dump(fixes, open(os.path.join(OUT,"fixes.json"),"w"), indent=1)
 # ---- ordered action list (2026-09-08): what to do next, top first; everything else waits for a signal
 ACTIONS=[
+ dict(kind="fix", pkg="iqtree", issue=198, why="reply on PR #214 (drafted, needs your approval): the maintainer asked for the CI additions to be removed, so the branch is now code-only (force-pushed, commit 04f81848) and the reproduction moves into the thread; the comment text is in the card below"),
  dict(kind="issue", key="edger", id="EG3", why="support-site post, not a GitHub issue: filterByExpr drops a gene sitting exactly on the CPM cutoff by one ulp, every version, one-line fix attached; small effect, so post only if you are comfortable with a low-magnitude report"),
 ]
 WAITING=[

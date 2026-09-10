@@ -1,0 +1,29 @@
+STAR 2.7.9a | workdir /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/star/st1_v2.7.9a
+
+== SE: Aligned.toTranscriptome.out.bam records with the transcript annotated '+' vs '.'
+   read   truth | pos   str cigar  SEQ!=tr | pos   str cigar  SEQ!=tr
+   a10    anti  | 361   -   100M   0       | 361   +   100M   78     
+   a11    anti  | 395   -   100M   0       | 395   +   100M   74     
+   s00    sense | 21    +   100M   0       | 21    -   100M   72     
+   s01    sense | 55    +   100M   0       | 55    -   100M   74     
+   records 20: same position in both 20, strand flag differs 20; SEQ mismatches vs transcript: '+' total 0, '.' total 1524
+   reads whose (first) mate is on the transcript's forward strand [RSEM --forward-prob 1 keeps these]: '+' annotation 10 of 20 (truth: 10 sense), '.' annotation 10
+
+== PE: Aligned.toTranscriptome.out.bam records with the transcript annotated '+' vs '.'
+   read   truth | pos   str cigar  SEQ!=tr | pos   str cigar  SEQ!=tr
+   a10    anti  | 536   -   75M    0       | 536   +   75M    63     
+   a10    anti  | 361   +   75M    0       | 361   -   75M    47     
+   a11    anti  | 570   -   75M    0       | 570   +   75M    69     
+   a11    anti  | 395   +   75M    0       | 395   -   75M    49     
+   s00    sense | 21    +   75M    0       | 21    -   75M    57     
+   s00    sense | 196   -   75M    0       | 196   +   75M    61     
+   s01    sense | 55    +   75M    0       | 55    -   75M    53     
+   s01    sense | 230   -   75M    0       | 230   +   75M    55     
+   records 36: same position in both 36, strand flag differs 36; SEQ mismatches vs transcript: '+' total 0, '.' total 2018
+   reads whose (first) mate is on the transcript's forward strand [RSEM --forward-prob 1 keeps these]: '+' annotation 8 of 20 (truth: 10 sense), '.' annotation 10
+
+== STARsolo (40 sense cDNA reads, 2 cells): UMI counts for the gene
+   annotation '+': --soloStrand Forward  Gene 40  GeneFull 40 ;  --soloStrand Unstranded  Gene 40  GeneFull 40
+   annotation '.': --soloStrand Forward  Gene 0  GeneFull 0 ;  --soloStrand Unstranded  Gene 40  GeneFull 40
+
+RESULT: 2.7.9a -- AFFECTED (strand inverted for the '.'-strand transcript)

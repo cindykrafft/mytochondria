@@ -1,0 +1,25 @@
+limma 3.42.2 
+
+[A] lm.series with missing values (no weights)
+lm.series NA                                   coef 0.00e+00  stdev 1.11e-16  sigma 2.22e-16  df 0  NAs-agree TRUE
+[B] lm.series with probe weights and missing values
+lm.series NA+weights                           coef 0.00e+00  stdev 4.44e-16  sigma 4.44e-16  df 0  NAs-agree TRUE
+lm.series complete+weights                     coef 0.00e+00  stdev 2.22e-16  sigma 4.44e-16  df 0  NAs-agree TRUE
+[C] rank-deficient design per gene (column X zero except in samples that are NA for some genes)
+lm.series genewise rank drop                   coef 0.00e+00  stdev 2.22e-16  sigma 8.88e-16  df 0  NAs-agree TRUE
+
+[D] gls.series with block correlation
+gls.series NA                                  coef 0.00e+00  stdev 2.22e-16  sigma 2.22e-16  df 0  NAs-agree TRUE
+gls.series NA+weights                          coef 0.00e+00  stdev 2.22e-16  sigma 2.22e-16  df 0  NAs-agree TRUE
+gls.series complete+weights                    coef 0.00e+00  stdev 2.22e-16  sigma 2.22e-16  df 0  NAs-agree TRUE
+gls.series complete (fast path)                coef 0.00e+00  stdev 0.00e+00  sigma 4.44e-16  df 0  NAs-agree TRUE
+
+[E] contrasts: exact per-gene contrast sd vs reference
+contrasts= argument not available on this version: unused argument (contrasts = C) 
+
+[F] nthreads=4 vs nthreads=1 (devel only)
+nthreads not available on this version
+
+[G] lmFit end to end (matrix input, weights, NA) vs reference
+lmFit weights+NA                               coef 0.00e+00  stdev 4.44e-16  sigma 4.44e-16  df 0  NAs-agree TRUE
+cov.coefficients equals chol2inv of the shared design: 0 

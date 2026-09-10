@@ -1,0 +1,11 @@
+as_written: tie block kept in file order = True; positions of the first/last IN_TIE_EARLY member: 2925/2964
+   IN_TIE_EARLY  ES =  -0.3675 (paper's ES on this order: undefined (0/0); depth before first member = -0.3675) NES =  -1.045 rank-at-ES = 2924
+   IN_TIE_LATE   ES =  -0.6137 (paper's ES on this order: undefined (0/0); depth before first member = -0.6137) NES =  -1.871 rank-at-ES = 4884
+   SPREAD        ES =  -0.2884 (paper's ES on this order: -0.2884) NES =  -0.875 rank-at-ES = 6355
+tie_block_reversed: tie block kept in file order = True; positions of the first/last IN_TIE_EARLY member: 4924/4885
+   IN_TIE_EARLY  ES =  -0.6137 (paper's ES on this order: undefined (0/0); depth before first member = -0.6137) NES =  -1.745 rank-at-ES = 4884
+   IN_TIE_LATE   ES =  -0.3675 (paper's ES on this order: undefined (0/0); depth before first member = -0.3675) NES =  -1.120 rank-at-ES = 2924
+   SPREAD        ES =  -0.2884 (paper's ES on this order: -0.2884) NES =  -0.875 rank-at-ES = 6355
+IN_TIE_EARLY : ES -0.3675 vs -0.6137  (delta 0.2462); NES -1.045 vs -1.745
+IN_TIE_LATE  : ES -0.6137 vs -0.3675  (delta 0.2462); NES -1.871 vs -1.120
+SPREAD       : ES -0.2884 vs -0.2884  (delta 0.0000); NES -0.875 vs -0.875

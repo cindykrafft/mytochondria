@@ -1,0 +1,17 @@
+STAR 2.7.10a | workdir /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/star/work_v2.7.10a
+
+== SE
+  reads 10299, alignments 11639, single-mate alignments 0, spliced records checked for XS 0
+  discrepancies: none
+  sorted BAM: 12140 records, same multiset as unsorted: True, non-decreasing (ref,pos) with unplaced last: True
+
+== PE
+  reads 9600, alignments 10768, single-mate alignments 0, spliced records checked for XS 0
+  discrepancies: none
+  sorted BAM: 22636 records, same multiset as unsorted: True, non-decreasing (ref,pos) with unplaced last: True
+
+== SE intronMotif
+  reads 10299, alignments 11639, single-mate alignments 0, spliced records checked for XS 1350
+  discrepancies: none
+
+RESULT: every record field checked agrees

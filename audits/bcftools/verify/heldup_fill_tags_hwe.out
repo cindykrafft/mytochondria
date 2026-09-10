@@ -1,0 +1,10 @@
+binary: bcftools 7abcc0d / Using htslib 1.24-1-ge503e04
+pos 1000: hets=44 homalt=5 homref=11 hap=0 miss=0  HWE got 0.000273079 exact 0.000273079  ExcHet got 0.000240604 exact 0.000240604
+pos 1005: hets=28 homalt=20 homref=12 hap=0 miss=0  HWE got 0.792568 exact 0.792568  ExcHet got 0.763279 exact 0.763279
+pos 1012: hets=40 homalt=2 homref=18 hap=0 miss=0  HWE got 0.000832211 exact 0.000832211  ExcHet got 0.000712969 exact 0.000712969
+pos 1039: hets=26 homalt=0 homref=9 hap=8 miss=17  HWE got 0.000616724 exact 0.000616724  ExcHet got 0.000424076 exact 0.000424076
+
+440 values compared over 40 sites, 0 mismatches (float32 tolerance 1e-5 relative)
+
+multiallelic (10 0/1, 10 0/2, 10 1/2, 20 0/0, 5 1/1, 5 2/2): AN=120 AC=30,30 AF=0.25,0.25 MAF=0.25 HWE=0.508811,0.508811 ExcHet=0.849725,0.849725
+  AF exact: 1=0.2500 2=0.2500; MAF printed is the second-largest allele frequency (allele 1 or 2), not min(AF)

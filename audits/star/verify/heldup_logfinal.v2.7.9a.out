@@ -1,0 +1,99 @@
+STAR 2.7.9a | workdir /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/star/work_v2.7.9a
+
+== SE
+statistic                                        STAR           port          
+Number of input reads                            10800          10800         
+Average input read length                        100            100           
+Uniquely mapped reads number                     9476           9476          
+Uniquely mapped reads %                          87.74%         87.74%        
+Average mapped length                            99.95          99.95         
+Number of splices: Total                         1338           1338          
+Number of splices: Annotated (sjdb)              1337           1337          
+Number of splices: GT/AG                         1080           1080          
+Number of splices: GC/AG                         72             72            
+Number of splices: AT/AC                         86             86            
+Number of splices: Non-canonical                 100            100           
+Mismatch rate per base, %                        0.29%          0.29%         
+Deletion rate per base                           0.02%          0.02%         
+Deletion average length                          2.07           2.07          
+Insertion rate per base                          0.02%          0.02%         
+Insertion average length                         2.13           2.13          
+Number of reads mapped to multiple loci          823            823           
+% of reads mapped to multiple loci               7.62%          7.62%         
+Number of reads mapped to too many loci          300            300           
+% of reads mapped to too many loci               2.78%          2.78%         
+Number of reads unmapped: too many mismatches    0              0             
+% of reads unmapped: too many mismatches         0.00%          0.00%         
+Number of reads unmapped: too short              199            199           
+% of reads unmapped: too short                   1.84%          1.84%         
+Number of reads unmapped: other                  2              2             
+% of reads unmapped: other                       0.02%          0.02%         
+Number of chimeric reads                         0              0             
+differing: 0 of 27  (unique+multi+too many+unmapped = 10800 = input 10800: True)
+denominators: mapped bases of unique reads 947107 (sum over both mates), unique reads 9476, input reads 10800, total read bases 1080000
+
+== PE
+statistic                                        STAR           port          
+Number of input reads                            10150          10150         
+Average input read length                        150            150           
+Uniquely mapped reads number                     8865           8865          
+Uniquely mapped reads %                          87.34%         87.34%        
+Average mapped length                            149.92         149.92        
+Number of splices: Total                         2322           2322          
+Number of splices: Annotated (sjdb)              2322           2322          
+Number of splices: GT/AG                         1900           1900          
+Number of splices: GC/AG                         129            129           
+Number of splices: AT/AC                         116            116           
+Number of splices: Non-canonical                 177            177           
+Mismatch rate per base, %                        0.28%          0.28%         
+Deletion rate per base                           0.00%          0.00%         
+Deletion average length                          0.00           0.00          
+Insertion rate per base                          0.00%          0.00%         
+Insertion average length                         0.00           0.00          
+Number of reads mapped to multiple loci          735            735           
+% of reads mapped to multiple loci               7.24%          7.24%         
+Number of reads mapped to too many loci          299            299           
+% of reads mapped to too many loci               2.95%          2.95%         
+Number of reads unmapped: too many mismatches    0              0             
+% of reads unmapped: too many mismatches         0.00%          0.00%         
+Number of reads unmapped: too short              244            244           
+% of reads unmapped: too short                   2.40%          2.40%         
+Number of reads unmapped: other                  7              7             
+% of reads unmapped: other                       0.07%          0.07%         
+Number of chimeric reads                         0              0             
+differing: 0 of 27  (unique+multi+too many+unmapped = 10150 = input 10150: True)
+denominators: mapped bases of unique reads 1329051 (sum over both mates), unique reads 8865, input reads 10150, total read bases 1522500
+
+== SE_mm2
+statistic                                        STAR           port          
+Number of input reads                            10800          10800         
+Average input read length                        100            100           
+Uniquely mapped reads number                     9476           9476          
+Uniquely mapped reads %                          87.74%         87.74%        
+Average mapped length                            99.95          99.95         
+Number of splices: Total                         1338           1338          
+Number of splices: Annotated (sjdb)              1337           1337          
+Number of splices: GT/AG                         1080           1080          
+Number of splices: GC/AG                         72             72            
+Number of splices: AT/AC                         86             86            
+Number of splices: Non-canonical                 100            100           
+Mismatch rate per base, %                        0.29%          0.29%         
+Deletion rate per base                           0.02%          0.02%         
+Deletion average length                          2.07           2.07          
+Insertion rate per base                          0.02%          0.02%         
+Insertion average length                         2.13           2.13          
+Number of reads mapped to multiple loci          307            307           
+% of reads mapped to multiple loci               2.84%          2.84%         
+Number of reads mapped to too many loci          816            816           
+% of reads mapped to too many loci               7.56%          7.56%         
+Number of reads unmapped: too many mismatches    0              0             
+% of reads unmapped: too many mismatches         0.00%          0.00%         
+Number of reads unmapped: too short              199            199           
+% of reads unmapped: too short                   1.84%          1.84%         
+Number of reads unmapped: other                  2              2             
+% of reads unmapped: other                       0.02%          0.02%         
+Number of chimeric reads                         0              0             
+differing: 0 of 27  (unique+multi+too many+unmapped = 10800 = input 10800: True)
+denominators: mapped bases of unique reads 947107 (sum over both mates), unique reads 9476, input reads 10800, total read bases 1080000
+
+RESULT: every Log.final.out statistic equals the port

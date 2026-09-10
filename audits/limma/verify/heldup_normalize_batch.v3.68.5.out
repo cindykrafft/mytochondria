@@ -1,0 +1,11 @@
+limma 3.68.5 
+[normalizeQuantiles] no ties: 0.0e+00; ties=FALSE 0.0e+00; normalizeBetweenArrays default on matrix == quantile 0.0e+00
+[ties] tied input values map to equal outputs within a column: TRUE; column quantiles identical across columns after normalisation (no-ties data): 0.0e+00
+[NAs] NA positions preserved TRUE; each column's non-NA values are monotone in the input: TRUE
+[normalizeCyclicLoess fast] planted column distortions up to 0.31; residual trend (loessFit at the adaptive span 0.3950) after 1/3/10 iterations: 3.82e-02 9.50e-03 1.63e-03
+  affy / pairs methods, 3 iterations: residual trend 1.08e-02 6.28e-03
+[loessFit unweighted vs stats::lowess f=0.4] max |diff| 0.00e+00 (both tricube, 3 robustness iterations)
+[loessFit weighted] fitted range -0.8204 0.2511  sum fitted -1084.805186
+[removeBatchEffect] vs closed form 0.0e+00; refit on corrected data: batch/covariate coefficients 5.2e-15, design coefficients unchanged 7.1e-15
+[removeBatchEffect no design] vs closed form 0.0e+00
+[scale] column medians equal after scaling: 2.7e-15

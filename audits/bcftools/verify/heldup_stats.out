@@ -1,0 +1,8 @@
+binary: bcftools 7abcc0d / Using htslib 1.24-1-ge503e04
+SN/TSTV: records=400 SNPs=258 indels=73 mals=75 ts/tv=0.43 (truth 0.43)
+PSC s0: nRefHom=236 nNonRefHom=30 nHets=66 nTs=35 nTv=69 nIndels=30 avgDP=93.4 nSingletons=9 nHapRef=10 nHapAlt=3 nMissing=25
+  N1: average depth 93.4 equals the mean over genotypes with DP>0 (93.42); the mean over all 400 genotypes including DP=0 is 67.73
+DP distribution: 6 genotype bins and 254 site bins checked; genotypes with DP=0 (803 of them) appear in no bin
+--af-bins 0.1,0.3,0.6 with --af-tag AF: SNP allele counts per bin got {0.05: 106, 0.2: 112, 0.45: 115} expected {0.05: 106, 0.2: 112, 0.45: 115}
+
+mismatches: 0

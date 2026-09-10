@@ -1,0 +1,140 @@
+STAR 2.7.9a | workdir /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/star/work_v2.7.9a
+
+== SE: ReadsPerGene.out.tab vs port (unstranded / read-strand / reverse)
+row              STAR                     port                     
+N_unmapped       (501, 501, 501)          (501, 501, 501)         
+N_multimapping   (823, 823, 823)          (823, 823, 823)         
+N_noFeature      (500, 4452, 4535)        (500, 4452, 4535)       
+N_ambiguous      (1143, 278, 276)         (1143, 278, 276)        
+G1               (1149, 899, 839)         (1149, 899, 839)        
+G2               (900, 444, 456)          (900, 444, 456)         
+G3               (1000, 497, 503)         (1000, 497, 503)        
+G4               (330, 169, 161)          (330, 169, 161)         
+G5               (313, 160, 153)          (313, 160, 153)         
+G6               (159, 347, 401)          (159, 347, 401)         
+G7               (1198, 625, 573)         (1198, 625, 573)        
+G8               (800, 400, 400)          (800, 400, 400)         
+G9               (599, 305, 294)          (599, 305, 294)         
+G10              (85, 37, 48)             (85, 37, 48)            
+G11              (0, 0, 0)                (0, 0, 0)               
+G12              (0, 0, 0)                (0, 0, 0)               
+G13              (900, 463, 437)          (900, 463, 437)         
+G14              (400, 400, 400)          (400, 400, 400)         
+rows differing: 0 of 18
+column sums: [10800, 10800, 10800] ; Log.final.out input reads 10800
+Log.final.out: unique 9476, multi 823, too many loci 300, unmapped mism/short/other 0/199/2
+N_unmapped 501 == unmapped(mism+short+other) 201 + too many loci 300 : True
+truth vs unstranded column (reads by simulated origin -> port/STAR assignment):
+   from gene -> counted to its gene           7833
+   from gene G10 -> multi                      515
+   from gene G1 -> ambig                       350
+   from gene G11 -> multi                      300
+   from gene G12 -> unmapped                   300
+   intergenic -> none                          300
+   from gene G5 -> ambig                       287
+   from gene G4 -> ambig                       267
+   from gene G6 -> ambig                       239
+   intronic -> none                            200
+   junk -> unmapped                            100
+   halfjunk -> unmapped                        100
+   from gene G4 -> multi                         3
+   from gene G6 -> multi                         2
+   from gene G7 -> multi                         2
+   from gene G1 -> multi                         1
+   from gene G9 -> unmapped                      1
+stranded columns vs truth (gene strand, read orientation -> column holding the gene):
+   + antisense col4                           2587
+   + sense col3                               2687
+   - antisense col4                            974
+   - sense col3                                985
+   . antisense col3                            190
+   . sense col3                                210
+
+== PE: ReadsPerGene.out.tab vs port (unstranded / read-strand / reverse)
+row              STAR                     port                     
+N_unmapped       (550, 550, 550)          (550, 550, 550)         
+N_multimapping   (735, 735, 735)          (735, 735, 735)         
+N_noFeature      (0, 3897, 3840)          (0, 3897, 3840)         
+N_ambiguous      (1357, 319, 309)         (1357, 319, 309)        
+G1               (1115, 903, 941)         (1115, 903, 941)        
+G2               (898, 458, 440)          (898, 458, 440)         
+G3               (799, 395, 404)          (799, 395, 404)         
+G4               (291, 152, 139)          (291, 152, 139)         
+G5               (280, 138, 142)          (280, 138, 142)         
+G6               (56, 400, 385)           (56, 400, 385)          
+G7               (1198, 592, 606)         (1198, 592, 606)        
+G8               (799, 393, 406)          (799, 393, 406)         
+G9               (599, 283, 316)          (599, 283, 316)         
+G10              (175, 87, 88)            (175, 87, 88)           
+G11              (0, 0, 0)                (0, 0, 0)               
+G12              (0, 0, 0)                (0, 0, 0)               
+G13              (899, 449, 450)          (899, 449, 450)         
+G14              (399, 399, 399)          (399, 399, 399)         
+rows differing: 0 of 18
+column sums: [10150, 10150, 10150] ; Log.final.out input reads 10150
+Log.final.out: unique 8865, multi 735, too many loci 299, unmapped mism/short/other 0/244/7
+N_unmapped 550 == unmapped(mism+short+other) 251 + too many loci 299 : True
+truth vs unstranded column (reads by simulated origin -> port/STAR assignment):
+   from gene -> counted to its gene           7508
+   from gene G10 -> multi                      425
+   from gene G1 -> ambig                       385
+   from gene G6 -> ambig                       344
+   from gene G5 -> ambig                       319
+   from gene G4 -> ambig                       309
+   from gene G11 -> multi                      300
+   from gene G12 -> unmapped                   300
+   from gene G3 -> unmapped                    150
+   junk -> unmapped                            100
+   from gene G2 -> multi                         2
+   from gene G7 -> multi                         2
+   from gene G3 -> multi                         1
+   from gene G5 -> multi                         1
+   from gene G8 -> multi                         1
+   from gene G9 -> multi                         1
+   from gene G13 -> multi                        1
+   from gene G14 -> multi                        1
+
+== SE_mm2: ReadsPerGene.out.tab vs port (unstranded / read-strand / reverse)
+row              STAR                     port                     
+N_unmapped       (1017, 1017, 1017)       (1017, 1017, 1017)      
+N_multimapping   (307, 307, 307)          (307, 307, 307)         
+N_noFeature      (500, 4452, 4535)        (500, 4452, 4535)       
+N_ambiguous      (1143, 278, 276)         (1143, 278, 276)        
+G1               (1149, 899, 839)         (1149, 899, 839)        
+G2               (900, 444, 456)          (900, 444, 456)         
+G3               (1000, 497, 503)         (1000, 497, 503)        
+G4               (330, 169, 161)          (330, 169, 161)         
+G5               (313, 160, 153)          (313, 160, 153)         
+G6               (159, 347, 401)          (159, 347, 401)         
+G7               (1198, 625, 573)         (1198, 625, 573)        
+G8               (800, 400, 400)          (800, 400, 400)         
+G9               (599, 305, 294)          (599, 305, 294)         
+G10              (85, 37, 48)             (85, 37, 48)            
+G11              (0, 0, 0)                (0, 0, 0)               
+G12              (0, 0, 0)                (0, 0, 0)               
+G13              (900, 463, 437)          (900, 463, 437)         
+G14              (400, 400, 400)          (400, 400, 400)         
+rows differing: 0 of 18
+column sums: [10800, 10800, 10800] ; Log.final.out input reads 10800
+Log.final.out: unique 9476, multi 307, too many loci 816, unmapped mism/short/other 0/199/2
+N_unmapped 1017 == unmapped(mism+short+other) 201 + too many loci 816 : True
+truth vs unstranded column (reads by simulated origin -> port/STAR assignment):
+   from gene -> counted to its gene           7833
+   from gene G10 -> unmapped                   515
+   from gene G1 -> ambig                       350
+   from gene G11 -> multi                      300
+   from gene G12 -> unmapped                   300
+   intergenic -> none                          300
+   from gene G5 -> ambig                       287
+   from gene G4 -> ambig                       267
+   from gene G6 -> ambig                       239
+   intronic -> none                            200
+   junk -> unmapped                            100
+   halfjunk -> unmapped                        100
+   from gene G4 -> multi                         3
+   from gene G6 -> multi                         2
+   from gene G7 -> multi                         2
+   from gene G1 -> unmapped                      1
+   from gene G9 -> unmapped                      1
+
+RESULT: all ReadsPerGene rows equal the port on every run

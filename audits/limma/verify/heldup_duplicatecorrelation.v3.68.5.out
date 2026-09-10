@@ -1,0 +1,8 @@
+limma 3.68.5  statmod 1.5.0  lme4 1.1.35.1 
+consensus correlation (truth 0.4): 0.3938039 
+lme4 REML rho vs limma genewise rho: max |diff| 1.17e-06 over 33 interior genes; 7 genes with negative/boundary block variance excluded
+statmod reference rho vs limma genewise rho: max |diff| 1.67e-16, median 0.00e+00
+consensus rule tanh(mean(atanh(rho),trim=0.15)): 0.00e+00
+weights+NA: statmod reference vs limma: max |diff| 1.11e-16 over 300 genes, NA-pattern mismatches 0 (ref NA 0, limma NA 0); consensus 0.33179 vs rule 0.33179
+ndups=2 form vs block form: consensus 0.393804 vs 0.393804, genewise max |diff| 0.00e+00
+nthreads not available

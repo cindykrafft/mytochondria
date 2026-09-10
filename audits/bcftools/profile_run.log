@@ -1,0 +1,92 @@
+cohort: 202
+full text: 0   survey-cache fallback: 202   ({'offline': 202})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  bcftools named                                   202
+  samtools also used                               136
+  PLINK / vcftools downstream                      80
+  GATK also used                                   76
+  bcftools version stated                          56
+  mpileup                                          43
+  VEP / SnpEff / ANNOVAR annotation                39
+  indel calling                                    38
+  call                                             32
+  long reads (nanopore / PacBio)                   30
+  mitochondrial                                    28
+  population genetics / GWAS                       26
+  RNA-seq                                          24
+  freebayes / DeepVariant / other caller           23
+  MQ / mapping quality filter                      20
+  microbial / viral / bacterial                    20
+  QUAL threshold stated                            19
+  ploidy / haploid                                 18
+  WGS / WES / exome                                17
+  low coverage / imputation (GLIMPSE, BEAGLE)      16
+  BAQ / -B / -Q / -q options                       13
+  ancient DNA                                      9
+  depth threshold stated                           9
+  norm (left-align / split multiallelic)           9
+  roh                                              9
+  consensus                                        7
+  filter / view -i/-e                              5
+  call -m (multiallelic)                           4
+  GATK-style filter expression (QD/FS/MQ/SOR)      3
+  merge                                            3
+  +fill-tags / HWE / AF tags                       1
+  annotate                                         1
+  convert / index / sort                           1
+  stats / ts/tv                                    1
+  isec                                             1
+  call -c (consensus)                              1
+  concat                                           1
+
+VERSION FAMILY: {'1.9': 31, '1.10': 12, '1.13': 6, '1.11': 4, '1.8': 4, '1.14': 4, '0.1.x': 4, '1.21': 3, '1.15': 3, '1.12': 3, '1.3': 3, '1.20': 2, '1.17': 2, '1.18': 2, '1.5': 2, '1.16': 2, '1.7': 2, '1.6': 2, '1.19': 1, '1.31': 1, '1.2': 1, '1.22': 1, '1.1': 1, '1.4': 1}
+VERSIONS (top 20): {'1.9': 30, '1.10.2': 10, '1.13': 6, '1.11': 4, '1.8': 4, '1.14': 4, '1.21': 3, '1.15.1': 3, '1.12': 3, '1.20': 2, '1.17': 2, '1.3': 2, '1.5': 2, '1.16': 2, '1.10': 2, '1.7': 2, '1.6': 2, '1.18.1': 1, '1.19': 1, '1.31': 1}
+
+QUAL thresholds: {'30': 8, '20': 5, '25': 3, '40': 2, '1': 1, '33': 1, '10': 1, '5': 1, '500': 1, '13': 1}
+depth thresholds: {'5': 3, '10': 2, '100': 1, '4': 1, '15': 1, '2': 1}
+MAF thresholds: {'0.05': 2, '0.01': 2, '0.1': 1, '1%': 1}
+MAPQ thresholds: {'30': 6, '20': 6, '40': 2, '5': 2, '10': 1, '60': 1, '255': 1, '0': 1}
+missingness %: {10: 2, 75: 1, 5: 1, 1: 1}
+
+CO-PACKAGES (top 40):
+  SAMtools                 133
+  R                        115
+  BWA                      102
+  GATK                     78
+  Picard                   55
+  PLINK                    53
+  VCFtools                 48
+  BEDTools                 39
+  minimap2                 38
+  ADMIXTURE                37
+  BUSCO                    34
+  RepeatMasker             32
+  ANGSD                    31
+  ggplot2                  29
+  IQ-TREE                  27
+  SnpEff                   26
+  Trimmomatic              25
+  Bowtie2                  24
+  Python                   22
+  MAFFT                    22
+  STAR                     21
+  Cutadapt                 20
+  DESeq2                   18
+  RAxML                    16
+  hifiasm                  16
+  FastQC                   16
+  VEP                      15
+  UMAP                     15
+  BLAST                    14
+  ImageJ                   14
+  fastp                    14
+  lme4                     14
+  GEMMA                    13
+  HISAT2                   12
+  MACS2                    11
+  tidyverse                11
+  Seurat                   11
+  Trim Galore              11
+  InterProScan             10
+  featureCounts            10

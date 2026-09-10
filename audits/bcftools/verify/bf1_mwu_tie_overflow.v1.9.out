@@ -1,0 +1,37 @@
+binary: bcftools 1.9 / Using htslib 1.9
+
+[A_1200reads] 1240 reads in 1 file(s) (1140 ref MQ60, 60 alt MQ60, 40 alt MQ30); DP=1240 AD=1140,100,0
+  largest tie bin p = 1200, p^3 = 1728000000 (int32 max 2147483647) -> fits
+  truth: Z = -21.6984  (scipy two-sided p = 2.125e-104, p from Z = 2.125e-104)
+  int32-wrap replica of the C code: Z = -21.6984
+  bcftools INFO/MQBZ = absent
+  -> NOT APPLICABLE: this version has no Z-score annotations (pre-1.13; INFO/MQB = 2.6621e-10 is the old probability score)
+
+[B_1500reads] 1500 reads in 1 file(s) (1400 ref MQ60, 60 alt MQ60, 40 alt MQ30); DP=1500 AD=1400,100,0
+  largest tie bin p = 1460, p^3 = 3112136000 (int32 max 2147483647) -> OVERFLOWS
+  truth: Z = -23.9783  (scipy two-sided p = 4.684e-127, p from Z = 4.684e-127)
+  int32-wrap replica of the C code: Z = -5.7578
+  bcftools INFO/MQBZ = absent
+  -> NOT APPLICABLE: this version has no Z-score annotations (pre-1.13; INFO/MQB = 1.89795e-10 is the old probability score)
+
+[C_cohort30x100] 3000 reads in 30 file(s) (2850 ref MQ60, 100 alt MQ60, 50 alt MQ30); DP=3000 AD=2850,150,0
+  largest tie bin p = 2950, p^3 = 25672375000 (int32 max 2147483647) -> OVERFLOWS
+  truth: Z = -31.0770  (scipy two-sided p = 4.928e-212, p from Z = 4.928e-212)
+  int32-wrap replica of the C code: Z = -6.8785
+  bcftools INFO/MQBZ = absent
+  -> NOT APPLICABLE: this version has no Z-score annotations (pre-1.13; INFO/MQB = 4.88588e-11 is the old probability score)
+
+[D_3000_mild] 3000 reads in 1 file(s) (2850 ref MQ60, 140 alt MQ60, 10 alt MQ30); DP=3000 AD=2850,150,0
+  largest tie bin p = 2990, p^3 = 26730899000 (int32 max 2147483647) -> OVERFLOWS
+  truth: Z = -13.8048  (scipy two-sided p = 2.385e-43, p from Z = 2.385e-43)
+  int32-wrap replica of the C code: Z = -1.4034
+  bcftools INFO/MQBZ = absent
+  -> NOT APPLICABLE: this version has no Z-score annotations (pre-1.13; INFO/MQB = 0.386863 is the old probability score)
+
+[E_bq_1200] 1200 reads (1140 ref BQ40, 30 alt BQ40, 30 alt BQ20)
+  truth Z = -24.1687 ; int32-wrap replica Z = -24.1687 ; bcftools INFO/BQBZ = absent
+  -> NOT APPLICABLE: no Z-score annotations in this version (INFO/BQB = 5.30499e-10)
+
+[F_bq_1500] 1500 reads (1440 ref BQ40, 30 alt BQ40, 30 alt BQ20)
+  truth Z = -27.0962 ; int32-wrap replica Z = -5.6944 ; bcftools INFO/BQBZ = absent
+  -> NOT APPLICABLE: no Z-score annotations in this version (INFO/BQB = 4.22171e-10)

@@ -1,0 +1,55 @@
+jar/classpath: /tmp/gseawork/src/build/libs/gsea-minimal-user.jar:/tmp/gseawork/src/modules/*
+N = 8000  gene sets = 41  nperm = 1000, seed 149, set_min 15 set_max 500
+A. scheme=classic      p=0.0: max |ES_gsea - ES_ref| = 6.02e-08 over 41 sets; rank-at-ES mismatches = 0; leading-edge mismatches = 0
+A. scheme=weighted     p=1.0: max |ES_gsea - ES_ref| = 1.98e-07 over 41 sets; rank-at-ES mismatches = 0; leading-edge mismatches = 0
+A. scheme=weighted_p2  p=2.0: max |ES_gsea - ES_ref| = 1.73e-07 over 41 sets; rank-at-ES mismatches = 0; leading-edge mismatches = 0
+B. NES:  max |NES_gsea - NES_ref|  = 1.07e-05  (ref built from the 4-dp RND_ES)
+B. NOMp: max |p_gsea - p_ref|      = 2.07e-03  (1/nperm = 1e-3); sets with p = 0 reported: 5 of 41
+B. FWER: max |FWER_gsea - FWER_ref| = 0.00e+00
+B. FDR:  max |FDR_gsea - FDR_code-definition|  = 3.81e-04
+B. FDR:  max |FDR_gsea - FDR_paper-definition| = 2.00e-03; median |diff| = 2.43e-04
+   per set (NES, FDR reported, FDR code-def, FDR paper-def):
+   BOTTOM         NES= -3.461 p=0.000 FDR=0.0000 code=0.0000 paper=0.0000 FWER=0.000
+   TOP            NES=  3.416 p=0.000 FDR=0.0000 code=0.0000 paper=0.0000 FWER=0.000
+   UPPER_HALF     NES=  2.481 p=0.000 FDR=0.0000 code=0.0000 paper=0.0000 FWER=0.000
+   LOWER_MID      NES= -2.443 p=0.000 FDR=0.0000 code=0.0000 paper=0.0000 FWER=0.000
+   RND25_8        NES= -1.947 p=0.000 FDR=0.0035 code=0.0035 paper=0.0036 FWER=0.012
+   MIXED_HALF     NES=  1.821 p=0.002 FDR=0.0131 code=0.0131 paper=0.0132 FWER=0.036
+   RND15_3        NES= -1.821 p=0.002 FDR=0.0059 code=0.0059 paper=0.0061 FWER=0.027
+   RND40_15       NES=  1.548 p=0.010 FDR=0.0958 code=0.0958 paper=0.0966 FWER=0.299
+   RND15_1        NES=  1.339 p=0.123 FDR=0.3194 code=0.3194 paper=0.3202 FWER=0.781
+   RND40_13       NES= -1.292 p=0.128 FDR=0.3458 code=0.3456 paper=0.3447 FWER=0.845
+   RND80_20       NES=  1.222 p=0.172 FDR=0.5469 code=0.5467 paper=0.5489 FWER=0.949
+   RND150_24      NES=  1.218 p=0.091 FDR=0.4769 code=0.4769 paper=0.4786 FWER=0.955
+   RND300_32      NES=  1.115 p=0.176 FDR=0.7471 code=0.7471 paper=0.7479 FWER=0.999
+   RND40_16       NES= -1.112 p=0.292 FDR=0.7896 code=0.7895 paper=0.7899 FWER=0.997
+   RND150_27      NES=  1.112 p=0.221 FDR=0.6726 code=0.6730 paper=0.6735 FWER=0.999
+   RND300_34      NES= -1.087 p=0.218 FDR=0.7654 code=0.7652 paper=0.7657 FWER=1.000
+   RND150_28      NES= -1.080 p=0.296 FDR=0.6951 code=0.6952 paper=0.6958 FWER=1.000
+   RND300_35      NES= -1.079 p=0.252 FDR=0.6229 code=0.6230 paper=0.6235 FWER=1.000
+   RND25_7        NES= -1.074 p=0.326 FDR=0.5734 code=0.5733 paper=0.5740 FWER=1.000
+   RND300_30      NES=  1.069 p=0.269 FDR=0.7483 code=0.7482 paper=0.7484 FWER=1.000
+   RND150_25      NES=  1.067 p=0.310 FDR=0.6874 code=0.6873 paper=0.6872 FWER=1.000
+   RND40_17       NES=  1.050 p=0.377 FDR=0.6863 code=0.6862 paper=0.6864 FWER=1.000
+   RND300_31      NES=  1.035 p=0.348 FDR=0.6798 code=0.6796 paper=0.6804 FWER=1.000
+   RND150_26      NES= -1.028 p=0.384 FDR=0.6545 code=0.6545 paper=0.6547 FWER=1.000
+   RND300_33      NES=  1.007 p=0.450 FDR=0.7234 code=0.7232 paper=0.7234 FWER=1.000
+   RND80_21       NES=  0.986 p=0.457 FDR=0.7345 code=0.7345 paper=0.7351 FWER=1.000
+   RND40_14       NES= -0.984 p=0.472 FDR=0.7237 code=0.7237 paper=0.7239 FWER=1.000
+   RND80_18       NES= -0.983 p=0.506 FDR=0.6707 code=0.6710 paper=0.6711 FWER=1.000
+   RND15_2        NES= -0.981 p=0.480 FDR=0.6297 code=0.6297 paper=0.6298 FWER=1.000
+   RND150_29      NES= -0.951 p=0.555 FDR=0.6618 code=0.6616 paper=0.6620 FWER=1.000
+   RND80_19       NES=  0.923 p=0.609 FDR=0.8840 code=0.8839 paper=0.8841 FWER=1.000
+   RND25_9        NES=  0.919 p=0.560 FDR=0.8416 code=0.8416 paper=0.8421 FWER=1.000
+   RND80_22       NES=  0.917 p=0.622 FDR=0.8031 code=0.8029 paper=0.8033 FWER=1.000
+   RND40_12       NES= -0.800 p=0.792 FDR=0.9467 code=0.9467 paper=0.9467 FWER=1.000
+   RND25_11       NES=  0.793 p=0.771 FDR=1.0000 code=1.0000 paper=1.0000 FWER=1.000
+   RND15_5        NES=  0.744 p=0.799 FDR=1.0000 code=1.0000 paper=1.0000 FWER=1.000
+   RND15_4        NES=  0.729 p=0.866 FDR=1.0000 code=1.0000 paper=1.0000 FWER=1.000
+   RND25_10       NES=  0.728 p=0.880 FDR=0.9634 code=0.9634 paper=0.9639 FWER=1.000
+   RND80_23       NES= -0.705 p=0.969 FDR=0.9923 code=0.9923 paper=0.9923 FWER=1.000
+   RND25_6        NES=  0.689 p=0.910 FDR=0.9494 code=0.9494 paper=0.9497 FWER=1.000
+   RND15_0        NES= -0.633 p=0.935 FDR=0.9740 code=0.9740 paper=0.9740 FWER=1.000
+C. null ES range: [-0.7044, 0.6731]; perms per set = 1000
+C. planted sets FDR: {'TOP': np.float64(0.0), 'BOTTOM': np.float64(0.0), 'UPPER_HALF': np.float64(0.0), 'LOWER_MID': np.float64(0.0)}
+C. random sets with FDR < 0.25: 3 of 36; MIXED_HALF ES = 0.4803

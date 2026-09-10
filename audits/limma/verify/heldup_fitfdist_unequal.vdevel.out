@@ -1,0 +1,7 @@
+limma 3.99.0 
+[fitFDistUnequalDF1] df2 6.0123 (truth 6), scale 0.20171 (truth 0.20)
+  ML by optim: df2 6.0121 scale 0.20158; log-lik at limma's (df2,scale) minus at optim's: -1.15e-03
+[equal df] moments: df2 6.6934 scale 0.20169; ML: df2 6.6824 scale 0.20163; squeezeVar(legacy=NULL) uses moments (legacy)
+[squeezeVar unequal df] df.prior equals fitFDistUnequalDF1: TRUE; var.post formula 0.0e+00
+[robust, 60 planted outliers] non-robust df2 4.663; robust df2 5.312 (truth 6); df2.shrunk median 5.312, median over outliers 1.898, outliers below the median: 53/60
+[eBayes with NAs] df.residual range 2-6; df.prior 6.0959 (truth 6); equals fitFDistUnequalDF1 on df>0 genes: TRUE

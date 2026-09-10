@@ -1,0 +1,6 @@
+== v0.33
+  Q9:      read1 40 nt    read2 dropped
+  Q10:     read1 50 nt    read2 50 nt
+  perfect: read1 40 nt    read2 dropped
+  TC1 (integer Q/10 penalty in palindrome mode): AFFECTED
+  sentinels: SLIDINGWINDOW:4:20 keeps 6 nt (master 6); TRAILING:20 first-base-only read -> dropped (master dropped); MAXINFO:40:0.8 keeps 60 nt

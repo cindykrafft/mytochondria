@@ -1,0 +1,8 @@
+binary: bcftools 7abcc0d / Using htslib 1.24-1-ge503e04
+[call -m -f GQ] 60 sites output, 1680 values compared, 0 mismatches
+[call -mv -f GQ] 37 sites output, 1059 values compared, 0 mismatches
+[call -m --ploidy 1 -f GQ] 60 sites output, 1680 values compared, 0 mismatches
+[call -m -P 0.1] QUAL/AN over 60 sites, 0 mismatches
+[call -c] genotypes for PL (0,60,200),(80,0,90),(220,70,0): ['0/0', '0/1', '1/1'] ; all-ref site: ['0/0', '0/0', '0/0'] ; QUAL 255.243 / 74.3083 -> as expected
+
+TOTAL mismatches: 0

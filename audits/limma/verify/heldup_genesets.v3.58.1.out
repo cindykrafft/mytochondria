@@ -1,0 +1,11 @@
+limma 3.58.1 
+[camera, estimated correlation] Correlation 0.0e+00  PValue 6.0e-10  Direction agrees TRUE  FDR = BH 6.0e-10
+[camera, inter.gene.cor=0.01] PValue 5.6e-10
+  set 'up' (60 genes, planted cor 0.1, shift 0.5): estimated cor 0.030, p 1.07e-03; null sets p 0.52 0.55 0.79
+[zscoreT Hill df=4] max |z_hill - z_exact| 1.8e-04 over t in [-8,8]; Bailey 2.0e-02
+[zscoreT Hill df=8] max |z_hill - z_exact| 3.1e-06 over t in [-8,8]; Bailey 9.8e-03
+[zscoreT Hill df=30] max |z_hill - z_exact| 1.7e-08 over t in [-8,8]; Bailey 1.3e-03
+[fry] PValue vs port 1.1e-16; FDR = BH 0.0e+00
+[roast mean, same RNG stream] Down 0.0e+00 Up 0.0e+00 UpOrDown 0.0e+00 Mixed 0.0e+00 (limma: 1 5e-04 0.001 0.003)
+[roast null] fraction PValue < 0.05: 0.040 (200 sets), < 0.10: 0.085; Mixed < 0.05: 0.030
+[camera null] fraction PValue < 0.05: fixed cor 0.01 0.035; estimated cor 0.025 (200 independent-gene sets)

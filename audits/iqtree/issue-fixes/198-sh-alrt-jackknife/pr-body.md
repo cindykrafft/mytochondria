@@ -31,9 +31,20 @@ untouched (UFJack and UFBoot values are bit-identical before and after), as are 
 (`lh_new / (1 - jack_prop)`), that is a two-line variant of the same change; I went with the
 definition of the test.
 
-Test: `test_iqtree.sh`/`.ps1` run `turtle.fa` with `-B 1000 -alrt 1000` and with `-J 1000 -alrt
-1000` and fail if the SH-aLRT labels differ (they do on `master`); two `expect_ans.txt` rows for
-the log-likelihoods. The full `test_iqtree.sh` + `verify_results.sh` pass locally with the change.
+Reproduction (no extra input files, about a minute per run; the maintainers asked for commands
+rather than CI additions, so the branch touches no `test_scripts` file):
+
+```
+iqtree3 -s test_scripts/test_data/turtle.fa -B 1000 -alrt 1000 --prefix turtle.alrt.boot -T 1 -seed 73073
+iqtree3 -s test_scripts/test_data/turtle.fa -J 1000 -alrt 1000 --prefix turtle.alrt.jack -T 1 -seed 73073
+grep -o ')[0-9.]*/' turtle.alrt.boot.treefile
+grep -o ')[0-9.]*/' turtle.alrt.jack.treefile
+```
+
+Both runs give the same ML tree and log-likelihood (-5370.3730); on `master` the SH-aLRT values
+differ as in the table above, with this branch they agree. The full `test_iqtree.sh` +
+`verify_results.sh` pass locally with the change (32 runs, all `verify_results.sh` checks passed;
+`turtle_aa.mutsel` exits 1 in my environment before and after, as MUTSEL is not compiled in).
 
 Not changed here, same pattern: the RELL replicates of the tree topology tests (`--test`, KH/SH
 and the weighted variants in `treetesting.cpp`) also follow `--jack-prop`, and the AU test stops

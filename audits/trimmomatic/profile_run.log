@@ -1,0 +1,92 @@
+cohort: 291
+full text: 0   survey-cache fallback: 291   ({'offline': 291})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  ILLUMINACLIP (adapter clipping)                158
+  Trimmomatic version stated                     114
+  RNA-seq                                        88
+  FastQC / MultiQC also used                     77
+  default parameters stated                      71
+  paired-end mode (PE)                           62
+  MINLEN                                         62
+  SLIDINGWINDOW                                  59
+  Cutadapt / Trim Galore also used               40
+  TRAILING                                       38
+  LEADING                                        34
+  metagenomics / 16S / amplicon                  24
+  single-cell                                    23
+  ILLUMINACLIP parameters stated                 21
+  TruSeq3-PE / PE-2 adapters                     15
+  ATAC / ChIP / CUT&RUN                          10
+  bisulfite / methylation                        9
+  WGS / WES / resequencing                       8
+  custom adapter file                            8
+  single-end mode (SE)                           7
+  fastp also used                                7
+  AVGQUAL                                        7
+  -phred33 / -phred64                            5
+  palindrome / keepBothReads / minAdapterLength  4
+  NexteraPE adapters                             3
+  unpaired reads discarded / used                3
+  MAXINFO                                        2
+  TruSeq3-SE adapters                            2
+  TruSeq2 adapters                               1
+  TOPHRED33/64                                   1
+  -threads                                       1
+  small RNA / miRNA                              1
+  HEADCROP                                       1
+
+VERSION FAMILY: {'0.39': 82, '0.36': 55, '0.38': 23, '0.32': 12, '0.33': 8, '0.35': 4, '0.40': 2, '2.6': 1, '0.30': 1, '0.3': 1, '0.26': 1, '0.22': 1, '2.4': 1, '0.27': 1, '0.9': 1, '0.7': 1, '1.1': 1}
+VERSIONS (top 20): {'0.39': 82, '0.36': 53, '0.38': 23, '0.32': 11, '0.33': 7, '0.35': 4, '0.40': 2, '2.6.0': 1, '0.32.3': 1, '0.30': 1, '0.3.9': 1, '0.26': 1, '0.22': 1, '2.4.0': 1, '0.33.0': 1, '0.27': 1, '0.9.6': 1, '0.36.6': 1, '0.36.3': 1, '0.7.16': 1}
+
+STATED PARAMETER VALUES:
+  illuminaclip     {'2:30:10': 15, '2:30:7': 2, '2:30:10:1:FALSE': 1, '2:30:10:2:True': 1, '2:30:10:1:true': 1, '0:6:6': 1}
+  adapter_file     {'TruSeq3-PE.fa': 9, 'NexteraPE-PE.fa': 2, 'TruSeq2-PE.fa': 1, 'Adapters.fa': 1, 'NexteraPE-PE': 1, 'TruSeq3-PE-2.fa': 1, 'TruSeq3-SE.fa': 1, 'adapter.fa': 1, '1': 1, '2': 1}
+  slidingwindow    {'4:15': 21, '4:20': 6, '5:20': 4, '4:25': 2, '4:5': 2, '3:18': 1, '4:19': 1, '4:30': 1, '5:30': 1, '10:20': 1}
+  leading          {'3': 18, '20': 6, '5': 3, '30': 2, '10': 2, '13': 1, '0': 1}
+  trailing         {'3': 17, '20': 7, '5': 4, '30': 2, '13': 1, '10': 1, '25': 1}
+  minlen           {'36': 14, '50': 7, '75': 3, '20': 3, '100': 2, '25': 2, '35': 2, '30': 1, '40': 1, '5': 1}
+  headcrop         {'3': 1}
+  maxinfo          {'35:0.5': 1, '100:0.2': 1}
+
+CO-PACKAGES (top 40):
+  R                        146
+  SAMtools                 108
+  DESeq2                   105
+  Bowtie2                  90
+  FastQC                   77
+  STAR                     72
+  ImageJ                   66
+  BWA                      63
+  Picard                   57
+  featureCounts            56
+  MACS2                    52
+  BEDTools                 49
+  GATK                     45
+  MAFFT                    45
+  BLAST                    40
+  IQ-TREE                  40
+  ggplot2                  38
+  UMAP                     35
+  GSEA                     33
+  Python                   33
+  edgeR                    32
+  deepTools                31
+  Seurat                   30
+  BUSCO                    29
+  HISAT2                   29
+  Cutadapt                 29
+  BCFtools                 25
+  RAxML                    25
+  Bioconductor             23
+  minimap2                 23
+  SPAdes                   23
+  RepeatMasker             21
+  clusterProfiler          20
+  HMMER                    20
+  AlphaFold                19
+  HTSeq                    19
+  RSEM                     18
+  kallisto                 16
+  pheatmap                 16
+  StringTie                16

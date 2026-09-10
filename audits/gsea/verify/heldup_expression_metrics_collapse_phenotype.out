@@ -1,0 +1,24 @@
+jar/classpath: /tmp/gseawork/src/build/libs/gsea-minimal-user.jar:/tmp/gseawork/src/modules/*
+dataset 3000 x 16, class A = first 8 samples
+A. Signal2Noise          : max |score_gsea - score_ref| = 1.30e-07, max rel = 1.67e-03 at score -1.67582e-05 (float32 output); non-finite scores gsea/ref = 0/0 (NaN last: True); order non-increasing: True; 19 tied adjacent pairs kept in row order: True
+   top-5 ranked probes: ['p00043', 'p00089', 'p00019', 'p00039', 'p00030'] (planted UP_IN_A = p00000..p00099 -> class A is the first cls class)
+   low-variance block (sd 0.01, mean 5): S2N range [-0.0042, 0.0054] (floor 0.2*5 = 1.0 per class -> |S2N| <= ~0.02); constant block score = 0.0
+A. tTest                 : max |score_gsea - score_ref| = 4.29e-07, max rel = 1.67e-03 at score -6.70328e-05 (float32 output); non-finite scores gsea/ref = 0/0 (NaN last: True); order non-increasing: True; 19 tied adjacent pairs kept in row order: True
+   tTest reference uses floored sd^2/n; agreement above confirms it
+A. Ratio_of_Classes      : max |score_gsea - score_ref| = 3.36e-06, max rel = 3.91e-07 at score 0.072613 (float32 output); non-finite scores gsea/ref = 0/0 (NaN last: True); order non-increasing: True; 21 tied adjacent pairs kept in row order: True
+A. log2_Ratio_of_Classes : max |score_gsea - score_ref| = 6.38e-07, max rel = 1.67e-03 at score -9.67079e-06 (float32 output); non-finite scores gsea/ref = 12/12 (NaN last: True); order non-increasing: True; 19 tied adjacent pairs kept in row order: True
+A. Diff_of_Classes       : max |score_gsea - score_ref| = 3.13e-07, max rel = 1.67e-03 at score -3.35015e-05 (float32 output); non-finite scores gsea/ref = 0/0 (NaN last: True); order non-increasing: True; 19 tied adjacent pairs kept in row order: True
+B. collapse Max_probe         : 1125 symbols (expected 1125); max |gsea - ref| = 9.50e-07; NaN cells gsea = 0 ref = 0
+B. collapse Median_of_probes  : 1125 symbols (expected 1125); max |gsea - ref| = 8.84e-07; NaN cells gsea = 0 ref = 0
+B. collapse Mean_of_probes    : 1125 symbols (expected 1125); max |gsea - ref| = 1.13e-06; NaN cells gsea = 0 ref = 0
+B. collapse Sum_of_probes     : 1125 symbols (expected 1125); max |gsea - ref| = 5.66e-06; NaN cells gsea = 0 ref = 0
+B. collapse Abs_max_of_probes : 1125 symbols (expected 1125); max |gsea - ref| = 9.50e-07; NaN cells gsea = 0 ref = 0
+C. saved random ranked lists: 200
+C. random lists that are exact S2N rankings under a relabelling with 8+8 classes: 200 of 200; distinct relabellings: 198; real labelling drawn: False
+C. max |RND_ES - ES_ref(saved list)| = 5.00e-05 (RND_ES has 4 dp) over 3000 (set, permutation) pairs
+C. pairs where |ES| agrees but the sign differs (max and min of the running sum tie exactly): 3
+   LOWVAR perm 46: paper/port takes the first extreme -0.4811, GSEA reports +0.4811; max + min of the running sum = -2.6e-14
+   LOWVAR perm 164: paper/port takes the first extreme -0.4838, GSEA reports +0.4838; max + min of the running sum = -2.6e-14
+   LOWVAR perm 183: paper/port takes the first extreme -0.4805, GSEA reports +0.4805; max + min of the running sum = -2.7e-14
+C. NES max diff = 2.20e-05; nominal p max diff = 5.53e-08
+C. planted: {'UP_IN_A': (1.877, '0.0'), 'DOWN_IN_A': (-1.861, '0.0050000004'), 'LOWVAR': (1.014, '0.716539')}

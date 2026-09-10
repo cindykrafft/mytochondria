@@ -1,0 +1,9 @@
+limma 3.42.2 
+[voom span=0.5] E 0.0e+00  weights max rel 0.0e+00  targets lib.size 0.0e+00
+[voom adaptive span] span used NA (fixed 0.5) vs rule 0.50000; weights max rel 0.0e+00
+[voom lib.size] E 0.0e+00
+[contrasts.fit under voom weights, non-orthogonal design] stdev.unscaled relative error: max 0.2079, 99th pct 0.0988, median |.| 0.0214; shared cov2cor off-diagonal max 0.816
+  moderated t max |rel diff| 0.1721; p-value max |log10 ratio| 0.706; genes BH<0.05 (BvsA): approx 0 exact 0, set differences 0; (B+C-2A): approx 5 exact 2, differences 3
+[contrasts.fit unweighted] stdev.unscaled vs exact 2.2e-16
+[lmFit(contrasts=)] not on this version
+[voomWithQualityWeights] two-pass rule (voom -> aw -> voom(weights=aw) -> aw -> weights*aw): weights 0.0e+00, sample.weights 0.0e+00; aw range 0.856-1.130

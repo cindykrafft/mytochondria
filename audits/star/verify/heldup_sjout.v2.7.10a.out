@@ -1,0 +1,62 @@
+STAR 2.7.10a | workdir /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/star/work_v2.7.10a
+
+== SE gtf: SJ.out.tab 17 rows, port 17 rows
+  identical (all 9 columns of every row)
+  rows by (motif, annotated): {(0, 1): 1, (1, 1): 10, (2, 1): 4, (3, 1): 1, (5, 1): 1}
+  unique/multi read totals: 1337 / 5; max overhang 50
+
+== PE gtf: SJ.out.tab 17 rows, port 17 rows
+  identical (all 9 columns of every row)
+  rows by (motif, annotated): {(0, 1): 1, (1, 1): 10, (2, 1): 4, (3, 1): 1, (5, 1): 1}
+  unique/multi read totals: 2322 / 4; max overhang 37
+
+== SE no-gtf 1-pass: SJ.out.tab 21 rows, port 21 rows
+  identical (all 9 columns of every row)
+  rows by (motif, annotated): {(0, 0): 1, (1, 0): 14, (2, 0): 4, (3, 0): 1, (5, 0): 1}
+  unique/multi read totals: 1114 / 257; max overhang 50
+
+== PE no-gtf 1-pass: SJ.out.tab 23 rows, port 23 rows
+  identical (all 9 columns of every row)
+  rows by (motif, annotated): {(0, 0): 1, (1, 0): 15, (2, 0): 5, (3, 0): 1, (5, 0): 1}
+  unique/multi read totals: 1858 / 512; max overhang 37
+
+== SE no-gtf 2-pass: SJ.out.tab 21 rows, port 21 rows
+  identical (all 9 columns of every row)
+  rows by (motif, annotated): {(0, 1): 1, (1, 1): 14, (2, 1): 4, (3, 1): 1, (5, 1): 1}
+  unique/multi read totals: 1252 / 260; max overhang 50
+  1st pass: 21 junctions, 21 unannotated; 2nd pass rows with annotated=1: 21 of 21 (pass-1 novel junctions are re-labelled annotated)
+
+== SE gtf 2-pass: SJ.out.tab 17 rows, port 17 rows
+  identical (all 9 columns of every row)
+  rows by (motif, annotated): {(0, 1): 1, (1, 1): 10, (2, 1): 4, (3, 1): 1, (5, 1): 1}
+  unique/multi read totals: 1337 / 5; max overhang 50
+  1st pass: 17 junctions, 0 unannotated; 2nd pass rows with annotated=1: 17 of 17 (pass-1 novel junctions are re-labelled annotated)
+
+== SE no-gtf BySJout: SJ.out.tab 21 rows, port 21 rows
+  identical (all 9 columns of every row)
+  rows by (motif, annotated): {(0, 0): 1, (1, 0): 14, (2, 0): 4, (3, 0): 1, (5, 0): 1}
+  unique/multi read totals: 1120 / 251; max overhang 50
+  BySJout: 1371 junction crossings in the BAM, 0 not in SJ.out.tab
+
+== SE gtf uniqueReads: SJ.out.tab 17 rows, port 17 rows
+  identical (all 9 columns of every row)
+  rows by (motif, annotated): {(0, 1): 1, (1, 1): 10, (2, 1): 4, (3, 1): 1, (5, 1): 1}
+  unique/multi read totals: 1337 / 0; max overhang 50
+
+== filter accounting on 'SE no-gtf 1-pass' (raw junctions from the BAM before the filters)
+   kept motif 0                                                 1
+   kept motif 1                                                 14
+   kept motif 2                                                 4
+   kept motif 3                                                 1
+   kept motif 5                                                 1
+   removed motif 0: count<3,overhang 10<30                      1
+   removed motif 0: count<3,overhang 22<30                      1
+   removed motif 0: count<3,overhang 9<30                       2
+   removed motif 1: overhang 7<12                               5
+   removed motif 1: overhang 8<12                               2
+   removed motif 1: overhang 9<12                               1
+   removed motif 2: overhang 8<12                               4
+   removed motif 2: overhang 9<12                               1
+   true junctions 17, in SJ.out.tab 17, missing []
+
+RESULT: SJ.out.tab equals the port on every run

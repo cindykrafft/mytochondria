@@ -1,0 +1,13 @@
+binary: bcftools 7abcc0d / Using htslib 1.24-1-ge503e04
+left-alignment: 120 indels (homopolymers, di/tri/tetra-nucleotide repeats, padded representations): 0 differ from the Python left-aligner
+   ['Lines   total/split/joined/realigned/mismatch_removed/dup_removed/skipped:\t120/0/0/101/0/0/0']
+
+split -m -any of A>G,T with GT 0/1,1/2,2/2,0/0 AD (10,8,0),(1,6,7),(0,0,12),(15,0,0):
+  ALT G: AC=2 AF=0.25 AN=8 GT=['0/1', '1/0', '0/0', '0/0'] AD=['10,8', '1,6', '0,0', '15,0'] PL=['40,0,60', '80,50,70', '200,150,160', '0,45,90']   MISMATCH (expected GT ['0/1', '1/.', './.', '0/0'] AD [[10, 8], [1, 6], [0, 0], [15, 0]] PL [[40, 0, 60], [80, 50, 70], [200, 150, 160], [0, 45, 90]])
+  ALT T: AC=3 AF=0.375 AN=8 GT=['0/0', '0/1', '1/1', '0/0'] AD=['10,0', '1,7', '0,12', '15,0'] PL=['40,90,120', '80,0,30', '200,40,0', '0,45,90']   MISMATCH (expected GT ['0/.', './1', '1/1', '0/0'] AD [[10, 0], [1, 7], [0, 12], [15, 0]] PL [[40, 90, 120], [80, 0, 30], [200, 40, 0], [0, 45, 90]])
+  the other ALT allele in a genotype becomes '.' (--multi-overlaps . default); AN, DP, QUAL are copied; Number=A/R/G fields take the allele's slots
+  with --multi-overlaps 0: GT = [['0/1', '1/0', '0/0', '0/0'], ['0/0', '0/1', '1/1', '0/0']]
+join -m +any of the two records: ALT=['G', 'T'] AC=2,3 AF=0.25,0.375 AN=8 GT=['0/1', '1/2', '2/2', '0/0'] AD=['10,8,0', '1,6,7', '0,0,12', '15,0,0'] PL=['40,0,60,90,.,120', '80,50,70,0,.,30', '200,150,160,40,.,0', '0,45,90,45,.,90']
+  expected GT ['0/1', '1/2', '2/2', '0/0'] AD ['10,8,0', '1,6,7', '0,0,12', '15,0,0'] PL ['40,0,60,90,.,120', '80,50,70,0,.,30', '200,150,160,40,.,0', '0,45,90,45,.,90'] (the 1/2 PL cannot be recovered and is '.') -> as expected
+
+mismatches: 2
