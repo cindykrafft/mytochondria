@@ -1,0 +1,16 @@
+$ sh mcve_bf1_mqbz_overflow.sh <bcftools>
+
+--- bcftools 1.9 / Using htslib 1.9 ---
+reads at ref:100 = 1240   reads at ref:100 = 1500   
+--- bcftools 1.10.2 / Using htslib 1.10-dirty ---
+reads at ref:100 = 1240   reads at ref:100 = 1500   
+--- bcftools 1.13 / Using htslib 1.13 ---
+reads at ref:100 = 1240   reads at ref:100 = 1500   
+--- bcftools 1.24 / Using htslib 1.24 ---
+reads at ref:100 = 1240   MQBZ=-21.6984
+reads at ref:100 = 1500   MQBZ=-5.75778
+
+--- develop 7abcc0d (unpatched) / Using htslib 1.24-1-ge503e04 ---
+reads at ref:100 = 1240   MQBZ=-21.6984
+reads at ref:100 = 1500   MQBZ=-5.75778
+

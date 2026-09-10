@@ -1,4 +1,4 @@
-From 7ba85c1bf825fb1486eb58c0c9c9a32deb9982f3 Mon Sep 17 00:00:00 2001
+From 1fa933f0a3847e456167369bba194d88b90fac2a Mon Sep 17 00:00:00 2001
 From: Mytochondria audit <audit@example.invalid>
 Date: Wed, 9 Sep 2026 22:35:54 +0000
 Subject: [PATCH] arrayWeights(method="reml") with prior weights: fix the
@@ -8,7 +8,7 @@ Subject: [PATCH] arrayWeights(method="reml") with prior weights: fix the
 convergence criterion by (ngenes + prior.n) a second time after info2 and
 z had already been averaged over genes, so the criterion was
 (ngenes + prior.n) times smaller than in .arrayWeightsREML and the
-iteration stopped after one or two steps at the default tol = 1e-5.
+iteration stopped after one to three steps at the default tol = 1e-5.
 arrayWeights(y, design, weights=matrix(1,...), method="reml") then
 differed from arrayWeights(y, design, method="reml") by up to 0.55 on
 3000 genes x 9 arrays, and voomLmFit(sample.weights=TRUE) returned

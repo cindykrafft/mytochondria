@@ -1,4 +1,4 @@
-From 84afdf692bc43f00ec0f8b5e82715a7abad4f08e Mon Sep 17 00:00:00 2001
+From 97cd35e603af22f4936730ef66be9328f8af7620 Mon Sep 17 00:00:00 2001
 From: Mytochondria audit <audit@example.invalid>
 Date: Wed, 9 Sep 2026 22:35:54 +0000
 Subject: [PATCH] arrayWeights(method="reml") with prior weights: fix the
