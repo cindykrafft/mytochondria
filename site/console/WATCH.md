@@ -56,3 +56,20 @@ PR, and before any reply to a maintainer, the thread is read in full this way:
 
 A helper in default mode can block on an Artifact permission prompt; acceptEdits avoids it. A
 helper that still cannot publish is told to put the transcript in its final message instead.
+
+## Checking a PR without reading GitHub (added 2026-09-11)
+
+Comment bodies, reviews and mergeability on repositories this session does not own are
+unreadable, and both workarounds have limits: `add_repo` refuses a cross-owner add once the
+session holds `cindykrafft` repositories, and a helper session can only hand its answer back
+through an artifact, which stalls on a permission prompt its own mode cannot grant. What does
+work, and answers the question that actually needs action, is a local merge test:
+
+    git -C <clone> fetch origin <base>            # upstream, public: git reads work
+    git -C <clone> fetch fork
+    git -C <clone> rev-list --count fork/<branch>..origin/<base>     # how far behind
+    git -C <clone> merge-tree --write-tree fork/<branch> origin/<base>  # exit 0 = no conflict
+
+A PR's `updated_at` moving while its comment count stays put is usually a base-branch push
+recomputing mergeability, or CI re-running; the merge test tells you whether that matters. Only
+a real conflict, or a maintainer comment the owner has read, is work.
