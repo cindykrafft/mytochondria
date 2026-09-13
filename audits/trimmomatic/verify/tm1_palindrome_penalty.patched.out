@@ -9,3 +9,42 @@ A. 2x50 pair, insert 42, two read-1 mismatches at Q19: aligned bases 58
 
 B. 2x50 pairs, insert 42 (58 aligned bases; columns: documented score, integer-penalty score, clip decision of each rule and of the shipped build, 200 pairs per row):
    Qmm    m   doc       int       doc-rule       int-rule       shipped (200 pairs each)
+   Q2    1   34.12     34.32     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q2    2   33.32     33.72     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q2    3   32.51     33.11     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q9    1   33.42     34.32     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q9    2   31.92     33.72     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q9    3   30.41     33.11     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q10   1   33.32     33.32     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q10   2   31.72     31.72     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q10   3   30.11     30.11     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q15   1   32.82     33.32     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q15   2   30.72     31.72     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q15   3   28.61     30.11     clip 0   /200 clip 200 /200 clip 0   /200, =int 0/200
+   Q19   1   32.42     33.32     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q19   2   29.92     31.72     clip 0   /200 clip 200 /200 clip 0   /200, =int 0/200
+   Q19   3   27.41     30.11     clip 0   /200 clip 200 /200 clip 0   /200, =int 0/200
+   Q20   1   32.32     32.32     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q20   2   29.72     29.72     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   Q20   3   27.11     27.11     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   Q25   1   31.82     32.32     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q25   2   28.72     29.72     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   Q25   3   25.61     27.11     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   Q29   1   31.42     32.32     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q29   2   27.92     29.72     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   Q29   3   24.41     27.11     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   Q30   1   31.32     31.32     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q30   2   27.72     27.72     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   Q30   3   24.11     24.11     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   Q35   1   30.82     31.32     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q35   2   26.72     27.72     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   Q35   3   22.61     24.11     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   Q39   1   30.42     31.32     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q39   2   25.92     27.72     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   Q39   3   21.41     24.11     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   Q40   1   30.32     30.32     clip 200 /200 clip 200 /200 clip 200 /200, =int 200/200
+   Q40   2   25.72     25.72     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   Q40   3   21.11     21.11     clip 0   /200 clip 0   /200 clip 0   /200, =int 200/200
+   pairs where the shipped decision differs from the documented rule: 0 of 7200
+
+C. simulated libraries (insert uniform, per-base error rate 10^(-Q/10)):

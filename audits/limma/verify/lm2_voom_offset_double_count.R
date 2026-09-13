@@ -56,5 +56,5 @@ vo2 <- voom(y, design, plot=FALSE)
 E.edger <- log2((cts + 0.5)/(exp(y$offset) + 1)*1e6)                       # counts over the effective library size the offset encodes
 E.voom  <- log2((cts + 0.5)/(exp(y$offset + rep(log(ls/exp(mean(log(ls)))), each=G)) + 1)*1e6)   # lib.size counted twice
 cat(sprintf("   gene-specific offset log(lib.size)+d: voom$E vs edgeR reading exp(offset): %.4f ; vs lib.size^2/geomean * exp(d): %.2e\n", mx(vo2$E, E.edger), mx(vo2$E, E.voom)))
-cat(sprintf("   offset.prior = d given explicitly instead: voom$E vs edgeR reading: %.2e\n", mx(voom(cts, design, lib.size=ls, offset.prior=dg, plot=FALSE)$E, E.edger)))
+if("offset.prior" %in% names(formals(voom))) cat(sprintf("   offset.prior = d given explicitly instead: voom$E vs edgeR reading: %.2e\n", mx(voom(cts, design, lib.size=ls, offset.prior=dg, plot=FALSE)$E, E.edger)))
 cat("\nVERDICT:", if(mx(a$E, b$E) > 0.01) "AFFECTED" else "unaffected", "\n")

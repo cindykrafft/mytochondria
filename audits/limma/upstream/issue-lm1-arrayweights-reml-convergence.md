@@ -25,21 +25,29 @@ y <- matrix(rnorm(G*n, sd=rep(c(0.5, 0.7, 1, 1.4, 0.5, 0.7, 1, 1.4), each=G)), G
 w0 <- arrayWeights(y, design, method="reml")                         # .arrayWeightsREML
 w1 <- arrayWeights(y, design, weights=matrix(1, G, n), method="reml")# .arrayWeightsPrWtsREML
 round(rbind(w0, w1), 4)
-#>         [,1]   [,2]   [,3]   [,4]   [,5]   [,6]   [,7]   [,8]
-#> w0    2.8765 1.4413 0.6935 0.3530 2.7960 1.4000 0.7246 0.3474
-#> w1    2.4544 1.4716 0.7435 0.3750 2.4129 1.4355 0.7750 0.3699
-arrayWeights(y, design, method="reml", trace=TRUE)                   # 5 iterations, convcrit 0.1768, 0.0153, ...
+#>         1      2      3      4      5      6      7      8
+#> w0 2.8478 1.4554 0.6867 0.3566 2.7678 1.4140 0.7174 0.3510
+#> w1 2.4377 1.4828 0.7358 0.3786 2.3963 1.4468 0.7669 0.3735
+arrayWeights(y, design, method="reml", trace=TRUE)
+#> iter convcrit range(w)
+#> 1 0.1744177 0.4238892 1.826388
+#> 2 0.01525544 0.3735225 2.43771
+#> 3 0.001427447 0.3568687 2.72955
+#> 4 0.0001032856 0.3521681 2.823373
+#> 5 6.315427e-06 0.3509565 2.847802
 arrayWeights(y, design, weights=matrix(1, G, n), method="reml", trace=TRUE)
-#> 1 1.766661e-05 0.4195266 1.832485                                 # the same state, criterion 10010 times smaller
-#> 2 1.524652e-06 0.3699241 2.454399                                 # stops
+#> iter convcrit range(w)
+#> 1 1.742434e-05 0.4238892 1.826388                # the same state, criterion 10010 times smaller
+#> 2 1.52402e-06 0.3735225 2.43771                  # stops
 ```
 
 **Expected:** `w1 == w0` (same model, same algorithm, same tolerance). **Got:** weights up
-to 14.7 % apart (2.4544 vs 2.8765; the true relative precisions are 2.83, 1.41, 0.71, 0.35);
+to 14.4 % apart (2.4377 vs 2.8478; the true relative precisions are 2.83, 1.41, 0.71, 0.35);
 the prior-weights routine stops after 2 iterations where the other needs 5, and its
-iteration-1 `convcrit` is 0.1768/1.7667e-5 = 10010.00 = `ngenes+prior.n` times smaller.
-Passing `tol=1e-5/(G+10)` to the prior-weights call reproduces `w0` to 1.8e-14, which
-locates the missing factor.
+iteration-1 `convcrit` is 0.1744177/1.742434e-05 = 10010.0 = `ngenes+prior.n` times smaller
+(the `range(w)` columns are identical, so the states are the same). Passing
+`tol=1e-5/(G+10)` to the prior-weights call reproduces `w0` to 8.4e-14, which locates the
+missing factor.
 
 **Effect downstream:** on 8,000 simulated genes with two poor-quality samples,
 `voomWithQualityWeights(counts, design, method="reml")` returns sample weights 0.0991 2.2100

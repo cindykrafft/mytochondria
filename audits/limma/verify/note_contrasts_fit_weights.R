@@ -13,7 +13,8 @@ mu <- rexp(G, 1/200)
 L <- rep(c(0.3, 3), 6)                                     # strongly unequal library sizes -> unequal voom weights
 counts <- matrix(rnbinom(G*n, mu=outer(mu, L), size=8), G, n)
 counts[1:300, grp=="B"] <- counts[1:300, grp=="B"]*2
-v <- voom(counts, design, span=0.5, adaptive.span=FALSE)
+vm <- function(...) if("adaptive.span" %in% names(formals(voom))) voom(..., span=0.5, adaptive.span=FALSE) else voom(..., span=0.5)
+v <- vm(counts, design)
 fit <- lmFit(v, design)
 C <- makeContrasts(BvsA=B-A, CvsA=C-A, BCvsA=(B+C)/2-A, levels=design)
 cf <- contrasts.fit(fit, C)
@@ -33,6 +34,6 @@ if("contrasts" %in% names(formals(lmFit))) {
 }
 # an orthogonal design (one-way) is exact even with weights
 d1 <- model.matrix(~0 + grp); colnames(d1) <- c("A","B","C")
-v1 <- voom(counts, d1, span=0.5, adaptive.span=FALSE); f1 <- lmFit(v1, d1); C1 <- C[1:3,]
+v1 <- vm(counts, d1); f1 <- lmFit(v1, d1); C1 <- C[1:3,]
 ex1 <- t(sapply(1:G, function(g) { V <- solve(crossprod(d1*sqrt(v1$weights[g,]))); sqrt(diag(t(C1) %*% V %*% C1)) }))
 cat(sprintf("one-way design (orthogonal): contrasts.fit stdev.unscaled vs exact %.2e\n", mx(contrasts.fit(f1, C1)$stdev.unscaled, ex1)))

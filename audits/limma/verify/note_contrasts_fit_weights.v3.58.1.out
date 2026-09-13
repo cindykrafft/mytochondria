@@ -1,4 +1,14 @@
 limma 3.58.1 R version 4.3.3 (2024-02-29) 
-Error in voom(counts, design, span = 0.5, adaptive.span = FALSE) : 
-  unused argument (adaptive.span = FALSE)
-Execution halted
+ratio contrasts.fit stdev.unscaled / exact, quantiles per contrast:
+       BvsA   CvsA  BCvsA
+0%   0.9984 0.9985 1.0000
+1%   1.0113 1.0115 1.0113
+10%  1.0174 1.0174 1.0175
+50%  1.0459 1.0461 1.0460
+90%  1.1238 1.1232 1.1232
+99%  1.1571 1.1572 1.1564
+100% 1.2095 1.2034 1.2014
+coefficients are exact: 0.00e+00
+t-statistic ratio approx/exact, quantiles (BvsA): 0.8268 0.8642 0.9561 0.9888 1.0016 
+genes at adj.P<0.05 per contrast: approx 5/0/0 ; exact 15/0/0 ; disagreements 10/0/0
+one-way design (orthogonal): contrasts.fit stdev.unscaled vs exact 2.22e-16
