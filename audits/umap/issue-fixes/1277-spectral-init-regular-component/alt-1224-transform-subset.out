@@ -1,0 +1,15 @@
+umap 0.5.12
+== exact path: train 1500, new 1200, subset 600 ==
+  graph rows subset vs all[subset] identical: True | max|d| 0.0
+  init_graph_transform subset vs all[subset]: max|d| 0.0
+  embedding subset vs all[subset]: max|d| 2.114  RMSE 0.580  (embedding extent 24.3)
+  same subset, transform_seed 42 vs 7: max|d| 2.236  RMSE 0.668
+  same subset, same seed, repeated: identical: True
+  graph.data.max() (edge threshold / epochs_per_sample scale): all 0.5290, subset 0.4649
+== pynndescent path: train 5000, new 1200, subset 600 ==
+  graph rows subset vs all[subset] identical: True | max|d| 0.0
+  init_graph_transform subset vs all[subset]: max|d| 0.0
+  embedding subset vs all[subset]: max|d| 0.000  RMSE 0.000  (embedding extent 24.4)
+  same subset, transform_seed 42 vs 7: max|d| 2.432  RMSE 0.585
+  same subset, same seed, repeated: identical: True
+  graph.data.max() (edge threshold / epochs_per_sample scale): all 0.4726, subset 0.4726

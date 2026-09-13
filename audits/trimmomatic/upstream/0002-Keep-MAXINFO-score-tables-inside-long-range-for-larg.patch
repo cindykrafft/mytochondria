@@ -1,0 +1,437 @@
+From 2c78514491da14c32e06f1c761806daebb6057b0 Mon Sep 17 00:00:00 2001
+From: Cynthia Condra <cynthiacondra@gmail.com>
+Date: Sun, 13 Sep 2026 05:53:30 +0000
+Subject: [PATCH] Keep MAXINFO score tables inside long range for large target
+ lengths
+
+MaximumInformationTrimmer scales its two log-score tables to long with one
+ratio and took Math.max of the two candidate ratios, i.e. the ratio computed
+for the table with the smaller maximum. Applied to the length table it pushes
+(long) (array[i] * ratio) past Long.MIN_VALUE once targetLength exceeds about
+2461 * strictness (248 at 0.1, 495 at 0.2); the saturated value wraps when the
+quality sum is added, the first base gets the highest score and every read is
+trimmed to one base. From targetLength 711 on Math.exp overflows in the
+logistic term and the same happens at every strictness.
+
+Use Math.min so both tables stay inside long range (the quality sum over
+LONGEST_READ bases stays below Long.MAX_VALUE / 2), seed calcNormalization
+with Math.abs(array[0]), and evaluate log(1/(1+e^x)) as -x for x > 700.
+Results at ordinary settings are unchanged.
+
+Adds MaximumInformationTrimmerLargeTargetTest (four tests, three of which
+fail without the change).
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ dependency-reduced-pom.xml                    | 292 +++++++++---------
+ .../trim/MaximumInformationTrimmer.java       |  12 +-
+ ...imumInformationTrimmerLargeTargetTest.java |  61 ++++
+ 3 files changed, 215 insertions(+), 150 deletions(-)
+ create mode 100644 src/test/java/org/usadellab/trimmomatic/trim/MaximumInformationTrimmerLargeTargetTest.java
+
+diff --git a/dependency-reduced-pom.xml b/dependency-reduced-pom.xml
+index 343f478..98ac0f1 100644
+--- a/dependency-reduced-pom.xml
++++ b/dependency-reduced-pom.xml
+@@ -1,146 +1,146 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+-  <modelVersion>4.0.0</modelVersion>
+-  <groupId>org.usadellab</groupId>
+-  <artifactId>trimmomatic</artifactId>
+-  <version>0.41</version>
+-  <build>
+-    <resources>
+-      <resource>
+-        <filtering>true</filtering>
+-        <directory>resources</directory>
+-      </resource>
+-    </resources>
+-    <plugins>
+-      <plugin>
+-        <artifactId>maven-surefire-plugin</artifactId>
+-        <version>3.3.0</version>
+-        <configuration>
+-          <argLine>-Dnet.bytebuddy.experimental=true -XX:+EnableDynamicAgentLoading</argLine>
+-        </configuration>
+-      </plugin>
+-      <plugin>
+-        <artifactId>maven-compiler-plugin</artifactId>
+-        <version>3.13.0</version>
+-      </plugin>
+-      <plugin>
+-        <artifactId>maven-jar-plugin</artifactId>
+-        <version>3.3.0</version>
+-        <configuration>
+-          <archive>
+-            <manifest>
+-              <mainClass>org.usadellab.trimmomatic.Trimmomatic</mainClass>
+-            </manifest>
+-          </archive>
+-        </configuration>
+-      </plugin>
+-      <plugin>
+-        <artifactId>maven-shade-plugin</artifactId>
+-        <version>3.5.2</version>
+-        <executions>
+-          <execution>
+-            <phase>package</phase>
+-            <goals>
+-              <goal>shade</goal>
+-            </goals>
+-            <configuration>
+-              <transformers>
+-                <transformer>
+-                  <mainClass>org.usadellab.trimmomatic.Trimmomatic</mainClass>
+-                </transformer>
+-              </transformers>
+-            </configuration>
+-          </execution>
+-        </executions>
+-      </plugin>
+-      <plugin>
+-        <artifactId>maven-assembly-plugin</artifactId>
+-        <version>3.7.1</version>
+-        <executions>
+-          <execution>
+-            <id>make-assembly</id>
+-            <phase>package</phase>
+-            <goals>
+-              <goal>single</goal>
+-            </goals>
+-          </execution>
+-        </executions>
+-        <configuration>
+-          <finalName>Trimmomatic-${project.version}</finalName>
+-          <appendAssemblyId>false</appendAssemblyId>
+-          <descriptors>
+-            <descriptor>src/main/assembly/zip.xml</descriptor>
+-          </descriptors>
+-        </configuration>
+-      </plugin>
+-    </plugins>
+-  </build>
+-  <repositories>
+-    <repository>
+-      <id>hec-maven-public</id>
+-      <url>https://www.hec.usace.army.mil/nexus/repository/maven-public/</url>
+-    </repository>
+-  </repositories>
+-  <dependencies>
+-    <dependency>
+-      <groupId>org.junit.jupiter</groupId>
+-      <artifactId>junit-jupiter-api</artifactId>
+-      <version>5.11.0</version>
+-      <scope>test</scope>
+-      <exclusions>
+-        <exclusion>
+-          <artifactId>opentest4j</artifactId>
+-          <groupId>org.opentest4j</groupId>
+-        </exclusion>
+-        <exclusion>
+-          <artifactId>junit-platform-commons</artifactId>
+-          <groupId>org.junit.platform</groupId>
+-        </exclusion>
+-        <exclusion>
+-          <artifactId>apiguardian-api</artifactId>
+-          <groupId>org.apiguardian</groupId>
+-        </exclusion>
+-      </exclusions>
+-    </dependency>
+-    <dependency>
+-      <groupId>org.junit.jupiter</groupId>
+-      <artifactId>junit-jupiter-params</artifactId>
+-      <version>5.11.0</version>
+-      <scope>test</scope>
+-      <exclusions>
+-        <exclusion>
+-          <artifactId>apiguardian-api</artifactId>
+-          <groupId>org.apiguardian</groupId>
+-        </exclusion>
+-      </exclusions>
+-    </dependency>
+-    <dependency>
+-      <groupId>org.mockito</groupId>
+-      <artifactId>mockito-core</artifactId>
+-      <version>5.15.2</version>
+-      <scope>test</scope>
+-      <exclusions>
+-        <exclusion>
+-          <artifactId>objenesis</artifactId>
+-          <groupId>org.objenesis</groupId>
+-        </exclusion>
+-      </exclusions>
+-    </dependency>
+-    <dependency>
+-      <groupId>net.bytebuddy</groupId>
+-      <artifactId>byte-buddy</artifactId>
+-      <version>1.17.0</version>
+-      <scope>test</scope>
+-    </dependency>
+-    <dependency>
+-      <groupId>net.bytebuddy</groupId>
+-      <artifactId>byte-buddy-agent</artifactId>
+-      <version>1.17.0</version>
+-      <scope>test</scope>
+-    </dependency>
+-  </dependencies>
+-  <properties>
+-    <maven.compiler.release>25</maven.compiler.release>
+-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+-  </properties>
+-</project>
++<?xml version="1.0" encoding="UTF-8"?>
++<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
++  <modelVersion>4.0.0</modelVersion>
++  <groupId>org.usadellab</groupId>
++  <artifactId>trimmomatic</artifactId>
++  <version>0.41</version>
++  <build>
++    <resources>
++      <resource>
++        <filtering>true</filtering>
++        <directory>resources</directory>
++      </resource>
++    </resources>
++    <plugins>
++      <plugin>
++        <artifactId>maven-surefire-plugin</artifactId>
++        <version>3.3.0</version>
++        <configuration>
++          <argLine>-Dnet.bytebuddy.experimental=true -XX:+EnableDynamicAgentLoading</argLine>
++        </configuration>
++      </plugin>
++      <plugin>
++        <artifactId>maven-compiler-plugin</artifactId>
++        <version>3.13.0</version>
++      </plugin>
++      <plugin>
++        <artifactId>maven-jar-plugin</artifactId>
++        <version>3.3.0</version>
++        <configuration>
++          <archive>
++            <manifest>
++              <mainClass>org.usadellab.trimmomatic.Trimmomatic</mainClass>
++            </manifest>
++          </archive>
++        </configuration>
++      </plugin>
++      <plugin>
++        <artifactId>maven-shade-plugin</artifactId>
++        <version>3.5.2</version>
++        <executions>
++          <execution>
++            <phase>package</phase>
++            <goals>
++              <goal>shade</goal>
++            </goals>
++            <configuration>
++              <transformers>
++                <transformer>
++                  <mainClass>org.usadellab.trimmomatic.Trimmomatic</mainClass>
++                </transformer>
++              </transformers>
++            </configuration>
++          </execution>
++        </executions>
++      </plugin>
++      <plugin>
++        <artifactId>maven-assembly-plugin</artifactId>
++        <version>3.7.1</version>
++        <executions>
++          <execution>
++            <id>make-assembly</id>
++            <phase>package</phase>
++            <goals>
++              <goal>single</goal>
++            </goals>
++          </execution>
++        </executions>
++        <configuration>
++          <finalName>Trimmomatic-${project.version}</finalName>
++          <appendAssemblyId>false</appendAssemblyId>
++          <descriptors>
++            <descriptor>src/main/assembly/zip.xml</descriptor>
++          </descriptors>
++        </configuration>
++      </plugin>
++    </plugins>
++  </build>
++  <repositories>
++    <repository>
++      <id>hec-maven-public</id>
++      <url>https://www.hec.usace.army.mil/nexus/repository/maven-public/</url>
++    </repository>
++  </repositories>
++  <dependencies>
++    <dependency>
++      <groupId>org.junit.jupiter</groupId>
++      <artifactId>junit-jupiter-api</artifactId>
++      <version>5.11.0</version>
++      <scope>test</scope>
++      <exclusions>
++        <exclusion>
++          <artifactId>opentest4j</artifactId>
++          <groupId>org.opentest4j</groupId>
++        </exclusion>
++        <exclusion>
++          <artifactId>junit-platform-commons</artifactId>
++          <groupId>org.junit.platform</groupId>
++        </exclusion>
++        <exclusion>
++          <artifactId>apiguardian-api</artifactId>
++          <groupId>org.apiguardian</groupId>
++        </exclusion>
++      </exclusions>
++    </dependency>
++    <dependency>
++      <groupId>org.junit.jupiter</groupId>
++      <artifactId>junit-jupiter-params</artifactId>
++      <version>5.11.0</version>
++      <scope>test</scope>
++      <exclusions>
++        <exclusion>
++          <artifactId>apiguardian-api</artifactId>
++          <groupId>org.apiguardian</groupId>
++        </exclusion>
++      </exclusions>
++    </dependency>
++    <dependency>
++      <groupId>org.mockito</groupId>
++      <artifactId>mockito-core</artifactId>
++      <version>5.15.2</version>
++      <scope>test</scope>
++      <exclusions>
++        <exclusion>
++          <artifactId>objenesis</artifactId>
++          <groupId>org.objenesis</groupId>
++        </exclusion>
++      </exclusions>
++    </dependency>
++    <dependency>
++      <groupId>net.bytebuddy</groupId>
++      <artifactId>byte-buddy</artifactId>
++      <version>1.17.0</version>
++      <scope>test</scope>
++    </dependency>
++    <dependency>
++      <groupId>net.bytebuddy</groupId>
++      <artifactId>byte-buddy-agent</artifactId>
++      <version>1.17.0</version>
++      <scope>test</scope>
++    </dependency>
++  </dependencies>
++  <properties>
++    <maven.compiler.release>25</maven.compiler.release>
++    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
++  </properties>
++</project>
+diff --git a/src/main/java/org/usadellab/trimmomatic/trim/MaximumInformationTrimmer.java b/src/main/java/org/usadellab/trimmomatic/trim/MaximumInformationTrimmer.java
+index fb9c6c0..8548178 100644
+--- a/src/main/java/org/usadellab/trimmomatic/trim/MaximumInformationTrimmer.java
++++ b/src/main/java/org/usadellab/trimmomatic/trim/MaximumInformationTrimmer.java
+@@ -16,7 +16,7 @@ public class MaximumInformationTrimmer extends AbstractSingleRecordTrimmer {
+ 	private long[] qualProb;
+ 
+ 	private static double calcNormalization(double array[], int margin) {
+-		double maxVal = array[0];
++		double maxVal = Math.abs(array[0]);
+ 
+ 		for (int i = 1; i < array.length; i++) {
+ 			double val = Math.abs(array[i]);
+@@ -45,9 +45,10 @@ public class MaximumInformationTrimmer extends AbstractSingleRecordTrimmer {
+ 		for (int i = 0; i < LONGEST_READ; i++) {
+ 			// Unique weighting is logistic function, on difference between length and par
+ 			// length
+-			double pow1 = Math.exp(parLength - i - 1);
++			double diff = parLength - i - 1;
+ 			// double unique=1.0/(1.0+pow1);
+-			double unique = Math.log(1.0 / (1.0 + pow1));
++			// log(1/(1+e^diff)); for diff > ~709 exp() overflows to Infinity, where log(1/(1+e^diff)) = -diff
++			double unique = (diff > 700) ? -diff : Math.log(1.0 / (1.0 + Math.exp(diff)));
+ 
+ 			// Coverage weighting is length, diluted by strictness
+ 			// double coverage=Math.pow(i+1,1-strictness);
+@@ -64,7 +65,10 @@ public class MaximumInformationTrimmer extends AbstractSingleRecordTrimmer {
+ 			qualProbTmp[i] = Math.log(1 - Math.pow(0.1, (0.5 + i) / 10.0)) * strictness;
+ 		}
+ 
+-		double normRatio = Math.max(calcNormalization(lengthScoreTmp, LONGEST_READ * 2),
++		// Both tables are added into one long score, so the SMALLER ratio must be used for
++		// both: the larger one scales the other table past Long range, the cast saturates at
++		// Long.MIN_VALUE and the sum wraps to a huge positive score at the first base.
++		double normRatio = Math.min(calcNormalization(lengthScoreTmp, LONGEST_READ * 2),
+ 				calcNormalization(qualProbTmp, LONGEST_READ * 2));
+ 
+ 		lengthScore = normalize(lengthScoreTmp, normRatio);
+diff --git a/src/test/java/org/usadellab/trimmomatic/trim/MaximumInformationTrimmerLargeTargetTest.java b/src/test/java/org/usadellab/trimmomatic/trim/MaximumInformationTrimmerLargeTargetTest.java
+new file mode 100644
+index 0000000..78f263b
+--- /dev/null
++++ b/src/test/java/org/usadellab/trimmomatic/trim/MaximumInformationTrimmerLargeTargetTest.java
+@@ -0,0 +1,61 @@
++package org.usadellab.trimmomatic.trim;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++import static org.junit.jupiter.api.Assertions.assertNotNull;
++import static org.junit.jupiter.api.Assertions.assertTrue;
++
++import org.junit.jupiter.api.Test;
++import org.usadellab.trimmomatic.fastq.FastqRecord;
++
++/**
++ * MAXINFO with a large target length: the fixed-point score tables must not overflow, so a
++ * high-quality read longer than the target is kept whole.
++ */
++public class MaximumInformationTrimmerLargeTargetTest {
++	private String makeSequence(int len) {
++		StringBuilder sb = new StringBuilder(len);
++		String pattern = "ACGT";
++		for (int i = 0; i < len; i++)
++			sb.append(pattern.charAt(i % 4));
++		return sb.toString();
++	}
++
++	private String makeQuality(char c, int len) {
++		StringBuilder sb = new StringBuilder(len);
++		for (int i = 0; i < len; i++)
++			sb.append(c);
++		return sb.toString();
++	}
++
++	private int survivingLength(String args, String qual) {
++		MaximumInformationTrimmer trimmer = new MaximumInformationTrimmer(args);
++		FastqRecord rec = new FastqRecord("head", makeSequence(qual.length()), "", qual, 33);
++		FastqRecord result = trimmer.processRecord(rec);
++		assertNotNull(result);
++		return result.getLength();
++	}
++
++	@Test
++	public void testTargetLength250LowStrictnessKeepsHighQualityRead() {
++		// 300 x Q40, target 250, strictness 0.1: nothing to trim
++		assertEquals(300, survivingLength("250:0.1", makeQuality('I', 300)));
++	}
++
++	@Test
++	public void testTargetLength500KeepsHighQualityRead() {
++		assertEquals(300, survivingLength("500:0.2", makeQuality('I', 300)));
++	}
++
++	@Test
++	public void testTargetLengthBeyondExpRangeKeepsHighQualityRead() {
++		// target 800: exp(800 - i - 1) overflows a double for short reads
++		assertEquals(300, survivingLength("800:0.5", makeQuality('I', 300)));
++	}
++
++	@Test
++	public void testLowQualityTailStillTrimmedAtTypicalSettings() {
++		// 100 x Q40 then 50 x Q2, target 40, strictness 0.8: the tail goes, the head stays
++		int len = survivingLength("40:0.8", makeQuality('I', 100) + makeQuality('#', 50));
++		assertTrue(len >= 90 && len <= 110, "surviving length " + len);
++	}
++}
+-- 
+2.43.0
+

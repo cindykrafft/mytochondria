@@ -282,6 +282,16 @@
     "samtools/bcftools"
    ],
    "fork": "cindykrafft/bcftools"
+  },
+  {
+   "dir": "gsea",
+   "name": "GSEA",
+   "papers": 720,
+   "findings": 7,
+   "repos": [
+    "GSEA-MSigDB/gsea-desktop"
+   ],
+   "fork": "cindykrafft/gsea-desktop"
   }
  ],
  "author": "cindykrafft",

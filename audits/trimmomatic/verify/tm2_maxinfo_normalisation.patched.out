@@ -1,0 +1,24 @@
+build: java -jar /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/trimmomatic/wt2/target/trimmomatic-0.41.jar
+
+closed form: smallest targetLength at which lengthScore[0]*normRatio leaves Long range, per strictness:
+   strictness 0.1: targetLength > 247.2
+   strictness 0.2: targetLength > 493.3
+   strictness 0.3: targetLength > 739.5
+   strictness 0.5: targetLength > 1231.8
+   strictness 0.8: targetLength > 1970.3
+   strictness 1.0: targetLength > 2462.6
+
+A. 300-nt all-Q40 read; cell = shipped surviving length / double-precision rule (300 expected everywhere)
+   target  s=0.1       s=0.2       s=0.3       s=0.5       s=0.8       s=1.0       
+   36      300/300     300/300     300/300     300/300     300/300     45/45       
+   40      300/300     300/300     300/300     300/300     300/300     49/49       
+   50      300/300     300/300     300/300     300/300     300/300     59/59       
+   75      300/300     300/300     300/300     300/300     300/300     84/84       
+   100     300/300     300/300     300/300     300/300     300/300     109/109     
+   150     300/300     300/300     300/300     300/300     300/300     159/159     
+   200     300/300     300/300     300/300     300/300     300/300     209/209     
+   240     300/300     300/300     300/300     300/300     300/300     249/249     
+   246     300/300     300/300     300/300     300/300     300/300     255/255     
+   247     300/300     300/300     300/300     300/300     300/300     256/256     
+   248     300/300     300/300     300/300     300/300     300/300     257/257     
+   250     300/300     300/300     300/300     300/300     300/300     259/259     

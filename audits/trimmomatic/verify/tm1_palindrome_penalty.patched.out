@@ -1,0 +1,11 @@
+build: java -jar /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/trimmomatic/wt1/target/trimmomatic-0.41.jar
+adapters: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/trimmomatic/src/adapters/TruSeq3-PE.fa prefix lengths 34 34
+
+A. 2x50 pair, insert 42, two read-1 mismatches at Q19: aligned bases 58
+   documented score = 29.915 (< 30: keep both reads untouched)
+   integer-penalty score = 31.715 (>= 30: clip read 1 to 42, drop read 2)
+   shipped: ('both', 50, 50) | Input Read Pairs: 1 Both Surviving: 1 (100.00%) Forward Only Surviving: 0 (0.00%) Reverse Only Surviving: 0 (0.00%) Dropped: 0 (0.00%)
+   documented rule -> None  integer rule -> 42
+
+B. 2x50 pairs, insert 42 (58 aligned bases; columns: documented score, integer-penalty score, clip decision of each rule and of the shipped build, 200 pairs per row):
+   Qmm    m   doc       int       doc-rule       int-rule       shipped (200 pairs each)
