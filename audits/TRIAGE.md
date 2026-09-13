@@ -107,7 +107,7 @@ Assigned issues (2026-09-04): no PR; comment with the diagnosis and a branch lin
 | deeptools/deepTools | #1423 | `computeMatrix` gzipped BED crash in `sortMatrix` | PR #1451 closed after the 4.0.0 merge; residual sort fix held |
 | fieldtrip/fieldtrip | #2345 | `cfg.toi = 'NN%'` is the step, not the overlap | PR ready; every percentage but 50 changes the time axis |
 | afni/afni | #73 | stale AFNI extension time axis; `3dvolreg` zero-byte output with exit 0 | PR #974 open (filed 2026-09-04) |
-| lmcinnes/umap | #1194 | `transform` refuses precomputed distances above 4096 rows | PR #1288 filed 2026-09-08 (second umap fix, after #1287 merged) |
+| lmcinnes/umap | #1194 | `transform` refuses precomputed distances above 4096 rows | PR #1288 filed 2026-09-08, **merged 2026-09-13** (second umap fix; a third is now allowed) |
 | chrchang/plink-ng | #140 | `--bmerge` duplicate-ID counts and warning asymmetric | PR #387 filed and closed 2026-09-05 within a minute, one comment (unread from the session; likely the maintainer's own fix, as with #381) |
 | freesurfer/freesurfer | #1358 | `mri_convert --out_orientation` shifts by one voxel per flipped axis | not to be filed: the maintainers decline AI-generated contributions (2026-09-08) |
 | scverse/scanpy | #3809 | `.distances` keeps `n_neighbors` entries on transformer paths (≥ 8192 cells by default) | PR ready; 6 unread comments on the issue |
