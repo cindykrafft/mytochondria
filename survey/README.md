@@ -297,6 +297,66 @@ a ratio near or above 1 would suggest this survey is over-counting.
 | Snakemake | 54 | 102 | 0.53 |
 
 
+## Attribution to a repository
+
+_Added 2026-09-13._ The survey records a package whenever a paper names it, and for most
+packages the name is the program, so every paper counts for the audited repository. Two
+audited names are methods that several programs implement: **GSEA** (the Broad/UCSD desktop
+application in `GSEA-MSigDB/gsea-desktop`, but also `fgsea`, `clusterProfiler`, GSEApy,
+GSVA/ssGSEA and web tools) and **UMAP** (`umap-learn` in `lmcinnes/umap`, but Seurat's
+`RunUMAP`, Monocle, ArchR and Signac run the R package `uwot`). For those two,
+[`scripts/attribute.py`](scripts/attribute.py) classes each paper from its evidence sentences
+and from the other packages the survey recorded for it: *attributable* when the audited program
+is named (name, URL, a version only it has) or a co-named package is known to call it;
+*another implementation* when a rival is named and the audited program is not; *name only*
+otherwise. Independently, every version stated next to a package name is checked against the
+release tags of the target repository (`data/repo_tags/`, from `git ls-remote --tags`), so
+versions whose code never lived there (javaGSEA 2.x, PLINK 1.07) are visible. Output:
+[`data/attribution.tsv`](data/attribution.tsv); the site and the top-level README read the
+`attributed` field it writes into `site/audits.json`.
+
+| audit | survey package | target repository | papers | attributable to the repository | another implementation | name only | versions stated | matching a release tag | stated versions with no release tag |
+|---|---|---|---|---|---|---|---|---|---|
+| freesurfer | FreeSurfer | freesurfer/freesurfer | 116 | 116 | 0 | 0 | 32 | 28 | 6.0.1×3, 6.1 |
+| fsl | FSL | - | 114 | 114 | 0 | 0 | 20 | – | (no repository) |
+| spm | SPM | spm/spm | 76 | 76 | 0 | 0 | 0 | 0 | — |
+| afni | AFNI | afni/afni | 39 | 39 | 0 | 0 | 2 | 1 | 2016.09.04.1341 |
+| deseq2 | DESeq2 | thelovelab/DESeq2 | 886 | 886 | 0 | 0 | 239 | – | (no version tags in the repository) |
+| macs2 | MACS2 | macs3-project/MACS | 475 | 475 | 0 | 0 | 101 | 98 | 1.4.3, 2.21, 2.1.6 |
+| kilosort | Kilosort | MouseLand/Kilosort | 60 | 60 | 0 | 0 | 23 | 23 | — |
+| fieldtrip | FieldTrip | fieldtrip/fieldtrip | 42 | 42 | 0 | 0 | 1 | 0 | 3.5 |
+| suite2p | Suite2p | MouseLand/suite2p | 32 | 32 | 0 | 0 | 0 | 0 | — |
+| seurat | Seurat | satijalab/seurat | 767 | 767 | 0 | 0 | 298 | 275 | 4.3.0.1×4, 2.3.4×4, 4.2.1×2, 4.1.3, 4.3.0.9002, 4.5, 4.9.9.9040, 4.9.9.9059 |
+| scanpy | Scanpy | scverse/scanpy | 200 | 200 | 0 | 0 | 68 | 68 | — |
+| scrublet | - | swolock/scrublet | 78 | 78 | 0 | 0 | 0 | – | (no version tags in the repository) |
+| cellphonedb | CellPhoneDB | ventolab/CellphoneDB | 46 | 46 | 0 | 0 | 8 | 8 | — |
+| umap | UMAP | lmcinnes/umap | 1111 | 202 | 562 (uwot (Seurat, Monocle, ArchR, Signac)) | 347 | 3 | 1 | 0.2.7.0, 3.1 |
+| cutadapt | Cutadapt | marcelm/cutadapt | 331 | 331 | 0 | 0 | 167 | 164 | 1.4.2, 1.10.0, 1.11.0 |
+| deeptools | deepTools | deeptools/deepTools | 167 | 167 | 0 | 0 | 69 | 69 | — |
+| iqtree | IQ-TREE | iqtree/iqtree3 | 258 | 258 | 0 | 0 | 137 | 132 | 2.1.4b, 2.07, 2.06, 1.6.1035, 2.1.06 |
+| fastp | fastp | OpenGene/fastp | 117 | 117 | 0 | 0 | 47 | 38 | 0.21.0×6, 0.19.41, 0.22.08, 0.21.1 |
+| bedtools | BEDTools | arq5x/bedtools2 | 302 | 302 | 0 | 0 | 105 | 102 | 2.3.0, 2.17.0, 2.27.168 |
+| htseq | HTSeq | htseq/htseq | 161 | 161 | 0 | 0 | 57 | 53 | 0.6.0×2, 0.5.4p, 0.5.3 |
+| plink | PLINK | chrchang/plink-ng | 184 | 184 | 0 | 0 | 94 | 86 | 1.07×3, 1.9b×2, 1.09, 1.9.20200712, 1.987 |
+| samtools | SAMtools | samtools/samtools | 692 | 692 | 0 | 0 | 326 | 319 | 1.0.0×2, 1.11.0×2, 1.13.0, 1.9.0, 1.1.2 |
+| featurecounts | featureCounts | ShiLab-Bioinformatics/subread | 331 | 331 | 0 | 0 | 117 | – | (no version tags in the repository) |
+| edger | edgeR | - | 318 | 318 | 0 | 0 | 76 | – | (no repository) |
+| lme4 | lme4 | lme4/lme4 | 312 | 312 | 0 | 0 | 40 | – | (no version tags in the repository) |
+| clusterprofiler | clusterProfiler | YuLab-SMU/clusterProfiler | 244 | 244 | 0 | 0 | 71 | – | (no version tags in the repository) |
+| star | STAR | alexdobin/STAR | 489 | 489 | 0 | 0 | 282 | 276 | 2.5.11, 2.2.7a, 2.5.3b, 2.11a, 2.70, 2.70f |
+| bcftools | BCFtools | samtools/bcftools | 202 | 202 | 0 | 0 | 89 | 85 | 1.18.1, 1.31, 1.9.64, 0.1.19 |
+| gsea | GSEA | GSEA-MSigDB/gsea-desktop | 720 | 69 | 233 (fgsea, clusterProfiler, GSVA/ssGSEA, GSEApy, web tools) | 418 | 27 | 24 | 2.2.3×2, 2.0 |
+| limma | limma | - | 234 | 234 | 0 | 0 | 51 | – | (no repository) |
+| trimmomatic | Trimmomatic | usadellab/Trimmomatic | 291 | 291 | 0 | 0 | 176 | 169 | 2.6.0, 0.32.3, 0.3.9, 0.26, 0.33.0, 0.36.6, 0.36.3 |
+
+Reading the table: the GSEA count that matters for `gsea-desktop` is 69, not 720, and the
+umap-learn count is 202, not 1,111 (most of the cohort's UMAPs run through `uwot`, which is
+out of scope). Every other audited package is attributable by name; the version column shows
+where stated versions fall outside the repository's tags, and those are almost all typos or
+patch releases without a tag rather than a different program (PLINK 1.07 ×3, javaGSEA 2.x ×3
+and FlowJo's UMAP plugin are the real exceptions). Repositories without release tags
+(Bioconductor packages, `subread`, `lme4`) are marked as such rather than guessed.
+
 ## Files
 
 | File | Contents |
@@ -362,7 +422,8 @@ each reported**, so a bug can be matched against the version range actually used
   AlphaFold are recorded whenever named, but a paper may mean the algorithm, a published
   embedding, or the AlphaFold Protein Structure Database rather than a run of the software.
   AlphaFold is the one package whose cross-check ratio exceeds 1, which is the signature of
-  exactly this effect — treat its count as an upper bound.
+  exactly this effect — treat its count as an upper bound. For the audited packages the
+  [attribution pass](#attribution-to-a-repository) resolves this per paper.
 
 - **A version is recorded only when it is stated adjacent to the package name** —
   `STAR (v2.7.5c)`, `Seurat v5.0.1`, `R version 4.1.2`. Where a paper separates the two

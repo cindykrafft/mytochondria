@@ -59,14 +59,14 @@ ul.items li{display:grid;grid-template-columns:100px minmax(0,1fr) auto auto;gap
   <h2>By repository</h2>
   <div class="tablewrap"><table id="ledger">
     <thead><tr>
-      <th>Package · repository</th><th class="n">Papers</th><th class="n">Findings</th>
+      <th>Package · repository</th><th class="n">Papers</th><th class="n">Attributable</th><th class="n">Findings</th>
       <th class="n">Issues</th><th class="n">open</th><th class="n">resolved</th><th class="n">declined</th>
       <th class="n">PRs</th><th class="n">open</th><th class="n">merged</th><th class="n">closed</th>
       <th class="n">Answered</th><th>Last activity</th>
     </tr></thead><tbody></tbody></table></div>
   <dl class="foot">
     <dt>How to read the columns</dt>
-    <dd>Papers: papers in the survey cohort (six journals, 2021 to 2026) whose methods name the package; lower bounds where the full text could not be read. Findings: confirmed by executing the shipped code, from each package's README. Resolved: issue closed as completed. Declined: issue closed as not planned. Closed: pull request closed without merge. Answered: filings with at least one comment from anyone but the author is not distinguishable here, so this counts filings with any comment.</dd>
+    <dd>Papers: papers in the survey cohort (six journals, 2021 to 2026) whose methods name the package; lower bounds where the full text could not be read. Attributable: of those, papers whose use can be attributed to the audited repository. For a package whose name is the program this is every paper; for GSEA and UMAP, names that several programs implement, it counts papers that name the audited program (or a package that calls it) and excludes papers that name another implementation or only the method (hover for the split; rules and per-package version checks in survey/scripts/attribute.py and survey/data/attribution.tsv). Findings: confirmed by executing the shipped code, from each package's README. Resolved: issue closed as completed. Declined: issue closed as not planned. Closed: pull request closed without merge. Answered: filings with at least one comment from anyone but the author is not distinguishable here, so this counts filings with any comment.</dd>
     <dt>Declines AI contributions</dt>
     <dd>Some maintainers have said they do not want AI-generated issues or pull requests. That decision is recorded as a topic on the project's fork of their repository, this page reads it from there, and nothing further is filed, commented or pushed for that repository; what is already open is left to the maintainers. The project itself stays published in the project repository.</dd>
     <dt>Where the numbers come from</dt>
@@ -110,14 +110,14 @@ function render(D){
     const name=(r.a.dir?`<a href="${AUDIT_BASE}${r.a.dir}/">${esc(r.a.name)}</a>`:esc(r.a.name))+(r.a.declines_ai?` <span class="pill p-declined" title="The fork carries the topic ${esc(D.declines_topic||"")}: the maintainers do not take AI-generated contributions, so nothing further is filed here">declines AI contributions</span>`:"");
     const repo=r.repo?`<a class="mono" href="https://github.com/${r.repo}">${esc(r.repo)}</a>`:`<span class="dim">no GitHub repository</span>`;
     const tr=document.createElement("tr"); tr.className="repo"+(has?"":" none");
-    tr.innerHTML=`<td>${name} <span class="dim">·</span> ${repo}</td><td class="n">${r.a.papers?r.a.papers.toLocaleString("en"):'<span class="dim">–</span>'}</td><td class="n">${n(r.a.findings)}</td>
+    tr.innerHTML=`<td>${name} <span class="dim">·</span> ${repo}</td><td class="n">${r.a.papers?r.a.papers.toLocaleString("en"):'<span class="dim">–</span>'}</td><td class="n"${r.a.attributed_note?` title="${esc(r.a.attributed_note)}"`:""}>${r.a.attributed?r.a.attributed.toLocaleString("en")+(r.a.attributed_note?' <span class="dim">?</span>':''):'<span class="dim">–</span>'}</td><td class="n">${n(r.a.findings)}</td>
       <td class="n">${n(c.issues)}</td><td class="n">${n(c.i_open)}</td><td class="n">${n(c.resolved)}</td><td class="n">${n(c.declined)}</td>
       <td class="n">${n(c.prs)}</td><td class="n">${n(c.p_open)}</td><td class="n">${n(c.merged)}</td><td class="n">${n(c.closed)}</td>
       <td class="n">${n(c.answered)}</td><td class="${has?"mono ":""}dim">${has?fmt(c.last):esc(r.a.channel||"nothing filed yet")}</td>`;
     tb.appendChild(tr);
     if(has){
       const d=document.createElement("tr"); d.className="detail";
-      d.innerHTML=`<td colspan="13"><ul class="items">${r.items.map(it=>`<li><a class="mono" href="${it.url}">${it.kind==="pr"?"PR":"issue"} #${it.number}</a><span>${esc(it.title)}</span><span class="pill p-${it.status}">${LABEL[it.status]}</span><span class="mono dim">${fmt(it.created)}${it.comments?` · ${it.comments} comment${it.comments>1?"s":""}`:""}</span></li>`).join("")}</ul></td>`;
+      d.innerHTML=`<td colspan="14"><ul class="items">${r.items.map(it=>`<li><a class="mono" href="${it.url}">${it.kind==="pr"?"PR":"issue"} #${it.number}</a><span>${esc(it.title)}</span><span class="pill p-${it.status}">${LABEL[it.status]}</span><span class="mono dim">${fmt(it.created)}${it.comments?` · ${it.comments} comment${it.comments>1?"s":""}`:""}</span></li>`).join("")}</ul></td>`;
       tb.appendChild(d);
       tr.addEventListener("click",e=>{if(e.target.tagName==="A")return; tr.classList.toggle("open"); d.classList.toggle("show")});
     }

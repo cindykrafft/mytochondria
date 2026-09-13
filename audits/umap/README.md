@@ -7,6 +7,14 @@ the shipped code._
 
 ## What this is
 
+**Which UMAP (attribution pass, 2026-09-13).** Classing the 1,111 papers exclusively by their
+evidence sentences and co-named packages ([`survey/scripts/attribute.py`](../../survey/scripts/attribute.py)):
+**202** identify umap-learn (Scanpy, `umap-learn`, `umap.UMAP`, or Python in the UMAP
+sentence), 562 name a route that runs `uwot` instead (Seurat's `RunUMAP`, Monocle, ArchR,
+Signac) and 347 name only the method. The exposure this audit can claim for `lmcinnes/umap`
+is 202 papers; the non-exclusive counts in the usage table below (627 Seurat, 171 Scanpy)
+are unchanged.
+
 The six-journal survey found **1,111 papers** in PNAS (544), *Nature* (453), *Cell* (77)
 and *Science* (37), 2021–2026, that name UMAP — the largest exposure of any package in
 the survey, and nearly every single-cell figure. Most reach it indirectly: 627 also name

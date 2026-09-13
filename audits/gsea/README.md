@@ -1,4 +1,4 @@
-# GSEA audit against 720 published papers (2021–2026)
+# GSEA audit against 720 published papers naming GSEA (2021–2026), 69 of which identify the desktop application
 
 _Generated 2026-09-13 against `GSEA-MSigDB/gsea-desktop` `master` @ `dc35c76` (2025-03-10;
 the `v4.4.0` release tag `2cfcbd9` plus one README-only commit, so `master` is the current
@@ -7,6 +7,18 @@ q-value, FWER, the ranking metrics and probe collapsing that feed them — verif
 executing the shipped program on synthetic data with planted signal._
 
 ## What this is
+
+**Which GSEA (attribution pass, 2026-09-13).** "GSEA" names a method as well as this program.
+Classing each of the 720 papers by its evidence sentences and co-named packages
+([`survey/scripts/attribute.py`](../../survey/scripts/attribute.py), table in
+[`survey/README.md`](../../survey/README.md#attribution-to-a-repository)): **69** identify the
+desktop application (name, `gsea-msigdb.org/gsea` URL, "Broad", or a stated version 2.x–4.x,
+which only it has), 233 name another implementation (`fgsea`, `clusterProfiler`, GSVA/ssGSEA,
+GSEApy, web tools) and 418 name only the method. The exposure this audit can claim for
+`GSEA-MSigDB/gsea-desktop` is therefore 69 papers, not 720; the fgsea and clusterProfiler
+routes are covered by the [clusterProfiler + fgsea audit](../clusterprofiler/). Of the 27
+stated versions, 24 exist as tags of this repository; the three that do not (2.0, 2.2.3 ×2)
+are the closed-source javaGSEA 2 line that predates it.
 
 The six-journal survey found **720 papers** in PNAS (469), *Nature* (199), *Cell* (35),
 *Science* (16) and *NEJM* (1), 2021–2026, that report a GSEA. The survey's package name

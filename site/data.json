@@ -11,7 +11,10 @@
    "repos": [
     "freesurfer/freesurfer"
    ],
-   "fork": "cindykrafft/freesurfer"
+   "fork": "cindykrafft/freesurfer",
+   "attributed": 116,
+   "versions_stated": 32,
+   "versions_in_repo": 28
   },
   {
    "dir": "fsl",
@@ -19,7 +22,8 @@
    "papers": 114,
    "findings": 12,
    "repos": [],
-   "channel": "reports and patches ready; filing goes through the FSL mailing list, not GitHub"
+   "channel": "reports and patches ready; filing goes through the FSL mailing list, not GitHub",
+   "attributed": 114
   },
   {
    "dir": "spm",
@@ -29,7 +33,10 @@
    "repos": [
     "spm/spm"
    ],
-   "fork": "cindykrafft/spm"
+   "fork": "cindykrafft/spm",
+   "attributed": 76,
+   "versions_stated": 0,
+   "versions_in_repo": 0
   },
   {
    "dir": "afni",
@@ -39,7 +46,10 @@
    "repos": [
     "afni/afni"
    ],
-   "fork": "cindykrafft/afni"
+   "fork": "cindykrafft/afni",
+   "attributed": 39,
+   "versions_stated": 2,
+   "versions_in_repo": 1
   },
   {
    "dir": "deseq2",
@@ -49,7 +59,8 @@
    "repos": [
     "thelovelab/DESeq2"
    ],
-   "fork": "cindykrafft/DESeq2"
+   "fork": "cindykrafft/DESeq2",
+   "attributed": 886
   },
   {
    "dir": "macs2",
@@ -59,7 +70,10 @@
    "repos": [
     "macs3-project/MACS"
    ],
-   "fork": "cindykrafft/MACS"
+   "fork": "cindykrafft/MACS",
+   "attributed": 475,
+   "versions_stated": 101,
+   "versions_in_repo": 98
   },
   {
    "dir": "kilosort",
@@ -69,7 +83,10 @@
    "repos": [
     "MouseLand/Kilosort"
    ],
-   "fork": "cindykrafft/Kilosort"
+   "fork": "cindykrafft/Kilosort",
+   "attributed": 60,
+   "versions_stated": 23,
+   "versions_in_repo": 23
   },
   {
    "dir": "fieldtrip",
@@ -79,7 +96,10 @@
    "repos": [
     "fieldtrip/fieldtrip"
    ],
-   "fork": "cindykrafft/fieldtrip"
+   "fork": "cindykrafft/fieldtrip",
+   "attributed": 42,
+   "versions_stated": 1,
+   "versions_in_repo": 0
   },
   {
    "dir": "suite2p",
@@ -89,7 +109,10 @@
    "repos": [
     "MouseLand/suite2p"
    ],
-   "fork": "cindykrafft/suite2p"
+   "fork": "cindykrafft/suite2p",
+   "attributed": 32,
+   "versions_stated": 0,
+   "versions_in_repo": 0
   },
   {
    "dir": "seurat",
@@ -99,7 +122,10 @@
    "repos": [
     "satijalab/seurat"
    ],
-   "fork": "cindykrafft/seurat"
+   "fork": "cindykrafft/seurat",
+   "attributed": 767,
+   "versions_stated": 298,
+   "versions_in_repo": 275
   },
   {
    "dir": "scanpy",
@@ -109,7 +135,10 @@
    "repos": [
     "scverse/scanpy"
    ],
-   "fork": "cindykrafft/scanpy"
+   "fork": "cindykrafft/scanpy",
+   "attributed": 200,
+   "versions_stated": 68,
+   "versions_in_repo": 68
   },
   {
    "dir": "scrublet",
@@ -117,7 +146,8 @@
    "papers": 78,
    "findings": 4,
    "repos": [],
-   "channel": "two findings are in Scanpy's port and are filed against scverse/scanpy; the original repository has had no maintainer activity since 2020"
+   "channel": "two findings are in Scanpy's port and are filed against scverse/scanpy; the original repository has had no maintainer activity since 2020",
+   "attributed": 78
   },
   {
    "dir": "cellphonedb",
@@ -127,7 +157,10 @@
    "repos": [
     "ventolab/CellphoneDB"
    ],
-   "fork": "cindykrafft/CellphoneDB"
+   "fork": "cindykrafft/CellphoneDB",
+   "attributed": 46,
+   "versions_stated": 8,
+   "versions_in_repo": 8
   },
   {
    "dir": "umap",
@@ -137,7 +170,11 @@
    "repos": [
     "lmcinnes/umap"
    ],
-   "fork": "cindykrafft/umap"
+   "fork": "cindykrafft/umap",
+   "attributed": 202,
+   "attributed_note": "202 papers name the program or a package that calls it, 562 name another implementation (uwot (Seurat, Monocle, ArchR, Signac)), 347 name only the method",
+   "versions_stated": 3,
+   "versions_in_repo": 1
   },
   {
    "dir": "cutadapt",
@@ -147,7 +184,10 @@
    "repos": [
     "marcelm/cutadapt"
    ],
-   "fork": "cindykrafft/cutadapt"
+   "fork": "cindykrafft/cutadapt",
+   "attributed": 331,
+   "versions_stated": 167,
+   "versions_in_repo": 164
   },
   {
    "dir": "deeptools",
@@ -157,7 +197,10 @@
    "repos": [
     "deeptools/deepTools"
    ],
-   "fork": "cindykrafft/deepTools"
+   "fork": "cindykrafft/deepTools",
+   "attributed": 167,
+   "versions_stated": 69,
+   "versions_in_repo": 69
   },
   {
    "dir": "iqtree",
@@ -168,7 +211,10 @@
     "iqtree/iqtree3"
    ],
    "channel": "no wrong number on master; four notes, a Discussion draft is prepared",
-   "fork": "cindykrafft/iqtree3"
+   "fork": "cindykrafft/iqtree3",
+   "attributed": 258,
+   "versions_stated": 137,
+   "versions_in_repo": 132
   },
   {
    "dir": "fastp",
@@ -178,7 +224,10 @@
    "repos": [
     "OpenGene/fastp"
    ],
-   "fork": "cindykrafft/fastp"
+   "fork": "cindykrafft/fastp",
+   "attributed": 117,
+   "versions_stated": 47,
+   "versions_in_repo": 38
   },
   {
    "dir": "bedtools",
@@ -188,7 +237,10 @@
    "repos": [
     "arq5x/bedtools2"
    ],
-   "fork": "cindykrafft/bedtools2"
+   "fork": "cindykrafft/bedtools2",
+   "attributed": 302,
+   "versions_stated": 105,
+   "versions_in_repo": 102
   },
   {
    "dir": "htseq",
@@ -199,7 +251,10 @@
     "htseq/htseq"
    ],
    "fork": "cindykrafft/htseq",
-   "declines_ai": true
+   "declines_ai": true,
+   "attributed": 161,
+   "versions_stated": 57,
+   "versions_in_repo": 53
   },
   {
    "dir": "plink",
@@ -209,7 +264,10 @@
    "repos": [
     "chrchang/plink-ng"
    ],
-   "fork": "cindykrafft/plink-ng"
+   "fork": "cindykrafft/plink-ng",
+   "attributed": 184,
+   "versions_stated": 94,
+   "versions_in_repo": 86
   }
  ],
  "audit_repo": "cindykrafft/mytochondria",
