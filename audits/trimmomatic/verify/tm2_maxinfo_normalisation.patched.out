@@ -22,3 +22,31 @@ A. 300-nt all-Q40 read; cell = shipped surviving length / double-precision rule 
    247     300/300     300/300     300/300     300/300     300/300     256/256     
    248     300/300     300/300     300/300     300/300     300/300     257/257     
    250     300/300     300/300     300/300     300/300     300/300     259/259     
+   300     300/300     300/300     300/300     300/300     300/300     300/300     
+   400     300/300     300/300     300/300     300/300     300/300     300/300     
+   490     300/300     300/300     300/300     300/300     300/300     300/300     
+   495     300/300     300/300     300/300     300/300     300/300     300/300     
+   500     300/300     300/300     300/300     300/300     300/300     300/300     
+   600     300/300     300/300     300/300     300/300     300/300     300/300     
+   700     300/300     300/300     300/300     300/300     300/300     300/300     
+   709     300/300     300/300     300/300     300/300     300/300     300/300     
+   710     300/300     300/300     300/300     300/300     300/300     300/300     
+   711     300/300     300/300     300/300     300/300     300/300     300/300     
+   720     300/300     300/300     300/300     300/300     300/300     300/300     
+   800     300/300     300/300     300/300     300/300     300/300     300/300     
+   1000    300/300     300/300     300/300     300/300     300/300     300/300     
+   cells where shipped != double-precision rule: 0 of 150
+   affected (target, strictness) -> []
+
+B. 5,000 reads of 150 nt with an Illumina-like quality profile, typical settings:
+   MAXINFO:40:0.5   shipped == double rule 5000/5000, differ by 1 base 0, differ more 0; reads dropped 0 | Input Reads: 5000 Surviving: 5000 (100.00%) Dropped: 0 (0.00%)
+   MAXINFO:35:0.5   shipped == double rule 5000/5000, differ by 1 base 0, differ more 0; reads dropped 0 | Input Reads: 5000 Surviving: 5000 (100.00%) Dropped: 0 (0.00%)
+   MAXINFO:100:0.2  shipped == double rule 5000/5000, differ by 1 base 0, differ more 0; reads dropped 0 | Input Reads: 5000 Surviving: 5000 (100.00%) Dropped: 0 (0.00%)
+   MAXINFO:50:0.8   shipped == double rule 5000/5000, differ by 1 base 0, differ more 0; reads dropped 0 | Input Reads: 5000 Surviving: 5000 (100.00%) Dropped: 0 (0.00%)
+   MAXINFO:36:0.9   shipped == double rule 5000/5000, differ by 1 base 0, differ more 0; reads dropped 0 | Input Reads: 5000 Surviving: 5000 (100.00%) Dropped: 0 (0.00%)
+   MAXINFO:150:1.0  shipped == double rule 5000/5000, differ by 1 base 0, differ more 0; reads dropped 0 | Input Reads: 5000 Surviving: 5000 (100.00%) Dropped: 0 (0.00%)
+   MAXINFO:150:0    shipped == double rule 5000/5000, differ by 1 base 0, differ more 0; reads dropped 0 | Input Reads: 5000 Surviving: 5000 (100.00%) Dropped: 0 (0.00%)
+
+C. targetLength 800, strictness 0.5, 2x300 MiSeq-like reads (300 nt, Q37 until 200 then Q20):
+   shipped surviving lengths: (300, 300) reads out: 100 | Input Reads: 100 Surviving: 100 (100.00%) Dropped: 0 (0.00%)
+   double-precision rule lengths: (300, 300)

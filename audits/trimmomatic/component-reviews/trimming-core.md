@@ -148,10 +148,11 @@ negative run only when both neighbours outweigh it; the score is the largest mer
 not the sum. The README's sentence reads as a sum. Executed
 (`../verify/heldup_illuminaclip_simple.py`, section A): on 6,000 150-nt reads with adapters
 at random positions and realistic errors, the shipped clip position equals the
-documented-sum rule for 5,971 (threshold 10) and 5,949 (threshold 7) reads and the
-best-sub-range port for 5,982 / 5,959; the residual differences are reads with a
+documented-sum rule for 5,971 (threshold 10), 5,949 (7) and 5,965 (15) reads and the
+best-sub-range port for 5,982 / 5,959 / 5,997; the residual differences are reads with a
 high-quality mismatch near the end of a short fragment (sum below threshold, sub-range
-above) and the seed sampling of N2. Design choice — it makes the mode more tolerant of a
+above — e.g. `r348`, `r386`, `r576` at threshold 15, clipped by the shipped build and the
+port, not by the sum) and the seed sampling of N2. Design choice — it makes the mode more tolerant of a
 bad base near the alignment end — but the score is not the one the README describes.
 
 ### N2 — NOTE (by reading, with one executed symptom): the 16-base seed is sampled every fourth adapter position for adapters of 24 nt and longer
@@ -236,10 +237,15 @@ differ.
   reference at every insert length (`heldup_palindrome_pe.out`, A: 120/120 and 170/170 for
   every file and setting); the boundary is where the manual says.
 - **Simple mode cannot find a 3' adapter fragment shorter than the seed.** The masked
-  comparison (`calcSingleMask(packRec.length − i)`, `:797`) does find them: at threshold 7
-  fragments of 12 nt and longer are clipped 200/200 (11 nt: 0/200), at threshold 10
-  fragments of 16 nt and longer are clipped … *(section B of `heldup_illuminaclip_simple.out`)*,
-  exactly where `int(threshold / 0.60206)` (capped at 15) says the minimum overlap is.
+  comparison (`calcSingleMask(packRec.length − i)`, `:797`) does find them
+  (`heldup_illuminaclip_simple.out`, B; 200 error-free reads per length): at threshold 7
+  fragments of 12 nt and longer are clipped 200/200 and 11 nt 0/200; at threshold 10,
+  17 nt and longer 200/200 and 16 nt 0/200 (16 × 0.60206 = 9.63 < 10); at threshold 15,
+  25 nt (15.05) 200/200 and 24 nt 0/200 — exactly where the README's arithmetic ("a perfect
+  match of a 12 base sequence will score just over 7, while 25 bases are needed to score
+  15") and the code's minimum overlap `int(threshold / 0.60206)` (capped at 15, `:140-143`)
+  put them. A 12-nt adapter in a custom file is clipped 200/200 at thresholds 5 and 7 and
+  0/200 at 8 and 10 (C).
 - **Results depend on `-threads`.** The block pipeline preserves order through the
   `Future` queue; four output files, `-summary` and `-trimlog` are byte-identical for
   `-threads 1/2/4/8` in PE mode and the SE output for 1/4/8 (`heldup_palindrome_pe.out`, C).
@@ -273,10 +279,12 @@ differ.
   fragment) equals the reference 120/120 and 170/170 in all 18 sweeps. keepBothReads and
   minAdapterLength behave as documented.
 - **ILLUMINACLIP simple mode** (`heldup_illuminaclip_simple.out`): clip positions on
-  6,000 reads with errors agree with the documented rule for ≥ 99.1 % and with the
-  best-sub-range port for ≥ 99.3 % at thresholds 10 and 7; no adapter-free read is
-  clipped (0/1,237 and 0/1,126); 3' fragment sweep and 12-nt adapter behave as the
-  threshold arithmetic predicts; reads starting inside the adapter are dropped.
+  6,000 reads with errors agree with the documented-sum rule for 5,971 / 5,949 / 5,965
+  reads and with the best-sub-range port for 5,982 / 5,959 / 5,997 at thresholds 10 / 7 /
+  15; no adapter-free read is clipped (0/1,237, 0/1,126, 0/1,140); the 3' fragment sweep
+  and the 12-nt adapter land exactly where the threshold arithmetic predicts (B, C);
+  200/200 reads starting inside the adapter are dropped and 200/200 reads with the full
+  adapter after 20 bases keep exactly 20 (D).
 - **Paired-end bookkeeping** (`heldup_palindrome_pe.out`, B): 3,000 pairs — every read
   lands in the expected file (1P/1U/2P/2U) with the expected sequence and quality
   3,000/3,000; the log line, the `-summary` file and the 6,000 trim-log lines equal the
