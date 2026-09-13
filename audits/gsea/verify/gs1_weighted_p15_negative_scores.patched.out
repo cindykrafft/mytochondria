@@ -1,0 +1,46 @@
+==============================================================================
+GS1: weighted_p1.5 hit weights for negative scores
+GSEA build: patched_gs1 (master + patch gs1)   openjdk version "25.0.4" 2026-07-21   python 3.11.15
+==============================================================================
+list: 3000 genes, 1576 with score < 0 (ranks 1424..2999)
+
+== weighted_p1.5 (p = 1.5): ES shipped vs port |r|^p, then NES / nominal p / FDR as reported
+   set                     GSEA ES    port ES      diff |      NES    NOM p    FDR q
+   TOP_40                  1.00000    1.00000  -0.00000 |    3.137    0.000    0.000
+   TOP_100_SPREAD          0.82931    0.82931   0.00000 |    2.981    0.000    0.000
+   BOTTOM_40              -1.00000   -1.00000  -0.00000 |   -3.064    0.000    0.000
+   BOTTOM_100_SPREAD      -0.82759   -0.82759  -0.00000 |   -2.952    0.000    0.000
+   SPLIT_20_20            -0.51150   -0.51150  -0.00000 |   -1.544    0.010    0.009
+   NEG_SIDE_RANDOM_80     -0.60865   -0.60865  -0.00000 |   -2.127    0.000    0.000
+   POS_SIDE_RANDOM_80      0.68013    0.68013  -0.00000 |    2.399    0.000    0.000
+   RANDOM_100              0.26989    0.26989  -0.00000 |    0.982    0.466    0.497
+   max |GSEA - port| = 1.95e-07  -> unaffected
+
+== weighted_p2 (p = 2.0): ES shipped vs port |r|^p, then NES / nominal p / FDR as reported
+   set                     GSEA ES    port ES      diff |      NES    NOM p    FDR q
+   TOP_40                  1.00000    1.00000   0.00000 |    2.677    0.000    0.000
+   TOP_100_SPREAD          0.82931    0.82931   0.00000 |    2.540    0.000    0.000
+   BOTTOM_40              -1.00000   -1.00000  -0.00000 |   -2.625    0.000    0.000
+   BOTTOM_100_SPREAD      -0.82759   -0.82759  -0.00000 |   -2.522    0.000    0.000
+   SPLIT_20_20            -0.51664   -0.51664  -0.00000 |   -1.346    0.063    0.049
+   NEG_SIDE_RANDOM_80     -0.66543   -0.66543  -0.00000 |   -1.992    0.000    0.000
+   POS_SIDE_RANDOM_80      0.71696    0.71696  -0.00000 |    2.158    0.000    0.000
+   RANDOM_100              0.35902    0.35902   0.00000 |    1.115    0.222    0.245
+   max |GSEA - port| = 1.95e-07  -> unaffected
+
+== weighted (p = 1.0): ES shipped vs port |r|^p, then NES / nominal p / FDR as reported
+   set                     GSEA ES    port ES      diff |      NES    NOM p    FDR q
+   TOP_40                  1.00000    1.00000   0.00000 |    3.852    0.000    0.000
+   TOP_100_SPREAD          0.82931    0.82931  -0.00000 |    3.749    0.000    0.000
+   BOTTOM_40              -1.00000   -1.00000  -0.00000 |   -3.775    0.000    0.000
+   BOTTOM_100_SPREAD      -0.82759   -0.82759  -0.00000 |   -3.685    0.000    0.000
+   SPLIT_20_20            -0.50705   -0.50705  -0.00000 |   -1.871    0.002    0.001
+   NEG_SIDE_RANDOM_80     -0.57338   -0.57338  -0.00000 |   -2.483    0.000    0.000
+   POS_SIDE_RANDOM_80      0.63901    0.63901  -0.00000 |    2.791    0.000    0.000
+   RANDOM_100              0.18940    0.18940   0.00000 |    0.858    0.793    0.754
+   max |GSEA - port| = 1.54e-07  -> unaffected
+
+BOTTOM_40 under weighted_p1.5: N_R = sum |r|^1.5 over hits = 160.2892; per-hit weights should be 0.0202..0.0437;
+with the shipped 1e-6 per hit the 40 hits add 4.00e-05 in total, while 2960 misses subtract 0.0003 each
+
+DONE

@@ -1,0 +1,28 @@
+==============================================================================
+heldup_collapse: probe collapsing modes vs port
+GSEA build: master (dc35c76 2025-03-10)   openjdk version "25.0.4" 2026-07-21   python 3.11.15
+==============================================================================
+probes: 3749 (1500 symbols with 1-4 probes, 60 without a symbol)
+
+== expression tool, -collapse Collapse: ranked-list SCORE vs metric(port collapse)
+   mode               metric              symbols    max|diff|    order
+   Max_probe          Diff_of_Classes        1500     3.33e-07     same
+   Max_probe          Signal2Noise           1500     1.17e-07     same
+   Median_of_probes   Diff_of_Classes        1500     3.33e-07     same
+   Median_of_probes   Signal2Noise           1500     1.80e-07     same
+   Mean_of_probes     Diff_of_Classes        1500     3.33e-07     same
+   Mean_of_probes     Signal2Noise           1500     1.61e-07     same
+   Sum_of_probes      Diff_of_Classes        1500     1.33e-06     same
+   Sum_of_probes      Signal2Noise           1500     1.61e-07     same
+   Abs_max_of_probes  Diff_of_Classes        1500     6.67e-07     same
+   Abs_max_of_probes  Signal2Noise           1500     1.27e-07     same
+
+== GSEAPreranked, -collapse Collapse on a .rnk of probe scores
+   mode                  symbols    max|diff|    order
+   Max_probe                1500     1.78e-07     same
+   Median_of_probes         1500     1.78e-07     same
+   Mean_of_probes           1500     1.78e-07     same
+   Sum_of_probes            1500     6.26e-07     same
+   Abs_max_of_probes        1500     2.33e-07     same
+
+DONE

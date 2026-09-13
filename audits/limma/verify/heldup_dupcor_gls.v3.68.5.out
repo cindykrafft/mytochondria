@@ -1,0 +1,10 @@
+limma 3.68.5 lme4 1.1.35.1 R version 4.3.3 (2024-02-29) 
+A. genes: 400; genewise rho, limma vs lme4 on the 302 genes where both are interior (0.02..0.98): max |diff| 7.54e-03, median |diff| 1.35e-05
+   genes where lme4 is at its boundary 0 (limma allows negative): 89; limma rho < 0 there: 89
+   consensus 0.39359 (true 0.40); == tanh(mean(atanh(rho), trim=0.15)): TRUE
+   digest of atanh.correlations (first 8):  0.45612769505  0.23162932476  1.10971998917 -0.09463159030 -0.84511936045  1.12313908920  0.06628292814  0.96712930090 
+B. with weights+NAs: consensus 0.3146384760; NA genewise: 0; first 6 atanh:  0.6154388048  0.2628838751  0.7599828701  1.0737610452 -0.2385647570  0.9228568035
+   ndups=2: consensus 0.9158357731
+C. lmFit(block, correlation, weights, NAs) vs GLS closed form: coef 4.97e-14  stdev.unscaled 5.55e-16  sigma 2.66e-15  df 0
+   fast path (no weights/NAs): coef 1.24e-14  stdev.unscaled 5.55e-17  sigma 1.44e-15
+   fast path with array weights: coef 1.24e-14  stdev.unscaled 5.55e-17

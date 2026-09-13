@@ -1,0 +1,236 @@
+From 0432e61e31aede79ce965adfcce6a01c2fe654b4 Mon Sep 17 00:00:00 2001
+From: Mytochondria audit <audit@example.invalid>
+Date: Sun, 13 Sep 2026 05:43:57 +0000
+Subject: [PATCH] mpileup: use 64-bit accumulators in the Mann-Whitney bias Z
+ scores
+
+calc_mwu_biasZ() summed the tie adjustment (p*p-1)*p, the pair counts
+and the group sizes in `int`. The tie term is cubic in the number of
+reads sharing one quality or position bin and exceeds INT_MAX once a bin
+holds 1291 reads. That happens at a single deep site (-d raised for
+amplicon, mitochondrial or viral data) and, under the default -d 250,
+across the samples of a multi-sample call: the histograms are pooled
+over all samples, so ~45 samples at 30x with MAPQ 60 are enough. The
+wrapped tie term inflated the variance and shrank INFO/MQBZ, BQBZ,
+RPBZ, SCBZ, MQSBZ and NMBZ towards zero (for example MQBZ -7.9 where
+the tie-corrected Z is -36.6 for 1300 MAPQ-60 reference reads and 40
+MAPQ-30 alternate reads).
+
+Accumulate in int64_t. Adds a regression test with 1340 20-bp reads
+where the MAPQ-60 bin holds 1300 reads, and a NEWS entry.
+
+Assisted-by: Claude:claude-fable-5-1
+---
+ NEWS                             |   7 +++++++
+ bam2bcf.c                        |  19 +++++++++++--------
+ test/mpileup/mwu-biasZ.1.1.out   |  21 +++++++++++++++++++++
+ test/mpileup/mwu-biasZ.1.bam     | Bin 0 -> 4943 bytes
+ test/mpileup/mwu-biasZ.1.bam.bai | Bin 0 -> 96 bytes
+ test/mpileup/mwu-biasZ.1.fa      |   2 ++
+ test/mpileup/mwu-biasZ.1.fa.fai  |   1 +
+ test/test.pl                     |   1 +
+ 8 files changed, 43 insertions(+), 8 deletions(-)
+ create mode 100644 test/mpileup/mwu-biasZ.1.1.out
+ create mode 100644 test/mpileup/mwu-biasZ.1.bam
+ create mode 100644 test/mpileup/mwu-biasZ.1.bam.bai
+ create mode 100644 test/mpileup/mwu-biasZ.1.fa
+ create mode 100644 test/mpileup/mwu-biasZ.1.fa.fai
+
+diff --git a/NEWS b/NEWS
+index 4d4a7ad7..c7ec420c 100644
+--- a/NEWS
++++ b/NEWS
+@@ -31,6 +31,13 @@ Changes affecting specific commands:
+ 
+     - Make `--nrecords` with non-standard file extensions (#2588)
+ 
++* bcftools mpileup
++
++    - Fix INFO/MQBZ, BQBZ, RPBZ, SCBZ, MQSBZ and NMBZ at sites where more than 1290
++      reads share one quality or position bin, reachable at a single deep site or across
++      the samples of a multi-sample call. The Mann-Whitney U tie correction was
++      accumulated in 32-bit int and overflowed, which shrank the Z scores towards zero.
++
+ * bcftools reheader
+ 
+     - Better error reporting on invalid --samples file, don't segfault (#2538)
+diff --git a/bam2bcf.c b/bam2bcf.c
+index ecc6fd63..fe28255c 100644
+--- a/bam2bcf.c
++++ b/bam2bcf.c
+@@ -816,7 +816,6 @@ double calc_mwu_bias(int *a, int *b, int n, int left)
+ // This is a more robust score to filter on.
+ double calc_mwu_biasZ(int *a, int *b, int n, int left_only, int do_Z) {
+     int i;
+-    int64_t t;
+ 
+     // Optimisation
+     for (i = 0; i < n; i++)
+@@ -825,16 +824,20 @@ double calc_mwu_biasZ(int *a, int *b, int n, int left_only, int do_Z) {
+     int b_empty = (i == n);
+ 
+     // Count equal (e), less-than (l) and greater-than (g) permutations.
+-    int e = 0, l = 0, na = 0, nb = 0;
++    // 64-bit accumulators: the tie adjustment is cubic in the number of
++    // reads sharing a bin and the products can exceed INT_MAX at a single
++    // deep or multi-sample site (p*p*p > INT_MAX once p >= 1291).
++    int64_t e = 0, l = 0, na = 0, nb = 0, t = 0;
+     if (b_empty) {
+-        for (t = 0, i = n-1; i >= 0; i--) {
+-            na += a[i];
+-            t += (a[i]*a[i]-1)*a[i];  // adjustment score for ties
++        for (i = n-1; i >= 0; i--) {
++            int64_t p = a[i];
++            na += p;
++            t += (p*p-1)*p;  // adjustment score for ties
+         }
+     } else {
+-        for (t = 0, i = n-1; i >= 0; i--) {
++        for (i = n-1; i >= 0; i--) {
+             // Combinations of a[i] and b[j] for i==j
+-            e += a[i]*b[i];
++            e += (int64_t)a[i]*b[i];
+ 
+             // nb is running total of b[i+1]..b[n-1].
+             // Therefore a[i]*nb is the number of combinations of a[i] and b[j]
+@@ -843,7 +846,7 @@ double calc_mwu_biasZ(int *a, int *b, int n, int left_only, int do_Z) {
+ 
+             na += a[i];
+             nb += b[i];
+-            int p = a[i]+b[i];
++            int64_t p = a[i]+b[i];
+             t += (p*p-1)*p;  // adjustment score for ties
+         }
+     }
+diff --git a/test/mpileup/mwu-biasZ.1.1.out b/test/mpileup/mwu-biasZ.1.1.out
+new file mode 100644
+index 00000000..d1ea82a1
+--- /dev/null
++++ b/test/mpileup/mwu-biasZ.1.1.out
+@@ -0,0 +1,21 @@
++##fileformat=VCFv4.2
++##FILTER=<ID=PASS,Description="All filters passed">
++##contig=<ID=ref,length=300>
++##ALT=<ID=*,Description="Represents allele(s) other than observed.">
++##INFO=<ID=INDEL,Number=0,Type=Flag,Description="Indicates that the variant is an INDEL.">
++##INFO=<ID=IDV,Number=1,Type=Integer,Description="Maximum number of raw reads supporting an indel">
++##INFO=<ID=IMF,Number=1,Type=Float,Description="Maximum fraction of raw reads supporting an indel">
++##INFO=<ID=DP,Number=1,Type=Integer,Description="Raw read depth">
++##INFO=<ID=VDB,Number=1,Type=Float,Description="Variant Distance Bias for filtering splice-site artefacts in RNA-seq data (bigger is better)",Version="3">
++##INFO=<ID=RPBZ,Number=1,Type=Float,Description="Mann-Whitney U-z test of Read Position Bias (closer to 0 is better)">
++##INFO=<ID=MQBZ,Number=1,Type=Float,Description="Mann-Whitney U-z test of Mapping Quality Bias (closer to 0 is better)">
++##INFO=<ID=BQBZ,Number=1,Type=Float,Description="Mann-Whitney U-z test of Base Quality Bias (closer to 0 is better)">
++##INFO=<ID=MQSBZ,Number=1,Type=Float,Description="Mann-Whitney U-z test of Mapping Quality vs Strand Bias (closer to 0 is better)">
++##INFO=<ID=SCBZ,Number=1,Type=Float,Description="Mann-Whitney U-z test of Soft-Clip Length Bias (closer to 0 is better)">
++##INFO=<ID=SGB,Number=1,Type=Float,Description="Segregation based metric, http://samtools.github.io/bcftools/rd-SegBias.pdf">
++##INFO=<ID=MQ0F,Number=1,Type=Float,Description="Fraction of MQ0 reads (smaller is better)">
++##INFO=<ID=I16,Number=16,Type=Float,Description="Auxiliary tag used for calling, see description of bcf_callret1_t in bam2bcf.h">
++##INFO=<ID=QS,Number=R,Type=Float,Description="Auxiliary tag used for calling">
++##FORMAT=<ID=PL,Number=G,Type=Integer,Description="List of Phred-scaled genotype likelihoods">
++#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	S1
++ref	150	.	C	T,<*>	0	.	DP=1340;I16=650,650,20,20,52000,2.08e+06,1600,64000,78000,4.68e+06,1200,36000,6153,38965,193,1221;QS=0.977444,0.0225564,0;VDB=0.269216;SGB=-0.693145;RPBZ=0.431611;MQBZ=-36.5924;MQSBZ=0;BQBZ=0;SCBZ=0;MQ0F=0	PL	0,255,255,255,255,255
+diff --git a/test/mpileup/mwu-biasZ.1.bam b/test/mpileup/mwu-biasZ.1.bam
+new file mode 100644
+index 0000000000000000000000000000000000000000..394179080a476f4e4b8662559e5e874657cec5ec
+GIT binary patch
+literal 4943
+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
+H4IcjiG`^fS
+
+literal 0
+HcmV?d00001
+
+diff --git a/test/mpileup/mwu-biasZ.1.bam.bai b/test/mpileup/mwu-biasZ.1.bam.bai
+new file mode 100644
+index 0000000000000000000000000000000000000000..1c663224617605f643d95831f0cda8218f9b50e3
+GIT binary patch
+literal 96
+xcmZ>A^kigYU|?VZVoxCk1`wNpVGWpMU@#U2F}x;0<k7`#SfR?G6slf`AOIp-1l<4t
+
+literal 0
+HcmV?d00001
+
+diff --git a/test/mpileup/mwu-biasZ.1.fa b/test/mpileup/mwu-biasZ.1.fa
+new file mode 100644
+index 00000000..950a0c4c
+--- /dev/null
++++ b/test/mpileup/mwu-biasZ.1.fa
+@@ -0,0 +1,2 @@
++>ref
++ACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGTACGT
+diff --git a/test/mpileup/mwu-biasZ.1.fa.fai b/test/mpileup/mwu-biasZ.1.fa.fai
+new file mode 100644
+index 00000000..90eae596
+--- /dev/null
++++ b/test/mpileup/mwu-biasZ.1.fa.fai
+@@ -0,0 +1 @@
++ref	300	5	300	301
+diff --git a/test/test.pl b/test/test.pl
+index 2b1bfc60..fba09c5c 100755
+--- a/test/test.pl
++++ b/test/test.pl
+@@ -1091,6 +1091,7 @@ run_test(\&test_mpileup,$opts,in=>[qw(mpileup-filter)],out=>'mpileup/mpileup-fil
+ run_test(\&test_mpileup,$opts,in=>[qw(annot-NMBZ.1)],ref=>'annot-NMBZ.1.fa',out=>'mpileup/annot-NMBZ.1.1.out',args=>q[-a -AD,INFO/NMBZ -r chr19:69-99]);
+ run_test(\&test_mpileup,$opts,in=>[qw(annot-NMBZ.2)],ref=>'annot-NMBZ.2.fa',out=>'mpileup/annot-NMBZ.2.1.out',args=>q[-a -AD,INFO/NMBZ -r chr6:75]);
+ run_test(\&test_mpileup,$opts,in=>[qw(annot-NMBZ.3.1 annot-NMBZ.3.2)],ref=>'annot-NMBZ.3.fa',out=>'mpileup/annot-NMBZ.3.1.out',args=>q[-a -AD,INFO/NMBZ -r chr16:75]);
++run_test(\&test_mpileup,$opts,in=>[qw(mwu-biasZ.1)],ref=>'mwu-biasZ.1.fa',out=>'mpileup/mwu-biasZ.1.1.out',args=>q[-B -d 100000 -a -AD -r ref:150]);   # 1300 reads in one MAPQ bin: the tie term overflowed 32-bit int
+ run_test(\&test_csq,$opts,in=>'csq.exons.1',out=>'csq.exons.1.1.out',pipe=>'grep -v ^#',cmd=>'-f {PATH}/csq.exons.1.fa -g {PATH}/csq.exons.1.gff -F all');
+ run_test(\&test_csq,$opts,in=>'csq.exons.1',out=>'csq.exons.1.2.out',pipe=>'grep -v ^#',cmd=>'-f {PATH}/csq.exons.1.fa -g {PATH}/csq.exons.1.gff -F all -l');
+ run_test(\&test_csq,$opts,in=>'csq.mig',out=>'csq.mig.1.out',pipe=>'grep -v ^#',cmd=>'-f {PATH}/csq.mig.fa -g {PATH}/csq.mig.gff --allow mig');
+-- 
+2.43.0
+

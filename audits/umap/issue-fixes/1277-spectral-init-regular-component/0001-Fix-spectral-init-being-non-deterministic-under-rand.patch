@@ -1,0 +1,121 @@
+From e6a4bb14cc9c8dd815c14072b918403253646de1 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Sun, 13 Sep 2026 05:43:47 +0000
+Subject: [PATCH] Fix spectral init being non-deterministic under random_state
+ on a regular graph component
+
+Fixes #1277.
+
+With random_state set, two fits on data containing duplicate rows could
+return different embeddings. When enough copies of one point exist, they
+form their own connected component whose fuzzy graph is complete with
+every edge weight 1, i.e. a regular graph. On a regular graph the
+all-ones start vector that _spectral_layout hands to eigsh is an exact
+eigenvector of the normalised Laplacian, so the Lanczos iteration breaks
+down at the first step and ARPACK restarts from its own internal random
+generator, which random_state does not control (and which is process-wide
+state, so the result changes from call to call). The same start vector
+can also make eigsh fail outright on a regular graph, which triggers the
+"Spectral initialisation failed" fallback.
+
+Keep the all-ones start everywhere it works, and only when every vertex
+has the same degree draw v0 from the seeded generator instead. Seeded
+results on graphs that are not regular are unchanged.
+
+Adds a spectral_layout unit test on a complete graph (twelve duplicates)
+and a UMAP-level test with sixteen copies of one point; both fail before
+this change and pass after it.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ umap/spectral.py                      | 14 +++++++++++++-
+ umap/tests/test_spectral.py           | 14 ++++++++++++++
+ umap/tests/test_umap_repeated_data.py | 14 ++++++++++++++
+ 3 files changed, 41 insertions(+), 1 deletion(-)
+
+diff --git a/umap/spectral.py b/umap/spectral.py
+index dca11e6..4951d9d 100644
+--- a/umap/spectral.py
++++ b/umap/spectral.py
+@@ -535,13 +535,25 @@ def _spectral_layout(
+         X[:, 0] = sqrt_deg / np.linalg.norm(sqrt_deg)
+ 
+         if method == "eigsh":
++            # The all-ones vector is a deterministic start for ARPACK, but on
++            # a regular graph (every vertex has the same degree, e.g. a
++            # connected component made of exact duplicates of one point,
++            # whose edges all have weight 1) it is an exact eigenvector of
++            # the normalised Laplacian: the Lanczos iteration breaks down at
++            # the first step and ARPACK restarts from its own internal random
++            # generator, which random_state does not control (#1277). Start
++            # from a seeded random vector in that case.
++            if np.allclose(sqrt_deg, sqrt_deg[0], rtol=1e-8, atol=0.0):
++                v0 = gen.uniform(low=-1.0, high=1.0, size=L.shape[0])
++            else:
++                v0 = np.ones(L.shape[0])
+             eigenvalues, eigenvectors = scipy.sparse.linalg.eigsh(
+                 L,
+                 k,
+                 which="SM",
+                 ncv=num_lanczos_vectors,
+                 tol=tol or 1e-4,
+-                v0=np.ones(L.shape[0]),
++                v0=v0,
+                 maxiter=maxiter or graph.shape[0] * 5,
+             )
+         elif method == "lobpcg":
+diff --git a/umap/tests/test_spectral.py b/umap/tests/test_spectral.py
+index 82d5450..672d938 100644
+--- a/umap/tests/test_spectral.py
++++ b/umap/tests/test_spectral.py
+@@ -1,6 +1,7 @@
+ from umap.spectral import spectral_layout, tswspectral_layout
+ 
+ import numpy as np
++import scipy.sparse
+ import pytest
+ import re
+ from scipy.version import full_version as scipy_full_version_
+@@ -49,3 +50,16 @@ def test_ensure_fallback_to_random_on_spectral_failure():
+     graph = y + y.T + u @ u.T
+     with pytest.warns(UserWarning, match="Spectral initialisation failed!"):
+         tswspectral_layout(u, graph, k, random_state=42, maxiter=2, method="lobpcg")
++
++
++def test_spectral_layout_regular_graph_is_deterministic():
++    # lmcinnes/umap#1277: on a regular graph (here twelve exact duplicates of
++    # one point, whose fuzzy graph is complete with every weight 1) the
++    # all-ones start vector is an exact eigenvector of the normalised
++    # Laplacian, and ARPACK restarts from its own internal random generator,
++    # which random_state does not control.
++    n = 12
++    graph = scipy.sparse.csr_matrix(np.ones((n, n)) - np.eye(n))
++    layouts = [spectral_layout(None, graph, 5, random_state=42) for _ in range(3)]
++    assert np.array_equal(layouts[0], layouts[1])
++    assert np.array_equal(layouts[1], layouts[2])
+diff --git a/umap/tests/test_umap_repeated_data.py b/umap/tests/test_umap_repeated_data.py
+index 2d2bf97..a267558 100644
+--- a/umap/tests/test_umap_repeated_data.py
++++ b/umap/tests/test_umap_repeated_data.py
+@@ -92,3 +92,17 @@ def test_repeated_points_small_dense_binary(binary_repeats):
+ def test_repeated_points_large_n(repetition_dense):
+     model = UMAP(n_neighbors=5, unique=True, n_epochs=20).fit(repetition_dense)
+     assert model._n_neighbors == 3
++
++
++# ----------------------------------------------------
++# lmcinnes/umap#1277: with random_state set, a fit must
++# be reproducible when the data contains duplicate rows.
++# Sixteen copies of one far-away point form their own
++# connected component in which every edge has weight 1.
++# ----------------------------------------------------
++def test_repeated_points_reproducible_with_random_state():
++    rng = np.random.RandomState(0)
++    data = np.vstack([rng.normal(size=(200, 5)), np.full((16, 5), 25.0)])
++    first = UMAP(n_neighbors=16, n_epochs=50, random_state=42).fit_transform(data)
++    second = UMAP(n_neighbors=16, n_epochs=50, random_state=42).fit_transform(data)
++    assert np.array_equal(first, second)
+-- 
+2.43.0
+

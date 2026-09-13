@@ -1,0 +1,68 @@
+
+== single-end, defaults ==
+reads with transcriptome records (expected or got): 4727; reads matching the projection exactly: 4127; differing: 600
+records with NH equal to the record count: 5745; NH wrong: 0; reads whose primary count is not 1: 0
+per transcript (reads touching it: differing / total):
+  T1       strand +     0 /  298
+  T11      strand +     0 /  549
+  T13      strand +     0 /  295
+  T13copy  strand +     0 /  295
+  T14      strand -     0 /  297
+  T15a     strand +     0 /  543
+  T15b     strand +     0 /  448
+  T17      strand +     0 /  300
+  T2       strand -     0 /  299
+  T3       strand .   300 /  300
+  T4       strand .   300 /  300
+  T5       strand +     0 /  362
+  T6       strand +     0 /  338
+  T7       strand +     0 /  406
+  T8       strand -     0 /  423
+  T9       strand +     0 /  292
+  example tx_001000_T3:
+    expected-not-got [('T3', 276, False, True, 'ATCCGGGACGGT...', '100M')]
+    got-not-expected [('T3', 276, True, True, 'TCACGTAGCTAC...', '100M')]
+  example tx_001001_T3:
+    expected-not-got [('T3', 222, False, True, 'CCGCTACTTATC...', '100M')]
+    got-not-expected [('T3', 222, True, True, 'CCCCAGTTACGC...', '100M')]
+  example tx_001002_T3:
+    expected-not-got [('T3', 364, False, True, 'GTAGCTACGTGA...', '100M')]
+    got-not-expected [('T3', 364, True, True, 'GTGCCATTGTAA...', '100M')]
+  example tx_001003_T3:
+    expected-not-got [('T3', 229, True, True, 'TTATCACCTCGT...', '100M')]
+    got-not-expected [('T3', 229, False, True, 'TCCCCGACCCCA...', '100M')]
+
+== paired-end, defaults ==
+reads with transcriptome records (expected or got): 3069; reads matching the projection exactly: 2673; differing: 396
+records with NH equal to the record count: 6948; NH wrong: 0; reads whose primary count is not 1: 0
+per transcript (reads touching it: differing / total):
+  T1       strand +     0 /  197
+  T11      strand +     0 /  305
+  T13      strand +     0 /  196
+  T13copy  strand +     0 /  196
+  T14      strand -     0 /  199
+  T15a     strand +     0 /  311
+  T15b     strand +     0 /  228
+  T17      strand +     0 /  200
+  T2       strand -     0 /  196
+  T3       strand .   196 /  196
+  T4       strand .   200 /  200
+  T5       strand +     0 /  198
+  T6       strand +     0 /  200
+  T7       strand +     0 /  230
+  T8       strand -     0 /  229
+  T9       strand +     0 /  193
+  example pe_001300_T3:
+    expected-not-got [('T3', 296, False, False, 'GAGATGTGCTAT...', '75M'), ('T3', 527, True, True, 'TTTGCTAACTCG...', '75M')]
+    got-not-expected [('T3', 296, True, False, 'TAGCTACAGGTT...', '75M'), ('T3', 527, False, True, 'CCGGTCAGCGTG...', '75M')]
+  example pe_001301_T3:
+    expected-not-got [('T3', 520, False, True, 'ACGGCTATTTGC...', '75M'), ('T3', 644, True, False, 'CTGATCTTCCGT...', '75M')]
+    got-not-expected [('T3', 520, True, True, 'GCGTGGCGAGAT...', '75M'), ('T3', 644, False, False, 'TCCAACTGGATC...', '75M')]
+  example pe_001302_T3:
+    expected-not-got [('T3', 440, False, True, 'TATTTGCGCCTA...', '75M'), ('T3', 618, True, False, 'TTCTGCGTTGTT...', '75M')]
+    got-not-expected [('T3', 440, True, True, 'ATCGGTGTTGAT...', '75M'), ('T3', 618, False, False, 'ACACCTGGGGGC...', '75M')]
+  example pe_001303_T3:
+    expected-not-got [('T3', 126, False, False, 'TGCATGGGTCGA...', '75M'), ('T3', 313, True, True, 'TAACTGGGGTCG...', '75M')]
+    got-not-expected [('T3', 126, True, False, 'ACACCTCGGTCT...', '75M'), ('T3', 313, False, True, 'TGCAAGCTATCC...', '75M')]
+
+TOTAL reads differing from the projection: 996

@@ -1,0 +1,4 @@
+limma 3.58.1 R version 4.3.3 (2024-02-29) 
+Error in voom(counts, design, span = 0.5, adaptive.span = FALSE) : 
+  unused argument (adaptive.span = FALSE)
+Execution halted

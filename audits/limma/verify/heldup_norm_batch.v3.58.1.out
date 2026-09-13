@@ -1,0 +1,9 @@
+limma 3.58.1 R version 4.3.3 (2024-02-29) 
+A. normalizeQuantiles (no ties) vs port: 0.00e+00 ; every column has identical sorted values: 0
+   with ties: ties=TRUE vs port (average ranks, interpolated) 0.00e+00 ; ties=FALSE assigns sorted means by position: 0.00e+00 ; tied inputs get equal outputs (ties=TRUE): TRUE
+   with NAs: vs port 0.00e+00 ; NAs preserved: TRUE
+B. removeBatchEffect(batch, covariates, design) vs closed form: 1.78e+00
+   batch only: refitted batch coefficients after removal 4.52e-15 ; group coefficient unchanged vs before 6.22e-15
+   covariate centring: vs closed form with centred covariate 1.78e+00 ; with uncentred covariate 0.00e+00 (3.66.0 NEWS: covariates now mean-corrected)
+C. normalizeCyclicLoess(fast): max |loess trend of x_j - rowMean| before 12.904 after 0.2488
+   pairs method: trend after 1.0190; affy method: 0.9655

@@ -1,0 +1,58 @@
+junctions in the 1-pass SJ.out.tab: 21; database junctions after pass-1 insertion: 21 (GTF 17)
+novel junctions in the 1-pass SJ.out.tab: [('chrA', 70301, 72000), ('chrA', 80301, 81000), ('chrA', 130291, 130990), ('chrA', 130301, 131000)]
+  all inserted for pass 2: True; annotated-column in the 2-pass SJ.out.tab: {('chrA', 70301, 72000): 1, ('chrA', 80301, 81000): 1, ('chrA', 130301, 131000): 1}
+junction                   1-pass [str mot ann uniq multi oh] 2-pass                          
+chrA:1401-2000             [1, 1, 1, 27, 0, 46]             [1, 1, 1, 27, 0, 46]            
+chrA:2301-5000             [1, 1, 1, 28, 0, 49]             [1, 1, 1, 28, 0, 49]            
+chrA:10301-11000           [2, 2, 1, 38, 0, 49]             [2, 2, 1, 38, 0, 49]            
+chrA:11401-13000           [2, 2, 1, 28, 0, 49]             [2, 2, 1, 28, 0, 49]            
+chrA:20401-21000           [1, 1, 1, 50, 0, 50]             [1, 1, 1, 50, 0, 50]            
+chrA:30501-31000           [1, 1, 1, 28, 0, 49]             [1, 1, 1, 28, 0, 49]            
+chrA:50301-51000           [1, 3, 1, 24, 0, 47]             [1, 3, 1, 24, 0, 47]            
+chrA:51301-52000           [1, 5, 1, 25, 0, 48]             [1, 5, 1, 25, 0, 48]            
+chrA:52301-53000           [0, 0, 1, 16, 0, 43]             [0, 0, 1, 16, 0, 43]            
+chrA:70301-71000           [1, 1, 1, 32, 0, 49]             [1, 1, 1, 32, 0, 49]            
+chrA:70301-72000           [1, 1, 0, 46, 0, 50]             [1, 1, 1, 50, 0, 50]               novel
+chrA:71301-72000           [1, 1, 1, 28, 0, 50]             [1, 1, 1, 27, 0, 50]            
+chrA:80301-81000           [1, 1, 0, 59, 0, 46]             [1, 1, 1, 148, 0, 46]              novel
+chrA:90301-91000           [1, 1, 1, 0, 47, 50]             [1, 1, 1, 0, 47, 50]            
+chrA:100301-101000         [1, 1, 1, 33, 0, 50]             [1, 1, 1, 33, 0, 50]            
+chrA:100301-102000         [1, 1, 1, 55, 0, 50]             [1, 1, 1, 55, 0, 50]            
+chrA:101301-102000         [1, 1, 1, 40, 0, 50]             [1, 1, 1, 40, 0, 50]            
+chrA:130291-130990         [2, 2, 0, 4, 0, 49]              None                               novel
+chrA:130301-131000         [0, 0, 0, 39, 5, 50]             [0, 0, 1, 60, 0, 50]               novel
+chrB:10301-11000           [1, 1, 1, 0, 47, 50]             [1, 1, 1, 0, 47, 50]            
+chrB:60401-61000           [2, 2, 1, 45, 0, 49]             [2, 2, 1, 45, 0, 49]            
+
+short-overhang reads over the novel G12 junction:
+  overhang 3  1-pass  unspliced 3S97M        20
+  overhang 3  1-pass  unspliced 97M3S        20
+  overhang 3  2-pass  spliced                40
+  overhang 4  1-pass  unspliced 4S96M        20
+  overhang 4  1-pass  unspliced 96M4S        20
+  overhang 4  2-pass  spliced                40
+
+AS change from 1-pass to 2-pass for reads with one alignment in both runs:
+  GTF junction(s) only     AS 2-pass minus 1-pass = 0       496
+  GTF junction(s) only     AS 2-pass minus 1-pass = 2       1
+  no junction              AS 2-pass minus 1-pass = 0       4623
+  no junction              AS 2-pass minus 1-pass = 10      1
+  no junction              AS 2-pass minus 1-pass = 16      1
+  no junction              AS 2-pass minus 1-pass = 21      1
+  no junction              AS 2-pass minus 1-pass = 24      1
+  no junction              AS 2-pass minus 1-pass = 4       1
+  no junction              AS 2-pass minus 1-pass = 5       46
+  no junction              AS 2-pass minus 1-pass = 6       43
+  no junction              AS 2-pass minus 1-pass = 7       3
+  no junction              AS 2-pass minus 1-pass = 8       4
+  no junction              AS 2-pass minus 1-pass = 9       1
+  novel junction(s)        AS 2-pass minus 1-pass = 0       1
+  novel junction(s)        AS 2-pass minus 1-pass = 10      39
+  novel junction(s)        AS 2-pass minus 1-pass = 12      1
+  novel junction(s)        AS 2-pass minus 1-pass = 14      3
+  novel junction(s)        AS 2-pass minus 1-pass = 2       105
+  Number of input reads                    1-pass 5830     2-pass 5830
+  Uniquely mapped reads number             1-pass 5371     2-pass 5378
+  Number of splices: Total                 1-pass 646      2-pass 755
+  Number of splices: Annotated (sjdb)      1-pass 497      2-pass 754
+  Number of reads unmapped: too short      1-pass 50       2-pass 48

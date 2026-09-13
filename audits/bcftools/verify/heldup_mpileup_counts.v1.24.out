@@ -1,0 +1,77 @@
+bcftools: bcftools 1.24 / Using htslib 1.24
+
+default (-Q 1, -q 0): ALT=A,C,<*>
+   INFO/DP (raw, pre -Q)        bcftools 60                     truth 60                     ok
+   FORMAT/DP (post -Q)          bcftools 56                     truth 56                     ok
+   FORMAT/DP4 rf,rr,af,ar       bcftools [19, 15, 11, 11]       truth [19, 15, 11, 11]       ok
+   FORMAT/AD                    bcftools [34, 20, 2, 0]         truth [34, 20, 2, 0]         ok
+   FORMAT/ADF                   bcftools [19, 10, 1, 0]         truth [19, 10, 1, 0]         ok
+   FORMAT/ADR                   bcftools [15, 10, 1, 0]         truth [15, 10, 1, 0]         ok
+   INFO/AD                      bcftools [34, 20, 2, 0]         truth [34, 20, 2, 0]         ok
+   FORMAT/SP (Fisher, phred)    bcftools 1                      truth 1                      ok
+   INFO/I16 (16 sums)           bcftools [19.0, 15.0, 11.0, 11.0, 702.0, 20792.0, 554.0, 16576.0, 1360.0, 67200.0, 800.0, 39600.0, 681.0, 15775.0, 409.0, 8943.0] truth [19.0, 15.0, 11.0, 11.0, 702.0, 20792.0, 554.0, 16576.0, 1360.0, 67200.0, 800.0, 39600.0, 681.0, 15775.0, 409.0, 8943.0] ok
+   INFO/MQ0F                    bcftools 0.03333                truth 0.03333                ok
+   call INFO/MQ (mean MAPQ)     bcftools 38.0                   truth 38.57                  MISMATCH
+
+-Q 13: ALT=A,C,<*>
+   INFO/DP (raw, pre -Q)        bcftools 60                     truth 60                     ok
+   FORMAT/DP (post -Q)          bcftools 40                     truth 40                     ok
+   FORMAT/DP4 rf,rr,af,ar       bcftools [12, 10, 8, 10]        truth [12, 10, 8, 10]        ok
+   FORMAT/AD                    bcftools [22, 16, 2, 0]         truth [22, 16, 2, 0]         ok
+   FORMAT/ADF                   bcftools [12, 7, 1, 0]          truth [12, 7, 1, 0]          ok
+   FORMAT/ADR                   bcftools [10, 9, 1, 0]          truth [10, 9, 1, 0]          ok
+   INFO/AD                      bcftools [22, 16, 2, 0]         truth [22, 16, 2, 0]         ok
+   FORMAT/SP (Fisher, phred)    bcftools 1                      truth 1                      ok
+   INFO/I16 (16 sums)           bcftools [12.0, 10.0, 8.0, 10.0, 626.0, 20100.0, 506.0, 16000.0, 1120.0, 61600.0, 640.0, 31600.0, 412.0, 9340.0, 344.0, 7640.0] truth [12.0, 10.0, 8.0, 10.0, 626.0, 20100.0, 506.0, 16000.0, 1120.0, 61600.0, 640.0, 31600.0, 412.0, 9340.0, 344.0, 7640.0] ok
+   INFO/MQ0F                    bcftools 0.03333                truth 0.03333                ok
+   call INFO/MQ (mean MAPQ)     bcftools 44.0                   truth 44.0                   ok
+
+-q 20: ALT=A,C,<*>
+   INFO/DP (raw, pre -Q)        bcftools 48                     truth 48                     ok
+   FORMAT/DP (post -Q)          bcftools 48                     truth 48                     ok
+   FORMAT/DP4 rf,rr,af,ar       bcftools [16, 14, 10, 8]        truth [16, 14, 10, 8]        ok
+   FORMAT/AD                    bcftools [30, 16, 2, 0]         truth [30, 16, 2, 0]         ok
+   FORMAT/ADF                   bcftools [16, 9, 1, 0]          truth [16, 9, 1, 0]          ok
+   FORMAT/ADR                   bcftools [14, 7, 1, 0]          truth [14, 7, 1, 0]          ok
+   INFO/AD                      bcftools [30, 16, 2, 0]         truth [30, 16, 2, 0]         ok
+   FORMAT/SP (Fisher, phred)    bcftools 0                      truth 0                      ok
+   INFO/I16 (16 sums)           bcftools [16.0, 14.0, 10.0, 8.0, 682.0, 20692.0, 444.0, 13526.0, 1320.0, 66800.0, 780.0, 39400.0, 581.0, 13275.0, 315.0, 6707.0] truth [16.0, 14.0, 10.0, 8.0, 682.0, 20692.0, 444.0, 13526.0, 1320.0, 66800.0, 780.0, 39400.0, 581.0, 13275.0, 315.0, 6707.0] ok
+   INFO/MQ0F                    bcftools 0.0                    truth 0.0                    ok
+   call INFO/MQ (mean MAPQ)     bcftools 43.0                   truth 43.75                  MISMATCH
+
+-Q 20 -q 30: ALT=A,C,<*>
+   INFO/DP (raw, pre -Q)        bcftools 42                     truth 42                     ok
+   FORMAT/DP (post -Q)          bcftools 26                     truth 26                     ok
+   FORMAT/DP4 rf,rr,af,ar       bcftools [10, 8, 4, 4]          truth [10, 8, 4, 4]          ok
+   FORMAT/AD                    bcftools [18, 6, 2, 0]          truth [18, 6, 2, 0]          ok
+   FORMAT/ADF                   bcftools [10, 3, 1, 0]          truth [10, 3, 1, 0]          ok
+   FORMAT/ADR                   bcftools [8, 3, 1, 0]           truth [8, 3, 1, 0]           ok
+   INFO/AD                      bcftools [18, 6, 2, 0]          truth [18, 6, 2, 0]          ok
+   FORMAT/SP (Fisher, phred)    bcftools 0                      truth 0                      ok
+   INFO/I16 (16 sums)           bcftools [10.0, 8.0, 4.0, 4.0, 574.0, 19424.0, 262.0, 8912.0, 960.0, 55200.0, 380.0, 20200.0, 355.0, 8107.0, 142.0, 3240.0] truth [10.0, 8.0, 4.0, 4.0, 574.0, 19424.0, 262.0, 8912.0, 960.0, 55200.0, 380.0, 20200.0, 355.0, 8107.0, 142.0, 3240.0] ok
+   INFO/MQ0F                    bcftools 0.0                    truth 0.0                    ok
+   call INFO/MQ (mean MAPQ)     bcftools 51.0                   truth 51.54                  MISMATCH
+
+-d per-file cap: 400 ref reads with random starts, -d 100 / -d 250 (default) / -d 0  (printed, not checked: see note)
+   INFO/DP with -d 100   bcftools 170   (400 reads overlap the site)
+   INFO/DP with default  bcftools 288   (400 reads overlap the site)
+   INFO/DP with -d 0     bcftools 400   (400 reads overlap the site)
+   htslib sam.c bam_plp_push drops a read only when it STARTS at the current position while the buffer already holds
+   more than maxcnt reads (sam.c:6139), so the per-position depth can exceed -d; the cap is a memory guard, not a depth.
+
+indel: 20 ref reads + 20 reads carrying a CAG deletion, mpileup | call -m (no -B)
+   ref 2001 TGTG>T QUAL=222.317 GT=0/1 AD=20,20 IDV=20 IMF=0.5
+   indel called at the site with the 3-bp deletion bcftools (2001, 3, '0/1')       truth (2001, 3, '0/1')       ok
+
+PL for tiny pileups (errmod_cal, htslib errmod.c; theta=0.83 dependency model): values printed for the record
+   1 ref read Q10         ALT=<*>    PL=0,3,10
+   1 ref read Q20         ALT=<*>    PL=0,3,20
+   1 ref read Q30         ALT=<*>    PL=0,3,30
+   1 alt read Q30         ALT=A,<*>  PL=30,3,0,30,3,30
+   1 ref read Q30 MQ0     ALT=<*>    PL=0,3,4
+   2 ref reads Q30        ALT=<*>    PL=0,6,60
+   1 ref + 1 alt Q30      ALT=A,<*>  PL=24,0,24,27,27,51
+   5 ref reads Q30        ALT=<*>    PL=0,15,129
+   5 alt reads Q30        ALT=A,<*>  PL=129,15,0,129,15,129
+
+mismatches: 3

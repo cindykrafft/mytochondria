@@ -1,0 +1,190 @@
+
+== EndToEnd, defaults (--outFilterMismatchNmax 10, --outFilterMismatchNoverLmax 0.3, --outFilterScoreMinOverLread 0.66) ==
+  k= 0  {'mapped(nM=0)': 20}                                 at the simulated locus: mapped         
+  k= 1  {'mapped(nM=1)': 20}                                 at the simulated locus: mapped         
+  k= 2  {'mapped(nM=2)': 20}                                 at the simulated locus: mapped         
+  k= 3  {'mapped(nM=3)': 20}                                 at the simulated locus: mapped         
+  k= 4  {'mapped(nM=4)': 20}                                 at the simulated locus: mapped         
+  k= 5  {'mapped(nM=5)': 20}                                 at the simulated locus: mapped         
+  k= 6  {'mapped(nM=6)': 20}                                 at the simulated locus: mapped         
+  k= 7  {'mapped(nM=7)': 19, 'mapped(nM=6)': 1}              at the simulated locus: mapped         
+  k= 8  {'mapped(nM=8)': 20}                                 at the simulated locus: mapped         
+  k= 9  {'mapped(nM=9)': 20}                                 at the simulated locus: mapped         
+  k=10  {'mapped(nM=10)': 19, 'unmapped uT=0': 1}            at the simulated locus: mapped         
+  k=11  {'unmapped uT=2': 19, 'mapped(nM=9)': 1}             at the simulated locus: unmapped uT=2  
+  k=12  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=13  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=14  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=15  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=16  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=17  {'unmapped uT=1': 16, 'unmapped uT=0': 2, 'unmapped uT=2': 2} at the simulated locus: unmapped uT=1  
+  k=18  {'unmapped uT=1': 20}                                at the simulated locus: unmapped uT=1  
+  k=19  {'unmapped uT=1': 19, 'unmapped uT=0': 1}            at the simulated locus: unmapped uT=1  
+  k=20  {'unmapped uT=1': 17, 'unmapped uT=0': 3}            at the simulated locus: unmapped uT=1  
+  Log.final.out: unique 219, too many mismatches 121, too short 72, other 7
+
+== EndToEnd, --outFilterMismatchNoverLmax 0.05 (5/100 allowed, 6/100 not) ==
+  k= 0  {'mapped(nM=0)': 20}                                 at the simulated locus: mapped         
+  k= 1  {'mapped(nM=1)': 20}                                 at the simulated locus: mapped         
+  k= 2  {'mapped(nM=2)': 20}                                 at the simulated locus: mapped         
+  k= 3  {'mapped(nM=3)': 20}                                 at the simulated locus: mapped         
+  k= 4  {'mapped(nM=4)': 20}                                 at the simulated locus: mapped         
+  k= 5  {'mapped(nM=5)': 20}                                 at the simulated locus: mapped         
+  k= 6  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k= 7  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k= 8  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k= 9  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=10  {'unmapped uT=2': 19, 'unmapped uT=0': 1}            at the simulated locus: unmapped uT=2  
+  k=11  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=12  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=13  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=14  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=15  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=16  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=17  {'unmapped uT=1': 16, 'unmapped uT=0': 2, 'unmapped uT=2': 2} at the simulated locus: unmapped uT=1  
+  k=18  {'unmapped uT=1': 20}                                at the simulated locus: unmapped uT=1  
+  k=19  {'unmapped uT=1': 19, 'unmapped uT=0': 1}            at the simulated locus: unmapped uT=1  
+  k=20  {'unmapped uT=1': 17, 'unmapped uT=0': 3}            at the simulated locus: unmapped uT=1  
+  Log.final.out: unique 120, too many mismatches 221, too short 72, other 7
+
+== EndToEnd, --outFilterMismatchNmax 3 ==
+  k= 0  {'mapped(nM=0)': 20}                                 at the simulated locus: mapped         
+  k= 1  {'mapped(nM=1)': 20}                                 at the simulated locus: mapped         
+  k= 2  {'mapped(nM=2)': 20}                                 at the simulated locus: mapped         
+  k= 3  {'mapped(nM=3)': 20}                                 at the simulated locus: mapped         
+  k= 4  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k= 5  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k= 6  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k= 7  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k= 8  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k= 9  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=10  {'unmapped uT=2': 19, 'unmapped uT=0': 1}            at the simulated locus: unmapped uT=2  
+  k=11  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=12  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=13  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=14  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=15  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=16  {'unmapped uT=2': 20}                                at the simulated locus: unmapped uT=2  
+  k=17  {'unmapped uT=1': 17, 'unmapped uT=0': 2, 'unmapped uT=2': 1} at the simulated locus: unmapped uT=1  
+  k=18  {'unmapped uT=1': 20}                                at the simulated locus: unmapped uT=1  
+  k=19  {'unmapped uT=1': 19, 'unmapped uT=0': 1}            at the simulated locus: unmapped uT=1  
+  k=20  {'unmapped uT=1': 17, 'unmapped uT=0': 3}            at the simulated locus: unmapped uT=1  
+  Log.final.out: unique 80, too many mismatches 260, too short 73, other 7
+
+== Local (default) alignment of the same reads: mismatches near the ends are soft-clipped instead ==
+  k= 0  {'mapped(nM=0)': 20}
+  k= 1  {'mapped(nM=1)': 19, 'mapped(nM=0)': 1}
+  k= 2  {'mapped(nM=2)': 17, 'mapped(nM=1)': 3}
+  k= 3  {'mapped(nM=3)': 19, 'mapped(nM=2)': 1}
+  k= 4  {'mapped(nM=3)': 2, 'mapped(nM=4)': 18}
+  k= 5  {'mapped(nM=5)': 17, 'mapped(nM=4)': 3}
+  k= 6  {'mapped(nM=6)': 17, 'mapped(nM=5)': 2, 'mapped(nM=4)': 1}
+  k= 7  {'mapped(nM=7)': 13, 'mapped(nM=6)': 5, 'mapped(nM=5)': 2}
+  k= 8  {'mapped(nM=8)': 17, 'mapped(nM=7)': 2, 'mapped(nM=6)': 1}
+  k= 9  {'mapped(nM=9)': 16, 'mapped(nM=7)': 2, 'mapped(nM=8)': 2}
+  k=10  {'mapped(nM=8)': 3, 'mapped(nM=10)': 13, 'mapped(nM=9)': 3, 'unmapped uT=0': 1}
+  k=11  {'mapped(nM=9)': 3, 'mapped(nM=10)': 16, 'mapped(nM=8)': 1}
+  k=12  {'unmapped uT=1': 4, 'mapped(nM=10)': 10, 'mapped(nM=9)': 4, 'mapped(nM=7)': 1, 'mapped(nM=8)': 1}
+  k=13  {'unmapped uT=1': 12, 'mapped(nM=10)': 6, 'mapped(nM=9)': 2}
+  k=14  {'mapped(nM=10)': 4, 'unmapped uT=1': 16}
+  k=15  {'unmapped uT=1': 20}
+  k=16  {'unmapped uT=1': 16, 'mapped(nM=10)': 3, 'mapped(nM=8)': 1}
+  k=17  {'unmapped uT=1': 18, 'unmapped uT=0': 2}
+  k=18  {'unmapped uT=1': 20}
+  k=19  {'unmapped uT=1': 19, 'unmapped uT=0': 1}
+  k=20  {'unmapped uT=1': 20}
+
+== --outFilterMultimapNmax boundary (nTr > Nmax -> 'too many loci') ==
+  Nmax=1: {('G13(x2)', 'unmapped uT=3'): 300, ('multi5', 'unmapped uT=3'): 100}; Log.final.out too many loci = 405
+  Nmax=2: {('G13(x2)', 'NH=2'): 300, ('multi5', 'unmapped uT=3'): 100}; Log.final.out too many loci = 100
+  Nmax=4: {('G13(x2)', 'NH=2'): 300, ('multi5', 'unmapped uT=3'): 100}; Log.final.out too many loci = 100
+  Nmax=5: {('G13(x2)', 'NH=2'): 300, ('multi5', 'NH=5'): 100}; Log.final.out too many loci = 0
+
+== Log.final.out: single-end (standard + mismatch + indel reads, --outFilterMultimapNmax 4) ==
+  Number of input reads                            STAR 6210         truth 6210        
+  Average input read length                        STAR 100          truth 100         
+  Uniquely mapped reads number                     STAR 5595         truth 5595        
+  Uniquely mapped reads %                          STAR 90.10%       truth 90.10%      
+  Average mapped length                            STAR 99.88        truth 99.88       
+  Number of splices: Total                         STAR 650          truth 650         
+  Number of splices: Annotated (sjdb)              STAR 497          truth 497         
+  Number of splices: GT/AG                         STAR 545          truth 545         
+  Number of splices: GC/AG                         STAR 24           truth 24          
+  Number of splices: AT/AC                         STAR 25           truth 25          
+  Number of splices: Non-canonical                 STAR 56           truth 56          
+  Mismatch rate per base, %                        STAR 1.38%        truth 1.38%       
+  Deletion rate per base                           STAR 0.01%        truth 0.01%       
+  Deletion average length                          STAR 2.00         truth 2.00        
+  Insertion rate per base                          STAR 0.01%        truth 0.01%       
+  Insertion average length                         STAR 3.50         truth 3.50        
+  Number of reads mapped to multiple loci          STAR 312          truth 312         
+  % of reads mapped to multiple loci               STAR 5.02%        truth 5.02%       
+  Number of reads mapped to too many loci          STAR 100          truth 100         
+  % of reads mapped to too many loci               STAR 1.61%        truth 1.61%       
+  Number of reads unmapped: too many mismatches    STAR 0            truth 0           
+  % of reads unmapped: too many mismatches         STAR 0.00%        truth 0.00%       
+  Number of reads unmapped: too short              STAR 195          truth 195         
+  % of reads unmapped: too short                   STAR 3.14%        truth 3.14%       
+  Number of reads unmapped: other                  STAR 8            truth 8           
+  % of reads unmapped: other                       STAR 0.13%        truth 0.13%       
+  lines differing: 0 of 26
+
+== Log.final.out: paired-end (read length = sum of mates) ==
+  Number of input reads                            STAR 3600         truth 3600        
+  Average input read length                        STAR 150          truth 150         
+  Uniquely mapped reads number                     STAR 3397         truth 3397        
+  Uniquely mapped reads %                          STAR 94.36%       truth 94.36%      
+  Average mapped length                            STAR 149.87       truth 149.87      
+  Number of splices: Total                         STAR 824          truth 824         
+  Number of splices: Annotated (sjdb)              STAR 630          truth 630         
+  Number of splices: GT/AG                         STAR 687          truth 687         
+  Number of splices: GC/AG                         STAR 28           truth 28          
+  Number of splices: AT/AC                         STAR 32           truth 32          
+  Number of splices: Non-canonical                 STAR 77           truth 77          
+  Mismatch rate per base, %                        STAR 1.01%        truth 1.01%       
+  Deletion rate per base                           STAR 0.00%        truth 0.00%       
+  Deletion average length                          STAR 0.00         truth 0.00        
+  Insertion rate per base                          STAR 0.00%        truth 0.00%       
+  Insertion average length                         STAR 0.00         truth 0.00        
+  Number of reads mapped to multiple loci          STAR 203          truth 203         
+  % of reads mapped to multiple loci               STAR 5.64%        truth 5.64%       
+  Number of reads mapped to too many loci          STAR 0            truth 0           
+  % of reads mapped to too many loci               STAR 0.00%        truth 0.00%       
+  Number of reads unmapped: too many mismatches    STAR 0            truth 0           
+  % of reads unmapped: too many mismatches         STAR 0.00%        truth 0.00%       
+  Number of reads unmapped: too short              STAR 0            truth 0           
+  % of reads unmapped: too short                   STAR 0.00%        truth 0.00%       
+  Number of reads unmapped: other                  STAR 0            truth 0           
+  % of reads unmapped: other                       STAR 0.00%        truth 0.00%       
+  lines differing: 0 of 26
+
+== Log.final.out: single-end, --outFilterType BySJout (reads held for the 2nd stage must be counted once) ==
+  Number of input reads                            STAR 6210         truth 6210        
+  Average input read length                        STAR 100          truth 100         
+  Uniquely mapped reads number                     STAR 5598         truth 5598        
+  Uniquely mapped reads %                          STAR 90.14%       truth 90.14%      
+  Average mapped length                            STAR 99.88        truth 99.88       
+  Number of splices: Total                         STAR 645          truth 645         
+  Number of splices: Annotated (sjdb)              STAR 497          truth 497         
+  Number of splices: GT/AG                         STAR 541          truth 541         
+  Number of splices: GC/AG                         STAR 24           truth 24          
+  Number of splices: AT/AC                         STAR 25           truth 25          
+  Number of splices: Non-canonical                 STAR 55           truth 55          
+  Mismatch rate per base, %                        STAR 1.39%        truth 1.39%       
+  Deletion rate per base                           STAR 0.01%        truth 0.01%       
+  Deletion average length                          STAR 2.00         truth 2.00        
+  Insertion rate per base                          STAR 0.01%        truth 0.01%       
+  Insertion average length                         STAR 3.50         truth 3.50        
+  Number of reads mapped to multiple loci          STAR 405          truth 405         
+  % of reads mapped to multiple loci               STAR 6.52%        truth 6.52%       
+  Number of reads mapped to too many loci          STAR 0            truth 0           
+  % of reads mapped to too many loci               STAR 0.00%        truth 0.00%       
+  Number of reads unmapped: too many mismatches    STAR 0            truth 0           
+  % of reads unmapped: too many mismatches         STAR 0.00%        truth 0.00%       
+  Number of reads unmapped: too short              STAR 199          truth 199         
+  % of reads unmapped: too short                   STAR 3.20%        truth 3.20%       
+  Number of reads unmapped: other                  STAR 8            truth 8           
+  % of reads unmapped: other                       STAR 0.13%        truth 0.13%       
+  lines differing: 0 of 26
+
+TOTAL differences: 0

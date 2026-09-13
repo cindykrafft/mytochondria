@@ -1,0 +1,83 @@
+cohort: 202
+full text: 0   survey-cache fallback: 202   ({'offline': 202})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  bcftools named                                   202
+  BWA / Bowtie / STAR / minimap2 aligner           139
+  samtools also used                               136
+  population / GWAS / phasing                      82
+  GATK also used                                   76
+  bcftools version stated                          56
+  mpileup                                          43
+  amplicon / mitochondrial / viral / pooled        41
+  RNA-seq                                          31
+  long reads (nanopore / PacBio)                   30
+  freebayes / DeepVariant / other caller           29
+  many samples (cohort size stated)                26
+  allele frequency reported                        20
+  QUAL threshold stated                            18
+  WGS / WES / exome                                17
+  ploidy option                                    11
+  call                                             11
+  genotype quality (GQ) stated                     10
+  mean depth / coverage reported                   9
+  DP threshold stated                              9
+  norm (left-align / split)                        9
+  roh                                              9
+  consensus                                        7
+  MQ threshold stated                              6
+  call -m (multiallelic) stated                    4
+  filter / view expression                         4
+  merge                                            3
+  plugins named                                    2
+  singletons reported                              2
+  +fill-tags / AF AC AN HWE                        1
+  annotate                                         1
+  index / sort / convert                           1
+  Ts/Tv reported                                   1
+  stats                                            1
+  call -c (consensus) stated                       1
+
+VERSION FAMILY: {'1.9': 31, '1.10': 12, '1.13': 6, '1.11': 4, '1.8': 4, '1.14': 4, '0.1.x': 4, '1.21': 3, '1.15': 3, '1.12': 3, '1.3': 3, '1.20': 2, '1.17': 2, '1.18': 2, '1.5': 2, '1.16': 2, '1.7': 2, '1.6': 2, '1.19': 1, '1.31': 1, '1.2': 1, '1.22': 1, '1.1': 1, '1.4': 1}
+VERSIONS (top 20): {'1.9': 30, '1.10.2': 10, '1.13': 6, '1.11': 4, '1.8': 4, '1.14': 4, '1.21': 3, '1.15.1': 3, '1.12': 3, '1.20': 2, '1.17': 2, '1.3': 2, '1.5': 2, '1.16': 2, '1.10': 2, '1.7': 2, '1.6': 2, '1.18.1': 1, '1.19': 1, '1.31': 1}
+
+QUAL thresholds: {'30': 7, '20': 5, '25': 2, '40': 2, '1': 1, '33': 1, '5': 1, '500': 1, '13': 1}
+depth (x): {'50': 1, '18': 1, '5': 1}
+DP thresholds: {'10': 3, '5': 3, '4': 1, '15': 1, '75': 1}
+MQ thresholds: {'30': 3, '40': 2, '5': 1}
+Ts/Tv values: {}
+sample counts stated (top 15): {1000: 11, 202: 2, 0: 2, 13: 1, 390: 1, 44: 1, 58: 1, 24: 1, 122: 1, 10: 1, 67: 1, 12: 1, 432: 1, 848: 1, 185: 1}
+
+CO-PACKAGES (top 40):
+  SAMtools                 133
+  R                        115
+  BWA                      102
+  GATK                     78
+  Picard                   55
+  PLINK                    53
+  VCFtools                 48
+  BEDTools                 39
+  minimap2                 38
+  ADMIXTURE                37
+  BUSCO                    34
+  RepeatMasker             32
+  ANGSD                    31
+  ggplot2                  29
+  IQ-TREE                  27
+  SnpEff                   26
+  Trimmomatic              25
+  Bowtie2                  24
+  Python                   22
+  MAFFT                    22
+  STAR                     21
+  Cutadapt                 20
+  DESeq2                   18
+  RAxML                    16
+  hifiasm                  16
+  FastQC                   16
+  VEP                      15
+  UMAP                     15
+  BLAST                    14
+  ImageJ                   14
+  fastp                    14
+  lme4                     14

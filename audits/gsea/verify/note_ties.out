@@ -1,0 +1,31 @@
+==============================================================================
+note_ties: tied scores keep file order, no warning
+GSEA build: master (dc35c76 2025-03-10)   openjdk version "25.0.4" 2026-07-21   python 3.11.15
+==============================================================================
+3000 genes: 1200 tied at score 0.3 (ranks 900..2099) and 300 at score 0 (ranks 2100..2399); both blocks are reversed between the two files
+
+== order1.rnk: GSEA keeps the tie block in file order: True
+   log lines mentioning ties or duplicates: 0
+   TIED_40          ES   0.6959 (port on GSEA's order   0.6959) NES   2.037 p 0.000 rank_at_max 939
+   ZERO_40          ES  -0.7095 (port on GSEA's order      nan) NES  -2.899 p 0.000 rank_at_max 901
+   TOP_30           ES   1.0000 (port on GSEA's order   1.0000) NES   2.883 p 0.000 rank_at_max 29
+   MIXED_60         ES   0.9042 (port on GSEA's order   0.9042) NES   2.848 p 0.000 rank_at_max 29
+
+== order2.rnk: GSEA keeps the tie block in file order: True
+   log lines mentioning ties or duplicates: 0
+   TIED_40          ES  -0.6959 (port on GSEA's order  -0.6959) NES  -2.765 p 0.000 rank_at_max 941
+   ZERO_40          ES  -0.7973 (port on GSEA's order      nan) NES  -3.258 p 0.000 rank_at_max 641
+   TOP_30           ES   1.0000 (port on GSEA's order   1.0000) NES   2.883 p 0.000 rank_at_max 29
+   MIXED_60         ES   0.9042 (port on GSEA's order   0.9042) NES   2.848 p 0.000 rank_at_max 29
+
+== fgsea 1.39.4 on the same files
+   fgsea calcGseaStat TIED_40 on order1.rnk: ES = 0.6959
+   fgsea calcGseaStat ZERO_40 on order1.rnk: ES = -0.7095
+   fgsea warning: There are ties in the preranked stats (39.97% of the list).
+   The order of those tied genes will be arbitrary, which may produce unexpected results. 
+   fgsea calcGseaStat TIED_40 on order2.rnk: ES = -0.6959
+   fgsea calcGseaStat ZERO_40 on order2.rnk: ES = -0.7973
+   fgsea warning: There are ties in the preranked stats (39.97% of the list).
+   The order of those tied genes will be arbitrary, which may produce unexpected results. 
+
+DONE

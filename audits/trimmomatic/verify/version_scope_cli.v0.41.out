@@ -1,0 +1,5 @@
+build: java -jar /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/trimmomatic/releases/trimmomatic-0.41.jar
+adapters: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/trimmomatic/releases/adapters/TruSeq3-PE.fa prefix lengths 34 34
+TM1: pairs clipped by the shipped build 200/200 (documented rule: 0/200) -> affected
+TM1 control (mismatches at Q20): clipped 0/200 (both rules: 0)
+TM2: surviving length of a 300-nt all-Q40 read: {'MAXINFO:40:0.5': 300, 'MAXINFO:247:0.1': 300, 'MAXINFO:248:0.1': 1, 'MAXINFO:250:0.1': 1, 'MAXINFO:500:0.2': 1, 'MAXINFO:800:0.5': 1} -> affected

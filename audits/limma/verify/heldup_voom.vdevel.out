@@ -1,0 +1,10 @@
+limma 3.99.0 R version 4.3.3 (2024-02-29) 
+A. voom (span 0.4419, adaptive; 1 all-zero genes): E 0.00e+00  weights (relative) 0.00e+00  weight range 0.721..4.42
+   voom with lib.size given (norm factors): E 0.00e+00  weights 0.00e+00
+B. voomWithQualityWeights == t(aw * t(voom(weights=aw1)$weights)): 0.00e+00 ; sample.weights: 1.0115 0.9734 1.0883 1.0223 0.9677 0.9661 1.0229 0.9547
+D. voomLmFit limma-devel vs edgeR 4.0.16: coef 3.76e-02  stdev.unscaled 8.07e-03  sigma 1.55e-02  df.residual 0  weights 3.33e-02  (genes with reduced df: 408)
+   with block: coef 3.75e-02  sigma 1.55e-02  weights 3.33e-02
+   with sample.weights (zero rows present -> genebygene in both): max |sample weight diff| 3.28e-03
+   with sample.weights, no zero rows (devel: reml/PrWts path; edgeR: genebygene): max |sample weight diff| 0.001
+   devel: 1.0101 0.9717 1.0907 1.0249 0.9663 0.9658 1.0240 0.9537 
+   edgeR: 1.0105 0.9720 1.0903 1.0244 0.9665 0.9657 1.0241 0.9537 

@@ -1,0 +1,42 @@
+bcftools: bcftools 1.24 / Using htslib 1.24
+
+site 100 (same ALT in both files): INFO rules DP:sum AN:sum AC:sum; AF is not in the default rules
+   DP                                                   bcftools 55                         truth 55                         ok
+   AN                                                   bcftools 6                          truth 6                          ok
+   AC                                                   bcftools 3                          truth 3                          ok
+   AF written: 1  (true AC/AN = 0.5; the first file's 0.25 or a merged value?)
+   QUAL (max of the inputs)                             bcftools 70                         truth 70                         ok
+   samples A,B,C GT                                     bcftools ['0/1', '0/0', '1/1']      truth ['0/1', '0/0', '1/1']      ok
+   samples A,B,C PL                                     bcftools ['20,0,30', '0,30,60', '80,9,0'] truth ['20,0,30', '0,30,60', '80,9,0'] ok
+
+site 200 (file 1 only): sample C absent
+   DP,AN,AC (only file 1 contributes)                   bcftools ('12', '4', '2')           truth ('12', '4', '2')           ok
+   sample C GT,PL,DP,AD missing                         bcftools ('./.', '.', '.', '.')     truth ('./.', '.', '.', '.')     ok
+
+site 300 (A>G in file 1, A>T in file 2): merged as A>G,T with Number=G/R expansion
+   ALT                                                  bcftools G,T                        truth G,T                        ok
+   AC per merged allele (3 for G, 1 for T)              bcftools 3,1                        truth 3,1                        ok
+   AN                                                   bcftools 6                          truth 6                          ok
+   DP                                                   bcftools 55                         truth 55                         ok
+   sample A GT (1/1 of G)                               bcftools 1/1                        truth 1/1                        ok
+   sample C GT (0/1 of T -> 0/2)                        bcftools 0/2                        truth 0/2                        ok
+   sample A PL (90,10,0 -> 90,10,0,.,.,.)               bcftools 90,10,0,.,.,.              truth 90,10,0,.,.,.              ok
+   sample C PL (22,0,33 -> 22,.,.,0,.,33)               bcftools 22,.,.,0,.,33              truth 22,.,.,0,.,33              ok
+   sample A AD (0,20 -> 0,20,.)                         bcftools 0,20,.                     truth 0,20,.                     ok
+   sample C AD (8,7 -> 8,.,7)                           bcftools 8,.,7                      truth 8,.,7                      ok
+   AF written: 0.75,0.5
+
+site 400 (file 2 only)
+   samples A,B missing; C kept                          bcftools ['./.', './.', '0/1']      truth ['./.', './.', '0/1']      ok
+
+INFO fields with no rule: the manual says they take the value from the FIRST input file (doc/bcftools.txt:2146)
+   merge g1 g2: AF=1 XX=1.5 XS=first DP=55
+   merge g2 g1: AF=0.25 XX=2.5 XS=second DP=55
+   XX (Number=1) from the first file as documented      bcftools 1.5                        truth 1.5                        ok
+   XS (String) from the first file as documented        bcftools first                      truth first                      ok
+   AF (Number=A) from the first file as documented      bcftools 1                          truth 0.25                       MISMATCH
+
+with -i 'AF:avg' the rule replaces the default handling:
+   site 100 AF=0.625 (avg of 0.25 and 1 = 0.625)
+
+mismatches: 1

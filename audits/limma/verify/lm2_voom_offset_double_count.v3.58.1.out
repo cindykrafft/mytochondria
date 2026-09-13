@@ -1,0 +1,21 @@
+limma 3.58.1 edgeR 4.0.16 R version 4.3.3 (2024-02-29) 
+voom() has no offset argument in this version; a DGEList $offset is ignored:
+A. voom(DGEList with $offset = log(lib.size))$E - voom(counts, lib.size)$E, by column:
+  Sample1 Sample2 Sample3 Sample4
+1       0       0       0       0
+2       0       0       0       0
+3       0       0       0       0
+4       0       0       0       0
+5       0       0       0       0
+6       0       0       0       0
+   -log2(lib.size/geomean(lib.size)) =  1.5 -0.5  0.5 -1.5 
+   max |difference| = 0.0000 log2 units (expected 0)
+   library sizes voom actually used / lib.size: 1 1 1 1  = lib.size/geomean: 0.35355 1.41421 0.70711 2.82843 
+   devel voomLmFit(same DGEList): max |E - voom(counts, lib.size)$E| = 8.88e-16 (uses exp(offset) as library size)
+B. logFC(grp): offset run - reference run: median 0.0000, range 0.0000..0.0000 (log2 of the group library-size ratio: 1.5119)
+   genes at adj.P<0.05: offset run 37 (35 up, 2 down; 35 true) vs reference 37 (35 up, 2 down; 35 true); true DE = 500
+   gene-specific offset log(lib.size)+d: voom$E vs edgeR reading exp(offset): 1.7496 ; vs lib.size^2/geomean * exp(d): 2.75e+00
+Error in voom(cts, design, lib.size = ls, offset.prior = dg, plot = FALSE) : 
+  unused argument (offset.prior = dg)
+Calls: cat -> sprintf -> mx
+Execution halted

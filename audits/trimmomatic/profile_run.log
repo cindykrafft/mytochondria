@@ -1,0 +1,90 @@
+cohort: 291
+full text: 0   survey-cache fallback: 291   ({'offline': 291})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  ILLUMINACLIP / adapter clipping                  131
+  Trimmomatic version stated                       116
+  RNA-seq                                          95
+  assembly                                         82
+  FastQC / MultiQC also used                       82
+  default parameters stated                        76
+  SLIDINGWINDOW                                    59
+  MINLEN                                           57
+  paired-end                                       55
+  WGS / variant calling / resequencing             52
+  Cutadapt / Trim Galore / fastp also used         49
+  quality threshold stated (Q/phred)               45
+  TRAILING                                         41
+  metagenomics / 16S / amplicon                    40
+  LEADING                                          39
+  ILLUMINACLIP 2:30:10 (thresholds)                28
+  single-cell                                      22
+  ChIP / ATAC / CUT&RUN                            22
+  SLIDINGWINDOW:4:15                               21
+  LEADING:3 TRAILING:3                             19
+  TruSeq3-PE adapters                              15
+  MINLEN:36                                        14
+  custom adapter file                              7
+  single-end                                       7
+  SLIDINGWINDOW:4:20                               6
+  Nextera adapters                                 5
+  palindrome / keepBothReads                       5
+  -phred33 / -phred64 flag                         5
+  MAXINFO                                          2
+  TruSeq3-SE adapters                              2
+  TruSeq2 adapters                                 1
+  TOPHRED33/64                                     1
+  small RNA / miRNA                                1
+  HEADCROP                                         1
+
+VERSION FAMILY: {'0.39': 82, '0.36': 55, '0.38': 23, '0.32': 12, '0.33': 8, '0.35': 4, '0.40': 2, '0.30': 1, '0.3': 1, '0.26': 1, '0.22': 1, '0.27': 1, '0.9': 1, '0.7': 1}
+VERSIONS (top 20): {'0.39': 82, '0.36': 53, '0.38': 23, '0.32': 11, '0.33': 7, '0.35': 4, '0.40': 2, '2.6.0': 1, '0.32.3': 1, '0.30': 1, '0.3.9': 1, '0.26': 1, '0.22': 1, '2.4.0': 1, '0.33.0': 1, '0.27': 1, '0.9.6': 1, '0.36.6': 1, '0.36.3': 1, '0.7.16': 1}
+
+SLIDINGWINDOW window:quality: {'4:15': 21, '4:20': 6, '5:20': 4, '4:25': 2, '4:5': 2, '3:18': 1, '4:19': 1, '4:30': 1, '5:30': 1, '10:20': 1, '4:10': 1, '3:20': 1}
+MINLEN: {36: 14, 50: 7, 75: 3, 20: 3, 100: 2, 25: 2, 35: 2, 30: 1, 40: 1, 5: 1, 45: 1, 80: 1}
+LEADING: {3: 18, 20: 6, 5: 3, 30: 2, 10: 2, 13: 1, 0: 1}
+TRAILING: {3: 17, 20: 7, 5: 4, 30: 2, 13: 1, 10: 1, 25: 1}
+ILLUMINACLIP seed:palindrome:simple[:minAdapter:keepBoth]: {'2:30:10': 15, '2:30:7': 2, '2:30:10:1:false': 1, '2:30:10:2:true': 1, '2:30:10:1:true': 1, '0:6:6': 1}
+HEADCROP: {3: 1}
+
+CO-PACKAGES (top 40):
+  R                        146
+  SAMtools                 108
+  DESeq2                   105
+  Bowtie2                  90
+  FastQC                   77
+  STAR                     72
+  ImageJ                   66
+  BWA                      63
+  Picard                   57
+  featureCounts            56
+  MACS2                    52
+  BEDTools                 49
+  GATK                     45
+  MAFFT                    45
+  BLAST                    40
+  IQ-TREE                  40
+  ggplot2                  38
+  UMAP                     35
+  GSEA                     33
+  Python                   33
+  edgeR                    32
+  deepTools                31
+  Seurat                   30
+  BUSCO                    29
+  HISAT2                   29
+  Cutadapt                 29
+  BCFtools                 25
+  RAxML                    25
+  Bioconductor             23
+  minimap2                 23
+  SPAdes                   23
+  RepeatMasker             21
+  clusterProfiler          20
+  HMMER                    20
+  AlphaFold                19
+  HTSeq                    19
+  RSEM                     18
+  kallisto                 16
+  pheatmap                 16
+  StringTie                16

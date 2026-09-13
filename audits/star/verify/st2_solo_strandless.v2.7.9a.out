@@ -1,0 +1,27 @@
+STAR 2.7.9a; solo features tested: Gene GeneFull
+
+== --soloStrand Forward (uniquely mapped 1200 of 1200 reads) ==
+gene       strand  Gene                      GeneFull                  GeneCounts [unstr, yes, rev]
+G1         +       300                       300                       [300, 300, 0]
+G2         -       300                       300                       [300, 300, 0]
+G3         .       0                         0                         [300, 300, 300]
+G4         .       0                         0                         [300, 300, 300]
+
+== --soloStrand Reverse (uniquely mapped 1200 of 1200 reads) ==
+gene       strand  Gene                      GeneFull                  GeneCounts [unstr, yes, rev]
+G1         +       0                         0                         [300, 300, 0]
+G2         -       0                         0                         [300, 300, 0]
+G3         .       300                       300                       [300, 300, 300]
+G4         .       300                       300                       [300, 300, 300]
+
+== --soloStrand Unstranded (uniquely mapped 1200 of 1200 reads) ==
+gene       strand  Gene                      GeneFull                  GeneCounts [unstr, yes, rev]
+G1         +       300                       300                       [300, 300, 0]
+G2         -       300                       300                       [300, 300, 0]
+G3         .       300                       300                       [300, 300, 300]
+G4         .       300                       300                       [300, 300, 300]
+Gene                       G3 ('.'): Forward   0  Reverse 300  Unstranded 300  -> DIFFERS: sense reads dropped with Forward, counted with Reverse
+Gene                       G4 ('.'): Forward   0  Reverse 300  Unstranded 300  -> DIFFERS: sense reads dropped with Forward, counted with Reverse
+GeneFull                   G3 ('.'): Forward   0  Reverse 300  Unstranded 300  -> DIFFERS: sense reads dropped with Forward, counted with Reverse
+GeneFull                   G4 ('.'): Forward   0  Reverse 300  Unstranded 300  -> DIFFERS: sense reads dropped with Forward, counted with Reverse
+'.'-strand gene/feature combinations with 0 of 300 sense reads under --soloStrand Forward: 4 of 4

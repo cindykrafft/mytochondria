@@ -1,0 +1,181 @@
+From a0b3f8c43315c2fd6de94fa4418f9947e615c3a7 Mon Sep 17 00:00:00 2001
+From: Mytochondria audit <cynthiacondra@gmail.com>
+Date: Sun, 13 Sep 2026 05:44:03 +0000
+Subject: [PATCH] Treat transcripts with undefined GTF strand ('.') as '+' in
+ Aligned.toTranscriptome.out.bam and count them from both strands in STARsolo
+
+Transcriptome::quantAlign set the transcriptomic strand with
+`trStr==1 ? aG.Str : 1-aG.Str`, so a transcript whose GTF strand is '.'
+(stored as 0) was treated like a '-' transcript: the strand flag of every
+record was inverted and the sequence reverse-complemented, while
+alignToTranscript converts coordinates only for trStr==2, i.e. the
+positions were those of the + strand. Such records do not match the
+transcript sequence at their position. Undefined-strand transcripts are
+now output like + transcripts.
+
+The same expression in Transcriptome::classifyAlign (Gene),
+geneFullAlignOverlap (GeneFull), geneFullAlignOverlap_ExonOverIntron and
+alignExonOverlap (GeneFull_Ex50pAS) made STARsolo with --soloStrand
+Forward drop every sense read of an undefined-strand gene and count them
+with --soloStrand Reverse instead (GeneFull_Ex50pAS counted none with
+either). Genes with undefined strand now accept reads from both strands
+under Forward/Reverse, which is what --quantMode GeneCounts already does
+(Transcriptome_geneCountsAddAlign.cpp: "genes w/o strand will accept
+reads from both strands").
+
+New regression test extras/tests/scripts/testUndefinedStrand.sh: two
+identical two-exon gene structures on '+' and '.', four reads each;
+the transcriptome records of the '.' transcript must equal those of
+the '+' transcript, and STARsolo --soloStrand Forward must count all
+four reads of the '.' gene. Fails on 2.7.11b, passes with this change.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ CHANGES.md                                    |  4 ++
+ extras/tests/scripts/testUndefinedStrand.sh   | 51 +++++++++++++++++++
+ source/Transcriptome_alignExonOverlap.cpp     |  2 +-
+ source/Transcriptome_classifyAlign.cpp        |  2 +-
+ source/Transcriptome_geneFullAlignOverlap.cpp |  2 +-
+ ...me_geneFullAlignOverlap_ExonOverIntron.cpp |  2 +-
+ source/Transcriptome_quantAlign.cpp           |  2 +-
+ 7 files changed, 60 insertions(+), 5 deletions(-)
+ create mode 100755 extras/tests/scripts/testUndefinedStrand.sh
+
+diff --git a/CHANGES.md b/CHANGES.md
+index 35a08c1..58bde7f 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,7 @@
++STAR 2.7.11c --- unreleased
++===========================================
++* Issue #NNNN: Fixed the strand of Aligned.toTranscriptome.out.bam records for transcripts whose GTF strand is undefined ('.'): the strand flag was inverted and the sequence reverse-complemented while the transcript coordinates were those of the + strand. Such transcripts are now output like + transcripts. STARsolo --soloStrand Forward/Reverse counting (Gene, GeneFull, GeneFull_ExonOverIntron, GeneFull_Ex50pAS) now accepts reads from both strands for genes with undefined strand, as --quantMode GeneCounts already did; previously sense reads of such genes were dropped with Forward and counted with Reverse. New regression test: extras/tests/scripts/testUndefinedStrand.sh.
++
+ STAR 2.7.11b --- 2024/01/24 ::: Minor in one parameter.
+ ===========================================
+ * Replaced --quantTranscriptomeBan parameter with --quantTranscriptomeSAMoutput with more explicit naming of options. The default behavior is not affected.
+diff --git a/extras/tests/scripts/testUndefinedStrand.sh b/extras/tests/scripts/testUndefinedStrand.sh
+new file mode 100755
+index 0000000..37e62cb
+--- /dev/null
++++ b/extras/tests/scripts/testUndefinedStrand.sh
+@@ -0,0 +1,51 @@
++#!/bin/bash
++# Regression test for transcripts/genes whose GTF strand is undefined ('.'):
++#  1. Aligned.toTranscriptome.out.bam records of a '.' transcript must have the same flags and
++#     sequences as those of an identical '+' transcript (before the fix the strand flag was
++#     inverted and the sequence reverse-complemented at unchanged + coordinates);
++#  2. STARsolo --soloStrand Forward must count reads of both strands for a '.' gene (before the
++#     fix only antisense reads were counted).
++# Usage: testUndefinedStrand.sh [/path/to/STAR]   (needs samtools in PATH for check 1)
++# Exit status 0 = pass.
++set -e
++STAR=${1:-$(dirname "$0")/../../../source/STAR}
++T=$(mktemp -d)
++cd "$T"
++# 3-kb pseudo-random genome (LCG in awk, implementation-independent), two identical two-exon
++# gene structures: TP on '+' (exons 201-500, 801-1100) and TD on '.' (1701-2000, 2301-2600),
++# GT..AG planted at both introns.
++awk 'BEGIN{x=12345; s=""; for(i=0;i<3000;i++){x=(x*1103515245+12345)%2147483648; s=s substr("ACGT",int(x/65536)%4+1,1)};
++  s=substr(s,1,499) "CGT" substr(s,503,296) "AGC" substr(s,802);
++  s=substr(s,1,1999) "CGT" substr(s,2003,296) "AGC" substr(s,2302);
++  print ">chr1"; print s}' > g.fa
++printf 'chr1\tt\texon\t201\t500\t.\t+\t.\tgene_id "gTP"; transcript_id "TP";\nchr1\tt\texon\t801\t1100\t.\t+\t.\tgene_id "gTP"; transcript_id "TP";\n' > g.gtf
++printf 'chr1\tt\texon\t1701\t2000\t.\t.\t.\tgene_id "gTD"; transcript_id "TD";\nchr1\tt\texon\t2301\t2600\t.\t.\t.\tgene_id "gTD"; transcript_id "TD";\n' >> g.gtf
++# reads: exonic (offset 100) and junction-spanning (offset 270) 60-mers of each transcript, forward and reverse-complemented
++awk 'NR==2{g=$0; n=split("TP 201 500 801 1100,TD 1701 2000 2301 2600",tr,",");
++  for(i=1;i<=n;i++){split(tr[i],f," "); t=substr(g,f[2],f[3]-f[2]+1) substr(g,f[4],f[5]-f[4]+1);
++    for(o=100;o<=270;o+=170){r=substr(t,o+1,60); rc=""; for(k=60;k>=1;k--){c=substr(r,k,1); rc=rc (c=="A"?"T":c=="C"?"G":c=="G"?"C":"A")};
++      print "@" f[1] "_fwd_" o "\n" r "\n+\n" "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII";
++      print "@" f[1] "_rev_" o "\n" rc "\n+\n" "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"}}}' g.fa > r.fq
++# barcode reads for STARsolo: one cell barcode, non-homopolymer UMIs at least 6 mismatches apart (not collapsed by --soloUMIdedup 1MM_All, not removed as homopolymers)
++awk 'BEGIN{split("ACACACACACAC AGAGAGAGAGAG ATATATATATAT CGCGCGCGCGCG CTCTCTCTCTCT GTGTGTGTGTGT AACCAACCAACC GGTTGGTTGGTT",u," ")} NR%4==1{print $0; print "ACGTACGTACGTACGT" u[(NR-1)/4+1]; print "+"; print "IIIIIIIIIIIIIIIIIIIIIIIIIIII"}' r.fq > b.fq
++echo ACGTACGTACGTACGT > wl.txt
++mkdir gidx
++"$STAR" --runMode genomeGenerate --genomeDir gidx --genomeFastaFiles g.fa --sjdbGTFfile g.gtf --sjdbOverhang 59 --genomeSAindexNbases 4 --outFileNamePrefix gidx/ > /dev/null
++"$STAR" --genomeDir gidx --readFilesIn r.fq --outFileNamePrefix tr/ --outSAMtype None --quantMode TranscriptomeSAM > /dev/null
++"$STAR" --genomeDir gidx --readFilesIn r.fq b.fq --outFileNamePrefix solo/ --outSAMtype None --soloType CB_UMI_Simple --soloCBwhitelist wl.txt --soloUMIlen 12 \
++        --soloFeatures Gene GeneFull GeneFull_ExonOverIntron GeneFull_Ex50pAS --soloStrand Forward > /dev/null
++fail=0
++if command -v samtools > /dev/null; then
++    # flag, position and CIGAR of each TD record must equal those of the TP record with the same suffix
++    samtools view tr/Aligned.toTranscriptome.out.bam | awk '{sub(/^T[PD]_/,"",$1); print $1, $2, $4, $6}' | sort | uniq -c | awk '$1!=2{bad=1; print "MISMATCH between TP and TD records (name flag pos CIGAR):", $0} END{exit bad}' || fail=1
++else
++    echo "samtools not found: transcriptome BAM flags not checked"
++fi
++for f in Gene GeneFull GeneFull_ExonOverIntron GeneFull_Ex50pAS; do
++    n=$(awk 'NR>3 && $1==2{s+=$3} END{print s+0}' solo/Solo.out/$f/raw/matrix.mtx)
++    m=$(awk 'NR>3 && $1==1{s+=$3} END{print s+0}' solo/Solo.out/$f/raw/matrix.mtx)
++    if [ "$n" != 4 ] || [ "$m" != 2 ]; then echo "STARsolo $f --soloStrand Forward: gTD counted $n of 4 reads (expected 4), gTP $m (expected 2)"; fail=1; fi
++done
++cd /; rm -rf "$T"
++if [ $fail = 0 ]; then echo "testUndefinedStrand: PASS"; else echo "testUndefinedStrand: FAIL"; fi
++exit $fail
+diff --git a/source/Transcriptome_alignExonOverlap.cpp b/source/Transcriptome_alignExonOverlap.cpp
+index 6335256..020e05a 100644
+--- a/source/Transcriptome_alignExonOverlap.cpp
++++ b/source/Transcriptome_alignExonOverlap.cpp
+@@ -56,7 +56,7 @@ void Transcriptome::alignExonOverlap(uint nA, Transcript **aAll, int32 strandTyp
+                 continue;
+                  
+             bool str1 = int(strandType==0 ? aG.Str : 1-aG.Str) == (trStr[tr1]-1);
+-            str1 = str1 || (strandType==-1);
++            str1 = str1 || (strandType==-1) || (trStr[tr1]==0); //transcripts with undefined strand ('.') accept reads from both strands
+ 
+             /*
+             //GeneFullClosest3p
+diff --git a/source/Transcriptome_classifyAlign.cpp b/source/Transcriptome_classifyAlign.cpp
+index 9a5a216..e2b90f9 100755
+--- a/source/Transcriptome_classifyAlign.cpp
++++ b/source/Transcriptome_classifyAlign.cpp
+@@ -205,7 +205,7 @@ void Transcriptome::classifyAlign (Transcript **alignG, uint64 nAlignG, ReadAnno
+         do {//cycle back through all the transcripts
+             --tr1;
+             if ( aGend>trE[tr1] ||
+-                 (P.pSolo.strand >= 0 && (trStr[tr1]==1 ? aG.Str : 1-aG.Str) != (uint32)P.pSolo.strand) ) //!(this transcript contains the read, and has correct strand)
++                 (P.pSolo.strand >= 0 && trStr[tr1]>0 && (trStr[tr1]==1 ? aG.Str : 1-aG.Str) != (uint32)P.pSolo.strand) ) //!(this transcript contains the read, and has correct strand); transcripts with undefined strand ('.') accept reads from both strands, as --quantMode GeneCounts does
+                      continue;
+                  
+             array<uint32, 2> distTrEnds;     
+diff --git a/source/Transcriptome_geneFullAlignOverlap.cpp b/source/Transcriptome_geneFullAlignOverlap.cpp
+index eb24024..91d5bf6 100644
+--- a/source/Transcriptome_geneFullAlignOverlap.cpp
++++ b/source/Transcriptome_geneFullAlignOverlap.cpp
+@@ -22,7 +22,7 @@ void Transcriptome::geneFullAlignOverlap(uint nA, Transcript **aAll, int32 stran
+             while (gi1>=0 && geneFull.eMax[gi1]>=a.exons[ib][EX_G]) {//these exons may overlap this block
+                 if (geneFull.e[gi1]>=a.exons[ib][EX_G]) {//this gene overlaps the block
+                     int32 str1 = geneFull.str[gi1]==1 ? a.Str : 1-a.Str;
+-                    if (strandType==-1 || strandType==str1)  {
++                    if (strandType==-1 || geneFull.str[gi1]==0 || strandType==str1)  {//genes with undefined strand ('.') accept reads from both strands
+                         annFeat.fSet.insert(geneFull.g[gi1]);
+                         annFeat.fAlign[iA].insert(geneFull.g[gi1]);
+                     };
+diff --git a/source/Transcriptome_geneFullAlignOverlap_ExonOverIntron.cpp b/source/Transcriptome_geneFullAlignOverlap_ExonOverIntron.cpp
+index a4709e1..23ddc54 100644
+--- a/source/Transcriptome_geneFullAlignOverlap_ExonOverIntron.cpp
++++ b/source/Transcriptome_geneFullAlignOverlap_ExonOverIntron.cpp
+@@ -28,7 +28,7 @@ void Transcriptome::geneFullAlignOverlap_ExonOverIntron(uint nA, Transcript **aA
+         while (gi1>=0 && geneFull.eMax[gi1]>=aE) {//these genes may overlap this block
+             if (geneFull.e[gi1]>=aE) {//this gene contains the block:  gene-end is to the right of block start
+                 int32 str1 = geneFull.str[gi1]==1 ? a.Str : 1-a.Str;
+-                if (strandType==-1 || strandType==str1)  {
++                if (strandType==-1 || geneFull.str[gi1]==0 || strandType==str1)  {//genes with undefined strand ('.') accept reads from both strands
+                     annFeat.fSet.insert(geneFull.g[gi1]);
+                     annFeat.fAlign[iA].insert(geneFull.g[gi1]);
+                 };
+diff --git a/source/Transcriptome_quantAlign.cpp b/source/Transcriptome_quantAlign.cpp
+index 3ac6120..6fa9e40 100755
+--- a/source/Transcriptome_quantAlign.cpp
++++ b/source/Transcriptome_quantAlign.cpp
+@@ -104,7 +104,7 @@ uint32 Transcriptome::quantAlign (Transcript &aG, Transcript *aTall) {
+                 int aStatus=alignToTranscript(aG, trS[tr1], trStr[tr1], exSE+2*trExI[tr1], exLenCum+trExI[tr1], trExN[tr1], aTall[nAtr]);
+                 if (aStatus==1) {//align conforms with the transcript
+                     aTall[nAtr].Chr = tr1;
+-                    aTall[nAtr].Str = trStr[tr1]==1 ? aG.Str : 1-aG.Str; //TODO strandedness
++                    aTall[nAtr].Str = trStr[tr1]==2 ? 1-aG.Str : aG.Str; //transcripts with undefined strand ('.') are output on the + strand, consistent with the coordinate conversion in alignToTranscript
+                     ++nAtr;
+                 };
+         };
+-- 
+2.43.0
+

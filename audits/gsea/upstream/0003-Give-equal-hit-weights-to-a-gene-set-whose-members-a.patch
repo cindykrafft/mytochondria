@@ -1,0 +1,160 @@
+From d1c1f035ed8d3f7fb23aafeae30007a7fbc429be Mon Sep 17 00:00:00 2001
+From: Mytochondria audit <cynthiacondra@gmail.com>
+Date: Sun, 13 Sep 2026 05:45:59 +0000
+Subject: [PATCH] Give equal hit weights to a gene set whose members all have a
+ ranking score of 0
+
+Under the weighted schemes the hit weight is |score|^p / N_R with N_R the sum over the
+set's members.  When every member present in the ranked list has score 0 (e.g. a set of
+unexpressed genes in a preranked list that assigns 0 to untested genes), N_R is 0, the hit
+weight is 0/0 = NaN, and in KSCore the running sum turns NaN at the first hit.  Every later
+comparison against the NaN is false, so the ES that survives is the running sum just before
+the first hit, -(rank of first member) / (N - N_H), which only says where the block of zeros
+sits, and it is reported with an NES, p-value and FDR (p = 0 when the block is low in the
+list).  Equal scores mean equal weights, so use 1 / N_H for such a set, as the classic scheme
+does, and log a warning that the set's score depends only on the position of the tied genes.
+
+Adds ZeroWeightGeneSetTest.
+---
+ .../genome/alg/gsea/GeneSetScoringTables.java | 14 +++++
+ .../alg/gsea/ZeroWeightGeneSetTest.java       | 61 +++++++++++++++++++
+ 2 files changed, 75 insertions(+)
+ create mode 100644 src/test/java/edu/mit/broad/genome/alg/gsea/ZeroWeightGeneSetTest.java
+
+diff --git a/src/main/java/edu/mit/broad/genome/alg/gsea/GeneSetScoringTables.java b/src/main/java/edu/mit/broad/genome/alg/gsea/GeneSetScoringTables.java
+index 8f9f990..889f84c 100755
+--- a/src/main/java/edu/mit/broad/genome/alg/gsea/GeneSetScoringTables.java
++++ b/src/main/java/edu/mit/broad/genome/alg/gsea/GeneSetScoringTables.java
+@@ -91,6 +91,12 @@ public class GeneSetScoringTables {
+         public float getMissScore(String name) { return misspoints; }
+     }
+ 
++    private static void warnZeroWeight(final GeneSet gset, final RankedList rl) {
++        klog.warn("Every member of gene set {} present in ranked list {} has a ranking score of 0; its hits are"
++                + " given equal weights.  Its enrichment score depends only on where the tied genes sit in the list.",
++                gset.getName(), rl.getName());
++    }
++
+     // Needed as cdna give some nans for the class metric
+     private static final float _abs(float score) {
+         return (Float.isFinite(score)) ? Math.abs(score) : 0.01f;
+@@ -122,6 +128,7 @@ public class GeneSetScoringTables {
+ 
+             final float nTotal = rankedList.getSize();
+             this.miss_score = 1.0f / (nTotal - nhExpected);
++            if (totalWeight == 0) { warnZeroWeight(gset, rl); }
+         }
+ 
+         public String getName() { return NAME; }
+@@ -133,6 +140,9 @@ public class GeneSetScoringTables {
+         }
+ 
+         public float getHitScore(final String name) {
++            // All members scored 0: |score|^p / N_R is 0/0.  Equal scores mean equal weights, so use 1 / N_H
++            // (the limit of the weighted scheme), instead of letting NaN into the running sum.
++            if (totalWeight == 0) { return 1.0f / nhExpected; }
+             float score = rankedList.getScore(name);
+             score = _abs(score);
+             return score / totalWeight;
+@@ -168,6 +178,7 @@ public class GeneSetScoringTables {
+ 
+             final float nTotal = rankedList.getSize();
+             this.miss_score = 1.0f / (nTotal - nhExpected);
++            if (totalWeight_sq == 0) { warnZeroWeight(gset, rl); }
+         }
+ 
+         public String getName() { return NAME; }
+@@ -179,6 +190,7 @@ public class GeneSetScoringTables {
+         }
+ 
+         public float getHitScore(String name) {
++            if (totalWeight_sq == 0) { return 1.0f / nhExpected; } // see Weighted.getHitScore
+             float score = rankedList.getScore(name);
+             float hitScore = (score * score) / totalWeight_sq;
+             return Float.isFinite(hitScore) ? hitScore : 0.000001f;
+@@ -213,6 +225,7 @@ public class GeneSetScoringTables {
+ 
+             final float nTotal = rankedList.getSize();
+             this.miss_score = 1.0f / (nTotal - nhExpected);
++            if (totalWeight_sq == 0) { warnZeroWeight(gset, rl); }
+         }
+ 
+         public String getName() { return NAME; }
+@@ -224,6 +237,7 @@ public class GeneSetScoringTables {
+         }
+ 
+         public float getHitScore(String name) {
++            if (totalWeight_sq == 0) { return 1.0f / nhExpected; } // see Weighted.getHitScore
+             float score = rankedList.getScore(name);
+             float ss = (float) Math.pow(score, 1.5);
+             float hitScore = ss / totalWeight_sq;
+diff --git a/src/test/java/edu/mit/broad/genome/alg/gsea/ZeroWeightGeneSetTest.java b/src/test/java/edu/mit/broad/genome/alg/gsea/ZeroWeightGeneSetTest.java
+new file mode 100644
+index 0000000..692a411
+--- /dev/null
++++ b/src/test/java/edu/mit/broad/genome/alg/gsea/ZeroWeightGeneSetTest.java
+@@ -0,0 +1,61 @@
++/*
++ * Copyright (c) 2003-2025 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
++ */
++package edu.mit.broad.genome.alg.gsea;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++import static org.junit.jupiter.api.Assertions.assertTrue;
++
++import java.util.Arrays;
++
++import org.junit.jupiter.api.Test;
++
++import edu.mit.broad.genome.math.Vector;
++import edu.mit.broad.genome.objects.DefaultRankedList;
++import edu.mit.broad.genome.objects.GeneSet;
++import edu.mit.broad.genome.objects.RankedList;
++import edu.mit.broad.genome.objects.esmatrix.db.EnrichmentScore;
++
++/**
++ * A gene set whose members all have a ranking score of 0 has a total weight of 0 under the weighted
++ * schemes.  Its hits must get equal weights (not NaN), so the running sum stays finite.
++ */
++public class ZeroWeightGeneSetTest {
++    // a=2, b=1, c=0, d=0, e=0, f=-1, g=-2
++    private static RankedList rankedList() {
++        return new DefaultRankedList("rl", Arrays.asList("a", "b", "c", "d", "e", "f", "g"),
++                new Vector(new float[] { 2f, 1f, 0f, 0f, 0f, -1f, -2f }));
++    }
++
++    private static final GeneSet ZERO_SET = new GeneSet("zeros", new String[] { "c", "d", "e" });
++
++    @Test
++    public void weightedTablesGiveEqualHitWeightsWhenTheTotalWeightIsZero() {
++        RankedList rl = rankedList();
++        GeneSetScoringTable[] tables = new GeneSetScoringTable[] {
++                new GeneSetScoringTables.Weighted(), new GeneSetScoringTables.WeightedSquared(),
++                new GeneSetScoringTables.WeightedOnePointFive() };
++        for (GeneSetScoringTable scheme : tables) {
++            GeneSetScoringTable table = scheme.createTable(ZERO_SET, rl, rl);
++            for (String member : new String[] { "c", "d", "e" }) {
++                assertEquals(1.0 / 3, table.getHitScore(member), 1e-6, scheme.getName() + " " + member);
++            }
++        }
++    }
++
++    @Test
++    public void enrichmentScoreOfAZeroWeightSetIsFiniteAndEqualsTheClassicScore() {
++        RankedList rl = rankedList();
++        GeneSet[] gsets = new GeneSet[] { ZERO_SET };
++        KSCore core = new KSCore();
++        GeneSetCohort.Generator weighted = new GeneSetCohort.Generator(new GeneSetScoringTables.Weighted(), 1, 100);
++        GeneSetCohort.Generator classic = new GeneSetCohort.Generator(new GeneSetScoringTables.Classic(), 1, 100);
++        EnrichmentScore esWeighted = core.calculateKSScore(weighted.createGeneSetCohort(rl, gsets, true), false)[0];
++        EnrichmentScore esClassic = core.calculateKSScore(classic.createGeneSetCohort(rl, gsets, true), false)[0];
++        assertTrue(Float.isFinite(esWeighted.getES()));
++        // hits at ranks 2, 3, 4 of 7: running sum -1/4, -1/2, then +1/3 per hit: max deviation +1/2 at rank 4
++        assertEquals(0.5, esClassic.getES(), 1e-6);
++        assertEquals(esClassic.getES(), esWeighted.getES(), 1e-6);
++        assertEquals(esClassic.getRankAtES(), esWeighted.getRankAtES());
++    }
++}
+-- 
+2.43.0
+

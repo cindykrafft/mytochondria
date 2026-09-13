@@ -1,0 +1,43 @@
+build: java -jar /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/trimmomatic/master-ef98d62-trimmomatic-0.41.jar
+adapters: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/trimmomatic/src/adapters/TruSeq3-SE.fa {'TruSeq3_IndexedAdapter': 34, 'TruSeq3_UniversalAdapter': 34}
+
+A. 6,000 reads of 150 nt: 60% carry TruSeq3_IndexedAdapter, 20% the universal adapter, 20% none; adapter starts at a
+   random position 10-149 (truncated at the read end); per-base sequencing errors at rate 10^(-Q/10):
+   threshold 10  shipped == documented-sum rule 5971/6000, == best-sub-range port 5982/6000; adapter reads clipped exactly at the adapter start 4029/4763 (4252 have >= 16 adapter bases), missed 734; adapter-free reads clipped 0/1237; e.g. (name, adapter pos, shipped, doc, port): [('r229', 119, 150, 119, 119), ('r699', 93, 150, 93, 93), ('r814', 75, 150, 75, 150)]
+   threshold 7   shipped == documented-sum rule 5949/6000, == best-sub-range port 5959/6000; adapter reads clipped exactly at the adapter start 4335/4874 (4360 have >= 16 adapter bases), missed 538; adapter-free reads clipped 0/1126; e.g. (name, adapter pos, shipped, doc, port): [('r138', 134, 134, 150, 150), ('r299', 126, 126, 150, 150), ('r346', 133, 133, 150, 150)]
+   threshold 15  shipped == documented-sum rule 5965/6000, == best-sub-range port 5997/6000; adapter reads clipped exactly at the adapter start 3662/4860 (4359 have >= 16 adapter bases), missed 1198; adapter-free reads clipped 0/1140; e.g. (name, adapter pos, shipped, doc, port): [('r348', 107, 107, 150, 107), ('r386', 86, 86, 150, 86), ('r576', 95, 95, 150, 95)]
+
+B. 3' adapter fragments: 200 error-free reads (Q37) of 100 nt whose last k bases are the first k bases of TruSeq3_IndexedAdapter:
+   k    thr 7 clipped/200 (doc: k*0.602>=7 & k>11) thr 10 (k>15)                  thr 15 (k>15)                  score k*0.602
+   4   0 (doc 0)                     0 (doc 0)                     0 (doc 0)                     2.41
+   5   0 (doc 0)                     0 (doc 0)                     0 (doc 0)                     3.01
+   6   0 (doc 0)                     0 (doc 0)                     0 (doc 0)                     3.61
+   7   0 (doc 0)                     0 (doc 0)                     0 (doc 0)                     4.21
+   8   0 (doc 0)                     0 (doc 0)                     0 (doc 0)                     4.82
+   9   0 (doc 0)                     0 (doc 0)                     0 (doc 0)                     5.42
+   10  0 (doc 0)                     0 (doc 0)                     0 (doc 0)                     6.02
+   11  0 (doc 0)                     0 (doc 0)                     0 (doc 0)                     6.62
+   12  200 (doc 200)                 0 (doc 0)                     0 (doc 0)                     7.22
+   13  200 (doc 200)                 0 (doc 0)                     0 (doc 0)                     7.83
+   14  200 (doc 200)                 0 (doc 0)                     0 (doc 0)                     8.43
+   15  200 (doc 200)                 0 (doc 0)                     0 (doc 0)                     9.03
+   16  200 (doc 200)                 0 (doc 0)                     0 (doc 0)                     9.63
+   17  200 (doc 200)                 200 (doc 200)                 0 (doc 0)                     10.24
+   18  200 (doc 200)                 200 (doc 200)                 0 (doc 0)                     10.84
+   19  200 (doc 200)                 200 (doc 200)                 0 (doc 0)                     11.44
+   20  200 (doc 200)                 200 (doc 200)                 0 (doc 0)                     12.04
+   21  200 (doc 200)                 200 (doc 200)                 0 (doc 0)                     12.64
+   22  200 (doc 200)                 200 (doc 200)                 0 (doc 0)                     13.25
+   23  200 (doc 200)                 200 (doc 200)                 0 (doc 0)                     13.85
+   24  200 (doc 200)                 200 (doc 200)                 0 (doc 0)                     14.45
+   25  200 (doc 200)                 200 (doc 200)                 200 (doc 200)                 15.05
+
+C. a 12-nt adapter (AGATCGGAAGAG) in a custom FASTA, placed at position 80 of 100-nt Q37 reads:
+   threshold 5   clipped at 80: 200/200 (12 matches score 7.22; code minimum overlap 9)
+   threshold 7   clipped at 80: 200/200 (12 matches score 7.22; code minimum overlap 12)
+   threshold 8   clipped at 80: 0/200 (12 matches score 7.22; code minimum overlap 14)
+   threshold 10  clipped at 80: 0/200 (12 matches score 7.22; code minimum overlap 16)
+
+D. reads that start inside the adapter (adapter[10:] + 50 random bases, Q37), ILLUMINACLIP:...:2:30:10:
+   surviving reads: 0 of 200 | Input Reads: 200 Surviving: 0 (0.00%) Dropped: 200 (100.00%) (clip offset <= 0 drops the read)
+   20 random + full adapter + 20 random: kept exactly 20 bases for 200/200

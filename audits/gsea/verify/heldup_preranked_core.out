@@ -1,0 +1,35 @@
+==============================================================================
+heldup_preranked_core: ES / NES / p / FWER / FDR vs port and fgsea
+GSEA build: master (dc35c76 2025-03-10)   openjdk version "25.0.4" 2026-07-21   python 3.11.15
+==============================================================================
+R reference: fgsea 1.39.4 (R 4.3.3)
+
+== A. enrichment score, shipped GSEAPreranked vs port vs fgsea (max |diff| over 24 sets)
+scheme             p max|GSEA-port| max|GSEA-fgsea|     sets
+classic          0.0       7.76e-08       7.76e-08       24
+weighted         1.0       1.78e-07       1.78e-07       24
+weighted_p2      2.0       2.04e-07       2.04e-07       24
+
+   weighted ES, selected sets (GSEA / port / fgsea):
+   TOP_15               1.000000   1.000000   1.000000
+   TOP_100_DENSE        0.997436   0.997436   0.997436
+   BOTTOM_15           -1.000000  -1.000000  -1.000000
+   BOTTOM_200          -1.000000  -1.000000  -1.000000
+   SPLIT_39             0.603223   0.603223   0.603223
+   MIDDLE_80            0.515306   0.515306   0.515306
+   RANDOM_00_N226      -0.246534  -0.246533  -0.246533
+
+== B. NES / nominal p / FWER / FDR recomputed from the program's RND_ES (edb, 4 dp) vs the report
+   weighted     max|NES diff| 4.48e-05   max|p diff| (strict) 1.31e-03  (with ties) 1.31e-03   max|FWER diff| 1.00e-03
+                max|FDR diff| per-permutation formula 3.38e-04 ; paper's pooled formula 3.93e-03 (mean 5.91e-04)
+                sets with FDR<0.25: report 16, per-permutation 16, pooled 16 ; nominal p<0.05: 14 / port 14
+   classic      max|NES diff| 2.63e-04   max|p diff| (strict) 1.89e-03  (with ties) 1.89e-03   max|FWER diff| 2.00e-03
+                max|FDR diff| per-permutation formula 4.65e-04 ; paper's pooled formula 1.83e-03 (mean 4.83e-04)
+                sets with FDR<0.25: report 16, per-permutation 16, pooled 16 ; nominal p<0.05: 11 / port 11
+
+== C. RANK AT MAX and leading-edge 'tags' vs the port's running sum (weighted)
+   (GSEA reports RANK AT MAX as the 0-based position for a positive ES and as N minus that position
+    for a negative ES, i.e. counted from the bottom of the list: GeneSetSignalImpl.getRankAtMax)
+   sets checked: 24, mismatches: 0
+
+DONE

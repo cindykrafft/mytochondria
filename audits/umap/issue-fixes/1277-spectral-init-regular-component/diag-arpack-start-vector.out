@@ -1,0 +1,17 @@
+graph                        dim | v0=ones (4 calls) | v0=seeded uniform (4 calls)
+K10 (10 duplicates)            2 | identical         | identical
+K10 (10 duplicates)            5 | DIFFERS           | identical
+K12                            2 | identical         | identical
+K12                            5 | DIFFERS           | identical
+K16                            2 | DIFFERS           | identical
+K16                            5 | DIFFERS           | identical
+K30                            2 | identical         | identical
+K30                            5 | identical         | identical
+K60                            2 | identical         | identical
+K60                            5 | identical         | identical
+4-regular random n=40          2 | ERR:ArpackError   | identical
+4-regular random n=40          5 | ERR:ArpackError   | identical
+3-regular random n=100         2 | identical         | identical
+3-regular random n=100         5 | identical         | identical
+irregular random n=40          2 | identical         | identical
+irregular random n=40          5 | identical         | identical

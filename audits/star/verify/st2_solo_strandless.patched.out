@@ -1,0 +1,30 @@
+
+== --soloStrand Forward (uniquely mapped 1200 of 1200 reads) ==
+gene       strand  Gene       GeneFull   GeneFull_ExonOverIntron    GeneFull_Ex50pAS   GeneCounts [unstr, yes, rev]
+G1         +       300        300        300                        300                [300, 300, 0]
+G2         -       300        300        300                        300                [300, 300, 0]
+G3         .       300        300        300                        300                [300, 300, 300]
+G4         .       300        300        300                        300                [300, 300, 300]
+
+== --soloStrand Reverse (uniquely mapped 1200 of 1200 reads) ==
+gene       strand  Gene       GeneFull   GeneFull_ExonOverIntron    GeneFull_Ex50pAS   GeneCounts [unstr, yes, rev]
+G1         +       0          0          0                          0                  [300, 300, 0]
+G2         -       0          0          0                          0                  [300, 300, 0]
+G3         .       300        300        300                        300                [300, 300, 300]
+G4         .       300        300        300                        300                [300, 300, 300]
+
+== --soloStrand Unstranded (uniquely mapped 1200 of 1200 reads) ==
+gene       strand  Gene       GeneFull   GeneFull_ExonOverIntron    GeneFull_Ex50pAS   GeneCounts [unstr, yes, rev]
+G1         +       300        300        300                        300                [300, 300, 0]
+G2         -       300        300        300                        300                [300, 300, 0]
+G3         .       300        300        300                        300                [300, 300, 300]
+G4         .       300        300        300                        300                [300, 300, 300]
+Gene                       G3 ('.'): Forward 300  Reverse 300  Unstranded 300  -> as documented (sense reads counted with Forward)
+Gene                       G4 ('.'): Forward 300  Reverse 300  Unstranded 300  -> as documented (sense reads counted with Forward)
+GeneFull                   G3 ('.'): Forward 300  Reverse 300  Unstranded 300  -> as documented (sense reads counted with Forward)
+GeneFull                   G4 ('.'): Forward 300  Reverse 300  Unstranded 300  -> as documented (sense reads counted with Forward)
+GeneFull_ExonOverIntron    G3 ('.'): Forward 300  Reverse 300  Unstranded 300  -> as documented (sense reads counted with Forward)
+GeneFull_ExonOverIntron    G4 ('.'): Forward 300  Reverse 300  Unstranded 300  -> as documented (sense reads counted with Forward)
+GeneFull_Ex50pAS           G3 ('.'): Forward 300  Reverse 300  Unstranded 300  -> as documented (sense reads counted with Forward)
+GeneFull_Ex50pAS           G4 ('.'): Forward 300  Reverse 300  Unstranded 300  -> as documented (sense reads counted with Forward)
+'.'-strand gene/feature combinations with 0 of 300 sense reads under --soloStrand Forward: 0 of 8

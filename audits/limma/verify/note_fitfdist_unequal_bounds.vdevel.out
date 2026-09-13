@@ -1,0 +1,14 @@
+limma 3.99.0 R version 4.3.3 (2024-02-29) 
+true d0  new: df.prior  s2.prior  legacy: df.prior s2.prior median s2.post ratio new/legacy
+0.5         2.0006   0.50141           0.4927   0.04944          1.3924
+1           2.0004   0.10166           0.9927   0.05009          1.1063
+1.5         2.0005   0.06285           1.4956   0.05030          1.0358
+2           2.0396   0.04988           2.0623   0.05034          0.9981
+3           2.9761   0.04952           2.9608   0.04936          1.0011
+6           6.1904   0.04991           6.2236   0.04991          1.0000
+20         20.4649   0.05008          21.1420   0.05018          0.9978
+100       107.3183   0.04964          81.5288   0.04947          1.0050
+Inf      8134.8448   0.04976              Inf   0.04963          1.0027
+equal df=4, true d0=1: default df.prior 1.0034 (legacy) ; legacy=FALSE 2.0006
+true d0=0.5: a gene with s2 = 5*s0 and df=4 gets s2.post 0.3265 (new) vs 0.2278 (legacy); t-statistic ratio new/legacy 0.835
+true d0=1: a gene with s2 = 5*s0 and df=4 gets s2.post 0.2006 (new) vs 0.2101 (legacy); t-statistic ratio new/legacy 1.023

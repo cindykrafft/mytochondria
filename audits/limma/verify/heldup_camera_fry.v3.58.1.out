@@ -1,0 +1,16 @@
+limma 3.58.1 R version 4.3.3 (2024-02-29) 
+A. camera (estimated inter-gene correlation): NGenes ok TRUE; correlation 0.00e+00; PValue max |diff| 2.37e-09, max relative 1.39e-08; Direction ok TRUE
+   set 'up': camera p 2.87e-07 port 2.87e-07; set 'corr': correlation 0.0007, p 0.762 (port 0.762); FDR == BH: TRUE
+   camera (inter.gene.cor=0.01 default): PValue max |diff| 2.01e-09, max relative 3.23e-07
+   use.ranks=TRUE, inter.gene.cor=0: p 5.199e-35 vs normal-approximation Wilcoxon on eBayes t: 5.194e-35
+B. fry vs mroast(nrot=49999), directional PValue:
+              fry   roast    fry.mixed roast.mixed
+[1,] 7.627938e-08 0.00002 1.975464e-11     0.00002
+[2,] 8.483705e-01 0.85806 3.014689e-01     0.24422
+[3,] 2.846960e-01 0.30328 1.014403e-02     0.07576
+   fry directional p == 2*pt(-|t|, df.residual) with t from the effects matrix: TRUE
+C. zscoreT df=  3: max |hill - exact| 7.93e-04   max |bailey - exact| 2.58e-02   (approx=FALSE) 1.78e-15
+C. zscoreT df=  5: max |hill - exact| 5.43e-05   max |bailey - exact| 1.66e-02   (approx=FALSE) 1.78e-15
+C. zscoreT df= 10: max |hill - exact| 4.71e-07   max |bailey - exact| 7.42e-03   (approx=FALSE) 1.78e-15
+C. zscoreT df= 30: max |hill - exact| 1.70e-08   max |bailey - exact| 1.34e-03   (approx=FALSE) 3.55e-15
+C. zscoreT df=100: max |hill - exact| 4.02e-11   max |bailey - exact| 1.07e-04   (approx=FALSE) 3.55e-15

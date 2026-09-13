@@ -1,0 +1,8 @@
+warnings during the two fits: ['n_jobs value 1 overridden to 1 by setting random_state. Use no seed for parallelism.']
+graph_ identical: True | sigmas identical: True | rhos identical: True
+embedding identical: False max|d| 5.014673233032227
+spectral_layout call 0: warnings []
+spectral_layout call 1: warnings []
+spectral_layout call 2: warnings []
+spectral init call0 vs call1 identical: True max|d| 0.0 | call1 vs call2: True
+simplicial_set_embedding with a fixed array init, twice: identical: True max|d| 0.0

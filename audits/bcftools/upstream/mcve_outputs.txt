@@ -1,0 +1,28 @@
+### /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/bcftools/src-base/bcftools (unmodified)
+150	C	T,<*>	DP=1340 MQBZ=-7.88325 
+expected MQBZ=-36.5923 (U=0, mean=26000, tie-corrected var=504854.37)
+bcftools 7abcc0d6
+--- NREF=1290 (1290^3 fits in 32 bits):
+150	C	T,<*>	DP=1330 MQBZ=-36.4555 
+expected MQBZ=-36.4555 (U=0, mean=25800, tie-corrected var=500857.79)
+bcftools 7abcc0d6
+### /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/bcftools/rel/bcftools-1.24/bcftools (unmodified)
+150	C	T,<*>	DP=1340 MQBZ=-7.88325 
+expected MQBZ=-36.5923 (U=0, mean=26000, tie-corrected var=504854.37)
+bcftools 1.24
+--- NREF=1290 (1290^3 fits in 32 bits):
+150	C	T,<*>	DP=1330 MQBZ=-36.4555 
+expected MQBZ=-36.4555 (U=0, mean=25800, tie-corrected var=500857.79)
+bcftools 1.24
+### /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/bcftools/rel/bcftools-1.13/bcftools (unmodified)
+150	C	T,<*>	DP=1340 MQBZ=-7.88325 
+expected MQBZ=-36.5923 (U=0, mean=26000, tie-corrected var=504854.37)
+bcftools 1.13
+--- NREF=1290 (1290^3 fits in 32 bits):
+150	C	T,<*>	DP=1330 MQBZ=-36.4555 
+expected MQBZ=-36.4555 (U=0, mean=25800, tie-corrected var=500857.79)
+bcftools 1.13
+### patched build (/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/bcftools/src, branch fix/mwu-biasz-int64)
+150	C	T,<*>	DP=1340 MQBZ=-36.5924 
+expected MQBZ=-36.5923 (U=0, mean=26000, tie-corrected var=504854.37)
+bcftools 7abcc0d6-dirty

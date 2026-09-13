@@ -1,0 +1,8 @@
+limma 3.68.5 R version 4.3.3 (2024-02-29) 
+A. no outliers: df.prior 4.9208 (robust: min 3.7609, max 4.9571) ; s2.prior 0.03974 vs 0.03978 (true 5, 0.04)
+B. with outliers: non-robust df.prior 3.5180 s2.prior 0.03947 ; robust df.prior (non-outlier genes) 4.2199 s2.prior 0.04060 ; robust df.prior on the 200 hypervariable genes: median 0.852, min 0.668
+   df.prior monotone non-decreasing in the F tail probability: TRUE
+   false discoveries at adj.P<0.05 (all null): non-robust 0, robust 0 ; among the wild-observation genes: 0 vs 0
+C. unequal-df estimator (legacy=FALSE) robust: df.prior length 1 (non-outlier 3.5421, hypervariable median 3.542), s2.prior 0.03956 ; false discoveries 0
+   hypervariable genes: median s2.post/sigma^2 legacy-robust 0.879, unequal-df-robust 0.640, non-robust 0.641 (true variance ratio to the prior scale: 30)
+D. robust+trend: s2.prior range 0.03799..0.04652, df.prior non-outlier 4.2281

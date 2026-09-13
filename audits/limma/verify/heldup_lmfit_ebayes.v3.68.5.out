@@ -1,0 +1,22 @@
+limma 3.68.5 R version 4.3.3 (2024-02-29) 
+A. lmFit(weights, NAs) vs closed-form WLS: coef 3.87e-14  stdev.unscaled 1.11e-15  sigma 4.44e-15  df.residual 0
+   lmFit(NAs, no weights) vs lm.fit per gene: coef 0.00e+00
+B. contrasts.fit (no weights): coef 0.00e+00  stdev.unscaled vs sqrt(diag(C'VC)) 0.00e+00  cov.coefficients 5.55e-17
+C. eBayes: df.prior 3.908572 (port 3.908572, true 4)  s2.prior 0.048335 (port 0.048335, true 0.05)
+   s2.post 2.98e-14  t 1.39e-12  p.value 3.44e-15  df.total 8.88e-14 (df.total = 10.9086)
+   legacy=TRUE identical to default: TRUE;  legacy=FALSE (fitFDistUnequalDF1) df.prior 3.9233 s2.prior 0.048389
+   B-statistic closed form given var.prior: 0.00e+00 (var.prior = 331.0244   0.2099  77.8561)
+   moderated F (coef 2:3) vs b'V^-1 b/(2 s2.post): 8.53e-14 ; F.p.value vs pf(.,2,df.prior+df.residual): 7.77e-16
+   null coefficient x1: fraction p<0.05 = 0.0553 (3000 genes), KS p = 0.698
+   trend=TRUE: s2.prior range 0.04634..0.05595, df.prior 3.9055; trend=fe$Amean identical: TRUE
+D. treat(lfc=0.3): p.value 0.00e+00  t 0.00e+00  (df.prior 3.908572 = eBayes TRUE)
+E. topTable adj.P.Val vs p.adjust(BH) over all genes: 0.00e+00 ; sorted by B: TRUE
+   p.value=0.05: 180 rows, all adj.P.Val <= 0.05 and equal to the unfiltered BH values: TRUE
+   confint=TRUE: CI.L/CI.R vs logFC -/+ qt(0.975, df.total)*se: 4.44e-16 4.44e-16
+F. decideTests(separate) == sign(coef)*(BH per column < 0.05): TRUE
+   decideTests(global) == sign(coef)*(BH over the whole matrix < 0.05): TRUE
+   decideTests(hierarchical) == port (F-selected 3000 genes, cutoff 0.05*1.0000): TRUE
+   decideTests(nestedF): 3000 genes with any call, all within the F-selected set: TRUE
+   N-T: 1000 genes, gene 1 with BH-adjusted p == 0.05 exactly (TRUE): decideTests(p.value=0.05) calls it 1; topTable(p.value=0.05) keeps it: TRUE
+G. 12-gene fit (seed 4): df.residual 7 each, pooled 84, df.prior 164.3; df.total used for t = 84; df2 used for F = 171.335 (= df.prior+df.residual)
+   F.p.value (df2 = df.prior+df.residual) vs pf with df2 = df.total: max |diff| 4.40e-03 (p range 0.134..0.949)

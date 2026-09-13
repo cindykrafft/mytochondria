@@ -1,0 +1,13 @@
+Uniquely mapped reads number |	8
+                        Uniquely mapped reads % |	100.00%
+                          Average mapped length |	60.00
+read         genomic (chr, pos, rev, CIGAR) transcriptome expected (tr,pos,rev,CIGAR,seq) transcriptome got                   
+TP_fwd_100   ('chr1', 301, False, '60M')  ('TP', 101, False, '60M', 'ATCAGAAATG..') ('TP', 101, False, '60M', 'ATCAGAAATG..')
+TP_rev_100   ('chr1', 301, True, '60M')   ('TP', 101, True, '60M', 'ATCAGAAATG..') ('TP', 101, True, '60M', 'ATCAGAAATG..')
+TP_fwd_270   ('chr1', 471, False, '30M300N30M') ('TP', 271, False, '60M', 'GTTAGTACGA..') ('TP', 271, False, '60M', 'GTTAGTACGA..')
+TP_rev_270   ('chr1', 471, True, '30M300N30M') ('TP', 271, True, '60M', 'GTTAGTACGA..') ('TP', 271, True, '60M', 'GTTAGTACGA..')
+TD_fwd_100   ('chr1', 1801, False, '60M') ('TD', 101, False, '60M', 'GCACAGAGAC..') ('TD', 101, False, '60M', 'GCACAGAGAC..')
+TD_rev_100   ('chr1', 1801, True, '60M')  ('TD', 101, True, '60M', 'GCACAGAGAC..') ('TD', 101, True, '60M', 'GCACAGAGAC..')
+TD_fwd_270   ('chr1', 1971, False, '30M300N30M') ('TD', 271, False, '60M', 'ACTTAAGCTT..') ('TD', 271, False, '60M', 'ACTTAAGCTT..')
+TD_rev_270   ('chr1', 1971, True, '30M300N30M') ('TD', 271, True, '60M', 'ACTTAAGCTT..') ('TD', 271, True, '60M', 'ACTTAAGCTT..')
+records differing from expectation: 0 of 8 (TP '+': 0, TD '.': 0)

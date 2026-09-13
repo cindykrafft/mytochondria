@@ -1,0 +1,128 @@
+From d8b55b4586634a1edb7721eff8cb05a133ace62d Mon Sep 17 00:00:00 2001
+From: Mytochondria audit <cynthiacondra@gmail.com>
+Date: Sun, 13 Sep 2026 05:37:44 +0000
+Subject: [PATCH 1/2] arrayWeights(): fix the convergence criterion of the
+ prior-weights REML fit
+
+.arrayWeightsPrWtsREML() (src/awreml.c) divided the Fisher-scoring
+convergence criterion by (ngenes+prior.n) a second time: the score
+vector and information matrix are already per-gene averages, so the
+criterion was (ngenes+prior.n) times smaller than the one used by
+.arrayWeightsREML() for the same state, and the default tol=1e-5 was
+met after one or two iterations. With a weight matrix of ones the two
+routines fit the same model but returned weights differing by up to
+15% (10,000 genes, 8 arrays). The criterion is now num/ngam, the same
+per-gene scale as .arrayWeightsREML(), so the two routines agree to
+rounding on equal prior weights.
+
+Adds tests/arrayweights-reml.R and changelog/NEWS entries.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ R/arrayWeightsPrWtsREML.R |  2 +-
+ inst/NEWS.Rd              |  8 ++++++++
+ inst/doc/changelog.txt    | 11 +++++++++++
+ src/awreml.c              |  6 +++++-
+ tests/arrayweights-reml.R | 17 +++++++++++++++++
+ 5 files changed, 42 insertions(+), 2 deletions(-)
+ create mode 100644 tests/arrayweights-reml.R
+
+diff --git a/R/arrayWeightsPrWtsREML.R b/R/arrayWeightsPrWtsREML.R
+index 249da2f..6b4f360 100644
+--- a/R/arrayWeightsPrWtsREML.R
++++ b/R/arrayWeightsPrWtsREML.R
+@@ -4,7 +4,7 @@
+ #	Gordon Smyth
+ #	Created 12 Feb 2019 from .arrayWeightsREML.
+ #	C implement and parallel support by Lizhong Chen
+-#	Last revised 18 June 2026.
++#	Last revised 13 Sep 2026.
+ {
+ #	y should be a numeric matrix
+ 	y <- as.matrix(y)
+diff --git a/inst/NEWS.Rd b/inst/NEWS.Rd
+index 3735976..d471e51 100644
+--- a/inst/NEWS.Rd
++++ b/inst/NEWS.Rd
+@@ -4,6 +4,14 @@
+ 
+ 
+ \section{version 4.0.0 (2026-10-30)}{\itemize{
++  \item
++  Bug fix to arrayWeights() with `method="reml"` and prior weights
++  (.arrayWeightsPrWtsREML()), which is also the path used by
++  voomLmFit() with `sample.weights=TRUE` when no df are lost to exact
++  zero fitted values. The convergence criterion was divided by
++  (ngenes+prior.n) twice, so the Fisher scoring iteration stopped
++  after one or two steps at under-converged sample weights.
++
+   \item
+   voomLmFit() transferred to limma from the edgeR package.
+   Previously, voomLmFit() needed to call edgeR::glmFit() in order to
+diff --git a/inst/doc/changelog.txt b/inst/doc/changelog.txt
+index e6c6f98..3e57641 100755
+--- a/inst/doc/changelog.txt
++++ b/inst/doc/changelog.txt
+@@ -1,5 +1,16 @@
+ 30 Oct 2026: limma 3.99.0
+ 
++- Bug fix to .arrayWeightsPrWtsREML(), called by arrayWeights() when
++  method="reml" and prior weights are set (including by voomLmFit()
++  with sample.weights=TRUE and voomWithQualityWeights() with
++  method="reml"). The convergence criterion was divided by
++  (ngenes+prior.n) a second time, so the default tolerance was met
++  after one or two Fisher scoring iterations and the sample weights
++  were under-converged (up to 15% away from the REML solution in
++  simulations). The criterion is now the same as in
++  .arrayWeightsREML(), so the two routines agree exactly when the
++  prior weights are all equal. New test file arrayweights-reml.R.
++
+ - voomLmFit() transferred to limma from the edgeR package.
+   Previously, voomLmFit() needed to call edgeR::glmFit() in order to
+   identify exact zero fitted values, but voomLmFit() now calls a
+diff --git a/src/awreml.c b/src/awreml.c
+index 19942c3..6247cdd 100644
+--- a/src/awreml.c
++++ b/src/awreml.c
+@@ -398,9 +398,13 @@ int awreml(const double *y, const double *design, const double *weights, const d
+ 			w[i] = exp(-s);
+ 		}
+ 
++		/* dl and info2 are already per-gene averages (divided by denom above), so
++		 * num = dl'gamstep is on the per-gene scale of .arrayWeightsREML's criterion
++		 * crossprod(dl,gamstep)/ngam/(ngenes+prior.n); dividing by denom again would
++		 * make tol effectively (ngenes+prior.n) times looser. */
+ 		for(c = 0; c < ngam; c++)
+ 			num += dl[c] * sol[c];
+-		convcrit = num / denom / ngam;
++		convcrit = num / ngam;
+ 
+ 		if(trace)
+ 		{
+diff --git a/tests/arrayweights-reml.R b/tests/arrayweights-reml.R
+new file mode 100644
+index 0000000..f5ee3e9
+--- /dev/null
++++ b/tests/arrayweights-reml.R
+@@ -0,0 +1,17 @@
++library(limma)
++
++# arrayWeights(method="reml") with prior weights (.arrayWeightsPrWtsREML, C backend) must
++# iterate to the same tolerance as the weight-free REML fit: with a weight matrix of ones
++# the two routines fit the same model and must return the same array weights.
++
++set.seed(1)
++narrays <- 6
++ngenes <- 2000
++design <- cbind(Int=1, Group=rep(0:1, each=3))
++y <- matrix(rnorm(ngenes*narrays, sd=rep(c(2,1,0.5,2,1,0.5), each=ngenes)), ngenes, narrays) + 8
++w0 <- arrayWeights(y, design, method="reml")
++w1 <- arrayWeights(y, design, weights=matrix(1, ngenes, narrays), method="reml")
++w2 <- arrayWeights(y, design, weights=matrix(1, ngenes, narrays), method="reml", nthreads=2L)
++stopifnot(isTRUE(all.equal(w0, w1, tolerance=1e-10, check.attributes=FALSE)))
++stopifnot(isTRUE(all.equal(w1, w2, tolerance=1e-12, check.attributes=FALSE)))
++
+-- 
+2.43.0
+

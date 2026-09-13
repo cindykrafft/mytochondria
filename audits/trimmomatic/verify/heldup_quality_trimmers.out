@@ -1,0 +1,62 @@
+build: java -jar /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/trimmomatic/master-ef98d62-trimmomatic-0.41.jar
+
+A. SLIDINGWINDOW on 20,000 reads (50-250 nt, ~1% N):
+   SLIDINGWINDOW:4:15 vs as-coded port      shipped == reference 20000/20000
+   SLIDINGWINDOW:4:15 vs documented reading shipped == reference 20000/20000
+   SLIDINGWINDOW:4:20 vs as-coded port      shipped == reference 20000/20000
+   SLIDINGWINDOW:4:20 vs documented reading shipped == reference 20000/20000
+   SLIDINGWINDOW:5:20 vs as-coded port      shipped == reference 20000/20000
+   SLIDINGWINDOW:5:20 vs documented reading shipped == reference 20000/20000
+   SLIDINGWINDOW:4:30 vs as-coded port      shipped == reference 20000/20000
+   SLIDINGWINDOW:4:30 vs documented reading shipped == reference 20000/20000
+   SLIDINGWINDOW:3:20 vs as-coded port      shipped == reference 20000/20000
+   SLIDINGWINDOW:3:20 vs documented reading shipped == reference 20000/20000
+   SLIDINGWINDOW:4:5 vs as-coded port       shipped == reference 20000/20000
+   SLIDINGWINDOW:4:5 vs documented reading  shipped == reference 20000/20000
+   SLIDINGWINDOW:10:25 vs as-coded port     shipped == reference 20000/20000
+   SLIDINGWINDOW:10:25 vs documented reading shipped == reference 20000/20000
+   note: both references score an N base as quality 0 (the code's getQualityAsInteger(true)); without that the ports differ.
+   all-Q40 reads of length 1,2,3,4,5,8 through SLIDINGWINDOW:4:15 -> surviving: {'s4': 4, 's5': 5, 's8': 8} | Input Reads: 6 Surviving: 3 (50.00%) Dropped: 3 (50.00%)
+   same reads through SLIDINGWINDOW:8:15 -> surviving: {'s8': 8} (reads shorter than the window are dropped whatever their quality)
+   read whose first 4 bases are Q2 then 88 x Q40, SLIDINGWINDOW:4:15 -> surviving: {} (first window fails: whole read dropped, as the documented 'clip at the first failing window' implies)
+
+B. LEADING / TRAILING on the same 20,000 reads:
+   LEADING:3                                shipped == reference 20000/20000
+   TRAILING:3 vs documented                 shipped == reference 20000/20000
+   TRAILING:3 vs as-coded (loop stops at 1) shipped == reference 20000/20000
+   LEADING:20                               shipped == reference 20000/20000
+   TRAILING:20 vs documented                shipped == reference 20000/20000
+   TRAILING:20 vs as-coded (loop stops at 1) shipped == reference 20000/20000
+   LEADING:30                               shipped == reference 20000/20000
+   TRAILING:30 vs documented                shipped == reference 20000/20000
+   TRAILING:30 vs as-coded (loop stops at 1) shipped == reference 20000/20000
+   TRAILING:20 on reads whose only Q30 base is the first / the last / the first two: {'only_last': 40, 'first_two': 2} -> dropped: ['only_first']
+   LEADING:20 on the same reads: {'only_first': 40, 'only_last': 1, 'first_two': 40} -> dropped: []
+
+C. length and average-quality steps on 5,000 reads of length 1-200:
+   MINLEN:36                                shipped == reference 5000/5000
+   MINLEN:100                               shipped == reference 5000/5000
+   MAXLEN:100                               shipped == reference 5000/5000
+   CROP:75                                  shipped == reference 5000/5000
+   HEADCROP:10                              shipped == reference 5000/5000
+   TAILCROP:10                              shipped == reference 5000/5000
+   AVGQUAL:20                               shipped == reference 5000/5000
+   AVGQUAL:30                               shipped == reference 5000/5000
+   BASECOUNT:N:0:2                          shipped == reference 5000/5000
+   BASECOUNT:GC:40:120                      shipped == reference 5000/5000
+   HEADCROP:10 on reads of 10 and 11 nt -> surviving: {'eleven': 1} | Input Reads: 2 Surviving: 1 (50.00%) Dropped: 1 (50.00%)
+   CROP:0 on a 10-nt read -> surviving: {'ten': 0} | Input Reads: 1 Surviving: 1 (100.00%) Dropped: 0 (0.00%) (a zero-length record is written)
+   LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 (chained) shipped == reference 5000/5000
+
+D. TOPHRED33 / TOPHRED64 conversion:
+   -phred33 input, TOPHRED64: output qualities read back with offset 64 equal the input integers for 200/200 reads
+   -phred64 input, TOPHRED33: output read back with offset 33 equals the input for 200/200 reads
+   -phred33 input, TOPHRED33: unchanged for 200/200 reads
+
+E. automatic Phred-offset detection (no -phred flag; the parser histograms the first 10,000 reads):
+   typical qualities (2-40) written Phred+33 -> ('Quality encoding detected as phred33', 0, 500)
+   typical qualities (2-40) written Phred+64 -> ('Quality encoding detected as phred64', 0, 500)
+   all qualities 27-40 (a strictly pre-filtered library) written Phred+33 -> ('Error: Unable to detect quality encoding', 1, 0)
+   all qualities 27-40 written Phred+64 -> ('Quality encoding detected as phred64', 0, 500)
+   all qualities 2-15 written Phred+64 (chars 66-79, counted by neither window) -> ('Error: Unable to detect quality encoding', 1, 0)
+   qualities 30-93 as in PacBio HiFi FASTQ, written Phred+33 -> ('Quality encoding detected as phred64', 0, 500)

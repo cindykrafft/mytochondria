@@ -1,0 +1,37 @@
+==============================================================================
+heldup_expression_metrics: ranking metrics, gene-set and phenotype permutation
+GSEA build: master (dc35c76 2025-03-10)   openjdk version "25.0.4" 2026-07-21   python 3.11.15
+==============================================================================
+
+== A. ranked-list SCORE vs port (max |diff| over 3000 genes; ranking order compared as a permutation)
+   metric                      max|diff|      max rel    order   example low-variance gene
+   Signal2Noise                 1.13e-07     2.65e-03     same   G0260: GSEA 0.00414 port 0.00414 (sd_A 0.424 sd_B 0.501, 0.2|mean| = 19.99)
+   tTest                        7.46e-07     2.65e-03     same   G0260: GSEA 0.01746 port 0.01746 (sd_A 0.424 sd_B 0.501, 0.2|mean| = 19.99)
+   Ratio_of_Classes             1.30e-06     1.04e-06     same   G0260: GSEA 1.00166 port 1.00166 (sd_A 0.424 sd_B 0.501, 0.2|mean| = 19.99)
+/home/user/research-software-audit/audits/gsea/verify/gsea_port.py:181: RuntimeWarning: invalid value encountered in log2
+  return np.log2(np.mean(a) / np.mean(b))
+   log2_Ratio_of_Classes        1.37e-07     2.65e-03     same   G0260: GSEA 0.00239 port 0.00239 (sd_A 0.424 sd_B 0.501, 0.2|mean| = 19.99)  [NaN in both: 30, in one only: 0]
+   Diff_of_Classes              4.02e-05     2.65e-03     same   G0260: GSEA 0.16540 port 0.16540 (sd_A 0.424 sd_B 0.501, 0.2|mean| = 19.99)
+   Signal2Noise -median         5.43e-07     7.59e-04     same   G0260: GSEA 0.00803 port 0.00803 (sd_A 0.424 sd_B 0.501, 0.2|mean| = 19.99)
+   zero-mean gene G0370 under Signal2Noise: GSEA 0.04376, port 0.04376 (mean_A 4.6e-05; floor sigma = 0.2)
+
+== B. gene-set permutation (Signal2Noise, weighted, 1000 perms): ES vs port; NES/p/FWER/FDR from RND_ES
+   max |ES GSEA - port| over 25 sets: 1.77e-07
+   max|NES diff| 1.83e-05  max|p diff| 5.19e-08  max|FWER diff| 1.00e-03  max|FDR diff| (per-permutation formula) 4.49e-04
+   UP_IN_A          ES   0.9130 NES   2.879 p 0.000 FDR 0.000
+   DOWN_IN_A        ES  -0.9219 NES  -3.287 p 0.000 FDR 0.000
+   LOWVAR_SHIFTED   ES   0.5980 NES   1.881 p 0.002 FDR 0.007
+   LOWVAR_FLAT      ES  -0.4972 NES  -2.035 p 0.000 FDR 0.001
+   ZEROMEAN         ES   0.9373 NES   2.674 p 0.000 FDR 0.000
+
+== C. phenotype permutation (Signal2Noise, 1000 perms)
+   signal data: max|NES diff| 1.68e-05  max|p diff| 2.27e-03  max|FDR diff| 8.85e-04
+   UP_IN_A          ES   0.9130 NES   2.143 p 0.000 FDR 0.000 FWER 0.000
+   DOWN_IN_A        ES  -0.9219 NES  -2.126 p 0.000 FDR 0.001 FWER 0.001
+   LOWVAR_SHIFTED   ES   0.5980 NES   1.190 p 0.000 FDR 0.320 FWER 0.842
+   LOWVAR_FLAT      ES  -0.4972 NES  -1.033 p 0.044 FDR 0.477 FWER 0.996
+   null ES range over all sets and permutations: [-0.866, 0.833]
+   null data, phenotype : 100 sets, p<0.05 in 9 (0.090), p<0.25 in 28 (0.280), KS D=0.066 p=0.75, FDR<0.25 in 2
+   null data, gene_set  : 100 sets, p<0.05 in 6 (0.060), p<0.25 in 29 (0.290), KS D=0.058 p=0.87, FDR<0.25 in 1
+
+DONE

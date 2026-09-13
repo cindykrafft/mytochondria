@@ -1,0 +1,33 @@
+# Output of the MCVE scripts, 2026-09-13.  "master" = the jar built from GSEA-MSigDB/gsea-desktop master @ dc35c76
+# (= v4.4.0 + a README commit); "patched" = master + the corresponding patch in this directory.  Java: OpenJDK 25.0.4.
+
+== mcve_gs1_weighted_p15.sh on master
+weighted_p1.5: NEG_SPREAD 3 -0.999997   (NAME SIZE ES)
+weighted_p2: NEG_SPREAD 3 -0.74920636   (NAME SIZE ES)
+== mcve_gs1_weighted_p15.sh on master + 0001 (expected weighted_p1.5 ES: -0.7202, weighted_p2: -0.7492)
+weighted_p1.5: NEG_SPREAD 3 -0.7202288   (NAME SIZE ES)
+weighted_p2: NEG_SPREAD 3 -0.74920636   (NAME SIZE ES)
+
+== mcve_gs2_set_min_equals_max.sh on master
+control (-set_min 10 -set_max 11): analysed SIZE10 
+equal (-set_min 10 -set_max 10): analysed SIZE10 SIZE20 SIZE5 
+equal_absent (-set_min 10 -set_max 10): FAILED: Exception: No such name: NOT_IN_LIST
+== mcve_gs2_set_min_equals_max.sh on master + 0002
+control (-set_min 10 -set_max 11): analysed SIZE10 
+equal (-set_min 10 -set_max 10): analysed SIZE10 
+equal_absent (-set_min 10 -set_max 10): analysed SIZE10 SIZE10_ABSENT
+
+== mcve_gs3_zero_weight_set.sh on master  (columns: NAME SIZE ES NES NOM-p FDR RANK-AT-MAX; expected for ZEROS: the classic value +0.8214, or no value with a warning)
+weighted:
+  BOTTOM	5	-1.0	-1.5571214	0.0	0.021764033	6
+  ZEROS	12	-0.17857143	-0.35087985	1.0	0.9988545	36
+classic:
+  BOTTOM	5	-1.0	-2.620524	0.0	0.0	6
+  ZEROS	12	0.8214286	3.034824	0.0	0.0	16
+== mcve_gs3_zero_weight_set.sh on master + 0003
+weighted:
+  BOTTOM	5	-1.0	-1.5541677	0.0	0.010907004	6
+  ZEROS	12	0.8214286	1.8708675	0.0027173914	0.0016447369	16
+classic:
+  BOTTOM	5	-1.0	-2.620524	0.0	0.0	6
+  ZEROS	12	0.8214286	3.034824	0.0	0.0	16

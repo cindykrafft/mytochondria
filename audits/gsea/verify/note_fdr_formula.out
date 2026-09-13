@@ -1,0 +1,14 @@
+==============================================================================
+note_fdr_formula: per-permutation vs pooled FDR numerator; strict nominal p
+GSEA build: master (dc35c76 2025-03-10)   openjdk version "25.0.4" 2026-07-21   python 3.11.15
+==============================================================================
+sets: 120 (92 with ES >= 0); positive NES per permutation column: min 80, median 93, max 111
+report FDR vs port per-permutation formula: max |diff| 4.40e-04 (rounding of RND_ES to 4 dp)
+pooled (paper) minus per-permutation (GSEA): max |diff| 0.0012, mean |diff| 0.0001, over sets with q < 0.5: max 0.0012
+sets with FDR < 0.25: report 40, pooled 40; < 0.05: report 30, pooled 30
+largest difference: S076 NES -1.084, GSEA q 0.4645, pooled q 0.4633
+
+nominal p: report vs strict count max |diff| 2.47e-03; strict vs ties-counted max |diff| 0.00e+00; sets with p = 0 exactly: 30 of 120
+(with 1,000 permutations a strict count reports p = 0 rather than the 1/(n+1) floor some tools use; documented GSEA behaviour)
+
+DONE

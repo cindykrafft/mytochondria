@@ -1,0 +1,80 @@
+cohort: 489
+full text: 0   survey-cache fallback: 489   ({'offline': 489})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  STAR named                                       488
+  DESeq2 / edgeR / limma downstream                327
+  trimming before STAR                             203
+  featureCounts / htseq-count                      170
+  mouse genome (GRCm38/39, mm10)                   164
+  human genome (GRCh38/hg38/hg19)                  158
+  STAR version stated                              150
+  MultiQC / QC                                     112
+  Picard / samtools also used                      111
+  single-cell / STARsolo                           109
+  GENCODE / Ensembl annotation                     97
+  TranscriptomeSAM / RSEM / salmon                 75
+  paired-end reads                                 47
+  ribosomal / mitochondrial filtering              31
+  2-pass mode                                      27
+  multimapper option stated                        26
+  outSAMstrandField / Cufflinks / StringTie        24
+  uniquely mapped reads reported                   21
+  SJ.out.tab / splicing analysis                   17
+  ENCODE options                                   14
+  stranded library                                 13
+  GeneCounts / ReadsPerGene                        8
+  chimeric / fusion                                5
+  mapping rate / % mapped reported                 5
+  sjdbOverhang stated                              4
+
+VERSION FAMILY: {'2.5': 67, '2.7.10': 36, '2.6': 34, '2.7.9': 28, '2.7.3': 25, '2.7.11': 16, '2.7.0': 16, '2.7.1': 13, '2.4': 12, '2.7.8': 11, '2.7.7': 10, '2.7.5': 9, '2.7.2': 7, '2.7': 6, '2.7.6': 6, '2.3': 4, '2.7.4': 4, '2.2': 2, '2.70': 2, '2.11': 1}
+VERSIONS (top 20): {'2.7.10a': 26, '2.5.2b': 25, '2.7.9a': 24, '2.7.3a': 20, '2.6.1d': 13, '2.5.3a': 11, '2.7.1a': 11, '2.7.10b': 10, '2.7.8a': 10, '2.7.11b': 9, '2.7.7a': 9, '2.7.0': 8, '2.7.11a': 6, '2.4.2a': 6, '2.7': 6, '2.5.1b': 6, '2.6.0c': 6, '2.7.3': 5, '2.5.2a': 5, '2.5.2': 5}
+
+outFilterMultimapNmax / max loci: {'1': 8, '20': 4, '100': 4, '10': 2, '1000': 2, '1000000': 1, '20000': 1, '5000': 1, '50': 1}
+sjdbOverhang: {'100': 2, '74': 1}
+uniquely mapped %: {'95': 1}
+mapping rate %: {}
+read lengths (bp): {50: 2, 75: 1, 42: 1}
+
+CO-PACKAGES (top 40):
+  DESeq2                   267
+  R                        260
+  ImageJ                   158
+  UMAP                     152
+  Seurat                   144
+  featureCounts            125
+  SAMtools                 121
+  GSEA                     118
+  MACS2                    92
+  FastQC                   92
+  Cutadapt                 89
+  Bowtie2                  88
+  ggplot2                  77
+  Trimmomatic              72
+  edgeR                    70
+  BEDTools                 69
+  HTSeq                    67
+  Bioconductor             65
+  Python                   60
+  RSEM                     60
+  Picard                   56
+  limma                    55
+  BWA                      53
+  Trim Galore              51
+  clusterProfiler          50
+  GATK                     48
+  HOMER                    47
+  Scanpy                   45
+  deepTools                45
+  scDblFinder              44
+  fgsea                    39
+  scikit-learn             38
+  SciPy                    36
+  minimap2                 34
+  BLAST                    33
+  pheatmap                 31
+  seaborn                  26
+  AlphaFold                26
+  tidyverse                26
+  RepeatMasker             25

@@ -1,0 +1,43 @@
+build: java -jar /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/trimmomatic/master-ef98d62-trimmomatic-0.41.jar
+A. palindrome + simple mode on error-free 2x100 / 2x150 pairs, one pair per insert length; expectation = the documented palindrome rule
+   (smallest insert scoring >= 30, forward clipped to it, reverse dropped unless keepBothReads, at least minAdapterLength adapter bases)
+   combined with the simple-mode sequences of the file scored by the best-sub-range port (tm_ref.simple_clip mode='code'):
+   TruSeq3-PE.fa      2x100  2:30:10            inserts 0..119: shipped == reference 120/120
+   TruSeq3-PE.fa      2x100  2:30:10:1:true     inserts 0..119: shipped == reference 120/120
+   TruSeq3-PE.fa      2x100  2:30:10:20:false   inserts 0..119: shipped == reference 120/120
+   TruSeq3-PE.fa      2x150  2:30:10            inserts 0..169: shipped == reference 170/170
+   TruSeq3-PE.fa      2x150  2:30:10:1:true     inserts 0..169: shipped == reference 170/170
+   TruSeq3-PE.fa      2x150  2:30:10:20:false   inserts 0..169: shipped == reference 170/170
+   TruSeq3-PE-2.fa    2x100  2:30:10            inserts 0..119: shipped == reference 120/120
+   TruSeq3-PE-2.fa    2x100  2:30:10:1:true     inserts 0..119: shipped == reference 120/120
+   TruSeq3-PE-2.fa    2x100  2:30:10:20:false   inserts 0..119: shipped == reference 120/120
+   TruSeq3-PE-2.fa    2x150  2:30:10            inserts 0..169: shipped == reference 170/170
+   TruSeq3-PE-2.fa    2x150  2:30:10:1:true     inserts 0..169: shipped == reference 170/170
+   TruSeq3-PE-2.fa    2x150  2:30:10:20:false   inserts 0..169: shipped == reference 170/170
+   NexteraPE-PE.fa    2x100  2:30:10            inserts 0..119: shipped == reference 120/120
+   NexteraPE-PE.fa    2x100  2:30:10:1:true     inserts 0..119: shipped == reference 120/120
+   NexteraPE-PE.fa    2x100  2:30:10:20:false   inserts 0..119: shipped == reference 120/120
+   NexteraPE-PE.fa    2x150  2:30:10            inserts 0..169: shipped == reference 170/170
+   NexteraPE-PE.fa    2x150  2:30:10:1:true     inserts 0..169: shipped == reference 170/170
+   NexteraPE-PE.fa    2x150  2:30:10:20:false   inserts 0..169: shipped == reference 170/170
+
+B. 3,000 pairs (2x100, Illumina-like qualities) through LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 (no adapters):
+   per-pair outputs (file, sequence, quality) equal the expectation for 3000/3000; mismatches: []
+   expected counts: {'both': 2969, 'fwd': 11, 'rev': 20, 'dropped': 0}
+   log line:       Input Read Pairs: 3000 Both Surviving: 2969 (98.97%) Forward Only Surviving: 11 (0.37%) Reverse Only Surviving: 20 (0.67%) Dropped: 0 (0.00%)
+   -summary file:  Input Read Pairs: 3000 | Both Surviving Reads: 2969 | Both Surviving Read Percent: 98.97 | Forward Only Surviving Reads: 11 | Forward Only Surviving Read Percent: 0.37 | Reverse Only Surviving Reads: 20 | Reverse Only Surviving Read Percent: 0.67 | Dropped Reads: 0 | Dropped Read Percent: 0.00
+   -summary file equals the expectation: True
+   -trimlog: 6000 lines for 6000 input reads; lines equal to (name, surviving length, first surviving base, end, bases trimmed from the end): 6000/6000; mismatches: []
+
+C. -threads invariance (same 3,000 pairs, ILLUMINACLIP:TruSeq3-PE-2.fa:2:30:10 + the steps above, uncompressed output):
+   -threads 1: Input Read Pairs: 3000 Both Surviving: 2969 (98.97%) Forward Only Surviving: 11 (0.37%) Reverse Only Surviving: 20 (0.67%) Dropped: 0 (0.00%)
+   -threads 2: Input Read Pairs: 3000 Both Surviving: 2969 (98.97%) Forward Only Surviving: 11 (0.37%) Reverse Only Surviving: 20 (0.67%) Dropped: 0 (0.00%)
+   -threads 4: Input Read Pairs: 3000 Both Surviving: 2969 (98.97%) Forward Only Surviving: 11 (0.37%) Reverse Only Surviving: 20 (0.67%) Dropped: 0 (0.00%)
+   -threads 8: Input Read Pairs: 3000 Both Surviving: 2969 (98.97%) Forward Only Surviving: 11 (0.37%) Reverse Only Surviving: 20 (0.67%) Dropped: 0 (0.00%)
+   four outputs + summary + trimlog byte-identical across -threads 1/2/4/8: True
+   SE, -threads 1 vs 4 vs 8 with ILLUMINACLIP:TruSeq3-SE.fa:2:30:10 + steps:
+   SE output byte-identical across -threads 1/4/8: True
+
+D. input files of unequal length (forward 100 reads, reverse 90; MINLEN:1):
+    Input Read Pairs: 90 Both Surviving: 90 (100.00%) Forward Only Surviving: 0 (0.00%) Reverse Only Surviving: 0 (0.00%) Dropped: 0 (0.00%) | reads in 1P/1U/2P/2U: {'1P': 90, '1U': 0, '2P': 90, '2U': 0}
+    with -validatePairs: ['WARNING: Pair validation failed at record: 90'] | Input Read Pairs: 90 Both Surviving: 90 (100.00%) Forward Only Surviving: 0 (0.00%) Reverse Only Surviving: 0 (0.00%) Dropped: 0 (0.00%)

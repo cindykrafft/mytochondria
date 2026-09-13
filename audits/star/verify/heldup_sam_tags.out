@@ -1,0 +1,62 @@
+
+== single-end, defaults ==
+  AS ok                                        6401
+  HI consecutive 1..NH                         5696
+  MAPQ ok                                      6401
+  NH ok                                        6401
+  alignments                                   6401
+  jM/jI ok                                     6401
+  nM ok                                        6401
+  one primary with max AS                      5696
+  primary alignment at the simulated locus     5044
+  primary alignment differs from simulation: overhang >= 8 (non-canonical unannotated junction) 8
+  primary alignment differs from simulation: overhang >= 8 (other) 3
+  primary alignment differs from simulation: simulated overhang < 8 bases 36
+  reads with NH>1 whose alignments are at one locus (spliced vs clipped variants) 5
+
+== paired-end, defaults ==
+  AS ok                                        3803
+  HI consecutive 1..NH                         3600
+  MAPQ ok                                      3803
+  NH ok                                        3803
+  alignments                                   3803
+  jM/jI ok                                     7606
+  nM ok                                        3803
+  one primary with max AS                      3600
+  pair flags ok                                3803
+  primary alignment at the simulated locus     3348
+  primary alignment differs from simulation    49
+  reads with NH>1 whose alignments are at one locus (spliced vs clipped variants) 3
+
+== single-end reads with 1-5 bp deletions / 1-3 bp insertions ==
+  AS ok                                        60
+  HI consecutive 1..NH                         60
+  MAPQ ok                                      60
+  NH ok                                        60
+  alignments                                   60
+  jM/jI ok                                     60
+  nM ok                                        60
+  one primary with max AS                      60
+  indel-read CIGARs: {'66M1I33M': 2, '47M1D53M': 2, '58M3I39M': 2, '49M1D51M': 2, '55M1I44M': 2, '52M5D48M': 2, '48M1D52M': 1, '64M2D36M': 1, '60M2I38M': 1, '50M3D50M': 1, '67M3I30M': 1, '45M5D55M': 1}
+
+== single-end, --outSAMstrandField intronMotif ==
+  AS ok                                        6383
+  HI consecutive 1..NH                         5682
+  MAPQ ok                                      6383
+  NH ok                                        6383
+  XS ok                                        6383
+  alignments                                   6383
+  jM/jI ok                                     6383
+  nM ok                                        6383
+  one primary with max AS                      5682
+  primary alignment at the simulated locus     5005
+  primary alignment differs from simulation: overhang >= 8 (non-canonical unannotated junction) 35
+  primary alignment differs from simulation: overhang >= 8 (other) 3
+  primary alignment differs from simulation: simulated overhang < 8 bases 38
+  reads with NH>1 whose alignments are at one locus (spliced vs clipped variants) 1
+  G16 reads with a spliced alignment: default run 48, intronMotif run 14 (the manual: undefined-strand alignments are suppressed)
+  primary locus of the 300 G13/G13copy multimappers (chrom, HI): run 1 {('chrA', 1): 147, ('chrB', 1): 153}; run 2 {('chrA', 1): 147, ('chrB', 1): 153}
+  with --outMultimapperOrder Random --runRNGseed 777: {('chrB', 1): 143, ('chrA', 1): 157}
+  with --outSAMmultNmax 1, G13 reads: (records, NH, secondary) -> count {(1, 2, False): 300}
+
+TOTAL tag/flag mismatches: 0

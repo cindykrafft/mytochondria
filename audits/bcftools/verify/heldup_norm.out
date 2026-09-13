@@ -1,0 +1,47 @@
+bcftools: bcftools 7abcc0d6 / Using htslib 1.24-1-ge503e04
+
+A. left-alignment and parsimony (positions 1-based)
+   number of output records                                   bcftools 9                            truth 9                            ok
+   1007 CAGC>C                                                bcftools (1000, 'TCAG', 'T')          truth (1000, 'TCAG', 'T')          ok
+   1012 G>GCAG                                                bcftools (1000, 'T', 'TCAG')          truth (1000, 'T', 'TCAG')          ok
+   1504 A>AA                                                  bcftools (1500, 'C', 'CA')            truth (1500, 'C', 'CA')            ok
+   1503 AAA>A                                                 bcftools (1500, 'CAA', 'C')           truth (1500, 'CAA', 'C')           ok
+   2004 TAT>T                                                 bcftools (2000, 'CAT', 'C')           truth (2000, 'CAT', 'C')           ok
+   2009 A>AAT                                                 bcftools (2009, 'A', 'AAT')           truth (2009, 'A', 'AAT')           ok
+   300 AATC>AATA                                              bcftools (303, 'C', 'A')              truth (303, 'C', 'A')              ok
+   500 T>G                                                    bcftools (500, 'T', 'G')              truth (500, 'T', 'G')              ok
+   1004 CAGC>C,CAGCCAG                                        bcftools (1004, 'CAGC', 'C,CAGCCAG')  truth (1004, 'CAGC', 'C,CAGCCAG')  ok
+   (default --multi-overlaps is 0, i.e. the other ALT becomes REF when splitting: vcfnorm.c:2600)
+
+B. split -m - of a multiallelic SNP with Number=A/R/G tags (samples: 1/2, 0/1, 0/2, 0/0, ./.)
+   number of records                                          bcftools 2                            truth 2                            ok
+   rec 0 ALT                                                  bcftools A                            truth A                            ok
+   rec 0 AC,AF (Number=A element 0)                           bcftools ('2', '0.2')                 truth ('2', '0.2')                 ok
+   rec 0 AN,DP carried                                        bcftools ('10', '50')                 truth ('10', '50')                 ok
+   rec 0 s1 GT,PL,AD,GQ                                       bcftools ('1/0', '40,30,50', '2,9', '30') truth ('1/0', '40,30,50', '2,9', '30') ok
+   rec 0 s2 GT,PL,AD,GQ                                       bcftools ('0/1', '10,0,40', '7,6', '20') truth ('0/1', '10,0,40', '7,6', '20') ok
+   rec 0 s3 GT,PL,AD,GQ                                       bcftools ('0/0', '15,45,90', '5,0', '25') truth ('0/0', '15,45,90', '5,0', '25') ok
+   rec 0 s4 GT,PL,AD,GQ                                       bcftools ('0/0', '0,30,60', '12,0', '35') truth ('0/0', '0,30,60', '12,0', '35') ok
+   rec 0 s5 missing sample                                    bcftools ('./.', '.', '.,.', '.')     truth ('./.', '.', '.,.', '.')     ok
+   rec 1 ALT                                                  bcftools C                            truth C                            ok
+   rec 1 AC,AF (Number=A element 1)                           bcftools ('3', '0.3')                 truth ('3', '0.3')                 ok
+   rec 1 AN,DP carried                                        bcftools ('10', '50')                 truth ('10', '50')                 ok
+   rec 1 s1 GT,PL,AD,GQ                                       bcftools ('0/1', '40,0,20', '2,8', '30') truth ('0/1', '40,0,20', '2,8', '30') ok
+   rec 1 s2 GT,PL,AD,GQ                                       bcftools ('0/0', '10,50,70', '7,0', '20') truth ('0/0', '10,50,70', '7,0', '20') ok
+   rec 1 s3 GT,PL,AD,GQ                                       bcftools ('0/1', '15,0,10', '5,4', '25') truth ('0/1', '15,0,10', '5,4', '25') ok
+   rec 1 s4 GT,PL,AD,GQ                                       bcftools ('0/0', '0,30,60', '12,0', '35') truth ('0/0', '0,30,60', '12,0', '35') ok
+   rec 1 s5 missing sample                                    bcftools ('./.', '.', '.,.', '.')     truth ('./.', '.', '.,.', '.')     ok
+
+C. join -m + of the two split records back (what the merge produces for PL/GT/AC/AF/AN)
+   number of records                                          bcftools 1                            truth 1                            ok
+   ALT                                                        bcftools A,C                          truth A,C                          ok
+   AC, AF joined (Number=A concatenated)                      bcftools ('2,3', '0.2,0.3')           truth ('2,3', '0.2,0.3')           ok
+   AN, DP (Number=1: taken from the first record)             bcftools ('10', '50')                 truth ('10', '50')                 ok
+   s1  original 1/2:40,30,50,0,10,20:2,9,8:30 joined GT=1/2 PL=40,30,50,0,.,20 AD=2,9,8 GQ=30
+   s2  original 0/1:10,0,40,50,60,70:7,6,0:20 joined GT=0/1 PL=10,0,40,50,.,70 AD=7,6,0 GQ=20
+   s3  original 0/2:15,45,90,0,25,10:5,0,4:25 joined GT=0/2 PL=15,45,90,0,.,10 AD=5,0,4 GQ=25
+   s4  original 0/0:0,30,60,30,60,60:12,0,0:35 joined GT=0/0 PL=0,30,60,30,.,60 AD=12,0,0 GQ=35
+   s5  original ./.:.:.:.                    joined GT=./. PL=. AD=.,.,. GQ=.
+   (PL(1/2) and the 1/2 genotype cannot be recovered from the two biallelic records; see the review for what bcftools writes)
+
+mismatches: 0

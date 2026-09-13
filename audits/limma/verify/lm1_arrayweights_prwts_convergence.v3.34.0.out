@@ -1,0 +1,2 @@
+limma 3.34.0 R version 4.3.3 (2024-02-29) 
+This version has no .arrayWeightsPrWtsREML (arrayWeights predates the 2019 rewrite): not affected/not present

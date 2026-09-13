@@ -1,0 +1,33 @@
+==============================================================================
+GS2: set_min == set_max disables the size filter
+GSEA build: patched_gs2 (master + patch gs2)   openjdk version "25.0.4" 2026-07-21   python 3.11.15
+==============================================================================
+
+== A control: -set_min 20 -set_max 21  (expected: SIZE_20_top and SIZE_20_random only)
+   sets analysed: ['SIZE_20_RANDOM', 'SIZE_20_TOP']
+   SIZE_20_RANDOM   size=  20 ES=  0.3747 NES=  1.165 p=0.268 FDR=0.264
+   SIZE_20_TOP      size=  20 ES=  1.0000 NES=  3.156 p=0.000 FDR=0.000
+
+== A: -set_min 20 -set_max 20  (expected: the same two sets)
+   sets analysed: ['SIZE_20_RANDOM', 'SIZE_20_TOP']
+   SIZE_20_RANDOM   size=  20 ES=  0.3747 NES=  1.165 p=0.268 FDR=0.264
+   SIZE_20_TOP      size=  20 ES=  1.0000 NES=  3.156 p=0.000 FDR=0.000
+
+== A: -set_min 15 -set_max 15  (expected: no set of size exactly 15 -> error 'none of the gene sets passed')
+   RUN FAILED: Exception: After pruning, none of the gene sets passed size thresholds.
+
+== B control: -set_min 20 -set_max 21 with a set carrying 5 absent ids (expected: restricted to 20, analysed)
+   sets analysed: ['SIZE_20_RANDOM', 'SIZE_20_TOP', 'SIZE_20_WITH_ABSENT']
+   SIZE_20_RANDOM   size=  20 ES=  0.3747 NES=  1.165 p=0.268 FDR=0.234
+   SIZE_20_TOP      size=  20 ES=  1.0000 NES=  3.156 p=0.000 FDR=0.000
+   SIZE_20_WITH_ABSENT size=  20 ES=  0.9495 NES=  3.148 p=0.000 FDR=0.000
+
+== B: -set_min 20 -set_max 20 with the same file
+   sets analysed: ['SIZE_20_RANDOM', 'SIZE_20_TOP', 'SIZE_20_WITH_ABSENT']
+   SIZE_20_RANDOM   size=  20 ES=  0.3747 NES=  1.165 p=0.268 FDR=0.234
+   SIZE_20_TOP      size=  20 ES=  1.0000 NES=  3.156 p=0.000 FDR=0.000
+   SIZE_20_WITH_ABSENT size=  20 ES=  0.9495 NES=  3.148 p=0.000 FDR=0.000
+
+port ES (weighted) for reference: SIZE_5=1.0000, SIZE_20_TOP=1.0000, SIZE_20_RANDOM=0.3747, SIZE_900=0.1466
+
+DONE

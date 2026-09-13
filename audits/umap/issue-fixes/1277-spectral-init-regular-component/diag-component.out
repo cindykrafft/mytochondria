@@ -1,0 +1,7 @@
+pruned graph: nnz 22350 of 25530 | connected components: 2 | sizes: [1790   10] ...
+unpruned graph components: 1
+spectral_layout on pruned COO graph twice: identical False 1.69498872756958
+component_layout call 0 first row [1.]
+component_layout call 1 first row [1.]
+multi_component_layout twice: identical False 1.536938190460205
+components whose layout differs: 1 of 2 | sizes of those: [10]

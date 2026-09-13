@@ -1,0 +1,288 @@
+bcftools: bcftools 7abcc0d6-dirty / Using htslib 1.24-1-ge503e04
+
+biallelic sites (2000 samples), exact HWE / ExcHet and the count tags
+ AA/AB/BB=(10, 5, 1)
+   AN                                       bcftools 32             truth 32             ok
+   AC                                       bcftools 7              truth 7              ok
+   NS                                       bcftools 16             truth 16             ok
+   AC_Het                                   bcftools 5              truth 5              ok
+   AC_Hom                                   bcftools 2              truth 2              ok
+   F_MISSING                                bcftools 0.992          truth 0.992          ok
+   AF                                       bcftools 0.21875        truth 0.21875        ok
+   MAF                                      bcftools 0.21875        truth 0.21875        ok
+   HWE (p, Wigginton 2005)                  bcftools 1.0            truth 1.0            ok
+   ExcHet (P(het >= obs))                   bcftools 0.891855       truth 0.8918551476949698 ok
+ AA/AB/BB=(0, 4, 0)
+   AN                                       bcftools 8              truth 8              ok
+   AC                                       bcftools 4              truth 4              ok
+   NS                                       bcftools 4              truth 4              ok
+   AC_Het                                   bcftools 4              truth 4              ok
+   AC_Hom                                   bcftools 0              truth 0              ok
+   F_MISSING                                bcftools 0.998          truth 0.998          ok
+   AF                                       bcftools 0.5            truth 0.5            ok
+   MAF                                      bcftools 0.5            truth 0.5            ok
+   HWE (p, Wigginton 2005)                  bcftools 0.314286       truth 0.3142857142857143 ok
+   ExcHet (P(het >= obs))                   bcftools 0.228571       truth 0.22857142857142856 ok
+ AA/AB/BB=(100, 0, 100)
+   AN                                       bcftools 400            truth 400            ok
+   AC                                       bcftools 200            truth 200            ok
+   NS                                       bcftools 200            truth 200            ok
+   AC_Het                                   bcftools 0              truth 0              ok
+   AC_Hom                                   bcftools 200            truth 200            ok
+   F_MISSING                                bcftools 0.9            truth 0.9            ok
+   AF                                       bcftools 0.5            truth 0.5            ok
+   MAF                                      bcftools 0.5            truth 0.5            ok
+   HWE (p, Wigginton 2005)                  bcftools 0.0            truth 8.795173943032362e-61 ok
+   ExcHet (P(het >= obs))                   bcftools 1.0            truth 1.0            ok
+ AA/AB/BB=(50, 100, 50)
+   AN                                       bcftools 400            truth 400            ok
+   AC                                       bcftools 200            truth 200            ok
+   NS                                       bcftools 200            truth 200            ok
+   AC_Het                                   bcftools 100            truth 100            ok
+   AC_Hom                                   bcftools 100            truth 100            ok
+   F_MISSING                                bcftools 0.9            truth 0.9            ok
+   AF                                       bcftools 0.5            truth 0.5            ok
+   MAF                                      bcftools 0.5            truth 0.5            ok
+   HWE (p, Wigginton 2005)                  bcftools 1.0            truth 1.0            ok
+   ExcHet (P(het >= obs))                   bcftools 0.570251       truth 0.5702509985179092 ok
+ AA/AB/BB=(999, 2, 0)
+   AN                                       bcftools 2002           truth 2002           ok
+   AC                                       bcftools 2              truth 2              ok
+   NS                                       bcftools 1001           truth 1001           ok
+   AC_Het                                   bcftools 2              truth 2              ok
+   AC_Hom                                   bcftools 0              truth 0              ok
+   F_MISSING                                bcftools 0.4995         truth 0.4995         ok
+   AF                                       bcftools 0.000999001    truth 0.000999000999000999 ok
+   MAF                                      bcftools 0.000999001    truth 0.000999000999000999 ok
+   HWE (p, Wigginton 2005)                  bcftools 1.0            truth 1.0            ok
+   ExcHet (P(het >= obs))                   bcftools 0.9995         truth 0.9995002498750625 ok
+ AA/AB/BB=(1, 1, 1)
+   AN                                       bcftools 6              truth 6              ok
+   AC                                       bcftools 3              truth 3              ok
+   NS                                       bcftools 3              truth 3              ok
+   AC_Het                                   bcftools 1              truth 1              ok
+   AC_Hom                                   bcftools 2              truth 2              ok
+   F_MISSING                                bcftools 0.9985         truth 0.9985         ok
+   AF                                       bcftools 0.5            truth 0.5            ok
+   MAF                                      bcftools 0.5            truth 0.5            ok
+   HWE (p, Wigginton 2005)                  bcftools 1.0            truth 1.0            ok
+   ExcHet (P(het >= obs))                   bcftools 1.0            truth 1.0            ok
+ AA/AB/BB=(30, 29, 0)
+   AN                                       bcftools 118            truth 118            ok
+   AC                                       bcftools 29             truth 29             ok
+   NS                                       bcftools 59             truth 59             ok
+   AC_Het                                   bcftools 29             truth 29             ok
+   AC_Hom                                   bcftools 0              truth 0              ok
+   F_MISSING                                bcftools 0.9705         truth 0.9705         ok
+   AF                                       bcftools 0.245763       truth 0.2457627118644068 ok
+   MAF                                      bcftools 0.245763       truth 0.2457627118644068 ok
+   HWE (p, Wigginton 2005)                  bcftools 0.012908       truth 0.012908038730039198 ok
+   ExcHet (P(het >= obs))                   bcftools 0.00989147     truth 0.009891474577377362 ok
+ AA/AB/BB=(0, 1, 0)
+   AN                                       bcftools 2              truth 2              ok
+   AC                                       bcftools 1              truth 1              ok
+   NS                                       bcftools 1              truth 1              ok
+   AC_Het                                   bcftools 1              truth 1              ok
+   AC_Hom                                   bcftools 0              truth 0              ok
+   F_MISSING                                bcftools 0.9995         truth 0.9995         ok
+   AF                                       bcftools 0.5            truth 0.5            ok
+   MAF                                      bcftools 0.5            truth 0.5            ok
+   HWE (p, Wigginton 2005)                  bcftools 1.0            truth 1.0            ok
+   ExcHet (P(het >= obs))                   bcftools 1.0            truth 1.0            ok
+ AA/AB/BB=(600, 800, 600)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 2000           truth 2000           ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 800            truth 800            ok
+   AC_Hom                                   bcftools 1200           truth 1200           ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.5            truth 0.5            ok
+   MAF                                      bcftools 0.5            truth 0.5            ok
+   HWE (p, Wigginton 2005)                  bcftools 2.95949e-19    truth 2.959488148357043e-19 ok
+   ExcHet (P(het >= obs))                   bcftools 1.0            truth 1.0            ok
+ AA/AB/BB=(1990, 10, 0)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 10             truth 10             ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 10             truth 10             ok
+   AC_Hom                                   bcftools 0              truth 0              ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.0025         truth 0.0025         ok
+   MAF                                      bcftools 0.0025         truth 0.0025         ok
+   HWE (p, Wigginton 2005)                  bcftools 1.0            truth 1.0            ok
+   ExcHet (P(het >= obs))                   bcftools 0.988787       truth 0.9887865518925752 ok
+ AA/AB/BB=(0, 0, 2000)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 4000           truth 4000           ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 0              truth 0              ok
+   AC_Hom                                   bcftools 4000           truth 4000           ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 1.0            truth 1.0            ok
+   MAF                                      bcftools 0.0            truth 0.0            ok
+   HWE (p, Wigginton 2005)                  bcftools 1.0            truth 1.0            ok
+   ExcHet (P(het >= obs))                   bcftools 1.0            truth 1.0            ok
+ AA/AB/BB=(2000, 0, 0)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 0              truth 0              ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 0              truth 0              ok
+   AC_Hom                                   bcftools 0              truth 0              ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.0            truth 0.0            ok
+   MAF                                      bcftools 0.0            truth 0.0            ok
+   HWE (p, Wigginton 2005)                  bcftools 1.0            truth 1.0            ok
+   ExcHet (P(het >= obs))                   bcftools 1.0            truth 1.0            ok
+ AA/AB/BB=(3, 3, 3)
+   AN                                       bcftools 18             truth 18             ok
+   AC                                       bcftools 9              truth 9              ok
+   NS                                       bcftools 9              truth 9              ok
+   AC_Het                                   bcftools 3              truth 3              ok
+   AC_Hom                                   bcftools 6              truth 6              ok
+   F_MISSING                                bcftools 0.9955         truth 0.9955         ok
+   AF                                       bcftools 0.5            truth 0.5            ok
+   MAF                                      bcftools 0.5            truth 0.5            ok
+   HWE (p, Wigginton 2005)                  bcftools 0.502427       truth 0.502426984779926 ok
+   ExcHet (P(het >= obs))                   bcftools 0.974085       truth 0.9740847387906212 ok
+ AA/AB/BB=(1200, 2, 798)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 1598           truth 1598           ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 2              truth 2              ok
+   AC_Hom                                   bcftools 1596           truth 1596           ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.3995         truth 0.3995         ok
+   MAF                                      bcftools 0.3995         truth 0.3995         ok
+   HWE (p, Wigginton 2005)                  bcftools 0.0            truth 0.0            ok
+   ExcHet (P(het >= obs))                   bcftools 1.0            truth 1.0            ok
+ AA/AB/BB=(663, 308, 1029)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 2366           truth 2366           ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 308            truth 308            ok
+   AC_Hom                                   bcftools 2058           truth 2058           ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.5915         truth 0.5915         ok
+   MAF                                      bcftools 0.4085         truth 0.4085         ok
+   HWE (p, Wigginton 2005)                  bcftools 0.0            truth 4.556793911028848e-219 ok
+   ExcHet (P(het >= obs))                   bcftools 1.0            truth 1.0            ok
+ AA/AB/BB=(808, 98, 1094)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 2286           truth 2286           ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 98             truth 98             ok
+   AC_Hom                                   bcftools 2188           truth 2188           ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.5715         truth 0.5715         ok
+   MAF                                      bcftools 0.4285         truth 0.4285         ok
+   HWE (p, Wigginton 2005)                  bcftools 0.0            truth 0.0            ok
+   ExcHet (P(het >= obs))                   bcftools 1.0            truth 1.0            ok
+ AA/AB/BB=(148, 1681, 171)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 2023           truth 2023           ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 1681           truth 1681           ok
+   AC_Hom                                   bcftools 342            truth 342            ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.50575        truth 0.50575        ok
+   MAF                                      bcftools 0.49425        truth 0.49424999999999997 ok
+   HWE (p, Wigginton 2005)                  bcftools 0.0            truth 1.2186779997127429e-222 ok
+   ExcHet (P(het >= obs))                   bcftools 0.0            truth 6.580626023650275e-223 ok
+ AA/AB/BB=(1097, 96, 807)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 1710           truth 1710           ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 96             truth 96             ok
+   AC_Hom                                   bcftools 1614           truth 1614           ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.4275         truth 0.4275         ok
+   MAF                                      bcftools 0.4275         truth 0.4275         ok
+   HWE (p, Wigginton 2005)                  bcftools 0.0            truth 0.0            ok
+   ExcHet (P(het >= obs))                   bcftools 1.0            truth 1.0            ok
+ AA/AB/BB=(748, 1193, 59)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 1311           truth 1311           ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 1193           truth 1193           ok
+   AC_Hom                                   bcftools 118            truth 118            ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.32775        truth 0.32775        ok
+   MAF                                      bcftools 0.32775        truth 0.32775        ok
+   HWE (p, Wigginton 2005)                  bcftools 0.0            truth 5.328451976966032e-64 ok
+   ExcHet (P(het >= obs))                   bcftools 0.0            truth 4.2142350278155805e-64 ok
+ AA/AB/BB=(118, 1863, 19)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 1901           truth 1901           ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 1863           truth 1863           ok
+   AC_Hom                                   bcftools 38             truth 38             ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.47525        truth 0.47525        ok
+   MAF                                      bcftools 0.47525        truth 0.47525        ok
+   HWE (p, Wigginton 2005)                  bcftools 0.0            truth 0.0            ok
+   ExcHet (P(het >= obs))                   bcftools 0.0            truth 0.0            ok
+ AA/AB/BB=(1039, 219, 742)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 1703           truth 1703           ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 219            truth 219            ok
+   AC_Hom                                   bcftools 1484           truth 1484           ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.42575        truth 0.42575        ok
+   MAF                                      bcftools 0.42575        truth 0.42575        ok
+   HWE (p, Wigginton 2005)                  bcftools 0.0            truth 1.1765477893932951e-295 ok
+   ExcHet (P(het >= obs))                   bcftools 1.0            truth 1.0            ok
+ AA/AB/BB=(76, 176, 1748)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 3672           truth 3672           ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 176            truth 176            ok
+   AC_Hom                                   bcftools 3496           truth 3496           ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.918          truth 0.918          ok
+   MAF                                      bcftools 0.082          truth 0.08199999999999996 ok
+   HWE (p, Wigginton 2005)                  bcftools 1.4013e-45     truth 1.1151901723404915e-45 ok
+   ExcHet (P(het >= obs))                   bcftools 1.0            truth 1.0            ok
+ AA/AB/BB=(888, 856, 256)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 1368           truth 1368           ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 856            truth 856            ok
+   AC_Hom                                   bcftools 512            truth 512            ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.342          truth 0.342          ok
+   MAF                                      bcftools 0.342          truth 0.342          ok
+   HWE (p, Wigginton 2005)                  bcftools 0.0288288      truth 0.028828825477546872 ok
+   ExcHet (P(het >= obs))                   bcftools 0.987727       truth 0.9877268380971119 ok
+ AA/AB/BB=(143, 492, 1365)
+   AN                                       bcftools 4000           truth 4000           ok
+   AC                                       bcftools 3222           truth 3222           ok
+   NS                                       bcftools 2000           truth 2000           ok
+   AC_Het                                   bcftools 492            truth 492            ok
+   AC_Hom                                   bcftools 2730           truth 2730           ok
+   F_MISSING                                bcftools 0.0            truth 0.0            ok
+   AF                                       bcftools 0.8055         truth 0.8055         ok
+   MAF                                      bcftools 0.1945         truth 0.1945         ok
+   HWE (p, Wigginton 2005)                  bcftools 1.21864e-19    truth 1.2186443023607093e-19 ok
+   ExcHet (P(het >= obs))                   bcftools 1.0            truth 1.0            ok
+ haploid+phased+half-missing site
+   AN                                       bcftools 2100           truth 2100           ok
+   AC                                       bcftools 1200           truth 1200           ok
+   NS                                       bcftools 1500           truth 1500           ok
+   AC_Het                                   bcftools 400            truth 400            ok
+   AC_Hom                                   bcftools 400            truth 400            ok
+   AC_Hemi                                  bcftools 400            truth 400            ok
+   F_MISSING                                bcftools 0.3            truth 0.3            ok
+   AF                                       bcftools 0.571429       truth 0.5714285714285714 ok
+   MAF                                      bcftools 0.428571       truth 0.42857142857142855 ok
+
+multiallelic site: 0/0 x100, 0/1 x40, 0/2 x30, 1/2 x20, 1/1 x10, 2/2 x5
+   bcftools AN=410 AC=80,60 AF=0.195122,0.146341 AC_Het=60,50 AC_Hom=20,10 HWE=0.377683,0.784561 ExcHet=0.872677,0.711343
+   AN                                       bcftools 410            truth 410            ok
+   AC                                       bcftools 80,60          truth 80,60          ok
+   truth pooling the other allele with REF: HWE=0.371175,0.778104 ExcHet=0.8902,0.753635
+   fill-tags.c counts for ALT1: nref=320 (pooled truth 2*AA+AB=330) nalt=80 nhet=60
+   fill-tags.c counts for ALT2: nref=330 (pooled truth 2*AA+AB=350) nalt=60 nhet=50
+   (the source comment at fill-tags.c:953 says multiallelic genotypes are neglected; see the review)
+
+mismatches (biallelic and count tags): 0

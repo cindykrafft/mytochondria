@@ -1,0 +1,107 @@
+From d44f77e2e9de9d32ae280b50837954219870f682 Mon Sep 17 00:00:00 2001
+From: Mytochondria audit <cynthiacondra@gmail.com>
+Date: Sun, 13 Sep 2026 05:38:08 +0000
+Subject: [PATCH] Fixed the weighted_p1.5 hit weight for negative ranking
+ scores
+
+WeightedOnePointFive.getHitScore computed Math.pow(score, 1.5) on the signed score, which
+is NaN for a negative score and was then replaced by 0.000001f.  The normaliser in the
+constructor already uses |score|^1.5, so every gene set member on the negative side of
+the ranked list contributed a hit weight of 1e-6 instead of |score|^1.5 / N_R, and sets
+enriched at the bottom of the list (or with members on both sides) got a wrong
+enrichment score under the weighted_p1.5 scoring scheme.  Use the absolute value, as the
+weighted and weighted_p2 schemes effectively do.
+
+Adds GeneSetScoringTablesTest covering the three weighted schemes.
+---
+ .../genome/alg/gsea/GeneSetScoringTables.java |  3 +-
+ .../alg/gsea/GeneSetScoringTablesTest.java    | 63 +++++++++++++++++++
+ 2 files changed, 65 insertions(+), 1 deletion(-)
+ create mode 100644 src/test/java/edu/mit/broad/genome/alg/gsea/GeneSetScoringTablesTest.java
+
+diff --git a/src/main/java/edu/mit/broad/genome/alg/gsea/GeneSetScoringTables.java b/src/main/java/edu/mit/broad/genome/alg/gsea/GeneSetScoringTables.java
+index 8f9f990..7a65cdc 100755
+--- a/src/main/java/edu/mit/broad/genome/alg/gsea/GeneSetScoringTables.java
++++ b/src/main/java/edu/mit/broad/genome/alg/gsea/GeneSetScoringTables.java
+@@ -225,7 +225,8 @@ public class GeneSetScoringTables {
+ 
+         public float getHitScore(String name) {
+             float score = rankedList.getScore(name);
+-            float ss = (float) Math.pow(score, 1.5);
++            // Use the absolute value, as in the constructor: Math.pow(score, 1.5) is NaN for a negative score
++            float ss = (float) Math.pow(Math.abs(score), 1.5);
+             float hitScore = ss / totalWeight_sq;
+             return Float.isFinite(hitScore) ? hitScore : 0.000001f;
+         }
+diff --git a/src/test/java/edu/mit/broad/genome/alg/gsea/GeneSetScoringTablesTest.java b/src/test/java/edu/mit/broad/genome/alg/gsea/GeneSetScoringTablesTest.java
+new file mode 100644
+index 0000000..57c3d72
+--- /dev/null
++++ b/src/test/java/edu/mit/broad/genome/alg/gsea/GeneSetScoringTablesTest.java
+@@ -0,0 +1,63 @@
++/*
++ * Copyright (c) 2003-2025 Broad Institute, Inc., Massachusetts Institute of Technology, and Regents of the University of California.  All rights reserved.
++ */
++package edu.mit.broad.genome.alg.gsea;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++
++import java.util.Arrays;
++
++import org.junit.jupiter.api.Test;
++
++import edu.mit.broad.genome.math.Vector;
++import edu.mit.broad.genome.objects.DefaultRankedList;
++import edu.mit.broad.genome.objects.GeneSet;
++import edu.mit.broad.genome.objects.RankedList;
++
++/**
++ * Unit tests for the gene set scoring tables (hit and miss weights of the enrichment score).
++ * The weighted schemes must weight a hit by |score|^p regardless of the sign of the score.
++ */
++public class GeneSetScoringTablesTest {
++    // A six gene ranked list, symmetric about zero: a=3, b=2, c=1, d=-1, e=-2, f=-3
++    private static RankedList rankedList() {
++        return new DefaultRankedList("rl", Arrays.asList("a", "b", "c", "d", "e", "f"),
++                new Vector(new float[] { 3f, 2f, 1f, -1f, -2f, -3f }));
++    }
++
++    private static final GeneSet SYMMETRIC_SET = new GeneSet("s", new String[] { "a", "f" });
++
++    @Test
++    public void weightedOnePointFiveHitScoreUsesAbsoluteValueOfNegativeScores() {
++        RankedList rl = rankedList();
++        GeneSetScoringTable table = new GeneSetScoringTables.WeightedOnePointFive().createTable(SYMMETRIC_SET, rl, rl);
++        double expected = Math.pow(3, 1.5) / (2 * Math.pow(3, 1.5)); // |score|^1.5 / N_R = 0.5
++        assertEquals(expected, table.getHitScore("a"), 1e-6);
++        assertEquals(expected, table.getHitScore("f"), 1e-6);
++    }
++
++    @Test
++    public void weightedSchemesAreSymmetricInTheSignOfTheScore() {
++        RankedList rl = rankedList();
++        GeneSetScoringTable[] tables = new GeneSetScoringTable[] {
++                new GeneSetScoringTables.Weighted(), new GeneSetScoringTables.WeightedSquared(),
++                new GeneSetScoringTables.WeightedOnePointFive() };
++        for (GeneSetScoringTable scheme : tables) {
++            GeneSetScoringTable table = scheme.createTable(SYMMETRIC_SET, rl, rl);
++            assertEquals(table.getHitScore("a"), table.getHitScore("f"), 1e-6, scheme.getName());
++            // the hit weights of a gene set sum to one, so that a set at the top of the list reaches ES = 1
++            assertEquals(1.0, table.getHitScore("a") + table.getHitScore("f"), 1e-6, scheme.getName());
++        }
++    }
++
++    @Test
++    public void weightedOnePointFiveHitScoresOfABottomSetSumToOne() {
++        RankedList rl = rankedList();
++        GeneSet bottom = new GeneSet("bottom", new String[] { "d", "e", "f" });
++        GeneSetScoringTable table = new GeneSetScoringTables.WeightedOnePointFive().createTable(bottom, rl, rl);
++        double sum = table.getHitScore("d") + table.getHitScore("e") + table.getHitScore("f");
++        assertEquals(1.0, sum, 1e-6);
++        double nr = Math.pow(1, 1.5) + Math.pow(2, 1.5) + Math.pow(3, 1.5);
++        assertEquals(Math.pow(2, 1.5) / nr, table.getHitScore("e"), 1e-6);
++    }
++}
+-- 
+2.43.0
+

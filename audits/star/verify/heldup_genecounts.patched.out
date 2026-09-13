@@ -1,0 +1,115 @@
+
+== single-end, defaults ==
+row              STAR (unstr, yes, rev)   truth (unstr, yes, rev) 
+N_unmapped       [54, 54, 54]             [54, 54, 54]            
+N_multimapping   [405, 405, 405]          [405, 405, 405]         
+N_noFeature      [793, 2553, 2570]        [793, 2553, 2570]       
+N_ambiguous      [550, 100, 89]           [550, 100, 89]          
+G1               [300, 159, 141]          [300, 159, 141]         
+G2               [300, 148, 152]          [300, 148, 152]         
+G3               [300, 300, 300]          [300, 300, 300]         
+G4               [300, 300, 300]          [300, 300, 300]         
+G5               [234, 109, 125]          [234, 109, 125]         
+G6               [177, 90, 87]            [177, 90, 87]           
+G7               [112, 241, 232]          [112, 241, 232]         
+G8               [127, 239, 249]          [127, 239, 249]         
+G9               [298, 156, 142]          [298, 156, 142]         
+G11              [600, 300, 300]          [600, 300, 300]         
+G13              [0, 0, 0]                [0, 0, 0]               
+G13copy          [0, 0, 0]                [0, 0, 0]               
+G14              [300, 148, 152]          [300, 148, 152]         
+G15              [600, 291, 309]          [600, 291, 309]         
+G17              [300, 157, 143]          [300, 157, 143]         
+Log.final.out: unmapped(4 classes incl. too many loci)=54, multi=405, unique=5291; ReadsPerGene N_unmapped=54 N_multimapping=405; column sums=[5750, 5750, 5750] (input reads 5750)
+rows differing from the independent counter: 0 of 19
+
+== paired-end, defaults ==
+row              STAR (unstr, yes, rev)   truth (unstr, yes, rev) 
+N_unmapped       [0, 0, 0]                [0, 0, 0]               
+N_multimapping   [203, 203, 203]          [203, 203, 203]         
+N_noFeature      [397, 1505, 1534]        [397, 1505, 1534]       
+N_ambiguous      [530, 92, 83]            [530, 92, 83]           
+G1               [200, 100, 100]          [200, 100, 100]         
+G2               [200, 102, 98]           [200, 102, 98]          
+G3               [200, 200, 200]          [200, 200, 200]         
+G4               [200, 200, 200]          [200, 200, 200]         
+G5               [143, 69, 74]            [143, 69, 74]           
+G6               [82, 41, 41]             [82, 41, 41]            
+G7               [19, 189, 185]           [19, 189, 185]          
+G8               [26, 189, 192]           [26, 189, 192]          
+G9               [200, 100, 100]          [200, 100, 100]         
+G11              [400, 202, 198]          [400, 202, 198]         
+G13              [0, 0, 0]                [0, 0, 0]               
+G13copy          [0, 0, 0]                [0, 0, 0]               
+G14              [200, 102, 98]           [200, 102, 98]          
+G15              [400, 207, 193]          [400, 207, 193]         
+G17              [200, 99, 101]           [200, 99, 101]          
+Log.final.out: unmapped(4 classes incl. too many loci)=0, multi=203, unique=3397; ReadsPerGene N_unmapped=0 N_multimapping=203; column sums=[3600, 3600, 3600] (input reads 3600)
+rows differing from the independent counter: 0 of 19
+
+== single-end, --outFilterMultimapNmax 1 (multimappers become 'too many loci' -> N_unmapped) ==
+row              STAR (unstr, yes, rev)   truth (unstr, yes, rev) 
+N_unmapped       [459, 459, 459]          [459, 459, 459]         
+N_multimapping   [0, 0, 0]                [0, 0, 0]               
+N_noFeature      [793, 2553, 2570]        [793, 2553, 2570]       
+N_ambiguous      [550, 100, 89]           [550, 100, 89]          
+G1               [300, 159, 141]          [300, 159, 141]         
+G2               [300, 148, 152]          [300, 148, 152]         
+G3               [300, 300, 300]          [300, 300, 300]         
+G4               [300, 300, 300]          [300, 300, 300]         
+G5               [234, 109, 125]          [234, 109, 125]         
+G6               [177, 90, 87]            [177, 90, 87]           
+G7               [112, 241, 232]          [112, 241, 232]         
+G8               [127, 239, 249]          [127, 239, 249]         
+G9               [298, 156, 142]          [298, 156, 142]         
+G11              [600, 300, 300]          [600, 300, 300]         
+G13              [0, 0, 0]                [0, 0, 0]               
+G13copy          [0, 0, 0]                [0, 0, 0]               
+G14              [300, 148, 152]          [300, 148, 152]         
+G15              [600, 291, 309]          [600, 291, 309]         
+G17              [300, 157, 143]          [300, 157, 143]         
+Log.final.out: unmapped(4 classes incl. too many loci)=459, multi=0, unique=5291; ReadsPerGene N_unmapped=459 N_multimapping=0; column sums=[5750, 5750, 5750] (input reads 5750)
+rows differing from the independent counter: 0 of 19
+
+== paired-end, --alignEndsType EndToEnd ==
+row              STAR (unstr, yes, rev)   truth (unstr, yes, rev) 
+N_unmapped       [9, 9, 9]                [9, 9, 9]               
+N_multimapping   [202, 202, 202]          [202, 202, 202]         
+N_noFeature      [389, 1497, 1526]        [389, 1497, 1526]       
+N_ambiguous      [530, 92, 83]            [530, 92, 83]           
+G1               [200, 100, 100]          [200, 100, 100]         
+G2               [200, 102, 98]           [200, 102, 98]          
+G3               [200, 200, 200]          [200, 200, 200]         
+G4               [200, 200, 200]          [200, 200, 200]         
+G5               [143, 69, 74]            [143, 69, 74]           
+G6               [82, 41, 41]             [82, 41, 41]            
+G7               [19, 189, 185]           [19, 189, 185]          
+G8               [26, 189, 192]           [26, 189, 192]          
+G9               [200, 100, 100]          [200, 100, 100]         
+G11              [400, 202, 198]          [400, 202, 198]         
+G13              [0, 0, 0]                [0, 0, 0]               
+G13copy          [0, 0, 0]                [0, 0, 0]               
+G14              [200, 102, 98]           [200, 102, 98]          
+G15              [400, 207, 193]          [400, 207, 193]         
+G17              [200, 99, 101]           [200, 99, 101]          
+Log.final.out: unmapped(4 classes incl. too many loci)=9, multi=202, unique=3389; ReadsPerGene N_unmapped=9 N_multimapping=202; column sums=[3600, 3600, 3600] (input reads 3600)
+rows differing from the independent counter: 0 of 19
+
+simulated unique reads per gene (SE) vs STAR unstranded column (genes with overlaps differ by design):
+  G1       simulated  300   STAR  300
+  G2       simulated  300   STAR  300
+  G3       simulated  300   STAR  300
+  G4       simulated  300   STAR  300
+  G5       simulated  300   STAR  234
+  G6       simulated  300   STAR  177
+  G7       simulated  300   STAR  112
+  G8       simulated  300   STAR  127
+  G9       simulated  298   STAR  298
+  G11      simulated  600   STAR  600
+  G13      simulated    0   STAR    0
+  G13copy  simulated    0   STAR    0
+  G14      simulated  300   STAR  300
+  G15      simulated  600   STAR  600
+  G17      simulated  300   STAR  300
+
+TOTAL rows differing: 0

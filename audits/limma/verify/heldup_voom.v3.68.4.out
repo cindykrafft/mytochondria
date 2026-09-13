@@ -1,0 +1,4 @@
+limma 3.68.4 R version 4.3.3 (2024-02-29) 
+A. voom (span 0.4419, adaptive; 1 all-zero genes): E 0.00e+00  weights (relative) 0.00e+00  weight range 0.721..4.42
+   voom with lib.size given (norm factors): E 0.00e+00  weights 0.00e+00
+B. voomWithQualityWeights == t(aw * t(voom(weights=aw1)$weights)): 0.00e+00 ; sample.weights: 1.0115 0.9734 1.0883 1.0223 0.9677 0.9661 1.0229 0.9547

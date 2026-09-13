@@ -1,0 +1,32 @@
+limma 3.68.5 R version 4.3.3 (2024-02-29) 
+
+## A. Same model, two code paths (default tol=1e-5, prior.n=10)
+true weights (scaled to geometric mean 1): 2.8284 1.4142 0.7071 0.3536 2.8284 1.4142 0.7071 0.3536 
+REML, no weights            : 2.87654 1.44128 0.69346 0.35300 2.79597 1.40002 0.72461 0.34739 
+REML, weights = 1 (PrWts)   : 2.45440 1.47161 0.74351 0.37499 2.41294 1.43552 0.77498 0.36992 
+PrWts, tol/(ngenes+prior.n) : 2.87654 1.44128 0.69346 0.35300 2.79597 1.40002 0.72461 0.34739 
+max |PrWts - REML| = 0.4221   max relative = 0.1468
+max |PrWts(rescaled tol) - REML| = 1.78e-14
+
+## B. Iteration traces (convcrit printed by each routine)
+REML no weights:
+iter convcrit range(w)
+1 0.1768428 0.4195266 1.832485 
+2 0.01526176 0.3699241 2.454399 
+3 0.001445855 0.3533235 2.754296 
+4 0.0001052818 0.3486091 2.851267 
+5 6.437045e-06 0.3473922 2.876544 
+PrWts weights=1:
+iter convcrit range(w)
+1 1.766661e-05 0.4195266 1.832485 
+2 1.524652e-06 0.3699241 2.454399 
+iteration-1 convcrit: REML 0.176843  PrWts 1.76666e-05  ratio 10010.00  (ngenes+prior.n = 10010)
+iterations used: REML 5  PrWts 2
+
+## C. Effect on the pipeline: voomWithQualityWeights(method='reml') on counts with two noisy samples
+sample weights, default tol : 0.09914 2.20995 2.14686 2.06784 0.10044 2.15690 2.13436 2.22358 
+sample weights, converged   : 0.08877 2.31133 2.21976 2.11172 0.09056 2.23983 2.21314 2.31602 
+max relative difference in sample weights: 0.117
+genes at adj.P<0.05 (coef 2): default 137 (135 true)   converged 183 (176 true)   (true DE: 800)
+
+VERDICT: AFFECTED 

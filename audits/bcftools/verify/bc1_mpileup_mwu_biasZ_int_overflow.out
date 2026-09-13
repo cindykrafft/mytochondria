@@ -1,0 +1,50 @@
+bcftools: bcftools 7abcc0d6 / Using htslib 1.24-1-ge503e04
+
+A. small site (no overflow possible): 30 ref + 12 alt reads, mixed MAPQ, BQ, positions, strands
+   ALT=A,<*> DP=42 AD=30,12,0
+A MQBZ (ref_mq vs alt_mq)          MQBZ   truth   -2.6164  bcftools   -2.6164  ok
+A BQBZ (ref_bq vs alt_bq)          BQBZ   truth   -3.5573  bcftools   -3.5572  ok
+A RPBZ (ref_pos vs alt_pos)        RPBZ   truth   -0.3760  bcftools   -0.3760  ok
+A MQSBZ (fwd_mq vs rev_mq)         MQSBZ  truth   -0.3198  bcftools   -0.3198  ok
+   scipy cross-check of the MQBZ truth (from its p-value): -2.6164
+
+B. one sample, -d 100000: n_ref reads all MAPQ 60 (one bin) + 40 alt reads MAPQ 30; MQBZ vs truth
+   1290^3 = 2146689000 fits int32; 1291^3 = 2151685171 does not (INT32_MAX = 2147483647)
+B n_ref=1000 (bin 59 holds 1000)   MQBZ   truth  -32.2335  bcftools  -32.2335  ok  int32-replica  -32.2335 (=bcftools)  scipy -32.2335 DP=1040
+B n_ref=1200 (bin 59 holds 1200)   MQBZ   truth  -35.1994  bcftools  -35.1994  ok  int32-replica  -35.1994 (=bcftools)  scipy -35.1994 DP=1240
+B n_ref=1290 (bin 59 holds 1290)   MQBZ   truth  -36.4555  bcftools  -36.4555  ok  int32-replica  -36.4555 (=bcftools)  scipy -36.4555 DP=1330
+B n_ref=1291 (bin 59 holds 1291)   MQBZ   truth  -36.4692  bcftools   -7.8056  WRONG  int32-replica   -7.8056 (=bcftools)  scipy -36.4692 DP=1331
+B n_ref=1300 (bin 59 holds 1300)   MQBZ   truth  -36.5923  bcftools   -7.8833  WRONG  int32-replica   -7.8833 (=bcftools)  scipy -36.5923 DP=1340
+B n_ref=1500 (bin 59 holds 1500)   MQBZ   truth  -39.2301  bcftools   -9.6595  WRONG  int32-replica   -9.6595 (=bcftools)  scipy nan DP=1540
+B n_ref=2000 (bin 59 holds 2000)   MQBZ   truth  -45.1553  bcftools  -10.4857  WRONG  int32-replica  -10.4857 (=bcftools)  scipy nan DP=2040
+B n_ref=2500 (bin 59 holds 2500)   MQBZ   truth  -50.3885  bcftools  -10.3842  WRONG  int32-replica  -10.3842 (=bcftools)  scipy nan DP=2540
+B n_ref=3000 (bin 59 holds 3000)   MQBZ   truth  -55.1271  bcftools  -11.1267  WRONG  int32-replica  -11.1267 (=bcftools)  scipy nan DP=3040
+B n_ref=4000 (bin 59 holds 4000)   MQBZ   truth  -63.5531  bcftools  -10.8638  WRONG  int32-replica  -10.8638 (=bcftools)  scipy nan DP=4040
+B n_ref=5000 (bin 59 holds 5000)   MQBZ   truth  -70.9859  bcftools  -10.9289  WRONG  int32-replica  -10.9289 (=bcftools)  scipy nan DP=5040
+B n_ref=8000 (bin 59 holds 8000)   MQBZ   truth  -89.6605  bcftools  -10.9359  WRONG  int32-replica  -10.9359 (=bcftools)  scipy nan DP=8040
+B n_ref=12000 (bin 59 holds 12000) MQBZ   truth -109.7224  bcftools  -10.9402  WRONG  int32-replica  -10.9402 (=bcftools)  scipy nan DP=12040
+
+C. one sample, -d 100000: binned base qualities (all ref bases Q37; alt bases Q37 x30 + Q12 x10); BQBZ
+C n_ref=1000 (bin 37 holds 1030)   BQBZ   truth  -15.8803  bcftools  -15.8803  ok  int32-replica  -15.8803 (=bcftools)  scipy -15.8803
+   (MQBZ with every read in one MAPQ bin: bcftools 0; exact var2 = 0 so Z is undefined/0)
+C n_ref=1500 (bin 37 holds 1530)   BQBZ   truth  -19.4218  bcftools   -2.4713  WRONG  int32-replica   -2.4713 (=bcftools)  scipy -19.4218
+   (MQBZ with every read in one MAPQ bin: bcftools 0; exact var2 = 0 so Z is undefined/0)
+C n_ref=3000 (bin 37 holds 3030)   BQBZ   truth  -27.4268  bcftools   -2.8250  WRONG  int32-replica   -2.8250 (=bcftools)  scipy -27.4268
+   (MQBZ with every read in one MAPQ bin: bcftools 0; exact var2 = 0 so Z is undefined/0)
+
+D. DEFAULT -d 250, one BAM per sample: every sample 30 ref reads MAPQ 60; 3 samples also carry 10 alt reads MAPQ 30
+D 40 samples (bin 59 holds 1200)   MQBZ   truth  -35.0571  bcftools  -35.0571  ok  int32-replica  -35.0571 (=bcftools)  scipy -35.0571 DP=1230
+D 40 samples MQSBZ (fwd 615 / rev 615) MQSBZ  truth    0.0000  bcftools    0.0000  ok  int32-replica    0.0000 (=bcftools)
+D 44 samples (bin 59 holds 1320)   MQBZ   truth  -36.7287  bcftools   -6.9685  WRONG  int32-replica   -6.9685 (=bcftools)  scipy -36.7287 DP=1350
+D 44 samples MQSBZ (fwd 675 / rev 675) MQSBZ  truth    0.0000  bcftools    0.0000  ok  int32-replica    0.0000 (=bcftools)
+D 48 samples (bin 59 holds 1440)   MQBZ   truth  -38.3275  bcftools   -7.8989  WRONG  int32-replica   -7.8989 (=bcftools)  scipy nan DP=1470
+D 48 samples MQSBZ (fwd 735 / rev 735) MQSBZ  truth    0.0000  bcftools    0.0000  ok  int32-replica    0.0000 (=bcftools)
+D 60 samples (bin 59 holds 1800)   MQBZ   truth  -42.7668  bcftools  -10.8672  WRONG  int32-replica  -10.8672 (=bcftools)  scipy nan DP=1830
+D 60 samples MQSBZ (fwd 915 / rev 915) MQSBZ  truth    0.0000  bcftools    0.0000  ok  int32-replica    0.0000 (=bcftools)
+D 100 samples (bin 59 holds 3000)  MQBZ   truth  -55.0364  bcftools   -9.6541  WRONG  int32-replica   -9.6541 (=bcftools)  scipy nan DP=3030
+D 100 samples MQSBZ (fwd 1515 / rev 1515) MQSBZ  truth    0.0000  bcftools    0.0000  ok  int32-replica    0.0000 (=bcftools)
+
+E. as D with 48 samples but BAQ left on (no -B), i.e. the plain default command line
+E 48 samples, default BAQ          MQBZ   truth  -38.3275  bcftools   -7.8989  WRONG  int32-replica   -7.8989 (=bcftools)
+
+done; scratch dir /tmp/bc1_zssppth0

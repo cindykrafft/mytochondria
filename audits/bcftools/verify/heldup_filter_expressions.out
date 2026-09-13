@@ -1,0 +1,49 @@
+bcftools: bcftools 7abcc0d6 / Using htslib 1.24-1-ge503e04
+
+   QUAL>30                                    bcftools [100, 400, 500, 700]             truth [100, 400, 500, 700]             ok
+   QUAL="."                                   bcftools [300]                            truth [300]                            ok
+   INFO/DP>10                                 bcftools [100, 400, 500, 600]             truth [100, 400, 500, 600]             ok
+   INFO/DP="."                                bcftools [300]                            truth [300]                            ok
+   INFO/DP<=10 || INFO/DP="."                 bcftools [200, 300, 700]                  truth [200, 300, 700]                  ok
+   AF[0]<0.3                                  bcftools [100, 300, 500]                  truth [100, 300, 500]                  ok
+   AF[*]>0.25                                 bcftools [200, 400, 500, 700]             truth [200, 400, 500, 700]             ok
+   FILTER="PASS"                              bcftools [100, 300, 400, 500, 600, 700]   truth [100, 300, 400, 500, 600, 700]   ok
+   FILTER!="PASS"                             bcftools [200]                            truth [200]                            ok
+   TYPE="snp"                                 bcftools [100, 200, 300, 500, 700]        truth [100, 200, 300, 500, 700]        ok
+   TYPE="indel"                               bcftools [400]                            truth [400]                            ok
+   FMT/DP>10                                  bcftools [100, 300, 400, 500, 600]        truth [100, 300, 400, 500, 600]        ok
+   FMT/DP[0]>10                               bcftools [300, 400, 500, 600]             truth [300, 400, 500, 600]             ok
+   FMT/DP[1-2]>10                             bcftools [100, 300, 400, 500, 600]        truth [100, 300, 400, 500, 600]        ok
+   FMT/DP="."                                 bcftools [200, 500, 600]                  truth [200, 500, 600]                  ok
+   MIN(FMT/DP)>10                             bcftools [400, 500, 600]                  truth [400, 500, 600]                  ok
+   MAX(FMT/DP)>=30                            bcftools [300, 400]                       truth [300, 400]                       ok
+   AVG(FMT/DP)>15                             bcftools [400, 500, 600]                  truth [400, 500, 600]                  ok
+   MEDIAN(FMT/DP)>=12                         bcftools [300, 400, 500, 600]             truth [300, 400, 500, 600]             ok
+   SUM(FMT/DP)>40                             bcftools [300, 400]                       truth [300, 400]                       ok
+   SUM(FMT/AD[*:1])>=10                       bcftools [300, 400, 500]                  truth [300, 400, 500]                  ok
+   GT="het"                                   bcftools [100, 200, 300, 400, 500]        truth [100, 200, 300, 400, 500]        ok
+   GT="mis"                                   bcftools [200, 600]                       truth [200, 600]                       ok
+   GT="AA"                                    bcftools [200, 400, 700]                  truth [200, 400, 700]                  ok
+   GT="Aa"                                    bcftools [500]                            truth [500]                            ok
+   GT="het" & FMT/DP>10                       bcftools [300, 400, 500]                  truth [300, 400, 500]                  ok
+   GT="het" && FMT/DP>10                      bcftools [100, 300, 400, 500]             truth [100, 300, 400, 500]             ok
+   GT="hom" & FMT/GQ<20                       bcftools [100, 700]                       truth [100, 700]                       ok
+   FMT/DP>10 | FMT/GQ>90                      bcftools [100, 300, 400, 500, 600]        truth [100, 300, 400, 500, 600]        ok
+   sMAX(FMT/AD)>=20                           bcftools [100, 400]                       truth [100, 400]                       ok
+   sSUM(FMT/AD)>30                            bcftools [400]                            truth [400]                            ok
+   N_PASS(GT="het")>=2                        bcftools [300, 500]                       truth [300, 500]                       ok
+   F_PASS(FMT/DP>=10)>0.5                     bcftools [100, 300, 400, 500, 600]        truth [100, 300, 400, 500, 600]        ok
+   F_MISSING>0.3                              bcftools [200, 600]                       truth [200, 600]                       ok
+   AC>2                                       bcftools [200, 400, 700]                  truth [200, 400, 700]                  ok
+   AC[0]=2                                    bcftools [300, 500]                       truth [300, 500]                       ok
+   AN=6                                       bcftools [100, 300, 400, 500, 700]        truth [100, 300, 400, 500, 700]        ok
+   MAF<0.2                                    bcftools [100, 400, 600, 700]             truth [100, 400, 600, 700]             ok
+   N_ALT=2                                    bcftools [500]                            truth [500]                            ok
+   ALT="."                                    bcftools [600]                            truth [600]                            ok
+   (QUAL>30 & INFO/DP>20) || FILTER="q10"     bcftools [100, 200, 400, 500]             truth [100, 200, 400, 500]             ok
+   QUAL>30 && FMT/GQ>90                       bcftools [100, 400]                       truth [100, 400]                       ok
+   QUAL>30 & FMT/GQ>90                        bcftools [100, 400]                       truth [100, 400]                       ok
+   -e is the complement of -i                 bcftools [100, 200, 300, 400, 500, 600, 700] truth [100, 200, 300, 400, 500, 600, 700] ok
+   filter -s LOW -e 'QUAL<30 || INFO/DP<10'   bcftools [200, 600]                       truth [200, 600]                       ok
+
+mismatches: 0

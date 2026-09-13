@@ -1,0 +1,5 @@
+#1108 example: embeddings identical: True max|d| 0.0
+  graph components: 3 sizes [4 3 3] | graph weights: [1.]
+  component 0: size 4, degrees [1. 1. 2. 2.]
+  component 1: size 3, degrees [1. 1. 2.]
+  component 2: size 3, degrees [1. 2. 1.]

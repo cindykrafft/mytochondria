@@ -1,0 +1,4 @@
+edgeR 4.0.16 limma 3.58.1 R version 4.3.3 (2024-02-29) 
+edgeR::voomLmFit has no offset argument in this version; a DGEList $offset is ignored: voomLmFit(DGEList with $offset = log(lib.size)) E minus voomLmFit(counts, lib.size) E, column medians: 8.882e-16 8.882e-16 0.000e+00 4.441e-16 
+-log2(lib.size/geomean):  1.5 -0.5  0.5 -1.5 
+VERDICT: unaffected 

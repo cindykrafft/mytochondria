@@ -1,0 +1,95 @@
+From 51caff6f5be96912db96896937f00e3a4a558fef Mon Sep 17 00:00:00 2001
+From: Mytochondria audit <cynthiacondra@gmail.com>
+Date: Sun, 13 Sep 2026 05:38:00 +0000
+Subject: [PATCH] arrayWeights(): fix the convergence criterion of the
+ prior-weights REML fit
+
+.arrayWeightsPrWtsREML() divided the Fisher-scoring convergence
+criterion by (ngenes+prior.n) a second time: dl and info2 are already
+per-gene averages, so the criterion was (ngenes+prior.n) times smaller
+than the one used by .arrayWeightsREML() for the same state, and the
+default tol=1e-5 was met after one or two iterations. With a weight
+matrix of ones the two routines fit the same model but returned weights
+differing by up to 15% (10,000 genes, 8 arrays). The criterion is now
+crossprod(dl,gamstep)/ngam, the same per-gene scale as
+.arrayWeightsREML(), so the two routines agree to rounding on equal
+prior weights.
+
+Adds tests/arrayweights-reml.R and a changelog entry.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ R/arrayWeightsPrWtsREML.R |  6 ++++--
+ inst/doc/changelog.txt    | 11 +++++++++++
+ tests/arrayweights-reml.R | 15 +++++++++++++++
+ 3 files changed, 30 insertions(+), 2 deletions(-)
+ create mode 100644 tests/arrayweights-reml.R
+
+diff --git a/R/arrayWeightsPrWtsREML.R b/R/arrayWeightsPrWtsREML.R
+index f76c7cb..f628209 100644
+--- a/R/arrayWeightsPrWtsREML.R
++++ b/R/arrayWeightsPrWtsREML.R
+@@ -4,7 +4,7 @@
+ #	Uses an exact Fisher scoring algorithm similar to statmod::remlscor.
+ #	Gordon Smyth
+ #	Created 12 Feb 2019 from .arrayWeightsREML.
+-#	Last revised 15 Feb 2019.
++#	Last revised 13 Sep 2026.
+ {
+ #	y should be a numeric matrix
+ 	narrays <- ncol(y)
+@@ -74,7 +74,9 @@
+ 		w <- drop(exp(Z2 %*% (-gam)))
+ 
+ #		Test for convergence
+-		convcrit <- crossprod(dl,gamstep) / (ngenes+prior.n) / ngam
++#		dl and info2 are already per-gene averages, so this is the same per-gene
++#		criterion as in .arrayWeightsREML() (which divides the total by ngenes+prior.n once)
++		convcrit <- crossprod(dl,gamstep) / ngam
+ 		if(trace) cat(iter,convcrit,range(w),"\n")
+ 		if(is.na(convcrit)) {
+ 			warning("convergence tolerance not achievable, stopping prematurely")
+diff --git a/inst/doc/changelog.txt b/inst/doc/changelog.txt
+index 1bea160..6f68d00 100755
+--- a/inst/doc/changelog.txt
++++ b/inst/doc/changelog.txt
+@@ -1,3 +1,14 @@
++13 Sep 2026: limma 3.68.6
++
++- Bug fix to .arrayWeightsPrWtsREML(), called by arrayWeights() when
++  method="reml" and prior weights are set (for example by
++  voomWithQualityWeights() with method="reml"). The convergence
++  criterion was divided by (ngenes+prior.n) a second time, so the
++  default tolerance was met after one or two Fisher scoring iterations
++  and the sample weights were under-converged (up to 15% away from the
++  REML solution in simulations). The criterion is now the same as in
++  .arrayWeightsREML(). New test file arrayweights-reml.R.
++
+ 10 Aug 2026: limma 3.68.5
+ 
+ - avearrays() methods for EList and MAList objects now sum the weights
+diff --git a/tests/arrayweights-reml.R b/tests/arrayweights-reml.R
+new file mode 100644
+index 0000000..c1b1f8f
+--- /dev/null
++++ b/tests/arrayweights-reml.R
+@@ -0,0 +1,15 @@
++library(limma)
++
++# arrayWeights(method="reml") with prior weights (.arrayWeightsPrWtsREML) must iterate to the
++# same tolerance as the weight-free REML fit: with a weight matrix of ones the two routines
++# fit the same model and must return the same array weights.
++
++set.seed(1)
++narrays <- 6
++ngenes <- 2000
++design <- cbind(Int=1, Group=rep(0:1, each=3))
++y <- matrix(rnorm(ngenes*narrays, sd=rep(c(2,1,0.5,2,1,0.5), each=ngenes)), ngenes, narrays) + 8
++w0 <- arrayWeights(y, design, method="reml")
++w1 <- arrayWeights(y, design, weights=matrix(1, ngenes, narrays), method="reml")
++stopifnot(isTRUE(all.equal(w0, w1, tolerance=1e-10, check.attributes=FALSE)))
++
+-- 
+2.43.0
+
