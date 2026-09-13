@@ -83,7 +83,11 @@ reproducible on every version.
 **Fix shape** (`../upstream/0001-*.patch`): divide by `10.0f` in both branches, as simple
 mode does. `IlluminaPalindromeMismatchPenaltyTest` (2 tests) fails on unmodified `main`
 (`expected: not <null>` — the reverse read was dropped) and passes with the patch; the
-`trim` package tests go 166 → 168 and the full suite 259 → 261, all passing.
+`trim` package tests go 166 → 168 and the full suite 259 → 261, all passing. The harness
+rerun on the patched jar (`tm1_palindrome_penalty.patched.out`) gives the MCVE pair
+`Both Surviving: 1`, 0 of 7,200 grid pairs differing from the documented rule, and the
+2x50 simulation clipping exactly the documented 1,745 pairs (4,000/4,000 equal to the
+documented reference); `version_scope_cli.patched-tm1.out`: 0/200 clipped.
 
 **Upstream.** Tracker searched 2026-09-13 (semantic search, several phrasings): no prior
 report. Nearest: #52 "question about ILLUMINACLIP 2:30:10", #16 "keepBothReads: flag or
@@ -134,7 +138,10 @@ ratio keeps both tables inside `long`: the length table's magnitude is then ≤
 `Math.abs(array[0])` in `calcNormalization`, and `log(1/(1+e^x)) = −x` for `x > 700`.
 `MaximumInformationTrimmerLargeTargetTest` (4 tests): 3 fail on unmodified `main`
 (`expected: <300> but was: <1>`), all pass with the patch; `trim` package 166 → 170, full
-suite 259 → 263. The harness rerun on the patched jar is `tm2_maxinfo_normalisation.patched.out`.
+suite 259 → 263. The harness rerun on the patched jar (`tm2_maxinfo_normalisation.patched.out`)
+gives 0 of 150 grid cells differing from the double-precision rule, 5,000/5,000 reads
+unchanged under each of the seven typical settings, and (300, 300) for the 2x300 reads at
+target 800; `version_scope_cli.patched-tm2.out`: 300 bases kept in every cell.
 
 **Upstream.** Tracker searched 2026-09-13: no prior report. Nearest: #74 "About
 MAXINFO:40:0.8" (closed), #22 "SLIDINGWINDOW vs MAXINFO" (closed), #84 "TrimmomaticPE
