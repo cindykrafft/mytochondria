@@ -262,56 +262,6 @@
     "ctlab/fgsea"
    ],
    "fork": "cindykrafft/clusterProfiler"
-  },
-  {
-   "dir": "star",
-   "name": "STAR",
-   "papers": 489,
-   "findings": 4,
-   "repos": [
-    "alexdobin/STAR"
-   ],
-   "fork": "cindykrafft/STAR"
-  },
-  {
-   "dir": "limma",
-   "name": "limma",
-   "papers": 234,
-   "findings": 8,
-   "repos": [
-    "bioc/limma"
-   ],
-   "fork": null
-  },
-  {
-   "dir": "trimmomatic",
-   "name": "Trimmomatic",
-   "papers": 291,
-   "findings": 10,
-   "repos": [
-    "usadellab/Trimmomatic"
-   ],
-   "fork": "cindykrafft/Trimmomatic"
-  },
-  {
-   "dir": "gsea",
-   "name": "GSEA",
-   "papers": 720,
-   "findings": 6,
-   "repos": [
-    "GSEA-MSigDB/gsea-desktop"
-   ],
-   "fork": "cindykrafft/gsea-desktop"
-  },
-  {
-   "dir": "bcftools",
-   "name": "BCFtools",
-   "papers": 202,
-   "findings": 3,
-   "repos": [
-    "samtools/bcftools"
-   ],
-   "fork": "cindykrafft/bcftools"
   }
  ],
  "author": "cindykrafft",
