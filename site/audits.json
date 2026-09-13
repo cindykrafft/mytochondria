@@ -272,6 +272,16 @@
     "alexdobin/STAR"
    ],
    "fork": "cindykrafft/STAR"
+  },
+  {
+   "dir": "bcftools",
+   "name": "BCFtools",
+   "papers": 202,
+   "findings": 7,
+   "repos": [
+    "samtools/bcftools"
+   ],
+   "fork": "cindykrafft/bcftools"
   }
  ],
  "author": "cindykrafft",
