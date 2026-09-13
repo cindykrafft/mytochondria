@@ -168,8 +168,8 @@ bad base near the alignment end — but the score is not the one the README desc
 (`:769-772`, `offset = i - j * INTERLEAVE`, `:803`), while medium (16–23 nt) adapters keep
 all and short ones are matched through a mask. An adapter occurrence whose errors leave
 no clean 16-mer at positions 0, 4, 8, … but one at another offset is not seeded. In the
-simple-mode simulation this is part of the 0.5 % of reads where the shipped build leaves
-an adapter that both references find (e.g. read `r229`, adapter at 119, in
+simple-mode simulation this is part of the 29 of 6,000 reads (threshold 10) where the
+shipped clip differs from the documented sum, some of them adapters both references find (e.g. read `r229`, adapter at 119, in
 `heldup_illuminaclip_simple.out`). Performance trade-off; the README describes the seed
 as "16 bases" without the stride.
 
