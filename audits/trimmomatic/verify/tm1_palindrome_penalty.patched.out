@@ -48,3 +48,7 @@ B. 2x50 pairs, insert 42 (58 aligned bases; columns: documented score, integer-p
    pairs where the shipped decision differs from the documented rule: 0 of 7200
 
 C. simulated libraries (insert uniform, per-base error rate 10^(-Q/10)):
+   2x50   4000 pairs: clipped by documented rule 1745, by integer rule 1768, by shipped 1745; shipped == integer port 3977/4000, == documented 4000/4000; decision flips doc vs int 23
+      e.g. ('s87', 41, None, 41, None)
+      e.g. ('s227', 40, None, 40, None)
+      e.g. ('s444', 38, None, 38, None)

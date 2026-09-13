@@ -292,6 +292,16 @@
     "GSEA-MSigDB/gsea-desktop"
    ],
    "fork": "cindykrafft/gsea-desktop"
+  },
+  {
+   "dir": "limma",
+   "name": "limma",
+   "papers": 234,
+   "findings": 11,
+   "repos": [
+    "bioc/limma"
+   ],
+   "fork": null
   }
  ],
  "author": "cindykrafft",

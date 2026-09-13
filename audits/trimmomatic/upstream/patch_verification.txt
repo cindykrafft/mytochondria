@@ -1,0 +1,32 @@
+# Patch verification (mvn -o -B, JDK 25.0.4, Maven 3.9.11, offline from a warm ~/.m2; run 2026-09-13)
+
+## Unmodified main @ ef98d62 (fresh compile, mvn clean test)
+[INFO] Tests run: 259, Failures: 0, Errors: 0, Skipped: 0
+
+## Unmodified main, trim package only (-Dtest='org.usadellab.trimmomatic.trim.*Test')
+[INFO] Tests run: 166, Failures: 0, Errors: 0, Skipped: 0
+
+## New test classes against unmodified main (test file copied in, fix absent)
+### IlluminaPalindromeMismatchPenaltyTest (patch 0001)
+[ERROR] Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 2.466 s <<< FAILURE! -- in org.usadellab.trimmomatic.trim.IlluminaPalindromeMismatchPenaltyTest
+[ERROR]   IlluminaPalindromeMismatchPenaltyTest.testTwoMismatchesAtQ19StayBelowThreshold:43 expected: not <null>
+### MaximumInformationTrimmerLargeTargetTest (patch 0002)
+[ERROR] Tests run: 4, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.140 s <<< FAILURE! -- in org.usadellab.trimmomatic.trim.MaximumInformationTrimmerLargeTargetTest
+[ERROR]   MaximumInformationTrimmerLargeTargetTest.testTargetLength250LowStrictnessKeepsHighQualityRead:41 expected: <300> but was: <1>
+[ERROR]   MaximumInformationTrimmerLargeTargetTest.testTargetLength500KeepsHighQualityRead:46 expected: <300> but was: <1>
+[ERROR]   MaximumInformationTrimmerLargeTargetTest.testTargetLengthBeyondExpRangeKeepsHighQualityRead:52 expected: <300> but was: <1>
+
+## With patch 0001 (branch fix/palindrome-mismatch-penalty, commit 71fb53e)
+new test class: [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+trim package:   [INFO] Tests run: 168, Failures: 0, Errors: 0, Skipped: 0
+full suite:     [INFO] Tests run: 261, Failures: 0, Errors: 0, Skipped: 0
+
+## With patch 0002 (branch fix/maxinfo-normalisation, commit 2c78514)
+new test class: [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+trim package:   [INFO] Tests run: 170, Failures: 0, Errors: 0, Skipped: 0
+full suite:     [INFO] Tests run: 263, Failures: 0, Errors: 0, Skipped: 0
+
+## git apply --check against ef98d62
+0001: ok; 0002: ok (both patches touch different files and apply together)
+
+## Harness reruns on the patched jars: verify/tm1_palindrome_penalty.patched.out, verify/tm2_maxinfo_normalisation.patched.out, verify/version_scope_cli.patched-tm1.out, verify/version_scope_cli.patched-tm2.out
