@@ -1,0 +1,7 @@
+index type NNDescent | angular False | n_jobs 1
+query(all) repeated identical: True
+recall vs exact kNN: all 0.952 | subset 0.955
+rows whose neighbour list differs between the two batches: 0 of 600
+rows with >= half of neighbours in another blob: all[sub] 0 | subset 0
+rows with the -1 (not found) marker: all 0 | subset 0
+single-row queries equal the all-batch rows: 50 of 50; equal the subset-batch rows: 50 of 50
