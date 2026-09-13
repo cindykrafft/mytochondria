@@ -1,4 +1,4 @@
-# LM2 scope check on edgeR's voomLmFit: edgeR 4.10.5 (RELEASE_3_23) carries the same
+# LI2 scope check on edgeR's voomLmFit: edgeR 4.10.5 (RELEASE_3_23) carries the same
 # offset handling as limma::voom 3.68 (row-centre the offset and add it to log lib.size);
 # edgeR 4.0.16 has no offset argument. Run with the edgeR builds from the edgeR audit:
 #   R_LIBS_USER=<edger scratch>/libdeps:<edger scratch>/lib_rel323 Rscript lm2_edger_voomlmfit.R   (edgeR 4.10.5)

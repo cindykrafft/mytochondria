@@ -38,8 +38,8 @@ library sizes twice for the edgeR objects it was written for.
 
 | id | status | tier | finding |
 |---|---|---|---|
-| **LM1** | **CONFIRMED on 3.42.2, 3.58.1, 3.62.2, 3.68.4, 3.68.5 and `devel`**; 3.34.0 predates the routine; fixed by the kit patches on both branches | now (first) | `arrayWeights(method="reml")` with prior weights (`.arrayWeightsPrWtsREML`) divides its convergence criterion by `ngenes+prior.n` twice, so it is exactly `ngenes+prior.n` times smaller than the criterion of the weight-free routine for the same state (iteration-1 values 1.767e-5 vs 0.1768, ratio 10010.00 for 10,000 genes) and the default `tol=1e-5` stops it after 2 iterations instead of 5. With a weight matrix of ones — the same model — the weights differ from the weight-free REML solution by up to 14.7 % (2.454 vs 2.877 for a true 2.83); `voomWithQualityWeights(method="reml")` on data with two poor samples returns weights up to 11.7 % from converged and 137 instead of 183 genes at adj.P < 0.05. The `devel` C backend reproduces it, and `devel`'s `voomLmFit(sample.weights=TRUE)` now routes to this path by design (`method="reml"` when no df are lost to zeros), making it the default of the 4.0.0 pipeline. One-line fix on each branch with a test in the [kit](upstream/). |
-| **LM2** | **CONFIRMED on 3.68.4, 3.68.5 and `devel` (`voom()`) and on edgeR 4.10.5 (`voomLmFit`)**; 3.58.1, 3.62.2 and edgeR 4.0.16 unaffected (no offset support); `devel` `voomLmFit` unaffected; documented behaviour | now (second) | `voom()` (3.68.0, April 2026) row-mean corrects a DGEList's edgeR-style `offset` and adds it to `log(lib.size)`; an edgeR offset already contains the log library sizes (`scaleOffset`, `glmFit`, `cpm`), so the effective library size becomes `lib.size²/geomean`. The trivial offset `log(lib.size)` shifts `E` by −log2(lib.size/geomean) per column (1.5, −0.5, 0.5, −1.5 for a four-fold to eight-fold range) instead of being a no-op; with one group sequenced 2.5× deeper every logFC shifts by −1.507 and 5,374 genes are called "down" at adj.P < 0.05 against 37 in the reference run (500 true). `devel`'s `voomLmFit` reads the same slot as `exp(offset)` (NEWS 4.0.0), so the two functions disagree on the same object. Patch for `devel` aligning `voom()` with `voomLmFit()`, help page and test, in the kit. |
+| **LI1** | **CONFIRMED on 3.42.2, 3.58.1, 3.62.2, 3.68.4, 3.68.5 and `devel`**; 3.34.0 predates the routine; fixed by the kit patches on both branches | now (first) | `arrayWeights(method="reml")` with prior weights (`.arrayWeightsPrWtsREML`) divides its convergence criterion by `ngenes+prior.n` twice, so it is exactly `ngenes+prior.n` times smaller than the criterion of the weight-free routine for the same state (iteration-1 values 1.767e-5 vs 0.1768, ratio 10010.00 for 10,000 genes) and the default `tol=1e-5` stops it after 2 iterations instead of 5. With a weight matrix of ones — the same model — the weights differ from the weight-free REML solution by up to 14.7 % (2.454 vs 2.877 for a true 2.83); `voomWithQualityWeights(method="reml")` on data with two poor samples returns weights up to 11.7 % from converged and 137 instead of 183 genes at adj.P < 0.05. The `devel` C backend reproduces it, and `devel`'s `voomLmFit(sample.weights=TRUE)` now routes to this path by design (`method="reml"` when no df are lost to zeros), making it the default of the 4.0.0 pipeline. One-line fix on each branch with a test in the [kit](upstream/). |
+| **LI2** | **CONFIRMED on 3.68.4, 3.68.5 and `devel` (`voom()`) and on edgeR 4.10.5 (`voomLmFit`)**; 3.58.1, 3.62.2 and edgeR 4.0.16 unaffected (no offset support); `devel` `voomLmFit` unaffected; documented behaviour | now (second) | `voom()` (3.68.0, April 2026) row-mean corrects a DGEList's edgeR-style `offset` and adds it to `log(lib.size)`; an edgeR offset already contains the log library sizes (`scaleOffset`, `glmFit`, `cpm`), so the effective library size becomes `lib.size²/geomean`. The trivial offset `log(lib.size)` shifts `E` by −log2(lib.size/geomean) per column (1.5, −0.5, 0.5, −1.5 for a four-fold to eight-fold range) instead of being a no-op; with one group sequenced 2.5× deeper every logFC shifts by −1.507 and 5,374 genes are called "down" at adj.P < 0.05 against 37 in the reference run (500 true). `devel`'s `voomLmFit` reads the same slot as `exp(offset)` (NEWS 4.0.0), so the two functions disagree on the same object. Patch for `devel` aligning `voom()` with `voomLmFit()`, help page and test, in the kit. |
 | N1–N9 | notes | held | `fitFDistUnequalDF1` bounds df.prior to (2, 9998) (true 0.5–1.5 come back as 2.000x with the prior scale 1.3–10× too high); the documented `contrasts.fit` approximation under voom weights (sd 4.6 % high at the median, up to 21 %; 5 vs 15 genes at FDR 0.05 in one contrast; exact in `devel`'s `lmFit(contrasts=)`); `<` vs `<=` and `>` vs `>=` at the thresholds; F-test df2 uncapped (4.4e-3 in p when df.prior > pooled df); roast's Bailey t-to-z approximation (2.6e-2 at df 3); the unequal-df robust estimator does not shrink df.prior for hypervariable genes in a simulation where the legacy one does; voom's trend x-axis under offsets; fry vs roast at finite prior df; `devel` vs edgeR 4.0.16 `voomLmFit` differences of order 1e-2 from the adaptive span. |
 
 Four own suspicions were withdrawn by execution (the `contrasts.fit` probe on an orthogonal
@@ -89,10 +89,10 @@ without the patches and the five new `devel` C tests pass on the patched build. 
 | `voomWithQualityWeights` / sample quality weights | 2 |
 | `treat`, `contrasts.fit`/`makeContrasts` named | 1 / 1 |
 
-Exposure by finding: LM1 needs `arrayWeights(method="reml")` on weighted data or
+Exposure by finding: LI1 needs `arrayWeights(method="reml")` on weighted data or
 `voomWithQualityWeights(method="reml")` today (2 cohort papers name quality weights; the
 cache does not record the method), and will need only `voomLmFit(sample.weights=TRUE)` from
-limma 4.0.0 (Bioconductor 3.24, October 2026); LM2 needs limma 3.68.x (April 2026 onwards —
+limma 4.0.0 (Bioconductor 3.24, October 2026); LI2 needs limma 3.68.x (April 2026 onwards —
 only the 34 papers from 2026 could have used it, none of which names 3.68) or edgeR 4.10.x
 and a DGEList carrying an `offset` element (cqn, EDASeq, RUVSeq, csaw, `scaleOffset`; none
 identifiable from the cache).
@@ -123,9 +123,9 @@ access to replace them with full-text records.
   `upstream-declines-ai-contributions` topic applies. The GitHub tracker search
   (`mcp__github__search_issues`, two phrasings) found nothing relevant; limma has no GitHub
   tracker.
-- **The kit is in [`upstream/`](upstream/)**: two support-site posts (LM1 first, LM2 second —
-  the two-filing cap), three `git am`-clean patches (LM1 against `devel` and
-  `RELEASE_3_23`, LM2 against `devel`), each with a test that fails on the unmodified code,
+- **The kit is in [`upstream/`](upstream/)**: two support-site posts (LI1 first, LI2 second —
+  the two-filing cap), three `git am`-clean patches (LI1 against `devel` and
+  `RELEASE_3_23`, LI2 against `devel`), each with a test that fails on the unmodified code,
   and the list of documents read. Nothing has been filed.
 
 ## Files
@@ -133,10 +133,10 @@ access to replace them with full-text records.
 | file | what |
 |---|---|
 | `limma_profile.py`, `limma_profiles.jsonl`, `profile_run.log` | profiling pass (offline; see caveat) |
-| `component-reviews/statistical-core.md` | the review: LM1–LM2, N1–N9, withdrawn W1–W4, held-up list, not-audited list |
+| `component-reviews/statistical-core.md` | the review: LI1–LI2, N1–N9, withdrawn W1–W4, held-up list, not-audited list |
 | `verify/rlib.sh` | version selector for the seven builds and the two patched builds |
-| `verify/lm1_arrayweights_prwts_convergence.R` (+ `.v<version>.out` ×9) | LM1: equal-weights equivalence, iteration traces, `voomWithQualityWeights` and `voomLmFit` end to end; patched builds |
-| `verify/lm2_voom_offset_double_count.R` (+ `.out` ×6), `verify/lm2_edger_voomlmfit.R` (+ `.out` ×2) | LM2: minimal example, two-group effect, cqn-style offset, `voomLmFit`; edgeR 4.0.16 / 4.10.5 |
+| `verify/lm1_arrayweights_prwts_convergence.R` (+ `.v<version>.out` ×9) | LI1: equal-weights equivalence, iteration traces, `voomWithQualityWeights` and `voomLmFit` end to end; patched builds |
+| `verify/lm2_voom_offset_double_count.R` (+ `.out` ×6), `verify/lm2_edger_voomlmfit.R` (+ `.out` ×2) | LI2: minimal example, two-group effect, cqn-style offset, `voomLmFit`; edgeR 4.0.16 / 4.10.5 |
 | `verify/heldup_lmfit_ebayes.R` (+ `.out` ×3) | held-up: `lmFit` vs WLS, `contrasts.fit`, `eBayes` vs the Smyth 2004 port, B-statistic, moderated F, `treat`, `topTable`, `decideTests`; N3, N4 |
 | `verify/heldup_voom.R` (+ `.out` ×5) | held-up: `voom` vs the Law 2014 port, `voomWithQualityWeights`, `devel` vs edgeR `voomLmFit`; N9 |
 | `verify/heldup_dupcor_gls.R` (+ `.out` ×2) | held-up: `duplicateCorrelation` vs lme4, consensus rule, C vs R, `gls.series` vs GLS closed form |
@@ -157,9 +157,9 @@ were unreachable; the Bioconductor git was read through the GitHub mirror.
 ## Next steps
 
 1. Search the Bioconductor support site for "arrayWeights reml" and "voom offset", then post
-   LM1 from the kit with the `RELEASE_3_23` patch attached (and the `devel` one linked);
+   LI1 from the kit with the `RELEASE_3_23` patch attached (and the `devel` one linked);
    record the post URL and every maintainer reply here and in the top-level table.
-2. When LM1 has an answer, post LM2 (the semantics question: `voom()` vs the new
+2. When LI1 has an answer, post LI2 (the semantics question: `voom()` vs the new
    `voomLmFit()` reading of a DGEList offset) with the `devel` patch.
 3. If the maintainers respond, raise N1 (the df.prior floor of the unequal-df estimator) and
    N2 (a help-page sentence on the approximation for voom users) as questions.

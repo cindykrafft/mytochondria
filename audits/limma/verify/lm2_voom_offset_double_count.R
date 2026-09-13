@@ -1,4 +1,4 @@
-# LM2: voom() (3.68.0+) treats an edgeR-style offset matrix -- one that carries the log
+# LI2: voom() (3.68.0+) treats an edgeR-style offset matrix -- one that carries the log
 # library sizes, as edgeR's y$offset from scaleOffset()/cqn/EDASeq does -- by row-centring it
 # and ADDING it to log(lib.size) (R/voom.R:55-67), so the effective library size becomes
 # lib.size^2/geomean(lib.size) (times the gene-specific part): the library sizes are counted

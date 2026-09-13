@@ -30,7 +30,7 @@ Cohort exposure numbers are lower bounds from the survey cache (see `../README.m
 
 ## Findings
 
-### ST1 — CONFIRMED on `master` (2.7.11b), 2.7.10a and 2.7.9a: `Aligned.toTranscriptome.out.bam` inverts the strand flag and reverse-complements the sequence of every record on a transcript whose GTF strand is `.`
+### STA1 — CONFIRMED on `master` (2.7.11b), 2.7.10a and 2.7.9a: `Aligned.toTranscriptome.out.bam` inverts the strand flag and reverse-complements the sequence of every record on a transcript whose GTF strand is `.`
 
 **Code.** `GTF.cpp:138-144` stores a transcript's strand as 1 (`+`), 2 (`-`) or 0 (anything
 else, i.e. `.`). When a genomic alignment is projected onto a transcript,
@@ -71,7 +71,7 @@ every base. In the cohort 75 papers name TranscriptomeSAM/RSEM/salmon and 24 nam
 StringTie/Cufflinks (survey-cache lower bounds; the two sets were not intersected).
 
 **Fix shape.** Invert only for strand 2 (`../upstream/0001-*.patch`, one line in
-`Transcriptome_quantAlign.cpp`, plus ST2 below, a regression script and a `CHANGES.md`
+`Transcriptome_quantAlign.cpp`, plus STA2 below, a regression script and a `CHANGES.md`
 entry).
 
 **Upstream.** No prior report: tracker searched 2026-09-13 with five phrasings; nearest
@@ -79,7 +79,7 @@ entry).
 (open: soft-clipped transcriptome records with STARsolo), #2679 (open: custom GTF at the
 mapping step), #735/#2253 (missing reads), #2020 (feature request).
 
-### ST2 — CONFIRMED on `master` (2.7.11b), 2.7.10a and 2.7.9a: STARsolo `--soloStrand Forward` (the default) counts none of the sense reads of a gene whose GTF strand is `.`; `Reverse` counts all of them
+### STA2 — CONFIRMED on `master` (2.7.11b), 2.7.10a and 2.7.9a: STARsolo `--soloStrand Forward` (the default) counts none of the sense reads of a gene whose GTF strand is `.`; `Reverse` counts all of them
 
 **Code.** The same expression decides which strand a `.` gene accepts in every STARsolo
 feature: `Transcriptome_classifyAlign.cpp:208` (Gene: `(trStr[tr1]==1 ? aG.Str : 1-aG.Str) !=

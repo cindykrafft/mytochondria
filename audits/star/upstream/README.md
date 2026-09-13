@@ -7,7 +7,7 @@ of the audit clone, and `git am`-able from
 `0001-Treat-transcripts-with-undefined-GTF-strand-.-as-in-.patch` against `b1edc12`
 (`git apply --check` clean)._
 
-Filing tier (README step 5): **now** for ST1 + ST2, one issue and one PR — they share a root
+Filing tier (README step 5): **now** for STA1 + STA2, one issue and one PR — they share a root
 cause (a transcript whose GTF strand is `.` is stored as strand 0 and every `trStr==1 ? Str :
 1-Str` expression then treats it as `-`), they change numbers that reach papers
 (`Aligned.toTranscriptome.out.bam` records for RSEM/salmon, STARsolo count matrices) under
@@ -19,7 +19,7 @@ this PR. The notes are **held**.
 
 - `CONTRIBUTING.md` (adapted from Atom's). Shaped the kit as follows:
   - *Ask a question*: questions go to the [rna-star Google group](https://groups.google.com/forum/#!forum/rna-star),
-    not the tracker — the tracker is for bug reports and feature requests; ST1/ST2 are bug
+    not the tracker — the tracker is for bug reports and feature requests; STA1/STA2 are bug
     reports with a reproduction, so the tracker is the right place.
   - *Before submitting*: reproduce on the latest version with mostly default parameters
     (done: `master` = 2.7.11b, defaults except `--quantMode` / `--soloType`), check `Log.out`
@@ -27,7 +27,7 @@ this PR. The notes are **held**.
     same, open a new one linking it (none found); if an *open* one does, comment there (none).
   - *A good bug report*: clear title; exact commands; copy-pasteable snippets in code blocks;
     observed vs expected behaviour and why; system information (CPU/RAM/storage); whether it
-    reproduces reliably; attach `Log.out`. `issue-st1-undefined-strand.md` follows that order;
+    reproduces reliably; attach `Log.out`. `issue-sta1-undefined-strand.md` follows that order;
     the MCVE (`mcve_st1_transcriptome_strandless.sh`) is self-contained and its output on four
     builds is in `mcve_outputs.txt`.
   - *Pull requests*: descriptive title; state the purpose (bug fix); explain the expected change
@@ -59,7 +59,7 @@ this PR. The notes are **held**.
   flag reversed undefined strand", "TranscriptomeSAM StringTie single-exon transcripts no
   strand reverse complemented RSEM", "quantMode TranscriptomeSAM unstranded transcript strand
   unknown wrong orientation", the two nearest titles re-queried for their bodies): **no prior
-  report** of ST1 or ST2. Nearest: #1922 (open, 5 comments, 2023: user mis-entered `+` for
+  report** of STA1 or STA2. Nearest: #1922 (open, 5 comments, 2023: user mis-entered `+` for
   every strand in a custom GTF and asks how strand is used — a question, not this defect),
   #1880 (open, 5 comments: soft-clipped record in the transcriptome BAM with STARsolo, RSEM
   rejects it — different), #2679 (open, 0 comments, 2026: custom GTF at the mapping step and
@@ -76,7 +76,7 @@ this PR. The notes are **held**.
 
 | file | what |
 |---|---|
-| `issue-st1-undefined-strand.md` | bug report (ST1 + ST2) in the CONTRIBUTING order: commands, observed, expected, cause, versions, patch offer |
+| `issue-sta1-undefined-strand.md` | bug report (STA1 + STA2) in the CONTRIBUTING order: commands, observed, expected, cause, versions, patch offer |
 | `mcve_st1_transcriptome_strandless.sh`, `mcve_outputs.txt` | the reproduction embedded in the issue and its output on `master`, 2.7.10a, 2.7.9a and the patched build |
 | `0001-Treat-transcripts-with-undefined-GTF-strand-.-as-in-.patch` | fix in five `Transcriptome_*.cpp` files (one line each) + `extras/tests/scripts/testUndefinedStrand.sh` + `CHANGES.md` entry |
 | `pr-bodies.md` | PR title and body draft per CONTRIBUTING's PR guidelines |
@@ -88,8 +88,8 @@ STAR has no test suite to run "with and without"; the project builds with `make 
 
 | tree | `make STAR` | `extras/tests/scripts/testUndefinedStrand.sh` | audit harnesses |
 |---|---|---|---|
-| unmodified `master` @ `b1edc12` | builds (`STAR --version` 2.7.11b) | **FAIL** (8 transcriptome records differ between the `+` and `.` copy; STARsolo Forward counts 2 of 4 reads of the `.` gene in Gene/GeneFull/GeneFull_ExonOverIntron and 0 in GeneFull_Ex50pAS) | ST1: 600/600 SE and 396/396 PE reads on the `.` transcripts differ; ST2: 8 of 8 feature × gene combinations |
-| `master` + patch (`a0b3f8c`) | builds (2.7.11b) | **PASS** | `../verify/*.patched.out`: ST1 0 of 8 records; transcriptome projection 0 of 4,727 SE / 3,069 PE reads differ; ST2 0 of 8; GeneCounts unchanged (0 of 19 rows × 4 configurations) |
+| unmodified `master` @ `b1edc12` | builds (`STAR --version` 2.7.11b) | **FAIL** (8 transcriptome records differ between the `+` and `.` copy; STARsolo Forward counts 2 of 4 reads of the `.` gene in Gene/GeneFull/GeneFull_ExonOverIntron and 0 in GeneFull_Ex50pAS) | STA1: 600/600 SE and 396/396 PE reads on the `.` transcripts differ; STA2: 8 of 8 feature × gene combinations |
+| `master` + patch (`a0b3f8c`) | builds (2.7.11b) | **PASS** | `../verify/*.patched.out`: STA1 0 of 8 records; transcriptome projection 0 of 4,727 SE / 3,069 PE reads differ; STA2 0 of 8; GeneCounts unchanged (0 of 19 rows × 4 configurations) |
 
 No linter or formatter configuration exists in the tree (no `.clang-format`, no lint step);
 the changed lines follow the surrounding style.
@@ -98,12 +98,12 @@ the changed lines follow the surrounding style.
 
 | finding | affected | unaffected |
 |---|---|---|
-| ST1 | `master` = 2.7.11b (`../verify/st1_transcriptome_strandless.out`, `heldup_transcriptome_sam.out`), 2.7.10a (`.v2.7.10a.out`), 2.7.9a (`.v2.7.9a.out`); `mcve_outputs.txt` | patched `a0b3f8c` (`.patched.out`) |
-| ST2 | `master`, 2.7.10a (8 of 8), 2.7.9a (4 of 4: Gene, GeneFull — the two other features do not exist there) (`../verify/st2_solo_strandless*.out`) | patched `a0b3f8c` |
+| STA1 | `master` = 2.7.11b (`../verify/st1_transcriptome_strandless.out`, `heldup_transcriptome_sam.out`), 2.7.10a (`.v2.7.10a.out`), 2.7.9a (`.v2.7.9a.out`); `mcve_outputs.txt` | patched `a0b3f8c` (`.patched.out`) |
+| STA2 | `master`, 2.7.10a (8 of 8), 2.7.9a (4 of 4: Gene, GeneFull — the two other features do not exist there) (`../verify/st2_solo_strandless*.out`) | patched `a0b3f8c` |
 
 ## Order of operations
 
-1. Open the issue from `issue-st1-undefined-strand.md` (paste a fresh run of
+1. Open the issue from `issue-sta1-undefined-strand.md` (paste a fresh run of
    `mcve_st1_transcriptome_strandless.sh`; attach the `Log.out` of the `tr/` run as
    CONTRIBUTING asks).
 2. `git am` the patch onto a fresh `master` in a fork, review every line, add the issue number

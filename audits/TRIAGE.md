@@ -156,3 +156,30 @@ a human-written commit message and PR description, and a human DCO sign-off; the
 the trailer and no sign-off. edgeR has no tracker or PRs. clusterProfiler's maintainer guide and
 book were unreachable from the session and must be read before posting. Forks needed for the PRs:
 samtools/samtools, lme4/lme4, YuLab-SMU/enrichit.
+
+## Round 4 (2026-09-13): GSEA, STAR, Trimmomatic, limma, BCFtools
+
+The five most-cited tools in the survey that had not been audited and whose numeric core can be
+executed here. A first pass on 2026-09-10 was discarded and the five audits rerun from scratch on
+2026-09-13; every finding below was verified by execution against an independent implementation
+in the rerun. Kits under `audits/<package>/upstream/`.
+
+| tier | finding | reason |
+|---|---|---|
+| file now | GSEA GS3 | default `weighted` scheme: a gene set whose present members all score 0 gets hit weight 0/0; every running-sum comparison is then false and the set is reported with the running sum before its first hit as its ES, plus NES, p and FDR (0.000 on a 5,000-gene list with 30 % zeros, the run's second most negative result), no warning; every version tested |
+| file now | BCFtools BC1 | `mpileup`'s default bias annotations accumulate their tie correction in a 32-bit int that wraps at 1,291 reads per quality bin; MAPQ is capped at 59 and histograms pooled across samples, so 44 × 30 reads under the default `-d 250` give MQBZ −7.0 for a true −36.7; saturates near −11; 1.13 onward |
+| file now | STAR ST1 (+ST2, same patch) | a `.`-strand GTF feature makes `TranscriptomeSAM` write every read flag-inverted and reverse-complemented at the unchanged plus position (300/300 per strandless transcript, 0/300 on stranded ones), and stranded STARsolo counts such a gene's sense reads as 0; every version tested |
+| file now | Trimmomatic TM1 | ILLUMINACLIP palindrome mode charges `int(Q/10)` per mismatch where the README and simple mode charge Q/10: one-sided, so pairs below the threshold are clipped anyway and the reverse read dropped under the default; 23 of 4,000 simulated 2×50 pairs; every version back to 0.32 |
+| file now (support site) | limma LI1 | `arrayWeights(method = "reml")` with prior weights divides its convergence criterion by the gene count twice (ratio 10,010), stops after two iterations, weights up to 14.7 % off the same model without weights, 137 vs 183 DE genes; devel's `voomLmFit(sample.weights = TRUE)` routes there by design, so worth sending before 4.0.0 |
+| held (next in line) | GSEA GS1, GS2; Trimmomatic TM2; limma LI2 | GS1: `weighted_p1.5` raises the signed score to a fractional power (NaN, sign flips); GS2: `set_min == set_max` skips the size filter and can abort the run; TM2: MAXINFO trims every read to one base above target length 248 at strictness 0.1 (long-range saturation); LI2: `voom()` double-counts an edgeR-style offset (a no-op offset shifts E by up to 1.5 log2 units per column, 5,374 vs 37 genes) while devel's `voomLmFit` reads the same slot the other way. Each waits for an answer on its repository's first filing |
+| held | STAR N1-N5, Trimmomatic N1-N8, BCFtools N1-N6, limma N1-N9, GSEA N1-N4 | design choices and documentation gaps: spliced-vs-clipped ties as two loci; 2-pass junctions counted as annotated; `merge` taking an A/R/G tag from the last file; `-d` as a memory guard; `N` scored as Q0; TRAILING never testing base 0; the GSEA FDR averaging per permutation; ties keeping file order; `fitFDistUnequalDF1` bounding df.prior below at 2; the documented `contrasts.fit` approximation |
+
+Withdrawn by execution: 3 (STAR), 5 (Trimmomatic), 3 (BCFtools), 4 (limma), 3 (GSEA).
+
+Channel notes. BCFtools ships samtools' contributing document verbatim (assisted-by trailer, human-written
+message and PR body, a sign-off an agent may not add). STAR sends questions to its mailing list and asks
+that PRs not change default behaviour; it has no test runner. GSEA has one maintainer and no merged
+external PRs in sight. Trimmomatic's tracker is active again since 2025. bioc/limma is a read-only
+mirror: the Bioconductor support site is the channel and is unreachable from the audit session, so the
+prior-report search there is the owner's. Forks needed for the PRs: GSEA-MSigDB/gsea-desktop,
+samtools/bcftools, alexdobin/STAR, usadellab/Trimmomatic.

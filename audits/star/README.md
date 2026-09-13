@@ -28,8 +28,8 @@ SAM, never from STAR's counting code.
 
 | id | status | tier | finding |
 |---|---|---|---|
-| **ST1** | **CONFIRMED on `master` (2.7.11b), 2.7.10a and 2.7.9a** | **now** | `--quantMode TranscriptomeSAM` writes every alignment to a transcript whose GTF strand is `.` (undefined — StringTie's single-exon transcripts, merged/de novo GTFs) with the strand flag inverted and the sequence reverse-complemented at the unchanged `+`-strand position (`Transcriptome_quantAlign.cpp:107` treats strand 0 like `-`; the coordinate conversion does not). On the synthetic annotation **300/300 and 300/300** single-end reads and **196/196 and 200/200** paired-end pairs on the two `.` transcripts differ from an independent projection, 0 of the reads on the 14 `+`/`-` transcripts; an eight-read MCVE shows 4 of 4 `.` records wrong. RSEM/salmon then see reads that mismatch the transcript at every base. Same on every build executed; correct with the patch. |
-| **ST2** | **CONFIRMED on `master`, 2.7.10a and 2.7.9a** | now (same patch) | STARsolo `--soloStrand Forward` (default) counts **0 of 300** sense reads of a `.` gene in Gene, GeneFull and GeneFull_ExonOverIntron and counts them under `Reverse` instead (300); GeneFull_Ex50pAS counts 0 under both (8 of 8 feature × gene combinations; 4 of 4 on 2.7.9a, which lacks the last two features). `--quantMode GeneCounts` on the same reads counts 300, by STAR's own "genes w/o strand accept both strands" rule. Same root cause as ST1 (`trStr==1 ? Str : 1-Str` in the four solo files). |
+| **STA1** | **CONFIRMED on `master` (2.7.11b), 2.7.10a and 2.7.9a** | **now** | `--quantMode TranscriptomeSAM` writes every alignment to a transcript whose GTF strand is `.` (undefined — StringTie's single-exon transcripts, merged/de novo GTFs) with the strand flag inverted and the sequence reverse-complemented at the unchanged `+`-strand position (`Transcriptome_quantAlign.cpp:107` treats strand 0 like `-`; the coordinate conversion does not). On the synthetic annotation **300/300 and 300/300** single-end reads and **196/196 and 200/200** paired-end pairs on the two `.` transcripts differ from an independent projection, 0 of the reads on the 14 `+`/`-` transcripts; an eight-read MCVE shows 4 of 4 `.` records wrong. RSEM/salmon then see reads that mismatch the transcript at every base. Same on every build executed; correct with the patch. |
+| **STA2** | **CONFIRMED on `master`, 2.7.10a and 2.7.9a** | now (same patch) | STARsolo `--soloStrand Forward` (default) counts **0 of 300** sense reads of a `.` gene in Gene, GeneFull and GeneFull_ExonOverIntron and counts them under `Reverse` instead (300); GeneFull_Ex50pAS counts 0 under both (8 of 8 feature × gene combinations; 4 of 4 on 2.7.9a, which lacks the last two features). `--quantMode GeneCounts` on the same reads counts 300, by STAR's own "genes w/o strand accept both strands" rule. Same root cause as STA1 (`trStr==1 ? Str : 1-Str` in the four solo files). |
 | N1 | note, verified, documentation | held | `XS` under `--outSAMstrandField intronMotif` takes the annotated strand for annotated junctions (17 alignments over an annotated non-canonical intron carry `XS:A:+`), the motif strand otherwise; the manual says "derived from the intron motif". |
 | N2 | note, verified, design | held | The spliced and soft-clipped versions of one read tie within `--outFilterMultimapScoreRange` at an unannotated non-canonical junction with a 7–9-base overhang and are both reported: NH 2, MAPQ 3, "mapped to multiple loci", `N_multimapping`, a multi-mapper junction count (5 of 300 SE reads, 3 of 200 pairs on such a gene). |
 | N3 | note, verified, design | held | Non-canonical stitching allows no mismatches while GT/AG stitching allows any, so an unannotated non-canonical junction is displaced to a canonical motif 10 bases away for 4 unique reads (a spurious `SJ.out.tab` row) and 8–35 of 300 reads get a displaced primary alignment; the 2-pass run removes it. |
@@ -75,9 +75,9 @@ beyond the strand rule, WASP, genome transforms, `--peOverlap`, BAM sorting.
 | GeneCounts / ReadsPerGene named | 8 |
 | chimeric / fusion | 5 |
 
-Exposure by finding: ST1 needs `--quantMode TranscriptomeSAM` (75 name RSEM/salmon/
+Exposure by finding: STA1 needs `--quantMode TranscriptomeSAM` (75 name RSEM/salmon/
 TranscriptomeSAM) with an annotation carrying `.` strands (24 name StringTie/Cufflinks; the
-cache cannot tell which annotation fed STAR); ST2 needs STARsolo with such an annotation (109
+cache cannot tell which annotation fed STAR); STA2 needs STARsolo with such an annotation (109
 name single-cell tools). Every version the cohort names that was built here (2.7.9a, 2.7.10a,
 2.7.11b) is affected; earlier versions were not built.
 
@@ -98,7 +98,7 @@ to replace them with full-text records.
 - No `.github/` directory (no issue form, PR template or CI); `.travis.yml` only runs
   `make STAR`; no unit-test runner or linter; `extras/tests/scripts/` holds awk checkers.
   `CHANGES.md` takes one `* Issue #NNNN: Fixed ...` bullet per fix under a version heading.
-- ST1+ST2 are the one "file now" item (one issue, one PR — the two-unanswered-filings cap is
+- STA1+STA2 are the one "file now" item (one issue, one PR — the two-unanswered-filings cap is
   met exactly): a wrong number under default settings on the current release and every
   release the cohort names, no prior issue (tracker searched 2026-09-13; nearest #1922, #1880,
   #2679, #735, #2253, #2020). **The kit is in [`upstream/`](upstream/)**: issue text in the
@@ -112,17 +112,17 @@ to replace them with full-text records.
 | file | what |
 |---|---|
 | `star_profile.py`, `star_profiles.jsonl`, `profile_run.log` | profiling pass over the 489 cohort papers (offline; see caveat) |
-| `component-reviews/quantification-and-junction-core.md` | the review: ST1–ST2, N1–N5, withdrawn suspicions, held-up list, not-audited list |
+| `component-reviews/quantification-and-junction-core.md` | the review: STA1–STA2, N1–N5, withdrawn suspicions, held-up list, not-audited list |
 | `verify/_synth.py` | synthetic genome/GTF/read builder, STAR runner, SAM helpers (motif codes, junctions, mismatches) |
-| `verify/st1_transcriptome_strandless.py` (+ `.out`, `.v2.7.10a.out`, `.v2.7.9a.out`, `.patched.out`) | ST1: self-contained eight-read reproduction |
-| `verify/st2_solo_strandless.py` (+ same set) | ST2: STARsolo Forward/Reverse/Unstranded × 4 features × `+`/`-`/`.` genes, with GeneCounts alongside |
-| `verify/heldup_transcriptome_sam.py` (+ same set) | TranscriptomeSAM vs an independent projection (ST1 in bulk; the 14 stranded transcripts held up) |
+| `verify/st1_transcriptome_strandless.py` (+ `.out`, `.v2.7.10a.out`, `.v2.7.9a.out`, `.patched.out`) | STA1: self-contained eight-read reproduction |
+| `verify/st2_solo_strandless.py` (+ same set) | STA2: STARsolo Forward/Reverse/Unstranded × 4 features × `+`/`-`/`.` genes, with GeneCounts alongside |
+| `verify/heldup_transcriptome_sam.py` (+ same set) | TranscriptomeSAM vs an independent projection (STA1 in bulk; the 14 stranded transcripts held up) |
 | `verify/heldup_genecounts.py` (+ same set) | GeneCounts vs an independent union-mode counter, 4 configurations |
 | `verify/heldup_sjout.py` (+ `.out`) | `SJ.out.tab` vs an independent collapse, 5 filter configurations |
 | `verify/heldup_sam_tags.py` (+ `.out`) | NH/HI/MAPQ/AS/nM/jM/jI/XS, flags, primary choice, alignment accuracy, N1–N3 numbers |
 | `verify/heldup_filters_logfinal.py` (+ `.out`) | mismatch/score/multimap filter boundaries and all `Log.final.out` lines |
 | `verify/heldup_twopass.py` (+ `.out`) | 2-pass junction insertion, short-overhang rescue, `AS` changes, N4 numbers |
-| `upstream/` | filing kit: issue text, MCVE + outputs, patch 0001 (ST1+ST2), PR body, documents read, test numbers |
+| `upstream/` | filing kit: issue text, MCVE + outputs, patch 0001 (STA1+STA2), PR body, documents read, test numbers |
 
 Harnesses take the STAR binary and a scratch directory (`python verify/<h>.py /path/to/STAR
 /path/to/workdir`) and need a Python ≥ 3.12 venv with `pysam` and `numpy`
@@ -131,7 +131,7 @@ in `source/` (gcc, zlib); the 2.7.10a and 2.7.9a tags were built with `CXXFLAGSe
 
 ## Next steps
 
-1. File the ST1+ST2 issue from `upstream/issue-st1-undefined-strand.md` and the PR from the
+1. File the STA1+STA2 issue from `upstream/issue-sta1-undefined-strand.md` and the PR from the
    patch (order of operations in `upstream/README.md`); record numbers and responses here and
    in the top-level status table. The notes wait for a maintainer signal.
 2. Extend the review to STARsolo's UMI deduplication and `--soloMultiMappers`, chimeric

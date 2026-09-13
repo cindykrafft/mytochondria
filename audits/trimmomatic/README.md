@@ -50,7 +50,7 @@ simple-mode clip positions, the 3' fragment minimum (12 nt at threshold 7, 17 at
 at 15) and adapter-only reads behave as the README's arithmetic predicts; the four
 paired-end outputs, the log line, the `-summary` file and 6,000 `-trimlog` lines equal a
 per-read expectation on 3,000 pairs; outputs are byte-identical for `-threads 1/2/4/8`;
-the project's own suite passes (259 tests on `main`, 261 and 263 with the patches).
+the project's own suite passes (259 tests on `main`, 261 and 263 with the patches). Rerun on the patched jars, TM1's harness gives 0 of 7,200 grid pairs differing from the documented rule and all four simulated libraries (4,000/4,000/4,000/3,000 pairs) equal to it, and TM2's gives 0 of 150 grid cells differing from the double-precision rule with the seven typical settings unchanged at 5,000/5,000 (`verify/*.patched.out`).
 
 ## How the papers use Trimmomatic (lower bounds from the survey cache; see below)
 

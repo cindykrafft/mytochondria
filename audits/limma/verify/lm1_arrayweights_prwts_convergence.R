@@ -1,4 +1,4 @@
-# LM1: arrayWeights(method="reml") with prior weights (.arrayWeightsPrWtsREML) stops early.
+# LI1: arrayWeights(method="reml") with prior weights (.arrayWeightsPrWtsREML) stops early.
 # Its convergence criterion divides the score-step product by (ngenes+prior.n) a second
 # time (the score and information are already per-gene averages), so it is
 # (ngenes+prior.n) times smaller than the criterion of .arrayWeightsREML for the same

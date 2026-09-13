@@ -53,3 +53,5 @@ C. simulated libraries (insert uniform, per-base error rate 10^(-Q/10)):
       e.g. ('s227', 40, None, 40, None)
       e.g. ('s444', 38, None, 38, None)
    2x75   4000 pairs: clipped by documented rule 2562, by integer rule 2562, by shipped 2562; shipped == integer port 4000/4000, == documented 4000/4000; decision flips doc vs int 0
+   2x100  4000 pairs: clipped by documented rule 2926, by integer rule 2926, by shipped 2926; shipped == integer port 4000/4000, == documented 4000/4000; decision flips doc vs int 0
+   2x150  3000 pairs: clipped by documented rule 2405, by integer rule 2405, by shipped 2405; shipped == integer port 3000/3000, == documented 3000/3000; decision flips doc vs int 0

@@ -1,4 +1,4 @@
-"""ST2: STARsolo stranded counting (--soloFeatures Gene, GeneFull, GeneFull_ExonOverIntron,
+"""STA2: STARsolo stranded counting (--soloFeatures Gene, GeneFull, GeneFull_ExonOverIntron,
 GeneFull_Ex50pAS) of genes whose GTF strand is '.' (undefined).
 
 Truth: 300 sense-strand cDNA reads (read 2 in 10x-style CB+UMI / cDNA pairs, one cell

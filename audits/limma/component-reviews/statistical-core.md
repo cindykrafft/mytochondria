@@ -31,7 +31,7 @@ Cohort exposure numbers are lower bounds from the survey cache (see `../README.m
 
 ## Findings
 
-### LM1 — CONFIRMED on 3.42.2, 3.58.1, 3.62.2, 3.68.4, 3.68.5 and `devel` (3.34.0 predates the routine): `arrayWeights(method="reml")` with prior weights stops after one or two Fisher-scoring steps because its convergence criterion is divided by `ngenes+prior.n` twice
+### LI1 — CONFIRMED on 3.42.2, 3.58.1, 3.62.2, 3.68.4, 3.68.5 and `devel` (3.34.0 predates the routine): `arrayWeights(method="reml")` with prior weights stops after one or two Fisher-scoring steps because its convergence criterion is divided by `ngenes+prior.n` twice
 
 **Code.** `arrayWeights()` dispatches to `.arrayWeightsREML()` when there are no prior
 weights and no missing values, and to `.arrayWeightsPrWtsREML()` when prior weights are
@@ -96,7 +96,7 @@ sample weights agree to 1e-3 between the two implementations in that setting).
 Cohort: 2 papers name sample-specific quality weights and 54 name voom (lower bounds).
 Filed first in the kit.
 
-### LM2 — CONFIRMED on 3.68.4, 3.68.5 and `devel` (`voom()`) and on edgeR 4.10.5 (`voomLmFit()`); 3.58.1, 3.62.2 and edgeR 4.0.16 unaffected (no offset support): `voom()` counts the library sizes twice when a DGEList carries an edgeR-style offset matrix
+### LI2 — CONFIRMED on 3.68.4, 3.68.5 and `devel` (`voom()`) and on edgeR 4.10.5 (`voomLmFit()`); 3.58.1, 3.62.2 and edgeR 4.0.16 unaffected (no offset support): `voom()` counts the library sizes twice when a DGEList carries an edgeR-style offset matrix
 
 **Code.** Offset support entered `voom()` in 3.68.0 (2026-04-11, `R/voom.R:10`). A
 `DGEList` offset is picked up automatically (`R/voom.R:22`), row-mean corrected and

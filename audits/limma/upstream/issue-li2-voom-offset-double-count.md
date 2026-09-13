@@ -1,8 +1,8 @@
 Title: voom() with a DGEList offset matrix counts the library sizes twice; voomLmFit() in devel reads the same offset as exp(offset)
 
-<!-- Bioconductor support site post (https://support.bioconductor.org, tag: limma). Post after LM1
+<!-- Bioconductor support site post (https://support.bioconductor.org, tag: limma). Post after LI1
      has an answer. Attach 0002-voom-give-an-edgeR-style-offset-precedence-over-lib.size.patch
-     (devel; applies on top of the LM1 devel patch). -->
+     (devel; applies on top of the LI1 devel patch). -->
 
 Since limma 3.68.0 `voom()` picks up the `offset` element of a DGEList, row-mean corrects it
 and adds it to `log(lib.size)` (`R/voom.R:55-67`; the help page says an edgeR-style offset

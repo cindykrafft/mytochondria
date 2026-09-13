@@ -1,4 +1,4 @@
-"""ST1: Aligned.toTranscriptome.out.bam inverts the strand of every alignment to a transcript
+"""STA1: Aligned.toTranscriptome.out.bam inverts the strand of every alignment to a transcript
 whose GTF strand is '.' (undefined) and reverse-complements its sequence, while keeping
 the '+' coordinates.
 
