@@ -234,6 +234,7 @@ for d in sorted(glob.glob(A+"*/issue-fixes/*/")):
 json.dump(fixes, open(os.path.join(OUT,"fixes.json"),"w"), indent=1)
 # ---- ordered action list (2026-09-08): what to do next, top first; everything else waits for a signal
 ACTIONS=[
+ dict(kind="fix", pkg="umap", issue=1277, why="third umap fix, allowed now that #1287 and #1288 are both merged: a seeded fit is not reproducible when the input carries enough copies of one point, because the duplicates form a regular graph component and the spectral initialiser's all-ones start vector makes the eigensolver restart from its own unseeded state; 14-line fix, seeded results elsewhere bit-identical; read #1277's thread first (no comments at audit time)"),
  dict(kind="fix", pkg="iqtree", issue=198, why="reply on PR #214 (drafted, needs your approval): the maintainer asked for the CI additions to be removed, so the branch is now code-only (force-pushed, commit 04f81848) and the reproduction moves into the thread; the comment text is in the card below"),
  dict(kind="issue", key="edger", id="EG3", why="support-site post, not a GitHub issue: filterByExpr drops a gene sitting exactly on the CPM cutoff by one ulp, every version, one-line fix attached; small effect, so post only if you are comfortable with a low-magnitude report"),
 ]

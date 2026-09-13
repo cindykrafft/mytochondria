@@ -30,3 +30,4 @@ lme4:fix/gamma-loglik-phi
 lme4:fix/vcov-hessian-fallback
 enrichit:fix/gsea-sign-conditioned-pvalue
 iqtree3:fix/issue-198-sh-alrt-jackknife
+umap:fix/issue-1277-spectral-init-regular-component
