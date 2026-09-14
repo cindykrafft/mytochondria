@@ -1,7 +1,16 @@
 {
-"taken": "2026-09-14T12:50:00Z",
+"taken": "2026-09-14T18:55:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
+{
+"repo": "GSEA-MSigDB/gsea-desktop",
+"number": 75,
+"kind": "pr",
+"state": "open",
+"merged": false,
+"comments": 0,
+"updated": "2026-09-14T17:12:59Z"
+},
 {
 "repo": "GSEA-MSigDB/gsea-desktop",
 "number": 74,
@@ -1026,13 +1035,15 @@
 "state": "open",
 "merged": false,
 "comments": 1,
-"updated": "2026-09-10T14:56:21Z"
+"updated": "2026-09-14T16:42:17Z",
+"note": "updated 2026-09-14 16:42 UTC with no new comment (review, label or edit): unreadable from the session, owner to look"
 }
 ],
 "merge_checked": {
 "iqtree/iqtree3#214": "clean, 16 behind master",
 "samtools/samtools#2379": "clean, 5 behind develop",
 "lme4/lme4#1000": "clean, 1 behind master",
-"lmcinnes/umap#1290": "clean, 2 behind master"
+"lmcinnes/umap#1290": "clean, 2 behind master",
+"GSEA-MSigDB/gsea-desktop#75": "clean, 0 behind master"
 }
 }
