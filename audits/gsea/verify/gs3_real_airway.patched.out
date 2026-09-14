@@ -1,0 +1,18 @@
+==============================================================================
+GS3 on real data: airway (GSE52778), DESeq2 ranking, KEGG 2016 + Hallmark
+GSEA build: patched_gs3 (master + patch gs3)   openjdk version "25.0.4" 2026-07-21   python 3.11.15
+==============================================================================
+genes with a symbol: 39609  tested (padj not NA): 16272  stat NA: 13757
+  list stat_na0 :  39609 genes,  13757 scored exactly 0
+  list lfc_na0  :  39609 genes,  13757 scored exactly 0
+  list tested   :  16272 genes,      0 scored exactly 0
+gene sets: 343 (KEGG 2016 + Hallmark v7.0)
+
+[stat_na0] 326 sets reported; 0 of them meet the GS3 condition (every member present has score 0)
+  FDR < 0.25: 44 sets, of which 0 are all-zero sets;  FDR < 0.05: 1 sets, of which 0 all-zero
+
+[lfc_na0] 326 sets reported; 0 of them meet the GS3 condition (every member present has score 0)
+  FDR < 0.25: 1 sets, of which 0 are all-zero sets;  FDR < 0.05: 0 sets, of which 0 all-zero
+
+[tested] 308 sets reported; 0 of them meet the GS3 condition (every member present has score 0)
+  FDR < 0.25: 170 sets, of which 0 are all-zero sets;  FDR < 0.05: 22 sets, of which 0 all-zero

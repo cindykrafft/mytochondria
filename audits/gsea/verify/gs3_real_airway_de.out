@@ -1,0 +1,19 @@
+counts (63677, 8) all-zero genes 30208
+/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/gs3real/venv/lib/python3.11/site-packages/pydeseq2/dds.py:548: UserWarning: As the residual degrees of freedom is less than 3, the distribution of log dispersions is especially asymmetric and likely to be poorly estimated by the MAD.
+  self.fit_dispersion_prior()
+rows in results: 63677  all-zero genes present in results: 30208
+all-zero rows look like:
+                 baseMean  log2FoldChange  lfcSE  stat  pvalue  padj
+ENSG00000000005       0.0             NaN    NaN   NaN     NaN   NaN
+ENSG00000004809       0.0             NaN    NaN   NaN     NaN   NaN
+ENSG00000004848       0.0             NaN    NaN   NaN     NaN   NaN
+NaN counts per column:
+baseMean              0
+log2FoldChange    30208
+lfcSE             30208
+stat              30208
+pvalue            30208
+padj              45659
+dtype: int64
+exact-zero stat: 0  exact-zero LFC: 0
+padj non-NA (tested): 18018

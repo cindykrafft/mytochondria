@@ -50,6 +50,24 @@ source on R 4.3.3; CRAN/Bioconductor are unreachable here).
 | N3 | note, reporting convention | held | `RANK AT MAX` is the 0-based position of the extreme for a positive ES and N minus that position for a negative ES (counted from the bottom); the leading-edge percentages are right either way. |
 | N4 | note, cosmetic, by reading | held | The `USE_BIASED` preference has no effect on the `tTest` metric (SS/n over n − 1 equals SS/(n − 1) over n); not exposed on the command line. |
 
+**Real-data check of GS3 (2026-09-14).** The finding was verified on synthetic lists; whether its
+precondition (every present member of a set at exactly 0) occurs in practice was then tested on
+two public datasets with every MSigDB 7.5.1 collection (32,880 sets, about 23,000 with 15 to 500
+members present; from the `msigdbr` 7.5.1 package data). Airway bulk RNA-seq (GSE52778, the
+Bioconductor `airway` counts, DESeq2's algorithm via pydeseq2, design `~ cell + dex`): the
+worst-case list of all 39,609 symbol-mapped genes with NA statistics set to 0 carries 13,757
+zeros, yet no set meets the condition (closest: `chr11q11`, 35 of 37 members at 0; 4 sets at
+90 % or more, 105 at 50 % or more), and the audited jar and the patched jar report every set
+identically (44 sets at FDR < 0.25 either way; see [`verify/gs3_real_airway.py`](verify/gs3_real_airway.py)
+and its `.out` files). 10x PBMC 3k single-cell (2,638 cells, 13,714 genes, the `cellxgene`
+example file): Seurat-style avg_log2FC over every gene for 8 cell-type-versus-rest and 28
+pairwise contrasts, up to 4,344 exact zeros (dendritic cells versus megakaryocytes), again no
+set meets the condition (closest 94 %; [`verify/gs3_real_pbmc3k.py`](verify/gs3_real_pbmc3k.py)).
+Curated sets of 15 or more genes always contain something expressed, so with the standard
+collections GS3 needs a small custom set of tissue- or cell-type-specific genes on a list that
+includes unexpressed genes. The defect stands as reported (a silent 0/0 path in the default
+scheme, one-hunk fix), but its exposure in published work is small; the issue text says so.
+
 Three own suspicions were withdrawn by execution (a loop-index/set-index mix-up on the last
 gene of the list; an exactly tied ± extreme; phenotype-permutation calibration) and are
 recorded in the review.
@@ -132,6 +150,8 @@ replace them with full-text records.
 | `verify/gs1_weighted_p15_negative_scores.py` (+ `.out`, `.v4.4.0.out`, `.v4.3.2.out`, `.v4.1.0.out`, `.v4.0.3.out`, `.patched.out`) | GS1 on every build and on the patched jar |
 | `verify/gs2_set_min_equals_max.py` (+ the same six `.out`) | GS2 |
 | `verify/gs3_zero_weight_set.py` (+ the same six `.out`) | GS3 |
+| `verify/gs3_real_airway_de.py` (+ `.out`), `verify/gs3_real_airway.py` (+ `.out`, `.patched.out`) | real-data check of GS3 on airway bulk RNA-seq: DESeq2 via pydeseq2, three ranked lists, every MSigDB 7.5.1 collection counted, KEGG 2016 + Hallmark run through the audited and the patched jar |
+| `verify/gs3_real_pbmc3k.py` (+ `.out`) | real-data check of GS3 on 10x PBMC 3k: 36 cell-type contrasts, every MSigDB collection counted |
 | `verify/heldup_preranked_core.py` (+ `.out`) | ES vs port and fgsea for three schemes; NES/p/FWER/FDR from the stored null; rank at max and leading edge |
 | `verify/heldup_expression_metrics.py` (+ `.out`) | the five ranking metrics and the minimum-sigma rule; gene-set and phenotype permutation; null calibration |
 | `verify/heldup_collapse.py` (+ `.out`) | the five collapse modes, expression tool and GSEAPreranked |
