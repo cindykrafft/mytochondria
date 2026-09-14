@@ -31,3 +31,6 @@ lme4:fix/vcov-hessian-fallback
 enrichit:fix/gsea-sign-conditioned-pvalue
 iqtree3:fix/issue-198-sh-alrt-jackknife
 umap:fix/issue-1277-spectral-init-regular-component
+gsea-desktop:fix/zero-weight-gene-set
+gsea-desktop:fix/weighted-p1.5-abs-score
+gsea-desktop:fix/set-size-filter-min-equals-max

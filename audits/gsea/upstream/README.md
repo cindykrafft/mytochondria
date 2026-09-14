@@ -3,7 +3,7 @@
 _Default branch: **`master`** (PRs go against it). Prepared 2026-09-13 against
 `GSEA-MSigDB/gsea-desktop` `master` @ `dc35c76` (2025-03-10, one README-only commit after
 the `v4.4.0` tag `2cfcbd9`; `git diff v4.4.0 master` touches only `scripts/readme.txt`).
-**Nothing filed, nothing pushed.** The three fixes are single commits on local branches of
+**Nothing filed; branches pushed to the fork `cindykrafft/gsea-desktop` on 2026-09-14.** The three fixes are single commits on branches of
 the audit clone (`fix/weighted-p1.5-abs-score` = `d44f77e`, `fix/set-size-filter-min-equals-max`
 = `8b6aea6`, `fix/zero-weight-gene-set` = `d1c1f03`), `git am`-able from the three patches in this directory
 (`git apply --check` clean against `dc35c76`). No fork of `gsea-desktop` exists under
