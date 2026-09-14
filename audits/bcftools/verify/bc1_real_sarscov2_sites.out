@@ -1,0 +1,26 @@
+
+[sample1 -d 1e6] positions with >= 2 alt reads: 22486, of which DP >= 1291: 2892
+  scores that differ: {'MQBZ': 328, 'SCBZ': 328, 'MQSBZ': 328, 'BQBZ': 272};  differ by >= 1: {'MQBZ': 233, 'SCBZ': 326, 'MQSBZ': 273, 'BQBZ': 270};  cross a -3 threshold: {'MQBZ': 231, 'BQBZ': 141}
+    SCBZ: pos 17683 DP 1579 alt 15 (AF 0.010): base 5.155 -> patched 29.993
+    MQBZ: pos 948 DP 1618 alt 7 (AF 0.004): base -1.255 -> patched -21.240
+    BQBZ: pos 17719 DP 1540 alt 10 (AF 0.007): base -4.158 -> patched -12.817
+    MQSBZ: pos 17670 DP 2573 alt 9 (AF 0.006): base -0.205 -> patched -2.228
+
+[sample2 -d 1e6] positions with >= 2 alt reads: 15798, of which DP >= 1291: 1673
+  scores that differ: {'SCBZ': 769, 'BQBZ': 160, 'MQBZ': 275, 'MQSBZ': 275, 'RPBZ': 92};  differ by >= 1: {'SCBZ': 708, 'BQBZ': 156, 'MQBZ': 99, 'MQSBZ': 88, 'RPBZ': 84};  cross a -3 threshold: {'BQBZ': 118, 'MQSBZ': 40, 'MQBZ': 87}
+    SCBZ: pos 983 DP 1435 alt 12 (AF 0.008): base 4.436 -> patched 34.529
+    MQBZ: pos 23297 DP 2812 alt 6 (AF 0.004): base -0.629 -> patched -15.817
+    RPBZ: pos 23118 DP 1467 alt 6 (AF 0.004): base 2.955 -> patched 17.422
+    BQBZ: pos 23117 DP 1456 alt 17 (AF 0.012): base 3.748 -> patched 13.587
+    MQSBZ: pos 6747 DP 2591 alt 14 (AF 0.010): base -0.944 -> patched -4.022
+
+[sample1+sample2 -d 1e6] positions with >= 2 alt reads: 25058, of which DP >= 1291: 8471
+  scores that differ: {'MQBZ': 4557, 'SCBZ': 4697, 'MQSBZ': 4557, 'BQBZ': 3392, 'RPBZ': 1390};  differ by >= 1: {'MQBZ': 1585, 'SCBZ': 4654, 'MQSBZ': 2378, 'BQBZ': 3075, 'RPBZ': 701};  cross a -3 threshold: {'MQBZ': 1440, 'MQSBZ': 673, 'BQBZ': 1194, 'RPBZ': 195}
+    SCBZ: pos 16136 DP 1939 alt 8 (AF 0.004): base 4.288 -> patched 38.812
+    MQBZ: pos 1128 DP 3068 alt 2 (AF 0.001): base -1.201 -> patched -28.320
+    MQSBZ: pos 23125 DP 2144 alt 3 (AF 0.001): base -1.012 -> patched -14.914
+    BQBZ: pos 6523 DP 2601 alt 25 (AF 0.010): base -8.294 -> patched -18.701
+    RPBZ: pos 4098 DP 1538 alt 7 (AF 0.005): base 3.305 -> patched 13.580
+
+[sample1+sample2 default -d 250] positions with >= 2 alt reads: 23900, of which DP >= 1291: 0
+  scores that differ: none;  differ by >= 1: none;  cross a -3 threshold: none

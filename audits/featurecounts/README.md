@@ -120,7 +120,7 @@ replace them with full-text records.
   releases rather than the development tree.
 - The fork `github.com/cindykrafft/subread` does not exist yet (no
   `upstream-declines-ai-contributions` topic; `site/audits.json` has no entry).
-- Nothing rises to "file now" (step 5). **The kit is in [`upstream/`](upstream/)**:
+- Nothing rises to "file now" (step 6). **The kit is in [`upstream/`](upstream/)**:
   two issue texts (free-form, no template exists) with self-contained
   reproductions run on `master`, 2.1.1, 2.0.3 and 2.0.1, two `git am`-able patches
   (fix + a `test/featureCounts` case that FAILS on unmodified `master` and PASSES

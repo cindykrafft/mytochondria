@@ -83,7 +83,7 @@ one, and none gets more than two until a maintainer replies.
 
 ## Issue-fix round (from 2026-09-03 evening)
 
-Posture change, recorded in README step 6: instead of filing more audit findings, work
+Posture change, recorded in README step 7: instead of filing more audit findings, work
 through the checked repositories' own open issues, one reproducible bug each, and file a
 PR against the issue. Deliverables under `audits/<package>/issue-fixes/<n>-<slug>/`. Rules:
 nothing for HTSeq (declines); for repositories with unanswered audit filings (AFNI,
@@ -167,7 +167,7 @@ in the rerun. Kits under `audits/<package>/upstream/`.
 | tier | finding | reason |
 |---|---|---|
 | file now | GSEA GS3 | default `weighted` scheme: a gene set whose present members all score 0 gets hit weight 0/0; every running-sum comparison is then false and the set is reported with the running sum before its first hit as its ES, plus NES, p and FDR (0.000 on a 5,000-gene list with 30 % zeros, the run's second most negative result), no warning; every version tested. Real-data check 2026-09-14: on airway bulk (13,757 zeros of 39,609 genes) and PBMC 3k single-cell (36 contrasts, up to 4,344 zeros) against every MSigDB 7.5.1 collection no set met the precondition (closest 95 %), so exposure is small; the issue text states this and leads with the silent 0/0 path |
-| file now | BCFtools BC1 | `mpileup`'s default bias annotations accumulate their tie correction in a 32-bit int that wraps at 1,291 reads per quality bin; MAPQ is capped at 59 and histograms pooled across samples, so 44 × 30 reads under the default `-d 250` give MQBZ −7.0 for a true −36.7; saturates near −11; 1.13 onward |
+| file now | BCFtools BC1 | `mpileup`'s default bias annotations accumulate their tie correction in a 32-bit int that wraps at 1,291 reads per quality bin; MAPQ is capped at 59 and histograms pooled across samples, so 44 × 30 reads under the default `-d 250` give MQBZ −7.0 for a true −36.7; saturates near −11; 1.13 onward. Real-data check 2026-09-14: two SARS-CoV-2 amplicon samples with the depth cap raised reach the bin size at a tenth of the genome; scores at hundreds of sites with alternate reads shrink towards zero and the `< -3` filter decision differs at 231 (MQBZ) and 141 (BQBZ) sites in one sample, none under the default `-d 250` with two samples |
 | file now | STAR ST1 (+ST2, same patch) | a `.`-strand GTF feature makes `TranscriptomeSAM` write every read flag-inverted and reverse-complemented at the unchanged plus position (300/300 per strandless transcript, 0/300 on stranded ones), and stranded STARsolo counts such a gene's sense reads as 0; every version tested |
 | file now | Trimmomatic TM1 | ILLUMINACLIP palindrome mode charges `int(Q/10)` per mismatch where the README and simple mode charge Q/10: one-sided, so pairs below the threshold are clipped anyway and the reverse read dropped under the default; 23 of 4,000 simulated 2×50 pairs; every version back to 0.32 |
 | file now (support site) | limma LI1 | `arrayWeights(method = "reml")` with prior weights divides its convergence criterion by the gene count twice (ratio 10,010), stops after two iterations, weights up to 14.7 % off the same model without weights, 137 vs 183 DE genes; devel's `voomLmFit(sample.weights = TRUE)` routes there by design, so worth sending before 4.0.0 |

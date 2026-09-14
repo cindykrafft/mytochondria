@@ -92,7 +92,7 @@ with full-text records.
   DOSE `devel`; fgsea `master` (development at `alserglab/fgsea`).
 - fgsea: no CONTRIBUTING or templates, plain `NEWS`; nothing to file — everything held up.
 - The project fork for these repositories does not exist yet; `site/audits.json` has no entry, so no
-  `upstream-declines-ai-contributions` topic could apply. Tiers above follow README step 5: nothing
+  `upstream-declines-ai-contributions` topic could apply. Tiers above follow README step 6: nothing
   is a file-now candidate — CP1 is fixed and announced upstream (only the CRAN release is missing),
   CP2/CP3/CP5–CP7 are fixed at master, CP4 is a non-default path, CP8 a design question. **The kit is
   in [`upstream/`](upstream/)**: one `git am`-able patch for enrichit (CP4, fix + exact-enumeration

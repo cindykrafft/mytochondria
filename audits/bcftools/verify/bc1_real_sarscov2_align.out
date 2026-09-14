@@ -1,0 +1,25 @@
+sample1 depth summary: 29829 positions; 2934 positions with depth>=1291, max 2578
+sample2 depth summary: 29829 positions; 1749 positions with depth>=1291, max 2857
+
+[s1_d1e6] called variants: 6 (base) 6 (patched); same sites: True
+  sites where a bias Z differs base vs patched: none
+  called sites with DP >= 1291: 0 of 6
+
+[s2_d1e6] called variants: 15 (base) 15 (patched); same sites: True
+  sites where a bias Z differs base vs patched: {'MQBZ': 1, 'SCBZ': 1, 'MQSBZ': 1}
+    MQBZ: largest change at pos 23396 (DP 2850): base -0.005 -> patched -0.089
+    SCBZ: largest change at pos 23396 (DP 2850): base 0.072 -> patched 0.343
+    MQSBZ: largest change at pos 23396 (DP 2850): base -0.090 -> patched -1.586
+  called sites with DP >= 1291: 1 of 15
+
+[s1s2_d250] called variants: 17 (base) 17 (patched); same sites: True
+  sites where a bias Z differs base vs patched: none
+  called sites with DP >= 1291: 0 of 17
+
+[s1s2_d1e6] called variants: 17 (base) 17 (patched); same sites: True
+  sites where a bias Z differs base vs patched: {'MQBZ': 1, 'BQBZ': 1, 'SCBZ': 1, 'MQSBZ': 1}
+    MQBZ: largest change at pos 23396 (DP 3930): base -0.072 -> patched -1.206
+    BQBZ: largest change at pos 23396 (DP 3930): base 14.496 -> patched 17.755
+    SCBZ: largest change at pos 23396 (DP 3930): base 0.113 -> patched 0.466
+    MQSBZ: largest change at pos 23396 (DP 3930): base -0.127 -> patched -2.126
+  called sites with DP >= 1291: 5 of 17

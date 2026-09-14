@@ -55,6 +55,27 @@ on the 1.24 release build. Not checked: the indel model beyond the smoke test, B
 arithmetic, `call -c`, `roh`, `gtcheck`, `csq`, `consensus`, the `VDB`/`SGB` heuristics,
 `--gvcf`, CRAM.
 
+**Real-data check of BC1 (2026-09-14).** The finding was verified on synthetic BAMs; whether
+its precondition (1,291 or more reads sharing one quality or position bin at a site) occurs in
+practice was then tested on two real SARS-CoV-2 amplicon samples (nf-core/test-datasets,
+`viralrecon` branch, `illumina/amplicon/sample1` and `sample2`; 27,721 and 21,481 read pairs
+aligned with minimap2 to MT192765.1), the kind of data 41 papers in the cohort name. With the
+depth cap raised as viral pipelines do (`-d 1000000`; nf-core/viralrecon runs `--max-depth 0`),
+2,934 and 1,749 of the 29,829 positions exceed 1,291 reads in a single sample (maximum 2,857),
+so the precondition holds across a tenth of the genome. On the consensus variants from
+`call -mv --ploidy 1` (6, 15 and 17 sites) only the one deep site changes (`MQSBZ` −0.09 →
+−1.59 in sample2; −0.13 → −2.13 pooled) and no filter decision moves. On every site with at
+least two alternate reads, the sites a minor-variant analysis looks at, the unpatched and
+patched builds differ at 328 (sample1), 769 (sample2) and 4,697 (both samples pooled) sites for
+at least one score, most by one or more units, and the two builds fall on different sides of a
+`< -3` filter at 231 / 87 / 1,440 sites for `MQBZ` and 141 / 118 / 1,194 for `BQBZ`; the
+overflow always shrinks the score towards zero (`MQBZ` −1.26 reported for −21.24 at position
+948 of sample1, DP 1,618, 7 alternate reads). Under the default `-d 250` with the two samples
+pooled no site reaches the bin size and nothing changes. The multi-sample default-settings route
+(about 45 samples at 30×) could not be tested on real data from this session; no such cohort is
+reachable. Harness: [`verify/bc1_real_sarscov2_align.py`](verify/bc1_real_sarscov2_align.py) and
+[`verify/bc1_real_sarscov2_sites.py`](verify/bc1_real_sarscov2_sites.py) with their `.out` files.
+
 ## How the papers use BCFtools (lower bounds from the survey cache; see below)
 
 | signal | papers |
@@ -119,6 +140,7 @@ is `source: survey_cache` and every count above is a lower bound. Rerun without
 | `component-reviews/numeric-core.md` | the review: BC1, N1–N6, withdrawn suspicions, design choices, held-up list, not-audited list |
 | `verify/_synth.py` | shared reference/BAM/VCF builders (pysam), runner and parsers |
 | `verify/bc1_mpileup_mwu_biasZ_int_overflow.py` (+ `.out`, `.v1.24.out`, `.v1.13.out`, `.v1.10.2.out`, `.v1.9.out`, `.patched.out`) | BC1: model check, per-bin sweep across 1,291, binned base qualities, 40–100 single-sample BAMs under default `-d`, BAQ on |
+| `verify/bc1_real_sarscov2_align.py`, `verify/bc1_real_sarscov2_sites.py` (+ `.out`) | real-data check of BC1 on two SARS-CoV-2 amplicon samples: alignment, base vs patched mpileup on called variants and on every site with alternate reads, at `-d 1000000` and the default `-d 250` |
 | `verify/heldup_mpileup_counts.py` (+ `.out`, `.v1.24.out`) | held-up: DP/DP4/AD/ADF/ADR/SP/I16/MQ0F/MQ under four filter settings, `-d` (N4), single-read PLs, indel smoke test |
 | `verify/heldup_filltags_hwe_af.py` (+ `.out`, `.v1.24.out`) | held-up: +fill-tags counts, exact HWE/ExcHet; N3 |
 | `verify/heldup_call_m_port.py` (+ `.out`, `.v1.24.out`) | held-up: port of `call -m` (QUAL/GT/GQ/AC/AN, `-v`, `-P`, `--ploidy 1`); N5 |
