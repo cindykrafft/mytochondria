@@ -9,7 +9,7 @@ branch now carries `` :issue:`892` `` (commit `c571a5c`). CA2–CA4 wait for a m
 
 | branch | commit | patch |
 |---|---|---|
-| [`fix/absolute-error-count`](https://github.com/cindykrafft/cutadapt/tree/fix/absolute-error-count) | `7eeed8d` + `c571a5c` (issue number in changelog) | 0001 (CA1), PR #893 |
+| [`fix/absolute-error-count`](https://github.com/cindykrafft/cutadapt/tree/fix/absolute-error-count) | `7eeed8d` + `c571a5c` (issue number in changelog) + `af04ca9` (2026-09-15: one blank line removed in `align.py` after upstream pinned black 26.5.1, which collapses two blank lines after an import block; black, ruff and the 122 tests of the three touched test modules pass on the branch) | 0001 (CA1), PR #893 |
 | [`fix/max-ee-quality-base`](https://github.com/cindykrafft/cutadapt/tree/fix/max-ee-quality-base) | `1f56b1d` | 0002 (CA2) |
 | [`fix/index-alignment-score`](https://github.com/cindykrafft/cutadapt/tree/fix/index-alignment-score) | `d96438c` | 0003 (CA3) |
 | [`fix/prefilter-anchored-insertion`](https://github.com/cindykrafft/cutadapt/tree/fix/prefilter-anchored-insertion) | `32ef8c3` | 0004 (CA4) |
