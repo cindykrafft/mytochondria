@@ -695,7 +695,7 @@
 "merged": false,
 "comments": 0,
 "updated": "2026-09-14T20:53:52Z",
-"note": "updated 2026-09-14 20:53 UTC, both at the same second, no new comment and no push to the fork branch; upstream main moved 33 commits (Ruff, tox) the same day"
+"note": "2026-09-15: black-26 blank-line fix af04ca9 pushed to the fork branch after upstream pinned black 26.5.1; tests pass locally"
 },
 {
 "repo": "scverse/scanpy",
