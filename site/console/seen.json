@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-14T18:55:00Z",
+"taken": "2026-09-15T00:55:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -621,7 +621,8 @@
 "state": "open",
 "merged": false,
 "comments": 0,
-"updated": "2026-09-04T17:51:57Z"
+"updated": "2026-09-14T20:53:52Z",
+"note": "updated 2026-09-14 20:53 UTC, both at the same second, no new comment and no push to the fork branch; upstream main moved 33 commits (Ruff, tox) the same day"
 },
 {
 "repo": "ventolab/CellphoneDB",
@@ -693,7 +694,8 @@
 "state": "open",
 "merged": false,
 "comments": 0,
-"updated": "2026-09-03T03:30:23Z"
+"updated": "2026-09-14T20:53:52Z",
+"note": "updated 2026-09-14 20:53 UTC, both at the same second, no new comment and no push to the fork branch; upstream main moved 33 commits (Ruff, tox) the same day"
 },
 {
 "repo": "scverse/scanpy",
@@ -1044,6 +1046,8 @@
 "samtools/samtools#2379": "clean, 5 behind develop",
 "lme4/lme4#1000": "clean, 1 behind master",
 "lmcinnes/umap#1290": "clean, 2 behind master",
-"GSEA-MSigDB/gsea-desktop#75": "clean, 0 behind master"
+"GSEA-MSigDB/gsea-desktop#75": "clean, 0 behind master",
+"marcelm/cutadapt#893": "clean, 33 behind main",
+"marcelm/cutadapt#894": "clean, 33 behind main"
 }
 }
