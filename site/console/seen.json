@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-16T12:50:00Z",
+"taken": "2026-09-16T18:50:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -125,8 +125,9 @@
 "kind": "issue",
 "state": "open",
 "merged": false,
-"comments": 3,
-"updated": "2026-09-07T17:06:01Z"
+"comments": 4,
+"updated": "2026-09-16T14:46:15Z",
+"note": "4th comment 2026-09-16 14:46 UTC, unreadable from the session: owner to read and paste before any reply is drafted"
 },
 {
 "repo": "fieldtrip/fieldtrip",
