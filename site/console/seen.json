@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-18T06:50:00Z",
+"taken": "2026-09-18T12:55:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -568,7 +568,8 @@
 "state": "open",
 "merged": false,
 "comments": 0,
-"updated": "2026-09-05T15:34:46Z"
+"updated": "2026-09-18T06:57:33Z",
+"note": "updated 2026-09-18 06:57 with no new comment; upstream main moved at 06:52 (a17695a \"Update citation\"), fork branch head unchanged (9dbb3c7); read as base-branch refresh"
 },
 {
 "repo": "deeptools/deepTools",
@@ -1049,6 +1050,7 @@
 "lmcinnes/umap#1290": "clean, 2 behind master",
 "GSEA-MSigDB/gsea-desktop#75": "clean, 0 behind master",
 "marcelm/cutadapt#893": "clean, 33 behind main",
-"marcelm/cutadapt#894": "clean, 33 behind main"
+"marcelm/cutadapt#894": "clean, 33 behind main",
+"macs3-project/MACS#739": "clean, 1 behind main"
 }
 }
