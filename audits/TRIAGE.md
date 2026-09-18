@@ -111,7 +111,7 @@ Assigned issues (2026-09-04): no PR; comment with the diagnosis and a branch lin
 | chrchang/plink-ng | #140 | `--bmerge` duplicate-ID counts and warning asymmetric | PR #387 filed and closed 2026-09-05 within a minute, one comment (unread from the session; likely the maintainer's own fix, as with #381) |
 | freesurfer/freesurfer | #1358 | `mri_convert --out_orientation` shifts by one voxel per flipped axis | not to be filed: the maintainers decline AI-generated contributions (2026-09-08) |
 | scverse/scanpy | #3809 | `.distances` keeps `n_neighbors` entries on transformer paths (≥ 8192 cells by default) | PR ready; 6 unread comments on the issue |
-| macs3-project/MACS | #715 | `bdgdiff` scores truncated to integers | PR #739 open (filed 2026-09-05); two held findings in the kit README |
+| macs3-project/MACS | #715 | `bdgdiff` scores truncated to integers | PR #739 **merged 2026-09-18** (filed 2026-09-05); two held findings in the kit README |
 | iqtree/iqtree3 | #203 (+ #89, likely #135/#102) | `setRootNode` assertion when the outgroup is absent from a partition/quartet | PR #207 **merged 2026-09-08** (no discussion); closes #203 and #89 |
 | iqtree/iqtree3 | #192 | `GY{...}+FU{61 freqs}` silently becomes `GY+F`: user codon frequencies ignored, 60 free parameters, wrong likelihood (2.4.0 correct) | PR #210 **merged 2026-09-09** (no discussion); closes #192 |
 | iqtree/iqtree3 | #198 | SH-aLRT support values inflated whenever `-j`/`-J` is given (RELL replicates drawn as delete-half jackknife samples, so the centred statistics are not centred); turtle.fa 47.6 → 86, 61.7 → 91.7 | PR #214 filed 2026-09-09; third IQ-TREE fix after two merges |
@@ -130,7 +130,7 @@ and #1140 on 2026-09-05 with the merge; #1118 is still open. Filing plan under t
 (self-contained body, no prior issue), DT4 comment + PR on the open #1118; DT1 needs a fresh issue
 (its threads closed) and is held with DT3, DT5, DT9 and the residual #1423 sort fix. Two new
 4.0.0-only defects were filed 2026-09-05 as pre-release reports: bamCompare `--operation` (#1457, PR #1458) and
-plotPCA loadings (#1459, PR #1460). PR #1451 (the #1423 fix against 3.5.6) was closed after the merge.
+plotPCA loadings (#1459, PR #1460; both closed by the maintainers 2026-09-18 with a comment each, not yet read). PR #1451 (the #1423 fix against 3.5.6) was closed after the merge.
 deepTools now has two unanswered filings; everything else there is held.
 
 ## Round 3 (2026-09-08): samtools, featureCounts, edgeR, lme4, clusterProfiler

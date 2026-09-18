@@ -5,6 +5,8 @@ _Issue-fix round for the MACS2/MACS3 audit (`../../README.md`). Prepared 2026-09
 python dictionary for speed", 2026-07-06; `macs3 --version` = 3.0.5beta). Note: the repository's
 default branch is `main`, not `master`._
 
+**Status:** filed as PR [#739](https://github.com/macs3-project/MACS/pull/739) on 2026-09-05 (branch `fix/issue-715-bdgdiff-score-truncation`, commit `9dbb3c7`); **merged by the maintainer on 2026-09-18** (merge commit `26f6709` on `main`, no review comment). The fix will ship with the next MACS3 release after 3.0.5beta.
+
 ## The issue
 
 **#715 — "Bug: macs3 bdgdiff produces scores less than -C cutoff in cond1/2 bed file, and scores

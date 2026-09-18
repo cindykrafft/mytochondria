@@ -4,7 +4,7 @@ AFNI takes bug reports on the [AFNI Message Board](https://discuss.afni.nimh.nih
 and pull requests on [github.com/afni/afni](https://github.com/afni/afni). Unlike
 FSL, both channels are open, so findings go straight to GitHub.
 
-## Filed (as of 2026-09-02)
+## Filed (as of 2026-09-18)
 
 Every correctness PR is paired with an issue carrying a runnable reproduction.
 
@@ -17,9 +17,9 @@ Every correctness PR is paired with an issue carrying a runnable reproduction.
 | [#951](https://github.com/afni/afni/pull/951) | #952 | AF2 — `3dttest++ -paired -zskip`; `3dGroupInCorr` BminusA slots; t-to-z saturation | open |
 | [#953](https://github.com/afni/afni/pull/953) | #954 | AF12 — `3dTstat -DW`/`-tdiff`/`-nzmean` | open |
 | [#956](https://github.com/afni/afni/pull/956) | #955 | AF13 — `3dBrickStat -automask` scan truncation, `-absolute` integer `abs()` | open |
-| [#958](https://github.com/afni/afni/pull/958) | #957 | `3dTshift -no_detrend` demeans the wrong array for the second voxel of each pair | open |
+| [#958](https://github.com/afni/afni/pull/958) | #957 | `3dTshift -no_detrend` demeans the wrong array for the second voxel of each pair | **merged 2026-09-18** (`322124671`, one comment on the PR, not yet read from the session) |
 | [#960](https://github.com/afni/afni/pull/960) | #959 | AF3/AF4/AF5 — `3dMEMA` missing-data DF, `3dLMEr` GLT stamping, `3dMVM -robust` z conversion | open; R parse check done 2026-09-02 (see below) |
-| [#962](https://github.com/afni/afni/pull/962) | #961 | AF7 — `3dROIstats -sigma` Bessel factor in integer arithmetic | open |
+| [#962](https://github.com/afni/afni/pull/962) | #961 | AF7 — `3dROIstats -sigma` Bessel factor in integer arithmetic | **merged 2026-09-18** (`6a889c57d`, one comment on the PR, not yet read from the session) |
 | [#964](https://github.com/afni/afni/pull/964) | #963 | `3dmaskave`/`mri_percents` one-past-end reads at extreme percentiles | open |
 | [#966](https://github.com/afni/afni/pull/966) | #965 | AF15/AF14 and three more one-liners — `armacor` `abs()`, `3dXClustSim`, `edt_coerce`, `3dpc`, `3dDWItoDT` | open |
 | — | [#967](https://github.com/afni/afni/issues/967) | `3dcalc atanh(±1)` returns ±1: Fisher-z pipelines silently saturate | open (issue only) |

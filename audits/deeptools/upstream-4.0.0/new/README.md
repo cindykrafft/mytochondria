@@ -1,5 +1,7 @@
 **Filed 2026-09-05:** item 1 as issue [#1457](https://github.com/deeptools/deepTools/issues/1457) + PR [#1458](https://github.com/deeptools/deepTools/pull/1458); item 2 as issue [#1459](https://github.com/deeptools/deepTools/issues/1459) + PR [#1460](https://github.com/deeptools/deepTools/pull/1460). Items 3 and 4 held.
 
+**2026-09-18:** the maintainers closed #1459 (state "completed") and PR #1460 (closed, not merged) with one comment on each that could not be read from the session; no change to `plotPCA`/`correlation.py` landed on `master`, whose only commit that day deprecates computeGCBias/correctGCBias (#1471, `ec4fbc8`). Nothing further goes to deepTools until those two comments have been read.
+
 # deepTools 4.0.0 — the four defects introduced by the rewrite (filing kit)
 
 _Prepared 2026-09-05 against `deeptools/deepTools` `master` @ `4db9d816` ("4.0.0 cleanup

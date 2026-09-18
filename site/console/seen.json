@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-18T12:55:00Z",
+"taken": "2026-09-18T19:05:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -142,10 +142,11 @@
 "repo": "deeptools/deepTools",
 "number": 1459,
 "kind": "issue",
-"state": "open",
+"state": "closed",
 "merged": false,
-"comments": 0,
-"updated": "2026-09-05T15:22:42Z"
+"comments": 1,
+"updated": "2026-09-18T18:30:34Z",
+"note": "closed completed 2026-09-18 18:30; 1 comment unreadable from the session"
 },
 {
 "repo": "deeptools/deepTools",
@@ -385,10 +386,11 @@
 "repo": "afni/afni",
 "number": 961,
 "kind": "issue",
-"state": "open",
+"state": "closed",
 "merged": false,
 "comments": 0,
-"updated": "2026-08-31T21:02:49Z"
+"updated": "2026-09-18T18:08:26Z",
+"note": "closed completed with PR #962"
 },
 {
 "repo": "afni/afni",
@@ -403,10 +405,11 @@
 "repo": "afni/afni",
 "number": 957,
 "kind": "issue",
-"state": "open",
+"state": "closed",
 "merged": false,
 "comments": 0,
-"updated": "2026-08-31T20:59:16Z"
+"updated": "2026-09-18T18:06:55Z",
+"note": "closed completed with PR #958"
 },
 {
 "repo": "afni/afni",
@@ -547,10 +550,11 @@
 "repo": "deeptools/deepTools",
 "number": 1460,
 "kind": "pr",
-"state": "open",
+"state": "closed",
 "merged": false,
-"comments": 0,
-"updated": "2026-09-05T16:43:30Z"
+"comments": 1,
+"updated": "2026-09-18T18:30:07Z",
+"note": "closed NOT merged 2026-09-18 18:30; 1 comment unreadable from the session; no plotPCA change on master"
 },
 {
 "repo": "chrchang/plink-ng",
@@ -565,11 +569,11 @@
 "repo": "macs3-project/MACS",
 "number": 739,
 "kind": "pr",
-"state": "open",
-"merged": false,
+"state": "closed",
+"merged": true,
 "comments": 0,
-"updated": "2026-09-18T06:57:33Z",
-"note": "updated 2026-09-18 06:57 with no new comment; upstream main moved at 06:52 (a17695a \"Update citation\"), fork branch head unchanged (9dbb3c7); read as base-branch refresh"
+"updated": "2026-09-18T16:32:55Z",
+"note": "merged by Tao Liu 2026-09-18 16:32 UTC (26f6709), no comment"
 },
 {
 "repo": "deeptools/deepTools",
@@ -874,19 +878,21 @@
 "repo": "afni/afni",
 "number": 962,
 "kind": "pr",
-"state": "open",
-"merged": false,
-"comments": 0,
-"updated": "2026-08-31T21:03:31Z"
+"state": "closed",
+"merged": true,
+"comments": 1,
+"updated": "2026-09-18T18:08:25Z",
+"note": "merged by afni-rickr 2026-09-18 (6a889c57d); 1 comment unreadable from the session"
 },
 {
 "repo": "afni/afni",
 "number": 958,
 "kind": "pr",
-"state": "open",
-"merged": false,
-"comments": 0,
-"updated": "2026-08-31T21:02:01Z"
+"state": "closed",
+"merged": true,
+"comments": 1,
+"updated": "2026-09-18T18:06:54Z",
+"note": "merged by afni-rickr 2026-09-18 (322124671); 1 comment unreadable from the session"
 },
 {
 "repo": "afni/afni",
@@ -1051,6 +1057,6 @@
 "GSEA-MSigDB/gsea-desktop#75": "clean, 0 behind master",
 "marcelm/cutadapt#893": "clean, 33 behind main",
 "marcelm/cutadapt#894": "clean, 33 behind main",
-"macs3-project/MACS#739": "clean, 1 behind main"
+"macs3-project/MACS#739": "merged 2026-09-18 (26f6709); no longer tested"
 }
 }

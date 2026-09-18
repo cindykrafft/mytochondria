@@ -193,7 +193,7 @@ r2("plink","chrchang","plink-ng","master",None,
    ["issue-pl1-hwe-threshold-boundary.md"], ["PL1"])
 
 # ---- triage (2026-09-03): file only findings that change published numbers under default/common settings; at most two per repo until a maintainer responds
-TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)","FT15":"posted on PR #2610 (2026-09-07, per the comment count)","FT16":"posted on #2614 (2026-09-07, per the comment count)","PL1":"#380 / PR #381 (closed 2026-09-03: the maintainer applied his own equivalent fix, 1fe42e5)","DT4":"comment on #1118 / PR #1466 (2026-09-08)","ST1":"#2378 / PR #2379 (2026-09-08)","LM2":"comment on #867 / PR #1000 (2026-09-08)","GS3":"#74 / PR #75 (2026-09-14)"},
+TIER={"filed":{"DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460 (both closed by the maintainers 2026-09-18, one comment each, not yet read from the session)","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)","FT15":"posted on PR #2610 (2026-09-07, per the comment count)","FT16":"posted on #2614 (2026-09-07, per the comment count)","PL1":"#380 / PR #381 (closed 2026-09-03: the maintainer applied his own equivalent fix, 1fe42e5)","DT4":"comment on #1118 / PR #1466 (2026-09-08)","ST1":"#2378 / PR #2379 (2026-09-08)","LM2":"comment on #867 / PR #1000 (2026-09-08)","GS3":"#74 / PR #75 (2026-09-14)"},
       "now":["HC2","EG3","GS3","BC1","STA1","TM1","LI1"],
       "comment":[]}
 def tier_of(i):
@@ -281,8 +281,8 @@ WAITING=[
  ("Kilosort #1039 fix", "a reply on PR #1043, PR #1045 or issues #1044/#1046/#1047"),
  ("Suite2p #1079 (assigned upstream; comment only)", "a reply on PR #1266-#1268 or issues #1265/#1269/#1270"),
  ("FieldTrip #2345 fix", "#2608, #2610, #2611 or #2612 merged or answered (#2610 is 'almost ready to merge')"),
- ("deepTools DT1, DT5, DT8, DT9, DTN3", "a reply on #1457/#1458, #1459/#1460 or PR #1466"),
- ("SPM and AFNI second fixes", "not chosen yet; their first fixes were merged, so they are next to prepare"),
+ ("deepTools DT1, DT5, DT8, DT9, DTN3", "#1459 and PR #1460 (plotPCA loadings) were closed on 2026-09-18 with a comment each that the session cannot read: paste them before anything else on deepTools; no plotPCA change landed on master (that day's only commit deprecates computeGCBias/correctGCBias, #1471); #1457/#1458 and PR #1466 still open"),
+ ("SPM and AFNI second fixes", "not chosen yet; SPM's first fixes and AFNI's #944/#947/#926/#928 and now #958 (3dTshift -no_detrend) and #962 (3dROIstats -sigma), merged 2026-09-18, are in, so they are next to prepare; six AFNI PRs still open"),
  ("umap third fix, IQ-TREE third fix", "PR #1288 / PR #210 answered"),
  ("HTSeq HC1/HC2, FreeSurfer #1358", "never: the maintainers decline AI-generated contributions"),
 ]
