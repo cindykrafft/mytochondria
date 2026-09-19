@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-18T19:05:00Z",
+"taken": "2026-09-19T00:50:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -361,8 +361,9 @@
 "kind": "issue",
 "state": "open",
 "merged": false,
-"comments": 0,
-"updated": "2026-08-31T21:07:24Z"
+"comments": 1,
+"updated": "2026-09-18T22:29:40Z",
+"note": "first comment 2026-09-18 22:29 UTC, unreadable from the session; owner to paste before any reply is drafted"
 },
 {
 "repo": "afni/afni",
