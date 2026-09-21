@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-21T12:50:00Z",
+"taken": "2026-09-21T18:55:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -671,10 +671,11 @@
 "repo": "google-deepmind/alphafold3",
 "number": 734,
 "kind": "pr",
-"state": "open",
+"state": "closed",
 "merged": false,
-"comments": 1,
-"updated": "2026-09-03T20:47:15Z"
+"comments": 2,
+"updated": "2026-09-21T16:15:27Z",
+"note": "closed 2026-09-21 16:15 UTC after upstream applied the same fix internally: commit 3485995 (Augustin Zidek, 16:03 UTC) \"Prevent mutation of the cached base CCD dictionary when applying user CCD\", message credits PR #734 and @cindykrafft; diff identical to ours apart from the variable name and comment; closing comment unreadable from the session"
 },
 {
 "repo": "htseq/htseq",
