@@ -1,0 +1,253 @@
+279 tests
+octave-difference   104   37.3 %
+pass                 50   17.9 %
+matlab-only          46   16.5 %
+mex                  31   11.1 %
+graphics             25    9.0 %
+dpss-hack            11    3.9 %
+external             10    3.6 %
+data                  2    0.7 %
+
+## octave-difference (104)
+- test_bug1153: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_bug1309: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug131: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug1357: horizontal dimensions mismatch (1x1 vs 151x0) @ plotting/ft_plot_vector.m:290
+- test_bug1482: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug1508: test doesn't result in expected error message @ test/test_bug1508.m:30
+- test_bug1529: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_bug1775: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug1976: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug2085: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug2265: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug2269: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug2376: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug2378: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug2404: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug2524: assert (numel (strfind (s, '5.0')) == 3) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_bug2553: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug2585: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug2593: the component unmixing failed @ ft_componentanalysis.m:871
+- test_bug2680: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug2956: Invalid call to ifft.  Correct usage is:   -- X = ifft (Y)  -- X = ifft (Y, N)  -- X = ifft (Y, N, DIM) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_
+- test_bug2976: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug3048: assert (isequal (freq1.trial {1}, freq2.trial {1})) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_bug3077: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug3078: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug3205: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug3229: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug3256: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug3275: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug3325: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug3336: assert (!isequal (msg1, msg2)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_bug3337: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug3343: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug3453: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug3475: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug670: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_csp: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_example_bem_evaluation20220113: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_example_compute_leadfield20220113: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_example_custom_forwinv20220113: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_example_irasa: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_example_neighbours20220113: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_example_simulate_forward_dipolefit: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_example_simulateddata20220113: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_example_simulateddata_beamformer20220113: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_example_simulateddata_dipolefit20220113: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_example_sourcerecon_meeg20220113: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_example_ssvep20220113: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_appendlayout: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_appendsens: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_average_sens: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_checkdata: time axis is wrong @ test/test_ft_checkdata.m:355
+- test_ft_componentanalysis_methods: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_denoise_pca: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_denoise_prewhiten: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_dipolefitting: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_dipolesimulation: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_fetch_data: NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91
+- test_ft_meshrealign: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_plot_cloud: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_plot_montage: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_ft_plot_ortho: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_ft_plot_sens: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_plot_slice: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_ft_prepare_leadfield: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_prepare_montage: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_preproc_dftfilter: Invalid call to ifft.  Correct usage is:   -- X = ifft (Y)  -- X = ifft (Y, N)  -- X = ifft (Y, N, DIM) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_
+- test_ft_preproc_lowpassfilter: 'clim' undefined near line 96, column 1 @ test/test_ft_preproc_lowpassfilter.m:96
+- test_ft_rejectartifact: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_rejectcomponent: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_scalpcurrentdensity: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_selectdata: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_sourceanalysis: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_ft_spike_jpsth: 'clim' undefined near line 261, column 3 @ contrib/spike/ft_spike_plot_jpsth.m:261
+- test_ft_spikedensity: 'minmax' undefined near line 125, column 27 @ test/test_ft_spikedensity.m:125
+- test_ft_timelockgrandaverage: Invalid call to var.  Correct usage is:   -- statistics: V = var (X)  -- statistics: V = var (X, W)  -- statistics: V = var (X, W, "all")  -- statistics: V = va
+- test_ft_timelocksimulation: assert (isequal (data1.trial, data2.trial)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_ft_volumereslice: fprintf: invalid format specified @ utilities/ft_progress.m:263
+- test_headmodel_asa: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_headmodel_concentricspheres: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_headmodel_interpolate: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_headmodel_singlesphere: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_issue1198: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_issue1292: NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91
+- test_issue1322: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_issue1329: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_issue1418: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_issue1546: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_issue1841: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_issue2021: assert (contains (lasterr, 'This function requires raw data as input, see ft_datatype_raw.')) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert
+- test_issue2059: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_issue2124: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_issue2265: assert (abs (imag (freq.fourierspctrm (end))) < 100 * eps) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_issue714: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_issue928: horizontal dimensions mismatch (1x1 vs 2x0) @ plotting/ft_plot_vector.m:290
+- test_layout_egi: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_pull1600: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_pull1839: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_pull393: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_pull434: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_shuffle_coilorder: ic(1501): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51
+- test_spm_ft_integration: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_tutorial_connectivity: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_warp: rigidbody coregistration failed @ test/test_warp.m:28
+
+## matlab-only (46)
+- test_bug1658: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn ho
+- test_bug1742: nargout: number of output arguments unavailable for built-in function objects @ qsub/qsubcellfun.m:216
+- test_bug1820: 'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how 
+- test_bug1836: 'alphamap' undefined near line 384, column 7  The 'alphamap' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to le
+- test_bug1967a: 'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how 
+- test_bug2040: copyfile: no files to move @ ../../../../../../usr/share/octave/8.4.0/m/miscellaneous/copyfile.m:108
+- test_bug272: save: Unrecognized option '-nocompression' @ utilities/private/savevar.m:43
+- test_bug2769: 'pad' undefined near line 1881, column 41  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how 
+- test_bug3075: save: Unrecognized option '-nocompression' @ utilities/private/savevar.m:43
+- test_bug3368: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn ho
+- test_bug3403: 'table' undefined near line 177, column 17  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn h
+- test_bug3420: corr: function called with too many inputs @ ../../../../../../usr/share/octave/8.4.0/m/statistics/corr.m:-1
+- test_bug472: buffer: n must be an integer @ ../../../../../../usr/share/octave/packages/signal-1.4.5/buffer.m:64
+- test_checkcode: 'checkcode' undefined near line 172, column 7  The 'checkcode' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to 
+- test_convert_event: 'array2table' undefined near line 44, column 14  The 'array2table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html>
+- test_example_samplesize20220113: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn ho
+- test_ft_artifact_threshold: 'table' undefined near line 177, column 17  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn h
+- test_ft_colormap: feval: function 'parula' not found @ plotting/ft_colormap.m:223
+- test_ft_convert_units: Invalid call to round.  Correct usage is:   -- Y = round (X) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+- test_ft_denoise_tsr: binary operator '==' not implemented for 'cell' by 'cell' operations @ ../../../../../../usr/share/octave/8.4.0/m/general/isequal.m:117
+- test_ft_headcircumference: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn ho
+- test_ft_heartrate: 'envelope' undefined near line 165, column 27 @ ft_heartrate.m:165
+- test_ft_respiration: 'envelope' undefined near line 107, column 23 @ ft_respiration.m:107
+- test_ft_selectdata_savevar: save: Unrecognized option '-nocompression' @ utilities/private/savevar.m:43
+- test_ft_sourceparcellate: 'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how 
+- test_ft_specest_mtmconvol: feval: function 'taylorwin' not found @ external/signal/window.m:27
+- test_ft_specest_mtmfft: feval: function 'taylorwin' not found @ external/signal/window.m:27
+- test_ft_spike_plot_isireturn: 'mle' undefined near line 159, column 24  The 'mle' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read 
+- test_ft_statfun_correlationT: corr: function called with too many inputs @ ../../../../../../usr/share/octave/8.4.0/m/statistics/corr.m:-1
+- test_ft_steadystatesimulation: 'array2table' undefined near line 369, column 18  The 'array2table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html
+- test_ft_volumelookup: 'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how 
+- test_ft_write_data: audiowrite: failed to open output file '/tmp/oct-bL0b5R/write_oga.oga': Error : major format is 0. @ fileio/ft_write_data.m:610
+- test_issue1167: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn ho
+- test_issue1363: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn ho
+- test_issue1400: 'table' undefined near line 35, column 18  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn ho
+- test_issue1431: 'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how yo
+- test_issue1459: 'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how 
+- test_issue1564: 'table' undefined near line 30, column 20  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn ho
+- test_issue1568: 'table' undefined near line 33, column 20  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn ho
+- test_issue1711: Invalid call to round.  Correct usage is:   -- Y = round (X) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+- test_issue2235: 'table' undefined near line 29, column 14  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn ho
+- test_pull1156: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn ho
+- test_pull1427: 'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how 
+- test_pull2050: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn ho
+- test_pull2582: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn ho
+- test_pull348: binary operator '==' not implemented for 'cell' by 'cell' operations @ ../../../../../../usr/share/octave/8.4.0/m/general/isequal.m:117
+
+## graphics (25)
+- test_bug1168: get: invalid default property 'colormap' @ ft_multiplotTFR.m:550
+- test_bug1729: octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:444
+- test_bug2031: get: invalid default property 'colormap' @ private/topoplot_common.m:648
+- test_bug2277: octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:447
+- test_bug2440: octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:444
+- test_bug2560: Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -
+- test_bug2640: __marching_cube__: XX, YY, ZZ, v must be 3-D matrices @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/private/__marching_cube__.m:100
+- test_bug2727: get: invalid default property 'colormap' @ private/topoplot_common.m:648
+- test_bug2820: Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -
+- test_bug3192: __go_patch__: invalid value for array property "cdata", unable to create graphics handle @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/private/__patch_
+- test_bug3196: __go_patch__: invalid value for array property "cdata", unable to create graphics handle @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/private/__patch_
+- test_bug3358: get: invalid default property 'colormap' @ ft_multiplotTFR.m:550
+- test_bug3378: octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:444
+- test_ft_electrodeplacement: rotate3d: function called with too many outputs @ ../../../../../../usr/share/octave/8.4.0/m/plot/util/rotate3d.m:-1
+- test_ft_plot_axes: getframe: not implemented for gnuplot graphics toolkit @ ../../../../../../usr/share/octave/8.4.0/m/image/getframe.m:76
+- test_ft_plot_crosshair: getframe: not implemented for gnuplot graphics toolkit @ ../../../../../../usr/share/octave/8.4.0/m/image/getframe.m:76
+- test_ft_plot_headshape: __go_patch__: invalid value for array property "cdata", unable to create graphics handle @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/private/__patch_
+- test_ft_spike_isi: zoom: function called with too many outputs @ ../../../../../../usr/share/octave/8.4.0/m/plot/util/zoom.m:-1
+- test_ft_spike_plot_raster: zoom: function called with too many outputs @ ../../../../../../usr/share/octave/8.4.0/m/plot/util/zoom.m:-1
+- test_ft_spike_psth: zoom: function called with too many outputs @ ../../../../../../usr/share/octave/8.4.0/m/plot/util/zoom.m:-1
+- test_issue1721: get: invalid default property 'colormap' @ private/topoplot_common.m:648
+- test_issue1843: Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -
+- test_pull1877: Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -
+- test_pull2105: get: invalid default property 'colormap' @ private/topoplot_common.m:648
+- test_pull492: get: invalid default property 'colormap' @ ft_multiplotTFR.m:550
+
+## mex (31)
+- test_bug1029: 'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177
+- test_bug1042: 'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177
+- test_bug1227: zstream.c not compiled - see Makefile @ external/gifti/@gifti/private/zstream.m:25
+- test_bug1832: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_bug1954: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_bug2032: 'spm_existfile' undefined near line 109, column 5 @ external/spm8/spm_vol.m:109
+- test_bug2069: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_bug2606: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_bug2855: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_bug2994: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_bug3435: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_bug686: 'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177
+- test_clusterstat: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_example_simulateddata_clusterstats20220113: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_findcluster: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_ft_combineplanar: 'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+- test_ft_connectivity_mutualinformation: invalid function handle, unable to find function for @direct_method_v5b @ external/ibtb/entropy.m:319
+- test_ft_defacevolume: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_ft_headmodel_bemcp: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_ft_prepare_mesh: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_ft_sourcedepth: Could not locate the MEX file "ptriproj.mex" @ forward/private/ptriproj.m:34
+- test_ft_sourceinterpolate: zstream.c not compiled - see Makefile @ external/gifti/@gifti/private/zstream.m:25
+- test_ft_timelockstatistics: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_ft_volumebiascorrect: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_ft_volumewrite: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_headmodel_bemcp: 'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177
+- test_issue1618: 'CalcMD5' undefined near line 30, column 24 @ fileio/private/inflate_file.m:30
+- test_issue1695: file2mat.c not compiled - see Makefile @ external/spm12/@file_array/private/file2mat.m:15
+- test_pull2593: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_pull360: spm_conv_vol.c not compiled - see Makefile @ external/spm12/spm_conv_vol.m:36
+- test_triangulate_seg: spm_bwlabel.c not compiled - see Makefile @ external/spm8/spm_bwlabel.m:37
+
+## external (10)
+- test_bug1166: there is no dipoli executable for your platform @ forward/ft_headmodel_dipoli.m:192
+- test_bug1368: OpenMEEG not found @ external/openmeeg/om_checkombin.m:94
+- test_bug70: OpenMEEG not found @ external/openmeeg/om_checkombin.m:94
+- test_headmodel_dipoli: there is no dipoli executable for your platform @ forward/ft_headmodel_dipoli.m:192
+- test_headmodel_hbf: invalid call to script /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/ftfix/external/hbf/hbf_mesh/hbf_SolidAng
+- test_headmodel_openmeeg: OpenMEEG not found @ external/openmeeg/om_checkombin.m:94
+- test_nanstat: the XUNIT toolbox is not available, see http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework @ utilities/ft_hastoolbox.m:571
+- test_old_buffer_latency_bandwidth: 'moxunit_throw_test_skipped_exception' undefined near line 27, column 3 @ test/test_old_buffer_latency_bandwidth.m:27
+- test_old_connectivityanalysis: 'moxunit_throw_test_skipped_exception' undefined near line 17, column 3 @ test/test_old_connectivityanalysis.m:17
+- test_openmeeg_eeg: OpenMEEG not found @ external/openmeeg/om_checkombin.m:94
+
+## data (2)
+- test_pull1138: load: unable to find file /project/3031000.02/external/download/tutorial/human_ecog/SubjectUCI29/SubjectUCI29_freq.mat @ test/test_pull1138.m:8
+- test_tutorial_networkanalysis_eeg20220126: load: unable to find file /project/3031000.02/external/download/tutorial/networkanalysis_eeg/data_eeg_reref_ica.mat @ test/test_tutorial_networkanalysis_eeg2022
+
+## dpss-hack (11)
+- test_bug1041: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_bug2148: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_bug2342: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_bug2965: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_bug3182: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_example_effects_of_tapering20220113: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_example_granger_conditional20220113: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_ft_connectivityanalysis: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_ft_resampledata: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_pull1757: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_tutorial_connectivity2: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+

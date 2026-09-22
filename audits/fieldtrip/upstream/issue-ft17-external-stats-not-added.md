@@ -44,4 +44,4 @@ The fix is to pass an empty exclusion list, as the `images` and `signal` cases a
       tf = has_all_functions_in_dir(external_stats_dir, {});
 ```
 
-In the Octave survey you asked for on #2614 (every `DATA no` test function on Octave 8.4, results there shortly), this one line accounts for 81 of the 281 failures. PR follows, together with a second small Octave fix from the same survey (`compat/octave/startsWith.m` and `endsWith.m` with a cell array of patterns).
+In the Octave survey you asked for on #2614 (every `DATA no` test function on Octave 8.4, results there shortly), this one line accounts for 81 of the 280 failures. PR follows, together with two small Octave-only fixes from the same survey (`compat/octave/startsWith.m`, `endsWith.m` and `contains.m` with a cell array of patterns; `ft_fetch_data` with `addParameter`).

@@ -10,6 +10,8 @@ Categories (first matching rule wins; the rules are regexes on the message colum
                        sizes happen to agree, a wrong-sized result that ft_senstype.m:444 then trips over
   ft-nanmean           nanmean/nanstd/nanmax... missing: ft_platform_supports('stats') errors on an undefined
                        variable, ft_defaults swallows it and never adds external/stats
+  ft-fetchdata         utilities/ft_fetch_data.m declares its name-value options with addOptional, which
+                       Octave's inputParser assigns positionally, so the string 'endsample' reaches istrue()
   dpss-hack            dpss called with two outputs on external/signal/dpss_hack (issue #2614)
   mex                  a MEX file that is not compiled for Octave (spm12, gifti, bemcp, ...)
   external             an external binary or toolbox that is not installed (OpenMEEG, dipoli, xunit, MOxUnit, hbf)
@@ -27,16 +29,17 @@ import argparse, collections, re, sys
 RULES = [
     ("ft-startswith", r"compat/octave/(startsWith|endsWith)\.m|mx_el_and: nonconformant arguments \(op1 is 1x2, op2 is 1x3\) @ fileio/private/ft_senstype\.m:444"),
     ("ft-nanmean", r"'nan(mean|std|max|min|sum|var|median)' undefined|function for @nan(mean|std|max|min|sum|var)|assert \(exist \(filelist \{k\}, 'file'\)"),
+    ("ft-fetchdata", r"cannot determine whether \"endsample\" should be interpreted as true or false"),
     ("dpss-hack", r"dpss_hack"),
-    ("mex", r"not compiled - see Makefile|Could not locate the MEX file|'bem_Cii_lin' undefined|'meg_leadfield1' undefined|'CalcMD5' undefined|'spm_existfile' undefined|direct_method_v5b"),
+    ("mex", r"not compiled - see Makefile|Could not locate the MEX file|'bem_Cii_lin' undefined|'meg_leadfield1' undefined|'CalcMD5' undefined|'spm_existfile' undefined|direct_method_v5b|'routlm' undefined"),
     ("external", r"OpenMEEG not found|no dipoli executable|XUNIT toolbox is not available|moxunit_throw_test_skipped_exception|hbf_mesh/hbf_SolidAngle"),
     ("data", r"load: unable to find file /project/"),
-    ("matlab-only", r"'(strip|pad|table|array2table|envelope|alphamap|checkcode|mle|contains)' undefined|"
-                    r"Invalid call to round|corr: function called with too many inputs|Unrecognized option '-nocompression'|"
+    ("matlab-only", r"'(strip|pad|table|array2table|envelope|alphamap|checkcode|mle|contains|split|clim|minmax)' undefined|"
+                    r"Invalid call to (round|ifft|var)|corr: function called with too many inputs|Unrecognized option '-nocompression'|"
                     r"'taylorwin' not found|'parula' not found|nargout: number of output arguments unavailable for built-in function objects|"
                     r"binary operator '==' not implemented for 'cell' by 'cell'|buffer: n must be an integer|copyfile: no files to move|"
                     r"audiowrite: failed to open output file"),
-    ("graphics", r"Invalid call to colormap|invalid default property 'colormap'|__go_patch__|getframe: not implemented|zoom: function called|"
+    ("graphics", r"Invalid call to colormap|surface: Z and C must have the same size|invalid default property 'colormap'|__go_patch__|getframe: not implemented|zoom: function called|"
                  r"rotate3d: function called|__marching_cube__|wrong type argument 'sq_string'"),
 ]
 

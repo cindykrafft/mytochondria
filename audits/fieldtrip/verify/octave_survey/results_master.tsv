@@ -1,0 +1,472 @@
+test	outcome	seconds	walltime	mem	category	message	run
+test_bug1014	PASS	4	00:10:00	1gb	pass		master
+test_bug1029	FAIL	4	00:10:00	1gb	mex	'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177	master
+test_bug103	FAIL	3	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 443, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_singleplotER.m:443	master
+test_bug1041	FAIL	2	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1	master
+test_bug1042	FAIL	4	00:45:00	1gb	mex	'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177	master
+test_bug1067	PASS	4	00:10:00	1gb	pass		master
+test_bug1114	PASS	143	00:10:00	1gb	pass		master
+test_bug1149	PASS	5	00:10:00	1gb	pass		master
+test_bug1153	FAIL	1	00:10:00	1gb	ft-startswith	mx_el_and: nonconformant arguments (op1 is 1x2, op2 is 1x3) @ fileio/private/ft_senstype.m:444	master
+test_bug1162	FAIL	2	00:10:00	1gb	ft-nanmean	invalid function handle, unable to find function for @nanmean @ ft_timelockgrandaverage.m:176	master
+test_bug1163	PASS	1	00:10:00	1gb	pass		master
+test_bug1166	FAIL	2	00:10:00	1gb	external	there is no dipoli executable for your platform @ forward/ft_headmodel_dipoli.m:192	master
+test_bug1168	FAIL	8	00:10:00	1gb	graphics	get: invalid default property 'colormap' @ ft_multiplotTFR.m:550	master
+test_bug1227	FAIL	1	00:10:00	1gb	mex	zstream.c not compiled - see Makefile @ external/gifti/@gifti/private/zstream.m:25	master
+test_bug1232	PASS	2	00:10:00	1gb	pass		master
+test_bug1248	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 150, column 14  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/preproc.m:150	master
+test_bug1270	FAIL	3	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 443, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_singleplotER.m:443	master
+test_bug1309	FAIL	1	00:15:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug131	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug1318	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_bandpassfilter.m:156	master
+test_bug1357	FAIL	9	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 443, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_singleplotER.m:443	master
+test_bug1368	FAIL	2	00:20:00	1gb	external	OpenMEEG not found @ external/openmeeg/om_checkombin.m:94	master
+test_bug1389	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 150, column 14  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/preproc.m:150	master
+test_bug1405	PASS	2	00:10:00	1gb	pass		master
+test_bug1408	FAIL	64	00:10:00	2gb	ft-nanmean	'nanmean' undefined near line 150, column 14  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/preproc.m:150	master
+test_bug1409	PASS	2	00:10:00	1gb	pass		master
+test_bug1416	PASS	1	00:10:00	1gb	pass		master
+test_bug1425	PASS	3	00:10:00	1gb	pass		master
+test_bug1450	PASS	1	00:10:00	1gb	pass		master
+test_bug1482	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug1502	PASS	1	00:10:00	1gb	pass		master
+test_bug1508	FAIL	2	00:10:00	1gb	octave-difference	test doesn't result in expected error message @ test/test_bug1508.m:30	master
+test_bug1514	PASS	2	00:10:00	1gb	pass		master
+test_bug1529	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 314, column 7  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ plotting/ft_plot_slice.m:314	master
+test_bug1556	FAIL	6	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 136, column 10  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ statfun/ft_statfun_depsamplesFunivariate.m:136	master
+test_bug1561	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_bandpassfilter.m:156	master
+test_bug1573	PASS	2	00:10:00	1gb	pass		master
+test_bug1600	PASS	1	00:10:00	1gb	pass		master
+test_bug1658	FAIL	1	00:20:00	2gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63	master
+test_bug1677	FAIL	7	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 181, column 23  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_freqdescriptives.m:181	master
+test_bug168	PASS	12	00:10:00	1gb	pass		master
+test_bug1729	FAIL	2	00:10:00	1gb	graphics	octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:444	master
+test_bug1742	FAIL	1	00:10:00	1gb	matlab-only	nargout: number of output arguments unavailable for built-in function objects @ qsub/qsubcellfun.m:216	master
+test_bug1775	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug1820	FAIL	3	04:30:00	10gb	matlab-only	'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1861	master
+test_bug1832	FAIL	5	00:20:00	1gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15	master
+test_bug1836	FAIL	13	00:10:00	1gb	matlab-only	'alphamap' undefined near line 384, column 7  The 'alphamap' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ plotting/ft_plot_mesh.m:384	master
+test_bug1891	PASS	1	00:10:00	1gb	pass		master
+test_bug1916	PASS	1	00:10:00	1gb	pass		master
+test_bug1925	PASS	1	00:10:00	1gb	pass		master
+test_bug1954	FAIL	5	01:30:00	1gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15	master
+test_bug1967a	FAIL	2	00:20:00	1gb	matlab-only	'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1861	master
+test_bug1976	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug2025	PASS	1	00:10:00	1gb	pass		master
+test_bug2031	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 524, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/topoplot_common.m:524	master
+test_bug2032	FAIL	33	00:20:00	1gb	mex	'spm_existfile' undefined near line 109, column 5 @ external/spm8/spm_vol.m:109	master
+test_bug2033	PASS	1	00:10:00	1gb	pass		master
+test_bug2040	FAIL	1	00:10:00	1gb	matlab-only	copyfile: no files to move @ ../../../usr/share/octave/8.4.0/m/miscellaneous/copyfile.m:108	master
+test_bug2061	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 223, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_timelockanalysis.m:223	master
+test_bug2069	FAIL	5	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25	master
+test_bug2071	PASS	2	00:10:00	1gb	pass		master
+test_bug2085	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug2148	FAIL	7	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1	master
+test_bug2160	PASS	95	00:10:00	1gb	pass		master
+test_bug2186	FAIL	3	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 1538, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1538	master
+test_bug2197	PASS	2	00:10:00	1gb	pass		master
+test_bug2224	PASS	2	00:10:00	1gb	pass		master
+test_bug2265	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug2269	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug2277	FAIL	2	00:10:00	1gb	graphics	octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:447	master
+test_bug2342	FAIL	3	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1	master
+test_bug2363	PASS	2	00:10:00	1gb	pass		master
+test_bug2364	PASS	7	00:10:00	1gb	pass		master
+test_bug2370	PASS	1	00:10:00	1gb	pass		master
+test_bug2376	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug2378	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug2394	PASS	2	00:10:00	1gb	pass		master
+test_bug2404	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug2440	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_bandpassfilter.m:156	master
+test_bug2444	PASS	1	00:10:00	1gb	pass		master
+test_bug2450	PASS	1	00:10:00	1gb	pass		master
+test_bug2460	PASS	1	00:10:00	1gb	pass		master
+test_bug2502	PASS	2	00:10:00	1gb	pass		master
+test_bug2508	PASS	4	00:10:00	1gb	pass		master
+test_bug2509	PASS	1	00:10:00	1gb	pass		master
+test_bug2524	FAIL	1	00:10:00	1gb	octave-difference	assert (numel (strfind (s, '5.0')) == 3) failed @ ../../../usr/share/octave/8.4.0/m/testfun/assert.m:107	master
+test_bug2528	PASS	2	00:10:00	1gb	pass		master
+test_bug2553	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug2556	PASS	4	00:10:00	1gb	pass		master
+test_bug2558	PASS	42	00:10:00	1gb	pass		master
+test_bug2560	FAIL	3	00:15:00	1gb	graphics	Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -- CMAP = colormap (HAX, ...)  -- colormap MAP_NAME @ ../../../usr/share/octave/8.4.0/m/help/print_usage.m:105	master
+test_bug2563	PASS	2	00:10:00	1gb	pass		master
+test_bug2570	PASS	1	00:10:00	1gb	pass		master
+test_bug2585	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug2593	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug2597	PASS	3	00:10:00	1gb	pass		master
+test_bug2606	FAIL	6	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25	master
+test_bug2639	PASS	1	00:10:00	1gb	pass		master
+test_bug2640	FAIL	1	00:10:00	1gb	graphics	__marching_cube__: XX, YY, ZZ, v must be 3-D matrices @ ../../../usr/share/octave/8.4.0/m/plot/draw/private/__marching_cube__.m:100	master
+test_bug2664	PASS	2	00:10:00	1gb	pass		master
+test_bug2680	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug272	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 223, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_timelockanalysis.m:223	master
+test_bug2727	FAIL	3	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 524, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/topoplot_common.m:524	master
+test_bug2732	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_bandpassfilter.m:156	master
+test_bug2761	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 1538, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1538	master
+test_bug2769	FAIL	2	00:10:00	1gb	matlab-only	'pad' undefined near line 1881, column 41  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1881	master
+test_bug2776	FAIL	4	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_bandpassfilter.m:156	master
+test_bug2782	PASS	2	00:10:00	1gb	pass		master
+test_bug2783	PASS	1	00:10:00	1gb	pass		master
+test_bug2785	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 223, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_timelockanalysis.m:223	master
+test_bug2816	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 1538, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1538	master
+test_bug2820	FAIL	5	00:10:00	1gb	graphics	Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -- CMAP = colormap (HAX, ...)  -- colormap MAP_NAME @ ../../../usr/share/octave/8.4.0/m/help/print_usage.m:105	master
+test_bug2855	FAIL	6	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25	master
+test_bug2874	PASS	4	00:10:00	1gb	pass		master
+test_bug2956	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 150, column 14  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/preproc.m:150	master
+test_bug2965	FAIL	2	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1	master
+test_bug2971	PASS	2	00:10:00	1gb	pass		master
+test_bug2976	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug298	PASS	1	00:10:00	1gb	pass		master
+test_bug2994	FAIL	3	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25	master
+test_bug3048	FAIL	2	00:20:00	1gb	octave-difference	assert (isequal (freq1.trial {1}, freq2.trial {1})) failed @ ../../../usr/share/octave/8.4.0/m/testfun/assert.m:107	master
+test_bug3075	FAIL	2	00:20:00	1gb	ft-nanmean	'nanmean' undefined near line 150, column 14  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/preproc.m:150	master
+test_bug3077	FAIL	2	00:20:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug3078	FAIL	1	00:15:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug3134	PASS	1	00:10:00	1gb	pass		master
+test_bug3150	PASS	4	00:10:00	1gb	pass		master
+test_bug3182	FAIL	2	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1	master
+test_bug3192	FAIL	1	00:10:00	1gb	graphics	__go_patch__: invalid value for array property "cdata", unable to create graphics handle @ ../../../usr/share/octave/8.4.0/m/plot/draw/private/__patch__.m:182	master
+test_bug3196	FAIL	1	00:10:00	1gb	graphics	__go_patch__: invalid value for array property "cdata", unable to create graphics handle @ ../../../usr/share/octave/8.4.0/m/plot/draw/private/__patch__.m:182	master
+test_bug3205	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug3214	PASS	6	00:20:00	1gb	pass		master
+test_bug3229	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug3238	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_bandpassfilter.m:156	master
+test_bug3256	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 223, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_timelockanalysis.m:223	master
+test_bug3275	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug3287	FAIL	3	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 1538, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1538	master
+test_bug3293	PASS	1	00:10:00	1gb	pass		master
+test_bug3295	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_bandpassfilter.m:156	master
+test_bug3325	FAIL	1	01:00:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug3336	FAIL	1	00:10:00	1gb	octave-difference	assert (!isequal (msg1, msg2)) failed @ ../../../usr/share/octave/8.4.0/m/testfun/assert.m:107	master
+test_bug3337	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/endsWith.m:90	master
+test_bug3343	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug3354	FAIL	2	00:20:00	1gb	ft-nanmean	'nanmean' undefined near line 1538, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1538	master
+test_bug3358	FAIL	8	00:10:00	1gb	graphics	get: invalid default property 'colormap' @ ft_multiplotTFR.m:550	master
+test_bug3368	FAIL	1	00:10:00	2gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63	master
+test_bug3378	FAIL	2	00:10:00	1gb	graphics	octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:444	master
+test_bug3397	PASS	2	00:10:00	1gb	pass		master
+test_bug3403	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug3420	FAIL	2	00:10:00	1gb	matlab-only	corr: function called with too many inputs @ ../../../usr/share/octave/8.4.0/m/statistics/corr.m:-1	master
+test_bug3435	FAIL	5	00:20:00	1gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15	master
+test_bug3453	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug3475	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug472	FAIL	1	00:20:00	1gb	matlab-only	buffer: n must be an integer @ ../../../usr/share/octave/packages/signal-1.4.5/buffer.m:64	master
+test_bug538	FAIL	4	00:10:00	1gb	ft-nanmean	invalid function handle, unable to find function for @nanmean @ utilities/ft_selectdata.m:1396	master
+test_bug670	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_bug686	FAIL	3	00:30:00	1gb	mex	'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177	master
+test_bug70	FAIL	1	00:20:00	1gb	external	OpenMEEG not found @ external/openmeeg/om_checkombin.m:94	master
+test_bug780	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 158, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_highpassfilter.m:158	master
+test_bug840	PASS	1	00:10:00	1gb	pass		master
+test_bug893	PASS	2	00:10:00	1gb	pass		master
+test_bug931	PASS	1	00:10:00	1gb	pass		master
+test_bug946	PASS	2	00:10:00	1gb	pass		master
+test_bug996	FAIL	14	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 443, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_singleplotER.m:443	master
+test_channelconnectivity	PASS	1	00:10:00	1gb	pass		master
+test_checkcode	FAIL	3	00:20:00	1gb	matlab-only	'checkcode' undefined near line 172, column 7  The 'checkcode' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ test/test_checkcode.m:172	master
+test_clusterstat	FAIL	2	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25	master
+test_convert_event	FAIL	1	00:10:00	1gb	matlab-only	'array2table' undefined near line 44, column 14  The 'array2table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ test/test_convert_event.m:44	master
+test_csp	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_datatype_parcellation	PASS	1	00:10:00	1gb	pass		master
+test_datatype_segmentation	PASS	12	00:10:00	1gb	pass		master
+test_datatype_source	PASS	1	00:10:00	1gb	pass		master
+test_dependencies	PASS	79	00:20:00	1gb	pass		master
+test_di	PASS	65	00:20:00	1gb	pass		master
+test_example_bem_evaluation20220113	FAIL	1	00:10:00	2gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_example_bids20220113	PASS	1	00:10:00	2gb	pass		master
+test_example_bids_meg20220113	PASS	1	00:10:00	2gb	pass		master
+test_example_coherence_snr20220113	PASS	5	00:10:00	2gb	pass		master
+test_example_compute_leadfield20220113	FAIL	1	00:10:00	2gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_example_crossfreq20220113	PASS	1	00:10:00	2gb	pass		master
+test_example_custom_forwinv20220113	FAIL	1	00:20:00	2gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_example_difference_erf20220113	PASS	1	00:10:00	2gb	pass		master
+test_example_effects_of_tapering20220113	FAIL	2	00:10:00	2gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1	master
+test_example_entropy_analysis20220113	PASS	1	00:10:00	2gb	pass		master
+test_example_filter_characteristics20220113	FAIL	1	00:10:00	2gb	ft-nanmean	'nanmean' undefined near line 158, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_lowpassfilter.m:158	master
+test_example_fooof	PASS	1	00:10:00	1gb	pass		master
+test_example_fooof20220113	PASS	1	00:10:00	2gb	pass		master
+test_example_ft_realtime_average20220113	PASS	1	00:10:00	2gb	pass		master
+test_example_ft_realtime_hilbert20220113	PASS	1	00:10:00	2gb	pass		master
+test_example_ft_realtime_selectiveaverage20220113	PASS	1	00:10:00	2gb	pass		master
+test_example_glm_trials20220113	PASS	1	00:10:00	2gb	pass		master
+test_example_granger_conditional20220113	FAIL	13	00:10:00	2gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1	master
+test_example_irasa	FAIL	2	00:10:00	1gb	ft-startswith	mx_el_and: nonconformant arguments (op1 is 1x2, op2 is 1x3) @ fileio/private/ft_senstype.m:444	master
+test_example_neighbours20220113	FAIL	2	00:10:00	2gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_example_phase_reset20220113	PASS	1	00:10:00	2gb	pass		master
+test_example_samplesize20220113	FAIL	1	01:30:00	6gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63	master
+test_example_simulate_forward_dipolefit	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_example_simulateddata20220113	FAIL	2	00:10:00	2gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_example_simulateddata_beamformer20220113	FAIL	1	00:10:00	2gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_example_simulateddata_clusterstats20220113	FAIL	2	00:10:00	2gb	ft-nanmean	'nanmean' undefined near line 223, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_timelockanalysis.m:223	master
+test_example_simulateddata_dipolefit20220113	FAIL	1	00:10:00	2gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_example_sourcemodel_aligned2mni20220113	PASS	1	00:10:00	2gb	pass		master
+test_example_sourcerecon_meeg20220113	FAIL	1	00:10:00	2gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_example_ssvep20220113	FAIL	1	00:10:00	2gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_bandpassfilter.m:156	master
+test_example_stratify20220113	PASS	3	00:10:00	2gb	pass		master
+test_external_images	PASS	2	00:10:00	1gb	pass		master
+test_external_signal	PASS	4	00:10:00	1gb	pass		master
+test_external_stats	FAIL	2	00:10:00	1gb	ft-nanmean	assert (exist (filelist {k}, 'file') == 2 || exist (filelist {k}, 'file') == 3) failed @ ../../../usr/share/octave/8.4.0/m/testfun/assert.m:107	master
+test_falsealarmrate	PASS	12	00:10:00	1gb	pass		master
+test_findcluster	FAIL	1	00:20:00	6gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25	master
+test_firwsfiltering	FAIL	2	00:20:00	1gb	ft-nanmean	'nanmean' undefined near line 150, column 14  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/preproc.m:150	master
+test_ft_appenddata	PASS	2	00:10:00	1gb	pass		master
+test_ft_appendfreq	PASS	6	00:10:00	1gb	pass		master
+test_ft_appendlayout	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 223, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_timelockanalysis.m:223	master
+test_ft_appendsens	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_appendsource	PASS	3	00:10:00	1gb	pass		master
+test_ft_appendspike	PASS	1	00:10:00	1gb	pass		master
+test_ft_artifact_threshold	FAIL	2	00:10:00	1gb	ft-startswith	mx_el_and: nonconformant arguments (op1 is 1x2, op2 is 1x3) @ fileio/private/ft_senstype.m:444	master
+test_ft_average_sens	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_channelcombination	PASS	2	00:10:00	1gb	pass		master
+test_ft_channelnormalise	PASS	1	00:10:00	1gb	pass		master
+test_ft_checkdata	FAIL	1	00:20:00	1gb	ft-nanmean	'nanmean' undefined near line 1538, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1538	master
+test_ft_colormap	FAIL	1	00:10:00	1gb	matlab-only	feval: function 'parula' not found @ plotting/ft_colormap.m:223	master
+test_ft_combineplanar	FAIL	2	00:20:00	1gb	mex	'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186	master
+test_ft_componentanalysis_methods	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_conjunctionanalysis	PASS	3	00:10:00	1gb	pass		master
+test_ft_connectivity_cancorr	PASS	1	00:10:00	1gb	pass		master
+test_ft_connectivity_corr	PASS	1	00:10:00	1gb	pass		master
+test_ft_connectivity_dtf	PASS	1	00:10:00	1gb	pass		master
+test_ft_connectivity_granger	PASS	1	00:10:00	1gb	pass		master
+test_ft_connectivity_mim	PASS	1	00:10:00	1gb	pass		master
+test_ft_connectivity_mutualinformation	FAIL	2	00:10:00	1gb	mex	invalid function handle, unable to find function for @direct_method_v5b @ external/ibtb/entropy.m:319	master
+test_ft_connectivity_pdc	PASS	1	00:10:00	1gb	pass		master
+test_ft_connectivity_plm	PASS	1	00:10:00	1gb	pass		master
+test_ft_connectivity_powcorr_ortho	PASS	1	00:10:00	1gb	pass		master
+test_ft_connectivity_ppc	PASS	1	00:10:00	1gb	pass		master
+test_ft_connectivity_psi	PASS	1	00:10:00	1gb	pass		master
+test_ft_connectivity_wpli	PASS	1	00:10:00	1gb	pass		master
+test_ft_connectivityanalysis	FAIL	3	00:10:00	2gb	ft-nanmean	'nanmean' undefined near line 1538, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1538	master
+test_ft_connectivitysimulation	PASS	8	00:10:00	1gb	pass		master
+test_ft_convert_units	FAIL	1	00:10:00	1gb	matlab-only	Invalid call to round.  Correct usage is:   -- Y = round (X) @ ../../../usr/share/octave/8.4.0/m/help/print_usage.m:105	master
+test_ft_crossfrequencyanalysis	FAIL	8	00:15:00	1gb	ft-nanmean	'nanmean' undefined near line 380, column 20  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_crossfrequencyanalysis.m:380	master
+test_ft_defacevolume	FAIL	5	00:10:00	6gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15	master
+test_ft_defaults_signal	PASS	4	00:03:00	1gb	pass		master
+test_ft_denoise_pca	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_denoise_prewhiten	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 1538, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1538	master
+test_ft_denoise_tsr	FAIL	1	01:30:00	6gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_bandpassfilter.m:156	master
+test_ft_detect_movement	PASS	2	00:10:00	1gb	pass		master
+test_ft_determine_units	PASS	1	00:10:00	1gb	pass		master
+test_ft_dipolefitting	FAIL	1	00:20:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_dipolesimulation	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_electrodeplacement	FAIL	1	00:10:00	1gb	graphics	rotate3d: function called with too many outputs @ ../../../usr/share/octave/8.4.0/m/plot/util/rotate3d.m:-1	master
+test_ft_electrodermalactivity	PASS	1	00:10:00	1gb	pass		master
+test_ft_estimate_units	PASS	1	00:10:00	1gb	pass		master
+test_ft_fetch_data	FAIL	16	00:10:00	2gb	octave-difference	NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91	master
+test_ft_freqanalysis_simple	PASS	3	00:10:00	1gb	pass		master
+test_ft_freqanalysis_superlet	PASS	9	00:10:00	1gb	pass		master
+test_ft_freqbaseline	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 192, column 21  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_freqbaseline.m:192	master
+test_ft_freqdescriptives	PASS	2	00:10:00	1gb	pass		master
+test_ft_freqgrandaverage	PASS	3	00:10:00	1gb	pass		master
+test_ft_freqinterpolate	PASS	1	00:10:00	1gb	pass		master
+test_ft_freqsimulation	PASS	1	00:10:00	1gb	pass		master
+test_ft_freqstatistics	PASS	1	00:10:00	1gb	pass		master
+test_ft_getopt	PASS	1	00:10:00	1gb	pass		master
+test_ft_headcircumference	FAIL	1	00:10:00		matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63	master
+test_ft_headmodel_bemcp	FAIL	6	03:00:00	10gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15	master
+test_ft_heartrate	FAIL	1	00:10:00	1gb	matlab-only	'envelope' undefined near line 165, column 27 @ ft_heartrate.m:165	master
+test_ft_inside_headmodel	PASS	1	00:10:00	1gb	pass		master
+test_ft_interpolatenan	PASS	1	00:10:00	1gb	pass		master
+test_ft_lateralizedpotential	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 223, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_timelockanalysis.m:223	master
+test_ft_math	PASS	29	00:10:00	1gb	pass		master
+test_ft_meshrealign	FAIL	4	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_mvaranalysis	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 150, column 14  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/preproc.m:150	master
+test_ft_networkanalysis	PASS	3	00:10:00	1gb	pass		master
+test_ft_plot_axes	FAIL	2	00:10:00	1gb	graphics	getframe: not implemented for gnuplot graphics toolkit @ ../../../usr/share/octave/8.4.0/m/image/getframe.m:76	master
+test_ft_plot_box	PASS	1	00:10:00	1gb	pass		master
+test_ft_plot_cloud	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_plot_crosshair	FAIL	2	00:10:00	1gb	graphics	getframe: not implemented for gnuplot graphics toolkit @ ../../../usr/share/octave/8.4.0/m/image/getframe.m:76	master
+test_ft_plot_dipole	PASS	1	00:10:00	1gb	pass		master
+test_ft_plot_headmodel	PASS	2	00:10:00	1gb	pass		master
+test_ft_plot_headshape	FAIL	1	00:10:00	1gb	graphics	__go_patch__: invalid value for array property "cdata", unable to create graphics handle @ ../../../usr/share/octave/8.4.0/m/plot/draw/private/__patch__.m:182	master
+test_ft_plot_layout	PASS	3	00:10:00	1gb	pass		master
+test_ft_plot_line	PASS	1	00:10:00	1gb	pass		master
+test_ft_plot_matrix	PASS	1	00:10:00	1gb	pass		master
+test_ft_plot_mesh	PASS	17	00:15:00	1gb	pass		master
+test_ft_plot_montage	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 314, column 7  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ plotting/ft_plot_slice.m:314	master
+test_ft_plot_ortho	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 314, column 7  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ plotting/ft_plot_slice.m:314	master
+test_ft_plot_patch	PASS	1	00:10:00	1gb	pass		master
+test_ft_plot_sens	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_plot_slice	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 314, column 7  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ plotting/ft_plot_slice.m:314	master
+test_ft_plot_text	PASS	1	00:10:00	1gb	pass		master
+test_ft_plot_topo	PASS	3	00:10:00	1gb	pass		master
+test_ft_plot_topo3d	PASS	1	00:10:00	1gb	pass		master
+test_ft_plot_vector	PASS	1	00:10:00	1gb	pass		master
+test_ft_prepare_headmodel	PASS	1	00:10:00	1gb	pass		master
+test_ft_prepare_leadfield	FAIL	1	00:20:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_prepare_mesh	FAIL	2	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25	master
+test_ft_prepare_montage	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_preproc_bandpassfilter	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_bandpassfilter.m:156	master
+test_ft_preproc_bandstopfilter	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 158, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_bandstopfilter.m:158	master
+test_ft_preproc_baselinecorrect	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_denoise	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 53, column 6  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_denoise.m:53	master
+test_ft_preproc_derivative	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_detrend	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_dftfilter	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 150, column 14  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/preproc.m:150	master
+test_ft_preproc_highpassfilter	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 158, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_highpassfilter.m:158	master
+test_ft_preproc_hilbert	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_lowpassfilter	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 158, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_lowpassfilter.m:158	master
+test_ft_preproc_medianfilter	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_online_downsample	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_online_filter	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_padding	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_polyremoval	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_rectify	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_rereference	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_resample	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_slidingrange	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_smooth	PASS	1	00:10:00	1gb	pass		master
+test_ft_preproc_standardize	PASS	1	00:10:00	1gb	pass		master
+test_ft_progress	PASS	32	00:10:00	1gb	pass		master
+test_ft_recodeevent	PASS	1	00:10:00	1gb	pass		master
+test_ft_regressconfound	PASS	3	00:10:00	1gb	pass		master
+test_ft_rejectartifact	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_rejectcomponent	FAIL	4	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_removetemplateartifact	PASS	2	00:10:00	1gb	pass		master
+test_ft_resampledata	FAIL	4	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 158, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_lowpassfilter.m:158	master
+test_ft_respiration	FAIL	1	00:10:00	1gb	matlab-only	'envelope' undefined near line 107, column 23 @ ft_respiration.m:107	master
+test_ft_scalpcurrentdensity	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_selectdata	FAIL	3	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_selectdata_savevar	FAIL	1	00:10:00	1gb	matlab-only	save: Unrecognized option '-nocompression' @ utilities/private/savevar.m:43	master
+test_ft_selectdata_union	PASS	4	00:10:00	1gb	pass		master
+test_ft_senslabel	PASS	1	00:10:00	1gb	pass		master
+test_ft_sourceanalysis	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_ft_sourcedepth	FAIL	1	00:10:00	1gb	mex	Could not locate the MEX file "ptriproj.mex" @ forward/private/ptriproj.m:34	master
+test_ft_sourcedescriptives	PASS	1	00:10:00	1gb	pass		master
+test_ft_sourcegrandaverage	PASS	10	00:10:00	1gb	pass		master
+test_ft_sourceinterpolate	FAIL	1	00:15:00	4gb	mex	zstream.c not compiled - see Makefile @ external/gifti/@gifti/private/zstream.m:25	master
+test_ft_sourceparcellate	FAIL	2	00:10:00	1gb	matlab-only	'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1861	master
+test_ft_sourcestatistics	PASS	2	00:10:00	1gb	pass		master
+test_ft_sourcewrite	FAIL	2	00:10:00	1gb	octave-difference	'b' undefined near line 1, column 11 @ external/freesurfer/vox2rasToQform.m:50	master
+test_ft_specest_hilbert	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ specest/private/ft_preproc_bandpassfilter.m:156	master
+test_ft_specest_irasa	PASS	16	00:10:00	1gb	pass		master
+test_ft_specest_mtmconvol	FAIL	1	00:10:00	1gb	matlab-only	feval: function 'taylorwin' not found @ external/signal/window.m:27	master
+test_ft_specest_mtmfft	FAIL	1	00:10:00	1gb	matlab-only	feval: function 'taylorwin' not found @ external/signal/window.m:27	master
+test_ft_specest_neuvar	PASS	1	00:10:00	1gb	pass		master
+test_ft_specest_tfr	PASS	10	00:10:00	1gb	pass		master
+test_ft_specest_wavelet	PASS	14	00:10:00	1gb	pass		master
+test_ft_spike_isi	FAIL	2	00:10:00	1gb	ft-nanmean	'nanstd' undefined near line 155, column 18  The 'nanstd' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ contrib/spike/ft_spike_isi.m:155	master
+test_ft_spike_jpsth	FAIL	3	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 251, column 28  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ contrib/spike/ft_spike_jpsth.m:251	master
+test_ft_spike_maketrials	PASS	1	00:10:00	1gb	pass		master
+test_ft_spike_plot_isireturn	FAIL	2	00:10:00	1gb	matlab-only	'mle' undefined near line 159, column 24  The 'mle' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ contrib/spike/ft_spike_isi.m:159	master
+test_ft_spike_plot_raster	FAIL	5	00:10:00	1gb	graphics	zoom: function called with too many outputs @ ../../../usr/share/octave/8.4.0/m/plot/util/zoom.m:-1	master
+test_ft_spike_psth	FAIL	3	00:10:00	1gb	graphics	zoom: function called with too many outputs @ ../../../usr/share/octave/8.4.0/m/plot/util/zoom.m:-1	master
+test_ft_spike_rate	PASS	3	00:10:00	1gb	pass		master
+test_ft_spike_xcorr	PASS	3	00:10:00	1gb	pass		master
+test_ft_spikedensity	FAIL	3	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 49, column 1  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ test/test_ft_spikedensity.m:49	master
+test_ft_spiketriggeredspectrum	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 246, column 28  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ contrib/spike/ft_spiketriggeredspectrum_fft.m:246	master
+test_ft_spiketriggeredspectrum_stat	PASS	4	00:10:00	1gb	pass		master
+test_ft_statfun_correlationT	FAIL	2	00:20:00	1gb	matlab-only	corr: function called with too many inputs @ ../../../usr/share/octave/8.4.0/m/statistics/corr.m:-1	master
+test_ft_steadystatesimulation	FAIL	4	00:10:00	1gb	matlab-only	'array2table' undefined near line 369, column 18  The 'array2table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_steadystatesimulation.m:369	master
+test_ft_timelockbaseline	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 223, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_timelockanalysis.m:223	master
+test_ft_timelockgrandaverage	FAIL	2	00:10:00	1gb	ft-nanmean	invalid function handle, unable to find function for @nanmean @ ft_timelockgrandaverage.m:176	master
+test_ft_timelocksimulation	FAIL	2	00:10:00	1gb	octave-difference	assert (isequal (data1.trial, data2.trial)) failed @ ../../../usr/share/octave/8.4.0/m/testfun/assert.m:107	master
+test_ft_timelockstatistics	FAIL	3	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25	master
+test_ft_topoplotCC	PASS	2	00:10:00	1gb	pass		master
+test_ft_volumebiascorrect	FAIL	4	01:00:00	6gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15	master
+test_ft_volumedownsample	PASS	2	00:10:00	1gb	pass		master
+test_ft_volumelookup	FAIL	133	00:10:00	1gb	matlab-only	'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1861	master
+test_ft_volumereslice	FAIL	3	00:10:00	1gb	octave-difference	fprintf: invalid format specified @ utilities/ft_progress.m:263	master
+test_ft_volumewrite	FAIL	2	00:10:00	1gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15	master
+test_ft_write_data	FAIL	2	00:10:00	1gb	matlab-only	audiowrite: failed to open output file '/tmp/oct-vNCZ7C/write_oga.oga': Error : major format is 0. @ fileio/ft_write_data.m:610	master
+test_headmodel_asa	FAIL	3	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_headmodel_bemcp	FAIL	3	00:10:00	1gb	mex	'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177	master
+test_headmodel_concentricspheres	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_headmodel_dipoli	FAIL	1	00:10:00	1gb	external	there is no dipoli executable for your platform @ forward/ft_headmodel_dipoli.m:192	master
+test_headmodel_hbf	FAIL	1	00:20:00	1gb	external	invalid call to script /home/user/fieldtrip/external/hbf/hbf_mesh/hbf_SolidAngles.m @ external/hbf/hbf_mesh/hbf_SolidAngles.m:-1	master
+test_headmodel_infinite	PASS	1	00:10:00	1gb	pass		master
+test_headmodel_interpolate	FAIL	1	00:45:00	4gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_headmodel_openmeeg	FAIL	1	00:20:00	1gb	external	OpenMEEG not found @ external/openmeeg/om_checkombin.m:94	master
+test_headmodel_singlesphere	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_issue1068	PASS	1	00:10:00	1gb	pass		master
+test_issue1089	PASS	11	00:10:00	1gb	pass		master
+test_issue1167	FAIL	1	00:10:00	1gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63	master
+test_issue1184	TIMEOUT	1800	00:30:00	6gb	timeout	limit 1800s	master
+test_issue1198	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_issue1214	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 223, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_timelockanalysis.m:223	master
+test_issue1292	FAIL	1	00:10:00	1gb	octave-difference	NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91	master
+test_issue1313	PASS	2	00:10:00	1gb	pass		master
+test_issue1322	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_issue1329	FAIL	1	01:00:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_issue1363	FAIL	1	01:00:00	4gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63	master
+test_issue1400	FAIL	2	00:10:00	1gb	matlab-only	'table' undefined near line 35, column 18  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ test/test_issue1400.m:35	master
+test_issue1418	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_issue1431	FAIL	2	00:10:00	1gb	ft-startswith	mx_el_and: nonconformant arguments (op1 is 1x2, op2 is 1x3) @ fileio/private/ft_senstype.m:444	master
+test_issue1459	FAIL	2	00:10:00	1gb	matlab-only	'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1861	master
+test_issue1546	FAIL	1	00:10:00	1gb	ft-startswith	mx_el_and: nonconformant arguments (op1 is 1x2, op2 is 1x3) @ fileio/private/ft_senstype.m:444	master
+test_issue1554	PASS	3	00:10:00	1gb	pass		master
+test_issue1564	FAIL	2	00:10:00	1gb	matlab-only	'table' undefined near line 30, column 20  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ test/test_issue1564.m:30	master
+test_issue1568	FAIL	1	00:10:00	1gb	matlab-only	'table' undefined near line 33, column 20  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ test/test_issue1568.m:33	master
+test_issue1618	FAIL	34	00:10:00	1gb	mex	'CalcMD5' undefined near line 30, column 24 @ fileio/private/inflate_file.m:30	master
+test_issue1695	FAIL	2	01:00:00	1gb	mex	file2mat.c not compiled - see Makefile @ external/spm12/@file_array/private/file2mat.m:15	master
+test_issue1701	PASS	8	00:10:00	1gb	pass		master
+test_issue1711	FAIL	2	00:10:00	1gb	matlab-only	Invalid call to round.  Correct usage is:   -- Y = round (X) @ ../../../usr/share/octave/8.4.0/m/help/print_usage.m:105	master
+test_issue1721	FAIL	7	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 524, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/topoplot_common.m:524	master
+test_issue1841	FAIL	1	00:30:00	2gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_issue1843	FAIL	2	00:30:00	2gb	graphics	Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -- CMAP = colormap (HAX, ...)  -- colormap MAP_NAME @ ../../../usr/share/octave/8.4.0/m/help/print_usage.m:105	master
+test_issue1866	PASS	6	00:20:00	1gb	pass		master
+test_issue1985	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_bandpassfilter.m:156	master
+test_issue2017	PASS	1	00:10:00	1gb	pass		master
+test_issue2021	FAIL	2	00:10:00	2gb	octave-difference	assert (contains (lasterr, 'This function requires raw data as input, see ft_datatype_raw.')) failed @ ../../../usr/share/octave/8.4.0/m/testfun/assert.m:107	master
+test_issue2059	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_issue2072	PASS	2	00:10:00	1gb	pass		master
+test_issue2075	FAIL	2	00:10:00	2gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge which you have installed but not loaded.  To load the package, run 'pkg load statistics' from the Octave prompt.  Please read <https://www.octave.org/missing.html> to learn how yo @ preproc/ft_preproc_bandpassfilter.m:156	master
+test_issue2085	PASS	4	00:10:00	1gb	pass		master
+test_issue2124	FAIL	1	00:10:00	1gb	ft-startswith	mx_el_and: nonconformant arguments (op1 is 1x2, op2 is 1x3) @ fileio/private/ft_senstype.m:444	master
+test_issue2162	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 223, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_timelockanalysis.m:223	master
+test_issue2169	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 150, column 14  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/preproc.m:150	master
+test_issue2235	FAIL	1	00:10:00	1gb	matlab-only	'table' undefined near line 29, column 14  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ test/test_issue2235.m:29	master
+test_issue2243	PASS	2	00:10:00	2gb	pass		master
+test_issue2265	FAIL	2	00:10:00	1gb	octave-difference	assert (abs (imag (freq.fourierspctrm (end))) < 100 * eps) failed @ ../../../usr/share/octave/8.4.0/m/testfun/assert.m:107	master
+test_issue627	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 150, column 14  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/preproc.m:150	master
+test_issue714	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 223, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_timelockanalysis.m:223	master
+test_issue928	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 443, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_singleplotER.m:443	master
+test_issue947	PASS	1	00:10:00	1gb	pass		master
+test_laggedcoherence	FAIL	3	00:20:00	1gb	ft-nanmean	invalid function handle, unable to find function for @nanmean @ utilities/ft_selectdata.m:1396	master
+test_layout_egi	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_matlab_ci	PASS	1	00:10:00	1gb	pass		master
+test_nanstat	FAIL	1	00:10:00	1gb	external	the XUNIT toolbox is not available, see http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework @ utilities/ft_hastoolbox.m:571	master
+test_nearest	PASS	9	00:10:00	1gb	pass		master
+test_notification	PASS	21	00:10:00	1gb	pass		master
+test_old_buffer_latency_bandwidth	FAIL	1	00:10:00	1gb	external	'moxunit_throw_test_skipped_exception' undefined near line 27, column 3 @ test/test_old_buffer_latency_bandwidth.m:27	master
+test_old_connectivityanalysis	FAIL	1	00:10:00	1gb	external	'moxunit_throw_test_skipped_exception' undefined near line 17, column 3 @ test/test_old_connectivityanalysis.m:17	master
+test_old_filtering	PASS	2	00:10:00	1gb	pass		master
+test_old_fixcsd	FAIL	2	00:10:00	2gb	ft-nanmean	invalid function handle, unable to find function for @nanmean @ utilities/ft_selectdata.m:1396	master
+test_old_ft_freqanalysis	PASS	1	00:10:00	1gb	pass		master
+test_old_preproc_resample	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 158, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_highpassfilter.m:158	master
+test_openmeeg_eeg	FAIL	2	00:30:00	2gb	external	OpenMEEG not found @ external/openmeeg/om_checkombin.m:94	master
+test_printstruct	PASS	34	00:20:00	2gb	pass		master
+test_pull1138	FAIL	1	00:10:00	1gb	data	load: unable to find file /project/3031000.02/external/download/tutorial/human_ecog/SubjectUCI29/SubjectUCI29_freq.mat @ test/test_pull1138.m:8	master
+test_pull1156	FAIL	1	00:20:00	1gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63	master
+test_pull1427	FAIL	2	01:00:00	4gb	matlab-only	'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1861	master
+test_pull1566	PASS	5	00:20:00	6gb	pass		master
+test_pull1600	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 150, column 14  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/preproc.m:150	master
+test_pull1602	FAIL	29	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 150, column 14  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/preproc.m:150	master
+test_pull1643	PASS	2	00:40:00	6gb	pass		master
+test_pull1757	FAIL	7	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1	master
+test_pull1839	FAIL	2	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_pull1877	FAIL	12	00:20:00	1gb	graphics	Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -- CMAP = colormap (HAX, ...)  -- colormap MAP_NAME @ ../../../usr/share/octave/8.4.0/m/help/print_usage.m:105	master
+test_pull2050	FAIL	1	00:10:00	1gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63	master
+test_pull2105	FAIL	2	00:20:00	1gb	ft-nanmean	'nanmean' undefined near line 524, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ private/topoplot_common.m:524	master
+test_pull2582	FAIL	1	00:10:00	1gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63	master
+test_pull2593	FAIL	5	00:20:00	2gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25	master
+test_pull348	FAIL	2	00:10:00	1gb	matlab-only	binary operator '==' not implemented for 'cell' by 'cell' operations @ ../../../usr/share/octave/8.4.0/m/general/isequal.m:117	master
+test_pull360	FAIL	3	00:10:00	1gb	mex	spm_conv_vol.c not compiled - see Makefile @ external/spm12/spm_conv_vol.m:36	master
+test_pull393	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_pull401	PASS	6	00:10:00	1gb	pass		master
+test_pull434	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_pull492	FAIL	2	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 1538, column 16  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1538	master
+test_randomseed	PASS	1	00:10:00	1gb	pass		master
+test_read_trigger	FAIL	1	00:10:00	1gb	ft-startswith	mx_el_and: nonconformant arguments (op1 is 1x2, op2 is 1x3) @ fileio/private/ft_senstype.m:444	master
+test_resampledesign	PASS	3	00:10:00	1gb	pass		master
+test_scalingfactor	PASS	1	00:10:00	1gb	pass		master
+test_shuffle_coilorder	FAIL	12	00:10:00	2gb	octave-difference	ic(1503): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51	master
+test_spm_ft_integration	FAIL	1	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_subfield	PASS	1	00:10:00	1gb	pass		master
+test_triangulate_seg	FAIL	1	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm8/spm_bwlabel.m:37	master
+test_tutorial_connectivity	FAIL	7	00:10:00	1gb	ft-startswith	strncmp: nonconformant cell arrays @ compat/octave/startsWith.m:81	master
+test_tutorial_connectivity2	FAIL	1	00:10:00	1gb	ft-nanmean	'nanmean' undefined near line 156, column 11  The 'nanmean' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ preproc/ft_preproc_bandpassfilter.m:156	master
+test_tutorial_networkanalysis_eeg20220126	FAIL	1	00:30:00	8gb	data	load: unable to find file /project/3031000.02/external/download/tutorial/networkanalysis_eeg/data_eeg_reref_ica.mat @ test/test_tutorial_networkanalysis_eeg20220126.m:14	master
+test_warp	FAIL	1	00:10:00	1gb	octave-difference	rigidbody coregistration failed @ test/test_warp.m:28	master
+test_warp_dykstra2012	PASS	1	00:10:00	1gb	pass		master
+test_xunit_stacktest	PASS	1	00:10:00	1gb	pass		master

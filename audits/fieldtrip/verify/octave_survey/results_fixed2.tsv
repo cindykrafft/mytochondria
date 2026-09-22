@@ -1,0 +1,104 @@
+test	outcome	seconds	walltime	mem	category	message
+test_bug1153	FAIL	2	00:10:00	1gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_bug1309	FAIL	4	00:15:00	1gb	octave-difference	'routlm' undefined near line 84, column 16 @ forward/private/project_elec.m:84
+test_bug131	FAIL	26	00:10:00	1gb	mex	'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+test_bug1357	FAIL	8	00:10:00	1gb	octave-difference	horizontal dimensions mismatch (1x1 vs 151x0) @ plotting/ft_plot_vector.m:290
+test_bug1482	PASS	10	00:10:00	1gb	pass	
+test_bug1508	PASS	2	00:10:00	1gb	pass	
+test_bug1529	FAIL	1	00:10:00	1gb	octave-difference	surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+test_bug1775	FAIL	25	00:10:00	1gb	mex	'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+test_bug1976	FAIL	6	00:10:00	1gb	mex	'meg_leadfield1' undefined near line 182, column 34 @ forward/ft_compute_leadfield.m:182
+test_bug2085	FAIL	26	00:10:00	1gb	mex	'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+test_bug2269	FAIL	1	00:10:00	1gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_bug2376	PASS	5	00:10:00	1gb	pass	
+test_bug2378	FAIL	16	00:10:00	1gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_bug2404	PASS	7	00:10:00	1gb	pass	
+test_bug2524	FAIL	1	00:10:00	1gb	octave-difference	assert (numel (strfind (s, '5.0')) == 3) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_bug2553	PASS	2	00:10:00	1gb	pass	
+test_bug2585	PASS	4	00:10:00	1gb	pass	
+test_bug2593	FAIL	3	00:10:00	1gb	octave-difference	assert (numel (comp.label) == 3) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_bug2680	FAIL	2	00:10:00	1gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_bug2956	FAIL	2	00:10:00	1gb	octave-difference	Invalid call to ifft.  Correct usage is:   -- X = ifft (Y)  -- X = ifft (Y, N)  -- X = ifft (Y, N, DIM) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+test_bug2976	PASS	2	00:10:00	1gb	pass	
+test_bug3048	FAIL	2	00:20:00	1gb	octave-difference	assert (isequal (freq1.trial {1}, freq2.trial {1})) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_bug3077	FAIL	3	00:20:00	1gb	matlab-only	save: Unrecognized option '-nocompression' @ utilities/private/savevar.m:43
+test_bug3078	FAIL	8	00:15:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+test_bug3205	PASS	2	00:10:00	1gb	pass	
+test_bug3229	FAIL	3	00:10:00	1gb	octave-difference	assert (isequal (comp.elec, data.elec)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_bug3256	PASS	5	00:10:00	1gb	pass	
+test_bug3275	FAIL	14	00:10:00	1gb	graphics	Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -- CMAP = colormap (HAX, ...)  -- colormap MAP_NAME @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+test_bug3325	PASS	209	01:00:00	1gb	pass	
+test_bug3336	FAIL	1	00:10:00	1gb	octave-difference	assert (!isequal (msg1, msg2)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_bug3337	FAIL	2	00:10:00	1gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_bug3343	PASS	2	00:10:00	1gb	pass	
+test_bug3453	FAIL	4	00:10:00	1gb	mex	Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+test_bug3475	PASS	5	00:10:00	1gb	pass	
+test_bug670	PASS	1	00:10:00	1gb	pass	
+test_csp	PASS	4	00:10:00	1gb	pass	
+test_example_bem_evaluation20220113	FAIL	12	00:10:00	2gb	octave-difference	ic(376): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51
+test_example_compute_leadfield20220113	FAIL	1	00:10:00	2gb	mex	Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+test_example_custom_forwinv20220113	FAIL	5	00:20:00	2gb	mex	Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+test_example_irasa	FAIL	2	00:10:00	1gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_example_neighbours20220113	PASS	30	00:10:00	2gb	pass	
+test_example_simulate_forward_dipolefit	FAIL	4	00:10:00	1gb	mex	Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+test_example_simulateddata20220113	FAIL	4	00:10:00	2gb	octave-difference	surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+test_example_simulateddata_beamformer20220113	FAIL	14	00:10:00	2gb	mex	'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+test_example_simulateddata_dipolefit20220113	FAIL	4	00:10:00	2gb	mex	Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+test_example_sourcerecon_meeg20220113	FAIL	7	00:10:00	2gb	mex	Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+test_example_ssvep20220113	FAIL	2	00:10:00	2gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_ft_appendlayout	PASS	13	00:10:00	1gb	pass	
+test_ft_appendsens	PASS	7	00:10:00	1gb	pass	
+test_ft_average_sens	PASS	8	00:10:00	1gb	pass	
+test_ft_checkdata	FAIL	125	00:20:00	1gb	octave-difference	time axis is wrong @ test/test_ft_checkdata.m:355
+test_ft_componentanalysis_methods	PASS	22	00:10:00	1gb	pass	
+test_ft_denoise_pca	PASS	2	00:10:00	1gb	pass	
+test_ft_denoise_prewhiten	PASS	10	00:10:00	1gb	pass	
+test_ft_dipolefitting	FAIL	6	00:20:00	1gb	mex	Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+test_ft_dipolesimulation	PASS	3	00:10:00	1gb	pass	
+test_ft_fetch_data	FAIL	8	00:10:00	2gb	octave-difference	NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91
+test_ft_meshrealign	PASS	4	00:10:00	1gb	pass	
+test_ft_plot_cloud	FAIL	2	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+test_ft_plot_montage	FAIL	1	00:10:00	1gb	octave-difference	surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+test_ft_plot_ortho	FAIL	1	00:10:00	1gb	octave-difference	surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+test_ft_plot_sens	PASS	47	00:10:00	1gb	pass	
+test_ft_plot_slice	FAIL	1	00:10:00	1gb	octave-difference	surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+test_ft_prepare_leadfield	FAIL	3	00:20:00	1gb	mex	Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+test_ft_prepare_montage	FAIL	17	00:10:00	1gb	octave-difference	'split' undefined near line 296, column 13  The 'split' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_prepare_montage.m:296
+test_ft_preproc_dftfilter	FAIL	2	00:10:00	1gb	octave-difference	Invalid call to ifft.  Correct usage is:   -- X = ifft (Y)  -- X = ifft (Y, N)  -- X = ifft (Y, N, DIM) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+test_ft_preproc_lowpassfilter	FAIL	2	00:10:00	1gb	octave-difference	'clim' undefined near line 96, column 1 @ test/test_ft_preproc_lowpassfilter.m:96
+test_ft_rejectartifact	FAIL	2	00:10:00	1gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_ft_rejectcomponent	PASS	4	00:10:00	1gb	pass	
+test_ft_scalpcurrentdensity	PASS	3	00:10:00	1gb	pass	
+test_ft_selectdata	FAIL	18	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+test_ft_sourceanalysis	FAIL	6	00:10:00	1gb	mex	Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+test_ft_spike_jpsth	FAIL	4	00:10:00	1gb	octave-difference	'clim' undefined near line 261, column 3 @ contrib/spike/ft_spike_plot_jpsth.m:261
+test_ft_spikedensity	FAIL	5	00:10:00	1gb	octave-difference	'minmax' undefined near line 125, column 27 @ test/test_ft_spikedensity.m:125
+test_ft_timelockgrandaverage	FAIL	18	00:10:00	1gb	octave-difference	Invalid call to var.  Correct usage is:   -- statistics: V = var (X)  -- statistics: V = var (X, W)  -- statistics: V = var (X, W, "all")  -- statistics: V = var (X, W, DIM)  -- statistics: V = var (X, W, VECDIM)  -- statistics: V = var (..., NANFLAG)  -- statistics: [V, M] = var (...) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+test_ft_timelocksimulation	FAIL	2	00:10:00	1gb	octave-difference	assert (isequal (data1.trial, data2.trial)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_ft_volumereslice	FAIL	3	00:10:00	1gb	octave-difference	fprintf: invalid format specified @ utilities/ft_progress.m:263
+test_headmodel_asa	FAIL	4	00:10:00	1gb	octave-difference	'routlm' undefined near line 84, column 16 @ forward/private/project_elec.m:84
+test_headmodel_concentricspheres	FAIL	3	00:10:00	1gb	mex	Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+test_headmodel_interpolate	FAIL	21	00:45:00	4gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+test_headmodel_singlesphere	PASS	2	00:10:00	1gb	pass	
+test_issue1198	FAIL	13	00:10:00	1gb	octave-difference	ic(376): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51
+test_issue1292	FAIL	1	00:10:00	1gb	octave-difference	NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91
+test_issue1322	FAIL	6	00:10:00	1gb	matlab-only	'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_databrowser.m:596
+test_issue1329	PASS	9	01:00:00	1gb	pass	
+test_issue1418	PASS	4	00:10:00	1gb	pass	
+test_issue1546	FAIL	2	00:10:00	1gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_issue1841	FAIL	2	00:30:00	2gb	mex	Could not locate the MEX file "plgndr.mex" @ private/plgndr.m:32
+test_issue2021	FAIL	1	00:10:00	2gb	octave-difference	assert (contains (lasterr, 'This function requires raw data as input, see ft_datatype_raw.')) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_issue2059	PASS	8	00:10:00	1gb	pass	
+test_issue2124	FAIL	2	00:10:00	1gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_issue2265	FAIL	2	00:10:00	1gb	octave-difference	assert (abs (imag (freq.fourierspctrm (end))) < 100 * eps) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_issue714	FAIL	3	00:10:00	1gb	matlab-only	'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_databrowser.m:596
+test_issue928	FAIL	2	00:10:00	1gb	octave-difference	horizontal dimensions mismatch (1x1 vs 2x0) @ plotting/ft_plot_vector.m:290
+test_layout_egi	PASS	17	00:10:00	1gb	pass	
+test_pull1600	PASS	22	00:10:00	1gb	pass	
+test_pull1839	PASS	13	00:10:00	1gb	pass	
+test_pull393	PASS	185	00:10:00	1gb	pass	
+test_pull434	PASS	39	00:10:00	1gb	pass	
+test_shuffle_coilorder	FAIL	12	00:10:00	2gb	octave-difference	ic(1505): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51
+test_spm_ft_integration	FAIL	7	00:10:00	1gb	matlab-only	'alphamap' undefined near line 384, column 7  The 'alphamap' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ plotting/ft_plot_mesh.m:384
+test_tutorial_connectivity	FAIL	7	00:10:00	1gb	matlab-only	'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_databrowser.m:596
+test_warp	FAIL	1	00:10:00	1gb	octave-difference	rigidbody coregistration failed @ test/test_warp.m:28

@@ -38,3 +38,4 @@ website:faq/dpss-without-toolbox
 alphafold3:fix/ccd-user-ccd-copy
 alphafold3:fix/to-json-preserves-chain-order
 alphafold3:fix/summary-confidences-chain-ids
+fieldtrip:fix/octave-compat-survey

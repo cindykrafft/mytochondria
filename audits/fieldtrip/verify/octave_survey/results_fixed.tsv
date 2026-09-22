@@ -1,0 +1,280 @@
+test	outcome	seconds	walltime	mem	category	message
+test_bug1029	FAIL	3	00:10:00	1gb	mex	'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177
+test_bug103	PASS	3	00:10:00	1gb	pass	
+test_bug1041	FAIL	2	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+test_bug1042	FAIL	3	00:45:00	1gb	mex	'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177
+test_bug1153	FAIL	2	00:10:00	1gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_bug1162	PASS	2	00:10:00	1gb	pass	
+test_bug1166	FAIL	2	00:10:00	1gb	external	there is no dipoli executable for your platform @ forward/ft_headmodel_dipoli.m:192
+test_bug1168	FAIL	8	00:10:00	1gb	graphics	get: invalid default property 'colormap' @ ft_multiplotTFR.m:550
+test_bug1227	FAIL	1	00:10:00	1gb	mex	zstream.c not compiled - see Makefile @ external/gifti/@gifti/private/zstream.m:25
+test_bug1248	PASS	22	00:10:00	1gb	pass	
+test_bug1270	PASS	3	00:10:00	1gb	pass	
+test_bug1309	FAIL	1	00:15:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug131	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug1318	PASS	1	00:10:00	1gb	pass	
+test_bug1357	FAIL	8	00:10:00	1gb	octave-difference	horizontal dimensions mismatch (1x1 vs 151x0) @ plotting/ft_plot_vector.m:290
+test_bug1368	FAIL	2	00:20:00	1gb	external	OpenMEEG not found @ external/openmeeg/om_checkombin.m:94
+test_bug1389	PASS	3	00:10:00	1gb	pass	
+test_bug1408	PASS	54	00:10:00	2gb	pass	
+test_bug1482	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug1508	FAIL	2	00:10:00	1gb	octave-difference	test doesn't result in expected error message @ test/test_bug1508.m:30
+test_bug1529	FAIL	2	00:10:00	1gb	octave-difference	surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+test_bug1556	PASS	6	00:10:00	1gb	pass	
+test_bug1561	PASS	2	00:10:00	1gb	pass	
+test_bug1658	FAIL	1	00:20:00	2gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63
+test_bug1677	PASS	4	00:10:00	1gb	pass	
+test_bug1729	FAIL	2	00:10:00	1gb	graphics	octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:444
+test_bug1742	FAIL	1	00:10:00	1gb	matlab-only	nargout: number of output arguments unavailable for built-in function objects @ qsub/qsubcellfun.m:216
+test_bug1775	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug1820	FAIL	3	04:30:00	10gb	matlab-only	'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1861
+test_bug1832	FAIL	5	00:20:00	1gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+test_bug1836	FAIL	13	00:10:00	1gb	matlab-only	'alphamap' undefined near line 384, column 7  The 'alphamap' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ plotting/ft_plot_mesh.m:384
+test_bug1954	FAIL	5	01:30:00	1gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+test_bug1967a	FAIL	2	00:20:00	1gb	matlab-only	'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1861
+test_bug1976	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug2031	FAIL	2	00:10:00	1gb	graphics	get: invalid default property 'colormap' @ private/topoplot_common.m:648
+test_bug2032	FAIL	24	00:20:00	1gb	mex	'spm_existfile' undefined near line 109, column 5 @ external/spm8/spm_vol.m:109
+test_bug2040	FAIL	1	00:10:00	1gb	matlab-only	copyfile: no files to move @ ../../../../../../usr/share/octave/8.4.0/m/miscellaneous/copyfile.m:108
+test_bug2061	PASS	3	00:10:00	1gb	pass	
+test_bug2069	FAIL	4	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+test_bug2085	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug2148	FAIL	7	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+test_bug2186	PASS	8	00:10:00	1gb	pass	
+test_bug2265	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug2269	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug2277	FAIL	2	00:10:00	1gb	graphics	octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:447
+test_bug2342	FAIL	3	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+test_bug2376	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug2378	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug2404	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug2440	FAIL	3	00:10:00	1gb	graphics	octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:444
+test_bug2524	FAIL	1	00:10:00	1gb	octave-difference	assert (numel (strfind (s, '5.0')) == 3) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_bug2553	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug2560	FAIL	2	00:15:00	1gb	graphics	Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -- CMAP = colormap (HAX, ...)  -- colormap MAP_NAME @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+test_bug2585	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug2593	FAIL	3	00:10:00	1gb	octave-difference	the component unmixing failed @ ft_componentanalysis.m:871
+test_bug2606	FAIL	6	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+test_bug2640	FAIL	1	00:10:00	1gb	graphics	__marching_cube__: XX, YY, ZZ, v must be 3-D matrices @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/private/__marching_cube__.m:100
+test_bug2680	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug272	FAIL	2	00:10:00	1gb	matlab-only	save: Unrecognized option '-nocompression' @ utilities/private/savevar.m:43
+test_bug2727	FAIL	3	00:10:00	1gb	graphics	get: invalid default property 'colormap' @ private/topoplot_common.m:648
+test_bug2732	PASS	2	00:10:00	1gb	pass	
+test_bug2761	PASS	3	00:10:00	1gb	pass	
+test_bug2769	FAIL	2	00:10:00	1gb	matlab-only	'pad' undefined near line 1881, column 41  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1881
+test_bug2776	PASS	5	00:10:00	1gb	pass	
+test_bug2785	PASS	4	00:10:00	1gb	pass	
+test_bug2816	PASS	2	00:10:00	1gb	pass	
+test_bug2820	FAIL	4	00:10:00	1gb	graphics	Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -- CMAP = colormap (HAX, ...)  -- colormap MAP_NAME @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+test_bug2855	FAIL	6	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+test_bug2956	FAIL	2	00:10:00	1gb	octave-difference	Invalid call to ifft.  Correct usage is:   -- X = ifft (Y)  -- X = ifft (Y, N)  -- X = ifft (Y, N, DIM) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+test_bug2965	FAIL	2	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+test_bug2976	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug2994	FAIL	3	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+test_bug3048	FAIL	2	00:20:00	1gb	octave-difference	assert (isequal (freq1.trial {1}, freq2.trial {1})) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_bug3075	FAIL	2	00:20:00	1gb	matlab-only	save: Unrecognized option '-nocompression' @ utilities/private/savevar.m:43
+test_bug3077	FAIL	2	00:20:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug3078	FAIL	1	00:15:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug3182	FAIL	2	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+test_bug3192	FAIL	1	00:10:00	1gb	graphics	__go_patch__: invalid value for array property "cdata", unable to create graphics handle @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/private/__patch__.m:182
+test_bug3196	FAIL	1	00:10:00	1gb	graphics	__go_patch__: invalid value for array property "cdata", unable to create graphics handle @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/private/__patch__.m:182
+test_bug3205	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug3229	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug3238	PASS	21	00:10:00	1gb	pass	
+test_bug3256	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug3275	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug3287	PASS	6	00:10:00	1gb	pass	
+test_bug3295	PASS	7	00:10:00	1gb	pass	
+test_bug3325	FAIL	50	01:00:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug3336	FAIL	1	00:10:00	1gb	octave-difference	assert (!isequal (msg1, msg2)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_bug3337	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug3343	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug3354	PASS	2	00:20:00	1gb	pass	
+test_bug3358	FAIL	8	00:10:00	1gb	graphics	get: invalid default property 'colormap' @ ft_multiplotTFR.m:550
+test_bug3368	FAIL	1	00:10:00	2gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63
+test_bug3378	FAIL	2	00:10:00	1gb	graphics	octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:444
+test_bug3403	FAIL	2	00:10:00	1gb	matlab-only	'table' undefined near line 177, column 17  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_artifact_threshold.m:177
+test_bug3420	FAIL	2	00:10:00	1gb	matlab-only	corr: function called with too many inputs @ ../../../../../../usr/share/octave/8.4.0/m/statistics/corr.m:-1
+test_bug3435	FAIL	5	00:20:00	1gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+test_bug3453	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug3475	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug472	FAIL	1	00:20:00	1gb	matlab-only	buffer: n must be an integer @ ../../../../../../usr/share/octave/packages/signal-1.4.5/buffer.m:64
+test_bug538	PASS	7	00:10:00	1gb	pass	
+test_bug670	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_bug686	FAIL	3	00:30:00	1gb	mex	'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177
+test_bug70	FAIL	1	00:20:00	1gb	external	OpenMEEG not found @ external/openmeeg/om_checkombin.m:94
+test_bug780	PASS	1	00:10:00	1gb	pass	
+test_bug996	PASS	13	00:10:00	1gb	pass	
+test_checkcode	FAIL	3	00:20:00	1gb	matlab-only	'checkcode' undefined near line 172, column 7  The 'checkcode' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ test/test_checkcode.m:172
+test_clusterstat	FAIL	2	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+test_convert_event	FAIL	1	00:10:00	1gb	matlab-only	'array2table' undefined near line 44, column 14  The 'array2table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ test/test_convert_event.m:44
+test_csp	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_example_bem_evaluation20220113	FAIL	1	00:10:00	2gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_example_compute_leadfield20220113	FAIL	1	00:10:00	2gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_example_custom_forwinv20220113	FAIL	1	00:20:00	2gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_example_effects_of_tapering20220113	FAIL	2	00:10:00	2gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+test_example_filter_characteristics20220113	PASS	5	00:10:00	2gb	pass	
+test_example_granger_conditional20220113	FAIL	12	00:10:00	2gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+test_example_irasa	FAIL	2	00:10:00	1gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_example_neighbours20220113	FAIL	2	00:10:00	2gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_example_samplesize20220113	FAIL	1	01:30:00	6gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63
+test_example_simulate_forward_dipolefit	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_example_simulateddata20220113	FAIL	2	00:10:00	2gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_example_simulateddata_beamformer20220113	FAIL	1	00:10:00	2gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_example_simulateddata_clusterstats20220113	FAIL	18	00:10:00	2gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+test_example_simulateddata_dipolefit20220113	FAIL	1	00:10:00	2gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_example_sourcerecon_meeg20220113	FAIL	1	00:10:00	2gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_example_ssvep20220113	FAIL	1	00:10:00	2gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_external_stats	PASS	3	00:10:00	1gb	pass	
+test_findcluster	FAIL	1	00:20:00	6gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+test_firwsfiltering	PASS	75	00:20:00	1gb	pass	
+test_ft_appendlayout	FAIL	3	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_appendsens	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_artifact_threshold	FAIL	2	00:10:00	1gb	matlab-only	'table' undefined near line 177, column 17  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_artifact_threshold.m:177
+test_ft_average_sens	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_checkdata	FAIL	126	00:20:00	1gb	octave-difference	time axis is wrong @ test/test_ft_checkdata.m:355
+test_ft_colormap	FAIL	2	00:10:00	1gb	matlab-only	feval: function 'parula' not found @ plotting/ft_colormap.m:223
+test_ft_combineplanar	FAIL	2	00:20:00	1gb	mex	'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+test_ft_componentanalysis_methods	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_connectivity_mutualinformation	FAIL	1	00:10:00	1gb	mex	invalid function handle, unable to find function for @direct_method_v5b @ external/ibtb/entropy.m:319
+test_ft_connectivityanalysis	FAIL	18	00:10:00	2gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+test_ft_convert_units	FAIL	1	00:10:00	1gb	matlab-only	Invalid call to round.  Correct usage is:   -- Y = round (X) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+test_ft_crossfrequencyanalysis	PASS	36	00:15:00	1gb	pass	
+test_ft_defacevolume	FAIL	5	00:10:00	6gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+test_ft_denoise_pca	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_denoise_prewhiten	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_denoise_tsr	FAIL	3	01:30:00	6gb	matlab-only	binary operator '==' not implemented for 'cell' by 'cell' operations @ ../../../../../../usr/share/octave/8.4.0/m/general/isequal.m:117
+test_ft_dipolefitting	FAIL	1	00:20:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_dipolesimulation	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_electrodeplacement	FAIL	1	00:10:00	1gb	graphics	rotate3d: function called with too many outputs @ ../../../../../../usr/share/octave/8.4.0/m/plot/util/rotate3d.m:-1
+test_ft_fetch_data	FAIL	8	00:10:00	2gb	octave-difference	NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91
+test_ft_freqbaseline	PASS	2	00:10:00	1gb	pass	
+test_ft_headcircumference	FAIL	1	00:10:00		matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63
+test_ft_headmodel_bemcp	FAIL	5	03:00:00	10gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+test_ft_heartrate	FAIL	1	00:10:00	1gb	matlab-only	'envelope' undefined near line 165, column 27 @ ft_heartrate.m:165
+test_ft_lateralizedpotential	PASS	3	00:10:00	1gb	pass	
+test_ft_meshrealign	FAIL	3	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_mvaranalysis	PASS	3	00:10:00	1gb	pass	
+test_ft_plot_axes	FAIL	2	00:10:00	1gb	graphics	getframe: not implemented for gnuplot graphics toolkit @ ../../../../../../usr/share/octave/8.4.0/m/image/getframe.m:76
+test_ft_plot_cloud	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_plot_crosshair	FAIL	2	00:10:00	1gb	graphics	getframe: not implemented for gnuplot graphics toolkit @ ../../../../../../usr/share/octave/8.4.0/m/image/getframe.m:76
+test_ft_plot_headshape	FAIL	1	00:10:00	1gb	graphics	__go_patch__: invalid value for array property "cdata", unable to create graphics handle @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/private/__patch__.m:182
+test_ft_plot_montage	FAIL	1	00:10:00	1gb	octave-difference	surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+test_ft_plot_ortho	FAIL	1	00:10:00	1gb	octave-difference	surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+test_ft_plot_sens	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_plot_slice	FAIL	1	00:10:00	1gb	octave-difference	surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+test_ft_prepare_leadfield	FAIL	1	00:20:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_prepare_mesh	FAIL	2	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+test_ft_prepare_montage	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_preproc_bandpassfilter	PASS	3	00:10:00	1gb	pass	
+test_ft_preproc_bandstopfilter	PASS	2	00:10:00	1gb	pass	
+test_ft_preproc_denoise	PASS	1	00:10:00	1gb	pass	
+test_ft_preproc_dftfilter	FAIL	2	00:10:00	1gb	octave-difference	Invalid call to ifft.  Correct usage is:   -- X = ifft (Y)  -- X = ifft (Y, N)  -- X = ifft (Y, N, DIM) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+test_ft_preproc_highpassfilter	PASS	3	00:10:00	1gb	pass	
+test_ft_preproc_lowpassfilter	FAIL	2	00:10:00	1gb	octave-difference	'clim' undefined near line 96, column 1 @ test/test_ft_preproc_lowpassfilter.m:96
+test_ft_rejectartifact	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_rejectcomponent	FAIL	3	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_resampledata	FAIL	8	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+test_ft_respiration	FAIL	1	00:10:00	1gb	matlab-only	'envelope' undefined near line 107, column 23 @ ft_respiration.m:107
+test_ft_scalpcurrentdensity	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_selectdata	FAIL	3	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_selectdata_savevar	FAIL	2	00:10:00	1gb	matlab-only	save: Unrecognized option '-nocompression' @ utilities/private/savevar.m:43
+test_ft_sourceanalysis	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_ft_sourcedepth	FAIL	1	00:10:00	1gb	mex	Could not locate the MEX file "ptriproj.mex" @ forward/private/ptriproj.m:34
+test_ft_sourceinterpolate	FAIL	1	00:15:00	4gb	mex	zstream.c not compiled - see Makefile @ external/gifti/@gifti/private/zstream.m:25
+test_ft_sourceparcellate	FAIL	2	00:10:00	1gb	matlab-only	'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1861
+test_ft_sourcewrite	PASS	2	00:10:00	1gb	pass	
+test_ft_specest_hilbert	PASS	2	00:10:00	1gb	pass	
+test_ft_specest_mtmconvol	FAIL	1	00:10:00	1gb	matlab-only	feval: function 'taylorwin' not found @ external/signal/window.m:27
+test_ft_specest_mtmfft	FAIL	1	00:10:00	1gb	matlab-only	feval: function 'taylorwin' not found @ external/signal/window.m:27
+test_ft_spike_isi	FAIL	2	00:10:00	1gb	graphics	zoom: function called with too many outputs @ ../../../../../../usr/share/octave/8.4.0/m/plot/util/zoom.m:-1
+test_ft_spike_jpsth	FAIL	4	00:10:00	1gb	octave-difference	'clim' undefined near line 261, column 3 @ contrib/spike/ft_spike_plot_jpsth.m:261
+test_ft_spike_plot_isireturn	FAIL	2	00:10:00	1gb	matlab-only	'mle' undefined near line 159, column 24  The 'mle' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ contrib/spike/ft_spike_isi.m:159
+test_ft_spike_plot_raster	FAIL	5	00:10:00	1gb	graphics	zoom: function called with too many outputs @ ../../../../../../usr/share/octave/8.4.0/m/plot/util/zoom.m:-1
+test_ft_spike_psth	FAIL	3	00:10:00	1gb	graphics	zoom: function called with too many outputs @ ../../../../../../usr/share/octave/8.4.0/m/plot/util/zoom.m:-1
+test_ft_spikedensity	FAIL	5	00:10:00	1gb	octave-difference	'minmax' undefined near line 125, column 27 @ test/test_ft_spikedensity.m:125
+test_ft_spiketriggeredspectrum	PASS	15	00:10:00	1gb	pass	
+test_ft_statfun_correlationT	FAIL	2	00:20:00	1gb	matlab-only	corr: function called with too many inputs @ ../../../../../../usr/share/octave/8.4.0/m/statistics/corr.m:-1
+test_ft_steadystatesimulation	FAIL	4	00:10:00	1gb	matlab-only	'array2table' undefined near line 369, column 18  The 'array2table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_steadystatesimulation.m:369
+test_ft_timelockbaseline	PASS	2	00:10:00	1gb	pass	
+test_ft_timelockgrandaverage	FAIL	17	00:10:00	1gb	octave-difference	Invalid call to var.  Correct usage is:   -- statistics: V = var (X)  -- statistics: V = var (X, W)  -- statistics: V = var (X, W, "all")  -- statistics: V = var (X, W, DIM)  -- statistics: V = var (X, W, VECDIM)  -- statistics: V = var (..., NANFLAG)  -- statistics: [V, M] = var (...) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+test_ft_timelocksimulation	FAIL	2	00:10:00	1gb	octave-difference	assert (isequal (data1.trial, data2.trial)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_ft_timelockstatistics	FAIL	3	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+test_ft_volumebiascorrect	FAIL	4	01:00:00	6gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+test_ft_volumelookup	FAIL	128	00:10:00	1gb	matlab-only	'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1861
+test_ft_volumereslice	FAIL	3	00:10:00	1gb	octave-difference	fprintf: invalid format specified @ utilities/ft_progress.m:263
+test_ft_volumewrite	FAIL	2	00:10:00	1gb	mex	mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+test_ft_write_data	FAIL	1	00:10:00	1gb	matlab-only	audiowrite: failed to open output file '/tmp/oct-bL0b5R/write_oga.oga': Error : major format is 0. @ fileio/ft_write_data.m:610
+test_headmodel_asa	FAIL	3	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_headmodel_bemcp	FAIL	3	00:10:00	1gb	mex	'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177
+test_headmodel_concentricspheres	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_headmodel_dipoli	FAIL	2	00:10:00	1gb	external	there is no dipoli executable for your platform @ forward/ft_headmodel_dipoli.m:192
+test_headmodel_hbf	FAIL	1	00:20:00	1gb	external	invalid call to script /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/ftfix/external/hbf/hbf_mesh/hbf_SolidAngles.m @ external/hbf/hbf_mesh/hbf_SolidAngles.m:-1
+test_headmodel_interpolate	FAIL	1	00:45:00	4gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_headmodel_openmeeg	FAIL	1	00:20:00	1gb	external	OpenMEEG not found @ external/openmeeg/om_checkombin.m:94
+test_headmodel_singlesphere	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_issue1167	FAIL	1	00:10:00	1gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63
+test_issue1198	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_issue1214	PASS	6	00:10:00	1gb	pass	
+test_issue1292	FAIL	1	00:10:00	1gb	octave-difference	NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91
+test_issue1322	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_issue1329	FAIL	1	01:00:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_issue1363	FAIL	1	01:00:00	4gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63
+test_issue1400	FAIL	2	00:10:00	1gb	matlab-only	'table' undefined near line 35, column 18  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ test/test_issue1400.m:35
+test_issue1418	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_issue1431	FAIL	2	00:10:00	1gb	matlab-only	'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_databrowser.m:596
+test_issue1459	FAIL	2	00:10:00	1gb	matlab-only	'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1861
+test_issue1546	FAIL	2	00:10:00	1gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_issue1564	FAIL	1	00:10:00	1gb	matlab-only	'table' undefined near line 30, column 20  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ test/test_issue1564.m:30
+test_issue1568	FAIL	1	00:10:00	1gb	matlab-only	'table' undefined near line 33, column 20  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ test/test_issue1568.m:33
+test_issue1618	FAIL	34	00:10:00	1gb	mex	'CalcMD5' undefined near line 30, column 24 @ fileio/private/inflate_file.m:30
+test_issue1695	FAIL	2	01:00:00	1gb	mex	file2mat.c not compiled - see Makefile @ external/spm12/@file_array/private/file2mat.m:15
+test_issue1711	FAIL	2	00:10:00	1gb	matlab-only	Invalid call to round.  Correct usage is:   -- Y = round (X) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+test_issue1721	FAIL	7	00:10:00	1gb	graphics	get: invalid default property 'colormap' @ private/topoplot_common.m:648
+test_issue1841	FAIL	2	00:30:00	2gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_issue1843	FAIL	2	00:30:00	2gb	graphics	Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -- CMAP = colormap (HAX, ...)  -- colormap MAP_NAME @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+test_issue1985	PASS	1	00:10:00	1gb	pass	
+test_issue2021	FAIL	1	00:10:00	2gb	octave-difference	assert (contains (lasterr, 'This function requires raw data as input, see ft_datatype_raw.')) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_issue2059	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_issue2075	PASS	2	00:10:00	2gb	pass	
+test_issue2124	FAIL	3	00:10:00	1gb	octave-difference	cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+test_issue2162	PASS	2	00:10:00	1gb	pass	
+test_issue2169	PASS	6	00:10:00	1gb	pass	
+test_issue2235	FAIL	1	00:10:00	1gb	matlab-only	'table' undefined near line 29, column 14  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ test/test_issue2235.m:29
+test_issue2265	FAIL	2	00:10:00	1gb	octave-difference	assert (abs (imag (freq.fourierspctrm (end))) < 100 * eps) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+test_issue627	PASS	10	00:10:00	1gb	pass	
+test_issue714	FAIL	3	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_issue928	FAIL	2	00:10:00	1gb	octave-difference	horizontal dimensions mismatch (1x1 vs 2x0) @ plotting/ft_plot_vector.m:290
+test_laggedcoherence	PASS	23	00:20:00	1gb	pass	
+test_layout_egi	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_nanstat	FAIL	1	00:10:00	1gb	external	the XUNIT toolbox is not available, see http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework @ utilities/ft_hastoolbox.m:571
+test_old_buffer_latency_bandwidth	FAIL	1	00:10:00	1gb	external	'moxunit_throw_test_skipped_exception' undefined near line 27, column 3 @ test/test_old_buffer_latency_bandwidth.m:27
+test_old_connectivityanalysis	FAIL	1	00:10:00	1gb	external	'moxunit_throw_test_skipped_exception' undefined near line 17, column 3 @ test/test_old_connectivityanalysis.m:17
+test_old_fixcsd	PASS	15	00:10:00	2gb	pass	
+test_old_preproc_resample	PASS	2	00:10:00	1gb	pass	
+test_openmeeg_eeg	FAIL	2	00:30:00	2gb	external	OpenMEEG not found @ external/openmeeg/om_checkombin.m:94
+test_pull1138	FAIL	1	00:10:00	1gb	data	load: unable to find file /project/3031000.02/external/download/tutorial/human_ecog/SubjectUCI29/SubjectUCI29_freq.mat @ test/test_pull1138.m:8
+test_pull1156	FAIL	1	00:20:00	1gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63
+test_pull1427	FAIL	2	01:00:00	4gb	matlab-only	'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/ft_checkdata.m:1861
+test_pull1600	FAIL	5	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_pull1602	PASS	114	00:10:00	1gb	pass	
+test_pull1757	FAIL	7	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+test_pull1839	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_pull1877	FAIL	13	00:20:00	1gb	graphics	Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -- CMAP = colormap (HAX, ...)  -- colormap MAP_NAME @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+test_pull2050	FAIL	1	00:10:00	1gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63
+test_pull2105	FAIL	2	00:20:00	1gb	graphics	get: invalid default property 'colormap' @ private/topoplot_common.m:648
+test_pull2582	FAIL	1	00:10:00	1gb	matlab-only	'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ utilities/dccnpath.m:63
+test_pull2593	FAIL	5	00:20:00	2gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+test_pull348	FAIL	1	00:10:00	1gb	matlab-only	binary operator '==' not implemented for 'cell' by 'cell' operations @ ../../../../../../usr/share/octave/8.4.0/m/general/isequal.m:117
+test_pull360	FAIL	2	00:10:00	1gb	mex	spm_conv_vol.c not compiled - see Makefile @ external/spm12/spm_conv_vol.m:36
+test_pull393	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_pull434	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_pull492	FAIL	9	00:10:00	1gb	graphics	get: invalid default property 'colormap' @ ft_multiplotTFR.m:550
+test_read_trigger	PASS	4	00:10:00	1gb	pass	
+test_shuffle_coilorder	FAIL	13	00:10:00	2gb	octave-difference	ic(1501): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51
+test_spm_ft_integration	FAIL	1	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_triangulate_seg	FAIL	1	00:10:00	1gb	mex	spm_bwlabel.c not compiled - see Makefile @ external/spm8/spm_bwlabel.m:37
+test_tutorial_connectivity	FAIL	7	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+test_tutorial_connectivity2	FAIL	2	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+test_tutorial_networkanalysis_eeg20220126	FAIL	1	00:30:00	8gb	data	load: unable to find file /project/3031000.02/external/download/tutorial/networkanalysis_eeg/data_eeg_reref_ica.mat @ test/test_tutorial_networkanalysis_eeg20220126.m:14
+test_warp	FAIL	1	00:10:00	1gb	octave-difference	rigidbody coregistration failed @ test/test_warp.m:28

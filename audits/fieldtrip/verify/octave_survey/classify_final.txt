@@ -1,0 +1,216 @@
+| category | master cfdad9b | with the fix branch |
+|---|---|---|
+| pass | 191 (40.6 %) | 286 (60.7 %) |
+| ft-nanmean | 81 (17.2 %) | 0 (0.0 %) |
+| ft-startswith | 77 (16.3 %) | 0 (0.0 %) |
+| matlab-only | 40 (8.5 %) | 58 (12.3 %) |
+| mex | 30 (6.4 %) | 51 (10.8 %) |
+| graphics | 18 (3.8 %) | 31 (6.6 %) |
+| octave-difference | 13 (2.8 %) | 19 (4.0 %) |
+| external | 10 (2.1 %) | 10 (2.1 %) |
+| dpss-hack | 8 (1.7 %) | 13 (2.8 %) |
+| data | 2 (0.4 %) | 2 (0.4 %) |
+| timeout | 1 (0.2 %) | 1 (0.2 %) |
+| total | 471 | 471 |
+
+## still failing after the fix branch: octave-difference (19)
+- test_bug1357: horizontal dimensions mismatch (1x1 vs 151x0) @ plotting/ft_plot_vector.m:290
+- test_bug2265: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
+- test_bug2524: assert (numel (strfind (s, '5.0')) == 3) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_bug2593: assert (numel (comp.label) == 3) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_bug3048: assert (isequal (freq1.trial {1}, freq2.trial {1})) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_bug3229: assert (isequal (comp.elec, data.elec)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_bug3336: assert (!isequal (msg1, msg2)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_example_bem_evaluation20220113: ic(376): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51
+- test_ft_checkdata: time axis is wrong @ test/test_ft_checkdata.m:355
+- test_ft_fetch_data: NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91
+- test_ft_timelocksimulation: assert (isequal (data1.trial, data2.trial)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_ft_volumereslice: fprintf: invalid format specified @ utilities/ft_progress.m:263
+- test_issue1198: ic(376): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51
+- test_issue1292: NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91
+- test_issue2021: assert (contains (lasterr, 'This function requires raw data as input, see ft_datatype_raw.')) failed @ ../../../../../../usr/share/octave/8.4.0/m/test
+- test_issue2265: assert (abs (imag (freq.fourierspctrm (end))) < 100 * eps) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_issue928: horizontal dimensions mismatch (1x1 vs 2x0) @ plotting/ft_plot_vector.m:290
+- test_shuffle_coilorder: ic(1505): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51
+- test_warp: rigidbody coregistration failed @ test/test_warp.m:28
+
+## still failing after the fix branch: matlab-only (58)
+- test_bug1658: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> t
+- test_bug1742: nargout: number of output arguments unavailable for built-in function objects @ qsub/qsubcellfun.m:216
+- test_bug1820: 'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to 
+- test_bug1836: 'alphamap' undefined near line 384, column 7  The 'alphamap' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.h
+- test_bug1967a: 'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to 
+- test_bug2040: copyfile: no files to move @ ../../../../../../usr/share/octave/8.4.0/m/miscellaneous/copyfile.m:108
+- test_bug272: save: Unrecognized option '-nocompression' @ utilities/private/savevar.m:43
+- test_bug2769: 'pad' undefined near line 1881, column 41  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to 
+- test_bug2956: Invalid call to ifft.  Correct usage is:   -- X = ifft (Y)  -- X = ifft (Y, N)  -- X = ifft (Y, N, DIM) @ ../../../../../../usr/share/octave/8.4.0/m/h
+- test_bug3075: save: Unrecognized option '-nocompression' @ utilities/private/savevar.m:43
+- test_bug3077: save: Unrecognized option '-nocompression' @ utilities/private/savevar.m:43
+- test_bug3368: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> t
+- test_bug3403: 'table' undefined near line 177, column 17  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> 
+- test_bug3420: corr: function called with too many inputs @ ../../../../../../usr/share/octave/8.4.0/m/statistics/corr.m:-1
+- test_bug472: buffer: n must be an integer @ ../../../../../../usr/share/octave/packages/signal-1.4.5/buffer.m:64
+- test_checkcode: 'checkcode' undefined near line 172, column 7  The 'checkcode' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing
+- test_convert_event: 'array2table' undefined near line 44, column 14  The 'array2table' function is not yet implemented in Octave.  Please read <https://www.octave.org/mis
+- test_example_samplesize20220113: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> t
+- test_ft_artifact_threshold: 'table' undefined near line 177, column 17  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> 
+- test_ft_colormap: feval: function 'parula' not found @ plotting/ft_colormap.m:223
+- test_ft_convert_units: Invalid call to round.  Correct usage is:   -- Y = round (X) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+- test_ft_denoise_tsr: binary operator '==' not implemented for 'cell' by 'cell' operations @ ../../../../../../usr/share/octave/8.4.0/m/general/isequal.m:117
+- test_ft_headcircumference: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> t
+- test_ft_heartrate: 'envelope' undefined near line 165, column 27 @ ft_heartrate.m:165
+- test_ft_prepare_montage: 'split' undefined near line 296, column 13  The 'split' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> 
+- test_ft_preproc_dftfilter: Invalid call to ifft.  Correct usage is:   -- X = ifft (Y)  -- X = ifft (Y, N)  -- X = ifft (Y, N, DIM) @ ../../../../../../usr/share/octave/8.4.0/m/h
+- test_ft_preproc_lowpassfilter: 'clim' undefined near line 96, column 1 @ test/test_ft_preproc_lowpassfilter.m:96
+- test_ft_respiration: 'envelope' undefined near line 107, column 23 @ ft_respiration.m:107
+- test_ft_selectdata_savevar: save: Unrecognized option '-nocompression' @ utilities/private/savevar.m:43
+- test_ft_sourceparcellate: 'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to 
+- test_ft_specest_mtmconvol: feval: function 'taylorwin' not found @ external/signal/window.m:27
+- test_ft_specest_mtmfft: feval: function 'taylorwin' not found @ external/signal/window.m:27
+- test_ft_spike_jpsth: 'clim' undefined near line 261, column 3 @ contrib/spike/ft_spike_plot_jpsth.m:261
+- test_ft_spike_plot_isireturn: 'mle' undefined near line 159, column 24  The 'mle' function belongs to the statistics package from Octave Forge but has not yet been implemented.  Pl
+- test_ft_spikedensity: 'minmax' undefined near line 125, column 27 @ test/test_ft_spikedensity.m:125
+- test_ft_statfun_correlationT: corr: function called with too many inputs @ ../../../../../../usr/share/octave/8.4.0/m/statistics/corr.m:-1
+- test_ft_steadystatesimulation: 'array2table' undefined near line 369, column 18  The 'array2table' function is not yet implemented in Octave.  Please read <https://www.octave.org/mi
+- test_ft_timelockgrandaverage: Invalid call to var.  Correct usage is:   -- statistics: V = var (X)  -- statistics: V = var (X, W)  -- statistics: V = var (X, W, "all")  -- statisti
+- test_ft_volumelookup: 'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to 
+- test_ft_write_data: audiowrite: failed to open output file '/tmp/oct-bL0b5R/write_oga.oga': Error : major format is 0. @ fileio/ft_write_data.m:610
+- test_issue1167: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> t
+- test_issue1322: 'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to le
+- test_issue1363: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> t
+- test_issue1400: 'table' undefined near line 35, column 18  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> t
+- test_issue1431: 'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to le
+- test_issue1459: 'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to 
+- test_issue1564: 'table' undefined near line 30, column 20  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> t
+- test_issue1568: 'table' undefined near line 33, column 20  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> t
+- test_issue1711: Invalid call to round.  Correct usage is:   -- Y = round (X) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_usage.m:105
+- test_issue2235: 'table' undefined near line 29, column 14  The 'table' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> t
+- test_issue714: 'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to le
+- test_pull1156: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> t
+- test_pull1427: 'pad' undefined near line 1861, column 43  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to 
+- test_pull2050: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> t
+- test_pull2582: 'strip' undefined near line 63, column 23  The 'strip' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> t
+- test_pull348: binary operator '==' not implemented for 'cell' by 'cell' operations @ ../../../../../../usr/share/octave/8.4.0/m/general/isequal.m:117
+- test_spm_ft_integration: 'alphamap' undefined near line 384, column 7  The 'alphamap' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.h
+- test_tutorial_connectivity: 'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to le
+
+## still failing after the fix branch: graphics (31)
+- test_bug1168: get: invalid default property 'colormap' @ ft_multiplotTFR.m:550
+- test_bug1529: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_bug1729: octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:444
+- test_bug2031: get: invalid default property 'colormap' @ private/topoplot_common.m:648
+- test_bug2277: octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:447
+- test_bug2440: octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:444
+- test_bug2560: Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MA
+- test_bug2640: __marching_cube__: XX, YY, ZZ, v must be 3-D matrices @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/private/__marching_cube__.m:100
+- test_bug2727: get: invalid default property 'colormap' @ private/topoplot_common.m:648
+- test_bug2820: Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MA
+- test_bug3192: __go_patch__: invalid value for array property "cdata", unable to create graphics handle @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/privat
+- test_bug3196: __go_patch__: invalid value for array property "cdata", unable to create graphics handle @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/privat
+- test_bug3275: Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MA
+- test_bug3358: get: invalid default property 'colormap' @ ft_multiplotTFR.m:550
+- test_bug3378: octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:444
+- test_example_simulateddata20220113: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_ft_electrodeplacement: rotate3d: function called with too many outputs @ ../../../../../../usr/share/octave/8.4.0/m/plot/util/rotate3d.m:-1
+- test_ft_plot_axes: getframe: not implemented for gnuplot graphics toolkit @ ../../../../../../usr/share/octave/8.4.0/m/image/getframe.m:76
+- test_ft_plot_crosshair: getframe: not implemented for gnuplot graphics toolkit @ ../../../../../../usr/share/octave/8.4.0/m/image/getframe.m:76
+- test_ft_plot_headshape: __go_patch__: invalid value for array property "cdata", unable to create graphics handle @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/privat
+- test_ft_plot_montage: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_ft_plot_ortho: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_ft_plot_slice: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_ft_spike_isi: zoom: function called with too many outputs @ ../../../../../../usr/share/octave/8.4.0/m/plot/util/zoom.m:-1
+- test_ft_spike_plot_raster: zoom: function called with too many outputs @ ../../../../../../usr/share/octave/8.4.0/m/plot/util/zoom.m:-1
+- test_ft_spike_psth: zoom: function called with too many outputs @ ../../../../../../usr/share/octave/8.4.0/m/plot/util/zoom.m:-1
+- test_issue1721: get: invalid default property 'colormap' @ private/topoplot_common.m:648
+- test_issue1843: Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MA
+- test_pull1877: Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MA
+- test_pull2105: get: invalid default property 'colormap' @ private/topoplot_common.m:648
+- test_pull492: get: invalid default property 'colormap' @ ft_multiplotTFR.m:550
+
+## still failing after the fix branch: mex (51)
+- test_bug1029: 'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177
+- test_bug1042: 'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177
+- test_bug1227: zstream.c not compiled - see Makefile @ external/gifti/@gifti/private/zstream.m:25
+- test_bug1309: 'routlm' undefined near line 84, column 16 @ forward/private/project_elec.m:84
+- test_bug131: 'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+- test_bug1775: 'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+- test_bug1832: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_bug1954: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_bug1976: 'meg_leadfield1' undefined near line 182, column 34 @ forward/ft_compute_leadfield.m:182
+- test_bug2032: 'spm_existfile' undefined near line 109, column 5 @ external/spm8/spm_vol.m:109
+- test_bug2069: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_bug2085: 'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+- test_bug2606: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_bug2855: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_bug2994: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_bug3435: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_bug3453: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_bug686: 'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177
+- test_clusterstat: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_example_compute_leadfield20220113: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_example_custom_forwinv20220113: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_example_simulate_forward_dipolefit: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_example_simulateddata_beamformer20220113: 'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+- test_example_simulateddata_clusterstats20220113: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_example_simulateddata_dipolefit20220113: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_example_sourcerecon_meeg20220113: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_findcluster: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_ft_combineplanar: 'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+- test_ft_connectivity_mutualinformation: invalid function handle, unable to find function for @direct_method_v5b @ external/ibtb/entropy.m:319
+- test_ft_defacevolume: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_ft_dipolefitting: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_ft_headmodel_bemcp: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_ft_plot_cloud: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_ft_prepare_leadfield: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_ft_prepare_mesh: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_ft_sourceanalysis: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_ft_sourcedepth: Could not locate the MEX file "ptriproj.mex" @ forward/private/ptriproj.m:34
+- test_ft_sourceinterpolate: zstream.c not compiled - see Makefile @ external/gifti/@gifti/private/zstream.m:25
+- test_ft_timelockstatistics: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_ft_volumebiascorrect: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_ft_volumewrite: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_headmodel_asa: 'routlm' undefined near line 84, column 16 @ forward/private/project_elec.m:84
+- test_headmodel_bemcp: 'bem_Cii_lin' undefined near line 177, column 10 @ forward/ft_headmodel_bemcp.m:177
+- test_headmodel_concentricspheres: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_headmodel_interpolate: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_issue1618: 'CalcMD5' undefined near line 30, column 24 @ fileio/private/inflate_file.m:30
+- test_issue1695: file2mat.c not compiled - see Makefile @ external/spm12/@file_array/private/file2mat.m:15
+- test_issue1841: Could not locate the MEX file "plgndr.mex" @ private/plgndr.m:32
+- test_pull2593: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_pull360: spm_conv_vol.c not compiled - see Makefile @ external/spm12/spm_conv_vol.m:36
+- test_triangulate_seg: spm_bwlabel.c not compiled - see Makefile @ external/spm8/spm_bwlabel.m:37
+
+## still failing after the fix branch: external (10)
+- test_bug1166: there is no dipoli executable for your platform @ forward/ft_headmodel_dipoli.m:192
+- test_bug1368: OpenMEEG not found @ external/openmeeg/om_checkombin.m:94
+- test_bug70: OpenMEEG not found @ external/openmeeg/om_checkombin.m:94
+- test_headmodel_dipoli: there is no dipoli executable for your platform @ forward/ft_headmodel_dipoli.m:192
+- test_headmodel_hbf: invalid call to script /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/ftfix/external/hbf/hbf_mesh/hb
+- test_headmodel_openmeeg: OpenMEEG not found @ external/openmeeg/om_checkombin.m:94
+- test_nanstat: the XUNIT toolbox is not available, see http://www.mathworks.com/matlabcentral/fileexchange/22846-matlab-xunit-test-framework @ utilities/ft_hastoolbo
+- test_old_buffer_latency_bandwidth: 'moxunit_throw_test_skipped_exception' undefined near line 27, column 3 @ test/test_old_buffer_latency_bandwidth.m:27
+- test_old_connectivityanalysis: 'moxunit_throw_test_skipped_exception' undefined near line 17, column 3 @ test/test_old_connectivityanalysis.m:17
+- test_openmeeg_eeg: OpenMEEG not found @ external/openmeeg/om_checkombin.m:94
+
+## still failing after the fix branch: dpss-hack (13)
+- test_bug1041: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_bug2148: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_bug2342: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_bug2965: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_bug3078: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_bug3182: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_example_effects_of_tapering20220113: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_example_granger_conditional20220113: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_ft_connectivityanalysis: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_ft_resampledata: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_ft_selectdata: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_pull1757: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_tutorial_connectivity2: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+
+## still failing after the fix branch: data (2)
+- test_pull1138: load: unable to find file /project/3031000.02/external/download/tutorial/human_ecog/SubjectUCI29/SubjectUCI29_freq.mat @ test/test_pull1138.m:8
+- test_tutorial_networkanalysis_eeg20220126: load: unable to find file /project/3031000.02/external/download/tutorial/networkanalysis_eeg/data_eeg_reref_ica.mat @ test/test_tutorial_networkanalys
+
+## still failing after the fix branch: timeout (1)
+- test_issue1184: limit 1800s
+

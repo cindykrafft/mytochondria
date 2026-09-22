@@ -1,0 +1,86 @@
+103 tests
+octave-difference    42   40.8 %
+pass                 35   34.0 %
+mex                  18   17.5 %
+matlab-only           5    4.9 %
+dpss-hack             2    1.9 %
+graphics              1    1.0 %
+
+## octave-difference (42)
+- test_bug1153: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_bug1309: 'routlm' undefined near line 84, column 16 @ forward/private/project_elec.m:84
+- test_bug1357: horizontal dimensions mismatch (1x1 vs 151x0) @ plotting/ft_plot_vector.m:290
+- test_bug1529: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_bug2269: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_bug2378: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_bug2524: assert (numel (strfind (s, '5.0')) == 3) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_bug2593: assert (numel (comp.label) == 3) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_bug2680: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_bug2956: Invalid call to ifft.  Correct usage is:   -- X = ifft (Y)  -- X = ifft (Y, N)  -- X = ifft (Y, N, DIM) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_
+- test_bug3048: assert (isequal (freq1.trial {1}, freq2.trial {1})) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_bug3229: assert (isequal (comp.elec, data.elec)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_bug3336: assert (!isequal (msg1, msg2)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_bug3337: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_example_bem_evaluation20220113: ic(376): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51
+- test_example_irasa: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_example_simulateddata20220113: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_example_ssvep20220113: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_ft_checkdata: time axis is wrong @ test/test_ft_checkdata.m:355
+- test_ft_fetch_data: NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91
+- test_ft_plot_montage: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_ft_plot_ortho: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_ft_plot_slice: surface: Z and C must have the same size @ ../../../../../../usr/share/octave/8.4.0/m/plot/draw/surface.m:103
+- test_ft_prepare_montage: 'split' undefined near line 296, column 13  The 'split' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn h
+- test_ft_preproc_dftfilter: Invalid call to ifft.  Correct usage is:   -- X = ifft (Y)  -- X = ifft (Y, N)  -- X = ifft (Y, N, DIM) @ ../../../../../../usr/share/octave/8.4.0/m/help/print_
+- test_ft_preproc_lowpassfilter: 'clim' undefined near line 96, column 1 @ test/test_ft_preproc_lowpassfilter.m:96
+- test_ft_rejectartifact: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_ft_spike_jpsth: 'clim' undefined near line 261, column 3 @ contrib/spike/ft_spike_plot_jpsth.m:261
+- test_ft_spikedensity: 'minmax' undefined near line 125, column 27 @ test/test_ft_spikedensity.m:125
+- test_ft_timelockgrandaverage: Invalid call to var.  Correct usage is:   -- statistics: V = var (X)  -- statistics: V = var (X, W)  -- statistics: V = var (X, W, "all")  -- statistics: V = va
+- test_ft_timelocksimulation: assert (isequal (data1.trial, data2.trial)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_ft_volumereslice: fprintf: invalid format specified @ utilities/ft_progress.m:263
+- test_headmodel_asa: 'routlm' undefined near line 84, column 16 @ forward/private/project_elec.m:84
+- test_issue1198: ic(376): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51
+- test_issue1292: NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91
+- test_issue1546: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_issue2021: assert (contains (lasterr, 'This function requires raw data as input, see ft_datatype_raw.')) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert
+- test_issue2124: cannot determine whether "endsample" should be interpreted as true or false @ utilities/istrue.m:36
+- test_issue2265: assert (abs (imag (freq.fourierspctrm (end))) < 100 * eps) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
+- test_issue928: horizontal dimensions mismatch (1x1 vs 2x0) @ plotting/ft_plot_vector.m:290
+- test_shuffle_coilorder: ic(1505): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51
+- test_warp: rigidbody coregistration failed @ test/test_warp.m:28
+
+## matlab-only (5)
+- test_bug3077: save: Unrecognized option '-nocompression' @ utilities/private/savevar.m:43
+- test_issue1322: 'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how yo
+- test_issue714: 'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how yo
+- test_spm_ft_integration: 'alphamap' undefined near line 384, column 7  The 'alphamap' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to le
+- test_tutorial_connectivity: 'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how yo
+
+## graphics (1)
+- test_bug3275: Invalid call to colormap.  Correct usage is:   -- CMAP = colormap ()  -- CMAP = colormap (MAP)  -- CMAP = colormap ("default")  -- CMAP = colormap (MAP_NAME)  -
+
+## mex (18)
+- test_bug131: 'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+- test_bug1775: 'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+- test_bug1976: 'meg_leadfield1' undefined near line 182, column 34 @ forward/ft_compute_leadfield.m:182
+- test_bug2085: 'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+- test_bug3453: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_example_compute_leadfield20220113: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_example_custom_forwinv20220113: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_example_simulate_forward_dipolefit: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_example_simulateddata_beamformer20220113: 'meg_leadfield1' undefined near line 186, column 14 @ forward/ft_compute_leadfield.m:186
+- test_example_simulateddata_dipolefit20220113: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_example_sourcerecon_meeg20220113: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_ft_dipolefitting: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_ft_plot_cloud: spm_bwlabel.c not compiled - see Makefile @ external/spm12/spm_bwlabel.m:25
+- test_ft_prepare_leadfield: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_ft_sourceanalysis: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_headmodel_concentricspheres: Could not locate the MEX file "plgndr.mex" @ forward/private/plgndr.m:32
+- test_headmodel_interpolate: mat2file.c not compiled - see Makefile @ external/spm12/@file_array/private/mat2file.m:15
+- test_issue1841: Could not locate the MEX file "plgndr.mex" @ private/plgndr.m:32
+
+## dpss-hack (2)
+- test_bug3078: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+- test_ft_selectdata: dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1
+
