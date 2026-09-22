@@ -99,3 +99,7 @@ see `test-runs.txt`.
 
 `repro.sh`, `repro.before.out`, `repro.after.out`, `sh_alrt_reference.py`, `sh_alrt_reference.out`,
 `0001-SH-aLRT-draw-RELL-replicates-as-bootstrap-samples-wh.patch`, `pr-body.md`, `test-runs.txt`.
+
+## Status (2026-09-22)
+
+PR #214 filed 2026-09-09. bqminh's review of 2026-09-10 asked for the CI additions (`test_iqtree.sh`/`.ps1`, `expect_ans.txt`) to be removed: done the same day (force-push to `04f81848`, code only) and answered with the reproduction in the thread (`comment-214-ci-removed.md`, posted 2026-09-10 14:56 UTC). CI is green on that head. No further comment; waiting on his re-review.

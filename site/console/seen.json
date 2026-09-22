@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-22T19:00:00Z",
+"taken": "2026-09-22T20:10:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -127,7 +127,7 @@
 "merged": false,
 "comments": 4,
 "updated": "2026-09-16T14:46:15Z",
-"note": "4th comment 2026-09-16 14:46 UTC, unreadable from the session: owner to read and paste before any reply is drafted"
+"note": "schoffelen 2026-09-16: FAQ yes, as a PR on fieldtrip/website; adaptive weighting: eigenvalue variant could fit mtmconvol, derivative variant not, benefit minor; Octave survey: 'proof of the pudding is in the eating'. FAQ page written (branch faq/dpss-without-toolbox on the website clone, needs the fork), survey runner written, reply drafted (reply-2614-faq-octave.md)"
 },
 {
 "repo": "fieldtrip/fieldtrip",
@@ -146,7 +146,7 @@
 "merged": false,
 "comments": 1,
 "updated": "2026-09-18T18:30:34Z",
-"note": "closed completed 2026-09-18 18:30; 1 comment unreadable from the session"
+"note": "WardDeb 2026-09-18: 'Superseded by #1472'; #1472 (merged 2026-09-18, 0604617) makes samples-as-observations the only plotPCA layout and removes --transpose/--rowCenter, which fixes the reported bug; nothing to do"
 },
 {
 "repo": "deeptools/deepTools",
@@ -363,7 +363,7 @@
 "merged": false,
 "comments": 1,
 "updated": "2026-09-18T22:29:40Z",
-"note": "first comment 2026-09-18 22:29 UTC, unreadable from the session; owner to paste before any reply is drafted"
+"note": "afni-dglen 2026-09-18: undefined at +-1, candidates 0 / +-13 (what cdf and 3dcalc's cdf return) / +-4 (MYatanh in the correlate programs) / +-1 (current); reply drafted 2026-09-22 (audits/afni/upstream/reply-967-atanh.md, argues +-13)"
 },
 {
 "repo": "afni/afni",
@@ -555,7 +555,7 @@
 "merged": false,
 "comments": 1,
 "updated": "2026-09-18T18:30:07Z",
-"note": "closed NOT merged 2026-09-18 18:30; 1 comment unreadable from the session; no plotPCA change on master"
+"note": "WardDeb 2026-09-18: 'Thanks for flagging this, the bug is correct. We did decide to simplify this and only retain scores, dropping transpose+center (#1472).' Closed, not merged; fix landed via #1472; nothing to do"
 },
 {
 "repo": "chrchang/plink-ng",
@@ -676,7 +676,7 @@
 "merged": false,
 "comments": 2,
 "updated": "2026-09-21T16:15:27Z",
-"note": "closed 2026-09-21 16:15 UTC after upstream applied the same fix internally: commit 3485995 (Augustin Zidek, 16:03 UTC) \"Prevent mutation of the cached base CCD dictionary when applying user CCD\", message credits PR #734 and @cindykrafft; diff identical to ours apart from the variable name and comment; closing comment unreadable from the session"
+"note": "Augustin-Zidek 2026-09-21: 'thanks for the PR and for catching this bug. I submitted a fix in 3485995 and I will make sure to mention you in the release notes for the next version!' (first comment was the google-cla bot: CLA not signed); nothing to do"
 },
 {
 "repo": "htseq/htseq",
@@ -732,7 +732,7 @@
 "merged": false,
 "comments": 1,
 "updated": "2026-09-22T18:26:43Z",
-"note": "2026-09-22: Gang Chen applied the three R-script fixes on master himself (94211003e, cb91276aa, d4e4951bc, \"a fix per cindykrafft's suggestion\", code identical to the PR) at 18:18 UTC and merged master into the PR branch at 18:26 (db5642514); PR open with an empty diff, no new comment"
+"note": "afni-gangc review 2026-09-22 18:21: 'Thanks for the suggestions! Fixes are in and pushed to master.' (94211003e, cb91276aa, d4e4951bc); PR diff empty after his merge of master; closing note drafted (reply-960-close.md)"
 },
 {
 "repo": "spm/spm",
@@ -888,7 +888,7 @@
 "merged": true,
 "comments": 1,
 "updated": "2026-09-18T18:08:25Z",
-"note": "merged by afni-rickr 2026-09-18 (6a889c57d); 1 comment unreadable from the session"
+"note": "afni-rickr 2026-09-18: 'Thanks!' (merged); nothing to do"
 },
 {
 "repo": "afni/afni",
@@ -898,7 +898,7 @@
 "merged": true,
 "comments": 1,
 "updated": "2026-09-18T18:06:54Z",
-"note": "merged by afni-rickr 2026-09-18 (322124671); 1 comment unreadable from the session"
+"note": "afni-rickr 2026-09-18: 'Great, thanks!' (merged); nothing to do"
 },
 {
 "repo": "afni/afni",
@@ -1055,7 +1055,7 @@
 "merged": false,
 "comments": 1,
 "updated": "2026-09-14T16:42:17Z",
-"note": "updated 2026-09-14 16:42 UTC with no new comment (review, label or edit): unreadable from the session, owner to look"
+"note": "bqminh review CHANGES_REQUESTED 2026-09-10 06:25 (remove the CI additions); done and answered 2026-09-10 14:56 by the owner (the console's 'reply drafted' action was stale); requested reviewer bqminh; CI green on 04f81848; the 2026-09-14 16:42 update carries no comment or review (a re-request of review is the likely cause); waiting on bqminh"
 }
 ],
 "merge_checked": {

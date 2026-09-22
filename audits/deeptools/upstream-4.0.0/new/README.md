@@ -1,6 +1,6 @@
 **Filed 2026-09-05:** item 1 as issue [#1457](https://github.com/deeptools/deepTools/issues/1457) + PR [#1458](https://github.com/deeptools/deepTools/pull/1458); item 2 as issue [#1459](https://github.com/deeptools/deepTools/issues/1459) + PR [#1460](https://github.com/deeptools/deepTools/pull/1460). Items 3 and 4 held.
 
-**2026-09-18:** the maintainers closed #1459 (state "completed") and PR #1460 (closed, not merged) with one comment on each that could not be read from the session; no change to `plotPCA`/`correlation.py` landed on `master`, whose only commit that day deprecates computeGCBias/correctGCBias (#1471, `ec4fbc8`). Nothing further goes to deepTools until those two comments have been read.
+**2026-09-18:** WardDeb closed PR #1460 ("Thanks for flagging this, the bug is correct. We did decide to simplify this and only retain scores, dropping transpose+center (#1472).") and #1459 ("Superseded by #1472"). PR #1472 (merged the same day, `0604617`) makes the samples-as-observations layout the only one: every sample is plotted at its score on the requested components, `--transpose` and `--rowCenter` are removed and the help text now says so. That resolves item 2; the fork branch `fix4/plotpca-loadings` is superseded. Items 1 (#1457 / PR #1458) and DT4 (PR #1466) are still open without a reply.
 
 # deepTools 4.0.0 — the four defects introduced by the rewrite (filing kit)
 

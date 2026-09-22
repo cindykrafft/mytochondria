@@ -130,7 +130,7 @@ and #1140 on 2026-09-05 with the merge; #1118 is still open. Filing plan under t
 (self-contained body, no prior issue), DT4 comment + PR on the open #1118; DT1 needs a fresh issue
 (its threads closed) and is held with DT3, DT5, DT9 and the residual #1423 sort fix. Two new
 4.0.0-only defects were filed 2026-09-05 as pre-release reports: bamCompare `--operation` (#1457, PR #1458) and
-plotPCA loadings (#1459, PR #1460; both closed by the maintainers 2026-09-18 with a comment each, not yet read). PR #1451 (the #1423 fix against 3.5.6) was closed after the merge.
+plotPCA loadings (#1459, PR #1460; closed 2026-09-18: the maintainer confirmed the bug and fixed it his own way in #1472, merged the same day). PR #1451 (the #1423 fix against 3.5.6) was closed after the merge.
 deepTools now has two unanswered filings; everything else there is held.
 
 ## Round 3 (2026-09-08): samtools, featureCounts, edgeR, lme4, clusterProfiler
