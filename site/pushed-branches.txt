@@ -34,3 +34,4 @@ umap:fix/issue-1277-spectral-init-regular-component
 gsea-desktop:fix/zero-weight-gene-set
 gsea-desktop:fix/weighted-p1.5-abs-score
 gsea-desktop:fix/set-size-filter-min-equals-max
+website:faq/dpss-without-toolbox
