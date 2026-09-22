@@ -9,9 +9,7 @@ Fork: https://github.com/cindykrafft/alphafold3 (base `main`; all branches made 
 1. Sign the Google CLA.
 2. AF1: issue `issue-af1-to-json-chain-order.md`, then PR 1 from `pr-bodies.md`
    (`fix/to-json-preserves-chain-order`, two commits: fix 42ca328, test 58c198f).
-3. AF2: read the reply on #150 first (helper transcript "Mytochondria thread af3 150"; the
-   question there predates `chain_ids` and asks exactly what this field was added to answer),
-   then issue `issue-af2-summary-confidences-chain-ids.md` and PR 2
+3. AF2: issue `issue-af2-summary-confidences-chain-ids.md`, then PR 2
    (`fix/summary-confidences-chain-ids`, 07505f9).
 4. Everything else waits for a reply.
 
@@ -25,10 +23,8 @@ the documented RNA Z-value with the database size; the maintainer said it is in 
 Adjacent to AF1: #476 (maintainer: the token order follows the `sequences` field) and #150
 (maintainer: the chain-level arrays follow the input JSON order), which is the promise that a
 reordered `_data.json` breaks. Adjacent to AF4: PR #719 (open; float32 overflow in the same
-paired-MSA ranking, a different defect). #150, #678 and #476 are being transcribed by helpers
-("Mytochondria thread af3 150", "Mytochondria threads af3 678 476"); the issue texts do not cite
-them yet and may once they have been read in full (`audits/TRIAGE.md`, "Read the whole thread
-first").
+paired-MSA ranking, a different defect). #150, #678 and #476 were read in full on 2026-09-22 (helper transcripts "Mytochondria thread
+af3 150", "Mytochondria threads af3 678 476"); the issue texts cite them (see the thread log).
 
 ## All fifteen branches
 
@@ -56,4 +52,18 @@ settings on the current release; "held" is a crash, a rare path, a latent table 
 
 - 2026-09-22: PR #734 read in full (two comments: CLA bot; Augustin-Zidek's close with the
   commit reference). Nothing to answer.
-- 2026-09-22: #150 transcription requested (helper); to be read before AF2 is posted.
+- 2026-09-22: #150 read in full (question + one reply, 2024-12-03: "the order should be the same
+  as in the input JSON. The order can also be inferred from `token_chain_ids` or
+  `atom_chain_ids`"; ligands may come after polymers in the mmCIF). Cited in AF1 and AF2.
+- 2026-09-22: PR #678 read in full (opening post + five comments, no reviews). ntnn19 proposed
+  dict-keyed chain scores; Augustin-Zidek declined for backward compatibility and proposed a
+  self-contained chain-id list; ntnn19: "the deduplicated unique chain ID list ... in the same
+  order as the positional arrays?"; Augustin-Zidek: "Yes, correct."; ntnn19 pushed exactly that
+  (`list(dict.fromkeys(str(c) for c in token_chain_ids))`, docstring "Unique chain IDs in the
+  same order as the chain-level arrays"); closed 2026-07-09 with "Fix inspired by your PR
+  submitted in e68269f", which kept the field and docstring but copies `token_chain_ids`
+  verbatim. So AF2 is a regression against the agreed design, and our fix is the PR's own
+  expression. Cited in the AF2 issue and PR body.
+- 2026-09-22: #476 read in full (question + one reply, 2025-07-23: "The order is determined by
+  the order in the `sequences` field -- i.e. the chain IDs do not play any role in the sorting
+  order"). Cited in AF1.
