@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-22T06:50:00Z",
+"taken": "2026-09-22T12:50:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -1053,7 +1053,7 @@
 ],
 "merge_checked": {
 "iqtree/iqtree3#214": "clean, 16 behind master",
-"samtools/samtools#2379": "clean, 5 behind develop",
+"samtools/samtools#2379": "clean, 9 behind develop",
 "lme4/lme4#1000": "clean, 1 behind master",
 "lmcinnes/umap#1290": "clean, 2 behind master",
 "GSEA-MSigDB/gsea-desktop#75": "clean, 0 behind master",
