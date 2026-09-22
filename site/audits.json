@@ -391,6 +391,20 @@
    "attributed": 291,
    "versions_stated": 176,
    "versions_in_repo": 169
+  },
+  {
+   "dir": "alphafold3",
+   "name": "AlphaFold 3",
+   "papers": null,
+   "findings": 15,
+   "repos": [
+    "google-deepmind/alphafold3"
+   ],
+   "fork": "cindykrafft/alphafold3",
+   "attributed": null,
+   "attributed_note": "code review of the inference and data-pipeline code (2026-09-02), not survey-driven",
+   "versions_stated": 0,
+   "versions_in_repo": 0
   }
  ],
  "author": "cindykrafft",

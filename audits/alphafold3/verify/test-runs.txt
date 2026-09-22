@@ -1,0 +1,37 @@
+# folding_input_test.py with the new test, compiled modules stubbed (run_tests_stubbed.py); the 19 errors are the tests that need the C++ mmcif/CCD modules and are identical on main and on the branch
+## main + new test, -k keeps_chain_order
+
+First differing element 1:
+'C'
+'B'
+
+- ['A', 'C', 'B']
++ ['A', 'B', 'C']
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)
+## branch, -k to_json
+[ RUN      ] InputTest.test_to_json_do_not_fill_missing_fields
+[       OK ] InputTest.test_to_json_do_not_fill_missing_fields
+[ RUN      ] InputTest.test_to_json_fill_missing_fields
+[       OK ] InputTest.test_to_json_fill_missing_fields
+[ RUN      ] InputTest.test_to_json_keeps_chain_order_of_interleaved_duplicates
+[       OK ] InputTest.test_to_json_keeps_chain_order_of_interleaved_duplicates
+[ RUN      ] InputTest.test_to_json_sequence_deduplication
+[       OK ] InputTest.test_to_json_sequence_deduplication
+[ RUN      ] InputTest.test_to_json_sequence_deduplication_round_trip
+[       OK ] InputTest.test_to_json_sequence_deduplication_round_trip
+----------------------------------------------------------------------
+Ran 5 tests in 0.010s
+
+OK
+## branch, whole file
+Ran 111 tests in 0.073s
+
+FAILED (errors=19)
+## main, whole file
+Ran 110 tests in 0.074s
+
+FAILED (errors=19)

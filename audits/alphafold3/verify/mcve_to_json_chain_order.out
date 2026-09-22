@@ -1,0 +1,19 @@
+# mcve_to_json_chain_order.py on google-deepmind/alphafold3 main (a66cc52, 2026-09-21), Python 3.11, compiled modules stubbed (run_stubbed.py)
+chain order before round trip: ['A', 'B', 'C']
+chain order after  round trip: ['A', 'C', 'B']
+sequences emitted by to_json:  [['A', 'C'], 'B']
+Traceback (most recent call last):
+  File "$S/af3/run_stubbed.py", line 14, in <module>
+    runpy.run_path("mcve_to_json_chain_order.py", run_name="__main__")
+  File "<frozen runpy>", line 291, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "mcve_to_json_chain_order.py", line 28, in <module>
+    assert after == before, "to_json/from_json changed the chain order"
+           ^^^^^^^^^^^^^^^
+AssertionError: to_json/from_json changed the chain order
+
+# same on branch fix/to-json-preserves-chain-order
+chain order before round trip: ['A', 'B', 'C']
+chain order after  round trip: ['A', 'B', 'C']
+sequences emitted by to_json:  ['A', 'B', 'C']

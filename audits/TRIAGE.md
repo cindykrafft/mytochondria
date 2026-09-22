@@ -38,6 +38,7 @@ in the kit indefinitely.
 | file now | fastp FP2 | 85 built-in adapters longer than 60 nt are auto-detected and then discarded, so nothing is trimmed |
 | file now | BEDTools BT1 | `coverage -split` counts blocks, not records, and ignores `-f`/`-F` |
 | file now | CellPhoneDB CPDB2 | strict inequality drops ties, p = 0 for 42.6 % of tested entries; **read the replies on #179 and #60 first** |
+| file now | AlphaFold 3 AF1, AF2 | `to_json` reorders interleaved identical chains, so the two-stage `_data.json` workflow runs a different complex; `chain_ids` per token against per-chain arrays; CLA first, AI declaration in the PR |
 | comment | deepTools DT1 (#1108/#1130); DT4 posted 2026-09-08 as a comment on #1118 with PR #1466; fastp FP1 (#474), FP3 (#518) | cause and patch on threads the maintainers keep open; BEDTools BT2 posted 2026-09-05 as a comment on #1142 with PR #1144 |
 | filed | Cutadapt CA1 (#892/#893), umap-learn U1 (#1286/#1287), CellPhoneDB CPDB1 (#231), Scanpy SC1 (#4336/#4337) | 2026-09-02/03; umap #1287 merged 2026-09-05, the rest open |
 | held | HTSeq HC1 | API path (`BAM_Reader[iv]`), not `htseq-count` |
@@ -47,6 +48,7 @@ in the kit indefinitely.
 | held | Scrublet-in-Scanpy SR1, SR3; original Scrublet | `k_adj − 1` neighbours and the `log_transform` order are subtle; the original repository is unmaintained |
 | held | CellPhoneDB CPDB3–CPDB6 | inert `threshold`, subunit-row minima, a crash at `threads=1, iterations<=50`, pandas 3 breakage |
 | held | IQ-TREE IQ2 | design question for Discussions, no wrong number |
+| held | AlphaFold 3 AF3–AF13 | two model-behaviour findings (cross-attention key mask, MSA pairing sort) go as issues without PRs after a reply; the rest are crash paths, rare inputs, a latent table and a docs fix |
 | held | FieldTrip, Suite2p, Kilosort, MACS2 items not yet filed | those repositories already have several open filings from this project |
 
 The console (`scratchpad/console2`, published as the Audit Filing Console) groups each

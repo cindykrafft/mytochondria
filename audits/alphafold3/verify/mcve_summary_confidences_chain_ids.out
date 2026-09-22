@@ -1,0 +1,19 @@
+# mcve_summary_confidences_chain_ids.py on google-deepmind/alphafold3 main (a66cc52, 2026-09-21), Python 3.11, compiled modules stubbed (run_stubbed2.py)
+chain_ptm : [0.9, 0.8]   ( 2 chains )
+chain_ids : ['A', 'A', 'A', 'B', 'B']   ( 5 entries )
+zip(chain_ids, chain_ptm): [('A', 0.9), ('A', 0.8)]
+Traceback (most recent call last):
+  File "$S/af3/run_stubbed2.py", line 10, in <module>
+    runpy.run_path("mcve_summary_confidences_chain_ids.py", run_name="__main__")
+  File "<frozen runpy>", line 291, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "mcve_summary_confidences_chain_ids.py", line 28, in <module>
+    assert len(out['chain_ids']) == len(out['chain_ptm']), "chain_ids is per token, not per chain"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: chain_ids is per token, not per chain
+
+# same on branch fix/summary-confidences-chain-ids
+chain_ptm : [0.9, 0.8]   ( 2 chains )
+chain_ids : ['A', 'B']   ( 2 entries )
+zip(chain_ids, chain_ptm): [('A', 0.9), ('B', 0.8)]

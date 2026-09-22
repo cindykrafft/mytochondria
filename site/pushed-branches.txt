@@ -35,3 +35,6 @@ gsea-desktop:fix/zero-weight-gene-set
 gsea-desktop:fix/weighted-p1.5-abs-score
 gsea-desktop:fix/set-size-filter-min-equals-max
 website:faq/dpss-without-toolbox
+alphafold3:fix/ccd-user-ccd-copy
+alphafold3:fix/to-json-preserves-chain-order
+alphafold3:fix/summary-confidences-chain-ids

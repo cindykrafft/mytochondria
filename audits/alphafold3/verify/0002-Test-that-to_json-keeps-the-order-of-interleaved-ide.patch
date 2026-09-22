@@ -1,0 +1,51 @@
+From 58c198faf5af3f76d60614570dae5126137e58b9 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Tue, 22 Sep 2026 21:47:12 +0000
+Subject: [PATCH 2/2] Test that to_json keeps the order of interleaved
+ identical chains
+
+The new test fails on main (A,B,C comes back as A,C,B) and passes with the
+fix.
+---
+ src/alphafold3/common/folding_input_test.py | 25 +++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/src/alphafold3/common/folding_input_test.py b/src/alphafold3/common/folding_input_test.py
+index f2f006f..688751e 100644
+--- a/src/alphafold3/common/folding_input_test.py
++++ b/src/alphafold3/common/folding_input_test.py
+@@ -671,6 +671,31 @@ class InputTest(parameterized.TestCase):
+     )
+     self.assertEqual(af_input, round_trip_input)
+ 
++  def test_to_json_keeps_chain_order_of_interleaved_duplicates(self):
++    # Two identical chains separated by a different chain: to_json must not
++    # move the chain in between, as the chain order fixes the token order and
++    # the asym_id/entity_id/sym_id assignment in to_structure.
++    af_input = {
++        'name': 'test_input',
++        'modelSeeds': [1337],
++        'sequences': [
++            {'protein': {'id': 'A', 'sequence': 'RRR'}},
++            {'ligand': {'id': 'B', 'ccdCodes': ['GLY']}},
++            {'protein': {'id': 'C', 'sequence': 'RRR'}},
++        ],
++        'bondedAtomPairs': None,
++        'userCCD': None,
++        'dialect': 'alphafold3',
++        'version': folding_input.JSON_VERSION,
++    }
++    fold_input = folding_input.Input.from_json(json.dumps(af_input))
++    round_trip = folding_input.Input.from_json(fold_input.to_json())
++    self.assertEqual(
++        [chain.id for chain in round_trip.chains],
++        [chain.id for chain in fold_input.chains],
++    )
++    self.assertEqual(round_trip, fold_input)
++
+   def test_from_json_some_chain_ids_given(self):
+     test_json = data.Data(resources.ROOT / 'common/test_data/').load(
+         'alphafold_input.json'
+-- 
+2.43.0
+

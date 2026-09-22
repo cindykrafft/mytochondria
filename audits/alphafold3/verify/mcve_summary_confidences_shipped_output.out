@@ -1,0 +1,10 @@
+# mcve_summary_confidences_shipped_output.py on main (a66cc52), compiled modules stubbed (run_stubbed3.py)
+token_chain_ids: 150 tokens; distinct chains ['P', 'LL']
+chain_ptm : [0.84, 0.74] ( 2 chains )
+chain_ids : ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'] ... ( 150 entries )
+AssertionError: chain_ids is per token, not per chain
+
+# same on branch fix/summary-confidences-chain-ids
+token_chain_ids: 150 tokens; distinct chains ['P', 'LL']
+chain_ptm : [0.84, 0.74] ( 2 chains )
+chain_ids : ['P', 'LL']  ( 2 entries )
