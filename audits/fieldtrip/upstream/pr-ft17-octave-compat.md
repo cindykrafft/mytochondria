@@ -1,0 +1,13 @@
+Title: Restore external/stats on the path (55ee593 regression) and let the Octave startsWith/endsWith shims take cell-array patterns
+
+<!-- Branch fix/octave-compat-survey on the fork, one commit (4dfba5c on master cfdad9b). Two changes, both from the Octave survey asked for on #2614. Open after issue FT17 exists and put its number in the first line. No new test_pull script: test_external_stats already covers the first change (fails on master, passes with it) and the second is exercised by every test that calls ft_senstype with a cell pattern. Fill in the survey counts from audits/fieldtrip/verify/octave_survey/README.md. -->
+
+Fixes #NNNN.
+
+Two changes found by running every `DATA no` test function under GNU Octave 8.4 (the survey from #2614; results posted there):
+
+1. **`ft_platform_supports('stats')` errors since 55ee593.** The commit removed the definition of `exclude_mfiles` but kept its use in the `'stats'` case, so the function raises `'exclude_mfiles' undefined`. `ft_defaults` calls it inside a `try`, the error is swallowed, and `external/stats` is never added to the path: without the Statistics Toolbox (and under Octave) `nanmean`, `nanstd`, `nansum` and the rest are undefined, and `test_external_stats` fails on master. Pass an empty exclusion list, as the `images` and `signal` cases do. This alone accounts for NN of the 281 Octave failures.
+
+2. **`compat/octave/startsWith.m` and `endsWith.m` with a cell array of patterns.** Both passed the pattern straight to `strncmp`, which under Octave errors with `strncmp: nonconformant cell arrays` when the pattern cell has a different size from the string cell, and returns one value per pattern instead of one per string when the sizes happen to agree. `ft_senstype` (`startsWith(sens.label, {'L', 'R'}) & endsWith(sens.label, {'bx', 'by', 'bz'})`), `ft_checkdata` and others call them this way. Loop over the patterns and OR the results, which is what MATLAB's `startsWith`/`endsWith` do; a char or a cell pattern, the `'IgnoreCase'` option and a char or cell first argument all keep their previous behaviour. This accounts for NN of the 281 failures.
+
+Tested under Octave 8.4.0 on master cfdad9b: with the branch, `ft_platform_supports('stats')` is true, `external/stats` is on the path, `nanmean([1 NaN 3])` is 2, `startsWith({'abc','xbc','zz'}, {'x','ab'})` is `[1 1 0]`, and NN of the NN tests that failed for these two causes pass (the remaining ones stop at a different, unrelated cause; list in the #2614 comment). Under MATLAB the first change restores the behaviour before 55ee593 and the second is not on the path.
