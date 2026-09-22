@@ -26,7 +26,7 @@ import argparse, collections, re, sys
 
 RULES = [
     ("ft-startswith", r"compat/octave/(startsWith|endsWith)\.m|mx_el_and: nonconformant arguments \(op1 is 1x2, op2 is 1x3\) @ fileio/private/ft_senstype\.m:444"),
-    ("ft-nanmean", r"'nan(mean|std|max|min|sum|var|median)' undefined|function for @nan(mean|std|max|min|sum|var)"),
+    ("ft-nanmean", r"'nan(mean|std|max|min|sum|var|median)' undefined|function for @nan(mean|std|max|min|sum|var)|assert \(exist \(filelist \{k\}, 'file'\)"),
     ("dpss-hack", r"dpss_hack"),
     ("mex", r"not compiled - see Makefile|Could not locate the MEX file|'bem_Cii_lin' undefined|'meg_leadfield1' undefined|'CalcMD5' undefined|'spm_existfile' undefined|direct_method_v5b"),
     ("external", r"OpenMEEG not found|no dipoli executable|XUNIT toolbox is not available|moxunit_throw_test_skipped_exception|hbf_mesh/hbf_SolidAngle"),
