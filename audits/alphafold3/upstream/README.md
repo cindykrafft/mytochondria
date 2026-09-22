@@ -16,9 +16,19 @@ Fork: https://github.com/cindykrafft/alphafold3 (base `main`; all branches made 
 4. Everything else waits for a reply.
 
 Prior-report search, 2026-09-22, from the session (GitHub search over the repository) and a
-helper session over the full issue list: no report of AF1 or AF2. Nearest threads: #356 (how to
-write the `id` list for identical chains), #150 (chain order of the chain-level arrays), #112
-(converting `.sto` to JSON). Neither mentions reordering or per-token `chain_ids`.
+helper session that searched all thirteen unfiled findings against every open and closed issue
+and PR (artifact "Mytochondria prior af3"): **no finding has been reported before.** Two have a
+related thread: AF2 and PR #678 (closed without merge: a request to key the chain scores in
+`summary_confidences.json` by chain id because cross-referencing `token_chain_ids` is
+error-prone; `chain_ids` was presumably the answer), AF13 and #557 (a user could not reconcile
+the documented RNA Z-value with the database size; the maintainer said it is in megabases).
+Adjacent to AF1: #476 (maintainer: the token order follows the `sequences` field) and #150
+(maintainer: the chain-level arrays follow the input JSON order), which is the promise that a
+reordered `_data.json` breaks. Adjacent to AF4: PR #719 (open; float32 overflow in the same
+paired-MSA ranking, a different defect). #150, #678 and #476 are being transcribed by helpers
+("Mytochondria thread af3 150", "Mytochondria threads af3 678 476"); the issue texts do not cite
+them yet and may once they have been read in full (`audits/TRIAGE.md`, "Read the whole thread
+first").
 
 ## All fifteen branches
 
