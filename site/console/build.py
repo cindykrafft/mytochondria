@@ -282,7 +282,7 @@ WAITING=[
  ("Suite2p #1079 (assigned upstream; comment only)", "a reply on PR #1266-#1268 or issues #1265/#1269/#1270"),
  ("FieldTrip #2345 fix", "#2608, #2610, #2611 or #2612 merged or answered (#2610 is 'almost ready to merge')"),
  ("deepTools DT1, DT5, DT8, DT9, DTN3", "#1459 and PR #1460 (plotPCA loadings) were closed on 2026-09-18 with a comment each that the session cannot read: paste them before anything else on deepTools; no plotPCA change landed on master (that day's only commit deprecates computeGCBias/correctGCBias, #1471); #1457/#1458 and PR #1466 still open"),
- ("SPM and AFNI second fixes", "not chosen yet; SPM's first fixes and AFNI's #944/#947/#926/#928 and now #958 (3dTshift -no_detrend) and #962 (3dROIstats -sigma), merged 2026-09-18, are in, so they are next to prepare; six AFNI PRs still open"),
+ ("SPM and AFNI second fixes", "not chosen yet; SPM's first fixes and AFNI's #944/#947/#926/#928, #958 and #962 (merged 2026-09-18) and the R-script fixes of #960 (applied on master by Gang Chen 2026-09-22 with credit; the PR sits open with an empty diff) are in, so they are next to prepare; five AFNI PRs still carry unmerged code"),
  ("umap third fix, IQ-TREE third fix", "PR #1288 / PR #210 answered"),
  ("HTSeq HC1/HC2, FreeSurfer #1358", "never: the maintainers decline AI-generated contributions"),
 ]

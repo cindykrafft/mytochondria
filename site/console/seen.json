@@ -1,5 +1,5 @@
 {
-"taken": "2026-09-22T12:50:00Z",
+"taken": "2026-09-22T19:00:00Z",
 "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
 "items": [
 {
@@ -656,7 +656,8 @@
 "state": "open",
 "merged": false,
 "comments": 0,
-"updated": "2026-09-04T17:39:25Z"
+"updated": "2026-09-22T16:39:33Z",
+"note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC"
 },
 {
 "repo": "fieldtrip/fieldtrip",
@@ -730,7 +731,8 @@
 "state": "open",
 "merged": false,
 "comments": 1,
-"updated": "2026-09-02T21:27:28Z"
+"updated": "2026-09-22T18:26:43Z",
+"note": "2026-09-22: Gang Chen applied the three R-script fixes on master himself (94211003e, cb91276aa, d4e4951bc, \"a fix per cindykrafft's suggestion\", code identical to the PR) at 18:18 UTC and merged master into the PR branch at 18:26 (db5642514); PR open with an empty diff, no new comment"
 },
 {
 "repo": "spm/spm",
@@ -865,7 +867,8 @@
 "state": "open",
 "merged": false,
 "comments": 0,
-"updated": "2026-08-31T21:07:46Z"
+"updated": "2026-09-22T16:39:33Z",
+"note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC"
 },
 {
 "repo": "afni/afni",
@@ -874,7 +877,8 @@
 "state": "open",
 "merged": false,
 "comments": 0,
-"updated": "2026-08-31T21:04:50Z"
+"updated": "2026-09-22T16:39:33Z",
+"note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC"
 },
 {
 "repo": "afni/afni",
@@ -903,7 +907,8 @@
 "state": "open",
 "merged": false,
 "comments": 0,
-"updated": "2026-08-31T20:58:49Z"
+"updated": "2026-09-22T16:39:34Z",
+"note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC"
 },
 {
 "repo": "freesurfer/freesurfer",
@@ -957,7 +962,8 @@
 "state": "open",
 "merged": false,
 "comments": 0,
-"updated": "2026-08-28T22:27:21Z"
+"updated": "2026-09-22T16:39:34Z",
+"note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC"
 },
 {
 "repo": "afni/afni",
@@ -966,7 +972,8 @@
 "state": "open",
 "merged": false,
 "comments": 0,
-"updated": "2026-08-28T22:23:42Z"
+"updated": "2026-09-22T16:39:34Z",
+"note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC"
 },
 {
 "repo": "afni/afni",
@@ -1059,6 +1066,13 @@
 "GSEA-MSigDB/gsea-desktop#75": "clean, 0 behind master",
 "marcelm/cutadapt#893": "clean, 33 behind main",
 "marcelm/cutadapt#894": "clean, 33 behind main",
-"macs3-project/MACS#739": "merged 2026-09-18 (26f6709); no longer tested"
+"macs3-project/MACS#739": "merged 2026-09-18 (26f6709); no longer tested",
+"afni/afni#951": "clean, 123 behind master",
+"afni/afni#953": "clean, 123 behind master",
+"afni/afni#956": "clean, 123 behind master",
+"afni/afni#960": "fix applied on master 2026-09-22; PR diff empty",
+"afni/afni#964": "clean, 123 behind master",
+"afni/afni#966": "clean, 123 behind master",
+"afni/afni#974": "clean, 75 behind master"
 }
 }
