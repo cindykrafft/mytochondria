@@ -1,8 +1,8 @@
 Title: (comment on #2614) Octave survey results, three FieldTrip-side fixes, FAQ PR
 
-<!-- Reply to schoffelen's 2026-09-16 comment on #2614 (FAQ as a website PR: yes; adaptive weighting: leave it; Octave survey: "the proof of the pudding is in the eating"). Supersedes reply-2614-faq-octave.md. Before posting: (1) open the fieldtrip/website PR from the console card and put its number in place of NNN; (2) open issue FT17 (issue-ft17-external-stats-not-added.md) and the PR (pr-ft17-octave-compat.md) and put their numbers in place of MMMM and PPPP; or post this first with the last paragraph adjusted. The numbers come from audits/fieldtrip/verify/octave_survey/README.md. -->
+<!-- Reply to schoffelen's 2026-09-16 comment on #2614 (FAQ as a website PR: yes; adaptive weighting: leave it; Octave survey: "the proof of the pudding is in the eating"). Supersedes reply-2614-faq-octave.md. Before posting: the website PR is #958 (opened 2026-09-22, filled in); open issue FT17 (issue-ft17-external-stats-not-added.md) and the PR (pr-ft17-octave-compat.md) and put their numbers in place of MMMM and PPPP; or post this first with the last paragraph adjusted. The numbers come from audits/fieldtrip/verify/octave_survey/README.md. -->
 
-Thanks. The FAQ is now a pull request on the website repository, fieldtrip/website#NNN (`faq/spectral/dpss_without_toolbox.md`); edit freely. On the adaptive weighting I will leave it as you say.
+Thanks. The FAQ is now a pull request on the website repository, fieldtrip/website#958 (`faq/spectral/dpss_without_toolbox.md`); edit freely. On the adaptive weighting I will leave it as you say.
 
 **Octave survey.** Every test function marked `DATA no` (471 of them), each in a fresh GNU Octave 8.4.0 process (Ubuntu package, `statistics` and `signal` packages loaded, no MEX files compiled, no display), on master cfdad9b, with a time limit of twice the test's `WALLTIME`. Runner and per-test results: https://github.com/cindykrafft/mytochondria/tree/main/audits/fieldtrip/verify/octave_survey.
 

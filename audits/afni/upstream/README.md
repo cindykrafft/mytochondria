@@ -56,3 +56,5 @@ actual translation units, comparisons against SciPy, fuzz tests against sorted
 references, and Monte-Carlo simulation. It does **not** mean anyone ran the shipped
 AFNI binaries on imaging data and watched the wrong number appear. Please reproduce
 before merging.
+
+- 2026-09-22 evening (watcher): #967 has a second comment (21:20 UTC), PR #960 was closed with a second comment (21:32) and #959 closed (21:33): the owner posted the drafted #967 reply and the #960 closing note and closed both; to be confirmed by the owner.
