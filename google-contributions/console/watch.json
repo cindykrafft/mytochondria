@@ -1,0 +1,58 @@
+[
+ {
+  "id": "gson-1138",
+  "repo": "google/gson",
+  "kind": "pr",
+  "title": "Clarify when `JsonSyntaxException` is thrown",
+  "branch": "fix-jsonsyntaxexception-javadoc"
+ },
+ {
+  "id": "gtest-4769",
+  "repo": "google/googletest",
+  "kind": "pr",
+  "title": "Update docs: assertions are thread-safe on desktop Windows",
+  "branch": "docs-windows-thread-safety"
+ },
+ {
+  "id": "gson-skip",
+  "repo": "google/gson",
+  "kind": "pr",
+  "title": "Validate strings skipped by `skipValue()` in strict mode",
+  "branch": "fix-strict-skipvalue"
+ },
+ {
+  "id": "gtest-base64",
+  "repo": "google/googletest",
+  "kind": "pr",
+  "title": "Fix out-of-bounds read in Base64Unescape for non-ASCII input",
+  "branch": "fix-base64-unescape-high-bytes"
+ },
+ {
+  "id": "gtest-death",
+  "repo": "google/googletest",
+  "kind": "form",
+  "title": "[Bug]: Threadsafe death tests pass without running when the test name contains ':' (e.g. typed test named \"std::string\")",
+  "branch": null
+ },
+ {
+  "id": "gson-cache",
+  "repo": "google/gson",
+  "kind": "pr",
+  "title": "Don't cache adapter placeholders for failed nested `getAdapter` calls",
+  "branch": "fix-getadapter-cache-poisoning"
+ },
+ {
+  "id": "gtest-diff",
+  "repo": "google/googletest",
+  "kind": "pr",
+  "title": "Fix \"With diff\" output for strings ending in a newline",
+  "branch": "fix-diff-trailing-newline"
+ },
+ {
+  "id": "gson-inet",
+  "repo": "google/gson",
+  "kind": "report",
+  "title": "InetAddress numeric-only check lets some non-IP strings through to name resolution",
+  "branch": null
+ }
+]

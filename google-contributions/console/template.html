@@ -1,0 +1,173 @@
+<title>Google OSS Filing Console</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--ground:#F5F7F3;--surface:#FFFFFF;--ink:#181C19;--muted:#5F6A61;--line:#D5DBD3;--line-strong:#B9C2B8;--accent:#0E6F6B;--accent-ink:#FFFFFF;--done:#2E7B4B;--warn:#8A5A00;--warn-soft:#FFF3DC;--code:#EEF2ED;--shadow:0 1px 2px rgba(20,30,24,.06),0 8px 24px -16px rgba(20,30,24,.25)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--ground:#121614;--surface:#191E1B;--ink:#E7EBE4;--muted:#9AA498;--line:#2B322D;--line-strong:#3B443D;--accent:#5AC9BD;--accent-ink:#0E1A18;--done:#6FCB8E;--warn:#E6B45C;--warn-soft:#2E2510;--code:#0F1311;--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -16px rgba(0,0,0,.6)}}
+:root[data-theme="dark"]{color-scheme:dark;--ground:#121614;--surface:#191E1B;--ink:#E7EBE4;--muted:#9AA498;--line:#2B322D;--line-strong:#3B443D;--accent:#5AC9BD;--accent-ink:#0E1A18;--done:#6FCB8E;--warn:#E6B45C;--warn-soft:#2E2510;--code:#0F1311;--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -16px rgba(0,0,0,.6)}
+*{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--ink);font:15px/1.55 "IBM Plex Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:840px;margin:0 auto;padding:40px 20px 80px}
+h1{font-size:28px;line-height:1.15;font-weight:600;letter-spacing:-.01em;margin:0 0 6px;text-wrap:balance}
+h2{font-size:20px;font-weight:600;margin:36px 0 10px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;text-wrap:balance}
+.lede{color:var(--muted);margin:0 0 20px;max-width:66ch}
+code,pre,.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}code{font-size:.92em;background:var(--code);padding:1px 5px;border-radius:4px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.note{border:1px solid var(--line);border-left:3px solid var(--warn);background:var(--warn-soft);border-radius:6px;padding:10px 14px;margin:0 0 14px;font-size:14px}
+.note ul{margin:6px 0 0;padding-left:18px}.note li+li{margin-top:4px}
+.note a{color:var(--ink)}
+ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:18px}
+.step>.eyebrow.why{margin:0 0 6px;font-size:12.5px;letter-spacing:0;text-transform:none;color:var(--ink);font-weight:500}
+.step>.eyebrow.why b{color:var(--accent);font-weight:600;margin-right:6px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:14px 18px 12px}
+.card header{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;justify-content:space-between;margin-bottom:6px}
+.card h3{font-size:15.5px;font-weight:600;margin:0;line-height:1.3}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
+.route{border-top:1px dashed var(--line);margin-top:10px;padding-top:8px}
+.route:first-of-type{border-top:0;margin-top:4px;padding-top:0}
+.route h4{margin:0;font-size:14px;font-weight:600}
+button,.btn{font:inherit;font-weight:500;font-size:13.5px;border-radius:6px;padding:7px 12px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;line-height:1.2}
+button:hover,.btn:hover{border-color:var(--accent)}button:focus-visible,.btn:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}.primary:hover{filter:brightness(1.07)}
+.ghost{border-color:transparent;color:var(--accent);padding-left:6px;padding-right:6px}
+label.num-in{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+input[type=number]{font:inherit;font-family:"IBM Plex Mono",monospace;width:92px;padding:6px 10px;border:1px solid var(--line-strong);border-radius:6px;background:var(--surface);color:var(--ink)}
+.hint{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+details{margin-top:10px;border-top:1px dashed var(--line);padding-top:6px}summary{cursor:pointer;color:var(--muted);font-size:13px;user-select:none}summary:hover{color:var(--ink)}
+pre.body{margin:6px 0 0;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:12.5px;line-height:1.5;white-space:pre-wrap;word-break:break-word;max-height:340px;overflow:auto}
+.done .card{border-color:var(--done)}.done h3::before{content:"✓ ";color:var(--done)}
+.filed{font-size:13px;color:var(--done);font-weight:500}.filed a{color:var(--done)}
+.status{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:10px 0 0;font-size:13px}
+.status a{color:var(--ink);font-weight:600}
+.pill{font-size:11.5px;font-weight:600;letter-spacing:.02em;border-radius:999px;padding:2px 9px;border:1px solid var(--line-strong);color:var(--muted);background:var(--surface)}
+.pill.ok{color:var(--done);border-color:var(--done)}.pill.bad{color:var(--warn);border-color:var(--warn);background:var(--warn-soft)}.pill.merged{color:var(--accent-ink);background:var(--done);border-color:var(--done)}
+.status .when{color:var(--muted);font-size:12px}
+.activity{font-size:13px;color:var(--muted);margin:4px 0 0}
+.watchline{font-size:12.5px;color:var(--muted);margin:0 0 14px}
+ul.held{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ul.held li{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding:6px 0;font-size:14px}
+ul.held li{justify-content:flex-start}ul.held li>span:last-child{color:var(--muted);font-size:12.5px;margin-left:auto}
+.repo-tag{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--accent);border:1px solid var(--line-strong);border-radius:4px;padding:0 5px}
+.field{margin-top:10px}.field .eyebrow{display:block;margin-bottom:2px}.field button{margin-top:6px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);background:var(--ink);color:var(--ground);padding:9px 14px;border-radius:6px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+<main>
+  <p class="eyebrow">google/gson · google/googletest · forks under cindykrafft · updated 2026-09-23</p>
+  <h1>Google OSS Filing Console</h1>
+  <p class="lede">Every branch below is already pushed to your fork, and each card shows what has been filed so far. Each button opens GitHub's pull-request or issue form with the title and description filled in, so the repository's template never appears and nothing needs pasting. Check the form, then click Create. Once it's filed, type the number in so the card links to it.</p>
+  <div class="note"><strong>Before the first submit</strong>
+    <ul>
+      <li>Sign Google's individual CLA at <a href="https://cla.developers.google.com/" target="_blank" rel="noopener">cla.developers.google.com</a> with <span class="mono">cynthiacondra@gmail.com</span>, the email on every commit.</li>
+      <li>The <span class="mono">Co-Authored-By: Claude</span> line was removed from every commit on 2026-09-23, so you are the only author the CLA check sees. Open PRs pick up the new commits automatically.</li>
+    </ul>
+  </div>
+  <div id="root"></div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const DATA = __DATA__;
+const KEY = "google-filing-v1";
+let state = {}; try { state = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;"); }
+function toast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),1800); }
+async function copy(text){
+  try { await navigator.clipboard.writeText(text); toast("Copied"); return; } catch (e) {}
+  try { const ta=document.createElement("textarea"); ta.value=text; ta.setAttribute("readonly",""); ta.style.cssText="position:fixed;top:0;left:0;opacity:0";
+        document.body.appendChild(ta); ta.select(); const ok=document.execCommand("copy"); document.body.removeChild(ta); if (ok) { toast("Copied"); return; } } catch (e) {}
+  toast("Copy was blocked. Open the text below and select it by hand.");
+}
+let STATUS = {}; let WATCH = null;
+function ago(iso){ const t=Date.parse(iso); if(!t) return ""; const m=Math.round((Date.now()-t)/60000);
+  return m<2?"just now":m<60?m+" min ago":m<2880?Math.round(m/60)+" h ago":Math.round(m/1440)+" days ago"; }
+function filedLine(i){
+  const st = STATUS[i.id];
+  if (st && st.number){
+    const path = i.kind==="pr" ? "pull" : "issues";
+    const stateCls = st.state==="merged"?"merged":st.state==="closed"?"bad":"";
+    const cla = st.cla==="passed"?`<span class="pill ok">CLA signed</span>`:st.cla==="failed"?`<span class="pill bad">CLA check failing</span>`:st.cla==="pending"?`<span class="pill">CLA pending</span>`:"";
+    const rev = st.review?`<span class="pill ${st.review==="approved"?"ok":st.review==="changes requested"?"bad":""}">${esc(st.review)}</span>`:"";
+    return `<div class="status"><a href="https://github.com/${i.repo}/${path}/${esc(st.number)}" target="_blank" rel="noopener">${esc(i.repo)}#${esc(st.number)} ↗</a>
+      <span class="pill ${stateCls}">${esc(st.state||"open")}</span>${cla}${rev}
+      ${st.comments!=null?`<span class="when">${esc(st.comments)} comment${st.comments===1?"":"s"}</span>`:""}
+      ${st.checkedAt?`<span class="when">checked ${esc(ago(st.checkedAt))}</span>`:""}</div>
+      ${st.activity?`<p class="activity">${esc(st.activity)}</p>`:""}`;
+  }
+  const n = state[i.id+"_num"]; if (!n) return "";
+  const path = i.kind==="pr" ? "pull" : "issues";
+  return `<p class="filed">Filed as <a href="https://github.com/${i.repo}/${path}/${esc(n)}" target="_blank" rel="noopener">${esc(i.repo)}#${esc(n)} ↗</a> (entered by hand; the watcher will confirm it)</p>`;
+}
+function isDone(i){ const st=STATUS[i.id]; return !!(state[i.id+"_done"] || (st && st.number)); }
+function numInput(i, label){
+  return `<label class="num-in" for="num-${i.id}">${label} #<input type="number" min="1" id="num-${i.id}" data-num="${i.id}" value="${esc(state[i.id+"_num"]||"")}" placeholder="0000"></label>`;
+}
+function doneBtn(i){ return `<button class="ghost" data-done="${i.id}">${state[i.id+"_done"]?"Mark not done":"Mark done"}</button>`; }
+function prCard(i){
+  return `<header><h3>${esc(i.title)}</h3><span class="eyebrow">${esc(i.repo)} · pull request${i.closes?" · closes #"+i.closes:""}</span></header>
+    <div class="actions">
+      <a class="btn primary" href="${esc(i.url)}" target="_blank" rel="noopener">${i.short?"Open PR form (title only) ↗":"Open prefilled PR ↗"}</a>
+      <button data-copy="${i.id}|body">Copy description</button>
+      <a class="btn" href="${esc(i.fork_url)}" target="_blank" rel="noopener">View branch ↗</a>
+      ${numInput(i,"Opened as")}${doneBtn(i)}
+    </div>
+    ${i.short?`<p class="hint">The description is too long to fit in a link. The button fills in the title; paste the description from Copy.</p>`:""}
+    <p class="hint">Branch <span class="mono">cindykrafft:${esc(i.branch)}</span> into <span class="mono">${esc(i.repo)}:main</span>.${i.note?" "+esc(i.note):""}</p>
+    ${filledLine(i)}
+    <details><summary>Show the description that will be submitted</summary><pre class="body">${esc(i.body)}</pre></details>`;
+}
+function filledLine(i){ return filedLine(i); }
+function reportCard(i){
+  return `<header><h3>${esc(i.title)}</h3><span class="eyebrow">${esc(i.repo)} · security-adjacent report</span></header>
+    <div class="route"><h4>Route A · private report to Google</h4>
+      <div class="actions"><a class="btn primary" href="https://bughunters.google.com/report" target="_blank" rel="noopener">Open Google Bug Hunters ↗</a>
+      <button data-copy="${i.id}|private">Copy report</button></div>
+      <p class="hint">Their form can't be filled in from a link, so paste the copied report into it. Choose the open-source (OSS VRP) category and name google/gson.</p>
+      <details><summary>Show the private report</summary><pre class="body">${esc(i.private)}</pre></details></div>
+    <div class="route"><h4>Route B · public issue on google/gson</h4>
+      <div class="actions"><a class="btn primary" href="${esc(i.url)}" target="_blank" rel="noopener">${i.short?"Open issue form (title only) ↗":"Open prefilled issue ↗"}</a>
+      <button data-copy="${i.id}|body">Copy issue text</button>${numInput(i,"Filed as")}${doneBtn(i)}</div>
+      <p class="hint">Uses gson's bug-report template, already filled in. The check came in with PR #3075 on 2026-07-29, wasn't presented as a security fix, and may not be in a release yet.</p>
+      ${filedLine(i)}
+      <details><summary>Show the issue text</summary><pre class="body">${esc(i.body)}</pre></details></div>`;
+}
+function formCard(i){
+  const fields = i.fields.map(([label,text],n)=>`<div class="field"><span class="eyebrow">${esc(label)}</span><pre class="body">${esc(text)}</pre>${i.short?`<button data-copy="${i.id}|f${n}">Copy this field</button>`:""}</div>`).join("");
+  return `<header><h3>${esc(i.title)}</h3><span class="eyebrow">${esc(i.repo)} · issue</span></header>
+    <div class="actions">
+      <a class="btn primary" href="${esc(i.url)}" target="_blank" rel="noopener">${i.short?"Open issue form (title only) ↗":"Open prefilled issue ↗"}</a>
+      <button data-copy="${i.id}|body">Copy all text</button>
+      ${numInput(i,"Filed as")}${doneBtn(i)}
+    </div>
+    <p class="hint">${i.short?"The report is too long to fit in a link. The button fills in the title; copy each field below into the matching box.":"Opens googletest's bug-report form with every box filled in."}</p>
+    ${filedLine(i)}
+    <details><summary>Show the fields that will be submitted</summary>${fields}</details>`;
+}
+function render(){
+  const steps = DATA.items.map((i,n)=>`<li class="step${isDone(i)?" done":""}"><p class="eyebrow why"><b>${n+1}</b>${esc(i.why)}</p><div class="card">${i.kind==="pr"?prCard(i):i.kind==="form"?formCard(i):reportCard(i)}</div></li>`).join("");
+  const held = DATA.held.map(([repo,t,why])=>`<li><span class="repo-tag">${esc(repo.split("/")[1])}</span> ${esc(t)} <span>${esc(why)}</span></li>`).join("");
+  document.getElementById("root").innerHTML =
+    `<h2>File in this order <span class="eyebrow">${DATA.items.filter(isDone).length} of ${DATA.items.length} filed</span></h2>
+     <p class="watchline">${WATCH&&WATCH.checkedAt?`A watcher session checks google/gson and google/googletest every three hours. Last check ${esc(ago(WATCH.checkedAt))}${WATCH.note?": "+esc(WATCH.note):"."}`:"Filing status comes from a watcher session that checks the repositories every three hours."}</p>
+     <ol class="steps">${steps}</ol>
+     <h2>Found but not drafted yet <span class="eyebrow">${DATA.held.length} items</span></h2>
+     <p class="hint" style="margin:0 0 8px">Reproduced and unreported as of 2026-09-23. Full details are in gson-bug-hunt.md and googletest-bug-hunt.md. Ask and I'll turn any of these into a branch and a card.</p>
+     <ul class="held">${held}</ul>`;
+  document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>{
+    const [id,what]=b.dataset.copy.split("|"); const i=DATA.items.find(x=>x.id===id);
+    copy(what==="private"?i.private:what[0]==="f"&&i.fields?i.fields[+what.slice(1)][1]:i.body); }));
+  document.querySelectorAll("[data-num]").forEach(inp=>inp.addEventListener("change",()=>{
+    state[inp.dataset.num+"_num"]=inp.value; if (inp.value) state[inp.dataset.num+"_done"]=true; save(); render(); }));
+  document.querySelectorAll("[data-done]").forEach(b=>b.addEventListener("click",()=>{
+    const id=b.dataset.done; state[id+"_done"]=!state[id+"_done"]; save(); render(); }));
+}
+render();
+(async () => {
+  try {
+    const db = await window.claude?.use?.("db");
+    if (!db) return;
+    db.collection("filings").onSnapshot(snap => {
+      const next = {}; for (const d of snap.docs) next[d.id] = d.data(); STATUS = next; render();
+    }, () => {});
+    db.doc("watch/status").onSnapshot(d => { WATCH = d.exists ? d.data() : null; render(); }, () => {});
+  } catch (e) {}
+})();
+</script>
