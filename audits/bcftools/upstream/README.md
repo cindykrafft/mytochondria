@@ -2,8 +2,11 @@
 
 _Default branch: **`develop`** (PRs go against it; `master` carries releases).
 Prepared 2026-09-13 against `samtools/bcftools` `develop` @ `7abcc0d6` (built with
-HTSlib `develop` @ `e503e04`). **Nothing filed, nothing pushed.** The fix is one commit
-on the local branch `fix/mwu-biasz-int64` of the audit clone, and `git am`-able from
+HTSlib `develop` @ `e503e04`). **Nothing filed.** The fork `cindykrafft/bcftools` was made on 2026-09-23 and the fix
+pushed as branch `fix/mwu-biasz-int64` (commit 6b97709 on `develop` @ edf7fd9: the patch
+rebased with one trivial conflict in `test/test.pl`, an adjacent `--progress` test line;
+the submitter's authorship, the `Assisted-by:` trailer, no sign-off, the commit message still
+the draft to be rewritten and signed off before the PR). The same fix is `git am`-able from
 `0001-mpileup-use-64-bit-accumulators-in-the-Mann-Whitney-.patch` against `7abcc0d6`
 (`git apply --check` clean; the patch carries the test BAM as a `--binary` blob)._
 
