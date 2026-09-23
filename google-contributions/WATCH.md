@@ -25,7 +25,12 @@ republish needed.
    exists. A private Bug Hunters report is invisible from here.
 3. For every matched filing, WebFetch its page and ask for:
    - state (open, merged, closed or draft);
-   - the `cla/google` check (passed, failed or pending);
+   - the `cla/google` check (passed, failed or pending). Read this from the **checks tab**,
+     `https://github.com/<repo>/pull/<n>/checks`, where it shows as "Google CLA / cla/google
+     succeeded" (or failed). The conversation page doesn't include the live checks box. The
+     google-cla bot's first comment ("you'll need to sign a Contributor License Agreement ... View
+     this failed invocation") stays there even after the check passes, so never infer the CLA status
+     from it. For an issue, use `unknown`;
    - review state (approved, changes requested, or none);
    - comment count;
    - a one-line summary of the newest activity from a person, not a bot.
@@ -46,7 +51,7 @@ republish needed.
    the branches. This watcher only reads GitHub and writes the console's database.
 6. End with a short summary for the owner. Lead with anything that needs them:
    - a maintainer comment or review that asks for a change;
-   - a failing check other than an unsigned CLA;
+   - a failing check (the CLA check included, read from the checks tab);
    - a merge or a close;
    - a PR or issue by `cindykrafft` in these repositories that is not in `watch.json`.
 
