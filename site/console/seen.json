@@ -1,7 +1,37 @@
 {
- "taken": "2026-09-23T06:47:00Z",
+ "taken": "2026-09-23T18:47:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
+  {
+   "repo": "google-deepmind/alphafold3",
+   "number": 746,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-09-23T16:13:38Z",
+   "note": "AF2 issue (chain_ids per token), filed 2026-09-23 16:13"
+  },
+  {
+   "repo": "fieldtrip/fieldtrip",
+   "number": 2614,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 5,
+   "updated": "2026-09-23T16:12:37Z",
+   "note": "fifth comment 2026-09-23 16:12: the owner's Octave survey results comment (table, three fixes, FAQ merged), presumably; waiting on schoffelen"
+  },
+  {
+   "repo": "fieldtrip/fieldtrip",
+   "number": 2621,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-09-23T16:10:33Z",
+   "note": "FT17 issue (external/stats path regression since 55ee593), filed 2026-09-23 16:10"
+  },
   {
    "repo": "google-deepmind/alphafold3",
    "number": 744,
@@ -61,16 +91,6 @@
    "comments": 0,
    "updated": "2026-09-18T18:06:55Z",
    "note": "closed completed with PR #958"
-  },
-  {
-   "repo": "fieldtrip/fieldtrip",
-   "number": 2614,
-   "kind": "issue",
-   "state": "open",
-   "merged": false,
-   "comments": 4,
-   "updated": "2026-09-16T14:46:15Z",
-   "note": "schoffelen 2026-09-16: FAQ yes, as a PR on fieldtrip/website; adaptive weighting: eigenvalue variant could fit mtmconvol, derivative variant not, benefit minor; Octave survey: 'proof of the pudding is in the eating'. FAQ page written (branch faq/dpss-without-toolbox on the website clone, needs the fork), survey runner written, reply drafted (reply-2614-faq-octave.md)"
   },
   {
    "repo": "GSEA-MSigDB/gsea-desktop",
@@ -467,6 +487,26 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-08-28T13:25:00Z"
+  },
+  {
+   "repo": "google-deepmind/alphafold3",
+   "number": 747,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-09-23T16:14:04Z",
+   "note": "AF2 PR (fix/summary-confidences-chain-ids, one line), filed 2026-09-23 16:14; CLA check to watch; merges clean into main a66cc52"
+  },
+  {
+   "repo": "fieldtrip/fieldtrip",
+   "number": 2622,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 1,
+   "updated": "2026-09-23T16:11:56Z",
+   "note": "FT17 PR (fix/octave-compat-survey, three commits: external/stats, startsWith/endsWith/contains cell patterns, ft_fetch_data addParameter), filed 2026-09-23 16:11; one comment at filing time (bot or maintainer, transcript requested); merges clean into master 9a10401"
   },
   {
    "repo": "fieldtrip/website",
@@ -1106,6 +1146,8 @@
   "afni/afni#966",
   "afni/afni#974",
   "google-deepmind/alphafold3#745 (clean 2026-09-23, base a66cc52, head 58c198f)",
-  "fieldtrip/website#958 (clean 2026-09-23, base 21a8c917, head cbbd4a70)"
+  "fieldtrip/website#958 (clean 2026-09-23, base 21a8c917, head cbbd4a70)",
+  "google-deepmind/alphafold3#747 (clean 2026-09-23, base a66cc52, head 07505f9)",
+  "fieldtrip/fieldtrip#2622 (clean 2026-09-23, base 9a10401, head ce18267)"
  ]
 }

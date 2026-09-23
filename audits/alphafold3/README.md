@@ -11,6 +11,7 @@ two-per-repository cap and the CLA requirement put them behind the other kits.
 
 | when | what | outcome |
 |---|---|---|
+| 2026-09-23 | issue #746 + PR #747 (`fix/summary-confidences-chain-ids`, AF2) | Open; CLA check to watch. |
 | 2026-09-22 | issue #744 + PR #745 (`fix/to-json-preserves-chain-order`, AF1) | Open; the CLA check is the thing to watch. |
 | 2026-09-03 | PR #734, `fix/ccd-user-ccd-copy`: a `userCCD` overlay mutated the memoised base CCD dict, so one input's user CCD stayed visible to every later input in the process | Closed 2026-09-21 by Augustin-Zidek: "thanks for the PR and for catching this bug. I submitted a fix in 3485995 and I will make sure to mention you in the release notes for the next version!" The CLA bot had failed the PR (no CLA on file), so the maintainer committed the same change himself, crediting the PR in the commit message. Thread read in full 2026-09-22 (helper transcript, two comments). |
 
