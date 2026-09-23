@@ -32,11 +32,11 @@ Octave FAQ page. Run on 2026-09-22.
 | MATLAB function or signature that Octave 8.4 does not have | 40 (8.5 %) | 58 (12.3 %) |
 | MEX file not compiled for Octave | 30 (6.4 %) | 51 (10.8 %) |
 | graphics (gnuplot toolkit, no display) | 18 (3.8 %) | 31 (6.6 %) |
-| a real difference or failure inside FieldTrip code, to look at one by one | 13 (2.8 %) | 19 (4.0 %) |
+| a real difference or failure inside FieldTrip code, to look at one by one | 13 (2.8 %) | 18 (3.8 %) |
 | external binary or toolbox not installed (OpenMEEG, dipoli, xunit, MOxUnit, hbf) | 10 (2.1 %) | 10 (2.1 %) |
 | `dpss_hack` called with two outputs (the #2614 problem) | 8 (1.7 %) | 13 (2.8 %) |
 | loads a file from the Donders file system despite `DATA no` | 2 | 2 |
-| timeout (`test_issue1184`, 30 min) | 1 | 1 |
+| timeout (`test_issue1184` at 30 min; on the branch also `test_bug2265`, which ran past 9 min once it got past `startsWith`) | 1 | 2 |
 
 The counts in the right column grow for the environmental categories because the fixes let tests
 run further before stopping at the next cause.
@@ -83,7 +83,7 @@ environmental cause (`results_final.tsv`, column `run`).
 - **Graphics** (31): `colormap` with a figure argument, `get(0, 'DefaultFigureColormap')`, `surface`
   with a colour array of another size, `patch` with `cdata`, `getframe`, `zoom`/`rotate3d` with outputs,
   `alphamap`, `isosurface`. The plotting functions are the MATLAB-specific part the FAQ already names.
-- **Real differences to look at one by one** (19): `ft_progress` uses a `fprintf` format Octave rejects;
+- **Real differences to look at one by one** (18): `ft_progress` uses a `fprintf` format Octave rejects;
   `ft_plot_vector` concatenates a scalar with an empty column (`1x1 vs 151x0`); `remove_double_vertices`
   indexes with an empty result of `unique(..., 'rows')` (3 tests); the `test/private/ft_fetch_data.m`
   copy calls `nan(...)` with a non-scalar; `test_ft_checkdata` "time axis is wrong"; `test_warp`

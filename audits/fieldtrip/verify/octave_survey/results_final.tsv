@@ -66,7 +66,7 @@ test_bug2160	PASS	95	00:10:00	1gb	pass		master
 test_bug2186	PASS	8	00:10:00	1gb	pass		fixed
 test_bug2197	PASS	2	00:10:00	1gb	pass		master
 test_bug2224	PASS	2	00:10:00	1gb	pass		master
-test_bug2265	FAIL	2	00:10:00	1gb	octave-difference	strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88	fixed
+test_bug2265	TIMEOUT	540	00:10:00	1gb	timeout	limit 540.0s	fixed2
 test_bug2269	PASS	4	00:10:00	1gb	pass		fixed3
 test_bug2277	FAIL	2	00:10:00	1gb	graphics	octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:447	fixed
 test_bug2342	FAIL	3	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1	fixed

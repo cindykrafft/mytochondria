@@ -14,10 +14,10 @@ Thanks. The FAQ is now a pull request on the website repository, fieldtrip/websi
 | MATLAB-only function or signature (`pad`, `strip`, `table`, `save -nocompression`, `round(x,n)`, ...) | 40 | 58 |
 | MEX file not compiled for Octave (`plgndr`, `meg_leadfield1`, `spm_bwlabel`, `mat2file`, ...) | 30 | 51 |
 | graphics under the gnuplot toolkit | 18 | 31 |
-| a real difference inside FieldTrip code, to look at one by one | 13 | 19 |
+| a real difference inside FieldTrip code, to look at one by one | 13 | 18 |
 | OpenMEEG / dipoli / xunit / MOxUnit not installed | 10 | 10 |
 | `dpss_hack` called with two outputs (this issue) | 8 | 13 |
-| loads a Donders file despite `DATA no`; one timeout | 3 | 3 |
+| loads a Donders file despite `DATA no`; timeouts | 3 | 4 |
 
 The right column grows for the environmental rows because the fixes let tests run further before they stop at the next cause.
 
@@ -29,6 +29,6 @@ The right column grows for the environmental rows because the fixes let tests ru
 
 The three are on PR #PPPP (branch `fix/octave-compat-survey`); the 168 tests they touch were re-run on it and pass or stop at an environmental cause.
 
-**What remains** is what the FAQ page should say: the MEX files can be built for Octave (`mkoctfile --mex`; not done here), about a dozen small MATLAB-only functions cover the next 58 tests (`pad` and `strip` alone 20), the plotting functions are where the MATLAB dependence is real, and the 13 `dpss_hack` failures are this issue, i.e. `cfg.taper = 'hanning'` or `'sine'` under Octave. The 19 "real difference" tests (`ft_progress`'s `fprintf` format, `ft_plot_vector` concatenating a scalar with an empty column, `remove_double_vertices` on an empty `unique` result, a non-zero imaginary part at the Nyquist bin in `test_issue2265`, four `isequal` assertions) are listed in the results file; I have not gone into them.
+**What remains** is what the FAQ page should say: the MEX files can be built for Octave (`mkoctfile --mex`; not done here), about a dozen small MATLAB-only functions cover the next 58 tests (`pad` and `strip` alone 20), the plotting functions are where the MATLAB dependence is real, and the 13 `dpss_hack` failures are this issue, i.e. `cfg.taper = 'hanning'` or `'sine'` under Octave. The 18 "real difference" tests (`ft_progress`'s `fprintf` format, `ft_plot_vector` concatenating a scalar with an empty column, `remove_double_vertices` on an empty `unique` result, a non-zero imaginary part at the Nyquist bin in `test_issue2265`, four `isequal` assertions) are listed in the results file; I have not gone into them.
 
 If you want it, I can turn the paragraph above into a PR on the Octave FAQ page (`faq/matlab/octave.md`), replacing the "we don't have precise details on what works and what not" sentence with the table.

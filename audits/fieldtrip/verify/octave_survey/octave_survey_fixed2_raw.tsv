@@ -102,3 +102,4 @@ test_spm_ft_integration	FAIL	7	00:10:00	1gb	'alphamap' undefined near line 384, 
 test_tutorial_connectivity	FAIL	7	00:10:00	1gb	'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_databrowser.m:596
 test_warp	FAIL	1	00:10:00	1gb	rigidbody coregistration failed @ test/test_warp.m:28
 test_pull393	PASS	185	00:10:00	1gb	
+test_bug2265	TIMEOUT	540	00:10:00	1gb	limit 540.0s

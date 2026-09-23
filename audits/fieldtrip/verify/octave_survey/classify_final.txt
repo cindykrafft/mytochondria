@@ -6,16 +6,15 @@
 | matlab-only | 40 (8.5 %) | 58 (12.3 %) |
 | mex | 30 (6.4 %) | 51 (10.8 %) |
 | graphics | 18 (3.8 %) | 31 (6.6 %) |
-| octave-difference | 13 (2.8 %) | 19 (4.0 %) |
+| octave-difference | 13 (2.8 %) | 18 (3.8 %) |
 | external | 10 (2.1 %) | 10 (2.1 %) |
 | dpss-hack | 8 (1.7 %) | 13 (2.8 %) |
 | data | 2 (0.4 %) | 2 (0.4 %) |
-| timeout | 1 (0.2 %) | 1 (0.2 %) |
+| timeout | 1 (0.2 %) | 2 (0.4 %) |
 | total | 471 | 471 |
 
-## still failing after the fix branch: octave-difference (19)
+## still failing after the fix branch: octave-difference (18)
 - test_bug1357: horizontal dimensions mismatch (1x1 vs 151x0) @ plotting/ft_plot_vector.m:290
-- test_bug2265: strfind: cell arguments must have matching sizes @ compat/octave/contains.m:88
 - test_bug2524: assert (numel (strfind (s, '5.0')) == 3) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
 - test_bug2593: assert (numel (comp.label) == 3) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
 - test_bug3048: assert (isequal (freq1.trial {1}, freq2.trial {1})) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
@@ -211,6 +210,7 @@
 - test_pull1138: load: unable to find file /project/3031000.02/external/download/tutorial/human_ecog/SubjectUCI29/SubjectUCI29_freq.mat @ test/test_pull1138.m:8
 - test_tutorial_networkanalysis_eeg20220126: load: unable to find file /project/3031000.02/external/download/tutorial/networkanalysis_eeg/data_eeg_reref_ica.mat @ test/test_tutorial_networkanalys
 
-## still failing after the fix branch: timeout (1)
+## still failing after the fix branch: timeout (2)
+- test_bug2265: limit 540.0s
 - test_issue1184: limit 1800s
 
