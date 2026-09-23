@@ -7,6 +7,7 @@ Runs (raw TSVs from octave_survey.py, in this directory):
                                 (external/stats path; startsWith/endsWith cell patterns)
   octave_survey_fixed2_raw.tsv  the tests still failing after that, re-run at 9ad3bfb (+ contains cell patterns)
   octave_survey_fixed3_raw.tsv  the tests still failing in istrue, re-run at ce18267 (+ ft_fetch_data addParameter)
+  octave_survey_fixed4_raw.tsv  the bot-suggested tests of PR #2622 re-run at 99b4c3c (+ the test/private copy of ft_fetch_data)
 A test's final outcome is its row in the latest run that includes it. Writes results_master.tsv and
 results_final.tsv (with the category from classify.py and the run the row comes from).
 """
@@ -19,7 +20,8 @@ def load(p):
 
 H = os.path.dirname(os.path.abspath(__file__))
 runs = [("master", "octave_survey_raw.tsv"), ("fixed", "octave_survey_fixed_raw.tsv"),
-        ("fixed2", "octave_survey_fixed2_raw.tsv"), ("fixed3", "octave_survey_fixed3_raw.tsv")]
+        ("fixed2", "octave_survey_fixed2_raw.tsv"), ("fixed3", "octave_survey_fixed3_raw.tsv"),
+        ("fixed4", "octave_survey_fixed4_raw.tsv")]
 data = [(name, load(os.path.join(H, f))) for name, f in runs if os.path.exists(os.path.join(H, f))]
 master = data[0][1]
 # test_ft_connectivityanalysis_hanning is this project's own test from the #2610 work (untracked in the

@@ -1,6 +1,6 @@
 Title: Restore external/stats on the path (55ee593 regression), cell-array patterns in the Octave startsWith/endsWith/contains shims, addParameter in ft_fetch_data
 
-<!-- Branch fix/octave-compat-survey on the fork (pushed 2026-09-22), three commits on master cfdad9b: 4dfba5c, 9ad3bfb, ce18267. Three changes, all from the Octave survey asked for on #2614. Open after issue FT17 exists and put its number in the first line. No new test_pull script: test_external_stats already covers the first change (fails on master, passes with it) and the second is exercised by every test that calls ft_senstype with a cell pattern. Fill in the survey counts from audits/fieldtrip/verify/octave_survey/README.md. -->
+<!-- Branch fix/octave-compat-survey on the fork (pushed 2026-09-22), four commits on master cfdad9b: 4dfba5c, 9ad3bfb, ce18267, 99b4c3c (the test/private copy of ft_fetch_data, pushed 2026-09-23 after the PR bot's suggested tests). Three changes, all from the Octave survey asked for on #2614. Open after issue FT17 exists and put its number in the first line. No new test_pull script: test_external_stats already covers the first change (fails on master, passes with it) and the second is exercised by every test that calls ft_senstype with a cell pattern. Fill in the survey counts from audits/fieldtrip/verify/octave_survey/README.md. -->
 
 Fixes #NNNN.
 

@@ -1,19 +1,19 @@
 | category | master cfdad9b | with the fix branch |
 |---|---|---|
-| pass | 191 (40.6 %) | 286 (60.7 %) |
+| pass | 191 (40.6 %) | 288 (61.1 %) |
 | ft-nanmean | 81 (17.2 %) | 0 (0.0 %) |
 | ft-startswith | 77 (16.3 %) | 0 (0.0 %) |
 | matlab-only | 40 (8.5 %) | 58 (12.3 %) |
 | mex | 30 (6.4 %) | 51 (10.8 %) |
 | graphics | 18 (3.8 %) | 31 (6.6 %) |
-| octave-difference | 13 (2.8 %) | 18 (3.8 %) |
+| octave-difference | 13 (2.8 %) | 16 (3.4 %) |
 | external | 10 (2.1 %) | 10 (2.1 %) |
 | dpss-hack | 8 (1.7 %) | 13 (2.8 %) |
 | data | 2 (0.4 %) | 2 (0.4 %) |
 | timeout | 1 (0.2 %) | 2 (0.4 %) |
 | total | 471 | 471 |
 
-## still failing after the fix branch: octave-difference (18)
+## still failing after the fix branch: octave-difference (16)
 - test_bug1357: horizontal dimensions mismatch (1x1 vs 151x0) @ plotting/ft_plot_vector.m:290
 - test_bug2524: assert (numel (strfind (s, '5.0')) == 3) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
 - test_bug2593: assert (numel (comp.label) == 3) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
@@ -22,11 +22,9 @@
 - test_bug3336: assert (!isequal (msg1, msg2)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
 - test_example_bem_evaluation20220113: ic(376): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51
 - test_ft_checkdata: time axis is wrong @ test/test_ft_checkdata.m:355
-- test_ft_fetch_data: NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91
 - test_ft_timelocksimulation: assert (isequal (data1.trial, data2.trial)) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
 - test_ft_volumereslice: fprintf: invalid format specified @ utilities/ft_progress.m:263
 - test_issue1198: ic(376): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51
-- test_issue1292: NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91
 - test_issue2021: assert (contains (lasterr, 'This function requires raw data as input, see ft_datatype_raw.')) failed @ ../../../../../../usr/share/octave/8.4.0/m/test
 - test_issue2265: assert (abs (imag (freq.fourierspctrm (end))) < 100 * eps) failed @ ../../../../../../usr/share/octave/8.4.0/m/testfun/assert.m:107
 - test_issue928: horizontal dimensions mismatch (1x1 vs 2x0) @ plotting/ft_plot_vector.m:290

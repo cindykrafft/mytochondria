@@ -7,7 +7,7 @@ test_bug1042	FAIL	3	00:45:00	1gb	mex	'bem_Cii_lin' undefined near line 177, colu
 test_bug1067	PASS	4	00:10:00	1gb	pass		master
 test_bug1114	PASS	143	00:10:00	1gb	pass		master
 test_bug1149	PASS	5	00:10:00	1gb	pass		master
-test_bug1153	PASS	2	00:10:00	1gb	pass		fixed3
+test_bug1153	PASS	20	00:10:00	1gb	pass		fixed4
 test_bug1162	PASS	2	00:10:00	1gb	pass		fixed
 test_bug1163	PASS	1	00:10:00	1gb	pass		master
 test_bug1166	FAIL	2	00:10:00	1gb	external	there is no dipoli executable for your platform @ forward/ft_headmodel_dipoli.m:192	fixed
@@ -67,7 +67,7 @@ test_bug2186	PASS	8	00:10:00	1gb	pass		fixed
 test_bug2197	PASS	2	00:10:00	1gb	pass		master
 test_bug2224	PASS	2	00:10:00	1gb	pass		master
 test_bug2265	TIMEOUT	540	00:10:00	1gb	timeout	limit 540.0s	fixed2
-test_bug2269	PASS	4	00:10:00	1gb	pass		fixed3
+test_bug2269	PASS	23	00:10:00	1gb	pass		fixed4
 test_bug2277	FAIL	2	00:10:00	1gb	graphics	octave_base_value::int_value (): wrong type argument 'sq_string' @ ft_singleplotTFR.m:447	fixed
 test_bug2342	FAIL	3	00:10:00	1gb	dpss-hack	dpss: function called with too many outputs @ external/signal/dpss_hack/dpss.m:-1	fixed
 test_bug2363	PASS	2	00:10:00	1gb	pass		master
@@ -252,7 +252,7 @@ test_ft_dipolesimulation	PASS	3	00:10:00	1gb	pass		fixed2
 test_ft_electrodeplacement	FAIL	1	00:10:00	1gb	graphics	rotate3d: function called with too many outputs @ ../../../../../../usr/share/octave/8.4.0/m/plot/util/rotate3d.m:-1	fixed
 test_ft_electrodermalactivity	PASS	1	00:10:00	1gb	pass		master
 test_ft_estimate_units	PASS	1	00:10:00	1gb	pass		master
-test_ft_fetch_data	FAIL	8	00:10:00	2gb	octave-difference	NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91	fixed2
+test_ft_fetch_data	PASS	225	00:10:00	2gb	pass		fixed4
 test_ft_freqanalysis_simple	PASS	3	00:10:00	1gb	pass		master
 test_ft_freqanalysis_superlet	PASS	9	00:10:00	1gb	pass		master
 test_ft_freqbaseline	PASS	2	00:10:00	1gb	pass		fixed
@@ -384,7 +384,7 @@ test_issue1167	FAIL	1	00:10:00	1gb	matlab-only	'strip' undefined near line 63, c
 test_issue1184	TIMEOUT	1800	00:30:00	6gb	timeout	limit 1800s	master
 test_issue1198	FAIL	13	00:10:00	1gb	octave-difference	ic(376): out of bound 0 (dimensions are 0x0) @ private/remove_double_vertices.m:51	fixed2
 test_issue1214	PASS	6	00:10:00	1gb	pass		fixed
-test_issue1292	FAIL	1	00:10:00	1gb	octave-difference	NaN: dimensions must be scalars. @ test/private/ft_fetch_data.m:91	fixed2
+test_issue1292	PASS	2	00:10:00	1gb	pass		fixed4
 test_issue1313	PASS	2	00:10:00	1gb	pass		master
 test_issue1322	FAIL	6	00:10:00	1gb	matlab-only	'pad' undefined near line 596, column 7  The 'pad' function is not yet implemented in Octave.  Please read <https://www.octave.org/missing.html> to learn how you can contribute missing functionality. @ ft_databrowser.m:596	fixed2
 test_issue1329	PASS	9	01:00:00	1gb	pass		fixed2

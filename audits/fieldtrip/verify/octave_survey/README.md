@@ -25,14 +25,14 @@ Octave FAQ page. Run on 2026-09-22.
 
 | category | master cfdad9b | with branch `fix/octave-compat-survey` |
 |---|---|---|
-| pass | 191 (40.6 %) | 286 (60.7 %) |
+| pass | 191 (40.6 %) | 288 (61.1 %) |
 | `external/stats` not on the path (`nanmean` undefined) | 81 (17.2 %) | 0 |
 | `compat/octave` `startsWith`/`endsWith`/`contains` with cell patterns | 77 (16.3 %) | 0 |
 | `ft_fetch_data` options parsed positionally by Octave's inputParser | (hidden behind the above) | 0 |
 | MATLAB function or signature that Octave 8.4 does not have | 40 (8.5 %) | 58 (12.3 %) |
 | MEX file not compiled for Octave | 30 (6.4 %) | 51 (10.8 %) |
 | graphics (gnuplot toolkit, no display) | 18 (3.8 %) | 31 (6.6 %) |
-| a real difference or failure inside FieldTrip code, to look at one by one | 13 (2.8 %) | 18 (3.8 %) |
+| a real difference or failure inside FieldTrip code, to look at one by one | 13 (2.8 %) | 16 (3.4 %) |
 | external binary or toolbox not installed (OpenMEEG, dipoli, xunit, MOxUnit, hbf) | 10 (2.1 %) | 10 (2.1 %) |
 | `dpss_hack` called with two outputs (the #2614 problem) | 8 (1.7 %) | 13 (2.8 %) |
 | loads a file from the Donders file system despite `DATA no` | 2 | 2 |
@@ -41,7 +41,7 @@ Octave FAQ page. Run on 2026-09-22.
 The counts in the right column grow for the environmental categories because the fixes let tests
 run further before stopping at the next cause.
 
-## The three FieldTrip-side causes (branch `fix/octave-compat-survey` on the fork, three commits)
+## The three FieldTrip-side causes (branch `fix/octave-compat-survey` on the fork, PR #2622, four commits)
 
 1. **`external/stats` is never added to the path** (81 tests, and `test_external_stats` fails on master
    for the same reason). 55ee593 (2026-09-15) removed the definition of `exclude_mfiles` in
@@ -62,8 +62,10 @@ run further before stopping at the next cause.
 3. **`ft_fetch_data` declares its name-value options with `addOptional`** (10 tests, visible only after
    1 and 2). Octave's `inputParser` assigns `addOptional` arguments positionally, so `'header'` lands in
    `header`, the header struct in `begsample`, and the string `'endsample'` reaches
-   `istrue(allowoverlap)`. Fix: `addParameter`, in `utilities/ft_fetch_data.m` and its identical copy
-   `fileio/private/ft_fetch_data.m` (ce18267).
+   `istrue(allowoverlap)`. Fix: `addParameter`, in `utilities/ft_fetch_data.m` and its identical copies
+   `fileio/private/ft_fetch_data.m` (ce18267) and `test/private/ft_fetch_data.m` (99b4c3c, added after the
+   PR bot pointed at `test_ft_fetch_data` and `test_issue1292`, which stopped in that third copy with
+   "NaN: dimensions must be scalars"; both pass with it).
 
 Verified: the 81 + 77 + 10 tests were re-run on the branch; all pass or stop at a different,
 environmental cause (`results_final.tsv`, column `run`).
@@ -83,10 +85,9 @@ environmental cause (`results_final.tsv`, column `run`).
 - **Graphics** (31): `colormap` with a figure argument, `get(0, 'DefaultFigureColormap')`, `surface`
   with a colour array of another size, `patch` with `cdata`, `getframe`, `zoom`/`rotate3d` with outputs,
   `alphamap`, `isosurface`. The plotting functions are the MATLAB-specific part the FAQ already names.
-- **Real differences to look at one by one** (18): `ft_progress` uses a `fprintf` format Octave rejects;
+- **Real differences to look at one by one** (16): `ft_progress` uses a `fprintf` format Octave rejects;
   `ft_plot_vector` concatenates a scalar with an empty column (`1x1 vs 151x0`); `remove_double_vertices`
-  indexes with an empty result of `unique(..., 'rows')` (3 tests); the `test/private/ft_fetch_data.m`
-  copy calls `nan(...)` with a non-scalar; `test_ft_checkdata` "time axis is wrong"; `test_warp`
+  indexes with an empty result of `unique(..., 'rows')` (3 tests); `test_ft_checkdata` "time axis is wrong"; `test_warp`
   "rigidbody coregistration failed"; `test_issue2265` finds a non-zero imaginary part at the Nyquist
   bin (`< 100*eps` assertion); four `isequal` assertions (`test_bug3048`, `test_bug3229`,
   `test_ft_timelocksimulation`, `test_bug2593`) and three tests that check MATLAB-specific error
@@ -97,6 +98,6 @@ environmental cause (`results_final.tsv`, column `run`).
 - **External binaries and toolboxes** (10) and **data despite `DATA no`** (2): environment; `test_pull1138`
   and `test_tutorial_networkanalysis_eeg20220126` should probably say `DATA private`.
 
-So on Octave 8.4 with the three fixes: 61 % of the data-free tests pass as is, roughly 75 % would
+So on Octave 8.4 with the three fixes: 61 % of the data-free tests (288 of 471) pass as is, roughly 75 % would
 with the MEX files compiled and the dozen small compat shims above, and the plotting functions are
 where the MATLAB dependence is real.

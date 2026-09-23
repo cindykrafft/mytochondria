@@ -1,0 +1,5 @@
+test	outcome	seconds	walltime	mem	message
+test_bug1153	PASS	20	00:10:00	1gb	
+test_issue1292	PASS	2	00:10:00	1gb	
+test_bug2269	PASS	23	00:10:00	1gb	
+test_ft_fetch_data	PASS	225	00:10:00	2gb	
