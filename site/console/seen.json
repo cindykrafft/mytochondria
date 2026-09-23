@@ -1,5 +1,5 @@
 {
- "taken": "2026-09-23T00:46:00Z",
+ "taken": "2026-09-23T06:47:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
   {
@@ -469,6 +469,16 @@
    "updated": "2026-08-28T13:25:00Z"
   },
   {
+   "repo": "fieldtrip/website",
+   "number": 958,
+   "kind": "pr",
+   "state": "closed",
+   "merged": true,
+   "comments": 1,
+   "updated": "2026-09-23T06:26:43Z",
+   "note": "the dpss FAQ page: merged 2026-09-23 06:26 UTC with one comment (not readable from the session)"
+  },
+  {
    "repo": "google-deepmind/alphafold3",
    "number": 745,
    "kind": "pr",
@@ -477,16 +487,6 @@
    "comments": 0,
    "updated": "2026-09-22T22:26:41Z",
    "note": "AF1 PR (fix/to-json-preserves-chain-order, fix + regression test), filed 2026-09-22; CLA check to watch; merges clean into main a66cc52"
-  },
-  {
-   "repo": "fieldtrip/website",
-   "number": 958,
-   "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-22T22:24:29Z",
-   "note": "the dpss FAQ page (faq/dpss-without-toolbox), filed 2026-09-22; merges clean into master 21a8c917"
   },
   {
    "repo": "afni/afni",
