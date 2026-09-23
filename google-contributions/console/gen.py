@@ -10,14 +10,14 @@ LIMIT = 7500
 def q(d): return "&".join(k + "=" + urllib.parse.quote(v, safe="") for k, v in d.items() if v)
 
 items = []
-def pr(id, repo, branch, kitfile, why, closes=None, note=None):
+def pr(id, repo, branch, kitfile, why, closes=None, note=None, base="main"):
     title, body = kit(kitfile)
     owner, name = repo.split("/")
-    base = f"https://github.com/{repo}/compare/main...cindykrafft:{name}:{branch}?"
+    base = f"https://github.com/{repo}/compare/{base}...cindykrafft:{name}:{branch}?"
     url = base + q({"expand": "1", "title": title, "body": body})
     short = len(url) > LIMIT
     if short: url = base + q({"expand": "1", "title": title})
-    items.append(dict(kind="pr", id=id, repo=repo, branch=branch, title=title, body=body, url=url,
+    items.append(dict(kind="pr", id=id, repo=repo, branch=branch, base=base, title=title, body=body, url=url,
                       short=short, why=why, closes=closes, note=note,
                       fork_url=f"https://github.com/cindykrafft/{name}/tree/{branch}"))
 
@@ -42,6 +42,10 @@ pr("gson-1138", "google/gson", "fix-jsonsyntaxexception-javadoc", "gson-1138-pr.
 pr("gtest-4769", "google/googletest", "docs-windows-thread-safety", "googletest-4769-pr.md",
    "Docs-only fix in a different repository, so it can go in the same day.", closes=4769,
    note="googletest brings outside PRs in through an internal import, so a reply can take a week or more.")
+pr("guava-2884", "google/guava", "docs-toSortedList-stability", "guava-docs-toSortedList-stability-pr.md",
+   "First guava PR: a Javadoc-only fix for an issue the maintainers labelled triaged. Can go in alongside the gson and googletest PRs.",
+   closes=2884, base="master",
+   note="guava doesn't merge PRs on GitHub. A maintainer copies the change into Google's internal code, it comes back as a commit credited to you, and the PR is closed.")
 pr("gson-skip", "google/gson", "fix-strict-skipvalue", "gson-skipvalue-pr.md",
    "First code fix for gson. Best opened once the Javadoc PR has had a reply, so the maintainers aren't hit with three at once.",
    note="There is no issue for this bug. The PR description carries the repro, which gson accepts for small fixes.")
@@ -50,12 +54,24 @@ pr("gtest-base64", "google/googletest", "fix-base64-unescape-high-bytes", "googl
    note="There is no issue for this bug. googletest's CONTRIBUTING asks for an issue first, but a small, self-evident fix with a test is usually accepted directly.")
 issue_form("gtest-death", "google/googletest", "00-bug_report.yml", "googletest-deathtest-issue.json",
    "The most serious googletest finding. It's an issue, not a PR, because the fix needs the maintainers to pick an approach.")
+pr("guava-2690", "google/guava", "docs-futures-transform-exceptions", "guava-docs-futures-transform-exceptions-pr.md",
+   "Second guava docs fix. Open it once the first guava PR has had a reply.", closes=2690, base="master")
+pr("guava-nav", "google/guava", "fix-filtered-navigablemap-entries", "guava-fix-filtered-navigablemap-entries-pr.md",
+   "First guava code fix, and the most serious guava finding: filtered NavigableMap views return the wrong entry.",
+   base="master", note="There is no issue for this bug. guava's CONTRIBUTING says PRs are welcome for bug fixes that don't change the API.")
 pr("gson-cache", "google/gson", "fix-getadapter-cache-poisoning", "gson-getadapter-pr.md",
    "Second gson code fix. Open after the skipValue PR gets a response.",
    note="There is no issue for this bug. The PR description carries the repro.")
 pr("gtest-diff", "google/googletest", "fix-diff-trailing-newline", "googletest-diff-pr.md",
    "Second googletest code fix. Open after the Base64 PR gets a response.",
    note="There is no issue for this bug. The PR description shows the diff before and after.")
+
+pr("guava-stats", "google/guava", "fix-stats-mean-overflow", "guava-fix-stats-mean-overflow-pr.md",
+   "Second guava code fix. Open it after the NavigableMap PR gets a response.", base="master",
+   note="There is no issue for this bug. Results for inputs that didn't overflow are unchanged, bit for bit.")
+pr("guava-rotate", "google/guava", "fix-primitives-rotate-edge-cases", "guava-fix-primitives-rotate-edge-cases-pr.md",
+   "Third guava code fix: the same small fix in all 8 primitive classes.", base="master",
+   note="There is no issue for this bug.")
 
 it_title, it_body = kit("gson-inetaddress-issue.md")
 ibase = "https://github.com/google/gson/issues/new?"
@@ -80,6 +96,13 @@ held = [
  ("google/googletest", "--gtest_list_tests with XML/JSON output ignores --gtest_filter", "small"),
  ("google/googletest", "IsSubsetOf failure message says \"2 of 5 matchers\" instead of \"2 of 3 elements\"", "one line"),
  ("google/googletest", "Minor: invalid UTF-8 for U+110000..U+1FFFFF, JSON duration precision, unescaped JSON property keys, EXPECT_NEAR hint at DBL_MAX", "batch later"),
+ ("google/guava", "BloomFilter.create(funnel, 1, 0.75) throws \"0 bits\" for valid settings", "one-line fix"),
+ ("google/guava", "ByteSource.slice().slice() overflows past Long.MAX_VALUE instead of returning empty", "one-line fix"),
+ ("google/guava", "InetAddresses accepts an empty IPv6 zone ID (\"fe80::1%\")", "one-line fix"),
+ ("google/guava", "UnsignedInts.parseUnsignedInt(\"-0\") / decode(\"0x-0\") accept a sign", "small"),
+ ("google/guava", "#2237: document the argument-order performance of Multisets.intersection/union", "benchmark claim needs checking"),
+ ("google/guava", "Javadoc typo in rotate/reverse @throws (\"toIndex > fromIndex\") in all 8 primitive classes", "follow-up to the rotate PR"),
+ ("google/guava", "TypeToken.toString() prints Outer$Inner<> for inner classes of generic classes", "cosmetic"),
 ]
 data = dict(items=items, held=held)
 page = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "template.html")).read()

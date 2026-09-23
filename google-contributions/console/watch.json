@@ -14,6 +14,13 @@
   "branch": "docs-windows-thread-safety"
  },
  {
+  "id": "guava-2884",
+  "repo": "google/guava",
+  "kind": "pr",
+  "title": "Document that `FluentIterable.toSortedList` is stable",
+  "branch": "docs-toSortedList-stability"
+ },
+ {
   "id": "gson-skip",
   "repo": "google/gson",
   "kind": "pr",
@@ -35,6 +42,20 @@
   "branch": null
  },
  {
+  "id": "guava-2690",
+  "repo": "google/guava",
+  "kind": "pr",
+  "title": "Document that `transform` and `transformAsync` propagate exceptions thrown by the function",
+  "branch": "docs-futures-transform-exceptions"
+ },
+ {
+  "id": "guava-nav",
+  "repo": "google/guava",
+  "kind": "pr",
+  "title": "Make filtered `NavigableMap` views return snapshot entries from `pollFirstEntry()` etc.",
+  "branch": "fix-filtered-navigablemap-entries"
+ },
+ {
   "id": "gson-cache",
   "repo": "google/gson",
   "kind": "pr",
@@ -47,6 +68,20 @@
   "kind": "pr",
   "title": "Fix \"With diff\" output for strings ending in a newline",
   "branch": "fix-diff-trailing-newline"
+ },
+ {
+  "id": "guava-stats",
+  "repo": "google/guava",
+  "kind": "pr",
+  "title": "Avoid overflow in `Stats` mean computation for large values of opposite sign",
+  "branch": "fix-stats-mean-overflow"
+ },
+ {
+  "id": "guava-rotate",
+  "repo": "google/guava",
+  "kind": "pr",
+  "title": "Fix primitive `rotate` methods for `Integer.MIN_VALUE` distances and empty ranges",
+  "branch": "fix-primitives-rotate-edge-cases"
  },
  {
   "id": "gson-inet",

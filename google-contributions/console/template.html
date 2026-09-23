@@ -51,7 +51,7 @@ ul.held li{justify-content:flex-start}ul.held li>span:last-child{color:var(--mut
 @media (prefers-reduced-motion:reduce){.toast{transition:none}}
 </style>
 <main>
-  <p class="eyebrow">google/gson · google/googletest · forks under cindykrafft · updated 2026-09-23</p>
+  <p class="eyebrow">google/gson · google/googletest · google/guava · forks under cindykrafft · updated 2026-09-23</p>
   <h1>Google OSS Filing Console</h1>
   <p class="lede">Every branch below is already pushed to your fork, and each card shows what has been filed so far. Each button opens GitHub's pull-request or issue form with the title and description filled in, so the repository's template never appears and nothing needs pasting. Check the form, then click Create. Once it's filed, type the number in so the card links to it.</p>
   <div class="note"><strong>Before the first submit</strong>
@@ -146,10 +146,10 @@ function render(){
   const held = DATA.held.map(([repo,t,why])=>`<li><span class="repo-tag">${esc(repo.split("/")[1])}</span> ${esc(t)} <span>${esc(why)}</span></li>`).join("");
   document.getElementById("root").innerHTML =
     `<h2>File in this order <span class="eyebrow">${DATA.items.filter(isDone).length} of ${DATA.items.length} filed</span></h2>
-     <p class="watchline">${WATCH&&WATCH.checkedAt?`A watcher session checks google/gson and google/googletest every three hours. Last check ${esc(ago(WATCH.checkedAt))}${WATCH.note?": "+esc(WATCH.note):"."}`:"Filing status comes from a watcher session that checks the repositories every three hours."}</p>
+     <p class="watchline">${WATCH&&WATCH.checkedAt?`A watcher session checks the repositories every three hours. Last check ${esc(ago(WATCH.checkedAt))}${WATCH.note?": "+esc(WATCH.note):"."}`:"Filing status comes from a watcher session that checks the repositories every three hours."}</p>
      <ol class="steps">${steps}</ol>
      <h2>Found but not drafted yet <span class="eyebrow">${DATA.held.length} items</span></h2>
-     <p class="hint" style="margin:0 0 8px">Reproduced and unreported as of 2026-09-23. Full details are in gson-bug-hunt.md and googletest-bug-hunt.md. Ask and I'll turn any of these into a branch and a card.</p>
+     <p class="hint" style="margin:0 0 8px">Reproduced and unreported as of 2026-09-23. Full details are in the findings folder of the google-contributions branch. Ask and I'll turn any of these into a branch and a card.</p>
      <ul class="held">${held}</ul>`;
   document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>{
     const [id,what]=b.dataset.copy.split("|"); const i=DATA.items.find(x=>x.id===id);
