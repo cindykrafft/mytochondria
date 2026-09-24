@@ -1,0 +1,58 @@
+== unmodified develop (ce612d2 worktree; stats.c is unchanged on these lines at de749a6)
+samtools ce612d2-dirty
+(a) expected: sequences 4, reads duplicated 4, supplementary alignments 1, total length 400, bases duplicated 400
+SN	sequences:	4
+SN	reads duplicated:	5	# PCR or optical duplicate bit set
+SN	supplementary alignments:	1
+SN	total length:	400	# ignores clipping
+SN	bases duplicated:	430
+(b) expected: insert size average 200.0, standard deviation 141.4
+SN	insert size average:	200.0
+SN	insert size standard deviation:	81.6
+
+== apt samtools 1.19.2
+samtools 1.19.2
+(a) expected: sequences 4, reads duplicated 4, supplementary alignments 1, total length 400, bases duplicated 400
+SN	sequences:	4
+SN	reads duplicated:	5	# PCR or optical duplicate bit set
+SN	supplementary alignments:	1
+SN	total length:	400	# ignores clipping
+SN	bases duplicated:	430
+(b) expected: insert size average 200.0, standard deviation 141.4
+SN	insert size average:	200.0
+SN	insert size standard deviation:	81.6
+
+== samtools 1.10
+samtools 1.10
+(a) expected: sequences 4, reads duplicated 4, supplementary alignments 1, total length 400, bases duplicated 400
+SN	sequences:	4
+SN	reads duplicated:	5	# PCR or optical duplicate bit set
+SN	total length:	400	# ignores clipping
+SN	bases duplicated:	430
+(b) expected: insert size average 200.0, standard deviation 141.4
+SN	insert size average:	200.0
+SN	insert size standard deviation:	81.6
+
+== samtools 1.9
+samtools 1.9
+(a) expected: sequences 4, reads duplicated 4, supplementary alignments 1, total length 400, bases duplicated 400
+SN	sequences:	4
+SN	reads duplicated:	5	# PCR or optical duplicate bit set
+SN	total length:	400	# ignores clipping
+SN	bases duplicated:	430
+(b) expected: insert size average 200.0, standard deviation 141.4
+SN	insert size average:	200.0
+SN	insert size standard deviation:	81.6
+
+== develop + patch (2838f3b)
+samtools de749a6-dirty
+(a) expected: sequences 4, reads duplicated 4, supplementary alignments 1, total length 400, bases duplicated 400
+SN	sequences:	4
+SN	reads duplicated:	4	# PCR or optical duplicate bit set
+SN	supplementary alignments:	1
+SN	total length:	400	# ignores clipping
+SN	bases duplicated:	400
+(b) expected: insert size average 200.0, standard deviation 141.4
+SN	insert size average:	200.0
+SN	insert size standard deviation:	141.4
+

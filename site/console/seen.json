@@ -135,10 +135,11 @@
    "repo": "samtools/samtools",
    "number": 2378,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-08T16:31:21Z"
+   "updated": "2026-09-24T15:35:22Z",
+   "note": "closed completed 2026-09-24 with the merge of PR #2379"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -809,10 +810,11 @@
    "repo": "samtools/samtools",
    "number": 2379,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-10T10:49:35Z"
+   "state": "closed",
+   "merged": true,
+   "comments": 1,
+   "updated": "2026-09-24T15:35:21Z",
+   "note": "merged (rebase, de749a6 on develop) 2026-09-24 15:35 by daviesrob; his comment: results match the original code once it starts with a buffer that does not need resizing"
   },
   {
    "repo": "iqtree/iqtree3",
