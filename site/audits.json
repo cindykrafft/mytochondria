@@ -461,6 +461,20 @@
    "attributed_note": "survey cohort of 112 papers; 3 confirmed on master, v0.1.16, v0.1.13 and the Ubuntu package (every temporary-file output mode aborts on a fortified source build, --relatedness2 underestimates kinship with missing genotypes, --max-missing-count counts alleles not genotypes), 3 notes; the diversity, Fst, LD, HWE and filter code held up",
    "versions_stated": 20,
    "versions_in_repo": 0
+  },
+  {
+   "dir": "scdblfinder",
+   "name": "scDblFinder",
+   "papers": 179,
+   "findings": 5,
+   "repos": [
+    "plger/scDblFinder"
+   ],
+   "fork": null,
+   "attributed": null,
+   "attributed_note": "survey cohort of 179 papers; 3 confirmed on the 1.16.0 release and 1.4.0/1.8.0/1.12.0 builds, devel read (artificial-doublet origins mislabelled with the default size adjustment so mostLikelyOrigin is mostly wrong, factor cluster labels empty the per-combination stats, the dbr threshold is NaN without artificial doublets), 2 notes; the doublet calls, expected-doublet arithmetic, cxds2 and thresholding rules held up",
+   "versions_stated": 6,
+   "versions_in_repo": 0
   }
  ],
  "author": "cindykrafft",

@@ -1,0 +1,16 @@
+== SD1 MRE
+default adjustSize=0.25: fraction of cross-cluster doublets whose counts match another origin: 0.476386 
+adjustSize=0: 0 
+== SD2 MRE
+  combination expected observed FNR
+1         1+2    1.356        0  NA
+
+  1   2 
+226 300 
+sum(observed) with the same labels as character: 26 ; called: 26 
+== SD3 MRE
+    
+NaN 
+
+singlet doublet    <NA> 
+      0       0    1000 

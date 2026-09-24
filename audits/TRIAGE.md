@@ -187,7 +187,7 @@ mirror: the Bioconductor support site is the channel and is unreachable from the
 prior-report search there is the owner's. Forks needed for the PRs: GSEA-MSigDB/gsea-desktop,
 samtools/bcftools, alexdobin/STAR, usadellab/Trimmomatic.
 
-## Round 5 (2026-09-24): Picard, Bowtie 2, FastQC, VCFtools (first four of five: Picard, Bowtie2, FastQC, VCFtools, scDblFinder)
+## Round 5 (2026-09-24): Picard, Bowtie 2, FastQC, VCFtools, scDblFinder
 
 The five most-used tools in the survey not yet audited whose numeric core can be executed here.
 Picard first (289 papers; 143 name MarkDuplicates). Kit under `audits/picard/upstream/`.
@@ -252,3 +252,17 @@ Held up: `--site-pi`, `--window-pi`, `--TajimaD` (complete data), `--het`, `--ha
 `--weir-fst-pop` per site / windowed / log with and without missing data, `--hap-r2`, `--geno-r2`, `--relatedness2` (complete data),
 `--012` dosages, and every site and genotype filter checked (`--maf`, `--max-maf`, `--mac`, `--max-missing`, `--minQ`, FILTER, indels,
 allele counts, `--minDP`/`--minGQ` with `--max-missing` and `--maf`, `--thin`). Trackers: no maintainer reply in any of twelve threads read.
+
+### scDblFinder (fifth of five; 179 papers; kit under `audits/scdblfinder/upstream/`)
+
+| tier | finding | reason |
+|---|---|---|
+| file now | scDblFinder SD1 | every release since 1.4.0: with `clusters` given, `createDoublets` returns the size-adjusted quarter of the artificial doublets after the others while `getArtificialDoublets` attaches the origins in the input order; about half of the artificial doublets carry another pair's label and `scDblFinder.mostLikelyOrigin` is right for 24 % of heterotypic doublets on a simulated capture (100 % with the order kept); calls unchanged; plus a wrong halving count and a crash when exactly one pair is adjusted; fix verified, testthat 17/17; no prior report |
+| file now | scDblFinder SD2 | 1.8.0 to `devel`: a factor `clusters` argument is stored as integer codes in the results table, so `scDblFinder.stats` shows 0 observed doublets for every combination (NA FNR / difficulty, empty `plotDoubletMap`) and `scDblFinder.cluster` holds the codes; character labels work; one-line fix; no prior report |
+| ready (third) | scDblFinder SD3 | 1.8.0 to `devel`: `doubletThresholding(method="dbr")` on the documented minimal input returns `NaN`; three-line fix |
+| held | scDblFinder N1, N2 | the default `dbr.sd` is documented as 40 % of dbr, 0.015 in the vignette, and is 0.3·dbr + 0.025 in the code; a failed xgboost training silently returns the previous score (devel has adapted to xgboost 3) |
+
+Held up: `getExpectedDoublets`, `propHomotypic`, the default k set, `cxds2` against a double-loop port, the "dbr" (with clusters),
+"griffiths" and "optim" thresholds against ports, `createDoublets` sums, the stats table with character / integer labels, and the
+end-to-end run on simulated doublets (AUC 1.000, recall 0.81, no false positive). Executed on 1.16.0 and on 1.4.0 / 1.8.0 / 1.12.0
+built from their release commits; `devel` read (identical code), not installable on this R.

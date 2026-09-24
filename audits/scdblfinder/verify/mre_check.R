@@ -1,0 +1,30 @@
+suppressPackageStartupMessages({library(scDblFinder); library(SingleCellExperiment)})
+cat("== SD1 MRE\n")
+set.seed(1)
+sce <- mockDoubletSCE(ncells=c(A=400, B=300, C=200), ngenes=300, dbl.rate=0.0001)
+sce <- sce[, sce$type == "singlet"]
+x <- counts(sce); cl <- droplevels(sce$cluster)
+cm <- sapply(levels(cl), function(k) rowMeans(x[, cl == k]))
+combos <- list("A+B"=cm[,"A"]+cm[,"B"], "A+C"=cm[,"A"]+cm[,"C"], "B+C"=cm[,"B"]+cm[,"C"])
+bestMatch <- function(ad){
+  w <- grepl("^dbl\\.", colnames(ad$counts))            # the cross-cluster doublets
+  best <- apply(as.matrix(ad$counts[, w]), 2, function(v)
+    names(combos)[which.max(sapply(combos, function(m) cor(log1p(v), log1p(m))))])
+  mean(best != as.character(ad$origins)[w])
+}
+set.seed(2); ad <- getArtificialDoublets(x, n=600, clusters=cl)
+cat("default adjustSize=0.25: fraction of cross-cluster doublets whose counts match another origin:", bestMatch(ad), "\n")
+set.seed(2); ad0 <- getArtificialDoublets(x, n=600, clusters=cl, adjustSize=0)
+cat("adjustSize=0:", bestMatch(ad0), "\n")
+cat("== SD2 MRE\n")
+set.seed(1)
+sce <- mockDoubletSCE()
+res <- scDblFinder(sce, clusters="cluster", verbose=FALSE)      # colData column, a factor
+print(metadata(res)$scDblFinder.stats[, c("combination","expected","observed","FNR")])
+print(table(res$scDblFinder.cluster))
+res2 <- scDblFinder(sce, clusters=as.character(sce$cluster), verbose=FALSE)
+cat("sum(observed) with the same labels as character:", sum(metadata(res2)$scDblFinder.stats$observed), "; called:", sum(res2$scDblFinder.class == "doublet"), "\n")
+cat("== SD3 MRE\n")
+d <- data.frame(score=runif(1000))
+print(doubletThresholding(d, dbr=0.05, method="dbr", returnType="threshold"))
+print(table(doubletThresholding(d, dbr=0.05, method="dbr", returnType="call"), useNA="ifany"))
