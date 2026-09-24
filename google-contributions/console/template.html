@@ -112,8 +112,14 @@ function prCard(i){
     ${i.short?`<p class="hint">The description is too long to fit in a link. The button fills in the title; paste the description from Copy.</p>`:""}
     <p class="hint">Branch <span class="mono">cindykrafft:${esc(i.branch)}</span> into <span class="mono">${esc(i.repo)}:main</span>.${i.note?" "+esc(i.note):""}</p>
     ${filledLine(i)}
-    <details><summary>Show the description that will be submitted</summary><pre class="body">${esc(i.body)}</pre></details>`;
+    <details><summary>Show the description that will be submitted</summary><pre class="body">${esc(i.body)}</pre></details>
+    ${i.reply?`<div class="route"><h4>Then reply on #${i.reply_to}</h4>
+      <div class="actions"><a class="btn" href="https://github.com/${i.repo}/issues/${i.reply_to}" target="_blank" rel="noopener">Open #${i.reply_to} ↗</a>
+      <button data-copy="${i.id}|reply">Copy reply</button></div>
+      <p class="hint">GitHub can't prefill a comment. The copied text has the PR number filled in once you've entered it above; otherwise replace PR_NUMBER.</p>
+      <details><summary>Show the reply</summary><pre class="body">${esc(replyText(i))}</pre></details></div>`:""}`;
 }
+function replyText(i){ const n=(STATUS[i.id]&&STATUS[i.id].number)||state[i.id+"_num"]; return n? i.reply.replace("#PR_NUMBER","#"+n) : i.reply; }
 function filledLine(i){ return filedLine(i); }
 function reportCard(i){
   return `<header><h3>${esc(i.title)}</h3><span class="eyebrow">${esc(i.repo)} · security-adjacent report</span></header>
@@ -153,7 +159,7 @@ function render(){
      <ul class="held">${held}</ul>`;
   document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>{
     const [id,what]=b.dataset.copy.split("|"); const i=DATA.items.find(x=>x.id===id);
-    copy(what==="private"?i.private:what[0]==="f"&&i.fields?i.fields[+what.slice(1)][1]:i.body); }));
+    copy(what==="private"?i.private:what==="reply"?replyText(i):what[0]==="f"&&i.fields?i.fields[+what.slice(1)][1]:i.body); }));
   document.querySelectorAll("[data-num]").forEach(inp=>inp.addEventListener("change",()=>{
     state[inp.dataset.num+"_num"]=inp.value; if (inp.value) state[inp.dataset.num+"_done"]=true; save(); render(); }));
   document.querySelectorAll("[data-done]").forEach(b=>b.addEventListener("click",()=>{

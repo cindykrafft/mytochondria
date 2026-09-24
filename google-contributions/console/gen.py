@@ -10,14 +10,15 @@ LIMIT = 7500
 def q(d): return "&".join(k + "=" + urllib.parse.quote(v, safe="") for k, v in d.items() if v)
 
 items = []
-def pr(id, repo, branch, kitfile, why, closes=None, note=None, base="main"):
+def pr(id, repo, branch, kitfile, why, closes=None, note=None, base="main", reply=None, reply_to=None):
     title, body = kit(kitfile)
     owner, name = repo.split("/")
     base = f"https://github.com/{repo}/compare/{base}...cindykrafft:{name}:{branch}?"
     url = base + q({"expand": "1", "title": title, "body": body})
     short = len(url) > LIMIT
     if short: url = base + q({"expand": "1", "title": title})
-    items.append(dict(kind="pr", id=id, repo=repo, branch=branch, base=base, title=title, body=body, url=url,
+    replytext = open(os.path.join(S, reply)).read().strip() if reply else None
+    items.append(dict(kind="pr", id=id, repo=repo, branch=branch, base=base, title=title, body=body, url=url, reply=replytext, reply_to=reply_to,
                       short=short, why=why, closes=closes, note=note,
                       fork_url=f"https://github.com/cindykrafft/{name}/tree/{branch}"))
 
@@ -37,6 +38,9 @@ def issue_form(id, repo, template, jsonfile, why):
     items.append(dict(kind="form", id=id, repo=repo, title=title, url=url, short=short, why=why,
                       fields=fields, body=body))
 
+pr("gson-inet-fix", "google/gson", "fix-inetaddress-literal-check", "gson-inetaddress-fix-pr.md",
+   "Answer the maintainer on #3128: eamonnmcmanus said a PR tightening the check would probably be accepted. Open this PR first, then post the reply with its number filled in.",
+   closes=3128, reply="gson-3128-reply.md", reply_to=3128)
 pr("gson-1138", "google/gson", "fix-jsonsyntaxexception-javadoc", "gson-1138-pr.md",
    "Javadoc-only fix for a 2017 issue nobody has touched. The gentlest first PR.", closes=1138)
 pr("gtest-4769", "google/googletest", "docs-windows-thread-safety", "googletest-4769-pr.md",

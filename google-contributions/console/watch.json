@@ -1,5 +1,12 @@
 [
  {
+  "id": "gson-inet-fix",
+  "repo": "google/gson",
+  "kind": "pr",
+  "title": "Tighten the `InetAddress` check to IP literals",
+  "branch": "fix-inetaddress-literal-check"
+ },
+ {
   "id": "gson-1138",
   "repo": "google/gson",
   "kind": "pr",
