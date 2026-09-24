@@ -1,0 +1,22 @@
+vcftools 0.1.18
+ok   --maf 0.05 (manual: minor allele frequency over non-missing alleles; the code takes the least frequent allele of the site): kept 1085 sites (expected 1085)
+ok   --max-maf 0.1: kept 265 sites (expected 265)
+ok   --mac 3: kept 1056 sites (expected 1056)
+ok   --max-missing 0.9 (call rate >= 0.9): kept 572 sites (expected 572)
+ok   --max-missing 1: kept 294 sites (expected 294)
+FAIL --max-missing-count 3 (manual: sites with 'more than this number of missing genotypes' are excluded): kept 392 sites (expected 572)  (kept but not expected 0, expected but dropped 180)
+   --max-missing-count 3: vcftools keeps 392; sites with <= 3 missing genotypes 572; sites with <= 3 missing chromosomes (<= 1 genotype) 392
+ok   --minQ 30: kept 898 sites (expected 898)
+ok   --remove-filtered-all (FILTER = PASS): kept 877 sites (expected 877)
+ok   --remove-indels: kept 1037 sites (expected 1037)
+ok   --keep-only-indels: kept 163 sites (expected 163)
+ok   --min-alleles 2 --max-alleles 2: kept 1091 sites (expected 1091)
+ok   --minDP 10 --max-missing 0.8 (genotypes with DP < 10 become missing first): kept 0 sites (expected 0)
+ok   --minGQ 20 --max-missing 0.8: kept 8 sites (expected 8)
+ok   --minDP 10 --maf 0.05 (MAF over the genotypes that survive the DP filter; a site with no surviving call passes, its MAF being NaN): kept 1042 sites (expected 1042)
+ok   --thin 500: keeps a site when it is at least 500 bp after the last kept site (171 vs 171)
+   --thin: 'at least 500 bp' set size 171, 'more than 500 bp' set size 171, vcftools 171
+   --minDP 10 --missing-site: first row ['chr1', '62', '22', '19', '2', '0.0909091']
+ok   --missing-site after --minDP: N_DATA = chromosomes of unfiltered genotypes, N_GENOTYPES_FILTERED, N_MISS = missing chromosomes, F_MISS = N_MISS / N_DATA on 1200/1200 sites
+   after --minDP 10: 565 sites report F_MISS <= 0.1 in --missing-site, of which 565 are dropped by --max-missing 0.9 (the call rate there counts the filtered genotypes as missing)
+FAIL --missing-site's F_MISS and --max-missing's call rate treat depth-filtered genotypes the same way (F_MISS leaves them out of N_DATA; the call rate N_non_missing_chr / N_chr counts them as missing)

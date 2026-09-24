@@ -447,6 +447,20 @@
    "attributed_note": "survey cohort of 322 papers; 3 confirmed on master and three release archives (encoding misdetection when no quality is below 31, per-read mean quality truncated, GC module truncates reads to 100 bases), 4 notes; the other modules held up",
    "versions_stated": 85,
    "versions_in_repo": 0
+  },
+  {
+   "dir": "vcftools",
+   "name": "VCFtools",
+   "papers": 112,
+   "findings": 6,
+   "repos": [
+    "vcftools/vcftools"
+   ],
+   "fork": null,
+   "attributed": null,
+   "attributed_note": "survey cohort of 112 papers; 3 confirmed on master, v0.1.16, v0.1.13 and the Ubuntu package (every temporary-file output mode aborts on a fortified source build, --relatedness2 underestimates kinship with missing genotypes, --max-missing-count counts alleles not genotypes), 3 notes; the diversity, Fst, LD, HWE and filter code held up",
+   "versions_stated": 20,
+   "versions_in_repo": 0
   }
  ],
  "author": "cindykrafft",

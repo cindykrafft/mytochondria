@@ -1,0 +1,27 @@
+VCFtools runs for the two fix branches (2026-09-24, Ubuntu 24.04, GCC 13.3, glibc 2.39,
+./autogen.sh && ./configure --prefix=<dir> && make && make install, default CXXFLAGS -g -O2,
+which on this distribution means _FORTIFY_SOURCE=3)
+
+vcftools/vcftools has no test suite and no CI; examples/ holds inputs and expected outputs for the
+Perl tools only. What was run:
+
+branch                              commit    run
+fix/tmpname-buffer-size             9bb4040   ../verify/v1_diversity_het_hwe.py, v2_fst_ld_relatedness.py, v3_filters.py
+                                              -> v1 13/13 (incl. --012 dosages 40/40 individuals, 1896 biallelic positions),
+                                                 v2 9/9 + the VT2 line unchanged (--hap-r2 and --geno-r2 7090/7090 pairs equal to
+                                                 the r2/D/D' port), v3 identical to master;
+                                              every temp-file mode exits 0 on a 6-sample VCF: --012 --plink --plink-tped --hap-r2
+                                                 --geno-r2 --geno-chisq --interchrom-hap-r2 --interchrom-geno-r2 --ldhat --ldhat-geno
+                                                 --ldhelmet --IMPUTE (all with --chr chr1 where required); on master the same
+                                                 invocations abort with "*** buffer overflow detected ***" except --IMPUTE
+                                                 and --plink-tped (which do not use the pattern);
+                                              --012 / --plink / --hap-r2 / --geno-r2 outputs byte-identical to the Ubuntu 0.1.16-3
+                                                 package's on the 40-individual VCF (the package build does not abort).
+fix/relatedness2-missing-genotypes  798544e   the same three harnesses -> v2: --relatedness2 with 20 % missing equals the
+                                                 KING-robust port over the shared sites (0.5000 / 0.5000 / 0.2373 / 0.2565 / -0.0070);
+                                                 complete-data relatedness2 output unchanged to all printed digits; every other line
+                                                 identical to master (the LD lines still abort, this branch not carrying 0001).
+master (1f87a83, control)                     v1 12 ok + --012 abort; v2 7 ok + --hap-r2/--geno-r2 abort + VT2 FAIL; v3 15 ok + VT3, VT4.
+
+Outputs: ../verify/*.patched.out (0001), *.patched2.out (0002), *.out (master), *.v0.1.16.out,
+*.v0.1.13.out, *.vapt0.1.16-3.out.

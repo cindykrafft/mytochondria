@@ -1,0 +1,74 @@
+From 798544e838be672028625dcad154ca9d9cc84fbc Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 24 Sep 2026 20:52:56 +0000
+Subject: [PATCH] relatedness2: count each individual's heterozygous sites over
+ the sites called in both
+
+output_indv_relatedness_Manichaikul computes the KING-robust kinship estimate
+(N_AaAa - 2 N_AAaa) / (N_Aa(i) + N_Aa(j)), with N_AaAa and N_AAaa counted over the sites
+at which both individuals are called but N_Aa(i) over every site at which i is called.
+In Manichaikul et al. (2010) all four counts run over the same SNPs. With missing
+genotypes the extra heterozygous sites in the denominator scale the estimate down by
+about the pairwise call rate: with 20 % of genotypes missing at random a duplicate pair
+reports 0.40 instead of 0.50 and a parent-offspring pair 0.19 instead of 0.24.
+
+Count N_Aa per pair, over the sites at which the other individual is called. N1_Aa and
+N2_Aa in the output are the per-pair counts; with no missing genotypes nothing changes.
+---
+ src/cpp/variant_file_output.cpp | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/src/cpp/variant_file_output.cpp b/src/cpp/variant_file_output.cpp
+index 4fd32ba..be88a05 100644
+--- a/src/cpp/variant_file_output.cpp
++++ b/src/cpp/variant_file_output.cpp
+@@ -4676,7 +4676,9 @@ void variant_file::output_indv_relatedness_Manichaikul(const parameters &params)
+ 	vector<vector<double> > phi(meta_data.N_indv, vector<double>(meta_data.N_indv, 0.0));
+ 	vector<vector<double> > N_AaAa(meta_data.N_indv, vector<double>(meta_data.N_indv, 0.0));
+ 	vector<vector<double> > N_AAaa(meta_data.N_indv, vector<double>(meta_data.N_indv, 0.0));
+-	vector<double > N_Aa(meta_data.N_indv, 0.0);
++	// N_Aa[i][j]: sites at which i is heterozygous and j is called, so that with missing
++	// genotypes the denominator counts the same sites as N_AaAa and N_AAaa.
++	vector<vector<double> > N_Aa(meta_data.N_indv, vector<double>(meta_data.N_indv, 0.0));
+ 
+ 	while(!eof())
+ 	{
+@@ -4709,11 +4711,6 @@ void variant_file::output_indv_relatedness_Manichaikul(const parameters &params)
+ 				continue;
+ 
+ 			e->get_indv_GENOTYPE_ids(ui, geno_id);
+-			if ((geno_id.first != geno_id.second) && (geno_id.first >= 0) && (geno_id.second >= 0))
+-			{
+-				N_Aa[ui]++;
+-			}
+-
+ 			for (unsigned int uj=0; uj<meta_data.N_indv; uj++)
+ 			{
+ 				if (include_indv[uj] == false)
+@@ -4721,6 +4718,11 @@ void variant_file::output_indv_relatedness_Manichaikul(const parameters &params)
+ 
+ 				e->get_indv_GENOTYPE_ids(uj, geno_id2);
+ 				if ((geno_id.first != geno_id.second) && (geno_id.first >= 0) && (geno_id.second >= 0))
++				{
++					if ((geno_id2.first >= 0) && (geno_id2.second >= 0))
++						N_Aa[ui][uj]++;
++				}
++				if ((geno_id.first != geno_id.second) && (geno_id.first >= 0) && (geno_id.second >= 0))
+ 				{
+ 					if ((geno_id2.first != geno_id2.second) && (geno_id2.first >= 0) && (geno_id2.second >= 0))
+ 					{
+@@ -4749,9 +4751,9 @@ void variant_file::output_indv_relatedness_Manichaikul(const parameters &params)
+ 		{
+ 			if (include_indv[uj] == false)
+ 				continue;
+-			phi[ui][uj] = (N_AaAa[ui][uj] - 2.0*N_AAaa[ui][uj]) / (N_Aa[ui] + N_Aa[uj]);
++			phi[ui][uj] = (N_AaAa[ui][uj] - 2.0*N_AAaa[ui][uj]) / (N_Aa[ui][uj] + N_Aa[uj][ui]);
+ 			out << meta_data.indv[ui] << "\t" << meta_data.indv[uj];
+-			out << "\t" << N_AaAa[ui][uj] << "\t" << N_AAaa[ui][uj] << "\t" << N_Aa[ui] << "\t" << N_Aa[uj];
++			out << "\t" << N_AaAa[ui][uj] << "\t" << N_AAaa[ui][uj] << "\t" << N_Aa[ui][uj] << "\t" << N_Aa[uj][ui];
+ 			out << "\t" << phi[ui][uj] << endl;
+ 		}
+ 	}
+-- 
+2.43.0
+

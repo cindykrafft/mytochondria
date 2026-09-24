@@ -1,0 +1,79 @@
+cohort: 112
+full text: 0   survey-cache fallback: 112   ({'offline': 112})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  VCFtools named                                   112
+  GATK / bcftools / freebayes calling              87
+  population structure / admixture                 42
+  PLINK also used                                  38
+  --hap-r2 / --geno-r2 / LD                        25
+  --weir-fst-pop (Fst)                             25
+  --maf / --mac (minor allele filter)              21
+  VCFtools version stated                          20
+  --window-pi / --site-pi (nucleotide diversity)   20
+  --min-alleles / --max-alleles (biallelic)        18
+  --max-missing / --max-missing-count              17
+  --minDP / --maxDP / --minGQ (genotype filters)   15
+  --relatedness / --relatedness2                   13
+  --freq / --counts                                13
+  whole-genome resequencing                        12
+  --het (inbreeding / heterozygosity)              8
+  --012 / --plink / --recode (conversion)          4
+  --keep / --remove (individual subsets)           4
+  --thin                                           4
+  RAD-seq / GBS / ddRAD                            3
+  --remove-indels / --keep-only-indels             2
+  --TajimaD                                        2
+  --minQ (site quality)                            2
+  --depth / --site-mean-depth                      2
+
+VERSION FAMILY: {'0.1.16': 24, '0.1.13': 9, '0.1.14': 6, '0.1.12': 4, '0.1.15': 4, '0.1.17': 3}
+VERSIONS (top 20): {'0.1.16': 24, '0.1.13': 9, '0.1.14': 6, '0.1.15': 4, '0.1.12': 3, '0.1.17': 3, '0.1.12b': 2, '1.6': 1}
+
+--max-missing values: {'10': 3, '75': 2, '0.8': 2, '0.3': 1, '0.75': 1, '1': 1, '20': 1}
+--maf values: {'0.01': 3, '0.25': 1, '0.05': 1, '0.03': 1}
+--minDP values: {'5': 2, '15': 1, '200': 1, '1': 1}
+window sizes (pi / TajimaD / Fst): {'500000': 2, '10000': 1, '10': 1, '50000': 1}
+--minGQ / --minQ values: {'20': 3, '10': 1, '30': 1}
+
+CO-PACKAGES (top 40):
+  R                        76
+  SAMtools                 64
+  GATK                     58
+  BWA                      54
+  BCFtools                 48
+  PLINK                    36
+  BUSCO                    29
+  Picard                   27
+  RepeatMasker             22
+  IQ-TREE                  22
+  ADMIXTURE                22
+  minimap2                 21
+  MAFFT                    21
+  ggplot2                  20
+  BEDTools                 18
+  SnpEff                   18
+  Trimmomatic              16
+  RAxML                    16
+  ImageJ                   15
+  Python                   14
+  BLAST                    12
+  FastQC                   12
+  GEMMA                    11
+  fastp                    11
+  STAR                     9
+  Cutadapt                 9
+  Bowtie2                  9
+  lme4                     9
+  AUGUSTUS                 8
+  HMMER                    8
+  OrthoFinder              8
+  DESeq2                   8
+  pheatmap                 8
+  VEP                      7
+  SPAdes                   7
+  GCTA                     7
+  BEAST                    7
+  ANGSD                    7
+  hifiasm                  6
+  DELLY                    6

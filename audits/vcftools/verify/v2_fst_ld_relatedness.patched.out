@@ -1,0 +1,27 @@
+vcftools 0.1.18
+ok   --weir-fst-pop per site (complete genotypes): 1500 sites; WEIR_AND_COCKERHAM_FST = sum_a / sum(a+b+c) over alleles equals the port on 1500/1500
+ok     log: mean Fst 0.13027 (port 0.13027), weighted Fst 0.16055 (port 0.16055)
+ok   --fst-window-size 50000 --fst-window-step 25000 (complete genotypes): 12 windows; N_VARIANTS, WEIGHTED_FST = sum a / sum (a+b+c), MEAN_FST = mean of per-site Fst on 12/12
+ok   --weir-fst-pop per site (8 % missing genotypes): 1500 sites; WEIR_AND_COCKERHAM_FST = sum_a / sum(a+b+c) over alleles equals the port on 1500/1500
+ok     log: mean Fst 0.13223 (port 0.13223), weighted Fst 0.16345 (port 0.16345)
+ok   --fst-window-size 50000 --fst-window-step 25000 (8 % missing genotypes): 12 windows; N_VARIANTS, WEIGHTED_FST = sum a / sum (a+b+c), MEAN_FST = mean of per-site Fst on 12/12
+ok   --hap-r2 --ld-window-bp 5000: 7090 pairs (expected 7090); N_CHR, R^2, D and Dprime on 7090/7090
+ok   --geno-r2 --ld-window-bp 5000: 7090 pairs (expected 7090); N_INDV and R^2 = squared Pearson correlation of dosages on 7090/7090
+   --relatedness2, complete:
+      a00-b00   RELATEDNESS_PHI   0.5000   KING-robust over shared called sites   0.5000   het counts over each individual's own called sites   0.5000
+      a01-b01   RELATEDNESS_PHI   0.5000   KING-robust over shared called sites   0.5000   het counts over each individual's own called sites   0.5000
+      a05-b05   RELATEDNESS_PHI   0.2372   KING-robust over shared called sites   0.2372   het counts over each individual's own called sites   0.2372
+      a06-b05   RELATEDNESS_PHI   0.2527   KING-robust over shared called sites   0.2527   het counts over each individual's own called sites   0.2527
+      a00-a01   RELATEDNESS_PHI  -0.0045   KING-robust over shared called sites  -0.0045   het counts over each individual's own called sites  -0.0045
+      a07-b07   RELATEDNESS_PHI  -0.1794   KING-robust over shared called sites  -0.1794   het counts over each individual's own called sites  -0.1794
+   --relatedness2 (complete): equals the estimator with per-individual heterozygote counts over that individual's own called sites (master's arithmetic): yes
+ok   --relatedness2 (complete): equals KING-robust with all counts over the sites called in both individuals
+   --relatedness2, 20 % missing:
+      a00-b00   RELATEDNESS_PHI   0.4003   KING-robust over shared called sites   0.5000   het counts over each individual's own called sites   0.4003
+      a01-b01   RELATEDNESS_PHI   0.4042   KING-robust over shared called sites   0.5000   het counts over each individual's own called sites   0.4042
+      a05-b05   RELATEDNESS_PHI   0.1877   KING-robust over shared called sites   0.2373   het counts over each individual's own called sites   0.1877
+      a06-b05   RELATEDNESS_PHI   0.2036   KING-robust over shared called sites   0.2565   het counts over each individual's own called sites   0.2036
+      a00-a01   RELATEDNESS_PHI  -0.0055   KING-robust over shared called sites  -0.0070   het counts over each individual's own called sites  -0.0055
+      a07-b07   RELATEDNESS_PHI  -0.1475   KING-robust over shared called sites  -0.1836   het counts over each individual's own called sites  -0.1475
+   --relatedness2 (20 % missing): equals the estimator with per-individual heterozygote counts over that individual's own called sites (master's arithmetic): yes
+FAIL --relatedness2 (20 % missing): equals KING-robust with all counts over the sites called in both individuals  (with missing calls the denominator counts heterozygous sites the partner is not called at, so kinship is underestimated)

@@ -187,7 +187,7 @@ mirror: the Bioconductor support site is the channel and is unreachable from the
 prior-report search there is the owner's. Forks needed for the PRs: GSEA-MSigDB/gsea-desktop,
 samtools/bcftools, alexdobin/STAR, usadellab/Trimmomatic.
 
-## Round 5 (2026-09-24): Picard, Bowtie 2, FastQC (first three of five: Picard, Bowtie2, FastQC, scDblFinder, VCFtools)
+## Round 5 (2026-09-24): Picard, Bowtie 2, FastQC, VCFtools (first four of five: Picard, Bowtie2, FastQC, VCFtools, scDblFinder)
 
 The five most-used tools in the survey not yet audited whose numeric core can be executed here.
 Picard first (289 papers; 143 name MarkDuplicates). Kit under `audits/picard/upstream/`.
@@ -238,3 +238,17 @@ the duplication estimator (within 0.07 points under and over the tracking limit)
 
 Channel notes. No CONTRIBUTING, no templates, no AI policy, no test suite; twelve prior threads read in full. Fork needed: s-andrews/FastQC.
 
+
+### VCFtools (fourth of five; 112 papers; kit under `audits/vcftools/upstream/`)
+
+| tier | finding | reason |
+|---|---|---|
+| file now | VCFtools VT1 | every version: the thirteen temporary-file output modes (`--012`, `--plink`, `--hap-r2`, `--geno-r2`, `--geno-chisq`, interchromosomal and SNP-list r², `--ldhat`, `--ldhelmet`) copy the `mkstemp` template into a buffer one byte too small; a source build with a current compiler's default fortification (Ubuntu 24.04, Fedora, Debian 13) aborts with "buffer overflow detected" before writing anything; 19-line fix, every mode verified on the patched build; no prior report |
+| file now | VCFtools VT2 | every version: `--relatedness2` counts each individual's heterozygous sites over all its called sites while the numerator uses only the sites called in both, so with missing genotypes the KING-robust kinship is scaled down by the pairwise call rate (duplicates 0.40 for 0.50, parent–offspring 0.19 for 0.24 at 20 % missing, across the KING cut-offs); fix verified to give the KING values; no prior report |
+| ready (third) | VCFtools VT3 | every version: `--max-missing-count` excludes sites by missing alleles, the manual says missing genotypes (392 vs 572 sites kept at count 3 on 30 diploids); #28 (2016) found it and nobody replied; documentation issue with a man-page patch |
+| held | VCFtools VT4, VT5, N1 | after `--minDP`/`--minGQ`, `--missing-site`'s `F_MISS` ignores the filtered genotypes while `--max-missing` counts them as missing (all 565 low-`F_MISS` sites removed); `--TajimaD` fixes n at 2 × individuals regardless of missing genotypes; `--012` is biallelic-only with only a log warning (#189 asks; answer drafted) |
+
+Held up: `--site-pi`, `--window-pi`, `--TajimaD` (complete data), `--het`, `--hardy`, `--freq`/`--counts`, missingness and depth reports,
+`--weir-fst-pop` per site / windowed / log with and without missing data, `--hap-r2`, `--geno-r2`, `--relatedness2` (complete data),
+`--012` dosages, and every site and genotype filter checked (`--maf`, `--max-maf`, `--mac`, `--max-missing`, `--minQ`, FILTER, indels,
+allele counts, `--minDP`/`--minGQ` with `--max-missing` and `--maf`, `--thin`). Trackers: no maintainer reply in any of twelve threads read.

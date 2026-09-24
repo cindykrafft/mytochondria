@@ -1,0 +1,17 @@
+vcftools 0.1.18
+ok   --site-pi: 2000 sites; pi = mismatching pairs / ordered pairs of non-missing alleles on 2000/2000
+ok   --window-pi 10000 --window-pi-step 10000: 20 windows; N_VARIANTS, N_MONOMORPHIC = W - N_VARIANTS, and PI = mismatches / (pairs at variant sites + (W - N_VARIANTS) x 2N(2N-1)) on 20/20
+ok   --window-pi 10000 --window-pi-step 2500: 80 windows; N_VARIANTS, N_MONOMORPHIC = W - N_VARIANTS, and PI = mismatches / (pairs at variant sites + (W - N_VARIANTS) x 2N(2N-1)) on 80/80
+ok   --TajimaD 10000, complete genotypes: 20 bins; N_SNPS and D (pi = 2 sum p(1-p) n/(n-1), theta_w = S/a1, n = 2 x individuals) on 20/20
+   --TajimaD with 8 % missing genotypes: D reproduced with n fixed at 2 x individuals (80) and per-site p over the non-missing alleles on 20/20 bins (the sample size per site is 65-80; the statistic assumes a constant n)
+ok   --het: O(HOM), E(HOM) = sum 1 - 2p(1-p) n/(n-1) over biallelic polymorphic sites where the individual is called, N_SITES and F on 40/40 individuals (E(HOM) printed to 1 decimal, F to 5)
+ok   --hardy: observed and expected genotype counts, chi-square, and the exact-test P_HWE / P_HET_DEFICIT / P_HET_EXCESS (Wigginton 2005 port) on 1896/1896 biallelic sites
+ok   --freq: N_ALLELES, N_CHR (non-missing alleles) and each allele's frequency on 2000/2000 sites
+ok   --counts: allele counts on 2000/2000 sites
+ok   --missing-indv: N_DATA, N_MISS and F_MISS on 40/40 individuals
+ok   --missing-site: N_DATA (= 2 x individuals), N_MISS (missing chromosomes) and F_MISS on 2000/2000 sites
+   --depth: N_SITES 2000 of 2000 for the first individual (1845 called); MEAN_DEPTH 21.161
+ok   --depth: MEAN_DEPTH equals the mean DP over the sites counted in N_SITES on 40/40 individuals
+   --site-mean-depth: variance definition found: {(True, 'sample'): 2077} (key: (all genotypes incl. missing calls?, variance kind))
+ok   --site-mean-depth: MEAN_DEPTH and VAR_DEPTH consistent with one definition on 2000/2000 sites
+FAIL --012: the matrix is written  (Writing 012 matrix files ... *** buffer overflow detected ***: terminated)
