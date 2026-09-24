@@ -91,6 +91,76 @@
   "branch": "fix-primitives-rotate-edge-cases"
  },
  {
+  "id": "filament-qadd-arm64",
+  "repo": "google/filament",
+  "kind": "issue",
+  "title": "math::fast::qadd/qsub give wrong results on AArch64 (signed intrinsics)",
+  "branch": null
+ },
+ {
+  "id": "filament-image-compare",
+  "repo": "google/filament",
+  "kind": "issue",
+  "title": "image::compare() returns 0 when the first image is larger than the second",
+  "branch": null
+ },
+ {
+  "id": "filament-setimage-wrap",
+  "repo": "google/filament",
+  "kind": "issue",
+  "title": "Texture::setImage offset + size bounds checks can wrap around in uint32_t",
+  "branch": null
+ },
+ {
+  "id": "filament-jobsystem-pool",
+  "repo": "google/filament",
+  "kind": "issue",
+  "title": "JobSystem job pool holds MAX_JOB_COUNT - 1 jobs on Linux (test fails)",
+  "branch": null
+ },
+ {
+  "id": "filament-ubo-offset-wrap",
+  "repo": "google/filament",
+  "kind": "issue",
+  "title": "Material uniform block offsets wrap past 65535 words (uint16_t offset)",
+  "branch": null
+ },
+ {
+  "id": "filament-matp-bool-prefix",
+  "repo": "google/filament",
+  "kind": "issue",
+  "title": "matc: unquoted prefixes of true/false/null (t, tru, f, n) parse as bool/null",
+  "branch": null
+ },
+ {
+  "id": "filament-matp-array-size",
+  "repo": "google/filament",
+  "kind": "issue",
+  "title": "matc: array parameter types misparsed (whitespace, float[0], huge sizes)",
+  "branch": null
+ },
+ {
+  "id": "filament-vb-bufferindex",
+  "repo": "google/filament",
+  "kind": "issue",
+  "title": "VertexBuffer::Builder accepts an attribute bufferIndex >= bufferCount",
+  "branch": null
+ },
+ {
+  "id": "filament-imagesampler-region",
+  "repo": "google/filament",
+  "kind": "issue",
+  "title": "image::resampleImage: NEAREST ignores ImageSampler::sourceRegion",
+  "branch": null
+ },
+ {
+  "id": "filament-orbit-groundplane",
+  "repo": "google/filament",
+  "kind": "issue",
+  "title": "camutils ORBIT: default ground plane is wrong when target isn't at origin",
+  "branch": null
+ },
+ {
   "id": "gson-inet",
   "repo": "google/gson",
   "kind": "report",

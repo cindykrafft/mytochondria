@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "qadd-arm64",
+    "file": "/home/user/mytochondria/google-contributions/kits/filament-qadd-arm64-issue.md",
+    "title": "math::fast::qadd/qsub give wrong results on AArch64 (signed intrinsics)",
+    "priority": 1,
+    "why": "Header-only, six-line fix to unsigned intrinsics; wrong results shown with filament's own fast.h under qemu and the fix checked the same way.",
+    "dup_check": "No matching issue or PR (searched qadd/qsub/vuqadd/NEON saturating), 2026-09-24."
+  },
+  {
+    "slug": "image-compare",
+    "file": "/home/user/mytochondria/google-contributions/kits/filament-image-compare-issue.md",
+    "title": "image::compare() returns 0 when the first image is larger than the second",
+    "priority": 2,
+    "why": "Small, self-contained fix; the wrong result is visible in five lines of output and it affects how ImageDiffer golden checks pass.",
+    "dup_check": "No matching issue or PR (searched image compare/ImageOps/ImageDiffer; only unrelated #4226), 2026-09-24."
+  },
+  {
+    "slug": "setimage-wrap",
+    "file": "/home/user/mytochondria/google-contributions/kits/filament-setimage-wrap-issue.md",
+    "title": "Texture::setImage offset + size bounds checks can wrap around in uint32_t",
+    "priority": 3,
+    "why": "Small fix that mirrors the existing wrap-safe checks in VertexBuffer/IndexBuffer; clear accept/reject repro on the Noop backend.",
+    "dup_check": "No matching issue or PR. #7689 (2024, closed) added these setImage checks; #10362 is an unrelated Android-sample report. 2026-09-24."
+  },
+  {
+    "slug": "jobsystem-pool",
+    "file": "/home/user/mytochondria/google-contributions/kits/filament-jobsystem-pool-issue.md",
+    "title": "JobSystem job pool holds MAX_JOB_COUNT - 1 jobs on Linux (test fails)",
+    "priority": 4,
+    "why": "An existing in-tree test fails on Linux; one-line fix (pool slack) with a clear cause.",
+    "dup_check": "No matching issue or PR (searched JobSystem pool/MAX_JOB_COUNT/test name; recent JobSystem PRs #10314/#10316/#10332 are closed and HEAD still fails), 2026-09-24."
+  },
+  {
+    "slug": "ubo-offset-wrap",
+    "file": "/home/user/mytochondria/google-contributions/kits/filament-ubo-offset-wrap-issue.md",
+    "title": "Material uniform block offsets wrap past 65535 words (uint16_t offset)",
+    "priority": 5,
+    "why": "Silent wrong layout in the material toolchain, with a clear two-number repro; fix is a wider type plus a size check, which maintainers may want to shape.",
+    "dup_check": "No matching issue or PR. #9387 is a PowerVR driver UBO-size report, unrelated. 2026-09-24."
+  },
+  {
+    "slug": "matp-bool-prefix",
+    "file": "/home/user/mytochondria/google-contributions/kits/filament-matp-bool-prefix-issue.md",
+    "title": "matc: unquoted prefixes of true/false/null (t, tru, f, n) parse as bool/null",
+    "priority": 6,
+    "why": "Small, well-understood lexer fix, but it may turn materials that use 't'/'tru' into errors, so maintainers may want a say.",
+    "dup_check": "No matching issue or PR (searched matc true/false/prefix/name value must be STRING), 2026-09-24."
+  },
+  {
+    "slug": "matp-array-size",
+    "file": "/home/user/mytochondria/google-contributions/kits/filament-matp-array-size-issue.md",
+    "title": "matc: array parameter types misparsed (whitespace, float[0], huge sizes)",
+    "priority": 7,
+    "why": "Several related parser problems in one function, plus the -P abort; clear repros, but more to review than the ones above.",
+    "dup_check": "No matching issue or PR (searched array size/stoul/extractArraySize), 2026-09-24."
+  },
+  {
+    "slug": "vb-bufferindex",
+    "file": "/home/user/mytochondria/google-contributions/kits/filament-vb-bufferindex-issue.md",
+    "title": "VertexBuffer::Builder accepts an attribute bufferIndex >= bufferCount",
+    "priority": 8,
+    "why": "Contract mismatch shown in debug with buffer objects; the no-buffer-objects release path wasn't run, so the evidence is weaker.",
+    "dup_check": "No matching issue or PR (searched VertexBuffer bufferIndex bufferCount), 2026-09-24."
+  },
+  {
+    "slug": "imagesampler-region",
+    "file": "/home/user/mytochondria/google-contributions/kits/filament-imagesampler-region-issue.md",
+    "title": "image::resampleImage: NEAREST ignores ImageSampler::sourceRegion",
+    "priority": 9,
+    "why": "Real wrong output, but the right fix in generateMadProgram needs more care and has two open questions attached.",
+    "dup_check": "No matching issue or PR (searched ImageSampler/sourceRegion/resampleImage), 2026-09-24."
+  },
+  {
+    "slug": "orbit-groundplane",
+    "file": "/home/user/mytochondria/google-contributions/kits/filament-orbit-groundplane-issue.md",
+    "title": "camutils ORBIT: default ground plane is wrong when target isn't at origin",
+    "priority": 10,
+    "why": "One-line fix with a clear repro, but camutils behaviour (and whether MAP should require groundPlane) is more of a judgement call for maintainers.",
+    "dup_check": "No matching issue or PR (searched orbit ground plane/camutils/OrbitManipulator), 2026-09-24."
+  }
+]

@@ -21,7 +21,7 @@ Tested against google/filament HEAD `a5e4a836`, desktop debug build via `./build
 - Fix: `width <= W && xoffset <= W - width`.
 
 ### 2. `VertexBuffer::Builder` accepts an attribute `bufferIndex >= bufferCount`. Low–medium.
-`bufferCount(2)` with `attribute(UV0, 5, ...)` builds without an error.
+`bufferCount(2)` with `attribute(UV0, 5, ...)` builds without an error when `enableBufferObjects(true)` is set; without it, the debug build aborts at the `assert_invariant` (VertexBuffer.cpp:334). (Corrected 2026-09-24.)
 - The only guard is `assert_invariant(slot < mBufferCount)` (VertexBuffer.cpp:334).
 - With assertions off, UV0 reads a buffer that can never be set.
 - The header says bufferIndex "must be between 0 and bufferCount() - 1" and that the call is "a no-op" otherwise.
@@ -40,8 +40,8 @@ Tested against google/filament HEAD `a5e4a836`, desktop debug build via `./build
 - Root cause: JsonishLexer.cpp:32–37 and JsonishParser.cpp:293 use `strncmp` with the lexeme's length.
 
 ### 5. Array parameter sizes are mishandled. Medium.
-- An array type that is the last key before `}` keeps the trailing whitespace in the type string and is rejected (JsonishParser.cpp:262).
-- `float[0]` and `float[4294967297]` silently become a scalar `float`.
+- Any whitespace between an array type's `]` and the next token (for example before `}` or before `,`) is kept in the type string, and the type is rejected (JsonishParser.cpp:262). (Corrected 2026-09-24; the first version said only the last key before `}`.)
+- `float[0]` silently becomes a scalar `float`. `float[4294967297]` is narrowed to `uint32_t` (MaterialBuilder.cpp:681) and becomes `float a[1]` in the generated GLSL. (Corrected 2026-09-24; the first version said it became a scalar.)
 - `float[99999999999999999999]` aborts matc with an uncaught `std::out_of_range`.
 - Root cause: `extractArraySize` in ParametersProcessor.cpp:118–146.
 - Related: `matc -PmaskThreshold=abc` aborts with an uncaught `std::invalid_argument` (ParametersProcessor.cpp:1482).
