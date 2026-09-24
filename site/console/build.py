@@ -265,8 +265,6 @@ def note(path):
     t=re.sub(r"\A\s*Title:[^\n]*\n+", "", t)
     return t.strip()+"\n"
 ACTIONS=[
- dict(kind="note", title="FieldTrip PR #2622: answer the test bot and explain the red spelling check", link="https://github.com/fieldtrip/fieldtrip/pull/2622", text=note("audits/fieldtrip/upstream/reply-2622-tests-and-codespell.md"),
-      why="the bot asked for test_bug2269, test_ft_fetch_data and test_issue1292; the last two failed in a third copy of ft_fetch_data (test/private), fixed as the fourth commit 99b4c3c already on the branch, all three pass under Octave; the codespell check is red on master too (the variable eary in outline_shape.m), a .codespellrc line is proposed in the reply"),
  dict(kind="issue", key="star", id="STA1", why="a GTF feature with '.' in the strand column makes TranscriptomeSAM write every read with the flag inverted and the sequence reverse-complemented at the unchanged plus position (300 of 300 reads on each strandless transcript, 0 on stranded ones), and stranded STARsolo counts such a gene's sense reads as 0; one issue covering both, the PR offered in its last line as CONTRIBUTING asks"),
  dict(kind="issue", key="trimmomatic", id="TM1", why="ILLUMINACLIP's palindrome mode charges int(Q/10) per mismatch where the README and simple mode charge Q/10, so mismatches below Q10 cost nothing; the error is one-sided, so pairs below the threshold are clipped anyway and the reverse read dropped under the default (23 of 4000 simulated 2x50 pairs, 600 of 7200 grid pairs; every version back to 0.32)"),
  dict(kind="pr", key="trimmomatic", id="TM1", why="the one-token fix with a JUnit test that fails on main; fork usadellab/Trimmomatic first"),
@@ -276,7 +274,7 @@ ACTIONS=[
 WAITING=[
  "BCFtools: #2594 + PR #2595 (BC1, mpileup bias Z-scores) filed 2026-09-23; the fork's five CI workflows are green on the signed-off commit; nothing else to file there",
  "AlphaFold 3: #744 + PR #745 (to_json chain order, 2026-09-22) and #746 + PR #747 (chain_ids per token, 2026-09-23): the two allowed; CLA check on both PRs to watch; the other twelve branches wait for a reply",
- "FieldTrip: #2621 + PR #2622 (external/stats regression + Octave shims, 2026-09-23, fourth commit 99b4c3c pushed after the bot's suggested tests) and the Octave survey comment on #2614 (2026-09-23) posted; the Octave FAQ page edit (website-faq-octave-edit.md) goes as a website PR if schoffelen or Robert says so",
+ "FieldTrip: #2621 + PR #2622 (external/stats regression + Octave shims, 2026-09-23, fourth commit 99b4c3c and the reply to the test bot posted 2026-09-23 19:39) and the Octave survey comment on #2614 (2026-09-23) posted; waiting on schoffelen or Robert; the Octave FAQ page edit (website-faq-octave-edit.md) goes as a website PR if schoffelen or Robert says so",
  "AFNI: #967 answered 2026-09-22 (the saturation-value reply), PR #960 closed with the closing note and #959 closed the same evening; waiting on afni-dglen for #967",
  ("GSEA GS1 (weighted_p1.5 raises the signed score to a fractional power: NaN hit weights, sign flips) and GS2 (set_min == set_max skips the size filter and can abort the run)", "an answer on GS3; GS1 next, then GS2 (two-filing cap)"),
  ("Trimmomatic TM2 (MAXINFO trims every read to one base for targetLength >= 248 at strictness 0.1, >= 711 at any strictness: long-range saturation) and notes N1-N8", "an answer on TM1"),
