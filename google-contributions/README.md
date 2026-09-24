@@ -9,6 +9,7 @@ is separate from the Mytochondria audits and is kept on its own branch.
 - `kits/`: the PR descriptions and issue texts, exactly as the console submits them.
 - `findings/`: the two bug hunts. Each finding was reproduced against the upstream HEAD of the day
   and checked for existing reports.
+- `CLAUDE.md`: rules for everything we write upstream (don't overstate; say only what the code and our runs show).
 - `WATCH.md`: how the scheduled watcher keeps the console's filing status current.
 
 The code for each fix lives on a branch of the matching fork (`cindykrafft/gson`,
