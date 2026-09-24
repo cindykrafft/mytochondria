@@ -265,6 +265,8 @@ def note(path):
     t=re.sub(r"\A\s*Title:[^\n]*\n+", "", t)
     return t.strip()+"\n"
 ACTIONS=[
+ dict(kind="note", title="Kilosort PR #1043: answer kvnloo (regression tests pushed)", link="https://github.com/MouseLand/Kilosort/pull/1043", text=note("audits/kilosort/upstream/reply-1043-tests.md"),
+      why="kvnloo, an independent tester, verified the fix in 12 cases and asked for a two-level regression test; tests/test_swarmsplitter.py is on the branch as eabed49 (4 pass; with main's swarmsplitter.py the empty-input and veto tests fail); no maintainer has commented on any Kilosort filing yet"),
  dict(kind="issue", key="star", id="STA1", why="a GTF feature with '.' in the strand column makes TranscriptomeSAM write every read with the flag inverted and the sequence reverse-complemented at the unchanged plus position (300 of 300 reads on each strandless transcript, 0 on stranded ones), and stranded STARsolo counts such a gene's sense reads as 0; one issue covering both, the PR offered in its last line as CONTRIBUTING asks"),
  dict(kind="issue", key="trimmomatic", id="TM1", why="ILLUMINACLIP's palindrome mode charges int(Q/10) per mismatch where the README and simple mode charge Q/10, so mismatches below Q10 cost nothing; the error is one-sided, so pairs below the threshold are clipped anyway and the reverse read dropped under the default (23 of 4000 simulated 2x50 pairs, 600 of 7200 grid pairs; every version back to 0.32)"),
  dict(kind="pr", key="trimmomatic", id="TM1", why="the one-token fix with a JUnit test that fails on main; fork usadellab/Trimmomatic first"),

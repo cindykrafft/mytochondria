@@ -51,3 +51,5 @@ junk cluster from ContamPct 0.0 to 100.0 with the real unit unchanged at
 GitHub issue bodies should end with the attribution footer shown at the
 bottom of each issue file. PR descriptions should end with the PR footer
 used elsewhere in this project.
+
+- 2026-09-24 (read 12:55Z via a helper session): first comment on any of the five filings, on PR #1043, by kvnloo (author association NONE, not a maintainer): exercised the fix and the downstream refractoriness() in 12 cases, all passing with the PR, and asked for a small regression test at both levels. Added `tests/test_swarmsplitter.py` (eabed49 on `fix/swarmsplitter-ccg-guard`): empty and zero-duration inputs, the refractory-halves veto, and an independent-units control; 4 pass on the branch under CPU torch, 2 fail with main's `swarmsplitter.py`. Reply drafted: `reply-1043-tests.md`. #1044-#1047 and PR #1045 have no comments.

@@ -1091,7 +1091,8 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-01T21:59:01Z"
+   "updated": "2026-09-01T21:59:01Z",
+   "note": "first comment 2026-09-24 07:18 by kvnloo (not a maintainer): tested the fix independently in 12 cases, asked for a two-level regression test; tests pushed as eabed49 (4 pass on the branch, 2 fail with main's file); reply drafted; still no maintainer response on any Kilosort filing"
   },
   {
    "repo": "thelovelab/DESeq2",
