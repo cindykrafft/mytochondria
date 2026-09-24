@@ -91,6 +91,41 @@
   "branch": "fix-primitives-rotate-edge-cases"
  },
  {
+  "id": "crust-render",
+  "repo": "google/comprehensive-rust",
+  "kind": "pr",
+  "title": "Fix course pages that render incorrectly",
+  "branch": "fix-rendering-and-links"
+ },
+ {
+  "id": "crust-fund",
+  "repo": "google/comprehensive-rust",
+  "kind": "pr",
+  "title": "Fix a few statements in the Fundamentals material",
+  "branch": "fix-fundamentals-content"
+ },
+ {
+  "id": "crust-idiom",
+  "repo": "google/comprehensive-rust",
+  "kind": "pr",
+  "title": "idiomatic: fix a few incorrect statements and signatures",
+  "branch": "fix-idiomatic-content"
+ },
+ {
+  "id": "crust-unsafe",
+  "repo": "google/comprehensive-rust",
+  "kind": "pr",
+  "title": "unsafe-deep-dive: fix samples and notes that don't match",
+  "branch": "fix-unsafe-deep-dive-content"
+ },
+ {
+  "id": "crust-conc",
+  "repo": "google/comprehensive-rust",
+  "kind": "pr",
+  "title": "Fix notes in the concurrency and bare-metal material",
+  "branch": "fix-concurrency-bare-metal"
+ },
+ {
   "id": "filament-qadd-arm64",
   "repo": "google/filament",
   "kind": "issue",

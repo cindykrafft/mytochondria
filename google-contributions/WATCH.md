@@ -1,12 +1,12 @@
 # Watching the Google filings
 
 A scheduled Routine starts a fresh Claude Code session every three hours. That session checks
-google/gson, google/googletest and google/guava for what has been filed from the Google OSS Filing Console, and
+google/gson, google/googletest, google/guava, google/filament and google/comprehensive-rust for what has been filed from the Google OSS Filing Console, and
 writes the result into the console's database. The page then shows it on every card with no
 republish needed.
 
 - Console: https://claude.ai/artifact/PbYYM9MogdfvzJSTybwbuf
-- Author on GitHub: `cindykrafft` (forks: `cindykrafft/gson`, `cindykrafft/googletest`, `cindykrafft/guava`)
+- Author on GitHub: `cindykrafft` (forks: `cindykrafft/gson`, `cindykrafft/googletest`, `cindykrafft/guava`, `cindykrafft/comprehensive-rust`)
 - Items to watch: `console/watch.json`. Each entry has an `id` (the database document id), `repo`,
   `kind` (`pr`, `form` = issue, `report` = the InetAddress issue-or-private-report), `title` and
   `branch` for PRs.

@@ -86,6 +86,24 @@ pr("guava-rotate", "google/guava", "fix-primitives-rotate-edge-cases", "guava-fi
    "Third guava code fix: the same small fix in all 8 primitive classes.", base="master",
    note="There is no issue for this bug.")
 
+# comprehensive-rust: small content PRs merge in about 4 days; no issue needed first.
+CRUST_NOTE = "comprehensive-rust takes small content fixes without an issue. English edits make the translations fuzzy; PRs leave the po/ files alone."
+pr("crust-render", "google/comprehensive-rust", "fix-rendering-and-links", "crust-rendering-pr.md",
+   "comprehensive-rust 1: pages that render wrong on the live site (a \"not found\" outline, speaker notes shown on a slide, Box<T> shown as \"Box\"). Includes a small escaping fix in the course's mdbook-course tool.",
+   note=CRUST_NOTE)
+pr("crust-fund", "google/comprehensive-rust", "fix-fundamentals-content", "crust-fundamentals-pr.md",
+   "comprehensive-rust 2: Fundamentals fixes (RefCell output, #[doc(hidden)], varint length, extern qualifiers). Can go in alongside the first.",
+   note=CRUST_NOTE)
+pr("crust-idiom", "google/comprehensive-rust", "fix-idiomatic-content", "crust-idiomatic-pr.md",
+   "comprehensive-rust 3: Idiomatic Rust fixes, the most substantive being the dyn-compatibility slide. Open after the first PR gets a response.",
+   note=CRUST_NOTE)
+pr("crust-unsafe", "google/comprehensive-rust", "fix-unsafe-deep-dive-content", "crust-unsafe-deep-dive-pr.md",
+   "comprehensive-rust 4: Unsafe Deep Dive fixes, including item 6 of #3021 (#3284 covers items 2-4).",
+   note=CRUST_NOTE)
+pr("crust-conc", "google/comprehensive-rust", "fix-concurrency-bare-metal", "crust-concurrency-bare-metal-pr.md",
+   "comprehensive-rust 5: concurrency and bare-metal speaker-note fixes.",
+   note=CRUST_NOTE)
+
 # filament: issues first (CONTRIBUTING asks for an issue before a PR). Order from kits/filament-issues-index.json.
 _fidx_path = os.path.join(S, "filament-issues-index.json")
 if os.path.exists(_fidx_path):
