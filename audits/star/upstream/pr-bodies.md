@@ -2,7 +2,7 @@
 
 ### PR 1 — `fix/undefined-strand-transcripts` — "Treat transcripts with undefined GTF strand ('.') as '+' in Aligned.toTranscriptome.out.bam and count them from both strands in STARsolo"
 
-Fixes #NNN.
+Fixes #2707.
 
 **Purpose: bug fix.** A transcript whose GTF strand is `.` is stored with strand 0, and five
 places test `trStr==1 ? Str : 1-Str` (or the `geneFull.str` equivalent), which treats strand 0

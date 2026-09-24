@@ -1230,6 +1230,28 @@
    "merged": false,
    "comments": 6,
    "updated": "2026-07-08T17:41:42Z"
+  },
+  {
+   "repo": "alexdobin/STAR",
+   "number": 2707,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-09-24T18:23:25Z",
+   "title": "Transcripts with undefined GTF strand ('.') get inverted strand flags and reverse-complemented sequences in Aligned.toTranscriptome.out.bam, and lose their sense reads in STARsolo --soloStrand Forward",
+   "note": "STA1 issue filed by the owner 2026-09-24; PR waits for a fork of alexdobin/STAR"
+  },
+  {
+   "repo": "samtools/samtools",
+   "number": 2388,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-09-24T16:51:00Z",
+   "title": "stats: count duplicates for the same records as \"sequences\"; include isize 0 in the SD",
+   "note": "ST3 PR filed 2026-09-24; head 47d3376 after the test.pl mode fix; fork CI green"
   }
  ],
  "merge_checked": [
