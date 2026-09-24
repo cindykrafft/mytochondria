@@ -93,10 +93,10 @@ Reviewed google/comprehensive-rust HEAD `1287785`, using rustc 1.94.1 (edition 2
 - **#2997.**
   - modules/filesystem.md:21–23 says "a `garden::vegetables` module can be found at `src/garden/vegetables.rs`" without saying it's declared inside `garden.rs`.
   - Suggested rewording: "declaring `mod vegetables;` inside `src/garden.rs` ...".
-  - The issue has a comment we couldn't read, so read it first.
+  - **Claimed (read 2026-09-24):** Vedag812 asked to work on it on 2026-02-14, and mgeisler replied "yes please, send us a PR" on 2026-03-05. No PR has appeared since, so we leave it.
 - **#3021 item 6.**
   - unsafe-deep-dive/pinning/self-referential-buffer.md has `{{%segment outline}}` on a nested sub-slide, so it prints the whole Pinning outline.
-  - Fix: delete it. PR #3284 covers items 2–4 of the same issue but not this one.
+  - Fix: delete it. PR #3284 covers items 2–4 of the same issue but not this one. The thread has only a cc to timClicks, so item 6 is unclaimed. It is included in the fix-unsafe-deep-dive-content branch.
 
 ## Ruled out
 
