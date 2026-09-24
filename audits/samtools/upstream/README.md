@@ -7,6 +7,49 @@ HTSlib `develop` @ `e503e04`). **Nothing filed, nothing pushed.** The fix is one
 `git am`-able from `0001-stats-grow-the-coverage-ring-buffer-instead-of-wrapp.patch`
 against `ce612d2` (`git apply --check` clean)._
 
+_Update 2026-09-24: ST1 (+ST2) was merged as PR #2379 (rebased, `de749a6` on `develop`,
+daviesrob: "Looks OK, thanks. I've confirmed that the results match those from the
+original code when modified to start with a buffer that doesn't need to be resized.");
+issue #2378 closed as completed. The second kit, ST3 (= notes N2 + N3), is below._
+
+## ST3 (2026-09-24): N2 duplicate counts + N3 insert-size SD — comment on #696 + PR
+
+**Prior report found.** The tracker search for N2 (2026-09-24, `search_issues` "stats reads
+duplicated supplementary") returned **#696** "Should stats exclude supplementary alignments
+when counting duplicates?" (2017-06-22, open, opened by pd3, a maintainer, no comments,
+no linked change; read in full 2026-09-24 via the helper artifact "Mytochondria threads
+samtools 696 1046"). It asks whether duplicate marking flags the supplementary record too,
+notes that `stats` would then overestimate the duplicate rate, and proposes the exact
+move this kit makes (the `IS_DUP` block into the `IS_ORIGINAL` block). So N2 is **not a
+new issue**: it is a comment on #696 with the reproduction and the measured effect, and a
+PR that says `Fixes #696`. N3 has no prior report (#1046 "insert size average difference",
+closed 2019 for lack of data, and its linked commit 618d624 "Fix stats insert size bugs"
+touch the mean and the `-m` bulk rule, not the SD loop); it rides as the second, one-line
+commit of the same PR, offered to be dropped if the maintainers want it separate.
+
+| file | what |
+|---|---|
+| `comment-st3-696-dup-supplementary.md` | the comment for #696: two-pair MCVE with output on four builds, the 25.0 % vs 20.0 % measurement, the PR announcement including the SD commit |
+| `mcve_st3_stats_dup_supp_isize_sd.sh`, `mcve_outputs_st3.txt` | the two reproductions (duplicates 5 of 4 sequences; SD 81.6 for a population SD of 141.4) run on `develop`, 1.19.2, 1.10, 1.9 and the patched build |
+| `0002-stats-count-duplicates-for-the-same-records-as-seque.patch` | commit `99c2244`: `IS_DUP` block moved inside `IS_ORIGINAL`, `test/stat/22_dup_supp.sam` + `22.stats.expected`, `test/test.pl` line, NEWS bullet |
+| `0003-stats-include-the-isize-0-bin-in-the-insert-size-sta.patch` | commit `723af0e`: SD loop from `isize=0`, `test/stat/23_isize_zero.sam` + `23.stats.expected`, `test/test.pl` line, NEWS bullet |
+| `pr-bodies.md` § PR 2 | PR title and body draft (`Fixes #696`, `Assisted-by:` line) |
+
+Branch `fix/stats-dup-supplementary-isize-sd` on `cindykrafft/samtools` = `99c2244` +
+`723af0e` on `develop` `de749a6`, author Cindy Krafft, `Assisted-by: Claude:claude-fable-5-1`
+trailer, **no `Signed-off-by` yet** (to be added at the submitter's word, as for BC1).
+
+Verification: `perl test/test.pl` on the branch 1011 passed / 0 failed / 32 expected
+failures, `make test` PASS (HTSlib `develop` `bgzip` on PATH for the test script); with
+`stats.c` reverted the two new tests fail (`22.stats.expected`: 10 / 860 for 8 / 800;
+`23.stats.expected`: SD 60.1 for 130.5). Affected: `develop`, 1.19.2, 1.10, 1.9
+(`mcve_outputs_st3.txt`); the code is unchanged since at least 1.5 (#696's line links).
+
+Order: post the comment on #696 first, then open the PR against `develop` with the body
+from `pr-bodies.md` rewritten in your own words, keeping `Fixes #696` and the
+`Assisted-by:` line; sign off the two commits (`git rebase --signoff de749a6` on the
+fetched branch, or ask me to add the lines) before opening it.
+
 Filing tier (README step 5): **now** for ST1 — it changes a number that reaches papers
 (`samtools stats` `COV` coverage distribution and the `-t`/`-g` "percentage of target
 genome with coverage > N", 117.77 % on a simulated gene) under default settings, on the
