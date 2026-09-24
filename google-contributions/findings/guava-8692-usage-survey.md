@@ -42,7 +42,8 @@ and reported `shard-match-limit`, so they could not be trusted to be complete.
 | Q6 | `lang:Java patterntype:literal Maps.filterEntries( count:all archived:yes -file:com/google/common/collect/ select:file timeout:5m` | 127 | 80 | Yes (no limit reported, 56 s) |
 | Q7 | `lang:Kotlin patterntype:regexp /filter(Keys\|Values\|Entries)\(/ and /\.(first\|...\|pollLast)Entry\(/ count:100001000 archived:yes select:file` | 0 | 0 | Yes (no limit reported) |
 | Q8 | `patterntype:regexp /Maps\.filter(Keys\|Values\|Entries)\(/ and /(first\|...\|pollLast)Entry/ -lang:Java count:100001000 archived:yes select:file` | 0 | 0 | Yes (no limit reported) |
-| Q9 | Kotlin / Scala / Groovy `Maps\.filter(Keys\|Values\|Entries)\(` (see note below) | KOTLIN_RESULT | | |
+| Q9 | `lang:Kotlin patterntype:regexp Maps\.filter(Keys\|Values\|Entries)\( count:all archived:yes` | 0 | 0 | Yes (no limit reported) |
+| Q10 | `patterntype:regexp file:\.(scala\|groovy)$ Maps\.filter(Keys\|Values\|Entries)\( count:all archived:yes` | 1 | 1 | Yes (no limit reported) |
 
 Two single-line regex queries (filter call and navigation call on the same line) returned 0 results
 but also hit the 60 s limit, so I don't count them as evidence.
@@ -72,7 +73,8 @@ I read every file in both sets (41 distinct files, listed below; some rows group
   `SortedMap` can't be navigated without a cast.
 - Absence in Sourcegraph's index is not absence in public code, and says nothing about
   Google-internal or other private code.
-- Sourcegraph rate-limited me (HTTP 429) after the bulk download step. See the note on Q9.
+- Sourcegraph rate-limited me (HTTP 429) after the bulk download step. Queries that ran during the
+  rate limit returned nothing and are not counted. Q9 and Q10 were run again after the limit lifted.
 
 ## Candidates examined
 
@@ -136,7 +138,9 @@ tsuzcx/qq_apk. I excluded these as Guava copies too.)
 - Public API that returns a filtered NavigableMap typed as `NavigableMap` (so downstream callers
   could navigate it): none found in these files. teku's `getVotesToConsider` is `private`.
 - `pollFirstEntry`/`pollLastEntry` on a filtered map: none found.
-- Kotlin/Scala/Groovy: KOTLIN_SUMMARY
+- Kotlin/Scala/Groovy: Q9 found 0 Kotlin files. Q10 found 1 Groovy file,
+  [Netflix/asgard BeanState.groovy#L69](https://github.com/Netflix/asgard/blob/648102625a4b6d2c3669b7837c2a5768c20b16a3/src/groovy/com/netflix/asgard/BeanState.groovy#L69),
+  which calls `Maps.filterKeys` with no navigation calls in the file.
 
 ## Conclusion
 

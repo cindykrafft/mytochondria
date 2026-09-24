@@ -124,6 +124,12 @@ _dt = json.load(open(os.path.join(S, "googletest-deathtest-issue.json")))
 _dt["what-happened"] = _block("googletest-5105.md", "## Revised field", fence="```")
 _dt_body = "\n\n".join("### " + FORM_LABELS[k] + "\n\n" + v for k, v in _dt.items() if k != "title")
 corrections = [
+  dict(id="reply-guava-8692", repo="google/guava", number=8692, kind="pr", level="Reply",
+       what="Reply to cpovirk with the public-code survey",
+       why=["cpovirk wrote: \"the main question is going to be whether we can find someone who is relying upon some part of it (like maybe to call `setValue`, hopefully with values that are valid!) ... I'll do some testing.\"",
+            "This reply reports what a search of Sourcegraph-indexed public code found: one caller of a navigation method on a filtered NavigableMap (teku, `lastEntry().getValue()`, unaffected) and no `setValue`/cast/identity use. It states the search's limits. Full method and tables: findings/guava-8692-usage-survey.md."],
+       how="Open the PR and paste this into the comment box at the bottom of the conversation.",
+       text=open(os.path.join(S, "guava-8692-reply.md")).read().strip()),
   dict(id="fix-gtest-5105", repo="google/googletest", number=5105, kind="issue", level="Recommended",
        what="Replace the whole issue body",
        why=["It said `*` and `?` in a test name also break death tests. In testing, only `:` and `-` do: names with `*` or `?` still match themselves, so those tests run normally."],

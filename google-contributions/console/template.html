@@ -166,8 +166,8 @@ function render(){
   const corr = (DATA.corrections||[]);
   const corrDone = corr.filter(c=>state[c.id+"_done"]).length;
   document.getElementById("root").innerHTML =
-    (corr.length?`<h2>Corrections to filed items <span class="eyebrow">${corrDone} of ${corr.length} done</span></h2>
-     <p class="watchline">From checking what was already filed against the writing rules: say only what the code and our runs show. GitHub can't prefill an edit, so copy the text and paste it into the edit box.</p>
+    (corr.length?`<h2>Replies and corrections for filed items <span class="eyebrow">${corrDone} of ${corr.length} done</span></h2>
+     <p class="watchline">Replies to maintainers, and corrections from checking what was already filed against the writing rules. GitHub can't prefill a comment or an edit, so copy the text and paste it.</p>
      <ol class="steps">${corr.map(corrCard).join("")}</ol>`:"") +
     `<h2>File in this order <span class="eyebrow">${DATA.items.filter(isDone).length} of ${DATA.items.length} filed</span></h2>
      <p class="watchline">${WATCH&&WATCH.checkedAt?`A watcher session checks the repositories every three hours. Last check ${esc(ago(WATCH.checkedAt))}${WATCH.note?": "+esc(WATCH.note):"."}`:"Filing status comes from a watcher session that checks the repositories every three hours."}</p>
