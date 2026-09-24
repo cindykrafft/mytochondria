@@ -1,0 +1,76 @@
+cohort: 179
+full text: 0   survey-cache fallback: 179   ({'offline': 179})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  Seurat framework                                 150
+  Scrublet also used                               78
+  DoubletFinder also used                          73
+  Scanpy framework                                 65
+  multiome / ATAC                                  37
+  snRNA-seq (nuclei)                               37
+  doublet score used / threshold stated            32
+  10x Chromium                                     31
+  scDblFinder named                                31
+  CellBender / SoupX (ambient) also used           29
+  doublets removed                                 27
+  Bioconductor / SingleCellExperiment              21
+  per-sample run (samples= / per library)          14
+  genetic demultiplexing (demuxlet, souporcell, vireo, cellSNP, hashing) 9
+  doublet rate stated (dbr / % per 1000)           6
+  scDblFinder version stated                       6
+  DoubletDetection / Solo / other                  5
+  spatial / other platform                         5
+  doublet origins / cell-type combinations analysed 2
+  cluster-based doublets (clusters=)               2
+  scds / cxds / bcds also used                     1
+
+VERSION FAMILY: {'1.12': 2, '1.16': 2, '1.13': 1, '1.4': 1}
+VERSIONS (top 20): {'1.16.0': 2, '1.12': 1, '1.13.13': 1, '1.4.0': 1, '1.12.0': 1}
+
+doublet rates stated: {'5': 1, '4.7': 1}
+% doublets reported: {'10': 1}
+clusters= arguments: {'2': 1, 'colLabels': 1}
+score thresholds: {'0.01': 2, '0.3': 2, '0.1': 1, '0.25': 1}
+cells per sample: {}
+
+CO-PACKAGES (top 40):
+  UMAP                     166
+  Seurat                   150
+  R                        114
+  ImageJ                   79
+  Scanpy                   65
+  DESeq2                   46
+  MACS2                    46
+  STAR                     44
+  GSEA                     40
+  ggplot2                  40
+  Python                   33
+  edgeR                    29
+  clusterProfiler          28
+  scikit-learn             28
+  SCENIC                   27
+  limma                    27
+  SAMtools                 25
+  scVelo                   24
+  Monocle                  23
+  SoupX                    22
+  SciPy                    22
+  CellPhoneDB              22
+  FastQC                   21
+  Signac                   20
+  Slingshot                20
+  Bowtie2                  19
+  HOMER                    19
+  CellChat                 19
+  BEDTools                 19
+  AnnData                  19
+  Cutadapt                 18
+  featureCounts            17
+  NumPy                    17
+  pheatmap                 17
+  ArchR                    16
+  QuPath                   15
+  Enrichr                  15
+  fgsea                    15
+  seaborn                  14
+  Bioconductor             14

@@ -1,0 +1,29 @@
+scDblFinder 1.16.0 
+ok   getExpectedDoublets(only.heterotypic=TRUE): 2 p_i p_j dbr N for every pair (sum 25.400 = dbr N (1 - sum p^2) 25.400) 
+ok   getExpectedDoublets(only.heterotypic=FALSE): adds p_i^2 dbr N; total dbr N  
+ok   getExpectedDoublets default dbr = 0.01 x N/1000  
+ok   propHomotypic = sum p_i^2 (0.3650) 
+ok   .defaultKnnKs(n=500) = {3,10,15,20,25,50,kmax} capped at kmax=max(ceil(sqrt(n/2)),25)=25 3,10,15,20,25 
+ok   .defaultKnnKs(n=2000) = {3,10,15,20,25,50,kmax} capped at kmax=max(ceil(sqrt(n/2)),25)=32 3,10,15,20,25,32 
+ok   .defaultKnnKs(n=5000) = {3,10,15,20,25,50,kmax} capped at kmax=max(ceil(sqrt(n/2)),25)=50 3,10,15,20,25,50 
+ok   .defaultKnnKs(n=20000) = {3,10,15,20,25,50,kmax} capped at kmax=max(ceil(sqrt(n/2)),25)=100 3,10,15,20,25,50,100 
+   cxds2 test matrix: fraction non-zero 0.208 
+ok   cxds2 (sparse input, 25 of 40 genes, 11 excluded cells) equals the double-loop port on all 150 cells (max |diff| 3.33e-16) 
+ok   cxds2 (dense input, all genes, no exclusions) equals the port  
+   low-sparsity matrix: fraction non-zero 0.777 ; cxds2(sparse) vs cxds2(dense) max |diff| 3.89e-16 
+   doubletThresholding(method='dbr') on a table with only real cells and no cluster column: threshold NaN 
+FAIL doubletThresholding(method='dbr'): threshold = quantile(score, 1 - dbr) (the documented 'simple' method) (dbr is first corrected for homotypic doublets from the artificial doublets' scores; with none the correction is NaN) 
+ok   doubletThresholding(method='dbr') with clusters: threshold = quantile(score, 1 - dbr x (1 - sum p_i^2)) (heterotypic rate) (0.6612) 
+ok   doubletThresholding(method='dbr') with clusters: calls = score > threshold  
+ok   doubletThresholding(method='griffiths'): threshold = qnorm(1-p, median, 1.4826 x median of the positive deviations)  
+ok   .optimThreshold(dbr=0.05, dbr.sd=0.02, stringency=0.5) equals optimize() over the ported cost (0.38787 vs 0.38787) 
+ok   .optimThreshold(dbr=0.05, dbr.sd=0.02, stringency=0.7) equals optimize() over the ported cost (0.42166 vs 0.42166) 
+ok   .optimThreshold(ths=...): the tabulated cost equals the port at every threshold  
+ok   createDoublets(resamp=0, halfSize=0): one column per pair, each the sum of the two cells  
+ok   createDoublets(resamp=halfSize=0.25): integer counts throughout (the halved doublets are the resampled ones)  
+   createDoublets(resamp=0.1, halfSize=0.5): columns with non-integer counts 27 of 59 
+FAIL createDoublets(4 pairs, adjustSize=0.25 -> one pair selected for size adjustment): 4 doublets returned (got: 3 ) 
+   createDoublets(4 pairs, adjustSize=0.25, default resamp/halfSize): subscript out of bounds 
+ok   createDoublets(40 pairs, adjustSize=0.25): 40 doublets, every column's library size equals some pair's total  
+FAIL createDoublets(40 pairs, adjustSize=0.25): column i is pair i (same library size) (37 of 40 columns sit at another pair's position) 
+FAIL createDoublets(40 pairs, adjustSize=0.25, halfSize=0.5): ceiling(0.5 x 40) = 20 columns halved (5 halved: the code halves ceiling(halfSize x number of size-adjusted pairs) columns) 

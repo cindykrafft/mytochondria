@@ -1,0 +1,13 @@
+scDblFinder 1.4.0 
+   clusters as cell-type names (A..D): 1603 doublets called; stats combinations A+A+B,A+A+C,A+B+A+C; sum(observed) = 127; origins of the called doublets e.g. NA,2,B+C
+FAIL clusters as cell-type names (A..D): scDblFinder.stats$observed sums to the number of called doublets with an origin (127 vs 1016) 
+   clusters as numeric strings (0..3): 1633 doublets called; stats combinations 0+1,0+2,1+2; sum(observed) = 154; origins of the called doublets e.g. 1,13,NA
+FAIL clusters as numeric strings (0..3): scDblFinder.stats$observed sums to the number of called doublets with an origin (154 vs 1013) 
+   clusters as integers 1..k: 1632 doublets called; stats combinations 1+2,1+3,2+3; sum(observed) = 149; origins of the called doublets e.g. 2,13,NA
+FAIL clusters as integers 1..k: scDblFinder.stats$observed sums to the number of called doublets with an origin (149 vs 995) 
+   clusters as factor with names: 1630 doublets called; stats combinations 1+2,1+3,2+3; sum(observed) = 0; origins of the called doublets e.g. 19,2,18
+FAIL clusters as factor with names: scDblFinder.stats$observed sums to the number of called doublets with an origin (0 vs 1008) 
+  Passed unrecognized parameters: verbose. This warning will become an error in a future version.
+  Passed unrecognized parameters: verbose. This warning will become an error in a future version.
+  Passed unrecognized parameters: verbose. This warning will become an error in a future version.
+  Passed unrecognized parameters: verbose. This warning will become an error in a future version.

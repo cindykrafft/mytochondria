@@ -1,0 +1,25 @@
+scDblFinder 1.16.0 
+   3218 cells, 218 doublets (6.8 %), 176 heterotypic, clusters given as the true cell types (homotypic doublets carry their type's label)
+   installed createDoublets: called 176 (5.5 %); recall 0.807; FDR 0.000; AUC 1.0000; threshold 0.236
+   installed createDoublets: mostLikelyOrigin correct for 100.0 % of the 176 heterotypic doublets (100.0 % of the called ones); originAmbiguous on 0.0 %
+   installed createDoublets: stats table (expected / observed / truth) for the 10 combinations: sum|observed - truth| = 0
+  combination expected observed truth difficulty
+1         A+B 17.34780       28    28  0.3420968
+3         B+C 10.99680       28    28  0.3986850
+4         A+D  9.31198       23    23  0.4106055
+2         A+C 12.60208       22    22  0.3845423
+5         B+D  8.12580       19    19  0.4228619
+6         C+D  5.90288       17    17  0.4503188
+   corrected createDoublets: called 176 (5.5 %); recall 0.807; FDR 0.000; AUC 1.0000; threshold 0.236
+   corrected createDoublets: mostLikelyOrigin correct for 100.0 % of the 176 heterotypic doublets (100.0 % of the called ones); originAmbiguous on 0.0 %
+   corrected createDoublets: stats table (expected / observed / truth) for the 10 combinations: sum|observed - truth| = 0
+  combination expected observed truth difficulty
+1         A+B 17.34780       28    28  0.3420968
+3         B+C 10.99680       28    28  0.3986850
+4         A+D  9.31198       23    23  0.4106055
+2         A+C 12.60208       22    22  0.3845423
+5         B+D  8.12580       19    19  0.4228619
+6         C+D  5.90288       17    17  0.4503188
+ok   installed: mostLikelyOrigin of the heterotypic doublets is right at least 90 % of the time (100.0 %) 
+ok   corrected: mostLikelyOrigin of the heterotypic doublets is right at least 90 % of the time (100.0 %) 
+   calls that differ between the two runs: 0 of 3218 cells; score correlation 1.0000

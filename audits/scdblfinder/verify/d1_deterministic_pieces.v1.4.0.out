@@ -1,0 +1,13 @@
+scDblFinder 1.4.0 
+FAIL getExpectedDoublets(only.heterotypic=TRUE): 2 p_i p_j dbr N for every pair (sum 18.608 = dbr N (1 - sum p^2) 25.400) 
+FAIL getExpectedDoublets(only.heterotypic=FALSE): adds p_i^2 dbr N; total dbr N  
+ok   getExpectedDoublets default dbr = 0.01 x N/1000  
+   propHomotypic: not in this version
+   .defaultKnnKs: not in this version
+   cxds2 test matrix: fraction non-zero 0.208 
+ok   cxds2 (sparse input, 25 of 40 genes, 11 excluded cells) equals the double-loop port on all 150 cells (max |diff| 3.33e-16) 
+ok   cxds2 (dense input, all genes, no exclusions) equals the port  
+   low-sparsity matrix: fraction non-zero 0.777 ; cxds2(sparse) vs cxds2(dense) max |diff| 4.44e-16 
+Error in doubletThresholding(d, dbr = 0.08, method = "dbr", returnType = "threshold") : 
+  unused arguments (method = "dbr", returnType = "threshold")
+Execution halted

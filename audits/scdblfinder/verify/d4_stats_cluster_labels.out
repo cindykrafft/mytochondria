@@ -1,0 +1,10 @@
+scDblFinder 1.16.0 
+   clusters as cell-type names (A..D): 80 doublets called; stats combinations A+B,A+C,B+C; sum(observed) = 80; origins of the called doublets e.g. A+B,A+C,B+C
+ok   clusters as cell-type names (A..D): scDblFinder.stats$observed sums to the number of called doublets with an origin (80 vs 80) 
+   clusters as numeric strings (0..3): 80 doublets called; stats combinations 0+1,0+2,1+2; sum(observed) = 80; origins of the called doublets e.g. 0+1,0+2,1+2
+ok   clusters as numeric strings (0..3): scDblFinder.stats$observed sums to the number of called doublets with an origin (80 vs 80) 
+   clusters as integers 1..k: 80 doublets called; stats combinations 1+2,1+3,2+3; sum(observed) = 80; origins of the called doublets e.g. 1+2,1+3,2+3
+ok   clusters as integers 1..k: scDblFinder.stats$observed sums to the number of called doublets with an origin (80 vs 80) 
+   clusters as factor with names: 80 doublets called; stats combinations 1+2,1+3,2+3; sum(observed) = 0; origins of the called doublets e.g. A+B,A+C,B+C
+FAIL clusters as factor with names: scDblFinder.stats$observed sums to the number of called doublets with an origin (0 vs 80) 
+There were 24 warnings (use warnings() to see them)

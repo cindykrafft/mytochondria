@@ -1,0 +1,31 @@
+From 3fa9d7a569d7b19283b877191a306fb55a149457 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 24 Sep 2026 21:12:00 +0000
+Subject: [PATCH] doubletThresholding: do not correct dbr for homotypic
+ doublets when there are no artificial doublets
+
+doubletThresholding(d, dbr=x, method='dbr') on a table that has only a score column
+(the documented minimal input) returned NaN: the homotypic correction estimates the
+unrecognisable proportion from the artificial doublets' scores, and with none of them
+the proportion is 0/0. Return the given rate in that case.
+---
+ R/doubletThresholding.R | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/R/doubletThresholding.R b/R/doubletThresholding.R
+index b6a1e94..3abdb0e 100644
+--- a/R/doubletThresholding.R
++++ b/R/doubletThresholding.R
+@@ -247,6 +247,9 @@ doubletThresholding <- function( d, dbr=NULL, dbr.sd=NULL, dbr.per1k=0.008,
+   }
+   dbr <- .gdbr(d, dbr=dbr)
+   if(is.null(d$cluster)){
++    # without artificial doublets there is nothing to estimate the homotypic
++    # proportion from; keep the given rate
++    if(sum(d$src=="artificial")==0) return(dbr)
+     th <- sum(d$src=="artificial")/nrow(d)
+     prop.homo <- sum(d$src=="artificial" & d$score<th)/sum(d$src=="artificial")
+     return(dbr * (1-prop.homo))
+-- 
+2.43.0
+

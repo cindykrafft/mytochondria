@@ -1,0 +1,11 @@
+scDblFinder 1.16.0 
+   default call:  743 doublets; 12 meta-cell, 1 triplet
+   adjustSize=0.25 (default): 650 cross-cluster doublets with an origin label, 0 (0.0 %) whose counts match a different pair of clusters
+   adjustSize=0: 650 cross-cluster doublets with an origin label, 0 (0.0 %) whose counts match a different pair of clusters
+ok   getArtificialDoublets(adjustSize=0): every cross-cluster doublet's counts match its origin label  
+ok   getArtificialDoublets(adjustSize=0.25, the default): every cross-cluster doublet's counts match its origin label (0.0 % mislabelled; createDoublets returns the size-adjusted doublets after the others, and the caller assigns the origins in the input order) 
+   adjustSize=0.25 with the corrected createDoublets: 650 cross-cluster doublets with an origin label, 0 (0.0 %) whose counts match a different pair of clusters
+ok   corrected createDoublets: every cross-cluster doublet's counts match its origin label  
+ok   corrected createDoublets: column i is pair i, size-adjusted columns keep the pair's total library size  
+ok   corrected createDoublets: ceiling(halfSize x pairs) columns are halved (20 of 40) 
+ok   corrected createDoublets: 4 pairs with adjustSize=0.25 give 4 integer doublets  

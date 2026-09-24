@@ -1,0 +1,37 @@
+From 5d42782f06916833f3febee2e71a7921fd3f5d84 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 24 Sep 2026 21:12:00 +0000
+Subject: [PATCH] scDblFinder: keep factor cluster labels as labels in the
+ results table
+
+d$cluster is initialised to NA and then filled by position; a factor assigned that
+way is stored as its integer codes, while the artificial doublets' origins are built
+from the level names. With clusters given as a factor (a colData column, or the
+mockDoubletSCE example) metadata(sce)$scDblFinder.stats reports observed = 0 for
+every combination, the FNR and difficulty columns are NA, plotDoubletMap shows
+nothing, and scDblFinder.cluster in the output holds the codes instead of the
+labels. Character and integer labels are unaffected.
+
+Convert a factor to character before the assignment.
+---
+ R/scDblFinder.R | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/R/scDblFinder.R b/R/scDblFinder.R
+index 4096698..4ec8dde 100644
+--- a/R/scDblFinder.R
++++ b/R/scDblFinder.R
+@@ -487,7 +487,9 @@ scDblFinder <- function(
+   d <- d$d
+   if(!is.null(clusters)){
+     d$cluster <- NA
+-    d[colnames(sce),"cluster"] <- clusters
++    # a factor assigned into the NA column would be stored as its integer codes,
++    # which no longer match the origin labels built from the level names
++    d[colnames(sce),"cluster"] <- if(is.factor(clusters)) as.character(clusters) else clusters
+   }else{
+     d$cluster <- NULL
+   }
+-- 
+2.43.0
+

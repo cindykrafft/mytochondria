@@ -1,0 +1,26 @@
+scDblFinder runs for the three fix branches (2026-09-24, R 4.3.3, Bioconductor 3.18, xgboost 3.2.1.1,
+BiocNeighbors 1.20.2; the devel branch, 1.27.6, needs newer dependencies and does not install here)
+
+The fixes touch code that is identical on devel (2d0e5e4) and on the 1.16.0 release commit (eb6af9b),
+so they were applied to a 1.16.0 branch (fix-1.16.0-all, all three changes), installed into a separate
+library, and exercised there; the patches in this directory are the same changes committed on top of
+devel, one branch each.
+
+branch (on devel)                       commit    verification on the 1.16.0 build with the change
+fix/artificial-doublet-order            755fb0e   ../verify/d2_artificial_doublet_origins.patched.out: 0 of 650 cross-cluster
+                                                  artificial doublets mislabelled (48.8 % before); d3_end_to_end_origins.patched.out:
+                                                  scDblFinder.mostLikelyOrigin right for 100 % of 176 heterotypic doublets (24.4 %
+                                                  before), calls unchanged; d1_deterministic_pieces.patched.out: column i is pair i,
+                                                  20 of 40 halved, 4 pairs -> 4 doublets (dropped one and failed before)
+fix/factor-cluster-labels               5d42782   d4_stats_cluster_labels.patched.out: with a factor, sum(observed) = 80 = the called
+                                                  doublets (0 before); scDblFinder.stats FNR and difficulty filled
+fix/dbr-threshold-without-artificial    3fa9d7a   d1_deterministic_pieces.patched.out: doubletThresholding(method='dbr') on a
+                                                  score-only table = quantile(score, 1 - dbr) (NaN before)
+
+Package test suite (tests/testthat, 4 files, 17 expectations, testthat::test_dir):
+  installed 1.16.0             17 pass, 0 fail, 0 error, 0 skip
+  1.16.0 + all three changes   17 pass, 0 fail, 0 error, 0 skip
+(logs testthat-installed.log / testthat-patched.log in the session scratchpad)
+
+None of the suite's tests covers the origin labels, the stats table with factor labels or the "dbr"
+method; the harness runs above are the behavioural checks.
