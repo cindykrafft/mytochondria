@@ -7,7 +7,7 @@ is separate from the Mytochondria audits and is kept on its own branch.
   `gen.py` builds `google-filing-console.html` from `template.html` and the kits, and also writes
   `watch.json`, the list the watcher checks.
 - `kits/`: the PR descriptions and issue texts, exactly as the console submits them.
-- `findings/`: the bug hunts (gson, googletest, guava, filament) and the guava #8692 usage surveys. Each finding was reproduced against the upstream HEAD of the day
+- `findings/`: the bug hunts (gson, googletest, guava, filament) and the comprehensive-rust content review and the guava #8692 usage surveys. Each finding was reproduced against the upstream HEAD of the day
   and checked for existing reports.
 - `CLAUDE.md`: rules for everything we write upstream (don't overstate; say only what the code and our runs show).
 - `WATCH.md`: how the scheduled watcher keeps the console's filing status current.
