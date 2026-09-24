@@ -1,0 +1,84 @@
+From eba097ba6bc41b1cb9182a031483f414ff11c194 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 24 Sep 2026 19:18:00 +0000
+Subject: [PATCH] CollectHsMetrics: divide ZERO_CVG_TARGETS_PCT by the number
+ of unique targets
+
+TargetMetricsCollector counts the targets without coverage over the uniqued
+target list (overlapping and duplicate intervals merged) but divided by
+allTargets.getIntervals().size(), the number of intervals in the file as given.
+Until htsjdk 2.19.0 IntervalList.fromFiles() returned the union of the input
+lists, so the two counts agreed; since Picard 2.19.0 (htsjdk 2.19.0, samtools/htsjdk#1273)
+fromFiles() concatenates and the denominator is the raw interval count. A target
+file with overlapping intervals therefore understates the fraction of targets
+without coverage: 8 intervals merging to 6 unique targets, 4 of them uncovered,
+reported 0.5 instead of 0.667.
+
+The denominator is now the number of unique targets, which is also the set the
+numerator is counted over.
+---
+ .../directed/TargetMetricsCollector.java      |  4 ++-
+ .../directed/CollectHsMetricsTest.java        | 32 +++++++++++++++++++
+ 2 files changed, 35 insertions(+), 1 deletion(-)
+
+diff --git a/src/main/java/picard/analysis/directed/TargetMetricsCollector.java b/src/main/java/picard/analysis/directed/TargetMetricsCollector.java
+index 39341fad..fb313193 100644
+--- a/src/main/java/picard/analysis/directed/TargetMetricsCollector.java
++++ b/src/main/java/picard/analysis/directed/TargetMetricsCollector.java
+@@ -760,7 +760,9 @@ public abstract class TargetMetricsCollector<METRIC_TYPE extends MultilevelMetri
+             // compute the coverage value such that 80% of target bases have better coverage than it i.e. 20th percentile
+             // this roughly measures how much we must sequence extra such that 80% of target bases have coverage at least as deep as the current mean coverage
+             metrics.FOLD_80_BASE_PENALTY = metrics.MEAN_TARGET_COVERAGE / highQualityDepthHistogram.getPercentile(0.2);
+-            metrics.ZERO_CVG_TARGETS_PCT = zeroCoverageTargets / (double) allTargets.getIntervals().size();
++            // zeroCoverageTargets is counted over the unique (merged) targets, so divide by their number rather
++            // than by the number of intervals in the file, which may contain overlapping or duplicate entries.
++            metrics.ZERO_CVG_TARGETS_PCT = zeroCoverageTargets / (double) highQualityCoverageByTarget.size();
+ 
+             // Store the "how many bases at at-least X" calculations.
+             metrics.PCT_TARGET_BASES_1X   = (double) targetBases[1] / (double) targetBases[0];
+diff --git a/src/test/java/picard/analysis/directed/CollectHsMetricsTest.java b/src/test/java/picard/analysis/directed/CollectHsMetricsTest.java
+index d240e30c..44933cd5 100644
+--- a/src/test/java/picard/analysis/directed/CollectHsMetricsTest.java
++++ b/src/test/java/picard/analysis/directed/CollectHsMetricsTest.java
+@@ -171,6 +171,38 @@ public class CollectHsMetricsTest extends CommandLineProgramTest {
+         Assert.assertEquals(coverageHistogram.get(1).getValue(), 10.0);
+     }
+ 
++    @Test
++    public void testZeroCvgTargetsPctCountsUniqueTargets() throws IOException {
++        // Eight target intervals of which two pairs overlap, so there are six unique targets after merging.
++        // Reads cover the two merged targets only: four of the six unique targets have no coverage.
++        final SAMRecordSetBuilder builder = new SAMRecordSetBuilder(true, SortOrder.coordinate);
++        final IntervalList targets = new IntervalList(builder.getHeader());
++        targets.add(new Interval("chr1", 100, 200, false, "A1"));
++        targets.add(new Interval("chr1", 150, 250, false, "A2"));
++        targets.add(new Interval("chr1", 400, 500, false, "B1"));
++        targets.add(new Interval("chr1", 450, 550, false, "B2"));
++        targets.add(new Interval("chr1", 700, 800, false, "C"));
++        targets.add(new Interval("chr1", 900, 1000, false, "D"));
++        targets.add(new Interval("chr1", 1200, 1300, false, "E"));
++        targets.add(new Interval("chr1", 1500, 1600, false, "F"));
++        for (int i = 0; i < 10; ++i) {
++            builder.addFrag("a" + i, 0, 100, false, false, "100M", null, 30);
++            builder.addFrag("b" + i, 0, 400, false, false, "100M", null, 30);
++        }
++
++        final File dir = IOUtil.createTempDir("hsmetrics.test").toFile();
++        final File ts = new File(dir, "targets.interval_list").getAbsoluteFile();
++        targets.write(ts);
++        final File bam = writeBam(builder, new File(dir, "reads.bam"));
++        final File out = Files.createTempFile("hsmetrics.", ".txt").toFile();
++        runPicardCommandLine(Arrays.asList("SAMPLE_SIZE=0", "TI=" + ts.getPath(), "BI=" + ts.getPath(), "O=" + out.getPath(), "I=" + bam.getAbsolutePath()));
++        final HsMetrics metrics = readMetrics(out);
++        IOUtil.deleteDirectoryTree(dir);
++
++        Assert.assertEquals(metrics.TARGET_TERRITORY, 706L);          // the unique target bases
++        Assert.assertEquals(metrics.ZERO_CVG_TARGETS_PCT, 4 / 6d, 1e-6); // 4 of the 6 unique targets, not 4 of the 8 intervals in the file
++    }
++
+     @Test
+     public void testHsMetricsHandlesIndelsAppropriately() throws IOException {
+         final SAMRecordSetBuilder withDeletions = new SAMRecordSetBuilder(true, SortOrder.coordinate);
+-- 
+2.43.0
+

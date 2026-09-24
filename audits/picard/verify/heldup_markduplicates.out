@@ -1,0 +1,11 @@
+picard: 3.5.0-1-gc2a483d4-SNAPSHOT
+records 277, names 141; pairs marked inconsistently (one end only): []
+duplicate names: truth 114, picard 114; missing []; extra []
+  lib1 UNPAIRED_READS_EXAMINED      picard 8          truth 8          ok
+  lib1 READ_PAIRS_EXAMINED          picard 132        truth 132        ok
+  lib1 UNPAIRED_READ_DUPLICATES     picard 5          truth 5          ok
+  lib1 READ_PAIR_DUPLICATES         picard 109        truth 109        ok
+  lib1 READ_PAIR_OPTICAL_DUPLICATES picard 59         truth 59         ok
+  lib1 PERCENT_DUPLICATION          picard 0.819853   truth 0.8198529411764706 ok
+  lib1 ESTIMATED_LIBRARY_SIZE       picard 24         truth 24         ok
+  lib2 READ_PAIRS_EXAMINED 1 READ_PAIR_DUPLICATES 0 (truth 1, 0)

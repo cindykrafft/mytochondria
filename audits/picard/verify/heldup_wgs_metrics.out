@@ -1,0 +1,24 @@
+picard: 3.5.0-1-gc2a483d4-SNAPSHOT
+  GENOME_TERRITORY       picard 2980         truth 2980         ok
+  MEAN_COVERAGE          picard 1.270134     truth 1.270134     ok
+  SD_COVERAGE            picard 1.13084      truth 1.13084      ok
+  MEDIAN_COVERAGE        picard 1            truth 1.0          ok
+  MAD_COVERAGE           picard 1            truth 1.0          ok
+  PCT_EXC_MAPQ           picard 0.146663     truth 0.146663     ok
+  PCT_EXC_DUPE           picard 0.073332     truth 0.073332     ok
+  PCT_EXC_UNPAIRED       picard 0.012222     truth 0.012222     ok
+  PCT_EXC_BASEQ          picard 0.299071     truth 0.299071     ok
+  PCT_EXC_OVERLAP        picard 0.006111     truth 0.006111     ok
+  PCT_EXC_TOTAL          picard 0.537399     truth 0.537399     ok
+  PCT_1X                 picard 0.709396     truth 0.709396     ok
+  PCT_5X                 picard 0.010403     truth 0.010403     ok
+  PCT_10X                picard 0            truth 0.0          ok
+  FOLD_80_BASE_PENALTY   picard None         truth inf          MISMATCH
+  depth histogram: ok; mismatches 1
+
+--- HET_SNP_SENSITIVITY with every base Q30 and uniform depth (exact binomial vs Picard's sampler)
+  depth   4: MEAN_COVERAGE 4  HET_SNP_SENSITIVITY picard 0.6813  exact 0.687500  HET_SNP_Q picard 5
+  depth   6: MEAN_COVERAGE 6  HET_SNP_SENSITIVITY picard 0.886719  exact 0.890625  HET_SNP_Q picard 9
+  depth   8: MEAN_COVERAGE 8  HET_SNP_SENSITIVITY picard 0.963006  exact 0.964844  HET_SNP_Q picard 14
+  depth  12: MEAN_COVERAGE 12  HET_SNP_SENSITIVITY picard 0.979226  exact 0.980713  HET_SNP_Q picard 17
+  depth  20: MEAN_COVERAGE 20  HET_SNP_SENSITIVITY picard 0.998535  exact 0.998712  HET_SNP_Q picard 28

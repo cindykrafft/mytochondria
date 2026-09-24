@@ -1,0 +1,70 @@
+picard: 3.5.0-1-gc2a483d4-SNAPSHOT
+
+--- design 1: 200 inserts around 300 plus 10 outliers 5000-50000
+  READ_PAIRS                   picard 210          truth 210          ok
+  MEDIAN_INSERT_SIZE           picard 300          truth 300.0        ok
+  MODE_INSERT_SIZE             picard 300          truth 300          ok
+  MIN_INSERT_SIZE              picard 280          truth 280          ok
+  MAX_INSERT_SIZE              picard 50000        truth 50000        ok
+  MEDIAN_ABSOLUTE_DEVIATION    picard 10           truth 10.0         ok
+  MEAN_INSERT_SIZE             picard 301.8        truth 301.8        ok
+  STANDARD_DEVIATION           picard 14.275115    truth 14.27511451696139 ok
+  WIDTH_OF_10_PERCENT          picard 1            truth 1            ok
+  WIDTH_OF_20_PERCENT          picard 1            truth 1            ok
+  WIDTH_OF_30_PERCENT          picard 1            truth 1            ok
+  WIDTH_OF_40_PERCENT          picard 21           truth 21           ok
+  WIDTH_OF_50_PERCENT          picard 21           truth 21           ok
+  WIDTH_OF_60_PERCENT          picard 21           truth 21           ok
+  WIDTH_OF_70_PERCENT          picard 41           truth 41           ok
+  WIDTH_OF_80_PERCENT          picard 41           truth 41           ok
+  WIDTH_OF_90_PERCENT          picard 61           truth 61           ok
+  WIDTH_OF_95_PERCENT          picard 61           truth 61           ok
+  WIDTH_OF_99_PERCENT          picard 79401        truth 79401        ok
+  histogram (trimmed to MEDIAN + 10 MAD): ok
+  mismatches: 0
+
+--- design 2: even count, half-integer median
+  READ_PAIRS                   picard 10           truth 10           ok
+  MEDIAN_INSERT_SIZE           picard 225          truth 225.0        ok
+  MODE_INSERT_SIZE             picard 200          truth 200          ok
+  MIN_INSERT_SIZE              picard 200          truth 200          ok
+  MAX_INSERT_SIZE              picard 400          truth 400          ok
+  MEDIAN_ABSOLUTE_DEVIATION    picard 20           truth 20.0         ok
+  MEAN_INSERT_SIZE             picard 248          truth 248.0        ok
+  STANDARD_DEVIATION           picard 61.427464    truth 61.42746399887703 ok
+  WIDTH_OF_10_PERCENT          picard 11           truth 11           ok
+  WIDTH_OF_20_PERCENT          picard 11           truth 11           ok
+  WIDTH_OF_30_PERCENT          picard 11           truth 11           ok
+  WIDTH_OF_40_PERCENT          picard 31           truth 31           ok
+  WIDTH_OF_50_PERCENT          picard 31           truth 31           ok
+  WIDTH_OF_60_PERCENT          picard 51           truth 51           ok
+  WIDTH_OF_70_PERCENT          picard 51           truth 51           ok
+  WIDTH_OF_80_PERCENT          picard 71           truth 71           ok
+  WIDTH_OF_90_PERCENT          picard 151          truth 151          ok
+  WIDTH_OF_95_PERCENT          picard 351          truth 351          ok
+  WIDTH_OF_99_PERCENT          picard 351          truth 351          ok
+  histogram (trimmed to MEDIAN + 10 MAD): ok
+  mismatches: 0
+
+--- design 3: 50 inserts with 3 duplicates flagged (excluded by default)
+  READ_PAIRS                   picard 50           truth 50           ok
+  MEDIAN_INSERT_SIZE           picard 310          truth 310.0        ok
+  MODE_INSERT_SIZE             picard 300          truth 300          ok
+  MIN_INSERT_SIZE              picard 300          truth 300          ok
+  MAX_INSERT_SIZE              picard 320          truth 320          ok
+  MEDIAN_ABSOLUTE_DEVIATION    picard 10           truth 10.0         ok
+  MEAN_INSERT_SIZE             picard 308          truth 308.0        ok
+  STANDARD_DEVIATION           picard 7.559289     truth 7.559289460184544 ok
+  WIDTH_OF_10_PERCENT          picard 1            truth 1            ok
+  WIDTH_OF_20_PERCENT          picard 1            truth 1            ok
+  WIDTH_OF_30_PERCENT          picard 1            truth 1            ok
+  WIDTH_OF_40_PERCENT          picard 1            truth 1            ok
+  WIDTH_OF_50_PERCENT          picard 21           truth 21           ok
+  WIDTH_OF_60_PERCENT          picard 21           truth 21           ok
+  WIDTH_OF_70_PERCENT          picard 21           truth 21           ok
+  WIDTH_OF_80_PERCENT          picard 21           truth 21           ok
+  WIDTH_OF_90_PERCENT          picard 21           truth 21           ok
+  WIDTH_OF_95_PERCENT          picard 21           truth 21           ok
+  WIDTH_OF_99_PERCENT          picard 21           truth 21           ok
+  histogram (trimmed to MEDIAN + 10 MAD): ok
+  mismatches: 0

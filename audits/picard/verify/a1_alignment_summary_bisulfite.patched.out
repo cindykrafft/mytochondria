@@ -1,0 +1,12 @@
+picard: 3.5.0-1-gc2a483d4-SNAPSHOT
+A1: 10 forward reads x 100 bp, 240 C->T conversions and no other differences (bisulfite truth: mismatch rate 0.0; non-bisulfite truth: 0.240)
+  contig bases 1-100 = A, IS_BISULFITE_SEQUENCED=false: PF_MISMATCH_RATE 0.24  PF_HQ_ERROR_RATE 0.24  PF_ALIGNED_BASES 1000
+  contig bases 1-100 = A, IS_BISULFITE_SEQUENCED=true: PF_MISMATCH_RATE 0  PF_HQ_ERROR_RATE 0  PF_ALIGNED_BASES 1000
+  contig bases 1-100 = C, IS_BISULFITE_SEQUENCED=false: PF_MISMATCH_RATE 0.24  PF_HQ_ERROR_RATE 0.24  PF_ALIGNED_BASES 1000
+  contig bases 1-100 = C, IS_BISULFITE_SEQUENCED=true: PF_MISMATCH_RATE 0  PF_HQ_ERROR_RATE 0  PF_ALIGNED_BASES 1000
+  100-bp read with 60M40S on a 60-bp contig, IS_BISULFITE_SEQUENCED=false: ran (PF_MISMATCH_RATE 0.240566)
+  100-bp read with 60M40S on a 60-bp contig, IS_BISULFITE_SEQUENCED=true: ran (PF_MISMATCH_RATE 0)
+  100-bp read with 40S60M on a 60-bp contig, IS_BISULFITE_SEQUENCED=false: ran (PF_MISMATCH_RATE 0.240566)
+  100-bp read with 40S60M on a 60-bp contig, IS_BISULFITE_SEQUENCED=true: ran (PF_MISMATCH_RATE 0)
+A2: 10 reads 50M1D50M, 5 mismatch at cycle 50 and 5 at cycle 100: BAD_CYCLES 1 (truth 0: no cycle mismatches in >= 80 % of reads), PF_MISMATCH_RATE 0.01, PF_INDEL_RATE 0.01
+A2: control: 10 reads 100M, 5 mismatch at cycle 50 and 5 at cycle 100: BAD_CYCLES 0 (truth 0: no cycle mismatches in >= 80 % of reads), PF_MISMATCH_RATE 0.01, PF_INDEL_RATE 0

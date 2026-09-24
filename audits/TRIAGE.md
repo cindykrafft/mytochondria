@@ -186,3 +186,24 @@ external PRs in sight. Trimmomatic's tracker is active again since 2025. bioc/li
 mirror: the Bioconductor support site is the channel and is unreachable from the audit session, so the
 prior-report search there is the owner's. Forks needed for the PRs: GSEA-MSigDB/gsea-desktop,
 samtools/bcftools, alexdobin/STAR, usadellab/Trimmomatic.
+
+## Round 5 (2026-09-24): Picard (first of five: Picard, Bowtie2, FastQC, scDblFinder, VCFtools)
+
+The five most-used tools in the survey not yet audited whose numeric core can be executed here.
+Picard first (289 papers; 143 name MarkDuplicates). Kit under `audits/picard/upstream/`.
+
+| tier | finding | reason |
+|---|---|---|
+| file now | Picard P1 | `CollectRnaSeqMetrics` drops the last base of every alignment block from transcript coverage (`i < genomeEnd` on an inclusive end): a uniformly covered transcript reports CV 0.032 and a 0.91 dip at the junction; a realistic library shifts `MEDIAN_CV_COVERAGE` 0.430 -> 0.436 and the 3' end of the coverage curve by -9 %; every version 2.18.7 to master; one-line fix with a regression test |
+| file now | Picard P2 | `CollectHsMetrics` `ZERO_CVG_TARGETS_PCT` divides unique uncovered targets by the raw interval count: 0.5 for a true 0.667 with overlapping targets; regression since 2.19.0 (htsjdk 2.19.0 stopped uniquing `IntervalList.fromFiles`); one-line fix with a test |
+| ready (third) | Picard P3 | `CollectAlignmentSummaryMetrics --IS_BISULFITE_SEQUENCED true` looks the reference base up at the read's offset from the contig start: mismatch rate 0.24 for a true 0, and a crash on short contigs; every version; one-token fix with a test; send after P1 or P2 has a reply |
+| held | Picard P4-P7 | GC-bias window off-by-one and contig-end binning (prior #1278, comment drafted), BAD_CYCLES block offset (related #787), the het-sensitivity sampler's Q0 fallback (0.6 pp at 4x), FOLD_80 undefined at 20 % zero coverage (prior #1971) |
+
+Held up: MarkDuplicates in full (flags, all seven metrics, optical clustering, library size), CollectInsertSizeMetrics,
+CollectWgsMetrics, CollectAlignmentSummaryMetrics (non-bisulfite).
+
+Channel notes. Picard has no CONTRIBUTING.md and no AI policy; the PR template carries a checklist that must
+stay in the body (tests added, docs if applicable, CI green, reviewer thumbs-up, rebase/squash). The issue
+template's header asks for a GATK support-forum post before a tracker issue; reproducible bugs with fixes go
+straight to the tracker in practice (#1971, #1522 are examples). Fork needed: broadinstitute/picard.
+

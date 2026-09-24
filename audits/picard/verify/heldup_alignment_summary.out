@@ -1,0 +1,18 @@
+picard: 3.5.0-1-gc2a483d4-SNAPSHOT
+  TOTAL_READS                  picard 70           truth 70           ok
+  PF_READS                     picard 68           truth 68           ok
+  PCT_PF_READS_ALIGNED         picard 1            truth 1.0          ok
+  PCT_READS_ALIGNED_IN_PAIRS   picard 1            truth 1.0          ok
+  PF_HQ_ALIGNED_READS          picard 56           truth 56           ok
+  PF_ALIGNED_BASES             picard 6784         truth 6784         ok
+  PF_MISMATCH_RATE             picard 0.028449     truth 0.028449     ok
+  PF_HQ_ERROR_RATE             picard 0.021124     truth 0.021124     ok
+  PF_INDEL_RATE                picard 0.002358     truth 0.002358     ok
+  MEAN_READ_LENGTH             picard 99.852941    truth 99.852941    ok
+  STRAND_BALANCE               picard 0.5          truth 0.5          ok
+  PCT_CHIMERAS                 picard 0.107143     truth 0.107143     ok
+  PCT_PF_READS_IMPROPER_PAIRS  picard 0.088235     truth 0.088235     ok
+  PCT_SOFTCLIP                 picard 0            truth 0.0          ok
+  PCT_HARDCLIP                 picard 0.001325     truth 0.001325     ok
+  PF_HQ_ALIGNED_Q20_BASES      picard 3815         truth 3815         ok
+  mismatches: 0

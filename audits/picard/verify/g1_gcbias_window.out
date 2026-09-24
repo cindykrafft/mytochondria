@@ -1,0 +1,9 @@
+picard: 3.5.0-1-gc2a483d-SNAPSHOT
+
+(a) documented window for a_fwd_1 = cA bases 1-100 = 0 % GC; Picard uses bases 2-101 (1 %).
+    READ_STARTS at GC=0: 101   at GC=1: 1  (cB reads all sit at GC 50:  199 )
+(b) cB: 300 bp, 50 % GC everywhere. Forward reads at every start 1..300.
+    windows fitting in the contig: starts 1..201; Picard computes gc[] for 0-based starts 1..199 and counts 295 windows at GC 50
+    reads counted at GC 50: 199  reads counted at GC 0: 101  (expected 0 at GC 0: a read whose window runs off the contig has no window)
+    summary: TOTAL_CLUSTERS 301 ALIGNED_READS 301 GC_NC_40_59 0.746064 AT_DROPOUT 21.493625 GC_DROPOUT 51.54827
+    sum of READ_STARTS over all GC bins: 301 of 301 reads

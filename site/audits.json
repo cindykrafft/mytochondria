@@ -405,6 +405,20 @@
    "attributed_note": "code review of the inference and data-pipeline code (2026-09-02), not survey-driven",
    "versions_stated": 0,
    "versions_in_repo": 0
+  },
+  {
+   "dir": "picard",
+   "name": "Picard",
+   "papers": 289,
+   "findings": 7,
+   "repos": [
+    "broadinstitute/picard"
+   ],
+   "fork": null,
+   "attributed": null,
+   "attributed_note": "survey cohort of 289 papers; 3 confirmed on master and four releases (RNA-seq transcript coverage, HsMetrics zero-coverage fraction, bisulfite mismatch rate), 4 notes; MarkDuplicates, insert size, WGS and alignment summary held up",
+   "versions_stated": 66,
+   "versions_in_repo": 0
   }
  ],
  "author": "cindykrafft",

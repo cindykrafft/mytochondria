@@ -1,0 +1,131 @@
+From ac65de9bf7b52b929b07f690d2b26036e40dcfae Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 24 Sep 2026 19:21:55 +0000
+Subject: [PATCH] CollectRnaSeqMetrics: count the last base of each alignment
+ block in transcript coverage
+
+Gene.Transcript.addCoverageCounts() looped over genomeStart <= i < genomeEnd, but
+RnaSeqMetricsCollector passes CoordMath.getEnd(blockStart, blockLength), the
+inclusive last reference base of the alignment block. The last aligned base of
+every block was therefore never added to the per-transcript coverage that feeds
+MEDIAN_CV_COVERAGE, MEDIAN_5PRIME_BIAS, MEDIAN_3PRIME_BIAS,
+MEDIAN_5PRIME_TO_3PRIME_BIAS and the normalized_coverage histogram. For a
+spliced read the block ends at the exon end, so the last base of every internal
+exon got coverage only from reads running unspliced into the intron: a
+transcript covered uniformly by 50 reads at every base reported
+MEDIAN_CV_COVERAGE 0.032 instead of 0 and a normalized coverage of 0.91 at the
+percentile holding the junction.
+
+The loop now includes genomeEnd. The new test covers a two-exon transcript with
+uniform coverage; it fails on the previous code.
+---
+ src/main/java/picard/annotation/Gene.java     |  7 +-
+ .../analysis/CollectRnaSeqMetricsTest.java    | 66 +++++++++++++++++++
+ 2 files changed, 72 insertions(+), 1 deletion(-)
+
+diff --git a/src/main/java/picard/annotation/Gene.java b/src/main/java/picard/annotation/Gene.java
+index 5a2ebb6b..8a05e93c 100644
+--- a/src/main/java/picard/annotation/Gene.java
++++ b/src/main/java/picard/annotation/Gene.java
+@@ -170,8 +170,13 @@ public class Gene extends Interval implements Iterable<Gene.Transcript>  {
+          * @param genomeEnd
+          * @param coverage
+          */
++        /**
++         * Adds one to the coverage of every transcript base between genomeStart and genomeEnd, both inclusive.
++         * (The caller passes the inclusive last reference base of an alignment block, as CoordMath.getEnd()
++         * returns it, so the loop must include genomeEnd.)
++         */
+         public void addCoverageCounts(final int genomeStart, final int genomeEnd, final int[] coverage) {
+-            for (int i=genomeStart; i<genomeEnd; ++i) {
++            for (int i=genomeStart; i<=genomeEnd; ++i) {
+                 final int txBase = getTranscriptCoordinate(i);
+                 if (txBase > 0) coverage[txBase-1]++;
+             }
+diff --git a/src/test/java/picard/analysis/CollectRnaSeqMetricsTest.java b/src/test/java/picard/analysis/CollectRnaSeqMetricsTest.java
+index 594be73d..f1ac4a4a 100644
+--- a/src/test/java/picard/analysis/CollectRnaSeqMetricsTest.java
++++ b/src/test/java/picard/analysis/CollectRnaSeqMetricsTest.java
+@@ -25,6 +25,7 @@ package picard.analysis;
+ 
+ import htsjdk.samtools.*;
+ import htsjdk.samtools.metrics.MetricsFile;
++import htsjdk.samtools.util.Histogram;
+ import htsjdk.samtools.util.Interval;
+ import htsjdk.samtools.util.IntervalList;
+ import htsjdk.samtools.util.StringUtil;
+@@ -624,6 +625,71 @@ public class CollectRnaSeqMetricsTest extends CommandLineProgramTest {
+         Assert.assertEquals(metrics.PCT_RIBOSOMAL_BASES, 0.4);
+     }
+ 
++    @Test
++    public void testCoverageIncludesLastBaseOfEachAlignmentBlock() throws Exception {
++        // A + strand transcript with two exons, chr1:1001-1500 and chr1:3001-3500 (transcript length 1000, fully
++        // coding). 50-bp reads start at every transcript position from -49 to 1000, spliced across the junction where
++        // needed, so every transcript base is covered by exactly 50 reads: CV 0, 5'/3' biases 1, normalized coverage
++        // 1 at every position. Gene.Transcript.addCoverageCounts() used to skip the last base of every alignment
++        // block, which left the last base of exon 1 (transcript base 500) with coverage 0, a CV of 0.032 and a
++        // normalized coverage of 0.91 at the position holding the junction.
++        final String sequence = "chr1";
++        final int readLength = 50;
++        final int exon1Start = 1001, exon1End = 1500, exon2Start = 3001, exon2End = 3500;
++        final int exon1Length = exon1End - exon1Start + 1;
++        final int transcriptLength = exon1Length + (exon2End - exon2Start + 1);
++
++        final SAMRecordSetBuilder builder = new SAMRecordSetBuilder(true, SAMFileHeader.SortOrder.coordinate);
++        builder.setRandomSeed(0);
++        final int sequenceIndex = builder.getHeader().getSequenceIndex(sequence);
++        int n = 0;
++        for (int t = -readLength + 1; t <= transcriptLength; t++) {
++            final int last = t + readLength - 1;
++            final int genomeStart = (t <= exon1Length) ? exon1Start + t - 1 : exon2Start + t - exon1Length - 1;
++            final String cigar;
++            if (t <= exon1Length && exon1Length < last) {
++                final int m1 = exon1Length - t + 1;
++                cigar = m1 + "M" + (exon2Start - exon1End - 1) + "N" + (readLength - m1) + "M";
++            } else {
++                cigar = readLength + "M";
++            }
++            builder.addFrag("r" + n, sequenceIndex, genomeStart, n % 2 == 1, false, cigar, null, 30);
++            n++;
++        }
++
++        final File samFile = File.createTempFile("tmp.collectRnaSeqMetrics.", ".sam");
++        samFile.deleteOnExit();
++        try (final SAMFileWriter samWriter = new SAMFileWriterFactory().makeSAMWriter(builder.getHeader(), false, samFile)) {
++            for (final SAMRecord rec : builder.getRecords()) samWriter.addAlignment(rec);
++        }
++        final File refFlat = getRefFlatFile(sequence, String.valueOf(exon1Start - 1), String.valueOf(exon2End),
++                String.valueOf(exon1Start - 1), String.valueOf(exon2End), "2",
++                (exon1Start - 1) + "," + (exon2Start - 1), exon1End + "," + exon2End);
++        final File metricsFile = File.createTempFile("tmp.", ".rna_metrics");
++        metricsFile.deleteOnExit();
++
++        final String[] args = new String[] {
++                "INPUT=" + samFile.getAbsolutePath(),
++                "OUTPUT=" + metricsFile.getAbsolutePath(),
++                "REF_FLAT=" + refFlat.getAbsolutePath(),
++                "STRAND_SPECIFICITY=NONE"
++        };
++        Assert.assertEquals(runPicardCommandLine(args), 0);
++
++        final MetricsFile<RnaSeqMetrics, Integer> output = new MetricsFile<>();
++        output.read(new FileReader(metricsFile));
++        final RnaSeqMetrics metrics = output.getMetrics().get(0);
++        Assert.assertEquals(metrics.CODING_BASES, 50L * transcriptLength);
++        Assert.assertEquals(metrics.MEDIAN_CV_COVERAGE, 0.0);
++        Assert.assertEquals(metrics.MEDIAN_5PRIME_BIAS, 1.0);
++        Assert.assertEquals(metrics.MEDIAN_3PRIME_BIAS, 1.0);
++        Assert.assertEquals(metrics.MEDIAN_5PRIME_TO_3PRIME_BIAS, 1.0);
++        final Histogram<Integer> normalizedCoverage = output.getHistogram();
++        for (int percent = 0; percent <= 100; percent++) {
++            Assert.assertEquals(normalizedCoverage.get(percent).getValue(), 1.0, 1e-6, "normalized coverage at " + percent + " %");
++        }
++    }
++
+     public File getRefFlatFile(String sequence, String txStart, String txEnd, String cdsStart, String cdsEnd, String exonCount, String exonStarts, String exonEnds) throws Exception {
+         // Create a refFlat file containing a single gene with specified parameters.
+ 
+-- 
+2.43.0
+

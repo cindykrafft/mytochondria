@@ -1,0 +1,8 @@
+picard: 3.5.0-1-gc2a483d4-SNAPSHOT
+276 genes, 276 transcripts with reads, 229101 fragments
+  truth (every aligned base counted): transcripts 264, MEDIAN_CV_COVERAGE 0.4301, MEDIAN_5PRIME_BIAS 0.2337, MEDIAN_3PRIME_BIAS 0.5300, MEDIAN_5PRIME_TO_3PRIME_BIAS 0.4661
+    normalized coverage at 0/25/50/75/100 %: [0.024, 0.872, 1.249, 1.346, 0.058]
+  bug model (last base of each block dropped): transcripts 264, MEDIAN_CV_COVERAGE 0.4362, MEDIAN_5PRIME_BIAS 0.2346, MEDIAN_3PRIME_BIAS 0.5319, MEDIAN_5PRIME_TO_3PRIME_BIAS 0.4681
+    normalized coverage at 0/25/50/75/100 %: [0.023, 0.871, 1.248, 1.342, 0.053]
+  picard: MEDIAN_CV_COVERAGE 0.43618, MEDIAN_5PRIME_BIAS 0.234648, MEDIAN_3PRIME_BIAS 0.531876, MEDIAN_5PRIME_TO_3PRIME_BIAS 0.468121
+    normalized coverage at 0/25/50/75/100 %: [0.023, 0.871, 1.248, 1.342, 0.053]

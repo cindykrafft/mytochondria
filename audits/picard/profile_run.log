@@ -1,0 +1,85 @@
+cohort: 289
+full text: 0   survey-cache fallback: 289   ({'offline': 289})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  Picard named                                     289
+  samtools also used                               179
+  MarkDuplicates                                   143
+  variant calling (GATK etc.)                      123
+  GATK used                                        112
+  duplication rate reported                        74
+  RNA-seq                                          73
+  Picard version stated                            66
+  ATAC / ChIP / CUT&RUN / Hi-C                     47
+  single-cell                                      33
+  mapping rate / % mapped reported                 16
+  WES / exome / targeted                           14
+  bisulfite / methylation                          13
+  MultiQC used                                     11
+  WGS                                              10
+  mean depth / coverage reported                   9
+  SortSam / MergeSamFiles / BuildBamIndex          8
+  long reads (nanopore / PacBio)                   7
+  AddOrReplaceReadGroups                           5
+  insert size reported                             3
+  on-target / capture rate reported                2
+  SamToFastq / FastqToSam / MergeBamAlignment      2
+  EstimateLibraryComplexity                        2
+  CollectAlignmentSummaryMetrics                   1
+  CollectRnaSeqMetrics                             1
+  CollectInsertSizeMetrics                         1
+  CollectWgsMetrics                                1
+  LiftoverVcf / vcf tools                          1
+  CollectGcBiasMetrics                             1
+  5'-3' bias / RNA coverage reported               1
+
+VERSION FAMILY: {'2.20x': 41, '2.0x': 28, '2.10x': 17, '1.x (pre-2016)': 14, '3.x': 7, '2.90x': 1}
+VERSIONS (top 20): {'2.2.4': 4, '2.27.4': 3, '2.18.26': 3, '3.1.1': 3, '2.9.4': 3, '2.8.0': 3, '2.23.4': 3, '2.26.10': 3, '2.9.0': 3, '2.18.7': 2, '2.18.14': 2, '1.119': 2, '3.0.0': 2, '2.25.0': 2, '2.20.3': 2, '2.22.9': 2, '2.25.6': 2, '2.25.5': 2, '2.6.26': 2, '2.23.8': 2}
+
+MAPQ thresholds: {'30': 16, '20': 7, '0': 5, '60': 4, '1': 3, '10': 3, '5': 2, '37': 1, '40': 1, '255': 1}
+depth (x): {'1': 1, '50': 1, '18': 1, '5': 1, '3': 1, '2.5': 1}
+duplication rate %: {}
+mapping rate %: {'93': 1}
+insert sizes (bp): {}
+
+CO-PACKAGES (top 40):
+  SAMtools                 179
+  R                        165
+  BWA                      124
+  GATK                     112
+  DESeq2                   89
+  Bowtie2                  88
+  MACS2                    79
+  BEDTools                 71
+  UMAP                     63
+  Seurat                   62
+  ImageJ                   59
+  Trimmomatic              57
+  STAR                     56
+  FastQC                   56
+  BCFtools                 55
+  GSEA                     53
+  Cutadapt                 52
+  deepTools                46
+  ggplot2                  45
+  featureCounts            40
+  Trim Galore              40
+  PLINK                    33
+  edgeR                    31
+  ANGSD                    27
+  VCFtools                 27
+  clusterProfiler          26
+  minimap2                 25
+  Python                   25
+  HOMER                    24
+  SnpEff                   24
+  limma                    23
+  ADMIXTURE                22
+  Bioconductor             22
+  AlphaFold                21
+  HISAT2                   20
+  RepeatMasker             20
+  HTSeq                    20
+  RSEM                     20
+  RAxML                    19
+  Mutect2                  19

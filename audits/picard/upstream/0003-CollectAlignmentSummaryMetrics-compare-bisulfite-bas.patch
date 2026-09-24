@@ -1,0 +1,117 @@
+From a01cc3218ac05c70367d8c8f5d5a9ad0e344add8 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 24 Sep 2026 19:18:00 +0000
+Subject: [PATCH] CollectAlignmentSummaryMetrics: compare bisulfite bases
+ against the aligned reference base
+
+With IS_BISULFITE_SEQUENCED=true, AlignmentSummaryMetricsCollector.collectQualityData()
+called SequenceUtil.bisulfiteBasesEqual() with refBases[readBaseIndex], the
+reference base at the read's offset from the start of the contig, instead of
+refBases[refIndex + i], the base the read base is aligned to. A converted base
+was therefore excused only when the contig's base at that offset happened to be
+a C (or G on the reverse strand), so PF_MISMATCH_RATE and PF_HQ_ERROR_RATE for
+bisulfite data depended on the first read-length bases of each contig rather
+than on the alignment (a fully converted read set reported a mismatch rate of
+0.24 against a contig starting with 100 A's and 0 against one starting with 100
+C's), and a read with a leading soft clip aligned to a contig shorter than the
+read raised ArrayIndexOutOfBoundsException.
+
+The lookup now uses the aligned reference position, as the mismatch test on the
+line above already does.
+---
+ .../AlignmentSummaryMetricsCollector.java     |  2 +-
+ .../CollectAlignmentSummaryMetricsTest.java   | 33 +++++++++++++++++++
+ ...mary_alignment_bisulfite_offset_test.fasta |  8 +++++
+ ...ummary_alignment_bisulfite_offset_test.sam |  8 +++++
+ 4 files changed, 50 insertions(+), 1 deletion(-)
+ create mode 100644 testdata/picard/sam/AlignmentSummaryMetrics/summary_alignment_bisulfite_offset_test.fasta
+ create mode 100644 testdata/picard/sam/AlignmentSummaryMetrics/summary_alignment_bisulfite_offset_test.sam
+
+diff --git a/src/main/java/picard/analysis/AlignmentSummaryMetricsCollector.java b/src/main/java/picard/analysis/AlignmentSummaryMetricsCollector.java
+index 70ff3b91..e6cb1a27 100644
+--- a/src/main/java/picard/analysis/AlignmentSummaryMetricsCollector.java
++++ b/src/main/java/picard/analysis/AlignmentSummaryMetricsCollector.java
+@@ -427,7 +427,7 @@ public class AlignmentSummaryMetricsCollector extends SAMRecordAndReferenceMulti
+                         final int readBaseIndex = readIndex + i;
+                         boolean mismatch = refBases != null && !SequenceUtil.basesEqual(readBases[readBaseIndex], refBases[refIndex + i]);
+ 
+-                        final boolean bisulfiteMatch = refBases != null && isBisulfiteSequenced && SequenceUtil.bisulfiteBasesEqual(record.getReadNegativeStrandFlag(), readBases[readBaseIndex], refBases[readBaseIndex]);
++                        final boolean bisulfiteMatch = refBases != null && isBisulfiteSequenced && SequenceUtil.bisulfiteBasesEqual(record.getReadNegativeStrandFlag(), readBases[readBaseIndex], refBases[refIndex + i]);
+ 
+                         final boolean bisulfiteBase = mismatch && bisulfiteMatch;
+                         mismatch = mismatch && !bisulfiteMatch;
+diff --git a/src/test/java/picard/analysis/CollectAlignmentSummaryMetricsTest.java b/src/test/java/picard/analysis/CollectAlignmentSummaryMetricsTest.java
+index 6993882a..a5b3ebba 100644
+--- a/src/test/java/picard/analysis/CollectAlignmentSummaryMetricsTest.java
++++ b/src/test/java/picard/analysis/CollectAlignmentSummaryMetricsTest.java
+@@ -190,6 +190,39 @@ public class CollectAlignmentSummaryMetricsTest extends CommandLineProgramTest {
+         }
+     }
+ 
++    @Test
++    public void testBisulfiteMismatchesUseTheAlignedReferenceBase() throws IOException {
++        // chrA starts with 100 A's; the reads align at chrA:101-200 (forward, every C read as T) and chrA:201-300
++        // (reverse strand, every G read as A) with no other difference, so under bisulfite rules nothing mismatches.
++        // The collector used to look the reference base up at the read's offset from the start of the contig
++        // (an A here) instead of at the aligned position, which counted every conversion as a mismatch, and
++        // a read with a leading soft clip on a contig shorter than the read (chrB, 40S60M) ran off the end of
++        // the contig's bases.
++        final File input = new File(TEST_DATA_DIR, "summary_alignment_bisulfite_offset_test.sam");
++        final File reference = new File(TEST_DATA_DIR, "summary_alignment_bisulfite_offset_test.fasta");
++        final File outfile = getTempOutputFile("testBisulfiteOffset", ".txt");
++
++        final String[] args = new String[]{
++                "INPUT=" + input.getAbsolutePath(),
++                "OUTPUT=" + outfile.getAbsolutePath(),
++                "REFERENCE_SEQUENCE=" + reference.getAbsolutePath(),
++                "IS_BISULFITE_SEQUENCED=true"
++        };
++        Assert.assertEquals(runPicardCommandLine(args), 0);
++
++        final MetricsFile<AlignmentSummaryMetrics, Comparable<?>> output = new MetricsFile<>();
++        try (FileReader reader = new FileReader(outfile)) {
++            output.read(reader);
++        }
++        final AlignmentSummaryMetrics metrics = output.getMetrics().get(0);
++        Assert.assertEquals(metrics.CATEGORY, AlignmentSummaryMetrics.Category.UNPAIRED);
++        Assert.assertEquals(metrics.TOTAL_READS, 3);
++        Assert.assertEquals(metrics.PF_ALIGNED_BASES, 260);
++        Assert.assertEquals(metrics.PF_MISMATCH_RATE, 0.0);
++        Assert.assertEquals(metrics.PF_HQ_ERROR_RATE, 0.0);
++        Assert.assertEquals(metrics.PF_HQ_MEDIAN_MISMATCHES, 0.0);
++    }
++
+     @Test
+     public void testBisulfiteButNot() throws IOException {
+         final File input = new File(TEST_DATA_DIR, "summary_alignment_bisulfite_test.sam");
+diff --git a/testdata/picard/sam/AlignmentSummaryMetrics/summary_alignment_bisulfite_offset_test.fasta b/testdata/picard/sam/AlignmentSummaryMetrics/summary_alignment_bisulfite_offset_test.fasta
+new file mode 100644
+index 00000000..fd5b32fb
+--- /dev/null
++++ b/testdata/picard/sam/AlignmentSummaryMetrics/summary_alignment_bisulfite_offset_test.fasta
+@@ -0,0 +1,8 @@
++>chrA
++AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
++AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGACTTTCAAAGATATGCTG
++GGTAGAGGTCGAGGTTATTATTTGTTACCAATTCTCATTGTGTTTCGGAACTTGCGTTTT
++AGGTATGTCTTAGTGACTCTAAATACCAAGGCAGTCCTCGATCCGTTCCTAATAAGGAAT
++GGTGATTCCCTGTCATACCAATCTACCCCCTGTTATGCGCGTTTGTCGTTAGACCAATGT
++>chrB
++CAGCGCAGCGGCAGATCAAGCAGGAGGCGGAATGTAAACAGAAGGTATGCTTAGGTGGAT
+diff --git a/testdata/picard/sam/AlignmentSummaryMetrics/summary_alignment_bisulfite_offset_test.sam b/testdata/picard/sam/AlignmentSummaryMetrics/summary_alignment_bisulfite_offset_test.sam
+new file mode 100644
+index 00000000..5643d6c0
+--- /dev/null
++++ b/testdata/picard/sam/AlignmentSummaryMetrics/summary_alignment_bisulfite_offset_test.sam
+@@ -0,0 +1,8 @@
++@HD	VN:1.6	SO:coordinate
++@SQ	SN:chrA	LN:300
++@SQ	SN:chrB	LN:60
++@RG	ID:0	SM:s	PL:ILLUMINA
++@CO	chrA starts with 100 A's; the reads carry every C->T (forward) or G->A (reverse) conversion and no other difference
++fwd_convertedC	0	chrA	101	60	100M	*	0	0	AGATTTTTAAAGATATGTTGGGTAGAGGTTGAGGTTATTATTTGTTATTAATTTTTATTGTGTTTTGGAATTTGTGTTTTAGGTATGTTTTAGTGATTTT	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII	RG:Z:0
++rev_convertedG	16	chrA	201	60	100M	*	0	0	AAATACCAAAACAATCCTCAATCCATTCCTAATAAAAAATAATAATTCCCTATCATACCAATCTACCCCCTATTATACACATTTATCATTAAACCAATAT	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII	RG:Z:0
++softclipped_on_short_contig	0	chrB	1	60	40S60M	*	0	0	AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATAGTGTAGTGGTAGATTAAGTAGGAGGTGGAATGTAAATAGAAGGTATGTTTAGGTGGAT	IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII	RG:Z:0
+-- 
+2.43.0
+

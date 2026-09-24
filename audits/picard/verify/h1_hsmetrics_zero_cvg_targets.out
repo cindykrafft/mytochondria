@@ -1,0 +1,9 @@
+picard: 3.5.0-1-gc2a483d-SNAPSHOT
+
+targets as given: 8 intervals; after merging overlaps: 6 unique targets (A, B, C, D, E, F)
+reads cover A and B only -> zero-coverage unique targets C, D, E, F = 4 of 6 = 0.6667
+  ZERO_CVG_TARGETS_PCT: 0.5  (Picard divides 4 by the 8 intervals in the file)
+  TARGET_TERRITORY: 706 (unique bases; the 8 raw intervals sum to 808 )
+  PCT_TARGET_BASES_1X: 0.427762  expected 0.427762
+  ON_BAIT_BASES / NEAR_BAIT_BASES / OFF_BAIT_BASES: 4000 200 200
+  HS_LIBRARY_SIZE: None  MEAN_TARGET_COVERAGE: 4.27762  FOLD_80_BASE_PENALTY: None
