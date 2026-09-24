@@ -46,7 +46,8 @@ rewritten `test/test.pl` and dropped its executable bit (mode 100755 → 100644)
 Makefile's `test` target needs. Fixed 2026-09-24 by restoring the mode in both commits
 (tree now identical to the single-commit push 2838f3b, which had passed those four
 workflows) and force-pushing; `make test` PASS locally. The Windows/MinGW workflow does not
-call the script directly and was green either way.
+call the script directly and was green either way. Fork CI on `47d3376`: all five
+workflows green (Linux, macOS, VMs, Containers, Windows/MinGW; 2026-09-24 16:51–16:59).
 
 Verification: `perl test/test.pl` on the branch 1011 passed / 0 failed / 32 expected
 failures, `make test` PASS (HTSlib `develop` `bgzip` on PATH for the test script); with
