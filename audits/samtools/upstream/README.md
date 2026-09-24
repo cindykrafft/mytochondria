@@ -31,13 +31,22 @@ commit of the same PR, offered to be dropped if the maintainers want it separate
 |---|---|
 | `comment-st3-696-dup-supplementary.md` | the comment for #696: two-pair MCVE with output on four builds, the 25.0 % vs 20.0 % measurement, the PR announcement including the SD commit |
 | `mcve_st3_stats_dup_supp_isize_sd.sh`, `mcve_outputs_st3.txt` | the two reproductions (duplicates 5 of 4 sequences; SD 81.6 for a population SD of 141.4) run on `develop`, 1.19.2, 1.10, 1.9 and the patched build |
-| `0002-stats-count-duplicates-for-the-same-records-as-seque.patch` | commit `98c0d0d`: `IS_DUP` block moved inside `IS_ORIGINAL`, `test/stat/22_dup_supp.sam` + `22.stats.expected`, `test/test.pl` line, NEWS bullet |
-| `0003-stats-include-the-isize-0-bin-in-the-insert-size-sta.patch` | commit `17aeba6`: SD loop from `isize=0`, `test/stat/23_isize_zero.sam` + `23.stats.expected`, `test/test.pl` line, NEWS bullet |
+| `0002-stats-count-duplicates-for-the-same-records-as-seque.patch` | commit `1776b17`: `IS_DUP` block moved inside `IS_ORIGINAL`, `test/stat/22_dup_supp.sam` + `22.stats.expected`, `test/test.pl` line, NEWS bullet |
+| `0003-stats-include-the-isize-0-bin-in-the-insert-size-sta.patch` | commit `47d3376`: SD loop from `isize=0`, `test/stat/23_isize_zero.sam` + `23.stats.expected`, `test/test.pl` line, NEWS bullet |
 | `pr-bodies.md` § PR 2 | PR title and body draft (`Fixes #696`, `Assisted-by:` line) |
 
-Branch `fix/stats-dup-supplementary-isize-sd` on `cindykrafft/samtools` = `98c0d0d` +
-`17aeba6` on `develop` `de749a6`, author Cindy Krafft, `Assisted-by: Claude:claude-fable-5-1`
+Branch `fix/stats-dup-supplementary-isize-sd` on `cindykrafft/samtools` = `1776b17` +
+`47d3376` on `develop` `de749a6`, author Cindy Krafft, `Assisted-by: Claude:claude-fable-5-1`
 trailer and `Signed-off-by: Cindy Krafft <cynthiacondra@gmail.com>` on both commits (added at the submitter's instruction 2026-09-24, as for BC1).
+
+Filed 2026-09-24 16:31 as **PR #2388** (the comment on #696 posted the same afternoon). The
+first fork CI runs on the two-commit branch failed on Linux, macOS, VMs and Containers with
+`test/test.pl: Permission denied`: the script that split the branch into two commits had
+rewritten `test/test.pl` and dropped its executable bit (mode 100755 → 100644), which the
+Makefile's `test` target needs. Fixed 2026-09-24 by restoring the mode in both commits
+(tree now identical to the single-commit push 2838f3b, which had passed those four
+workflows) and force-pushing; `make test` PASS locally. The Windows/MinGW workflow does not
+call the script directly and was green either way.
 
 Verification: `perl test/test.pl` on the branch 1011 passed / 0 failed / 32 expected
 failures, `make test` PASS (HTSlib `develop` `bgzip` on PATH for the test script); with

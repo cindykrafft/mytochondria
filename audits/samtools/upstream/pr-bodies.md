@@ -56,7 +56,7 @@ Fixes #696.
 Two small corrections to `samtools stats` SN numbers, one commit each, both in `stats.c`,
 each with a regression test that fails on `develop`.
 
-**Duplicate counts** (98c0d0d). `reads duplicated` and `bases duplicated` were accumulated
+**Duplicate counts** (1776b17). `reads duplicated` and `bases duplicated` were accumulated
 before the `IS_ORIGINAL()` gate in `collect_stats()`, so secondary and supplementary
 records carrying the 0x400 flag were counted, while `sequences` and `total length` exclude
 those records. A duplication rate formed from the two lines (MultiQC's samtools stats
@@ -69,7 +69,7 @@ duplicate pairs) `develop` reports `reads duplicated: 10` and `bases duplicated:
 against `sequences: 20`; this branch reports 8 and 800. `flagstat` already distinguishes
 `duplicates` from `primary duplicates`; `stats` had no such pair.
 
-**Insert size standard deviation** (17aeba6). The SD loop in `output_stats()` started at
+**Insert size standard deviation** (47d3376). The SD loop in `output_stats()` started at
 `isize = 1`, while the mean and the count over the same bins started at 0, so pairs
 reported with TLEN 0 entered the denominator but not the sum of squares and lowered the
 SD instead of raising it. The loop now starts at 0, like the two loops before it. On
