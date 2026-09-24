@@ -1,4 +1,4 @@
-**Title:** `--max-missing-count` counts missing alleles, the manual says missing genotypes
+Title: `--max-missing-count` counts missing alleles, the manual says missing genotypes
 
 The man page:
 

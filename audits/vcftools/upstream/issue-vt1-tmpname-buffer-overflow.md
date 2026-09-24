@@ -1,4 +1,4 @@
-**Title:** `--012`, `--plink`, `--hap-r2`, `--geno-r2` (every temporary-file output) abort with "buffer overflow detected" when built with a fortifying compiler
+Title: `--012`, `--plink`, `--hap-r2`, `--geno-r2` (every temporary-file output) abort with "buffer overflow detected" when built with a fortifying compiler
 
 Built from source on Ubuntu 24.04 (`./autogen.sh && ./configure && make`, GCC 13.3, glibc 2.39, the default `CXXFLAGS=-g -O2`), `master` at 1f87a83 and the v0.1.16 and v0.1.13 tags all abort in every mode that writes through a temporary file, before writing any output:
 

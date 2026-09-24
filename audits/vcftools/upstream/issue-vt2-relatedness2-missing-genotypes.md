@@ -1,4 +1,4 @@
-**Title:** `--relatedness2` underestimates kinship when genotypes are missing (the heterozygote counts in the denominator are not restricted to the sites called in both individuals)
+Title: `--relatedness2` underestimates kinship when genotypes are missing (the heterozygote counts in the denominator are not restricted to the sites called in both individuals)
 
 `--relatedness2` implements the KING-robust estimator of Manichaikul et al. 2010,
 
