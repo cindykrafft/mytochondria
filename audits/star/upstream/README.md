@@ -1,8 +1,8 @@
 # STAR upstream filing kit
 
 _Default branch: **`master`** (the 2.7.11b tag is its HEAD, `b1edc12`; PRs go against it).
-Prepared 2026-09-13 against `alexdobin/STAR` `master` @ `b1edc12`. **Issue filed 2026-09-24 as #2707; the PR waits for a fork of
-`alexdobin/STAR` (none exists yet), then the branch is pushed and the PR opened.** The fix is one commit, `a0b3f8c`, on the local branch `fix/undefined-strand-transcripts`
+Prepared 2026-09-13 against `alexdobin/STAR` `master` @ `b1edc12`. **Issue filed 2026-09-24 as #2707; the fork `cindykrafft/STAR` was made the same evening and
+`fix/undefined-strand-transcripts` (`c444b28` on `b1edc12`) pushed to it; the PR is next.** The fix is one commit, `a0b3f8c`, on the local branch `fix/undefined-strand-transcripts`
 of the audit clone, and `git am`-able from
 `0001-Treat-transcripts-with-undefined-GTF-strand-.-as-in-.patch` against `b1edc12`
 (`git apply --check` clean)._

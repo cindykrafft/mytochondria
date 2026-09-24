@@ -42,3 +42,4 @@ fieldtrip:fix/octave-compat-survey
 bcftools:fix/mwu-biasz-int64
 Kilosort:fix/swarmsplitter-ccg-guard
 samtools:fix/stats-dup-supplementary-isize-sd
+STAR:fix/undefined-strand-transcripts
