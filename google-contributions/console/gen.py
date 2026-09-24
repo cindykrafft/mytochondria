@@ -108,7 +108,47 @@ held = [
  ("google/guava", "Javadoc typo in rotate/reverse @throws (\"toIndex > fromIndex\") in all 8 primitive classes", "follow-up to the rotate PR"),
  ("google/guava", "TypeToken.toString() prints Outer$Inner<> for inner classes of generic classes", "cosmetic"),
 ]
-data = dict(items=items, held=held)
+
+# Corrections to already-filed items (texts from kits/filed-edits/*.md)
+import re as _re
+def _block(path, heading=None, fence="~~~~"):
+    t = open(os.path.join(S, "filed-edits", path)).read()
+    if heading:
+        t = t[t.index(heading):]
+    if fence == "~~~~":
+        m = _re.search(r"~~~~markdown\n(.*?)\n~~~~", t, _re.S)
+    else:
+        m = _re.search(r"```markdown\n(.*?)\n```", t, _re.S)
+    return m.group(1)
+_dt = json.load(open(os.path.join(S, "googletest-deathtest-issue.json")))
+_dt["what-happened"] = _block("googletest-5105.md", "## Revised field", fence="```")
+_dt_body = "\n\n".join("### " + FORM_LABELS[k] + "\n\n" + v for k, v in _dt.items() if k != "title")
+corrections = [
+  dict(id="fix-gtest-5105", repo="google/googletest", number=5105, kind="issue", level="Recommended",
+       what="Replace the whole issue body",
+       why=["It said `*` and `?` in a test name also break death tests. In testing, only `:` and `-` do: names with `*` or `?` still match themselves, so those tests run normally."],
+       how="Open the issue, click the ··· menu on the first post, choose Edit, select all the text in the box, and paste. Only the \"Describe the issue\" section changes; the other sections are included unchanged so a full paste is safe.",
+       text=_dt_body),
+  dict(id="fix-gson-3127", repo="google/gson", number=3127, kind="pr", level="Recommended",
+       what="Replace the PR description",
+       why=["It said nothing throws `JsonSyntaxException` on the serialization side. That holds for the `gson` module, but the separate `proto` module throws it once from a write path (`LegacyProtoTypeAdapterFactory.java:537`). The new text names it and offers to keep \"(or write)\"."],
+       how="Open the PR, click the ··· menu on the description, choose Edit, select all, and paste.",
+       text=_block("gson-3127.md")),
+  dict(id="fix-gson-3128", repo="google/gson", number=3128, kind="issue", level="Optional",
+       what="Add a note at the top of the Description section (don't rewrite the rest)",
+       why=["The maintainer has already quoted the body, so it stays as posted. This visible note corrects the two mistakes in it (the \"without a lookup\" paraphrase and the reason `300.1.1.1` reaches the lookup) for anyone reading it without the thread.",
+            "The reply on the InetAddress PR card (first card under \"File in this order\") already covers both points, so this note is optional."],
+       how="Open the issue, click ··· on the first post, choose Edit, and paste this as the first line under the \"# Description\" heading. Leave everything else as it is.",
+       text=_block("gson-3128.md", "## Optional", fence="```")),
+  dict(id="fix-guava-8692", repo="google/guava", number=8692, kind="pr", level="Optional",
+       what="Replace the PR description",
+       why=["It paraphrased CONTRIBUTING.md and left out its advice that \"it's generally best to start by opening a new issue\". The new text quotes it and offers to open one.",
+            "It stated, as fact, why guava's own test suites miss the bug. The new text hedges that with \"As far as I can tell\"."],
+       how="Open the PR, click the ··· menu on the description, choose Edit, select all, and paste.",
+       text=_block("guava-8692.md")),
+]
+
+data = dict(items=items, held=held, corrections=corrections)
 page = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "template.html")).read()
 page = page.replace("__DATA__", json.dumps(data).replace("</", "<\\/"))
 out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "google-filing-console.html")

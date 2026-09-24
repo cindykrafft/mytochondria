@@ -45,13 +45,14 @@ pre.body{margin:6px 0 0;background:var(--code);border:1px solid var(--line);bord
 ul.held{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 ul.held li{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding:6px 0;font-size:14px}
 ul.held li{justify-content:flex-start}ul.held li>span:last-child{color:var(--muted);font-size:12.5px;margin-left:auto}
+ul.why{margin:4px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink)}ul.why li+li{margin-top:4px}
 .repo-tag{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--accent);border:1px solid var(--line-strong);border-radius:4px;padding:0 5px}
 .field{margin-top:10px}.field .eyebrow{display:block;margin-bottom:2px}.field button{margin-top:6px}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom, 0px));transform:translateX(-50%);background:var(--ink);color:var(--ground);padding:9px 14px;border-radius:6px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}
 @media (prefers-reduced-motion:reduce){.toast{transition:none}}
 </style>
 <main>
-  <p class="eyebrow">google/gson · google/googletest · google/guava · forks under cindykrafft · updated 2026-09-23</p>
+  <p class="eyebrow">google/gson · google/googletest · google/guava · forks under cindykrafft · updated 2026-09-24</p>
   <h1>Google OSS Filing Console</h1>
   <p class="lede">Every branch below is already pushed to your fork, and each card shows what has been filed so far. Each button opens GitHub's pull-request or issue form with the title and description filled in, so the repository's template never appears and nothing needs pasting. Check the form, then click Create. Once it's filed, type the number in so the card links to it.</p>
   <div class="note"><strong>Before the first submit</strong>
@@ -147,10 +148,27 @@ function formCard(i){
     ${filedLine(i)}
     <details><summary>Show the fields that will be submitted</summary>${fields}</details>`;
 }
+function corrCard(c){
+  const done=!!state[c.id+"_done"]; const path=c.kind==="pr"?"pull":"issues";
+  return `<li class="step${done?" done":""}"><div class="card"><header><h3>${esc(c.repo)}#${c.number}: ${esc(c.what)}</h3><span class="eyebrow">${esc(c.level)} · ${c.kind==="pr"?"pull request":"issue"}</span></header>
+    <ul class="why">${c.why.map(w=>`<li>${esc(w)}</li>`).join("")}</ul>
+    <div class="actions">
+      <button class="primary" data-ccopy="${c.id}">Copy corrected text</button>
+      <a class="btn" href="https://github.com/${c.repo}/${path}/${c.number}" target="_blank" rel="noopener">Open #${c.number} ↗</a>
+      <button class="ghost" data-done="${c.id}">${done?"Mark not done":"Mark done"}</button>
+    </div>
+    <p class="hint">${esc(c.how)}</p>
+    <details><summary>Show the corrected text</summary><pre class="body">${esc(c.text)}</pre></details></div></li>`;
+}
 function render(){
   const steps = DATA.items.map((i,n)=>`<li class="step${isDone(i)?" done":""}"><p class="eyebrow why"><b>${n+1}</b>${esc(i.why)}</p><div class="card">${i.kind==="pr"?prCard(i):i.kind==="form"?formCard(i):reportCard(i)}</div></li>`).join("");
   const held = DATA.held.map(([repo,t,why])=>`<li><span class="repo-tag">${esc(repo.split("/")[1])}</span> ${esc(t)} <span>${esc(why)}</span></li>`).join("");
+  const corr = (DATA.corrections||[]);
+  const corrDone = corr.filter(c=>state[c.id+"_done"]).length;
   document.getElementById("root").innerHTML =
+    (corr.length?`<h2>Corrections to filed items <span class="eyebrow">${corrDone} of ${corr.length} done</span></h2>
+     <p class="watchline">From checking what was already filed against the writing rules: say only what the code and our runs show. GitHub can't prefill an edit, so copy the text and paste it into the edit box.</p>
+     <ol class="steps">${corr.map(corrCard).join("")}</ol>`:"") +
     `<h2>File in this order <span class="eyebrow">${DATA.items.filter(isDone).length} of ${DATA.items.length} filed</span></h2>
      <p class="watchline">${WATCH&&WATCH.checkedAt?`A watcher session checks the repositories every three hours. Last check ${esc(ago(WATCH.checkedAt))}${WATCH.note?": "+esc(WATCH.note):"."}`:"Filing status comes from a watcher session that checks the repositories every three hours."}</p>
      <ol class="steps">${steps}</ol>
@@ -160,6 +178,8 @@ function render(){
   document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>{
     const [id,what]=b.dataset.copy.split("|"); const i=DATA.items.find(x=>x.id===id);
     copy(what==="private"?i.private:what==="reply"?replyText(i):what[0]==="f"&&i.fields?i.fields[+what.slice(1)][1]:i.body); }));
+  document.querySelectorAll("[data-ccopy]").forEach(b=>b.addEventListener("click",()=>{
+    const c=(DATA.corrections||[]).find(x=>x.id===b.dataset.ccopy); copy(c.text); }));
   document.querySelectorAll("[data-num]").forEach(inp=>inp.addEventListener("change",()=>{
     state[inp.dataset.num+"_num"]=inp.value; if (inp.value) state[inp.dataset.num+"_done"]=true; save(); render(); }));
   document.querySelectorAll("[data-done]").forEach(b=>b.addEventListener("click",()=>{
