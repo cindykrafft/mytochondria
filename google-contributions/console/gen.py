@@ -38,6 +38,15 @@ def issue_form(id, repo, template, jsonfile, why):
     items.append(dict(kind="form", id=id, repo=repo, title=title, url=url, short=short, why=why,
                       fields=fields, body=body))
 
+def issue_md(id, repo, template, kitfile, why, note=None):
+    title, body = kit(kitfile)
+    base = f"https://github.com/{repo}/issues/new?"
+    url = base + q({"template": template, "title": title, "body": body})
+    short = len(url) > LIMIT
+    if short: url = base + q({"template": template, "title": title})
+    items.append(dict(kind="issue", id=id, repo=repo, title=title, body=body, url=url, short=short,
+                      why=why, note=note))
+
 pr("gson-inet-fix", "google/gson", "fix-inetaddress-literal-check", "gson-inetaddress-fix-pr.md",
    "Answer the maintainer on #3128: eamonnmcmanus said a PR tightening the check would probably be accepted. Open this PR first, then post the reply with its number filled in.",
    closes=3128, reply="gson-3128-reply.md", reply_to=3128)
@@ -76,6 +85,14 @@ pr("guava-stats", "google/guava", "fix-stats-mean-overflow", "guava-fix-stats-me
 pr("guava-rotate", "google/guava", "fix-primitives-rotate-edge-cases", "guava-fix-primitives-rotate-edge-cases-pr.md",
    "Third guava code fix: the same small fix in all 8 primitive classes.", base="master",
    note="There is no issue for this bug.")
+
+# filament: issues first (CONTRIBUTING asks for an issue before a PR). Order from kits/filament-issues-index.json.
+_fidx_path = os.path.join(S, "filament-issues-index.json")
+if os.path.exists(_fidx_path):
+    for _n, _f in enumerate(sorted(json.load(open(_fidx_path)), key=lambda x: x["priority"])):
+        issue_md("filament-" + _f["slug"], "google/filament", "bug_report.md", os.path.basename(_f["file"]),
+                 ("filament " + str(_n + 1) + ": " + _f["why"]) + (" File one or two at a time and wait for a response before the rest." if _n == 0 else ""),
+                 note="filament asks for an issue before a PR. If a maintainer wants a fix, I'll build the branch on a fork of google/filament.")
 
 it_title, it_body = kit("gson-inetaddress-issue.md")
 ibase = "https://github.com/google/gson/issues/new?"

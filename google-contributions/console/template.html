@@ -52,7 +52,7 @@ ul.why{margin:4px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink)}ul.why
 @media (prefers-reduced-motion:reduce){.toast{transition:none}}
 </style>
 <main>
-  <p class="eyebrow">google/gson · google/googletest · google/guava · forks under cindykrafft · updated 2026-09-24</p>
+  <p class="eyebrow">google/gson · google/googletest · google/guava · google/filament · forks under cindykrafft · updated 2026-09-24</p>
   <h1>Google OSS Filing Console</h1>
   <p class="lede">Every branch below is already pushed to your fork, and each card shows what has been filed so far. Each button opens GitHub's pull-request or issue form with the title and description filled in, so the repository's template never appears and nothing needs pasting. Check the form, then click Create. Once it's filed, type the number in so the card links to it.</p>
   <div class="note"><strong>Before the first submit</strong>
@@ -136,6 +136,18 @@ function reportCard(i){
       ${filedLine(i)}
       <details><summary>Show the issue text</summary><pre class="body">${esc(i.body)}</pre></details></div>`;
 }
+function issueCard(i){
+  return `<header><h3>${esc(i.title)}</h3><span class="eyebrow">${esc(i.repo)} · issue</span></header>
+    <div class="actions">
+      <a class="btn primary" href="${esc(i.url)}" target="_blank" rel="noopener">${i.short?"Open issue form (title only) ↗":"Open prefilled issue ↗"}</a>
+      <button data-copy="${i.id}|body">Copy issue text</button>
+      ${numInput(i,"Filed as")}${doneBtn(i)}
+    </div>
+    ${i.short?`<p class="hint">The text is too long to fit in a link. The button fills in the title; paste the text from Copy.</p>`:""}
+    <p class="hint">Uses the repository's bug-report template, already filled in.${i.note?" "+esc(i.note):""}</p>
+    ${filedLine(i)}
+    <details><summary>Show the issue text</summary><pre class="body">${esc(i.body)}</pre></details>`;
+}
 function formCard(i){
   const fields = i.fields.map(([label,text],n)=>`<div class="field"><span class="eyebrow">${esc(label)}</span><pre class="body">${esc(text)}</pre>${i.short?`<button data-copy="${i.id}|f${n}">Copy this field</button>`:""}</div>`).join("");
   return `<header><h3>${esc(i.title)}</h3><span class="eyebrow">${esc(i.repo)} · issue</span></header>
@@ -161,7 +173,7 @@ function corrCard(c){
     <details><summary>Show the corrected text</summary><pre class="body">${esc(c.text)}</pre></details></div></li>`;
 }
 function render(){
-  const steps = DATA.items.map((i,n)=>`<li class="step${isDone(i)?" done":""}"><p class="eyebrow why"><b>${n+1}</b>${esc(i.why)}</p><div class="card">${i.kind==="pr"?prCard(i):i.kind==="form"?formCard(i):reportCard(i)}</div></li>`).join("");
+  const steps = DATA.items.map((i,n)=>`<li class="step${isDone(i)?" done":""}"><p class="eyebrow why"><b>${n+1}</b>${esc(i.why)}</p><div class="card">${i.kind==="pr"?prCard(i):i.kind==="form"?formCard(i):i.kind==="issue"?issueCard(i):reportCard(i)}</div></li>`).join("");
   const held = DATA.held.map(([repo,t,why])=>`<li><span class="repo-tag">${esc(repo.split("/")[1])}</span> ${esc(t)} <span>${esc(why)}</span></li>`).join("");
   const corr = (DATA.corrections||[]);
   const corrDone = corr.filter(c=>state[c.id+"_done"]).length;
