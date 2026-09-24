@@ -1,0 +1,23 @@
+Bowtie 2 test-suite runs for the two fix branches (2026-09-24, Ubuntu 24.04, g++ 13, NO_TBB=1)
+
+Suite: scripts/test/simple_tests.pl, as CI's "make simple-test" runs it
+  (perl scripts/test/simple_tests.pl --bowtie2=<dir>/bowtie2 --bowtie2-build=<dir>/bowtie2-build),
+  needing Test::Deep and File::Which (apt libtest-deep-perl libfile-which-perl). Each case is
+  aligned with the release, -debug and -sanitized binaries (bowtie2-align-s, -s-debug,
+  -s-sanitized; built with "make bowtie2-align-s bowtie2-align-s-debug bowtie2-align-s-sanitized
+  bowtie2-build-s NO_TBB=1"); the script dies on the first failing case.
+
+branch                          commit    small-index pass                               large-index pass
+fix/mate2-mapq-opposite-length  08b9e93   1027 cases, 724 invocations x 3 binaries, 0 failures   not run: bowtie2-build-l not built (the script dies at "bowtie2-build-l does not exist" after the small-index pass)
+fix/xs-for-unpaired-mates       9d17d42   1027 cases, 724 x 3, 0 failures                        same
+master (58e34bf, control)       58e34bf   1027 cases, 724 x 3, 0 failures                        same
+
+Neither branch adds a case to simple_tests.pl: the suite has no MAPQ or XS:i expectations for
+paired reads of unequal length or for YT:Z:UP mates. The behavioural checks are the harnesses
+in ../verify (m1_mapq.patched.out: 9/9 mate-2 MAPQs equal the port with the opposite mate's
+length; a1_summary_arithmetic.patched.out: XS:i present on 30/30 multi-mapping YT:Z:UP mates);
+the rest of the harness suite (s1, p1, x1, x2) gives the same numbers on both branches as on
+master.
+
+Logs: simple_tests_{patched,patched2,src}.log in the session scratchpad (32,706 lines each;
+identical apart from paths and timings).
