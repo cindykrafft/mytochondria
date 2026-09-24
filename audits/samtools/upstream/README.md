@@ -31,13 +31,13 @@ commit of the same PR, offered to be dropped if the maintainers want it separate
 |---|---|
 | `comment-st3-696-dup-supplementary.md` | the comment for #696: two-pair MCVE with output on four builds, the 25.0 % vs 20.0 % measurement, the PR announcement including the SD commit |
 | `mcve_st3_stats_dup_supp_isize_sd.sh`, `mcve_outputs_st3.txt` | the two reproductions (duplicates 5 of 4 sequences; SD 81.6 for a population SD of 141.4) run on `develop`, 1.19.2, 1.10, 1.9 and the patched build |
-| `0002-stats-count-duplicates-for-the-same-records-as-seque.patch` | commit `99c2244`: `IS_DUP` block moved inside `IS_ORIGINAL`, `test/stat/22_dup_supp.sam` + `22.stats.expected`, `test/test.pl` line, NEWS bullet |
-| `0003-stats-include-the-isize-0-bin-in-the-insert-size-sta.patch` | commit `723af0e`: SD loop from `isize=0`, `test/stat/23_isize_zero.sam` + `23.stats.expected`, `test/test.pl` line, NEWS bullet |
+| `0002-stats-count-duplicates-for-the-same-records-as-seque.patch` | commit `98c0d0d`: `IS_DUP` block moved inside `IS_ORIGINAL`, `test/stat/22_dup_supp.sam` + `22.stats.expected`, `test/test.pl` line, NEWS bullet |
+| `0003-stats-include-the-isize-0-bin-in-the-insert-size-sta.patch` | commit `17aeba6`: SD loop from `isize=0`, `test/stat/23_isize_zero.sam` + `23.stats.expected`, `test/test.pl` line, NEWS bullet |
 | `pr-bodies.md` § PR 2 | PR title and body draft (`Fixes #696`, `Assisted-by:` line) |
 
-Branch `fix/stats-dup-supplementary-isize-sd` on `cindykrafft/samtools` = `99c2244` +
-`723af0e` on `develop` `de749a6`, author Cindy Krafft, `Assisted-by: Claude:claude-fable-5-1`
-trailer, **no `Signed-off-by` yet** (to be added at the submitter's word, as for BC1).
+Branch `fix/stats-dup-supplementary-isize-sd` on `cindykrafft/samtools` = `98c0d0d` +
+`17aeba6` on `develop` `de749a6`, author Cindy Krafft, `Assisted-by: Claude:claude-fable-5-1`
+trailer and `Signed-off-by: Cindy Krafft <cynthiacondra@gmail.com>` on both commits (added at the submitter's instruction 2026-09-24, as for BC1).
 
 Verification: `perl test/test.pl` on the branch 1011 passed / 0 failed / 32 expected
 failures, `make test` PASS (HTSlib `develop` `bgzip` on PATH for the test script); with
@@ -47,8 +47,7 @@ failures, `make test` PASS (HTSlib `develop` `bgzip` on PATH for the test script
 
 Order: post the comment on #696 first, then open the PR against `develop` with the body
 from `pr-bodies.md` rewritten in your own words, keeping `Fixes #696` and the
-`Assisted-by:` line; sign off the two commits (`git rebase --signoff de749a6` on the
-fetched branch, or ask me to add the lines) before opening it.
+`Assisted-by:` line; the two commits are already signed off.
 
 Filing tier (README step 5): **now** for ST1 — it changes a number that reaches papers
 (`samtools stats` `COV` coverage distribution and the `-t`/`-g` "percentage of target

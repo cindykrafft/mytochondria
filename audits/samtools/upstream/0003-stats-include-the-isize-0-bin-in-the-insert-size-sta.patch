@@ -1,4 +1,4 @@
-From 723af0e2bac630f4c8491d30b2c9f5efce2ab783 Mon Sep 17 00:00:00 2001
+From 17aeba639374352f7335783a5c27fbdb073f5ee2 Mon Sep 17 00:00:00 2001
 From: Cindy Krafft <cynthiacondra@gmail.com>
 Date: Thu, 24 Sep 2026 16:20:15 +0000
 Subject: [PATCH 3/3] stats: include the isize 0 bin in the insert size
@@ -15,6 +15,7 @@ loop now starts at 0, like the two loops before it.  The regression test
 fails on the previous code.
 
 Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Cindy Krafft <cynthiacondra@gmail.com>
 ---
  NEWS.md                     |  5 +++++
  stats.c                     |  4 +++-

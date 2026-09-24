@@ -1,4 +1,4 @@
-From 99c22447774a1e24986e937084ce1c034af3ec0f Mon Sep 17 00:00:00 2001
+From 98c0d0dcda1ec661f303bf5b1a29e5c01323603d Mon Sep 17 00:00:00 2001
 From: Cindy Krafft <cynthiacondra@gmail.com>
 Date: Thu, 24 Sep 2026 16:20:14 +0000
 Subject: [PATCH 2/3] stats: count duplicates for the same records as
@@ -22,6 +22,7 @@ the previous code.
 Fixes #696
 
 Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Cindy Krafft <cynthiacondra@gmail.com>
 ---
  NEWS.md                     |  7 +++++++
  stats.c                     | 14 ++++++++------
