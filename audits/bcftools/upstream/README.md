@@ -2,8 +2,9 @@
 
 _Default branch: **`develop`** (PRs go against it; `master` carries releases).
 Prepared 2026-09-13 against `samtools/bcftools` `develop` @ `7abcc0d6` (built with
-HTSlib `develop` @ `e503e04`). **Nothing filed.** The fork `cindykrafft/bcftools` was made on 2026-09-23 and the fix
-pushed as branch `fix/mwu-biasz-int64` (commit 83b7888 on `develop` @ edf7fd9: the patch
+HTSlib `develop` @ `e503e04`). **Filed 2026-09-23: issue #2594 and PR #2595** (the fork's Linux, macOS, Windows, VM and
+container workflows all green on 83b7888). The fork `cindykrafft/bcftools` was made on
+2026-09-23 and the fix pushed as branch `fix/mwu-biasz-int64` (commit 83b7888 on `develop` @ edf7fd9: the patch
 rebased with one trivial conflict in `test/test.pl`, an adjacent `--progress` test line;
 the submitter's authorship, the `Assisted-by:` trailer, and the submitter's `Signed-off-by:`,
 added at her explicit instruction on 2026-09-23 since she could not do it from her phone; the
