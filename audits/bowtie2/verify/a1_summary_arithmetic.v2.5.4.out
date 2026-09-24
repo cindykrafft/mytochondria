@@ -1,0 +1,49 @@
+bowtie2 2.5.4  reference 120000 bp with one exact 2-kb duplication
+library: 400 pairs (Counter({'conc_unique': 150, 'discord': 80, 'conc_dup': 60, 'one_mate_unique': 50, 'one_mate_dup': 30, 'none': 30})), 200 unpaired (Counter({'unique': 120, 'dup': 40, 'none': 40}))
+
+default (mixed mode, discordant search):
+   pair classes by YT: {('conc_dup', 'CP'): 60, ('conc_unique', 'CP'): 150, ('discord', 'DP'): 80, ('none', 'UP'): 30, ('one_mate_dup', 'UP'): 30, ('one_mate_unique', 'UP'): 50}
+   mate 1 of 'one_mate_dup' pairs (aligned in the exact 2-kb duplicate): MAPQ Counter({1: 30}), XS present 0/30, YT Counter({'UP': 30})
+FAIL mates aligned as unpaired (YT:Z:UP) with a second-best alignment (MAPQ 0/1, summary '>1 times') carry XS:i
+   mate 1 of 'one_mate_unique' pairs: MAPQ Counter({42: 50}), XS present 0/50
+   mate1: summary 50 vs SAM 80
+   mateM: summary 30 vs SAM 0
+   summary: {'reads': 600, 'paired': 400, 'conc0': 190, 'conc1': 150, 'concM': 60, 'disc1': 80, 'mates': 220, 'mate0': 140, 'mate1': 50, 'mateM': 30, 'unpaired': 200, 'unp0': 40, 'unp1': 120, 'unpM': 40, 'rate': 82.0}
+FAIL default: summary lines match the SAM-derived counts
+
+--no-mixed (manual: discordant alignments are still sought; only the per-mate fallback is disabled):
+   pair classes by YT: {('conc_dup', 'CP'): 60, ('conc_unique', 'CP'): 150, ('discord', 'UP'): 80, ('none', 'UP'): 30, ('one_mate_dup', 'UP'): 30, ('one_mate_unique', 'UP'): 50}
+   mate 1 of 'one_mate_dup' pairs (aligned in the exact 2-kb duplicate): MAPQ Counter({0: 30}), XS present 0/30, YT Counter({'UP': 30})
+   mate 1 of 'one_mate_unique' pairs: MAPQ Counter({0: 50}), XS present 0/50
+   summary: {'reads': 600, 'paired': 400, 'conc0': 190, 'conc1': 150, 'concM': 60, 'disc1': 0, 'unpaired': 200, 'unp0': 40, 'unp1': 120, 'unpM': 40, 'rate': 58.0}
+ok   --no-mixed: summary lines match the SAM-derived counts
+FAIL --no-mixed still reports the 80 discordant pairs (found 0 YT:Z:DP; summary line 'aligned discordantly 1 time' = 0)
+
+--no-discordant:
+   pair classes by YT: {('conc_dup', 'CP'): 60, ('conc_unique', 'CP'): 150, ('discord', 'UP'): 80, ('none', 'UP'): 30, ('one_mate_dup', 'UP'): 30, ('one_mate_unique', 'UP'): 50}
+   mate 1 of 'one_mate_dup' pairs (aligned in the exact 2-kb duplicate): MAPQ Counter({1: 30}), XS present 0/30, YT Counter({'UP': 30})
+FAIL mates aligned as unpaired (YT:Z:UP) with a second-best alignment (MAPQ 0/1, summary '>1 times') carry XS:i
+   mate 1 of 'one_mate_unique' pairs: MAPQ Counter({42: 50}), XS present 0/50
+   mate1: summary 210 vs SAM 240
+   mateM: summary 30 vs SAM 0
+   summary: {'reads': 600, 'paired': 400, 'conc0': 190, 'conc1': 150, 'concM': 60, 'mates': 380, 'mate0': 140, 'mate1': 210, 'mateM': 30, 'unpaired': 200, 'unp0': 40, 'unp1': 120, 'unpM': 40, 'rate': 82.0}
+FAIL --no-discordant: summary lines match the SAM-derived counts
+
+--no-mixed --no-discordant:
+   pair classes by YT: {('conc_dup', 'CP'): 60, ('conc_unique', 'CP'): 150, ('discord', 'UP'): 80, ('none', 'UP'): 30, ('one_mate_dup', 'UP'): 30, ('one_mate_unique', 'UP'): 50}
+   mate 1 of 'one_mate_dup' pairs (aligned in the exact 2-kb duplicate): MAPQ Counter({0: 30}), XS present 0/30, YT Counter({'UP': 30})
+   mate 1 of 'one_mate_unique' pairs: MAPQ Counter({0: 50}), XS present 0/50
+   summary: {'reads': 600, 'paired': 400, 'conc0': 190, 'conc1': 150, 'concM': 60, 'unpaired': 200, 'unp0': 40, 'unp1': 120, 'unpM': 40, 'rate': 58.0}
+ok   --no-mixed --no-discordant: summary lines match the SAM-derived counts
+
+-k 2:
+   pair classes by YT: {('conc_dup', 'CP'): 120, ('conc_unique', 'CP'): 150, ('discord', 'DP'): 80, ('none', 'UP'): 30, ('one_mate_dup', 'UP'): 60, ('one_mate_unique', 'UP'): 50}
+   mate 1 of 'one_mate_dup' pairs (aligned in the exact 2-kb duplicate): MAPQ Counter({1: 30, 255: 30}), XS present 0/60, YT Counter({'UP': 60})
+FAIL mates aligned as unpaired (YT:Z:UP) with a second-best alignment (MAPQ 0/1, summary '>1 times') carry XS:i
+   mate 1 of 'one_mate_unique' pairs: MAPQ Counter({255: 50}), XS present 0/50
+   summary: {'reads': 600, 'paired': 400, 'conc0': 190, 'conc1': 150, 'concM': 60, 'disc1': 80, 'mates': 220, 'mate0': 140, 'mate1': 50, 'mateM': 30, 'unpaired': 200, 'unp0': 40, 'unp1': 120, 'unpM': 40, 'rate': 82.0}
+ok   -k 2: summary lines match the SAM-derived counts
+
+--un-conc/--al-conc/--un/--al record counts vs the summary:
+   files: {'al.fq': 160, 'alconc.1.fq': 210, 'alconc.2.fq': 210, 'un.fq': 40, 'unconc.1.fq': 190, 'unconc.2.fq': 190}
+ok   --un-conc = pairs aligned concordantly 0 times, --al-conc = the rest; --un/--al likewise for unpaired reads

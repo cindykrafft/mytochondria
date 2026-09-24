@@ -419,6 +419,20 @@
    "attributed_note": "survey cohort of 289 papers; 3 confirmed on master and four releases (RNA-seq transcript coverage, HsMetrics zero-coverage fraction, bisulfite mismatch rate), 4 notes; MarkDuplicates, insert size, WGS and alignment summary held up",
    "versions_stated": 66,
    "versions_in_repo": 0
+  },
+  {
+   "dir": "bowtie2",
+   "name": "Bowtie 2",
+   "papers": 477,
+   "findings": 7,
+   "repos": [
+    "BenLangmead/bowtie2"
+   ],
+   "fork": null,
+   "attributed": null,
+   "attributed_note": "survey cohort of 477 papers; 4 confirmed on master and five release binaries (mate-2 MAPQ length slip on master, XS:i missing on unpaired mates, --no-mixed suppresses discordant alignments, spurious insertions just above -X), 3 notes; scoring, MAPQ port, pair classification and the alignment summary held up",
+   "versions_stated": 89,
+   "versions_in_repo": 0
   }
  ],
  "author": "cindykrafft",

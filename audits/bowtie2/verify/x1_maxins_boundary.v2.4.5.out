@@ -1,0 +1,100 @@
+bowtie2 2.4.5  reference 200000 bp random; 100-bp mates, 10 pairs per fragment length, no sequencing differences
+
+end-to-end, default: -X 500 
+   fragment pairs  CP  DP  UP  gapped mates  |TLEN| reported (min-max)   example mate CIGAR / AS
+        480    10  10   0   0             0    480-480                   
+        485    10  10   0   0             0    485-485                   
+        490    10  10   0   0             0    490-490                   
+        495    10  10   0   0             0    495-495                   
+        500    10  10   0   0             0    500-500                   
+        505    10   0  10   0             0    505-505                   
+        510    10   0  10   0             0    510-510                   
+        515    10   0  10   0             0    515-515                   
+        520    10   0  10   0            10    515-518                   91M5I4M / AS -32 MAPQ 40 XS None
+        525    10   0  10   0            10    516-518                   87M7I6M / AS -50 MAPQ 23 XS None
+        530    10   0  10   0            10    513-518                   84M12I4M / AS -41 MAPQ 24 XS None
+        535    10   0  10   0             0    535-535                   
+        540    10   0  10   0             0    540-540                   
+        545    10   0  10   0             0    545-545                   
+        550    10   0  10   0             0    550-550                   
+        555    10   0  10   0             0    555-555                   
+        560    10   0  10   0             0    560-560                   
+        580    10   0  10   0             0    580-580                   
+        600    10   0  10   0             0    600-600                   
+        650    10   0  10   0             0    650-650                   
+FAIL end-to-end, default: no mate is reported with a gap (all reads are exact copies of the reference)  (30 of 300 mates of pairs with fragment > X carry a spurious gap)
+
+end-to-end, --very-sensitive: -X 500 --very-sensitive
+   fragment pairs  CP  DP  UP  gapped mates  |TLEN| reported (min-max)   example mate CIGAR / AS
+        490    10  10   0   0             0    490-490                   
+        495    10  10   0   0             0    495-495                   
+        500    10  10   0   0             0    500-500                   
+        505    10   0  10   0             0    505-505                   
+        510    10   0  10   0             0    510-510                   
+        515    10   0  10   0             0    515-515                   
+        520    10   0  10   0            10    516-518                   94M2I4M / AS -29 MAPQ 40 XS None
+        525    10   0  10   0            10    516-518                   86M9I5M / AS -38 MAPQ 24 XS None
+        530    10   0  10   0             9    516-530                   82M12I6M / AS -53 MAPQ 23 XS None
+        535    10   0  10   0             0    535-535                   
+        540    10   0  10   0             0    540-540                   
+FAIL end-to-end, --very-sensitive: no mate is reported with a gap (all reads are exact copies of the reference)  (29 of 160 mates of pairs with fragment > X carry a spurious gap)
+
+local: -X 500 --local
+   fragment pairs  CP  DP  UP  gapped mates  |TLEN| reported (min-max)   example mate CIGAR / AS
+        490    10  10   0   0             0    490-490                   
+        495    10  10   0   0             0    495-495                   
+        500    10  10   0   0             0    500-500                   
+        505    10   0  10   0             0    505-505                   
+        510    10   0  10   0             0    510-510                   
+        515    10   0  10   0             0    515-515                   
+        520    10   0  10   0             0    520-520                   
+        525    10   0  10   0             0    525-525                   
+        530    10   0  10   0             0    530-530                   
+        535    10   0  10   0             0    535-535                   
+        540    10   0  10   0             0    540-540                   
+ok   local: no mate is reported with a gap (all reads are exact copies of the reference)  (0 of 160 mates of pairs with fragment > X carry a spurious gap)
+
+end-to-end, -X 300: -X 300 
+   fragment pairs  CP  DP  UP  gapped mates  |TLEN| reported (min-max)   example mate CIGAR / AS
+        290    10  10   0   0             0    290-290                   
+        295    10  10   0   0             0    295-295                   
+        300    10  10   0   0             0    300-300                   
+        305    10   0  10   0             0    305-305                   
+        310    10   0  10   0             0    310-310                   
+        315    10   0  10   0             0    315-315                   
+        320    10   0  10   0            10    318-318                   94M2I4M / AS -29 MAPQ 40 XS None
+        325    10   0  10   0            10    316-318                   89M7I4M / AS -44 MAPQ 24 XS None
+        330    10   0  10   0             8    317-330                   82M12I6M / AS -53 MAPQ 23 XS None
+        335    10   0  10   0             0    335-335                   
+        340    10   0  10   0             0    340-340                   
+FAIL end-to-end, -X 300: no mate is reported with a gap (all reads are exact copies of the reference)  (28 of 160 mates of pairs with fragment > X carry a spurious gap)
+
+end-to-end, --no-discordant: -X 500 --no-discordant
+   fragment pairs  CP  DP  UP  gapped mates  |TLEN| reported (min-max)   example mate CIGAR / AS
+        490    10  10   0   0             0    490-490                   
+        495    10  10   0   0             0    495-495                   
+        500    10  10   0   0             0    500-500                   
+        505    10   0   0  10             0      0-0                     
+        510    10   0   0  10             0      0-0                     
+        515    10   0   0  10             0      0-0                     
+        520    10   0   0  10            10      0-0                     94M2I4M / AS -29 MAPQ 23 XS None
+        525    10   0   0  10            10      0-0                     86M9I5M / AS -38 MAPQ 3 XS None
+        530    10   0   0  10             9      0-0                     82M12I6M / AS -53 MAPQ 0 XS None
+        535    10   0   0  10             0      0-0                     
+        540    10   0   0  10             0      0-0                     
+FAIL end-to-end, --no-discordant: no mate is reported with a gap (all reads are exact copies of the reference)  (29 of 160 mates of pairs with fragment > X carry a spurious gap)
+
+end-to-end, --no-mixed: -X 500 --no-mixed
+   fragment pairs  CP  DP  UP  gapped mates  |TLEN| reported (min-max)   example mate CIGAR / AS
+        490    10  10   0   0             0    490-490                   
+        495    10  10   0   0             0    495-495                   
+        500    10  10   0   0             0    500-500                   
+        505    10   0  10   0             0    505-505                   
+        510    10   0  10   0             0    510-510                   
+        515    10   0  10   0             0    515-515                   
+        520    10   0  10   0            10    516-518                   94M2I4M / AS -29 MAPQ 40 XS None
+        525    10   0  10   0            10    516-518                   86M9I5M / AS -38 MAPQ 24 XS None
+        530    10   0   9   1             9      0-518                   82M12I6M / AS -53 MAPQ 23 XS None
+        535    10   0   0  10             0      0-0                     
+        540    10   0   0  10             0      0-0                     
+FAIL end-to-end, --no-mixed: no mate is reported with a gap (all reads are exact copies of the reference)  (29 of 160 mates of pairs with fragment > X carry a spurious gap)

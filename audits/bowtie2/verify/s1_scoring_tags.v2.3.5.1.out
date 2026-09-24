@@ -1,0 +1,20 @@
+bowtie2 2.3.5.1  reference 40000 bp random
+ok   e2e L=100 default (const quals): 24/24 reads with expected POS/CIGAR/MD/NM/XM/XO/XG/AS
+ok   e2e L=100 default (mixed quals): 24/24 reads with expected POS/CIGAR/MD/NM/XM/XO/XG/AS
+ok   e2e L=150 --very-sensitive (const quals): 24/24 reads with expected POS/CIGAR/MD/NM/XM/XO/XG/AS
+ok   e2e L=100 --ignore-quals (const quals): 24/24 reads with expected POS/CIGAR/MD/NM/XM/XO/XG/AS
+ok   e2e L=100 --mp 7,1 (const quals): 24/24 reads with expected POS/CIGAR/MD/NM/XM/XO/XG/AS
+ok   e2e L=100 --mp 4 (const quals): 24/24 reads with expected POS/CIGAR/MD/NM/XM/XO/XG/AS
+ok   e2e L=100 --np 3 --n-ceil L,0,0.2 (const quals): 24/24 reads with expected POS/CIGAR/MD/NM/XM/XO/XG/AS
+ok   e2e L=100 --rdg 8,2 --rfg 4,4 (const quals): 24/24 reads with expected POS/CIGAR/MD/NM/XM/XO/XG/AS
+ok   local L=100 --local (const quals): 24/24 reads with expected POS/CIGAR/MD/NM/XM/XO/XG/AS
+ok   local L=100 --local --ma 3 (const quals): 24/24 reads with expected POS/CIGAR/MD/NM/XM/XO/XG/AS
+ok   local L=150 --very-sensitive-local (const quals): 24/24 reads with expected POS/CIGAR/MD/NM/XM/XO/XG/AS
+ok   local L=100 --local --mp 5,3 --rdg 6,2 (const quals): 24/24 reads with expected POS/CIGAR/MD/NM/XM/XO/XG/AS
+ok   e2e --phred64 (mixed quals): AS as expected on 24/24
+
+--score-min boundary, --local, L=100 (manual: minimum score 20 + 8.0*ln(L) = 56.84):
+   27 matching bases then complement bases (best local score 54): unaligned
+   28 matching bases then complement bases (best local score 56): aligned AS:i:56 CIGAR 28M72S YT UU
+   29 matching bases then complement bases (best local score 58): aligned AS:i:58 CIGAR 29M71S YT UU
+FAIL score 56 is rejected under the documented threshold 56.84  (reported as valid: the threshold is truncated toward zero to 56)

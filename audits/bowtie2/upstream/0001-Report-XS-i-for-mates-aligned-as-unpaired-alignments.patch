@@ -1,0 +1,46 @@
+From 9d17d429f91bf2340b8bf24fcaecd8ebe7f8896c Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 24 Sep 2026 19:56:40 +0000
+Subject: [PATCH] Report XS:i for mates aligned as unpaired alignments
+
+printAlignedOptFlags took the XS:i value from bestUnchosenPScore()
+whenever the read was part of a pair. For a mate reported as an
+unpaired alignment (YT:Z:UP) the AlnSetSumm is built from the mate's
+unpaired alignments only, so the paired second-best score is never
+set and XS:i was omitted even when a second-best alignment exists:
+such a mate is printed with MAPQ 0 or 1 and counted under 'aligned >1
+times' in the summary, but carries no XS:i. Use bestUnchosenScore(),
+which the MAPQ calculation already uses and which returns the paired
+second-best for concordant and discordant pairs and the unpaired
+second-best otherwise.
+---
+ sam.cpp | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
+
+diff --git a/sam.cpp b/sam.cpp
+index b0f108f..f03625e 100644
+--- a/sam.cpp
++++ b/sam.cpp
+@@ -145,13 +145,12 @@ void SamConfig::printAlignedOptFlags(
+ 		o.append(buf);
+ 	}
+ 	if(print_xs_) {
+-		// XS:i: Suboptimal alignment score
+-		AlnScore sco;
+-		if(flags.partOfPair()) {
+-			sco = summ.bestUnchosenPScore(rd.mate < 2);
+-		} else {
+-			sco = summ.bestUnchosenUScore();
+-		}
++		// XS:i: Suboptimal alignment score.  For a mate reported as an
++		// unpaired alignment (YT:Z:UP) the summary holds unpaired
++		// alignments only, so take the second-best unpaired score there,
++		// as the MAPQ calculation does; the paired second-best is only
++		// filled in for concordant and discordant pairs.
++		AlnScore sco = summ.bestUnchosenScore(rd.mate < 2);
+ 		if(sco.valid()) {
+ 			itoa10<TAlScore>(sco.score(), buf);
+ 			WRITE_SEP();
+-- 
+2.43.0
+

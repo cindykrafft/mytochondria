@@ -1092,9 +1092,9 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-09-01T21:59:01Z",
-   "note": "first comment 2026-09-24 07:18 by kvnloo (not a maintainer): tested the fix independently in 12 cases, asked for a two-level regression test; tests pushed as eabed49 (4 pass on the branch, 2 fail with main's file); reply drafted; still no maintainer response on any Kilosort filing"
+   "comments": 3,
+   "updated": "2026-09-24T16:05:31Z",
+   "note": "3 comments, all by kvnloo (author_association NONE, not a maintainer) and the submitter: kvnloo 07:18 tested the fix and asked for a two-level regression test; reply + tests pushed as eabed49 (14:22); kvnloo 16:05 re-ran the unchanged tests/test_swarmsplitter.py from eabed49, all four pass, confirms the two expected failures with the base swarmsplitter.py; no question asked, no reply needed; still no maintainer response on any Kilosort filing"
   },
   {
    "repo": "thelovelab/DESeq2",

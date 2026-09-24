@@ -1,0 +1,28 @@
+bowtie2 2.5.1  reference 60000 bp with 8 repeat families (300 bp x 2)
+ok   e2e unpaired L=100 default: 77 aligned (3 unaligned), MAPQ matches the port on 77/77
+ok   e2e unpaired L=50 default: 49 aligned (31 unaligned), MAPQ matches the port on 49/49
+ok   e2e unpaired L=150 --very-sensitive: 80 aligned (0 unaligned), MAPQ matches the port on 80/80
+ok   e2e unpaired L=100 --mp 4,2: 76 aligned (4 unaligned), MAPQ matches the port on 76/76
+ok   local unpaired L=100 default: 79 aligned (1 unaligned), MAPQ matches the port on 79/79
+ok   local unpaired L=50 default: 55 aligned (25 unaligned), MAPQ matches the port on 55/55
+ok   local unpaired L=150 --very-sensitive-local: 80 aligned (0 unaligned), MAPQ matches the port on 80/80
+ok   local unpaired L=100 --mp 4,2: 80 aligned (0 unaligned), MAPQ matches the port on 80/80
+
+concordant pairs (default -X 600):
+   e2e   unique, equal lengths, perfect     L1=100 L2=100 AS1=   0 AS2=   0 XS1=None  XS2=None   MAPQ mate1= 42 mate2= 42  port: both= 42  mate2-if-own-length-twice= 42  -> ok
+   e2e   unique, equal lengths, 3+2 mm      L1=100 L2=100 AS1= -18 AS2= -12 XS1=None  XS2=None   MAPQ mate1= 40 mate2= 40  port: both= 40  mate2-if-own-length-twice= 40  -> ok
+   e2e   unique, unequal lengths, perfect   L1=150 L2= 50 AS1=   0 AS2=   0 XS1=None  XS2=None   MAPQ mate1= 42 mate2= 42  port: both= 42  mate2-if-own-length-twice= 42  -> ok
+   e2e   unique, unequal 150/50, 3+2 mm     L1=150 L2= 50 AS1= -18 AS2= -12 XS1=None  XS2=None   MAPQ mate1= 40 mate2= 40  port: both= 40  mate2-if-own-length-twice= 23  -> ok
+   e2e   unique, unequal 150/75, 4+1 mm     L1=150 L2= 75 AS1= -24 AS2=  -6 XS1=None  XS2=None   MAPQ mate1= 40 mate2= 40  port: both= 40  mate2-if-own-length-twice= 24  -> ok
+   e2e   duplicated (6 subs), equal, 1+1 mm L1=100 L2=100 AS1=  -6 AS2=  -6 XS1=-24   XS2=-24    MAPQ mate1= 17 mate2= 17  port: both= 17  mate2-if-own-length-twice= 17  -> ok
+   e2e   duplicated (6 subs), 150/50, 1+1 mm L1=150 L2= 50 AS1=  -6 AS2=  -6 XS1=-24   XS2=-24    MAPQ mate1= 17 mate2= 17  port: both= 17  mate2-if-own-length-twice= 16  -> ok
+   e2e   duplicated (2 subs), 150/60, perfect L1=150 L2= 60 AS1=   0 AS2=   0 XS1=-6    XS2=-6     MAPQ mate1=  6 mate2=  6  port: both=  6  mate2-if-own-length-twice= 30  -> ok
+   local unique, equal lengths, perfect     L1=100 L2=100 AS1= 200 AS2= 200 XS1=None  XS2=None   MAPQ mate1= 44 mate2= 44  port: both= 44  mate2-if-own-length-twice= 44  -> ok
+   local unique, equal lengths, 3+2 mm      L1=100 L2=100 AS1= 176 AS2= 184 XS1=None  XS2=None   MAPQ mate1= 44 mate2= 44  port: both= 44  mate2-if-own-length-twice= 44  -> ok
+   local unique, unequal lengths, perfect   L1=150 L2= 50 AS1= 300 AS2= 100 XS1=None  XS2=None   MAPQ mate1= 44 mate2= 44  port: both= 44  mate2-if-own-length-twice= 44  -> ok
+   local unique, unequal 150/50, 3+2 mm     L1=150 L2= 50 AS1= 276 AS2=  84 XS1=None  XS2=None   MAPQ mate1= 44 mate2= 44  port: both= 44  mate2-if-own-length-twice= 44  -> ok
+   local unique, unequal 150/75, 4+1 mm     L1=150 L2= 75 AS1= 268 AS2= 142 XS1=None  XS2=None   MAPQ mate1= 44 mate2= 44  port: both= 44  mate2-if-own-length-twice= 44  -> ok
+   local duplicated (6 subs), equal, 1+1 mm L1=100 L2=100 AS1= 192 AS2= 192 XS1=168   XS2=168    MAPQ mate1= 14 mate2= 14  port: both= 14  mate2-if-own-length-twice= 14  -> ok
+   local duplicated (6 subs), 150/50, 1+1 mm L1=150 L2= 50 AS1= 292 AS2=  92 XS1=268   XS2=68     MAPQ mate1= 14 mate2= 14  port: both= 14  mate2-if-own-length-twice= 21  -> ok
+   local duplicated (2 subs), 150/60, perfect L1=150 L2= 60 AS1= 300 AS2= 120 XS1=292   XS2=112    MAPQ mate1= 11 mate2= 11  port: both= 11  mate2-if-own-length-twice= 14  -> ok
+ok   concordant pairs: both mates' MAPQ match the port  (0 cases where mate 2's MAPQ equals the port fed mate 2's length for both mates)

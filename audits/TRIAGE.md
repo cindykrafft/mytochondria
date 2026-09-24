@@ -187,7 +187,7 @@ mirror: the Bioconductor support site is the channel and is unreachable from the
 prior-report search there is the owner's. Forks needed for the PRs: GSEA-MSigDB/gsea-desktop,
 samtools/bcftools, alexdobin/STAR, usadellab/Trimmomatic.
 
-## Round 5 (2026-09-24): Picard (first of five: Picard, Bowtie2, FastQC, scDblFinder, VCFtools)
+## Round 5 (2026-09-24): Picard, Bowtie 2 (first two of five: Picard, Bowtie2, FastQC, scDblFinder, VCFtools)
 
 The five most-used tools in the survey not yet audited whose numeric core can be executed here.
 Picard first (289 papers; 143 name MarkDuplicates). Kit under `audits/picard/upstream/`.
@@ -206,4 +206,21 @@ Channel notes. Picard has no CONTRIBUTING.md and no AI policy; the PR template c
 stay in the body (tests added, docs if applicable, CI green, reviewer thumbs-up, rebase/squash). The issue
 template's header asks for a GATK support-forum post before a tracker issue; reproducible bugs with fixes go
 straight to the tracker in practice (#1971, #1522 are examples). Fork needed: broadinstitute/picard.
+
+### Bowtie 2 (second of five; 477 papers; kit under `audits/bowtie2/upstream/`)
+
+| tier | finding | reason |
+|---|---|---|
+| file now | Bowtie 2 BW1 | master-only regression from 41ee86b (2026-09-14, unreleased; would ship with 2.5.5): mate 2's MAPQ is computed with its own length in the opposite-mate slot, so mates of unequal length get different MAPQs for the same concordant pair (40/23, 6/30); one-token fix; port reproduces every value |
+| file now | Bowtie 2 BW2 | every version: a mate reported as an unpaired alignment (YT:Z:UP) never carries XS:i even with a second-best alignment and MAPQ 0/1; 30/30 in the harness, 30/30 present with the six-line fix; "no XS = unique" pipelines keep those multi-mappers |
+| ready (third) | Bowtie 2 BW3 | every version: `--no-mixed` also suppresses discordant alignments (80 -> 0, alignment rate 82 % -> 58 %) while the manual says only the per-mate fallback is disabled; code or manual, maintainers' call; after a reply on BW1/BW2 |
+| ready (fourth) | Bowtie 2 BW4 | every version: fragments longer than -X by ~18-33 bp get one mate with a spurious 2-12-bp insertion (MAPQ 23-42, no XS, TLEN capped at X+18): the rescue DP squeezes the mate into the -X window and the exact alignment found later is dropped as "redundant"; 0.4 % of mates on a N(380,70) library at -X 500; report with mechanism, PR after the maintainers pick the shape |
+| held | Bowtie 2 N1-N3 | -X vs TLEN with soft clips (documented option; prior #180/#346), -3/-5 manual claim, --score-min truncation |
+
+Held up: AS and every tag vs the manual's formulas on six builds; MAPQ vs a port of BowtieMapq2 for unpaired reads and equal-length pairs;
+pair classification vs a port of peClassifyPair; the summary lines and overall rate vs SAM counts in five modes; --un-conc/--al-conc counts.
+
+Channel notes. No CONTRIBUTING.md, no templates, no AI policy; CI is `make simple-test` (Perl, Test::Deep) on three platforms.
+Twenty prior threads read in full through two helper sessions; none reports BW1, BW2 or BW4; #430 (open, "working on a fix") is a
+different --no-mixed effect. Fork needed: BenLangmead/bowtie2.
 

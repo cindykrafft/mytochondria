@@ -1,0 +1,11 @@
+bowtie2 2.5.5  6000 pairs, fragment ~ N(380, 70): 233 fragments > 500, 77 in 516-535
+
+-X 500: 50 mates reported with a gap (of 12000); fragment lengths of those pairs: 519-531; MAPQ of the gapped mates: {23: 17, 24: 17, 40: 12, 42: 4}
+   pairs whose |TLEN| differs from the true fragment length: 50 (e.g. [(527, 517), (527, 518), (523, 518), (522, 518)])
+   summary: {'reads': 6000, 'paired': 6000, 'conc0': 233, 'conc1': 5767, 'concM': 0, 'disc1': 233, 'mates': 0, 'mate0': 0, 'mate1': 0, 'mateM': 0, 'rate': 100.0}
+FAIL -X 500: no spurious gaps and every reported |TLEN| equals the fragment length
+
+-X 1000: 0 mates reported with a gap (of 12000); fragment lengths of those pairs: ---; MAPQ of the gapped mates: {}
+   pairs whose |TLEN| differs from the true fragment length: 0 (e.g. [])
+   summary: {'reads': 6000, 'paired': 6000, 'conc0': 0, 'conc1': 6000, 'concM': 0, 'disc1': 0, 'mates': 0, 'mate0': 0, 'mate1': 0, 'mateM': 0, 'rate': 100.0}
+ok   -X 1000: no spurious gaps and every reported |TLEN| equals the fragment length

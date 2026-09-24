@@ -1,0 +1,77 @@
+bowtie2 2.5.1  reference 80000 bp random
+
+1. fragment length vs -I 200 -X 500 (100-bp mates, FR):
+   fragment  150: YT DP FLAG&2 0 TLEN   150/ -150  port DISCORD  
+   fragment  199: YT DP FLAG&2 0 TLEN   199/ -199  port DISCORD  
+   fragment  200: YT CP FLAG&2 1 TLEN   200/ -200  port NORMAL   
+   fragment  201: YT CP FLAG&2 1 TLEN   201/ -201  port NORMAL   
+   fragment  250: YT CP FLAG&2 1 TLEN   250/ -250  port NORMAL   
+   fragment  400: YT CP FLAG&2 1 TLEN   400/ -400  port NORMAL   
+   fragment  499: YT CP FLAG&2 1 TLEN   499/ -499  port NORMAL   
+   fragment  500: YT CP FLAG&2 1 TLEN   500/ -500  port NORMAL   
+   fragment  501: YT DP FLAG&2 0 TLEN   501/ -501  port DISCORD  
+   fragment  600: YT DP FLAG&2 0 TLEN   600/ -600  port DISCORD  
+   fragment 1200: YT DP FLAG&2 0 TLEN  1200/-1200  port DISCORD  
+ok   block 1: concordance and TLEN follow -I/-X on untrimmed 100-bp mates
+
+2. orientation policies (fragment 300, 100-bp mates):
+   pair FR under --fr: YT CP FLAG&2 1 TLEN   300/ -300 
+   pair FR under --rf: YT DP FLAG&2 0 TLEN   300/ -300 
+   pair FR under --ff: YT DP FLAG&2 0 TLEN   300/ -300 
+   pair RF under --fr: YT DP FLAG&2 0 TLEN   300/ -300 
+   pair RF under --rf: YT CP FLAG&2 1 TLEN   300/ -300 
+   pair RF under --ff: YT DP FLAG&2 0 TLEN   300/ -300 
+   pair FF under --fr: YT DP FLAG&2 0 TLEN   300/ -300 
+   pair FF under --rf: YT DP FLAG&2 0 TLEN   300/ -300 
+   pair FF under --ff: YT CP FLAG&2 1 TLEN   300/ -300 
+ok   block 2: --fr/--rf/--ff classify the three layouts as documented, TLEN signed by position
+
+3. overlap / containment / dovetail (defaults: overlap ok, contain ok, dovetail not):
+   separate                       default       : YT CP FLAG&2 1 TLEN   300/ -300  port NORMAL   
+   separate                       --no-overlap  : YT CP FLAG&2 1 TLEN   300/ -300  port NORMAL   
+   separate                       --no-contain  : YT CP FLAG&2 1 TLEN   300/ -300  port NORMAL   
+   separate                       --dovetail    : YT CP FLAG&2 1 TLEN   300/ -300  port NORMAL   
+   overlap40                      default       : YT CP FLAG&2 1 TLEN   160/ -160  port OVERLAP  
+   overlap40                      --no-overlap  : YT DP FLAG&2 0 TLEN   160/ -160  port DISCORD  
+   overlap40                      --no-contain  : YT CP FLAG&2 1 TLEN   160/ -160  port OVERLAP  
+   overlap40                      --dovetail    : YT CP FLAG&2 1 TLEN   160/ -160  port OVERLAP  
+   contain_mate2_inside_mate1     default       : YT DP FLAG&2 0 TLEN   150/ -150  port DISCORD  
+   contain_mate2_inside_mate1     --no-overlap  : YT DP FLAG&2 0 TLEN   150/ -150  port DISCORD  
+   contain_mate2_inside_mate1     --no-contain  : YT DP FLAG&2 0 TLEN   150/ -150  port DISCORD  
+   contain_mate2_inside_mate1     --dovetail    : YT CP FLAG&2 1 TLEN   150/ -150  port DOVETAIL 
+   identical_extents              default       : YT CP FLAG&2 1 TLEN   100/ -100  port CONTAIN  
+   identical_extents              --no-overlap  : YT DP FLAG&2 0 TLEN   100/ -100  port DISCORD  
+   identical_extents              --no-contain  : YT DP FLAG&2 0 TLEN   100/ -100  port DISCORD  
+   identical_extents              --dovetail    : YT CP FLAG&2 1 TLEN   100/ -100  port CONTAIN  
+   dovetail20                     default       : YT DP FLAG&2 0 TLEN  -120/  120  port DISCORD  
+   dovetail20                     --no-overlap  : YT DP FLAG&2 0 TLEN  -120/  120  port DISCORD  
+   dovetail20                     --no-contain  : YT DP FLAG&2 0 TLEN  -120/  120  port DISCORD  
+   dovetail20                     --dovetail    : YT CP FLAG&2 1 TLEN  -120/  120  port DOVETAIL 
+ok   block 3: overlap/contain/dovetail options behave as the port of peClassifyPair
+
+4. -I/-X under -3/-5 hard trimming (manual: the constraint 'is applied with respect to the untrimmed mates'):
+   fragment 520 (untrimmed), -3 20 -5 20, -X 500: aligned extent 480, YT CP FLAG&2 1 TLEN 480/-480; per the manual (untrimmed 520 vs the bounds) concordant=False
+   fragment 560 (untrimmed), -3 40 -5 40, -X 500: aligned extent 480, YT CP FLAG&2 1 TLEN 480/-480; per the manual (untrimmed 560 vs the bounds) concordant=False
+   fragment 500 (untrimmed), -3 20 -5 20, -X 500: aligned extent 460, YT CP FLAG&2 1 TLEN 460/-460; per the manual (untrimmed 500 vs the bounds) concordant=True
+   fragment 230 (untrimmed), -3 20 -5 20, -I 200 -X 500: aligned extent 190, YT DP FLAG&2 0 TLEN 190/-190; per the manual (untrimmed 230 vs the bounds) concordant=True
+FAIL block 4: -I/-X applied to the untrimmed fragment as the manual says  (the constraint is checked on the aligned extents; TLEN reports the untrimmed extent)
+
+5. --trim-to 3:80 (100-bp mates, fragment 540, -X 500):
+   aligned extent 500 (each mate 80 bp; the 20-bp 3' trims fall inside the fragment), YT DP FLAG&2 0 TLEN 540/-540, CIGAR 80M/80M
+ok   block 5: --trim-to: concordance and |TLEN| agree on which fragment length -X bounded
+
+6. --local soft clipping (20 bases of non-genomic sequence on the 3' end of each mate, fragment 480 + 2x20 = 520 outer, -X 500):
+   -X 500                             : CIGAR 80M20S/20S80M, mapped outer distance 480, YT CP FLAG&2 1 TLEN 480/-480
+   -X 500 --soft-clipped-unmapped-tlen: CIGAR 80M20S/20S80M, mapped outer distance 480, YT CP FLAG&2 1 TLEN 480/-480
+   -X 470                             : CIGAR 80M20S/20S80M, mapped outer distance 480, YT DP FLAG&2 0 TLEN 480/-480
+   -X 470 --soft-clipped-unmapped-tlen: CIGAR 80M20S/20S80M, mapped outer distance 480, YT DP FLAG&2 0 TLEN 480/-480
+ok   block 6: --local: |TLEN| equals the outer distance of the mapped bases (SAM TLEN definition)  (TLEN 480: soft-clipped bases are included; -X 500 was satisfied by the mapped extent 480)
+
+7. --local, junk on the 5' ends (inner clips), fragment 210 outer, -I 200 -X 500:
+   default                     : CIGAR 20S80M/80M20S, mapped outer distance 170, clipped outer distance 210, YT DP FLAG&2 0 TLEN 210/-210
+   --soft-clipped-unmapped-tlen: CIGAR 20S80M/80M20S, mapped outer distance 170, clipped outer distance 210, YT DP FLAG&2 0 TLEN 170/-170
+
+8. --local, junk on both 5' ends (outer clips), mapped outer distance 480, clipped outer distance 520, -X 500:
+   default                     : CIGAR 20S80M/80M20S, YT CP FLAG&2 1 TLEN 520/-520
+   --soft-clipped-unmapped-tlen: CIGAR 20S80M/80M20S, YT CP FLAG&2 1 TLEN 480/-480
+FAIL block 8: a pair reported concordant under -X 500 has |TLEN| <= 500  (concordant with TLEN 520: -X bounds the mapped extent, TLEN includes the outer soft clips unless --soft-clipped-unmapped-tlen)
