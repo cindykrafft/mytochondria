@@ -4,8 +4,9 @@ Default branch: **`main`** (`usadellab/Trimmomatic`; compare URL base
 `https://github.com/usadellab/Trimmomatic/compare/main...`).
 
 _Prepared 2026-09-13 against `usadellab/Trimmomatic` `main` @ `ef98d62` (2026-07-03,
-the V0.41 release merge). **Nothing filed yet. Fork `cindykrafft/Trimmomatic` made 2026-09-24 and both fix
-branches pushed to it the same evening** (unchanged commits); the `git am`-able patches are in
+the V0.41 release merge). **TM1 filed 2026-09-24 as issue #90 and PR #91** from `fix/palindrome-mismatch-penalty` on the fork
+`cindykrafft/Trimmomatic` (both branches pushed the same evening, unchanged commits; the fork has no
+Actions runs, so CI runs only on the upstream PR); the `git am`-able patches are in
 this directory:_
 
 | branch | commit | patch | finding |

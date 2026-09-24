@@ -13,3 +13,6 @@ iqtree:192:pr:210:merged
 iqtree:198:pr:214:open
 umap:1194:pr:1288:merged
 umap:1277:pr:1290:open
+star:2707:pr:2708:open
+trimmomatic:90:pr:91:open
+samtools:696:pr:2388:open

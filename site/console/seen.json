@@ -1,5 +1,5 @@
 {
- "taken": "2026-09-24T06:46:00Z",
+ "taken": "2026-09-24T19:35:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
   {
@@ -1252,6 +1252,83 @@
    "updated": "2026-09-24T16:51:00Z",
    "title": "stats: count duplicates for the same records as \"sequences\"; include isize 0 in the SD",
    "note": "ST3 PR filed 2026-09-24; head 47d3376 after the test.pl mode fix; fork CI green"
+  },
+  {
+   "repo": "usadellab/Trimmomatic",
+   "number": 90,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-09-24T18:36:43Z",
+   "title": "ILLUMINACLIP palindrome mode charges int(Q/10) per mismatch instead of Q/10 (integer division), unlike simple mode and the README",
+   "note": "TM1 issue filed by the owner 2026-09-24"
+  },
+  {
+   "repo": "usadellab/Trimmomatic",
+   "number": 91,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-09-24T18:37:12Z",
+   "title": "Charge Q/10 per mismatch in ILLUMINACLIP palindrome mode",
+   "note": "TM1 PR filed by the owner 2026-09-24; fork has no Actions runs (Actions not enabled on the fork)"
+  },
+  {
+   "repo": "alexdobin/STAR",
+   "number": 2708,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-09-24T18:30:59Z",
+   "title": "Treat transcripts with undefined GTF strand ('.') as '+' in Aligned.toTranscriptome.out.bam and count them from both strands in STARsolo",
+   "note": "STA1 PR filed by the owner 2026-09-24"
+  },
+  {
+   "repo": "google/filament",
+   "number": 10470,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-09-24T16:55:53Z",
+   "title": "math::fast::qadd/qsub give wrong results on AArch64 (signed intrinsics)",
+   "note": "not a Mytochondria filing"
+  },
+  {
+   "repo": "google/comprehensive-rust",
+   "number": 3288,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-09-24T18:07:53Z",
+   "title": "Fix a few statements in the Fundamentals material",
+   "note": "not a Mytochondria filing"
+  },
+  {
+   "repo": "google/comprehensive-rust",
+   "number": 3287,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-09-24T18:06:28Z",
+   "title": "Fix course pages that render incorrectly",
+   "note": "not a Mytochondria filing"
+  },
+  {
+   "repo": "google/guava",
+   "number": 8696,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-09-24T19:10:48Z",
+   "title": "Document that transform and transformAsync propagate exceptions thrown by the function",
+   "note": "not a Mytochondria filing"
   }
  ],
  "merge_checked": [
