@@ -1,0 +1,16 @@
+FastQC has no test suite. Verification of fix/per-sequence-quality-mean-rounding (bce1b2b):
+
+  javac -nowarn -cp "<jars>" -d build $(find uk net org -name '*.java')   # clean compile, no errors
+  python3 verify/f1_basic_quality_modules.py <patched build dir>            # verify/f1_basic_quality_modules.patched.out
+
+  master (87fb336):  per-read mean qualities: exact mean of means 30.018; FastQC histogram mean 29.527
+                     ok   histogram equals the floor of each read's mean quality
+                     FAIL histogram equals each read's mean quality rounded to the nearest integer
+  patched (bce1b2b): per-read mean qualities: exact mean of means 30.018; FastQC histogram mean 30.017
+                     FAIL histogram equals the floor of each read's mean quality      (expected: the floor is the bug)
+                     ok   histogram equals each read's mean quality rounded to the nearest integer
+
+  The other ten checks of f1 (Basic Statistics, per-base quality statistics and grouping,
+  per-base content, N content, length distribution, encoding) give the same results on both
+  builds. The rounding is Java's Math.round (half up); the harness compares against
+  floor(x + 0.5).

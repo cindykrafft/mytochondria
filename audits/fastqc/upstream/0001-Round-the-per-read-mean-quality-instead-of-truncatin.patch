@@ -1,0 +1,48 @@
+From bce1b2b4cf1ac1a3bfdcb373600aa0f1d1862a64 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 24 Sep 2026 20:26:12 +0000
+Subject: [PATCH] Round the per-read mean quality instead of truncating it
+
+PerSequenceQualityScores summed the quality characters into an int and
+divided by the read length with integer division, so a read whose mean
+quality is 27.9 was counted at 27. The histogram, the most frequent mean
+quality that the warn and fail thresholds test, and MultiQC's copy of the
+histogram sat up to one unit (on average 0.5) below the true per-read
+means: on 2,000 reads with an exact mean of means of 30.02 the histogram
+mean was 29.53. Sum into a long and round the mean to the nearest
+integer; the histogram mean is then 30.02.
+---
+ .../babraham/FastQC/Modules/PerSequenceQualityScores.java | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/uk/ac/babraham/FastQC/Modules/PerSequenceQualityScores.java b/uk/ac/babraham/FastQC/Modules/PerSequenceQualityScores.java
+index 276ac6b..e07c8c8 100644
+--- a/uk/ac/babraham/FastQC/Modules/PerSequenceQualityScores.java
++++ b/uk/ac/babraham/FastQC/Modules/PerSequenceQualityScores.java
+@@ -90,18 +90,20 @@ public class PerSequenceQualityScores extends AbstractQCModule {
+ 				
+ 		String qual = sequence.getQualityString();
+ 		int qualLen = qual.length();
+-		int averageQuality = 0;
++		long qualitySum = 0;
+ 		
+ 		for (int i=0;i<qualLen;i++) {
+ 			char ch = qual.charAt(i);
+ 			if (ch < lowestChar) {
+ 				lowestChar = ch;
+ 			}
+-			averageQuality += ch;
++			qualitySum += ch;
+ 		}
+ 
+ 		if (qualLen > 0) {
+-			averageQuality /= qualLen;
++			// Round the mean to the nearest integer rather than truncating
++			// it, so the histogram is centred on the true per-read means.
++			int averageQuality = (int)Math.round(qualitySum/(double)qualLen);
+ 					
+ 			if (averageScoreCounts.containsKey(averageQuality)) {
+ 				long currentCount = averageScoreCounts.get(averageQuality);
+-- 
+2.43.0
+

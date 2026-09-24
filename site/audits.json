@@ -433,6 +433,20 @@
    "attributed_note": "survey cohort of 477 papers; 4 confirmed on master and five release binaries (mate-2 MAPQ length slip on master, XS:i missing on unpaired mates, --no-mixed suppresses discordant alignments, spurious insertions just above -X), 3 notes; scoring, MAPQ port, pair classification and the alignment summary held up",
    "versions_stated": 89,
    "versions_in_repo": 0
+  },
+  {
+   "dir": "fastqc",
+   "name": "FastQC",
+   "papers": 322,
+   "findings": 7,
+   "repos": [
+    "s-andrews/FastQC"
+   ],
+   "fork": null,
+   "attributed": null,
+   "attributed_note": "survey cohort of 322 papers; 3 confirmed on master and three release archives (encoding misdetection when no quality is below 31, per-read mean quality truncated, GC module truncates reads to 100 bases), 4 notes; the other modules held up",
+   "versions_stated": 85,
+   "versions_in_repo": 0
   }
  ],
  "author": "cindykrafft",

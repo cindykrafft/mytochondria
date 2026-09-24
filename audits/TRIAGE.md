@@ -187,7 +187,7 @@ mirror: the Bioconductor support site is the channel and is unreachable from the
 prior-report search there is the owner's. Forks needed for the PRs: GSEA-MSigDB/gsea-desktop,
 samtools/bcftools, alexdobin/STAR, usadellab/Trimmomatic.
 
-## Round 5 (2026-09-24): Picard, Bowtie 2 (first two of five: Picard, Bowtie2, FastQC, scDblFinder, VCFtools)
+## Round 5 (2026-09-24): Picard, Bowtie 2, FastQC (first three of five: Picard, Bowtie2, FastQC, scDblFinder, VCFtools)
 
 The five most-used tools in the survey not yet audited whose numeric core can be executed here.
 Picard first (289 papers; 143 name MarkDuplicates). Kit under `audits/picard/upstream/`.
@@ -223,4 +223,18 @@ pair classification vs a port of peClassifyPair; the summary lines and overall r
 Channel notes. No CONTRIBUTING.md, no templates, no AI policy; CI is `make simple-test` (Perl, Test::Deep) on three platforms.
 Twenty prior threads read in full through two helper sessions; none reports BW1, BW2 or BW4; #430 (open, "working on a fix") is a
 different --no-mixed effect. Fork needed: BenLangmead/bowtie2.
+
+### FastQC (third of five; 322 papers; kit under `audits/fastqc/upstream/`)
+
+| tier | finding | reason |
+|---|---|---|
+| file now | FastQC FQ1 | every version: a Phred+33 file with no quality below 31 is read as Illumina 1.5 and every quality is reported 31 too low; prior #147 (closed) asked for a way to state the encoding; report with a proposed default |
+| file now | FastQC FQ2 | every version: per-read mean quality truncated toward zero before binning; histogram 0.5 too low on average; one-line fix |
+| ready (third) | FastQC FQ3 | every version: the GC module counts only the first 100 bases of 101-199-bp reads while the page says the whole read (150-bp reads with a poly-G tail: 45 % vs 63 %); page or code, maintainer's call |
+| held | FastQC N1-N4 | documented 100,000-sequence tracking limit, integer %GC and mean length, unweighted group statistics, floor-rank percentiles |
+
+Held up: Basic Statistics, per-base quality statistics and grouping, per-base content and N, length distribution, the GC model port,
+the duplication estimator (within 0.07 points under and over the tracking limit), adapter content port, overrepresented counts and thresholds.
+
+Channel notes. No CONTRIBUTING, no templates, no AI policy, no test suite; twelve prior threads read in full. Fork needed: s-andrews/FastQC.
 

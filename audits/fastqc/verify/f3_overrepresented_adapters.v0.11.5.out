@@ -1,0 +1,10 @@
+FastQC 0.11.5
+ok   Adapter Content: 49 rows x 5 adapters equal the port (cumulative % of reads containing the 12-mer at or before the position, averaged over the group)  (rows 49 vs groups 49; 0 cells differ)
+   last row 88: Illumina Universal Adapter 39.06 %, Illumina Small RNA 3' Adapter 0.00 %, Illumina Small RNA 5' Adapter 0.00 %, Nextera Transposase Sequence 4.59 %, SOLID Small RNA Adapter 0.00 %; expected universal 39.06 %, Nextera 4.62 %, PolyG 0.49 %
+   status fail (warn > 5 %, fail > 10 % in any cell)
+ok   Adapter Content: status fail (universal adapter cumulative share 40 % > 10 %)
+   overrepresented rows: [('GACTATACGATAACTAAGAC...', (250, 1.2272950417280315)), ('CTAATCTGTGTGAATCGACG...', (120, 0.5891016200294551))]; expected [('CTAATCTGTGTGAATCGACG...', (120, 0.5891016200294551)), ('GACTATACGATAACTAAGAC...', (250, 1.2272950417280315))]; status fail
+ok   Overrepresented sequences: the two planted sequences (first 50 bp), their counts and percentages, nothing else
+ok   Overrepresented sequences: status fail (one sequence above 1 %)
+   3,000 copies (2.4 %) of a sequence first seen after 120,000 distinct sequences: overrepresented rows 0, status pass; duplication module Total Deduplicated Percentage 100.0 (true 97.56)
+FAIL Overrepresented sequences: a 2.4 % sequence first seen after the 100,000-distinct-sequence limit is reported (documented limitation: it is not)

@@ -1,0 +1,11 @@
+FastQC 0.12.1 (head build)
+ok   GC content, 100-bp reads: the 101-bin distribution equals the port of GCModel (max abs diff 0.00e+00); status pass vs port deviation 5.38 % -> pass
+   150-bp reads with a 50-base poly-G tail: mean whole-read GC 63.3 %, mean GC of the first 100 bases 44.9 %, FastQC distribution mean 45.4 %; Basic Statistics %GC 63
+FAIL GC content, 150-bp reads: the distribution reflects the whole read (documentation: 'across the whole length of each sequence')  (only the first 100 bases of a 101-199-bp read enter the module)
+ok   GC content, 150-bp reads: matches the port that truncates to the first 100 bases
+   30k unique + 5k x2 + 1k x5 + 20 x200 (under the 100k limit): 49000 reads; Total Deduplicated Percentage 73.51 (true 73.51); largest level-bin difference 0.00 points; status pass
+ok   duplication: estimate within 1 point of the truth (30k unique + 5k x2 + 1k x5 + 20 x200 (under the 100k limit))
+   250k unique + 20k x2 + 5k x5 + 50 x500 (over the 100k limit): 340000 reads; Total Deduplicated Percentage 80.94 (true 80.90); largest level-bin difference 0.07 points; status pass
+ok   duplication: estimate within 1 point of the truth (250k unique + 20k x2 + 5k x5 + 50 x500 (over the 100k limit))
+   40k unique + 2k x50 (heavy duplication): 140000 reads; Total Deduplicated Percentage 30.00 (true 30.00); largest level-bin difference 0.00 points; status fail
+ok   duplication: estimate within 1 point of the truth (40k unique + 2k x50 (heavy duplication))

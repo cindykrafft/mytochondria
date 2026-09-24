@@ -1,0 +1,18 @@
+FastQC 0.11.5
+   Basic Statistics: {'Filename': 'A.fq', 'File type': 'Conventional base calls', 'Encoding': 'Sanger / Illumina 1.9', 'Total Sequences': '2000', 'Sequences flagged as poor quality': '0', 'Sequence length': '100', '%GC': '49'}
+ok   Basic: Total Sequences 2000, Sequence length 100
+ok   Basic: %GC = floor(100*GC/ACGT) = 49 (exact 49.956)
+ok   Per base sequence quality (--nogroup): mean exact and percentiles equal the port of QualityCount.getPercentile on 100/100 positions
+   positions where FastQC's percentile (floor(pN)-th value) differs from the nearest-rank (ceil(pN)-th) value: 0/100 (N = 2000 per position)
+   per-read mean qualities: exact mean of means 30.018; FastQC histogram mean 29.527
+ok   Per sequence quality scores: histogram equals the floor of each read's mean quality
+FAIL Per sequence quality scores: histogram equals each read's mean quality rounded to the nearest integer  (each read's mean is truncated toward zero: the histogram sits about 0.5 below the true means)
+ok   Per base sequence content (--nogroup): %G/%A/%T/%C exact (N excluded from the denominator) on 100/100
+ok   Per base N content (--nogroup): exact on 100/100
+ok   Per base sequence quality (default grouping): 55 rows, labels match the port of makeLinearBaseGroups
+ok   Per base sequence quality (default grouping): group mean = mean of per-position means, group median = mean of per-position medians
+   Basic Statistics (variable lengths): {'Filename': 'B.fq', 'File type': 'Conventional base calls', 'Encoding': 'Illumina 1.5', 'Total Sequences': '3000', 'Sequences flagged as poor quality': '0', 'Sequence length': '30-120', '%GC': '49'}
+ok   Basic: Sequence length '30-120', Mean Length floor(266658/3000) = 88, Median Length 101
+ok   Sequence Length Distribution: 46 bins sum to 3000 and each bin equals the count of reads in its range
+   all qualities in 31-37 (Phred+33, chars '@'..'F'): Encoding reported 'Illumina 1.5', per-base mean at position 1 = 3.224 (true mean about 34.3)
+FAIL Encoding: a Phred+33 file whose lowest quality is 31 is reported as Sanger / Illumina 1.9  (the lowest character decides: '@' (64) and above is taken as an offset-64 encoding, so every quality is reported 31 too low)
