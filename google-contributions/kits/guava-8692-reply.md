@@ -6,4 +6,8 @@ I collected the Java files that call `filterKeys(`, `filterValues(` or `filterEn
 - Four other projects use the `NavigableMap` overload but only iterate the result.
 - I didn't find any `setValue`, cast or `==` comparison on entries from these methods, or any `pollFirstEntry`/`pollLastEntry` call on a filtered map.
 
-One limit: the search only looked for navigation calls in the same file as the filter call, plus files that mention `NavigableMap`. It could miss a filtered map that is passed around and navigated elsewhere.
+I also followed the filtered maps that leave the method that creates them (returned, stored in a field, or passed on), and searched the other way for code that calls `setValue`, casts, or compares with `==` on entries from these methods. The `setValue` hits I found were JDK-style tests expecting `UnsupportedOperationException`, or code using the JDK's or a project's own maps, with no path from a filtered map as far as I could see.
+
+The one flow that reaches a published library's public API is in palantir/atlasdb. On a sampled validation path, [`ValidatingTransactionScopedCache`](https://github.com/palantir/atlasdb/blob/cc7262e5878eef81813dc2494e6d265d9b164910/atlasdb-impl-shared/src/main/java/com/palantir/atlasdb/keyvalue/api/cache/ValidatingTransactionScopedCache.java#L157) returns `Maps.filterKeys(remoteReads, ...)` over a `NavigableMap`. For unwatched tables that result is passed through unchanged to callers of `Transaction.getRows`. I didn't find any code in the index that calls a navigation method on `getRows` results, but callers outside the index are unknown.
+
+Limits: Sourcegraph skips forks and doesn't index everything, and some of my queries hit its result limit. The type checks were done by reading the code, not by compiling it.
