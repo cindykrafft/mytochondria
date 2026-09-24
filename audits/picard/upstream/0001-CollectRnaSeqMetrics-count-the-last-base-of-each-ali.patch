@@ -1,4 +1,4 @@
-From ac65de9bf7b52b929b07f690d2b26036e40dcfae Mon Sep 17 00:00:00 2001
+From 35f8617d2828f546b491f41b1e4ad638729be198 Mon Sep 17 00:00:00 2001
 From: Cindy Krafft <cynthiacondra@gmail.com>
 Date: Thu, 24 Sep 2026 19:21:55 +0000
 Subject: [PATCH] CollectRnaSeqMetrics: count the last base of each alignment
@@ -17,11 +17,15 @@ MEDIAN_CV_COVERAGE 0.032 instead of 0 and a normalized coverage of 0.91 at the
 percentile holding the junction.
 
 The loop now includes genomeEnd. The new test covers a two-exon transcript with
-uniform coverage; it fails on the previous code.
+uniform coverage and fails on the previous code. The expected values of
+testBiasEndBiasAdjust, which were taken from the tool's output, are replaced by
+the values worked out from the read layout (30 pairs covering bases 51-200 and
+825-974 of a 1000-base transcript): the last 50 bases hold 24 covered bases,
+not 23, and the mean coverage is 9.0, not 8.94.
 ---
  src/main/java/picard/annotation/Gene.java     |  7 +-
- .../analysis/CollectRnaSeqMetricsTest.java    | 66 +++++++++++++++++++
- 2 files changed, 72 insertions(+), 1 deletion(-)
+ .../analysis/CollectRnaSeqMetricsTest.java    | 80 +++++++++++++++++--
+ 2 files changed, 81 insertions(+), 6 deletions(-)
 
 diff --git a/src/main/java/picard/annotation/Gene.java b/src/main/java/picard/annotation/Gene.java
 index 5a2ebb6b..8a05e93c 100644
@@ -43,7 +47,7 @@ index 5a2ebb6b..8a05e93c 100644
                  if (txBase > 0) coverage[txBase-1]++;
              }
 diff --git a/src/test/java/picard/analysis/CollectRnaSeqMetricsTest.java b/src/test/java/picard/analysis/CollectRnaSeqMetricsTest.java
-index 594be73d..f1ac4a4a 100644
+index 594be73d..15b1448b 100644
 --- a/src/test/java/picard/analysis/CollectRnaSeqMetricsTest.java
 +++ b/src/test/java/picard/analysis/CollectRnaSeqMetricsTest.java
 @@ -25,6 +25,7 @@ package picard.analysis;
@@ -54,7 +58,35 @@ index 594be73d..f1ac4a4a 100644
  import htsjdk.samtools.util.Interval;
  import htsjdk.samtools.util.IntervalList;
  import htsjdk.samtools.util.StringUtil;
-@@ -624,6 +625,71 @@ public class CollectRnaSeqMetricsTest extends CommandLineProgramTest {
+@@ -473,18 +474,22 @@ public class CollectRnaSeqMetricsTest extends CommandLineProgramTest {
+                     0.0
+                 },
+                 // Case 2 - 50 nt in, 5' should be 0 coverage and 3' should be partially covered.
++                // 30 pairs cover transcript bases 51-200 and 825-974 (mean coverage 30 * 300 / 1000 = 9):
++                // the last 50 bases hold 24 covered bases, so the 3' bias is (24 * 30 / 50) / 9 = 1.6.
++                // (Before the last base of each alignment block was counted the values were 1.543624 etc.)
+                 {
+                     50,
+-                    1.543624,
++                    1.6,
+                     0.0,
+                     0.0
+                 },
+-                // Case 3 - 100 nt in, 3' and 5' should both have coverage.
++                // Case 3 - 100 nt in, 3' and 5' should both have coverage: 74 covered bases in the last 100
++                // ((74 * 30 / 100) / 9 = 2.466667) and 50 in the first 100 ((50 * 30 / 100) / 9 = 1.666667).
+                 {
+                     100,
+-                    2.449664,
+-                    1.677852,
+-                    0.684932
++                    2.466667,
++                    1.666667,
++                    0.675676
+                 }
+         };
+     }
+@@ -624,6 +629,71 @@ public class CollectRnaSeqMetricsTest extends CommandLineProgramTest {
          Assert.assertEquals(metrics.PCT_RIBOSOMAL_BASES, 0.4);
      }
  

@@ -31,6 +31,11 @@ Test: `CollectRnaSeqMetricsTest.testCoverageIncludesLastBaseOfEachAlignmentBlock
 two-exon transcript with `SAMRecordSetBuilder` and asserts CV 0, biases 1 and a flat histogram; it
 fails on `master`.
 
+`testBiasEndBiasAdjust`'s expected values for cases 2 and 3 were taken from the tool's output and
+encoded the missing base (23 covered bases in the last 50 instead of 24, mean coverage 8.94 instead
+of 9.0); they are replaced by the values worked out from the read layout, with the derivation in a
+comment.
+
 ### Checklist (never delete this)
 
 Never delete this, it is our record that procedure was followed. If you find that for whatever reason one of the checklist points doesn't apply to your PR, you can leave it unchecked but please add an explanation below.

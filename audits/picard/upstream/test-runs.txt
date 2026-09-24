@@ -1,0 +1,22 @@
+Picard's own tests on the three fix branches, 2026-09-24, Temurin JDK 17.0.13 via
+-Porg.gradle.java.installations.paths, Gradle 8.5, htsjdk 5.0.0, base master c2a483d.
+Command per branch: ./gradlew test -x barclayTest --tests <class>  and  ./gradlew barclayTest --tests <class>
+(the legacy and the Barclay command-line parsers, as CI runs them).
+
+fix/rnaseq-coverage-last-base  (35f8617d)
+  picard.analysis.CollectRnaSeqMetricsTest      test: 12 run, 0 failed   barclayTest: 12 run, 0 failed
+  (the new testCoverageIncludesLastBaseOfEachAlignmentBlock passes; testBiasEndBiasAdjust cases 2 and 3
+   had expected values taken from the tool's output with the off-by-one -- 1.543624 / 2.449664 / 1.677852 /
+   0.684932 -- and now carry the values derived from the read layout: 1.6 / 2.466667 / 1.666667 / 0.675676;
+   before that change the two cases failed with "expected [1.543624] but found [1.6]" and
+   "expected [1.677852] but found [1.666667]")
+
+fix/hsmetrics-zero-cvg-denominator  (eba097ba)
+  picard.analysis.directed.CollectHsMetricsTest test: 15 run, 0 failed   barclayTest: 15 run, 0 failed
+
+fix/alignment-summary-bisulfite-ref-index  (a01cc321)
+  picard.analysis.CollectAlignmentSummaryMetricsTest  test: 17 run, 0 failed   barclayTest: 17 run, 0 failed
+  (the existing testBisulfite expectations are unchanged: its reads sit at contig position 1 of 101-bp contigs,
+   where the read offset and the aligned position coincide)
+
+On unmodified master the three new tests fail (CV 0.031639; ZERO_CVG_TARGETS_PCT 0.5; ArrayIndexOutOfBoundsException).

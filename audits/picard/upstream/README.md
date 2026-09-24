@@ -77,14 +77,14 @@ per-base truth to six digits (`MEDIAN_CV_COVERAGE` 0.430119, biases 0.233688 / 0
 held-up harnesses (`MarkDuplicates`, insert size, WGS, alignment summary) are unchanged.
 
 Picard's own tests (TestNG, Temurin 17, `./gradlew test -x barclayTest --tests <class>` and
-`barclayTest --tests <class>`) on each branch: see the table below, filled in from the runs
-recorded in `test-runs.txt`.
+`barclayTest --tests <class>`, i.e. both command-line parsers as CI runs them; details in
+`test-runs.txt`):
 
 | branch | commit | test class | result |
 |---|---|---|---|
-| `fix/rnaseq-coverage-last-base` | see `test-runs.txt` | `CollectRnaSeqMetricsTest` | see `test-runs.txt` |
-| `fix/hsmetrics-zero-cvg-denominator` | | `CollectHsMetricsTest` | |
-| `fix/alignment-summary-bisulfite-ref-index` | | `CollectAlignmentSummaryMetricsTest` | |
+| `fix/rnaseq-coverage-last-base` | `35f8617d` | `CollectRnaSeqMetricsTest` | 12 / 12 pass with both parsers; the new test fails on `master`; `testBiasEndBiasAdjust`'s expected values, taken from the tool's output with the off-by-one, are replaced by the values derived from the read layout (1.6 / 2.466667 / 1.666667 / 0.675676) |
+| `fix/hsmetrics-zero-cvg-denominator` | `eba097ba` | `CollectHsMetricsTest` | 15 / 15 pass with both parsers; the new test fails on `master` (0.5) |
+| `fix/alignment-summary-bisulfite-ref-index` | `a01cc321` | `CollectAlignmentSummaryMetricsTest` | 17 / 17 pass with both parsers; the new test fails on `master` (exception); the existing bisulfite test is unchanged (its reads sit at contig position 1, where offset and position coincide) |
 
 ## Version scope (executed)
 
