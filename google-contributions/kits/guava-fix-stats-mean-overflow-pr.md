@@ -1,6 +1,6 @@
 **Title:** Avoid overflow in `Stats` mean computation for large values of opposite sign
 
-`Stats`, `StatsAccumulator` and `PairedStatsAccumulator` return a wrong-signed infinite mean when the data contains finite values of opposite sign and large magnitude, even though the true mean is finite. I did not find an existing issue for this.
+`Stats`, `StatsAccumulator` and `PairedStatsAccumulator` can return an infinite mean (or `NaN`, if an infinity is added afterwards) when the data contains finite values of opposite sign and large magnitude, even though the true mean is finite. I did not find an existing issue for this.
 
 ### Repro
 
@@ -35,23 +35,25 @@ p.xStats().mean(); p.populationCovariance();
 | `PairedStatsAccumulator` `(MAX,1), (-MAX,2)`: `xStats().mean()` | `-Infinity` | `0.0` | `0` |
 | same, `populationCovariance()` | `Infinity` | `-8.988465674311579E307` | `-MAX/2` |
 
+The `mean()` Javadoc says: "If it contains {@link Double#POSITIVE_INFINITY} and finite values only or {@link Double#POSITIVE_INFINITY} only, the result is {@link Double#POSITIVE_INFINITY}." ([StatsAccumulator.java:240-241](https://github.com/google/guava/blob/79152348ece2de85559eb2eb18133862d492c892/guava/src/com/google/common/math/StatsAccumulator.java#L240-L241))
+
 "Before" is `master` at 7915234; "after" is this branch. Both were built with the project's toolchain (JDK 26 compiler) and run on JDK 21.
 
 ### Root cause
 
-The mean is updated incrementally as `mean += (value - mean) / count` (Knuth, TAOCP vol. 2, 4.2.2). When `value` and `mean` are both finite but have opposite signs and large magnitudes, `value - mean` overflows to an infinity, so the mean becomes an infinity. From then on the mean is non-finite, so later values go through `calculateNewMeanNonFinite`. That is why adding `+Infinity` afterwards produces `NaN` (`-Inf` combined with `+Inf`) instead of the documented `+Infinity`. The same thing happens in `StatsAccumulator.merge` (`delta * otherCount / count`), where `delta * otherCount` can also overflow even when `delta` is finite. `Stats.meanOf(Iterator)` and `Stats.meanOf(double...)` have the same update. `meanOf(int...)` and `meanOf(long...)` cannot overflow this way, because int and long magnitudes are far below `Double.MAX_VALUE`.
+The mean is updated incrementally as `mean += (value - mean) / count` (Knuth, TAOCP vol. 2, 4.2.2). When `value` and `mean` are both finite but have opposite signs and large magnitudes, `value - mean` overflows to an infinity, so the mean becomes an infinity. From then on the mean is non-finite, so later values go through `calculateNewMeanNonFinite`. That is why adding `+Infinity` afterwards produces `NaN` (case 3c in the `calculateNewMeanNonFinite` comment: "they are different infinities (so mean != value) then the new mean is NaN") instead of the documented `+Infinity`. The same thing happens in `StatsAccumulator.merge` (`delta * otherCount / count`), where `delta * otherCount` can also overflow even when `delta` is finite. `Stats.meanOf(Iterator)` and `Stats.meanOf(double...)` have the same update. `meanOf(int...)` and `meanOf(long...)` cannot overflow this way, because int and long magnitudes are far below `Double.MAX_VALUE`.
 
 ### Fix
 
-The existing update is kept as the fast path, with the same expression and evaluation order, so results for all inputs that did not overflow are bit-for-bit unchanged. Only when the update overflows:
+The existing update is kept as the fast path, with the same expression and evaluation order, so, as far as I can tell, results are bit-for-bit unchanged whenever that update does not overflow. Only when the update overflows:
 
 - `StatsAccumulator.add`, `Stats.meanOf(Iterator)`, `Stats.meanOf(double...)`: `mean += value / count - mean / count`. Each quotient is at most `MAX / count` in magnitude and `count >= 2`, so the difference is finite, and the new mean lies between the old mean and the value.
-- `StatsAccumulator.merge`: `mean = mean * (oldCount / count) + otherMean * (otherCount / count)`. This is a convex combination of two finite means, so it cannot overflow. (An increment form `mean + (otherMean - mean) * w` could still overflow when `w > 1/2`.)
-- `sumOfSquaresOfDeltas` is set to `POSITIVE_INFINITY` in these branches. When the fast path overflows, the true sum of squares of deltas is at least about `delta^2 / 2` with `|delta| > MAX / count`, which exceeds `Double.MAX_VALUE` for any `long` count. So `+Infinity` is the overflowed true value, and `populationVariance()` and `sampleVariance()` now return `+Infinity`. Before this change, the overflowed sum was `-Infinity` and `ensureNonNegative` clamped the variance to `0.0`, which was wrong. The variance Javadoc only promises `NaN` when the data contain non-finite values, and that is unchanged.
+- `StatsAccumulator.merge`: `mean = mean * (oldCount / count) + otherMean * (otherCount / count)`. This is a convex combination of two finite means, so it cannot overflow. (I think an increment form `mean + (otherMean - mean) * w` could still overflow when `w > 1/2`.)
+- `sumOfSquaresOfDeltas` is set to `POSITIVE_INFINITY` in these branches. When the fast path overflows, the true sum of squares of deltas is at least about `delta^2 / 2` with `|delta| > MAX / count`, which exceeds `Double.MAX_VALUE` for any `long` count. So `+Infinity` is the overflowed true value, and `populationVariance()` and `sampleVariance()` now return `+Infinity`. Before this change, the overflowed sum was `-Infinity` and `ensureNonNegative` clamped the variance to `0.0`, which was wrong. The variance Javadoc says "If the dataset contains any non-finite values ({@link Double#POSITIVE_INFINITY}, {@link Double#NEGATIVE_INFINITY}, or {@link Double#NaN}) then the result is {@link Double#NaN}" ([Stats.java:285-286](https://github.com/google/guava/blob/79152348ece2de85559eb2eb18133862d492c892/guava/src/com/google/common/math/Stats.java#L285-L286)), and that case is unchanged.
 
-`PairedStatsAccumulator` needs no change of its own. It uses `StatsAccumulator` for the x and y means, and with a finite `xStats().mean()` its covariance update gives the correct result for the repro above. Covariance can still overflow in the intermediate `(y - Y)` term when the y-values themselves differ by more than `MAX`. That separate case is not addressed here.
+`PairedStatsAccumulator` needs no change of its own. It uses `StatsAccumulator` for the x and y means, and with a finite `xStats().mean()` its covariance update gives the correct result for the repro above. I think covariance can still overflow in the intermediate difference terms, e.g. `y - yStats.mean()` when the y-values themselves differ by more than `MAX`; I haven't tested that, and it is not addressed here.
 
-There are no public API changes. `android/` is not modified, because it is synced from `guava/`.
+There are no public API changes. `android/` is not modified, per CONTRIBUTING.md: "Pull requests typically do not need to modify the files under the `android` directory".
 
 ### Tests
 

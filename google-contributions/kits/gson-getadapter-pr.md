@@ -20,13 +20,13 @@ The fix: when a nested request fails (a factory threw, or no factory supports th
 
 Why this is safe:
 
-- **Order identifies exactly the failed request's work.** Entries are only ever added (replacing a placeholder with the real adapter keeps its position). So entries after the failed type were all created during the failed request.
-- **Earlier entries are left alone.** They belong to requests further up the call chain, or to earlier siblings that completed, and could not have received the failed placeholder.
+- **Order identifies the failed request's work.** `getAdapter` only adds entries with `put`, and replacing a placeholder with the real adapter keeps its position (`LinkedHashMap` Javadoc: "encounter order is not affected if a key is *re-inserted* into the map"). So entries after the failed type were created during the failed request.
+- **Earlier entries are left alone.** They belong to requests further up the call chain, or to earlier siblings that completed. As far as I can tell they could not have received the failed placeholder.
 - **The initial request's failure handling is unchanged.** The success path's only change is `HashMap` becoming `LinkedHashMap`.
 
 The removed types are simply created again the next time they are requested.
 
-A regression test is added to `GsonTest` (`testGetAdapter_NestedFailureNotCached`). It covers the failed type itself, and a type created during the failed request which references it. The test fails without the fix. A variant that removes only the failed type's own entry fails the second assertion.
+A regression test is added to `GsonTest` (`testGetAdapter_NestedFailureNotCached`). It covers the failed type itself, and a type created during the failed request which references it. The test fails without the fix. A variant that removes only the failed type's own entry fails at the `DuplicateFields.Child` check.
 
 ### Checklist
 

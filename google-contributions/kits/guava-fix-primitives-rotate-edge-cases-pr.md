@@ -1,6 +1,6 @@
 **Title:** Fix primitive `rotate` methods for `Integer.MIN_VALUE` distances and empty ranges
 
-The `rotate(array, distance)` and `rotate(array, distance, fromIndex, toIndex)` methods in `Booleans`, `Bytes`, `Chars`, `Doubles`, `Floats`, `Ints`, `Longs` and `Shorts` have two edge-case bugs. The Javadoc says each method is equivalent to `Collections.rotate` on the `asList` view (or its `subList`), but it isn't in these cases.
+The `rotate(array, distance)` and `rotate(array, distance, fromIndex, toIndex)` methods in `Booleans`, `Bytes`, `Chars`, `Doubles`, `Floats`, `Ints`, `Longs` and `Shorts` differ from `Collections.rotate` in two edge cases. The Javadoc says, for example, "This is equivalent to {@code Collections.rotate(Ints.asList(array).subList(fromIndex, toIndex), distance)}" ([Ints.java:550-551](https://github.com/google/guava/blob/79152348ece2de85559eb2eb18133862d492c892/guava/src/com/google/common/primitives/Ints.java#L550-L551)), but in my testing it isn't in these cases.
 
 ### Repro
 
@@ -17,7 +17,7 @@ int[] e = {1, 2, 3};
 Ints.rotate(e, 1, 1, 1); // empty range
 ```
 
-Before (33.7.0-jre and current master):
+Before (33.7.0-jre and master at 7915234; run on JDK 21.0.10):
 
 ```
 Ints.rotate({1,2,3}, MIN_VALUE)        = [2, 3, 1]
@@ -37,8 +37,8 @@ Ints.rotate({1,2,3}, 1, 1, 1)          -> no-op, array unchanged
 
 ### Root cause
 
-1. The shift is computed as `int m = -distance % length;`. For `distance == Integer.MIN_VALUE`, `-distance` overflows back to `Integer.MIN_VALUE`, so the array is rotated the wrong way whenever the range length is not a power of two. `Integer.MIN_VALUE + 1` and `Integer.MAX_VALUE` already worked.
-2. The early return checks `array.length <= 1`, not the length of the range being rotated. An empty range (`fromIndex == toIndex`) inside an array of length 2 or more reaches `% 0` and throws `ArithmeticException`. The Javadoc documents only `IndexOutOfBoundsException`, and `Collections.rotate` on an empty `subList` does nothing.
+1. The shift is computed as `int m = -distance % length;`. For `distance == Integer.MIN_VALUE`, `-distance` overflows back to `Integer.MIN_VALUE`, so the array is rotated the wrong way whenever the range length is not a power of two. In my testing, `Integer.MIN_VALUE + 1` and `Integer.MAX_VALUE` already matched `Collections.rotate` (checked for lengths 1 to 9).
+2. The early return checks `array.length <= 1`, not the length of the range being rotated. An empty range (`fromIndex == toIndex`) inside an array of length 2 or more reaches `% 0` and throws `ArithmeticException`. The Javadoc's only `@throws` is `IndexOutOfBoundsException`, and `Collections.rotate` on an empty `subList` does nothing (JDK 21 `Collections.rotate1`: `if (size == 0) return;`).
 
 ### Fix
 
