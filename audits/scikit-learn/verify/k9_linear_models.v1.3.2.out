@@ -1,0 +1,246 @@
+scikit-learn 1.3.2  numpy 1.26.4  python 3.11.15
+   sklearn version tuple (1, 3); scipy 1.13.1
+ok   ElasticNet(alpha=0.1, l1_ratio=1.0, tol=1e-12): KKT of 1/(2n)||y-Xw||^2 + a*l1*||w||_1 + a(1-l1)/2||w||^2 hold (max violation < 1e-9) and coef = plain-numpy CD  (violation 9.37e-14, nnz 3)
+ok   ElasticNet(alpha=0.05, l1_ratio=0.5, tol=1e-12): KKT of 1/(2n)||y-Xw||^2 + a*l1*||w||_1 + a(1-l1)/2||w||^2 hold (max violation < 1e-9) and coef = plain-numpy CD  (violation 3.16e-13, nnz 6)
+ok   ElasticNet(alpha=0.2, l1_ratio=0.1, tol=1e-12): KKT of 1/(2n)||y-Xw||^2 + a*l1*||w||_1 + a(1-l1)/2||w||^2 hold (max violation < 1e-9) and coef = plain-numpy CD  (violation 1.01e-13, nnz 5)
+ok   ElasticNet(alpha=0.3, l1_ratio=1.0, tol=1e-12): KKT of 1/(2n)||y-Xw||^2 + a*l1*||w||_1 + a(1-l1)/2||w||^2 hold (max violation < 1e-9) and coef = plain-numpy CD  (violation 7.28e-14, nnz 3)
+ok   Lasso(alpha): intercept = mean(y) - mean(X) @ coef (fit_intercept centring, intercept unpenalised)
+ok   Lasso dual_gap_ = duality gap of the documented objective divided by n_samples (my primal - dual at the same w)  (dual_gap_ 2.185e-13, mine 2.185e-13)
+ok   Lasso dual_gap_ >= 0 and <= tol * ||y_centred||^2 / n at convergence (documented stopping rule)  (gap 2.19e-13, bound 1.12e-11, n_iter 10)
+ok   ElasticNet dual_gap_ = a valid duality gap (formulation A of main or the older formula) / n  (formulation A: dual_gap_ 1.411e-12, A 1.411e-12, old 1.411e-12)
+ok   ElasticNet(l1_ratio=0, alpha) = ridge with penalty n*alpha: (Xc'Xc + n alpha I) w = Xc'yc (the 1/(2n) loss scaling)
+ok   ElasticNet(positive=True): all coef >= 0, KKT of the sign-constrained problem hold, = plain CD with the clamp  (coef [2.1505 0.     0.     0.     0.8654 0.    ])
+ok   ElasticNet(alpha=0) = OLS (documented: 'equivalent to an ordinary least square') and a warning advises LinearRegression  (3 warnings)
+ok   warm_start=True: refitting from the converged solution takes fewer iterations and gives the same coef  (n_iter 13 then 1)
+ok   warm_start then a new alpha: converges to the solution of the new problem (plain CD)
+ok   precompute=True and precompute=Gram(Xc'Xc of the centred X) give the same solution as plain CD
+ok   ElasticNet sample_weight: minimises 1/(2 sum sw) sum sw_i (y_i - x_i w - b)^2 + penalty, weighted centring ('rescaled to sum to n_samples')
+ok   ElasticNet: sample_weight=2 == duplicated rows == unweighted fit (objective normalised by the weight sum)
+ok   ElasticNet: integer sample_weight (some zero) == the row-duplicated data set
+ok   ElasticNet on sparse csr X (fit_intercept=True) = dense solution (same objective, implicit centring)
+ok   ElasticNet on sparse X with sample_weight = dense weighted solution
+ok   ElasticNet float32 input: coef_ dtype float32 and within 1e-4 of the float64 solution
+ok   ElasticNet multi-output: coef_ shape (n_targets, n_features), each row the single-target solution
+ok   lasso_path/enet_path/lars_path fit NO intercept (no fit_intercept parameter; docstrings silent): the grid starts at max|X'y|/n of the RAW data, not of the centred data  (alphas[0] 4.527134, raw max|X'y|/n 4.527134, centred 4.731686)
+ok   lasso_path default grid: alphas[0] = max|X'y|/n, geometric down to eps*alpha_max (eps=1e-3), n_alphas points  (alpha_max 4.527134)
+ok   lasso_path: coef at alpha_max is exactly 0 and non-zero at the next grid point ('alpha_max which results in coef=0')
+ok   enet_path(l1_ratio=0.4): alpha_max = max|X'y|/(n l1_ratio), eps and n_alphas honoured
+ok   lasso_path(alphas=...): the alphas are returned sorted in decreasing order  ([0.5  0.1  0.01])
+ok   lasso_path(positive=True) [<1.7: grid ignores positive, alpha_max = max|X'y|/n and the first point(s) of the path are all-zero]  (alphas[0] 4.527134, positive alpha_max 1.942375, unsigned 4.527134)
+ok   lasso_path(positive=True): coef at alphas[0] is 0, coefs >= 0 all along the path
+ok   lasso_path coefficients satisfy the no-intercept Lasso KKT on the raw data at every alpha of the grid (tol=1e-12)  (max violation 4.54e-13)
+ok   lars_path(method='lar') alphas = max|X'(y - mu)|/n at every node of a plain-numpy LARS (raw data, no intercept)  (alphas [2.44918 2.12349 1.81786 0.20359 0.17027 0.     ])
+ok   lars_path(method='lar') coefficient path at the nodes = plain-numpy LARS
+ok   lars_path: active set order = order of entry in the plain LARS, final coef = OLS on centred data  (active [0, 3, 1, 2, 4])
+ok   lars_path(method='lasso') alphas and coefs at the nodes = plain-numpy LARS with the lasso modification  (nodes 7, alphas [1.23946 0.71646 0.12137 0.09243 0.05856 0.03162 0.     ])
+ok   lars_path(method='lasso') on centred data: every node satisfies the Lasso KKT at its alpha (the path is the exact Lasso solution)  (max violation 5.48e-16)
+ok   LassoLars(alpha=1.1870) between two nodes = Lasso(alpha) by coordinate descent (documented same objective)  (nnz 1)
+ok   LassoLars(alpha=0.7994) between two nodes = Lasso(alpha) by coordinate descent (documented same objective)  (nnz 2)
+ok   LassoLars(alpha=0.3165) between two nodes = Lasso(alpha) by coordinate descent (documented same objective)  (nnz 3)
+ok   LassoLars(alpha): alphas_ stops at alpha (alpha_min), last node alpha == alpha, coef_ = the interpolated path there
+ok   lars_path(alpha_min): the path is truncated at alpha_min with the interpolated coefficients
+ok   LassoLars(positive=True): coef >= 0 and satisfies the positive-Lasso KKT at alpha (alpha above the smallest alpha reached)  (coef [0.2053 0.     0.     0.     0.     0.    ], alphas_ [1.0227 0.7994])
+ok   Lars(n_nonzero_coefs=2): exactly 2 non-zero coefficients, alphas_ has 3 nodes
+FAIL Lars(n_nonzero_coefs=np.inf): docstring says 'Use np.inf for no limit' -> accepted and the full path ends at OLS  (InvalidParameterError: The 'n_nonzero_coefs' parameter of Lars must be an int in the range [1, inf). Got inf inst)
+ok   Lars(n_nonzero_coefs=500 default) with 6 features: the full path ends at OLS (coef_ and intercept_)
+ok   Lars(fit_intercept=False): path on the raw (uncentred) data = plain LARS on raw data
+ok   LassoLars(alpha=0) = OLS (documented equivalence)
+ok   LassoLarsIC(aic, noise_variance=0.25): criterion_ = n log(2 pi sigma^2) + RSS/sigma^2 + 2 * (number of non-zero coefs) along the lasso path, alpha_ = argmin  (chosen index 4 of 7, df [0, 1, 2, 3, 4, 5, 6])
+ok   LassoLarsIC(bic, noise_variance=0.25): criterion_ = n log(2 pi sigma^2) + RSS/sigma^2 + log(n) * (number of non-zero coefs) along the lasso path, alpha_ = argmin  (chosen index 3 of 7, df [0, 1, 2, 3, 4, 5, 6])
+FAIL LassoLarsIC noise_variance_ default: user guide says RSS_OLS/(n - p) with p = n_features  (noise_variance_ 0.251665, RSS/(n-p) 0.245946, RSS/(n-p-1) 0.251665)
+ok   LassoLarsIC noise_variance_ default = RSS_OLS/(n - p - 1) i.e. the intercept counted as a parameter (what the code does)
+ok   LassoLarsIC(fit_intercept=False) noise_variance_ = RSS_OLS/(n - p)
+ok   LassoLarsIC with n_samples <= n_features + 1 and no noise_variance raises ValueError (documented)
+ok   LassoLarsCV(cv=KFold(3)): mse_path_[j,k] = test MSE on fold k of the fold-k lasso path interpolated at cv_alphas_[j] (plain LARS reference)  (shape (19, 3), max diff 1.67e-15)
+ok   LassoLarsCV alpha_ = cv_alphas_[argmin of the fold-mean mse_path_], coef_ = LassoLars(alpha_) on all data
+ok   LassoLarsCV cv_alphas_ = np.unique of all fold-path alphas (increasing, no order documented)
+FAIL LassoLarsCV mse_path_ shape as documented '(n_folds, n_cv_alphas)'  (actual shape (19, 3), n_folds 3, n_cv_alphas 19)
+ok   LarsCV: mse_path_ shape (n_cv_alphas, n_folds), alpha_ = argmin of the fold-mean
+ok   OMP(n_nonzero_coefs=1): greedy selection of argmax|X'r| with least squares on the active set = plain reference, n_iter_ = 1  (active [1])
+ok   OMP(n_nonzero_coefs=2): greedy selection of argmax|X'r| with least squares on the active set = plain reference, n_iter_ = 2  (active [1, 4])
+ok   OMP(n_nonzero_coefs=3): greedy selection of argmax|X'r| with least squares on the active set = plain reference, n_iter_ = 3  (active [1, 4, 7])
+ok   OMP default n_nonzero_coefs = max(int(0.1 n_features), 1) = 1 for 10 features (n_nonzero_coefs_)
+ok   OMP(tol): stops as soon as ||r||^2 <= tol (tol = maximum squared norm of the residual), n_nonzero_coefs_ is None  (active [1])
+ok   OMP(precompute=True) (Gram/Xy path) = the same greedy solution
+ok   OMP with n_nonzero_coefs = n_features = OLS
+ok   OMP multi-target: coef_ shape (n_targets, n_features), the negated target gives the negated coef
+ok   BR(max_iter=7, tol tiny): coef_, intercept_, alpha_, lambda_ = 7 documented MacKay updates from alpha_init=1/Var(y), lambda_init=1 (plain-numpy replica)  (alpha_ 6.25485, lambda_ 0.75469)
+ok   BayesianRidge with alpha_init/lambda_init and non-default gamma hyper-parameters alpha_1, alpha_2, lambda_1, lambda_2 = replica
+ok   BayesianRidge converged (tol=1e-14): (alpha_, lambda_, coef_) is a fixed point of the evidence-maximisation equations  (n_iter_ 8, gamma 3.9904)
+ok   BayesianRidge sigma_ = (lambda I + alpha Xc'Xc)^-1 (posterior covariance of w)
+FAIL BayesianRidge predict(return_std=True): std = sqrt(1/alpha_ + (x - X_offset_) sigma_ (x - X_offset_)') (sigma_ is the posterior covariance on the CENTRED design)  (uncentred-x formula matches: True)
+FAIL BayesianRidge sample_weight: weighted centring, X,y scaled by sqrt(sw), alpha_init = 1/Var_w(y), n replaced by sum(sw) in the alpha update (replica)  (alpha_ 4.64327 vs sum(sw) replica 6.08728; legacy replica [alpha_init = 1/var(sqrt(sw) y_c), n = n_rows] 4.64327, coef match legacy: True)
+FAIL BayesianRidge: sample_weight=2 == duplicated rows (coef_, alpha_, lambda_)
+ok   BR(compute_score=True): scores_ has max_iter + 1 log-marginal-likelihood values and is increasing at the start  (scores [-96.117 -38.267 -37.248] ...)
+ok   BayesianRidge with n_samples < n_features (6 x 10): same documented updates (eigenvalues padded with zeros)
+ok   ARD(max_iter=6): coef_, alpha_, lambda_ (one precision per feature), sigma_ = 6 documented ARD updates gamma_i = 1 - lambda_i Sigma_ii (replica)  (lambda_ [2.400000e-01 6.004216e+04 4.693132e+04 1.030000e+00 1.213098e+04])
+ok   ARD(threshold_lambda=50): features whose lambda_ >= threshold are pruned: coef_ exactly 0, sigma_ only over the kept features  (pruned [1, 2, 4], kept [0, 3])
+ok   ARDRegression converged with pruning (tol=1e-12) = replica with the same stopping rule (coef_, lambda_, alpha_)  (n_iter_ 7, replica 7)
+FAIL ARDRegression predict(return_std=True): std = sqrt(1/alpha_ + (x - X_offset_)_kept sigma_ (x - X_offset_)_kept') over the kept features  (uncentred-x formula matches: True)
+ok   ARDRegression with n_samples < n_features (Woodbury branch) = the same documented updates
+ok   HuberRegressor(epsilon=1.35, alpha=0.01): (coef_, intercept_, scale_) minimise the documented objective sum_i (sigma + H_eps((y_i - x_i w - c)/sigma) sigma) + alpha ||w||^2 (my own L-BFGS-B optimum: objective within 1e-8, parameters within 1e-3)  (objective 188.275346611 vs mine 188.275346606, scale_ 0.1983)
+FAIL HuberRegressor(tol=1e-12) docstring: 'iteration will stop when max|proj g_i| <= tol' -> the gradient at the returned solution is <= 1e-8  (max |gradient| 1.68e-03, n_iter_ 12; scipy L-BFGS-B also stops on its default ftol=2.2e-9)
+ok   HuberRegressor outliers_ = |y - Xw - c| > epsilon * scale_ and flags the 6 planted outliers  (31 outliers)
+ok   HuberRegressor scale_ = sqrt(sum_inliers r^2 / (n - n_out eps^2)) (the sigma stationarity condition, rel 1e-4)
+ok   HuberRegressor(alpha=0, epsilon huge = no outliers) = OLS  (max |diff| 2.27e-07)
+ok   HuberRegressor with no outliers: scale_ = RMS residual sqrt(RSS/n) (sigma condition with all samples quadratic)
+ok   HuberRegressor(alpha=0) is scale invariant (documented): y*10 gives coef_, intercept_, scale_ times 10 and the same outliers_ (rel 1e-4, solver stops on ftol)  (max rel diff 3.50e-06)
+ok   HuberRegressor sample_weight: minimises sum_i sw_i (sigma + H_eps(r_i/sigma) sigma) + alpha ||w||^2 (my optimum: parameters within 1e-3, objective within 1e-8)  (objective 274.638728 vs mine 274.638728)
+ok   HuberRegressor: sample_weight=2 == duplicated rows (rel 1e-4; and != the single copy because alpha is absolute)  (max rel diff 0.00e+00)
+ok   HuberRegressor epsilon < 1 raises ValueError (documented range [1, inf))
+ok   QuantileRegressor(quantile=0.5, alpha=0, solver=highs): pinball loss = brute-force minimum over all lines through 2 data points (LP vertex)  (loss 13.065055, coef 1.22162 vs 1.22162)
+ok   QuantileRegressor(quantile=0.5): #(residual < 0) <= q n <= #(residual <= 0) (quantile property of the optimum)  (neg 11, zero 2, q n 12.5)
+ok   QuantileRegressor(quantile=0.2, alpha=0, solver=highs): pinball loss = brute-force minimum over all lines through 2 data points (LP vertex)  (loss 9.322473, coef 1.66259 vs 1.66259)
+ok   QuantileRegressor(quantile=0.2): #(residual < 0) <= q n <= #(residual <= 0) (quantile property of the optimum)  (neg 4, zero 2, q n 5.0)
+ok   QuantileRegressor(quantile=0.9, alpha=0, solver=highs): pinball loss = brute-force minimum over all lines through 2 data points (LP vertex)  (loss 6.676892, coef 1.48744 vs 1.48744)
+ok   QuantileRegressor(quantile=0.9): #(residual < 0) <= q n <= #(residual <= 0) (quantile property of the optimum)  (neg 21, zero 2, q n 22.5)
+ok   QuantileRegressor(quantile=0.5, alpha=0.1): objective (1/n) sum PB_q + alpha ||w||_1 equals my own LP solution (linprog, intercept unpenalised)  (objective 0.777813 vs LP 0.777813)
+ok   QuantileRegressor(quantile=0.3, alpha=0.02): objective (1/n) sum PB_q + alpha ||w||_1 equals my own LP solution (linprog, intercept unpenalised)  (objective 0.590381 vs LP 0.590381)
+ok   QuantileRegressor: sample_weight=2 == duplicated rows == single copy (objective normalised by sum(sw))
+ok   QuantileRegressor: zero sample weights drop the samples (same objective value as fitting the 30 weighted rows)
+ok   QuantileRegressor with a huge alpha: coef_ = 0 and intercept_ = the sample median  (intercept 1.02068, median 0.79179)
+ok   QuantileRegressor on sparse X (highs) = dense solution
+ok   PoissonRegressor(alpha=0) = Poisson MLE with log link (plain-numpy Newton-Raphson)  (max |diff| 1.17e-08)
+ok   PoissonRegressor(alpha=0.3): gradient of 1/(2n) sum 2(y log(y/mu) - y + mu) + alpha/2 ||w||^2 vanishes (intercept unpenalised)  (|grad| 5.93e-11)
+ok   PoissonRegressor.score = D^2 = 1 - D(y, mu)/D(y, ybar) with the Poisson unit deviance 2(y log(y/mu) - y + mu)  (D2 0.144430)
+ok   GammaRegressor(alpha=0) = Gamma MLE with log link (Newton-Raphson)
+ok   GammaRegressor(alpha=0.2): gradient of the penalised mean Gamma deviance 2(log(mu/y) + y/mu - 1) vanishes; score = D^2 with that deviance
+ok   TweedieRegressor(power=1.5, alpha=0, link='log') = compound-Poisson-Gamma MLE (Newton on the unit deviance 2[y^(2-p)/((1-p)(2-p)) - y mu^(1-p)/(1-p) + mu^(2-p)/(2-p)])
+ok   TweedieRegressor(power=1.5, alpha=0.1): penalised gradient vanishes and score = D^2 with the power-1.5 unit deviance
+ok   TweedieRegressor(power=3) = inverse Gaussian: unit deviance (y - mu)^2/(y mu^2), score = D^2, penalised gradient vanishes
+ok   TweedieRegressor(power=1) == PoissonRegressor and (power=2) == GammaRegressor at the same alpha (documented)
+ok   TweedieRegressor(power=0, link='auto' -> identity) = ridge on the 1/(2n) loss: (Xc'Xc/n + alpha I) w = Xc'yc/n  (link auto -> identity, coef diff 2.03e-09)
+ok   TweedieRegressor(power=0, link='log'): Normal deviance with log link, alpha=0 = nonlinear least squares of exp(Xw+b) (Newton)
+ok   Tweedie link='auto': identity for power <= 0, log for power > 0 (predict = exp of the linear predictor for Poisson)
+ok   TweedieRegressor(power=0.5): docs say 'For 0 < power < 1, no distribution exists' but promise no error: either raises or minimises the generic deviance  (fits silently; the generic power-p deviance formula still minimised)
+ok   PoissonRegressor with negative y raises ValueError (target domain y in [0, inf))
+ok   GammaRegressor with a zero target raises ValueError (target domain y in (0, inf))
+ok   PoissonRegressor sample_weight: gradient of 1/(2 sum sw) sum sw_i d_i + alpha/2 ||w||^2 vanishes (weighted average as documented)
+ok   PoissonRegressor: sample_weight=2 == duplicated rows == single copy (weighted-average objective)
+FAIL GLM score(sample_weight): D^2 = 1 - sum sw d(y, mu) / sum sw d(y, ybar_w) with ybar_w the weighted mean ('averaged by sample_weight')  (score 0.72312225 vs 0.11113768)
+ok   PoissonRegressor(solver='newton-cholesky') = lbfgs solution (same objective, both converged)
+ok   PoissonRegressor(fit_intercept=False): gradient of the penalised objective in w alone vanishes
+ok   SGDRegressor(loss=squared_error, penalty=l2, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 1.0122 -1.9639  0.4989])
+ok   SGDRegressor(loss=squared_error, penalty=l1, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 1.0122 -1.9697  0.4927])
+ok   SGDRegressor(loss=squared_error, penalty=elasticnet, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 1.0122 -1.9656  0.497 ])
+ok   SGDRegressor(loss=squared_error, penalty=None, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 1.0213 -1.9741  0.4993])
+ok   SGDRegressor(loss=huber, penalty=l2, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 0.2359 -0.306   0.1043])
+ok   SGDRegressor(loss=huber, penalty=l1, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 0.1963 -0.2675  0.0635])
+ok   SGDRegressor(loss=huber, penalty=elasticnet, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 0.2242 -0.2946  0.0922])
+ok   SGDRegressor(loss=huber, penalty=None, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 0.2416 -0.3125  0.1065])
+ok   SGDRegressor(loss=epsilon_insensitive, penalty=l2, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 1.0762 -2.0309  0.5432])
+ok   SGDRegressor(loss=epsilon_insensitive, penalty=l1, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 1.1091 -2.0565  0.5204])
+ok   SGDRegressor(loss=epsilon_insensitive, penalty=elasticnet, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 1.1193 -2.0746  0.5805])
+ok   SGDRegressor(loss=epsilon_insensitive, penalty=None, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 1.0944 -1.9667  0.5431])
+ok   SGDRegressor(loss=squared_epsilon_insensitive, penalty=l2, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 1.0018 -1.9681  0.495 ])
+ok   SGDRegressor(loss=squared_epsilon_insensitive, penalty=l1, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 1.0006 -1.9729  0.4913])
+ok   SGDRegressor(loss=squared_epsilon_insensitive, penalty=elasticnet, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 1.0014 -1.9695  0.494 ])
+ok   SGDRegressor(loss=squared_epsilon_insensitive, penalty=None, constant eta, 3 epochs, no shuffle) = plain-Python SGD with the documented loss gradient and penalty updates  (coef [ 1.0161 -1.9836  0.4983])
+ok   SGDRegressor learning_rate='invscaling': eta = eta0 / t^power_t with t = 1, 2, ... per sample (replica)
+ok   SGDRegressor learning_rate='optimal' (alpha=1): eta = 1/(alpha (t0 + t - 1)), t = 1, 2, ..., with Bottou's t0 = 1/(alpha eta_init), eta_init = typw/max(1, dloss(1, -typw)), typw = sqrt(1/sqrt(alpha)) (heuristic only 'documented' in the code; replica)  (t0 = 1.0000)
+ok   SGDClassifier(hinge, learning_rate='optimal' default, alpha=0.01, 3 epochs): t0 = 1/(alpha typw) since dloss(1, -typw) = -1 for hinge (replica)  (t0 = 31.6228)
+ok   SGDRegressor(average=True): coef_ = mean of the weight vectors over all T updates (documented 1/T sum w^(t))
+ok   SGDRegressor(average=50): averaging starts once 50 samples have been seen
+ok   SGDRegressor sample_weight: the per-sample update is multiplied by the weight (replica)
+ok   SGDRegressor / SGDClassifier documented default alpha = 0.0001, eta0 = 0.01, power_t = 0.25, epsilon = 0.1, learning_rate invscaling (regressor) / optimal (classifier)
+ok   SGDRegressor(penalty=None, small constant eta, 3000 epochs) approaches OLS within 1e-2  (max |diff| 1.31e-03)
+ok   SGDRegressor(penalty='l2', alpha=0.1, averaged, small eta) approaches the minimiser of 1/n sum 1/2 (y - xw - b)^2 + alpha/2 ||w||^2 (intercept unpenalised) within 1e-2  (max |diff| 5.12e-04)
+ok   SGDClassifier(loss=hinge, 2 epochs, no shuffle) = plain-Python SGD with the documented loss gradient (y in -1/+1)
+ok   SGDClassifier(loss=squared_hinge, 2 epochs, no shuffle) = plain-Python SGD with the documented loss gradient (y in -1/+1)
+ok   SGDClassifier(loss=log_loss, 2 epochs, no shuffle) = plain-Python SGD with the documented loss gradient (y in -1/+1)
+ok   SGDClassifier(loss=modified_huber, 2 epochs, no shuffle) = plain-Python SGD with the documented loss gradient (y in -1/+1)
+ok   SGDClassifier(loss=perceptron, 2 epochs, no shuffle) = plain-Python SGD with the documented loss gradient (y in -1/+1)
+ok   SGDClassifier class_weight: the update of a sample is multiplied by its class weight (replica)
+ok   SGDClassifier(loss='log_loss') predict_proba = sigmoid(decision_function), classes_ sorted
+ok   SGDClassifier(loss='modified_huber') predict_proba = (clip(decision, -1, 1) + 1)/2
+ok   SGDClassifier t_ = n_iter_ * n_samples + 1 (documented)  (t_ 81.0, n_iter_ 2)
+ok   SGDClassifier multiclass = one-vs-all: coef_[k] is the binary SGD of class k vs the rest (replica), predict = argmax decision
+ok   PassiveAggressiveClassifier(C=1.0, hinge = PA-I) one step from w=0 on (x, y=+1): loss = 1, w = min(C, loss/||x||^2) y x, intercept = same tau (intercept not in ||x||^2)  (tau 0.1905)
+ok   PassiveAggressiveClassifier(C=1.0, squared_hinge = PA-II) one step on (x, y=-1): w = loss/(||x||^2 + 1/(2C)) y x
+ok   PassiveAggressiveClassifier(C=0.1, hinge = PA-I) one step from w=0 on (x, y=+1): loss = 1, w = min(C, loss/||x||^2) y x, intercept = same tau (intercept not in ||x||^2)  (tau 0.1000)
+ok   PassiveAggressiveClassifier(C=0.1, squared_hinge = PA-II) one step on (x, y=-1): w = loss/(||x||^2 + 1/(2C)) y x
+ok   PassiveAggressiveClassifier: a second step on a correctly classified sample with margin >= 1 is passive (no change)
+ok   PassiveAggressiveRegressor(C=0.5, epsilon=0.1, PA-I) one step from 0 on (x, y=3): loss = |y - 0| - eps, w = min(C, loss/||x||^2) sign(y - p) x
+ok   PassiveAggressiveRegressor(PA-II) one step on (x, y=-3): w = loss/(||x||^2 + 1/(2C)) sign(y - p) x
+ok   Perceptron(eta0=0.7, 2 epochs, no shuffle): w += eta0 y x, b += eta0 y whenever y (w.x + b) <= 0, no penalty by default (replica)
+ok   Perceptron one step from 0 on (x, y=+1) with the default eta0=1: w = x, intercept = 1
+ok   RANSACRegressor defaults: min_samples = n_features + 1, residual_threshold = MAD of y = median|y - median(y)|, absolute_error loss; inlier_mask_, n_trials_, estimator_ = plain replica of the documented loop  (MAD 1.7319, inliers 48, trials 7)
+ok   RANSAC estimator_ is refit on the consensus set (OLS on inlier_mask_) and the 12 planted outliers are excluded
+ok   RANSAC n_trials_ >= N = ceil(log(1 - stop_probability)/log(1 - e^min_samples)) with e = final inlier fraction, and <= max_trials  (N 7, n_trials_ 7)
+ok   RANSAC(min_samples=0.1 -> ceil(0.1 n) = 6, residual_threshold=0.5, stop_probability=0.999, max_trials=40) = replica  (trials 23, inliers 48)
+ok   RANSAC(stop_n_inliers=45) stops at the first trial reaching 45 inliers (replica)  (trials 2)
+ok   RANSAC loss='squared_error' with threshold 0.25 = absolute_error with threshold 0.5 (same subsets, r^2 <= 0.25 <=> |r| <= 0.5)
+ok   RANSAC: 'points whose residuals are strictly equal to the threshold are considered as inliers' (<=): exact-threshold residual is an inlier
+ok   TheilSen(fit_intercept=False, 1 feature): n_subsamples = 1, coef = median of the n slopes y_i/x_i (spatial median in 1-D = median)  (coef 2.071152)
+ok   TheilSen(12 samples, 2 features): all C(12,3)=220 subset OLS fits (n_subsamples = n_features + 1), (intercept_, coef_) = spatial (L1) median of the fits by my own Weiszfeld iteration  (coef [ 1.257259 -0.804006] vs [ 1.257259 -0.804006])
+ok   TheilSen spatial median: sum of Euclidean distances to the subset fits is minimal (<= mine + 1e-9)  (1384.506103526 vs 1384.506103526)
+ok   TheilSen breakdown_ = 1 - (0.5^(1/k) (n - k + 1) + k - 1)/n with k = n_subsamples  (0.17192)
+ok   TheilSen(n_subsamples=n_samples) is identical to least squares (documented)
+ok   TheilSen(max_subpopulation=50 < C(12,3)): n_subpopulation_ = 50 random subsets
+ok   RidgeCV(cv=None, store): cv_results_ (n_samples, n_alphas) = squared leave-one-out errors of an explicit LOO loop (ridge with unpenalised intercept)  (max diff 8.44e-15)
+ok   RidgeCV alpha_ = argmin of the mean LOO MSE, best_score_ = -mean MSE (scoring=None -> neg MSE), coef_ = ridge at alpha_  (alpha_ 0.1)
+ok   RidgeCV multi-target alpha_per_target=True: cv_results_ shape (n_samples, n_targets, n_alphas), alpha_ per target = argmin of each target's LOO MSE  (alpha_ [ 0.1 10. ])
+ok   RidgeCV multi-target alpha_per_target=False: one alpha_ = argmin of the LOO MSE averaged over samples AND targets
+ok   RidgeCV(scoring='r2', cv=None): cv_results_ holds the LOO predictions ('standardized per point prediction values': original or centred y scale), alpha_ maximises R2 of the LOO predictions vs y, best_score_ = that R2  (cv_results_ in the centred-y scale (prediction - mean(y)); r2 [0.7961 0.7927 0.6776 0.1992])
+ok   RidgeCV sample_weight LOO: cv_results_[i] = sw_i * (LOO error of the weighted ridge without sample i)^2 and best_score_ = -mean of those (the 'looe <- sqrt(s) looe' rescaling)  (max diff weighted 1.33e-14, unweighted 3.72e+00)
+ok   RidgeCV(fit_intercept=False) LOO = explicit loop without centring
+ok   RidgeCV(gcv_mode='svd') = the same LOO errors
+ok   RidgeCV(gcv_mode='eigen') = the same LOO errors
+ok   RidgeCV with n_samples < n_features (6 x 10, Gram branch): LOO errors = explicit loop  (max diff 4.62e-14)
+ok   RidgeCV(cv=KFold(5)): scoring=None -> R2 per fold (documented), alpha_ = argmax of the fold-mean R2, best_score_ = that mean  (mean R2 [ 0.2674  0.2719  0.2025 -0.3517])
+ok   RidgeCV store_cv_results=True with cv != None raises ValueError (documented 'only compatible with cv=None')
+ok   LassoCV alphas_ = grid from alpha_max = max|Xc'yc|/n of the FULL data (centred) down to eps*alpha_max, n_alphas points
+ok   LassoCV(cv=3): mse_path_[j, k] = test MSE on KFold(3) fold k of a Lasso(alphas_[j]) fitted on the training fold (plain CD reference), alpha_ = argmin of the fold mean  (max diff 3.17e-13, alpha_ 0.00118)
+ok   LassoCV coef_ = Lasso(alpha_) refit on all the data (plain CD)
+ok   ElasticNetCV(l1_ratio=[0.3, 0.8]): alphas_ shape (2, 6) with alpha_max/l1_ratio per ratio, mse_path_ (2, 6, 3) = plain CD reference, (l1_ratio_, alpha_) = argmin of the fold mean  (l1_ratio_ 0.8, alpha_ 0.00148)
+ok   LassoCV(alphas=...): alphas_ sorted decreasing, mse_path_ rows in that order
+ok   LassoCV(positive=True): coef_ >= 0 and the refit satisfies the positive-Lasso KKT at alpha_
+ok   MultiTaskLasso(alpha=0.1): coef_ shape (n_tasks, n_features); KKT of 1/(2n)||Y - XW||_Fro^2 + alpha ||W||_21 hold row-wise: G_j + alpha W_j/||W_j|| = 0 for active rows, ||G_j|| <= alpha for zero rows  (violation 6.46e-14, zero rows [3])
+ok   MultiTaskLasso: rows are zero jointly across tasks (structured sparsity) and intercept_ = mean(Y) - mean(X) @ W
+ok   MultiTaskElasticNet(alpha=0.1, l1_ratio=0.4): KKT of 1/(2n)||Y-XW||^2 + a l1 ||W||_21 + a(1-l1)/2 ||W||_Fro^2  (violation 2.94e-14)
+ok   MultiTaskLasso with a single task = Lasso (||W||_21 = ||w||_1)
+ok   MultiTaskLasso: alpha_max = max_j ||(Xc'Yc)_j||_2 / n: all-zero just above, non-zero just below
+ok   Ridge(solver='svd') = closed form (Xc'Xc + alpha I) w = Xc'yc, intercept = ybar - xbar w  (max diff 1.83e-15)
+ok   Ridge(solver='cholesky') = closed form (Xc'Xc + alpha I) w = Xc'yc, intercept = ybar - xbar w  (max diff 4.44e-16)
+ok   Ridge(solver='lsqr') = closed form (Xc'Xc + alpha I) w = Xc'yc, intercept = ybar - xbar w  (max diff 9.99e-16)
+ok   Ridge(solver='sparse_cg') = closed form (Xc'Xc + alpha I) w = Xc'yc, intercept = ybar - xbar w  (max diff 1.22e-15)
+ok   Ridge(solver='sag') = closed form (Xc'Xc + alpha I) w = Xc'yc, intercept = ybar - xbar w  (max diff 1.86e-12)
+ok   Ridge(solver='saga') = closed form (Xc'Xc + alpha I) w = Xc'yc, intercept = ybar - xbar w  (max diff 8.25e-13)
+ok   Ridge(solver='lbfgs', positive=True): coef >= 0 and NNLS-KKT of ||yc - Xc w||^2 + alpha ||w||^2 (g_j = 0 for w_j > 0, g_j >= 0 for w_j = 0)  (coef [0.9122 0.     0.4213 0.     3.0122])
+ok   Ridge(solver='sparse_cg') on sparse X with fit_intercept=True = closed form
+ok   Ridge(solver='sag') on sparse X with fit_intercept=True = closed form
+ok   Ridge(solver='lsqr') on sparse X with fit_intercept=True = closed form
+ok   Ridge(positive=True) with solver='auto' selects lbfgs (the only solver supporting positive)
+ok   LogisticRegression(penalty=l2, C=0.5, solver=lbfgs): KKT of (1/S) sum logloss + r(w)/(S C) (intercept unpenalised) (violation < 1e-5)  (violation 1.25e-07, nnz 4)
+ok   LogisticRegression(penalty=l2, C=0.5, solver=newton-cg): KKT of (1/S) sum logloss + r(w)/(S C) (intercept unpenalised) (violation < 1e-5)  (violation 2.15e-16, nnz 4)
+ok   LogisticRegression(penalty=l2, C=0.5, solver=newton-cholesky): KKT of (1/S) sum logloss + r(w)/(S C) (intercept unpenalised) (violation < 1e-5)  (violation 3.97e-15, nnz 4)
+ok   LogisticRegression(penalty=l2, C=0.5, solver=sag): KKT of (1/S) sum logloss + r(w)/(S C) (intercept unpenalised) (violation < 1e-5)  (violation 1.42e-13, nnz 4)
+ok   LogisticRegression(penalty=l2, C=0.5, solver=saga): KKT of (1/S) sum logloss + r(w)/(S C) (intercept unpenalised) (violation < 1e-5)  (violation 1.21e-13, nnz 4)
+ok   LogisticRegression(penalty=l2, C=0.5, solver=liblinear): KKT of (1/S) sum logloss + r(w)/(S C) with the intercept penalised via intercept_scaling=1 (violation < 1e-5)  (violation 3.36e-09, nnz 4)
+ok   LogisticRegression(penalty=l1, C=0.5, solver=saga): KKT of (1/S) sum logloss + r(w)/(S C) (intercept unpenalised) (violation < 1e-5)  (violation 2.61e-13, nnz 3)
+ok   LogisticRegression(penalty=l1, C=0.5, solver=liblinear): KKT of (1/S) sum logloss + r(w)/(S C) with the intercept penalised via intercept_scaling=1 (violation < 1e-5)  (violation 6.75e-14, nnz 3)
+ok   LogisticRegression(penalty=elasticnet, C=0.5, solver=saga): KKT of (1/S) sum logloss + r(w)/(S C) (intercept unpenalised) (violation < 1e-5)  (violation 2.30e-13, nnz 3)
+ok   LogisticRegression(penalty=None): unpenalised MLE, gradient of the mean log-loss vanishes
+ok   liblinear intercept_scaling: intercept = kappa * synthetic weight and the synthetic weight is penalised (L1 KKT with kappa=1 and kappa=5 both hold); larger kappa lessens the intercept penalty  (intercepts 0.1311 vs 0.3240)
+ok   LogisticRegression sample_weight: KKT of the weighted objective (1/S) sum s_i logloss_i + ||w||^2/(2 S C), S = sum s_i
+ok   LogisticRegression class_weight * sample_weight: s_i = class_weight[y_i] * sample_weight_i (documented 'multiplied')
+ok   LogisticRegression: sample_weight=2 == duplicated rows == single copy with C doubled (C is per-sample: r(w)/(S C)), and != the single copy at the same C
+ok   LogisticRegression multiclass (3 classes, lbfgs): KKT of the multinomial objective -(1/S) sum log p_{y_i} + ||W||_Fro^2/(2 S C), intercepts unpenalised; coef_ shape (3, 4)  (violation 7.71e-08)
+ok   LogisticRegression multinomial with solver=newton-cg = the same minimiser (all solvers 'minimize the full multinomial loss')  (max diff 1.37e-06)
+ok   LogisticRegression multinomial with solver=sag = the same minimiser (all solvers 'minimize the full multinomial loss')  (max diff 1.37e-06)
+ok   LogisticRegression multinomial with solver=saga = the same minimiser (all solvers 'minimize the full multinomial loss')  (max diff 1.37e-06)
+ok   LogisticRegression(solver='newton-cholesky') on 3 classes in < 1.6: one-vs-rest as documented ('can only handle binary classification'): each row satisfies the binary KKT of class k vs rest  (violation 2.59e-17, differs from multinomial by 4.94e-01)
+ok   liblinear on 3 classes: main docs 'liblinear will raise an error' (versions < 1.8: one-vs-rest)  (fits one-vs-rest)
+ok   LogisticRegression(multi_class='ovr'): deprecated from 1.5 (FutureWarning), accepted silently before  (0 warnings)
+ok   LogisticRegression warm_start=True: refitting the same problem starts from the solution (fewer iterations) and stays at the optimum  (n_iter 10 then 1)
+ok   LogisticRegression warm_start then a new C: KKT of the new problem hold (warm start does not change the optimum)
+ok   LogisticRegression predict_proba = expit(decision_function), predict_log_proba = log of it, decision = X coef_ + intercept_
+ok   LogisticRegression(saga) on sparse csr X = dense KKT
+ok   LogisticRegression(fit_intercept=False, l1, saga): intercept_ = 0 and the L1 KKT in w alone hold  (violation 1.43e-13)
+ok   LogisticRegressionCV(Cs=5): Cs_ = logspace(-4, 4, 5) (documented grid)
+ok   LogisticRegressionCV scores_[class] shape (n_folds, n_cs) = accuracy (default scoring) of LogisticRegression(C) fitted on each StratifiedKFold(4) training fold (my accuracy)  (fold means [0.575 0.7   0.9   0.9   0.9  ])
+ok   LogisticRegressionCV(refit=True): C_ = Cs_[argmax of the fold-mean score], coef_ = LogisticRegression(C_) refit on all data (rel 1e-4)  (C_ 1.0, max diff 1.91e-06)
+ok   LogisticRegressionCV(refit=False): C_ = mean over folds of each fold's best C, coef_/intercept_ = mean of the fold coefficients at those Cs (documented)  (fold best Cs [1. 1. 1. 1.])
+ok   LogisticRegressionCV(scoring='neg_log_loss', Cs=[0.01, 1]): scores_ = negative mean log-loss per fold and C  (max diff 2.19e-06)
+ok   LogisticRegressionCV multiclass (3 classes): scores_ dict keyed by class, 'the same score is repeated across all classes', coef_ shape (3, 4)
+ok   LogisticRegressionCV coefs_paths_[class] shape (n_folds, n_cs, n_features + 1) with the intercept as the last column  (shape (4, 5, 5))

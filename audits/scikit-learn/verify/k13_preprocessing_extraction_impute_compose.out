@@ -1,0 +1,488 @@
+scikit-learn 1.9.1  numpy 2.4.6  python 3.11.15
+== preprocessing: PolynomialFeatures
+   degree=2 powers_ rows: [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1], [2, 0, 0], [1, 1, 0], [1, 0, 1], [0, 2, 0], [0, 1, 1], [0, 0, 2]]
+ok   PolynomialFeatures(degree=2) powers_ = documented order [1, a, b, c, a^2, ab, ac, b^2, bc, c^2]
+ok   PolynomialFeatures(degree=2) transform = exact products (Fraction)
+ok   PolynomialFeatures(degree=2) n_output_features_ = C(n+d, d) = 10  (10)
+ok   PolynomialFeatures get_feature_names_out(['a','b','c']) = ['1','a','b','c','a^2','a b','a c','b^2','b c','c^2']  (['1', 'a', 'b', 'c', 'a^2', 'a b', 'a c', 'b^2', 'b c', 'c^2'])
+ok   PolynomialFeatures(degree=3, interaction_only=True): 'products of at most degree distinct features' -> [1, a, b, c, ab, ac, bc, abc] (powers_ and values exact)  (powers_ [[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1], [1, 1, 0], [1, 0, 1], [0, 1, 1], [1, 1, 1]])
+ok   PolynomialFeatures(include_bias=False) drops only the all-zero-power column
+ok   PolynomialFeatures(degree=(2,3)): only degree-2 and degree-3 terms (plus bias) in documented order  (n_out 17)
+ok   PolynomialFeatures: 'min_degree=0 and min_degree=1 are equivalent' (documented)
+ok   PolynomialFeatures(degree=(2,3), interaction_only, no bias) = [ab, ac, bc, abc]
+ok   PolynomialFeatures(degree=3) on csr sparse input: sparse output with the same values as the dense expansion  (format csr)
+ok   PolynomialFeatures(interaction_only) on csr input equals exact values
+ok   PolynomialFeatures(degree=3) on csc sparse input: sparse output with the same values as the dense expansion  (format csc)
+ok   PolynomialFeatures(interaction_only) on csc input equals exact values
+ok   PolynomialFeatures on float32 input: output dtype float32 and values within 1e-6 relative of exact
+ok   PolynomialFeatures(degree=0, include_bias=True) = a single column of ones
+ok   PolynomialFeatures(degree=0, include_bias=False) raises ValueError (empty output)
+ok   PolynomialFeatures(order='F') gives the same values, Fortran-contiguous
+ok   PolynomialFeatures single feature degree=4 = [1, x, x^2, x^3, x^4]
+== preprocessing: SplineTransformer (Cox-de Boor reference in Fractions)
+ok   SplineTransformer docstring example (arange(6), degree=2, n_knots=3) reproduced to 2 decimals
+ok   SplineTransformer(degree=0, knots='uniform', extrapolation='constant'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots+degree-1 = 3  (max diff 0.0e+00, n_out 3)
+FAIL SplineTransformer(degree=0, extrapolation='constant'): values outside [min, max] follow the documented rule ('value of the splines at min/max')  transform raised ValueError: shape mismatch: value array of shape (3,) could not be broadcast to indexing result of shape (2,0)
+ok   SplineTransformer(degree=0, knots='uniform', extrapolation='linear'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots+degree-1 = 3  (max diff 0.0e+00, n_out 3)
+ok   SplineTransformer(degree=0, extrapolation='linear'): values outside [min, max] follow the documented rule ('linear extrapolation')  (max diff 0.0e+00)
+ok   SplineTransformer(degree=0, knots='uniform', extrapolation='continue'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots+degree-1 = 3  (max diff 0.0e+00, n_out 3)
+ok   SplineTransformer(degree=0, extrapolation='continue'): values outside [min, max] follow the documented rule ('splines extrapolated as is')  (max diff 0.0e+00)
+ok   SplineTransformer(degree=0, knots='uniform', extrapolation='periodic'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots-1 = 3  (max diff 0.0e+00, n_out 3)
+ok   SplineTransformer(degree=0, extrapolation='periodic'): values outside [min, max] follow the documented rule ('periodicity = distance first-last knot')  (max diff 0.0e+00)
+   degree=1 constant: outside rows [[1.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 1.0]] truth [[1.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 1.0]]
+ok   SplineTransformer(degree=1, knots='uniform', extrapolation='constant'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots+degree-1 = 4  (max diff 0.0e+00, n_out 4)
+ok   SplineTransformer(degree=1, extrapolation='constant'): values outside [min, max] follow the documented rule ('value of the splines at min/max')  (max diff 0.0e+00)
+ok   SplineTransformer(degree=1, 'constant'): partition of unity inside the range (rows sum to 1)
+ok   SplineTransformer(degree=1, knots='uniform', extrapolation='linear'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots+degree-1 = 4  (max diff 0.0e+00, n_out 4)
+ok   SplineTransformer(degree=1, extrapolation='linear'): values outside [min, max] follow the documented rule ('linear extrapolation')  (max diff 0.0e+00)
+ok   SplineTransformer(degree=1, 'linear'): partition of unity inside the range (rows sum to 1)
+ok   SplineTransformer(degree=1, knots='uniform', extrapolation='continue'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots+degree-1 = 4  (max diff 0.0e+00, n_out 4)
+ok   SplineTransformer(degree=1, extrapolation='continue'): values outside [min, max] follow the documented rule ('splines extrapolated as is')  (max diff 0.0e+00)
+ok   SplineTransformer(degree=1, 'continue'): partition of unity inside the range (rows sum to 1)
+ok   SplineTransformer(degree=1, knots='uniform', extrapolation='periodic'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots-1 = 3  (max diff 0.0e+00, n_out 3)
+ok   SplineTransformer(degree=1, extrapolation='periodic'): values outside [min, max] follow the documented rule ('periodicity = distance first-last knot')  (max diff 0.0e+00)
+ok   SplineTransformer(degree=2, knots='uniform', extrapolation='constant'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots+degree-1 = 5  (max diff 0.0e+00, n_out 5)
+ok   SplineTransformer(degree=2, extrapolation='constant'): values outside [min, max] follow the documented rule ('value of the splines at min/max')  (max diff 0.0e+00)
+ok   SplineTransformer(degree=2, 'constant'): partition of unity inside the range (rows sum to 1)
+ok   SplineTransformer(degree=2, knots='uniform', extrapolation='linear'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots+degree-1 = 5  (max diff 0.0e+00, n_out 5)
+ok   SplineTransformer(degree=2, extrapolation='linear'): values outside [min, max] follow the documented rule ('linear extrapolation')  (max diff 0.0e+00)
+ok   SplineTransformer(degree=2, 'linear'): partition of unity inside the range (rows sum to 1)
+ok   SplineTransformer(degree=2, knots='uniform', extrapolation='continue'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots+degree-1 = 5  (max diff 0.0e+00, n_out 5)
+ok   SplineTransformer(degree=2, extrapolation='continue'): values outside [min, max] follow the documented rule ('splines extrapolated as is')  (max diff 0.0e+00)
+ok   SplineTransformer(degree=2, 'continue'): partition of unity inside the range (rows sum to 1)
+ok   SplineTransformer(degree=2, knots='uniform', extrapolation='periodic'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots-1 = 3  (max diff 0.0e+00, n_out 3)
+ok   SplineTransformer(degree=2, extrapolation='periodic'): values outside [min, max] follow the documented rule ('periodicity = distance first-last knot')  (max diff 0.0e+00)
+ok   SplineTransformer(degree=3, knots='uniform', extrapolation='constant'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots+degree-1 = 6  (max diff 1.1e-16, n_out 6)
+ok   SplineTransformer(degree=3, extrapolation='constant'): values outside [min, max] follow the documented rule ('value of the splines at min/max')  (max diff 5.6e-17)
+ok   SplineTransformer(degree=3, 'constant'): partition of unity inside the range (rows sum to 1)
+ok   SplineTransformer(degree=3, knots='uniform', extrapolation='linear'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots+degree-1 = 6  (max diff 1.1e-16, n_out 6)
+ok   SplineTransformer(degree=3, extrapolation='linear'): values outside [min, max] follow the documented rule ('linear extrapolation')  (max diff 5.6e-17)
+ok   SplineTransformer(degree=3, 'linear'): partition of unity inside the range (rows sum to 1)
+ok   SplineTransformer(degree=3, knots='uniform', extrapolation='continue'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots+degree-1 = 6  (max diff 1.1e-16, n_out 6)
+ok   SplineTransformer(degree=3, extrapolation='continue'): values outside [min, max] follow the documented rule ('splines extrapolated as is')  (max diff 8.9e-16)
+ok   SplineTransformer(degree=3, 'continue'): partition of unity inside the range (rows sum to 1)
+ok   SplineTransformer(degree=3, knots='uniform', extrapolation='periodic'): basis values inside the knot range = Cox-de Boor (exact, 1e-12) and n_features_out_ = n_knots-1 = 3  (max diff 1.1e-16, n_out 3)
+ok   SplineTransformer(degree=3, extrapolation='periodic'): values outside [min, max] follow the documented rule ('periodicity = distance first-last knot')  (max diff 5.6e-17)
+   quantile base knots (library) [0.0, 3.0, 7.999999999999998, 12.0]  exact percentiles [0.0, 3.0, 8.0, 12.0]
+ok   SplineTransformer(knots='quantile'): base knots = percentiles at linspace(0,100,n_knots) (linear) and basis = Cox-de Boor on those knots (1e-9)
+ok   SplineTransformer(knots=array): given knots used as base knots ('directly specifies the sorted knot positions including the boundary knots'), n_knots ignored; values and linear extrapolation exact
+ok   SplineTransformer(knots=array non-uniform, periodic, degree=2): periodic wrap with period = last - first knot (exact)
+ok   SplineTransformer(knots unsorted) raises ValueError
+ok   SplineTransformer(include_bias=False): 'the last spline element inside the data range of a feature is dropped' -> columns = full[:, :-1], n_features_out_ = n_splines-1
+ok   SplineTransformer on 2 features: output = [splines of x0 | splines of x1], feature names x0_sp_0..x0_sp_4, x1_sp_0..  (['x0_sp_0', 'x0_sp_1', 'x0_sp_2']...)
+ok   SplineTransformer(sparse_output=True, 'constant'): CSR output equal to the dense output (incl. extrapolated rows)  (format csr)
+ok   SplineTransformer(sparse_output=True, 'linear'): CSR output equal to the dense output (incl. extrapolated rows)  (format csr)
+ok   SplineTransformer(sparse_output=True, 'continue'): CSR output equal to the dense output (incl. extrapolated rows)  (format csr)
+ok   SplineTransformer(sparse_output=True, 'periodic'): CSR output equal to the dense output (incl. extrapolated rows)  (format csr)
+ok   SplineTransformer(extrapolation='error') raises ValueError for a value beyond the knots
+ok   SplineTransformer(extrapolation='error') accepts the boundary values themselves
+ok   SplineTransformer(periodic) with degree >= n_knots raises ValueError ('Periodic splines require degree < n_knots')
+ok   SplineTransformer on float32 input: values within 1e-6 of exact
+FAIL SplineTransformer(degree=0, extrapolation='constant', sparse_output=True): rows beyond the knots = 'value of the splines at minimum and maximum' (bin indicator at min / max)  (rows for x=-3, 20: [[0.0, 0.0, 0.0], [0.0, 0.0, 1.0]] expected [[1.0, 0.0, 0.0], [0.0, 0.0, 1.0]])
+== preprocessing: Binarizer / binarize
+ok   Binarizer(threshold=0.0): 'values greater than the threshold map to 1, ... less than or equal to the threshold map to 0' (value == threshold -> 0)
+ok   Binarizer(threshold=0.5): 'values greater than the threshold map to 1, ... less than or equal to the threshold map to 0' (value == threshold -> 0)
+ok   Binarizer(threshold=-0.5): 'values greater than the threshold map to 1, ... less than or equal to the threshold map to 0' (value == threshold -> 0)
+ok   Binarizer(threshold=2.0): 'values greater than the threshold map to 1, ... less than or equal to the threshold map to 0' (value == threshold -> 0)
+ok   Binarizer on CSR input: sparse output with the same 0/1 values
+ok   Binarizer(threshold<0) on sparse raises ValueError ('Threshold may not be less than 0 for operations on sparse matrices')
+ok   Binarizer keeps the input dtype (float32 in -> float32 out; int in -> int out)
+== preprocessing: LabelBinarizer / label_binarize / MultiLabelBinarizer
+ok   LabelBinarizer docstring example: classes_ = [1, 2, 4, 6], transform([1, 6]) = [[1,0,0,0],[0,0,0,1]]
+ok   LabelBinarizer(neg_label=-3, pos_label=5) multiclass: one column per sorted class, pos/neg values as given  (dtype int64)
+ok   LabelBinarizer multiclass inverse_transform(transform(y)) = y
+ok   LabelBinarizer multiclass inverse_transform on scores = argmax class ('Multiclass uses the maximal score instead of a threshold')
+ok   LabelBinarizer binary target: 'Binary targets transform to a column vector' [[1],[0],[0],[1]], classes_ = ['no','yes']
+ok   LabelBinarizer(neg_label=-1, pos_label=1) binary: column of -1/1
+ok   LabelBinarizer binary inverse_transform: default threshold = (pos_label + neg_label)/2 = 0; 'value > threshold' -> positive class, value == threshold -> negative  (['no', 'yes', 'no', 'yes', 'no'])
+ok   LabelBinarizer binary inverse_transform(threshold=0.5): strictly greater than the threshold is positive  (['no', 'no', 'yes'])
+ok   LabelBinarizer(sparse_output=True): CSR matrix with the same one-hot values
+ok   LabelBinarizer(sparse_output=True) inverse_transform round trip
+ok   LabelBinarizer(sparse_output=True, neg_label != 0) raises ValueError (documented in the error message: sparse output requires neg_label=0, pos_label != 0)
+ok   LabelBinarizer(neg_label >= pos_label) raises ValueError
+ok   LabelBinarizer on a multilabel indicator: classes_ = column indices [0,1,2] and transform of labels is one-hot (docstring example)
+ok   label_binarize(y, classes=[...]) equals LabelBinarizer with the given class order (unsorted classes kept in the given order)
+ok   label_binarize(pos_label=0, neg_label=-1) 'To account for pos_label == 0': one column with 0 for the positive and -1 for the negative  ([0, -1, 0])
+ok   MultiLabelBinarizer classes_ sorted when classes=None: [1, 2, 3, 5]; transform gives the indicator matrix
+ok   MultiLabelBinarizer(classes=[...]) keeps the given order ('sci-fi','comedy','thriller') and fit_transform follows it
+ok   MultiLabelBinarizer.transform with unknown classes: ignored (rows [1,0,0,0],[0,0,0,0]) and a UserWarning 'unknown class(es) ... will be ignored' is raised  (warnings: ['unknown class(es) [7, 9] will be ignored'])
+ok   MultiLabelBinarizer(sparse_output=True): CSR indicator with the same values
+ok   MultiLabelBinarizer inverse_transform gives tuples of the classes in classes_ order
+ok   MultiLabelBinarizer with a duplicate label in one sample still yields a 0/1 indicator
+ok   MultiLabelBinarizer(classes with duplicates) raises ValueError
+== preprocessing: OrdinalEncoder
+ok   OrdinalEncoder categories_ sorted per feature (['a','b','c'], ['x','y','z']) and codes = index in categories_, dtype float64
+ok   OrdinalEncoder(categories=given order, dtype=int32): codes follow the given order, output dtype int32
+ok   OrdinalEncoder inverse_transform(transform(X)) = X
+ok   OrdinalEncoder default handle_unknown='error' raises ValueError on an unknown category
+ok   OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=-1): unknown categories encoded as -1, known ones unchanged
+ok   OrdinalEncoder(use_encoded_value) inverse_transform maps unknown_value back to None  ([[None, 'x'], ['a', None]])
+ok   OrdinalEncoder(unknown_value=np.nan): unknown -> NaN (float output)
+ok   OrdinalEncoder(unknown_value colliding with a code 0..n_cat-1) raises ValueError
+   categories_ with missing: ['a', 'b', None, nan]; transform [1.0, 0.0, nan, 0.0, 2.0]
+ok   OrdinalEncoder with np.nan and None: 'will also passthrough missing values that are indicated by np.nan' (-> NaN) while None 'will be considered separate categories' (code 2; categories_ = ['a','b',None,nan])
+ok   OrdinalEncoder(encoded_missing_value=-2): np.nan encoded as -2 (user guide example with -1) and inverse_transform gives back NaN  (inverse of missing: nan)
+ok   OrdinalEncoder(encoded_missing_value=-1) user-guide example -> [[1],[0],[-1],[0]]
+ok   OrdinalEncoder(min_frequency=6) user-guide example: infrequent_categories_ = ['dog','snake'], transform dog/cat/rabbit/snake = [2, 0, 1, 2] (infrequent = last code)
+ok   OrdinalEncoder(max_categories=3, unknown_value=3, encoded_missing_value=4) user-guide example: a/b/c/d/e/nan -> [2, 0, 1, 2, 3, 4] ('max_categories does not take into account missing or unknown categories')  ([2.0, 0.0, 1.0, 2.0, 3.0, 4.0])
+ok   OrdinalEncoder infrequent inverse_transform gives 'infrequent_sklearn' for the grouped code  (['infrequent_sklearn', 'cat'])
+ok   OrdinalEncoder(min_frequency=0.25 float): 'cardinality smaller than min_frequency * n_samples' (9.5) -> dog, snake infrequent; rabbit (10) frequent
+== preprocessing: OneHotEncoder (drop / infrequent / handle_unknown / names / dtype)
+ok   OneHotEncoder docstring example: categories_, transform([['Female',1],['Male',4]]) with an unknown -> all-zero block, inverse_transform gives None for the unknown
+ok   OneHotEncoder(drop='if_binary'): 'drop the first category in each feature with two categories. Features with 1 or more than 2 categories are left intact' -> 4 columns, drop_idx_ = [0, None]  (drop_idx_ [0, None])
+ok   OneHotEncoder(drop=array): 'drop[i] is the category in feature X[:, i] that should be dropped' -> drop_idx_ = [1, 1], names ['x0_Female','x1_1','x1_3']
+ok   OneHotEncoder(drop='first') with a single category: 'the feature will be dropped entirely' (0 output columns)
+ok   OneHotEncoder(drop='if_binary') with a single category leaves the feature intact (1 column)
+ok   OneHotEncoder(drop=array with a non-existing category) raises ValueError
+ok   OneHotEncoder(max_categories=3) docstring example: infrequent_categories_ = ['a','d'], transform a/b -> [[0,0,1],[1,0,0]] (infrequent column last)
+ok   OneHotEncoder(min_frequency=5 int): 'categories with a smaller cardinality will be considered infrequent' (count == min_frequency stays frequent) -> ['d']  (got ['d'])
+ok   OneHotEncoder(min_frequency=6 int): 'categories with a smaller cardinality will be considered infrequent' (count == min_frequency stays frequent) -> ['a', 'd']  (got ['a', 'd'])
+ok   OneHotEncoder(min_frequency=3 int): 'categories with a smaller cardinality will be considered infrequent' (count == min_frequency stays frequent) -> []  (got [])
+ok   OneHotEncoder(min_frequency=4 int): 'categories with a smaller cardinality will be considered infrequent' (count == min_frequency stays frequent) -> ['d']  (got ['d'])
+ok   OneHotEncoder(min_frequency=0.1000 float): 'cardinality smaller than min_frequency * n_samples' (3.8000) -> ['d']  (got ['d'])
+ok   OneHotEncoder(min_frequency=0.2000 float): 'cardinality smaller than min_frequency * n_samples' (7.6000) -> ['a', 'd']  (got ['a', 'd'])
+ok   OneHotEncoder(min_frequency=0.1316 float): 'cardinality smaller than min_frequency * n_samples' (5.0000) -> ['d']  (got ['d'])
+ok   OneHotEncoder(min_frequency=0.2632 float): 'cardinality smaller than min_frequency * n_samples' (10.0000) -> ['a', 'd']  (got ['a', 'd'])
+ok   OneHotEncoder(min_frequency=0.2632 float): 'cardinality smaller than min_frequency * n_samples' (10.0001) -> ['a', 'c', 'd']  (got ['a', 'c', 'd'])
+ok   OneHotEncoder(min_frequency=4, max_categories=3): 'selected based on min_frequency first and max_categories categories are kept' -> infrequent ['a','d'] (user guide: snake then dog)
+   max_categories=3 with b, c, d tied at 10: infrequent_categories_ = ['b', 'c'], kept = ['x0_a', 'x0_d', 'x0_infrequent_sklearn']
+ok   OneHotEncoder(max_categories=3) ties at the cutoff: user guide example says infrequent = ['b','c'] (so 'd', the highest in lexicon order, is kept)
+FAIL OneHotEncoder(max_categories=3) ties: user guide sentence 'the first max_categories are taken based on lexicon ordering' would keep a, b (infrequent c, d)  (infrequent ['b', 'c'])
+   max_categories=1: infrequent_categories_ [array(['a', 'b', 'c', 'd'], dtype=object)], names ['x0_infrequent_sklearn']
+ok   OneHotEncoder(max_categories=1): all categories infrequent -> a single column of ones (1.3+ accepts 1; user guide says 'any integer greater than 1')
+ok   OneHotEncoder(handle_unknown='infrequent_if_exist', min_frequency=6): unknown 'dragon' -> the infrequent column [0,0,1]; inverse_transform of it = 'infrequent_sklearn'  ([['infrequent_sklearn']])
+ok   OneHotEncoder(handle_unknown='infrequent_if_exist') without infrequent categories: unknown -> all zeros and inverse_transform None (documented 'handle as with ignore')
+ok   OneHotEncoder(handle_unknown='warn'): UserWarning issued and the encoding proceeds as 'infrequent_if_exist'  (['Found unknown categories in columns [0] during tra'])
+   min_frequency=6 + drop='first': categories_ ['a', 'b', 'c', 'd'], infrequent ['a', 'd'], drop_idx_ [np.int64(1)], names ['x0_c', 'x0_infrequent_sklearn']
+ok   OneHotEncoder(min_frequency=6, drop='first'): 'dropping behavior is handled after the grouping' -> drops the first remaining column ('b'), keeps c and infrequent
+FAIL OneHotEncoder(min_frequency=6, drop=['a']) with 'a' infrequent: drop_idx_ docstring 'if drop_idx[i] corresponds to an infrequent category, then the entire infrequent category is dropped'  raised AttributeError: 'str' object has no attribute 'item'
+FAIL OneHotEncoder(min_frequency=6, drop=['a']) with 'a' infrequent: the source intends a ValueError ('Unable to drop category ... because it is infrequent'), not another exception type  (got AttributeError)
+ok   OneHotEncoder(min_frequency=2, drop=[1]) numeric categories (counts 2,2,1 -> 3 infrequent), dropping the frequent category 1: fits with names ['x0_2','x0_infrequent_sklearn']  (fitted; names ['x0_2', 'x0_infrequent_sklearn'])
+ok   OneHotEncoder(min_frequency=2, drop=[3]) with numeric infrequent category 3: raises ValueError (numpy scalar .item() works for numeric dtypes)
+ok   OneHotEncoder(feature_name_combiner=callable) docstring example: ['x0_str_Female','x0_str_Male','x1_int_1','x1_int_2','x1_int_3']  (['x0_str_Female', 'x0_str_Male', 'x1_int_1', 'x1_int_2', 'x1_int_3'])
+ok   OneHotEncoder(feature_name_combiner='concat') = feature + '_' + str(category)
+ok   OneHotEncoder default sparse_output=True gives CSR; sparse_output=False the same values dense; dtype float64
+ok   OneHotEncoder(dtype=np.int8): output dtype int8 with the same 0/1 values
+ok   OneHotEncoder(categories=given): columns follow the given category order incl. unseen 'Other'
+ok   OneHotEncoder user-guide example with missing values: nan and None become categories (['female','male',nan], ['Firefox','Safari',None])
+== preprocessing: TargetEncoder (1.3+)
+ok   TargetEncoder(smooth=1.0, binary).fit: encodings_ = documented shrinkage S_i = lambda_i n_iY/n_i + (1-lambda_i) n_Y/n (exact, rel 1e-12); target_mean_ = mean(y); categories_ sorted  (encodings_ [0.81875, 0.364286, 0.591667, 0.183333])
+ok   TargetEncoder(smooth=1.0, continuous).fit: encodings_ = documented shrinkage S_i = lambda_i n_iY/n_i + (1-lambda_i) n_Y/n (exact, rel 1e-12); target_mean_ = mean(y); categories_ sorted  (encodings_ [2.95, -0.2, 2.183333, 5.033333])
+ok   TargetEncoder(smooth=5.0, binary).fit: encodings_ = documented shrinkage S_i = lambda_i n_iY/n_i + (1-lambda_i) n_Y/n (exact, rel 1e-12); target_mean_ = mean(y); categories_ sorted  (encodings_ [0.729167, 0.431818, 0.575, 0.392857])
+ok   TargetEncoder(smooth=5.0, continuous).fit: encodings_ = documented shrinkage S_i = lambda_i n_iY/n_i + (1-lambda_i) n_Y/n (exact, rel 1e-12); target_mean_ = mean(y); categories_ sorted  (encodings_ [2.666667, 0.636364, 2.15, 3.357143])
+ok   TargetEncoder(smooth=0.0, binary).fit: encodings_ = documented shrinkage S_i = lambda_i n_iY/n_i + (1-lambda_i) n_Y/n (exact, rel 1e-12); target_mean_ = mean(y); categories_ sorted  (encodings_ [0.857143, 0.333333, 0.6, 0.0])
+ok   TargetEncoder(smooth=0.0, continuous).fit: encodings_ = documented shrinkage S_i = lambda_i n_iY/n_i + (1-lambda_i) n_Y/n (exact, rel 1e-12); target_mean_ = mean(y); categories_ sorted  (encodings_ [3.071429, -0.583333, 2.2, 6.5])
+ok   TargetEncoder(smooth='auto', binary).fit: encodings_ = documented shrinkage S_i = lambda_i n_iY/n_i + (1-lambda_i) n_Y/n with the empirical-Bayes m = sigma_i^2/tau^2 (exact, rel 1e-12); target_mean_ = mean(y); categories_ sorted  (encodings_ [0.836868, 0.361536, 0.591878, 0.0])
+ok   TargetEncoder(smooth='auto', continuous).fit: encodings_ = documented shrinkage S_i = lambda_i n_iY/n_i + (1-lambda_i) n_Y/n with the empirical-Bayes m = sigma_i^2/tau^2 (exact, rel 1e-12); target_mean_ = mean(y); categories_ sorted  (encodings_ [3.040119, -0.492854, 2.198306, 6.39936])
+ok   TargetEncoder.transform: known category -> its encoding; unseen category and nan (not seen in fit) -> target_mean_ ('Categories that are not seen during fit are encoded with the target mean')
+ok   TargetEncoder fit(X, y).transform(X) on the training data = plain (non cross-fitted) encoding lookup
+   fit_transform (cross-fitted) first 6: [3.142857, 0.285714, 2.083333, 3.142857, 0.0, 2.166667]
+   truth                              [3.142857, 0.285714, 2.083333, 3.142857, 0.0, 2.166667]
+ok   TargetEncoder.fit_transform (continuous, 5 contiguous KFold folds): 'each fold is encoded using the encodings learnt using the other k-1 folds' (recomputed fold by fold, incl. a category absent from the training folds -> training-fold target mean)
+ok   TargetEncoder.fit_transform also stores the full-data encodings_ ('learns category encodings from the full training data and stores them in encodings_')
+ok   TargetEncoder: fit_transform(X, y) != fit(X, y).transform(X) (documented note)
+ok   TargetEncoder.fit_transform (binary, smooth='auto', StratifiedKFold(5) unshuffled folds): cross-fitted values recomputed fold by fold with the empirical-Bayes shrinkage
+ok   TargetEncoder(cv=KFold(shuffle=True, random_state=3)): deterministic for the same seed, cross-fitted values recomputed on those folds; different seed -> different values
+ok   TargetEncoder(shuffle=..., random_state=...) on 1.9: FutureWarning ('deprecated in version 1.9')
+ok   TargetEncoder(target_type='multiclass'): encodings_ ordered f0_c0, f0_c1, f0_c2, f1_c0, ... each = the binary one-vs-all encoding of that class (exact); classes_ = [0,1,2]; target_mean_ = class frequencies  (n encodings 6)
+ok   TargetEncoder multiclass transform: n_features * n_classes columns in the documented order  (['x0_0', 'x0_1', 'x0_2', 'x1_0', 'x1_1', 'x1_2'])
+ok   TargetEncoder(target_type='auto') infers 'binary' for 0/1 and 'continuous' for floats (target_type_)
+   TargetEncoder categories with nan/None: ['a', None, nan]  encodings_ [2.1666666666666665, 3.25, 2.25]
+ok   TargetEncoder 'considers missing values, such as np.nan or None, as another category': nan and None each get an encoding (documented as one 'missing' category: they are two categories here, as for OneHotEncoder)
+== preprocessing: MaxAbsScaler / Normalizer / KernelCenterer / FunctionTransformer
+ok   MaxAbsScaler max_abs_ = max |x| per feature, scale_ = max_abs_ with a zero column -> scale 1 ('constant' feature), transform = X / scale_ (exact)
+ok   MaxAbsScaler partial_fit over 3 chunks = fit (max_abs_, scale_, n_samples_seen_)
+ok   MaxAbsScaler on csr_matrix: same max_abs_/scale_ as dense, sparse output equal to the dense transform, inverse_transform round trip
+ok   MaxAbsScaler on csc_matrix: same max_abs_/scale_ as dense, sparse output equal to the dense transform, inverse_transform round trip
+ok   maxabs_scale(X) = MaxAbsScaler().fit_transform(X) (documented 'Equivalent function without the estimator API')
+ok   MaxAbsScaler on float32 keeps float32 and exact values
+ok   MaxAbsScaler(clip=True): held-out values clipped to [-1, 1]
+ok   MaxAbsScaler with NaN: 'NaNs are treated as missing values: disregarded in fit, and maintained in transform'
+ok   Normalizer(norm='l1'): rows scaled by their l1 norm (exact; all-zero row stays zero), equals normalize(X, norm='l1') and the sparse-input result
+ok   Normalizer(norm='l2'): rows scaled by their l2 norm (exact; all-zero row stays zero), equals normalize(X, norm='l2') and the sparse-input result
+ok   Normalizer(norm='max'): rows scaled by their max norm (exact; all-zero row stays zero), equals normalize(X, norm='max') and the sparse-input result
+   normalize(return_norm=True) norms [5.0, 1.0, 1.7320508075688772, 3.24037034920393]
+FAIL normalize(return_norm=True): 'the computed norms' = l2 row norms 5, 0, sqrt3, sqrt(10.5) (an all-zero row has norm 0)  (norm of the zero row reported as 1.0)
+ok   normalize(return_norm=True): the returned norms are the divisors actually used (X = Z * norms, zero row -> 1)
+ok   normalize(axis=0) normalizes columns
+ok   Normalizer(norm='max') uses max |x| ('max: max absolute value'): row [-2, 0.5, 2.5] -> divided by 2.5
+ok   KernelCenterer.fit: K_fit_rows_ = column means of K, K_fit_all_ = overall mean (exact)
+ok   KernelCenterer.transform(K_fit) = K - 1K - K1 + 1K1 = phi-centred kernel (X - mean)(X - mean)^T (exact, 1e-13)
+ok   KernelCenterer.transform(K_new) for new data = K_new - 1'_m K - K_new 1_n + 1'_m K 1_n = (X_new - mean)(X - mean)^T (exact, 1e-13)
+ok   KernelCenterer: the centred training kernel has zero row/column sums
+ok   FunctionTransformer(func=sqrt, inverse_func=square): transform = sqrt, inverse_transform = square (exact)
+ok   FunctionTransformer(check_inverse=True, non-inverse pair): UserWarning 'The provided functions are not strictly inverse of each other'  (['The provided functions are not strictly inverse of'])
+ok   FunctionTransformer(check_inverse=False): no warning
+ok   FunctionTransformer default (func=None) is the identity, and passes a list through untouched with validate=False
+ok   FunctionTransformer(validate=True) converts the input to an ndarray
+ok   FunctionTransformer(kw_args / inv_kw_args) forwarded to func / inverse_func
+ok   FunctionTransformer(feature_names_out='one-to-one'): get_feature_names_out = input names (x0, x1 / given)
+ok   FunctionTransformer(feature_names_out=callable(transformer, input_features)) used verbatim
+ok   FunctionTransformer(feature_names_out=None).get_feature_names_out raises AttributeError
+ok   FunctionTransformer(accept_sparse=True, validate=True) passes a CSR matrix to func
+== preprocessing: PowerTransformer (yeo-johnson MLE recomputed) / QuantileTransformer normal
+   lambdas_ [-0.42448064369750693, 0.8076187336472682]  golden-section MLE [-0.42448066625578046, 0.8076187337194858]
+ok   PowerTransformer(yeo-johnson) lambdas_ = maximiser of the Yeo-Johnson profile log-likelihood (own mpmath golden-section MLE, |diff| < 1e-5)
+ok   PowerTransformer(yeo-johnson, standardize=False) transform = psi(x, lambda) with the documented piecewise formula (rel 1e-12)
+ok   PowerTransformer(standardize=True) = (psi - mean)/std (population std) of the unstandardised output ('zero-mean, unit-variance normalization')
+ok   PowerTransformer(yeo-johnson) inverse_transform(transform(X)) = X (rel 1e-9)
+ok   power_transform(X, method='yeo-johnson') = PowerTransformer().fit_transform(X) (documented equivalence)
+ok   PowerTransformer with NaN: 'disregarded in fit, and maintained in transform' (lambda from the non-NaN values, NaN stays NaN)
+   float32 lambdas_ [-0.424480676651001, 0.8076186776161194] vs float64 [-0.42448064369750693, 0.8076187336472682]; max rel diff of the transform 1.0e-07
+ok   PowerTransformer on float32 input: lambdas_ within 1e-5 of the float64 MLE and output within 1e-4 relative of the float64 transform  (lambda diff 5.6e-08)
+   constant column: lambdas_ [1.0]  transform [0.0, 0.0, 0.0]
+ok   PowerTransformer(yeo-johnson) on a constant column: fits and the transform is all zeros (no NaN, no exception)
+   normal output [-5.199338, -1.281552, -0.841621, -0.524401, -0.253347, 0.0, 0.253347, 0.524401, 0.841621, 1.281552, 5.199338]
+   truth         [-5.199338, -1.281552, -0.841621, -0.524401, -0.253347, 0.0, 0.253347, 0.524401, 0.841621, 1.281552, 5.199338]
+ok   QuantileTransformer(output_distribution='normal', n_quantiles=n): interior = Phi^-1(i/(n-1)) (mpmath erfinv, rel 1e-9); min/max mapped to the clipped bounds Phi^-1(1e-7 - eps), Phi^-1(1 - 1e-7 + eps) = -/+5.1993  (bounds -5.199338 5.199338 vs -5.199338 5.199338)
+ok   QuantileTransformer normal: 'values ... below or above the fitted range will be mapped to the bounds of the output distribution' (the same clipped bounds)
+ok   QuantileTransformer uniform: values outside the fitted range map to 0 and 1
+ok   QuantileTransformer normal on new in-range values = Phi^-1 of the linearly interpolated empirical CDF (recomputed)
+ok   QuantileTransformer normal inverse_transform(transform(x)) = x for interior points (rel 1e-9)
+ok   QuantileTransformer(subsample=100 < n, random_state=0): quantiles_ deterministic for the same seed and different for another seed
+ok   QuantileTransformer without subsampling: quantiles_ = np.percentile-equivalent linear quantiles of all data (recomputed in Fractions)
+ok   quantile_transform(X, ...) = QuantileTransformer(...).fit_transform(X) (documented equivalence)
+ok   QuantileTransformer(n_quantiles > n_samples) warns and uses n_samples quantiles
+== preprocessing: add_dummy_feature / function forms / RobustScaler options / StandardScaler sparse
+ok   add_dummy_feature(X) prepends a column of ones; value=5 -> column of 5 (dense)
+ok   add_dummy_feature on csr_matrix: sparse result with the dummy as first column
+ok   add_dummy_feature on csc_matrix: sparse result with the dummy as first column
+ok   add_dummy_feature on coo_matrix: sparse result with the dummy as first column
+ok   scale(X) = StandardScaler().fit_transform(X)
+ok   scale(X, with_mean=False, with_std=True) = X / population std
+ok   minmax_scale(X, feature_range=(-1, 2)) = MinMaxScaler((-1, 2)).fit_transform(X)
+ok   minmax_scale(X, axis=1) scales rows
+ok   robust_scale(X, quantile_range=(10, 90), unit_variance=True) = RobustScaler(...).fit_transform(X)
+ok   RobustScaler(quantile_range=(10, 90)): center_ = median, scale_ = q90 - q10 (linear percentiles, exact)
+ok   RobustScaler(unit_variance=True): scale_ divided by Phi^-1(0.9) - Phi^-1(0.1) ('so that normally distributed features have a variance of 1', mpmath erfinv)
+ok   RobustScaler(with_centering=False): center_ is None and transform = X / scale_
+ok   RobustScaler on a constant feature: scale_ = 1 (zeros in scale handled), transform = 0
+ok   StandardScaler(with_mean=False) on CSR: mean_ and var_ computed on the sparse data (population variance, exact), transform = X / sqrt(var_) still sparse
+ok   StandardScaler(with_mean=True) on sparse raises ValueError ('This does not work (and will raise an exception) when attempted on sparse matrices')
+ok   StandardScaler(with_mean=False) dense equals the sparse result
+ok   StandardScaler(with_mean=False) partial_fit on sparse chunks = fit (var_ rel 1e-8)
+== feature_extraction.text: CountVectorizer
+ok   CountVectorizer docstring example: feature names ['and','document','first','is','one','second','the','third','this'] and the count matrix
+ok   CountVectorizer default = lowercase + tokens r'(?u)\b\w\w+\b' (regex reference), vocabulary sorted alphabetically, CSR int64 counts
+ok   CountVectorizer(ngram_range=(2,2)) docstring example: 13 bigram features starting ['and this','document is','first document',...] and the bigram counts (reference n-grams)
+ok   CountVectorizer(lowercase=True) on punctuation / digits / accents / underscore: tokens = regex reference (single-character tokens 'a','3x'? '3x' kept, 'a' dropped)  (vocab ['3x', '42', 'brown', 'café', 'cool', 'dogs', 'fox', 'jumps', 'lazy', 'naïve', 'over', 'quick', 'résumé', 'the', 'xyz_abc', 'ça', 'über'])
+ok   CountVectorizer(lowercase=False) on punctuation / digits / accents / underscore: tokens = regex reference (single-character tokens 'a','3x'? '3x' kept, 'a' dropped)  (vocab ['3x', '42', 'Jumps', 'QUICK', 'Quick', 'The', 'brown', 'café', 'cool', 'dogs', 'fox', 'lazy', 'naïve', 'over', 'résumé', 'the', 'xyz_abc', 'Über', 'ça'])
+ok   CountVectorizer(stop_words='english') removes the ENGLISH_STOP_WORDS frozenset ('a built-in stop word list for English'); the list is a frozenset of 318 words containing 'the','is','and','this','one'  (len 318, vocab ['document', 'second'])
+ok   CountVectorizer(stop_words='english').get_stop_words() is ENGLISH_STOP_WORDS
+ok   CountVectorizer(stop_words=list, ngram_range=(1,2)): stop words removed before n-grams are formed ('this the' bigram appears)
+ok   CountVectorizer(analyzer='char', ngram_range=(1, 1)): n-grams of the whitespace-normalised lowercased document incl. spaces (reference)  (40 features)
+ok   CountVectorizer(analyzer='char', ngram_range=(2, 3)): n-grams of the whitespace-normalised lowercased document incl. spaces (reference)  (187 features)
+ok   CountVectorizer(analyzer='char', ngram_range=(3, 3)): n-grams of the whitespace-normalised lowercased document incl. spaces (reference)  (98 features)
+ok   CountVectorizer(analyzer='char_wb', ngram_range=(2, 2)) on words longer than max_n: each word padded ' w ' and all its n-grams counted (reference)  (28 features, e.g. [' b', ' f', ' j', ' q'])
+ok   CountVectorizer(analyzer='char_wb', ngram_range=(2, 4)) on words longer than max_n: each word padded ' w ' and all its n-grams counted (reference)  (72 features, e.g. [' b', ' br', ' bro', ' f'])
+ok   CountVectorizer(analyzer='char_wb', ngram_range=(3, 5)) on words longer than max_n: each word padded ' w ' and all its n-grams counted (reference)  (60 features, e.g. [' br', ' bro', ' brow', ' fo'])
+   char_wb (3,5) on short words 'ab cd ab': features [' ab', ' ab ', ' cd', ' cd ', 'ab ', 'cd '] counts [2, 2, 1, 1, 2, 1]
+ok   CountVectorizer(char_wb, (3,5)) on a word shorter than min_n: ' ab ' (4 chars) yields ' ab', 'ab ' (3-grams) and ' ab ' once (the padded word counted once, source rule)
+ok   CountVectorizer({'min_df': 2}): terms with df 'strictly lower' than min_df / 'strictly higher' than max_df ignored; float = proportion of the 4 documents (boundary df kept) -> ['document', 'first', 'is', 'the', 'this']  (got ['document', 'first', 'is', 'the', 'this'])
+ok   CountVectorizer({'min_df': 3}): terms with df 'strictly lower' than min_df / 'strictly higher' than max_df ignored; float = proportion of the 4 documents (boundary df kept) -> ['document', 'is', 'the', 'this']  (got ['document', 'is', 'the', 'this'])
+ok   CountVectorizer({'max_df': 3}): terms with df 'strictly lower' than min_df / 'strictly higher' than max_df ignored; float = proportion of the 4 documents (boundary df kept) -> ['and', 'document', 'first', 'one', 'second', 'third']  (got ['and', 'document', 'first', 'one', 'second', 'third'])
+ok   CountVectorizer({'max_df': 1}): terms with df 'strictly lower' than min_df / 'strictly higher' than max_df ignored; float = proportion of the 4 documents (boundary df kept) -> ['and', 'one', 'second', 'third']  (got ['and', 'one', 'second', 'third'])
+ok   CountVectorizer({'min_df': 0.5}): terms with df 'strictly lower' than min_df / 'strictly higher' than max_df ignored; float = proportion of the 4 documents (boundary df kept) -> ['document', 'first', 'is', 'the', 'this']  (got ['document', 'first', 'is', 'the', 'this'])
+ok   CountVectorizer({'min_df': 0.75}): terms with df 'strictly lower' than min_df / 'strictly higher' than max_df ignored; float = proportion of the 4 documents (boundary df kept) -> ['document', 'is', 'the', 'this']  (got ['document', 'is', 'the', 'this'])
+ok   CountVectorizer({'max_df': 0.75}): terms with df 'strictly lower' than min_df / 'strictly higher' than max_df ignored; float = proportion of the 4 documents (boundary df kept) -> ['and', 'document', 'first', 'one', 'second', 'third']  (got ['and', 'document', 'first', 'one', 'second', 'third'])
+ok   CountVectorizer({'max_df': 0.25}): terms with df 'strictly lower' than min_df / 'strictly higher' than max_df ignored; float = proportion of the 4 documents (boundary df kept) -> ['and', 'one', 'second', 'third']  (got ['and', 'one', 'second', 'third'])
+ok   CountVectorizer({'min_df': 0.5, 'max_df': 0.75}): terms with df 'strictly lower' than min_df / 'strictly higher' than max_df ignored; float = proportion of the 4 documents (boundary df kept) -> ['document', 'first']  (got ['document', 'first'])
+ok   CountVectorizer(max_df < min_df) raises ValueError
+ok   CountVectorizer pruning every term raises ValueError ('After pruning, no terms remain')
+   term frequencies across the corpus: {'and': 1, 'document': 4, 'first': 2, 'is': 4, 'one': 1, 'second': 1, 'the': 4, 'third': 1, 'this': 4}
+ok   CountVectorizer(max_features=3): 'top max_features ordered by term frequency across the corpus' -> the 3 terms with tf 5 (document), 4, 4 (is/the/this tie at 4: two of them)  (kept ['document', 'is', 'the'])
+   max_features=2 kept ['document', 'is']; max_features=3 kept ['document', 'is', 'the']; ties at tf=4: is, the, this
+ok   CountVectorizer(max_features): the kept vocabulary is sorted alphabetically and indices 0..k-1
+ok   CountVectorizer(binary=True): 'all non zero counts are set to 1' ('document' twice in doc 2 -> 1)
+ok   CountVectorizer(vocabulary=list): columns in the given order (not sorted), unseen term gives a zero column, other tokens ignored
+ok   CountVectorizer(vocabulary=dict term->index): columns placed at the given indices
+ok   CountVectorizer(vocabulary with a gap in indices) raises ValueError ('should not have any gap')
+ok   CountVectorizer(vocabulary given, min_df/max_df/max_features ignored)
+ok   CountVectorizer(analyzer=callable): 'used to extract the sequence of features out of the raw, unprocessed input' (no lowercasing / tokenising)
+ok   CountVectorizer(strip_accents='ascii'): accents removed before tokenising (reference: NFKD + ascii encode/ignore) -> ['ca', 'facade', 'naive', 'resume', 'uber']  (got ['ca', 'facade', 'naive', 'resume', 'uber'])
+ok   CountVectorizer(strip_accents='unicode'): accents removed before tokenising (reference: NFKD + drop combining marks) -> ['ca', 'facade', 'naive', 'resume', 'uber']  (got ['ca', 'facade', 'naive', 'resume', 'uber'])
+ok   CountVectorizer(token_pattern with one capturing group): 'the captured group content, not the entire match, becomes the token'
+ok   CountVectorizer(token_pattern with two capturing groups) raises ValueError ('At most one capturing group')
+ok   CountVectorizer(dtype=np.float32) returns that dtype
+ok   CountVectorizer.transform on new documents ignores unseen tokens and keeps the fitted columns
+ok   CountVectorizer.inverse_transform returns the terms with nonzero counts per document
+ok   CountVectorizer.fit on a single string raises ValueError ('Iterable over raw text documents expected')
+ok   CountVectorizer with an empty vocabulary (only 1-character tokens) raises ValueError ('empty vocabulary')
+== feature_extraction.text: TfidfTransformer / TfidfVectorizer / HashingVectorizer
+ok   TfidfTransformer(smooth_idf=True, sublinear_tf=False, norm=l2): idf = ln((1+n)/(1+df))+1, tf = tf, l2 row normalisation (mpmath, rel 1e-12)
+ok   TfidfTransformer(smooth_idf=True, sublinear_tf=False, norm=l1): idf = ln((1+n)/(1+df))+1, tf = tf, l1 row normalisation (mpmath, rel 1e-12)
+ok   TfidfTransformer(smooth_idf=True, sublinear_tf=False, norm=None): idf = ln((1+n)/(1+df))+1, tf = tf, no row normalisation (mpmath, rel 1e-12)
+ok   TfidfTransformer(smooth_idf=True, sublinear_tf=True, norm=l2): idf = ln((1+n)/(1+df))+1, tf = 1+ln(tf), l2 row normalisation (mpmath, rel 1e-12)
+ok   TfidfTransformer(smooth_idf=True, sublinear_tf=True, norm=l1): idf = ln((1+n)/(1+df))+1, tf = 1+ln(tf), l1 row normalisation (mpmath, rel 1e-12)
+ok   TfidfTransformer(smooth_idf=True, sublinear_tf=True, norm=None): idf = ln((1+n)/(1+df))+1, tf = 1+ln(tf), no row normalisation (mpmath, rel 1e-12)
+ok   TfidfTransformer(smooth_idf=False, sublinear_tf=False, norm=l2): idf = ln(n/df)+1, tf = tf, l2 row normalisation (mpmath, rel 1e-12)
+ok   TfidfTransformer(smooth_idf=False, sublinear_tf=False, norm=l1): idf = ln(n/df)+1, tf = tf, l1 row normalisation (mpmath, rel 1e-12)
+ok   TfidfTransformer(smooth_idf=False, sublinear_tf=False, norm=None): idf = ln(n/df)+1, tf = tf, no row normalisation (mpmath, rel 1e-12)
+ok   TfidfTransformer(smooth_idf=False, sublinear_tf=True, norm=l2): idf = ln(n/df)+1, tf = 1+ln(tf), l2 row normalisation (mpmath, rel 1e-12)
+ok   TfidfTransformer(smooth_idf=False, sublinear_tf=True, norm=l1): idf = ln(n/df)+1, tf = 1+ln(tf), l1 row normalisation (mpmath, rel 1e-12)
+ok   TfidfTransformer(smooth_idf=False, sublinear_tf=True, norm=None): idf = ln(n/df)+1, tf = 1+ln(tf), no row normalisation (mpmath, rel 1e-12)
+ok   TfidfTransformer(use_idf=False, norm=None) returns the raw counts as float ('If False, idf(t) = 1')
+ok   TfidfTransformer on float32 counts keeps float32 and values within 1e-6
+ok   TfidfVectorizer = CountVectorizer followed by TfidfTransformer ('Equivalent to CountVectorizer followed by TfidfTransformer'): same vocabulary, idf_ and values (exact)
+ok   TfidfVectorizer(ngram (1,2), sublinear, l1, smooth_idf=False, min_df=2) = CountVectorizer(same) + TfidfTransformer(same) and equals the mpmath recomputation
+ok   TfidfVectorizer.transform on new docs = counts * fitted idf_, l2-normalised
+ok   HashingVectorizer(n_features=16, alternate_sign=True, norm=None): column = |murmurhash3_32(token, seed=0)| mod 16 ('signed 32-bit version of Murmurhash3'), value signed by the hash sign (recomputed with sklearn.utils.murmurhash3_32; collisions summed)  (nnz 11 of 64; collisions 4 docs)
+ok   HashingVectorizer(n_features=16, alternate_sign=False, norm=None): column = |murmurhash3_32(token, seed=0)| mod 16 ('signed 32-bit version of Murmurhash3'), value +1 per occurrence (recomputed with sklearn.utils.murmurhash3_32; collisions summed)  (nnz 16 of 64; collisions 4 docs)
+ok   HashingVectorizer(norm='l2') = the signed hashed counts l2-normalised per row
+ok   HashingVectorizer(binary=True, alternate_sign=False): non-zero entries set to 1
+ok   HashingVectorizer(analyzer='char_wb', n_features=2**20) = FeatureHasher applied to the char_wb reference n-grams
+ok   HashingVectorizer is stateless: transform without fit works and fit_transform gives the same
+ok   FeatureHasher(input_type='dict', alternate_sign=False): value summed at |murmurhash3_32(name)| mod n_features; string values hashed as 'name=value' with value 1; zero values dropped
+ok   FeatureHasher(alternate_sign=True): 'an alternating sign is added to the features' -> sign of the hash
+ok   FeatureHasher docstring example: n_features=10, [{'dog':1,'cat':2,'elephant':4},{'dog':2,'run':5}] -> the printed matrix
+ok   FeatureHasher(input_type='pair') accepts (name, value) pairs with the same hashing
+ok   FeatureHasher(input_type='string'): 'a value of 1 is implied' per string (repeats add up)
+ok   FeatureHasher output is CSR float64 by default; dtype=np.float32 honoured
+ok   FeatureHasher: unicode and its utf-8 bytes hash to the same column ('Unicode strings are converted to UTF-8 first')
+== feature_extraction: DictVectorizer
+ok   DictVectorizer docstring example: feature_names_ ['bar','baz','foo'] (sorted), dense [[2,0,1],[0,1,3]]
+ok   DictVectorizer: string values one-hot as 'city=Dubai' etc. ('one boolean-valued feature ... for each of the possible string values'), numeric passthrough, sorted names, sparse CSR by default
+ok   DictVectorizer(sort=False): feature_names_ in order of first appearance ['zeta','alpha','beta=x']
+ok   DictVectorizer(separator='|') builds 'city|Dubai'
+ok   DictVectorizer.inverse_transform recovers the dicts (numeric values and one-hot as 'city=Dubai': 1)  ({'city=Dubai': np.float64(1.0), 'temperature': np.float64(33.0)})
+ok   DictVectorizer.transform: 'Features that do not occur in a sample will have a zero value'; unseen features are ignored (documented in the example)
+ok   DictVectorizer(dtype=np.int32) honoured
+ok   DictVectorizer with a sequence of strings as value: 'will iterate over the values and will count the occurrences of each string value' -> tags=a: 2, tags=b: 1  (['tags=a', 'tags=b'], [[2.0, 1.0]])
+ok   DictVectorizer.restrict(support) keeps only the selected features
+== feature_extraction.image: patches / graphs
+ok   extract_patches_2d(5x6, (2,3)): (5-2+1)*(6-3+1) = 16 patches, row-major order (top-left to bottom-right), values exact
+ok   extract_patches_2d on a (5,6,3) colour image: patches (16, 2, 3, 3) with channels last, exact
+ok   extract_patches_2d(max_patches=5, random_state=0): exactly 5 patches, deterministic, each a genuine patch of the image
+ok   extract_patches_2d(max_patches=0.25 float): 'a proportion of the total number of patches' -> int(0.25 * 16) = 4 patches
+   max_patches=100 (> 16 total): 16 patches returned, 10 distinct
+FAIL extract_patches_2d(max_patches=100 > total): docstring 'n_patches is either max_patches or the total number of patches that can be extracted' -> the 16 patches (all distinct)  (16 returned, 10 distinct: sampled with replacement)
+FAIL extract_patches_2d(max_patches=12 of 16): 12 distinct patches ('The maximum number of patches to extract')  (8 distinct of 12: sampled with replacement)
+ok   extract_patches_2d with patch height > image height raises ValueError
+ok   reconstruct_from_patches_2d(all patches) recovers the image exactly
+ok   reconstruct_from_patches_2d with perturbed patches: each pixel = mean of the overlapping patch values ('averaging the overlapping regions', exact Fractions)
+ok   reconstruct_from_patches_2d for colour patches recovers the (5,6,3) image
+ok   PatchExtractor(patch_size=(2,3)).transform on 2 images = the concatenated extract_patches_2d results (32 patches)
+ok   PatchExtractor(max_patches=3) gives 3 patches per image
+ok   PatchExtractor(patch_size=None): patch size = (img_height // 10, img_width // 10) = (4, 6)
+   grid_to_graph(3,4): nnz 46, diagonal [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+ok   grid_to_graph(3, 4): symmetric 4-connectivity adjacency (17 undirected edges, 'Edges exist if 2 voxels are connected') plus a unit diagonal (self-loops, measured), int dtype
+ok   grid_to_graph(mask): only the masked-in voxels (10) are nodes and edges between them kept
+ok   img_to_graph: 'Edges are weighted with the gradient values' = |pixel_i - pixel_j| for 4-neighbours (exact); diagonal = pixel values (measured); dtype = img dtype
+ok   img_to_graph(return_as=np.ndarray) gives the dense array; dtype=np.float32 honoured
+ok   grid_to_graph(2,2,2) 3-D: 12 undirected edges (6-connectivity) + 8 self-loops
+== impute: KNNImputer (nan_euclidean recomputed) / MissingIndicator / SimpleImputer options
+   nan_euclidean(row0,row1) = sqrt(4/2 * ((1-2)^2 + (4-5)^2)) = 2.000000 (=2)
+ok   KNNImputer(n_neighbors=1, weights='uniform') on the training data: nan_euclidean donors with a value for the feature, mean of the 1 nearest (recomputed, rel 1e-12)  (max diff 0.0e+00)
+ok   KNNImputer(n_neighbors=1, weights='distance') on the training data: nan_euclidean donors with a value for the feature, 1/distance-weighted mean of the 1 nearest (recomputed, rel 1e-12)  (max diff 0.0e+00)
+ok   KNNImputer(n_neighbors=2, weights='uniform') on the training data: nan_euclidean donors with a value for the feature, mean of the 2 nearest (recomputed, rel 1e-12)  (max diff 0.0e+00)
+ok   KNNImputer(n_neighbors=2, weights='distance') on the training data: nan_euclidean donors with a value for the feature, 1/distance-weighted mean of the 2 nearest (recomputed, rel 1e-12)  (max diff 4.4e-16)
+ok   KNNImputer(n_neighbors=3, weights='uniform') on the training data: nan_euclidean donors with a value for the feature, mean of the 3 nearest (recomputed, rel 1e-12)  (max diff 0.0e+00)
+ok   KNNImputer(n_neighbors=3, weights='distance') on the training data: nan_euclidean donors with a value for the feature, 1/distance-weighted mean of the 3 nearest (recomputed, rel 1e-12)  (max diff 4.4e-16)
+ok   KNNImputer.transform on new rows (donors from the training set); an all-NaN row (no common coordinates) gets the training column means
+ok   KNNImputer(n_neighbors=10 > number of donors) uses all available donors
+ok   KNNImputer(add_indicator=True): imputed columns followed by the MissingIndicator columns (one per feature with missing values at fit: all 4 here)
+ok   KNNImputer: an all-missing feature is dropped by default; keep_empty_features=True keeps it 'imputed value is always 0'
+ok   KNNImputer with an all-missing feature: other columns imputed with the 3 remaining coordinates (weight 3/n_present)
+ok   KNNImputer on float32 input: float32 output within 1e-6 of the exact imputation
+ok   KNNImputer(missing_values=-1) treats -1 as missing
+ok   KNNImputer with no missing values returns the input unchanged
+ok   KNNImputer.get_feature_names_out drops the empty feature and appends 'missingindicator_x..' with add_indicator
+ok   MissingIndicator(features='missing-only'): features_ = columns with missing values at fit [0, 1, 3]; transform = boolean mask of those columns
+ok   MissingIndicator(features='all'): all 4 columns, mask = isnan(X)
+ok   MissingIndicator(error_on_new=True) raises ValueError when a feature without missing values at fit has missing values at transform
+ok   MissingIndicator(error_on_new=False) ignores missing values in new columns (only features_ reported)
+ok   MissingIndicator(sparse=True) returns a CSC/CSR sparse mask; sparse='auto' on dense input gives dense
+ok   MissingIndicator(missing_values=-1) on a CSR matrix: sparse='auto' -> sparse output with the same mask
+ok   MissingIndicator.get_feature_names_out = 'missingindicator_<name>' for features_
+ok   SimpleImputer(most_frequent) numeric tie (1 and 3 twice each, 1 and 2 twice each): 'only the smallest is returned' -> statistics_ [1, 1]  ([1.0, 1.0])
+ok   SimpleImputer(most_frequent) on strings: tie a/b -> smallest 'a'; x/y tie -> 'x'; NaN replaced  (['a', 'x'])
+ok   SimpleImputer(strategy='constant') on strings: default fill_value 'missing_value'
+ok   SimpleImputer(strategy='constant', fill_value=-9) numeric; default fill_value for numeric data is 0
+ok   SimpleImputer(most_frequent) with the missing placeholder more frequent than any value: statistics_ ignores the placeholder
+ok   SimpleImputer(strategy='mean') on strings raises ValueError ('Can only be used with numeric data')
+ok   SimpleImputer(mean): an all-missing feature is dropped by default (output 1 column); keep_empty_features=True keeps it as 0; with strategy='constant' as fill_value
+ok   SimpleImputer(most_frequent, keep_empty_features=True): empty feature imputed with 0
+ok   SimpleImputer(strategy=callable): 'scalar statistic returned by running the callable over a dense 1d array containing non-missing values of each column' -> max = [5, 3]
+ok   SimpleImputer(add_indicator=True): indicator columns appended for the features with missing values
+ok   SimpleImputer(missing_values=-1, strategy='mean') on CSC: explicit zeros count in the mean ([[1,0],[0,3],[-1,-1]] -> means 0.5, 1.5)
+== impute: IterativeImputer (one round recomputed with exact OLS)
+ok   IterativeImputer(max_iter=0): result = the initial (mean) imputation, n_iter_ = 0
+ok   IterativeImputer(max_iter=0, initial_strategy='median') = SimpleImputer(median)
+   missing counts per column: [2, 2, 1]
+ok   IterativeImputer(LinearRegression, max_iter=1, imputation_order='roman'): visiting order [0, 1, 2] (left to right) and one round = exact OLS chained imputation (rel 1e-8)  (sequence [np.int64(0), np.int64(1), np.int64(2)], max diff 8.9e-16)
+ok   IterativeImputer(LinearRegression, max_iter=1, imputation_order='arabic'): visiting order [2, 1, 0] (right to left) and one round = exact OLS chained imputation (rel 1e-8)  (sequence [np.int64(2), np.int64(1), np.int64(0)], max diff 1.8e-15)
+ok   IterativeImputer(LinearRegression, max_iter=1, imputation_order='ascending'): visiting order [2, 0, 1] (fewest missing first (counts 2,2,1; tie in stable order)) and one round = exact OLS chained imputation (rel 1e-8)  (sequence [np.int64(2), np.int64(0), np.int64(1)], max diff 8.9e-16)
+ok   IterativeImputer(LinearRegression, max_iter=1, imputation_order='descending'): visiting order [1, 0, 2] (most missing first (reverse of ascending)) and one round = exact OLS chained imputation (rel 1e-8)  (sequence [np.int64(1), np.int64(0), np.int64(2)], max diff 1.8e-15)
+ok   IterativeImputer imputation_order 'ascending' = 'From features with fewest missing values to most' [1, 2, 0]; 'descending' = [0, 2, 1] (ties keep / reverse the stable order)  ([np.int64(1), np.int64(2), np.int64(0)], [np.int64(0), np.int64(2), np.int64(1)])
+ok   IterativeImputer(descending) one round = OLS chained imputation in the order [0, 2, 1] (rel 1e-8)
+ok   IterativeImputer(imputation_order='random'): 'A random order for each round' -> each round is a permutation of the features; deterministic with random_state  ([np.int64(2), np.int64(0), np.int64(1), np.int64(0), np.int64(2), np.int64(1), np.int64(2), np.int64(0), np.int64(1)])
+ok   IterativeImputer(skip_complete=True): complete feature 1 not in imputation_sequence_ (n_features_with_missing_ = 2); skip_complete=False fits it anyway; identical imputations
+ok   IterativeImputer(skip_complete=True).transform: a feature complete at fit but missing at transform 'will be imputed with the initial imputation method only' (mean of column 1)  (3.0 vs mean 3.0)
+ok   IterativeImputer(max_iter=2, tol=0): two rounds = two passes of the exact chained OLS (rel 1e-8), n_iter_ = 2
+   clipping: unclipped imputed values [2.3398, 1.6018, 6.5268, 0.511, 5.5914] -> clipped [2.8069, 2.0, 6.0, 2.0, 4.0]
+ok   IterativeImputer(min_value=2, max_value=[inf, 4, 6]): imputed values clipped per feature inside the chain (exact chained OLS with clipping, rel 1e-8); clipping changes at least one value here
+ok   IterativeImputer(tol=0.1): stops at the first round t with max|X_t - X_(t-1)|/max|X[known]| < tol (documented criterion) -> n_iter_ = 2  (n_iter_ 2; changes/scale ['7.3e-02', '2.4e-02'])
+ok   IterativeImputer(tol=0.01): stops at the first round t with max|X_t - X_(t-1)|/max|X[known]| < tol (documented criterion) -> n_iter_ = 4  (n_iter_ 4; changes/scale ['7.3e-02', '2.4e-02', '8.0e-03', '3.2e-03'])
+ok   IterativeImputer(tol=0.001): stops at the first round t with max|X_t - X_(t-1)|/max|X[known]| < tol (documented criterion) -> n_iter_ = 7  (n_iter_ 7; changes/scale ['7.3e-02', '2.4e-02', '8.0e-03', '3.2e-03', '1.4e-03', '6.7e-04', '3.1e-04'])
+ok   IterativeImputer(tol=0.0001): stops at the first round t with max|X_t - X_(t-1)|/max|X[known]| < tol (documented criterion) -> n_iter_ = 8  (n_iter_ 8; changes/scale ['7.3e-02', '2.4e-02', '8.0e-03', '3.2e-03', '1.4e-03', '6.7e-04', '3.1e-04'])
+ok   IterativeImputer that does not converge within max_iter warns (ConvergenceWarning)
+ok   IterativeImputer(sample_posterior=True): deterministic given random_state, different seeds differ, 'early stopping is only applied if sample_posterior=False' -> n_iter_ = max_iter
+ok   IterativeImputer with a single feature: initial imputation returned, n_iter_ = 0
+ok   IterativeImputer(add_indicator=True): imputed columns then indicator columns
+ok   IterativeImputer with an all-missing feature: dropped by default, kept as 0 with keep_empty_features=True
+ok   IterativeImputer(initial_strategy='constant', fill_value=-1, max_iter=0) fills with -1
+== compose: ColumnTransformer / TransformedTargetRegressor
+ok   ColumnTransformer(remainder='drop'): output = [transformer 1 output | transformer 2 output] in transformers order ('The order of the columns ... follows the order of how the columns are specified'), unspecified columns dropped
+ok   ColumnTransformer(remainder='passthrough'): remaining columns (2, 4) appended after the transformers, in their original order ('This subset of columns is concatenated with the output of the transformers')
+ok   ColumnTransformer(remainder=estimator): remaining columns transformed by the remainder estimator, appended last
+ok   ColumnTransformer column selection by slice / boolean mask / callable(X) -> same as index lists
+ok   ColumnTransformer(transformer_weights): 'The output of the transformer is multiplied by these weights'
+ok   ColumnTransformer.fit_transform = fit then transform
+ok   ColumnTransformer.named_transformers_ holds the fitted transformers (StandardScaler mean_ of columns 0, 1)
+ok   ColumnTransformer.get_feature_names_out(verbose_feature_names_out=True): 'sc__a', 'sc__b', 'mm__d'; passthrough remainder -> 'remainder__c', 'remainder__e'  (['mm__d', 'sc__a', 'sc__b', 'remainder__c', 'remainder__e'])
+ok   ColumnTransformer(verbose_feature_names_out=False): plain input names
+ok   ColumnTransformer(verbose_feature_names_out=False) with duplicate output names raises ValueError ('will error if feature names are not unique')
+ok   ColumnTransformer(verbose_feature_names_out=str template / callable) formats names as documented
+ok   ColumnTransformer(sparse_threshold=0.3): overall density 0.4 (nnz 16 / 40) >= threshold -> dense ('stacked as a sparse matrix if the overall density is lower than this value'; 0 -> always dense)  (sparse=False)
+ok   ColumnTransformer(sparse_threshold=0.5): overall density 0.4 (nnz 16 / 40) < threshold -> sparse ('stacked as a sparse matrix if the overall density is lower than this value'; 0 -> always dense)  (sparse=True)
+ok   ColumnTransformer(sparse_threshold=0.0): overall density 0.4 (nnz 16 / 40) >= threshold -> dense ('stacked as a sparse matrix if the overall density is lower than this value'; 0 -> always dense)  (sparse=False)
+ok   ColumnTransformer(sparse_threshold=1.0): overall density 0.4 (nnz 16 / 40) < threshold -> sparse ('stacked as a sparse matrix if the overall density is lower than this value'; 0 -> always dense)  (sparse=True)
+ok   ColumnTransformer with all-dense outputs stays dense whatever the threshold ('this keyword will be ignored')
+ok   make_column_transformer names transformers by lowercased class name ('standardscaler', 'minmaxscaler')
+ok   ColumnTransformer with string column names on a numpy array raises ValueError ('Specifying the columns using strings is only supported for dataframes')
+   (column selection by name / make_column_selector(dtype_include) / set_output('pandas') need pandas, not installed: skipped)
+ok   ColumnTransformer with 'drop' and 'passthrough' as transformers: dropped column absent, passthrough column verbatim
+ok   TransformedTargetRegressor(func=log, inverse_func=exp): regressor_ fitted on func(y) (exact OLS on log y, rel 1e-12)
+ok   TransformedTargetRegressor.predict = inverse_func(regressor_.predict(X)) exactly (exp of the linear prediction), 1-d output
+ok   TransformedTargetRegressor(transformer=StandardScaler): regressor_ fitted on transformer.transform(y) (2-d internally), predict = transformer_.inverse_transform(regressor_.predict(X)) (rel 1e-12)
+ok   TransformedTargetRegressor with a linear regressor and StandardScaler on y predicts exactly like plain LinearRegression (affine invariance)
+ok   TransformedTargetRegressor(check_inverse=True) with non-inverse func pair: UserWarning 'The provided functions or transformer are not strictly inverse of each other'
+ok   TransformedTargetRegressor(check_inverse=False): no warning
+ok   TransformedTargetRegressor default (no func/transformer): identity -> predictions equal LinearRegression
+ok   TransformedTargetRegressor(func without inverse_func) raises ValueError
+ok   TransformedTargetRegressor(transformer and func both set) raises ValueError
+ok   TransformedTargetRegressor.score = r2 of the back-transformed predictions (r2_exact)
+== pipeline: Pipeline / FeatureUnion / make_pipeline / make_union
+ok   Pipeline.fit chains fit_transform: intermediate steps equal manual chaining (scaler mean_, PCA components_ up to sign, classifier coef_)
+ok   Pipeline[:-1].transform(X) = manual chained transform (PCA sign fixed by comparing |.|); pipe[:-1] is a Pipeline of the first steps
+ok   Pipeline.predict_proba / decision_function / predict = the final estimator applied to the transformed X (passthrough)
+ok   Pipeline steps slicing: pipe[0] is the StandardScaler, pipe[-1] the classifier, pipe['pca'] by name, pipe[1:] a Pipeline of pca+clf
+ok   Pipeline.score(X, y, sample_weight) = final_estimator.score(Xt, y, sample_weight) (weighted accuracy, exact)
+ok   Pipeline with 'passthrough' and None steps: they are skipped (classifier fitted on the raw X)
+ok   Pipeline.set_params with nested 'step__param' names reaches the step parameters
+ok   Pipeline.set_params(step=new_estimator) replaces the step
+ok   Pipeline(memory=joblib.Memory): the second fit with identical data and params reuses the cached transformer (fit not called again) and gives identical results to the uncached pipeline  (fit calls after 1st/2nd cached fit: 1, 1)
+ok   Pipeline(memory) with a string path also works
+ok   Pipeline.get_feature_names_out chains the steps' feature names (scaler one-to-one -> pca0, pca1)
+ok   Pipeline.fit_transform on a transformer-only pipeline = chained fit_transform (exact)
+ok   Pipeline.inverse_transform applies the steps' inverse_transform in reverse
+ok   Pipeline with a non-transformer intermediate step raises TypeError
+ok   make_pipeline names steps by lowercased class name, duplicates suffixed -1, -2: ['standardscaler-1','standardscaler-2','pca','logisticregression']  (['standardscaler-1', 'standardscaler-2', 'pca', 'logisticregression'])
+ok   FeatureUnion: outputs concatenated horizontally in transformer order (2 + 4 + 14 columns; PCA compared up to sign)
+ok   FeatureUnion(transformer_weights): 'Multiplicative weights for features per transformer'
+ok   FeatureUnion.get_feature_names_out prefixes with the transformer name ('sc__x0', ...)  (['pca__pca0', 'pca__pca1', 'sc__x0'])
+ok   FeatureUnion with 'drop' and 'passthrough' transformers: dropped one contributes nothing, passthrough gives X verbatim
+ok   make_union names transformers by lowercased class name with -1/-2 suffixes for duplicates  (['standardscaler-1', 'minmaxscaler', 'standardscaler-2'])
+ok   FeatureUnion with one sparse output returns a sparse matrix with dense blocks stacked
+ok   FeatureUnion.fit_transform = fit + transform
+== done
