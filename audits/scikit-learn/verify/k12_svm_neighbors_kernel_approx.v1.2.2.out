@@ -1,0 +1,484 @@
+scikit-learn 1.2.2  numpy 1.24.4  python 3.11.15
+== svm.SVC binary: decision function recomputed from the dual, kernels coded independently
+   classes [3, 7]: counts [(3, 16), (7, 14)]
+   linear: n_SV 10 intercept_ -0.185100 decision [-1.371972, -0.472177, 1.966855, -1.25531, 1.636832, 1.682681, 0.367692, 3.161711] max|diff| 8.88e-16
+ok   SVC(kernel=linear) decision_function = dual_coef_ @ K(SV, x) + intercept_ (K coded independently, gamma/coef0/degree as given)
+ok   SVC(kernel=linear) predict = classes_[1] (=7) iff decision_function > 0, classes_ sorted
+ok   SVC(kernel=linear) support_vectors_ == X[support_], n_support_ sums to n_SV, SVs grouped by class in classes_ order
+   poly: n_SV 13 intercept_ -0.363347 decision [-1.51909, -0.493943, 1.832608, -1.376338, 1.480792, 1.449236, 0.554937, 3.749665] max|diff| 8.88e-16
+ok   SVC(kernel=poly) decision_function = dual_coef_ @ K(SV, x) + intercept_ (K coded independently, gamma/coef0/degree as given)
+ok   SVC(kernel=poly) predict = classes_[1] (=7) iff decision_function > 0, classes_ sorted
+ok   SVC(kernel=poly) support_vectors_ == X[support_], n_support_ sums to n_SV, SVs grouped by class in classes_ order
+   rbf: n_SV 17 intercept_ 0.140310 decision [-0.621261, -0.799702, 1.043735, -0.652439, 0.932922, 0.610701, 0.337242, 1.457674] max|diff| 9.99e-16
+ok   SVC(kernel=rbf) decision_function = dual_coef_ @ K(SV, x) + intercept_ (K coded independently, gamma/coef0/degree as given)
+ok   SVC(kernel=rbf) predict = classes_[1] (=7) iff decision_function > 0, classes_ sorted
+ok   SVC(kernel=rbf) support_vectors_ == X[support_], n_support_ sums to n_SV, SVs grouped by class in classes_ order
+   sigmoid: n_SV 16 intercept_ -0.020391 decision [-0.651248, -0.232126, 1.079352, -0.59805, 0.903568, 0.819869, 0.473502, 1.797231] max|diff| 8.88e-16
+ok   SVC(kernel=sigmoid) decision_function = dual_coef_ @ K(SV, x) + intercept_ (K coded independently, gamma/coef0/degree as given)
+ok   SVC(kernel=sigmoid) predict = classes_[1] (=7) iff decision_function > 0, classes_ sorted
+ok   SVC(kernel=sigmoid) support_vectors_ == X[support_], n_support_ sums to n_SV, SVs grouped by class in classes_ order
+ok   SVC(linear) coef_ = dual_coef_ @ support_vectors_ and decision_function = X @ coef_.T + intercept_ (intercept_ sign)
+ok   SVC classes_ sorted and decision function unchanged when the rows are permuted (max |diff| 1e-6)
+ok   SVC(kernel='precomputed') decision_function = dual_coef_ @ K_test[:, support_] + intercept_
+ok   SVC(kernel='precomputed' with the rbf Gram matrix) equals SVC(kernel='rbf') (support_, dual_coef_, intercept_ within 1e-6)
+ok   SVC(kernel='precomputed') support_vectors_ is empty (documented 'An empty array if kernel is precomputed')
+   gamma='scale': exact 1/(n_features*X.var()) = 0.544927003895; model _gamma = 0.5449270038949815
+ok   SVC(gamma='scale' default) decision_function recomputed with gamma = 1/(n_features * X.var()) (population variance of all entries, exact Fraction)
+ok   SVC(gamma='auto') decision_function recomputed with gamma = 1/n_features
+ok   SVC float32 input: decision_function within 1e-4 of the float64 fit  (max diff 2.4e-07)
+ok   SVC on scipy.sparse CSR input = the dense fit (support_, dual_coef_, intercept_, decision_function within 1e-8; sparse support_vectors_ documented)
+   X + 1e4: max |decision diff| 1.45e-07
+ok   SVC(rbf) on X + 1e4 (translation-invariant kernel) = fit on X: same support_, decision_function within 1e-5
+ok   SVC with a single class in y raises ValueError
+ok   SVC with NaN in X raises ValueError (input validation)
+   sample_weight 0 on 5 rows: n_SV 15 vs dropped-rows fit 15; max |decision diff| 0.00e+00
+ok   SVC(sample_weight=0 on some rows) = fit with those rows removed ('Rescale C per sample': C_i = 0 forces alpha_i = 0): decision_function within 1e-6
+   support_ [6, 8, 11, 12, 14, 16, 20, 22, 3, 4, 5, 10, 19, 21, 23]; zero-weight rows [2, 5, 11, 17, 23]; support_vectors_ == X[support_]: False; == X[nonzero-weight rows][support_]: True
+FAIL SVC(sample_weight with zeros): support_ indexes the rows of the X passed to fit (documented 'support_ : Indices of support vectors'): support_vectors_ == X[support_] and no zero-weight row in support_
+   precomputed rbf Gram, same zero weights: decision [1.7489, 1.5209, -0.8357, 1.9011, -0.698, -0.8527, -0.4363, -0.8909]
+      rbf kernel fit (= dropped-rows fit): [-0.6013, -0.8561, 0.9432, -0.6464, 0.8387, 0.4739, 0.102, 1.4789]
+FAIL SVC(kernel='precomputed', sample_weight with zeros) decision_function = the same fit with kernel='rbf' (= rows dropped), within 1e-6  (max diff 2.547; predictions differ on 8/8 query points)
+== svm.SVC KKT conditions of the documented dual (0 <= alpha_i <= C_i, complementary slackness), class_weight / sample_weight
+   SVC(rbf, C=1.5, class_weight={3:1,7:2.5}, sample_weight): n_SV 17 free 11 bounded 6 non-SV 13; max alpha/C_i 1.000000000; sum dual_coef_ 9.99e-16
+      margins y f: free [0.9999999, 0.9999998, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]; bounded max 0.864642; non-SV min 1.046694
+ok   SVC(rbf, C=1.5, class_weight={3:1,7:2.5}, sample_weight): alpha_i = y_i * dual_coef_i >= 0 and support_ == {i : alpha_i > 0}
+ok   SVC(rbf, C=1.5, class_weight={3:1,7:2.5}, sample_weight): alpha_i <= C_i = C * class_weight[y_i] * sample_weight[i] (documented 'sets the parameter C of class i to class_weight[i]*C' / 'C * sample_weight[i]')
+ok   SVC(rbf, C=1.5, class_weight={3:1,7:2.5}, sample_weight): the bounded SVs sit exactly at alpha_i = C_i and there is at least one (non-separable problem)
+ok   SVC(rbf, C=1.5, class_weight={3:1,7:2.5}, sample_weight): equality constraint sum_i y_i alpha_i = sum(dual_coef_) = 0 (1e-9)
+ok   SVC(rbf, C=1.5, class_weight={3:1,7:2.5}, sample_weight): complementary slackness within 1e-6 (libsvm caches the kernel in single precision, 'typedef float Qfloat'): free SVs y_i f(x_i) = 1, bounded y_i f(x_i) <= 1, non-SVs y_i f(x_i) >= 1
+      primal 1/2||w||^2 + sum C_i max(0, 1 - y_i f_i) = 14.1798958942; dual e'alpha - 1/2 alpha'Q alpha = 14.1798947694; gap 1.12e-06
+ok   SVC(rbf, C=1.5, class_weight={3:1,7:2.5}, sample_weight): duality gap primal - dual >= 0 and <= 1e-7 (both objectives recomputed from dual_coef_ / decision values)
+   SVC(linear, C=0.8): n_SV 13 free 2 bounded 11 non-SV 17; max alpha/C_i 1.000000000; sum dual_coef_ -2.22e-16
+      margins y f: free [1.0, 1.0]; bounded max 0.932432; non-SV min 1.046725
+ok   SVC(linear, C=0.8): alpha_i = y_i * dual_coef_i >= 0 and support_ == {i : alpha_i > 0}
+ok   SVC(linear, C=0.8): alpha_i <= C_i = C * class_weight[y_i] * sample_weight[i] (documented 'sets the parameter C of class i to class_weight[i]*C' / 'C * sample_weight[i]')
+ok   SVC(linear, C=0.8): the bounded SVs sit exactly at alpha_i = C_i and there is at least one (non-separable problem)
+ok   SVC(linear, C=0.8): equality constraint sum_i y_i alpha_i = sum(dual_coef_) = 0 (1e-9)
+ok   SVC(linear, C=0.8): complementary slackness within 1e-6 (libsvm caches the kernel in single precision, 'typedef float Qfloat'): free SVs y_i f(x_i) = 1, bounded y_i f(x_i) <= 1, non-SVs y_i f(x_i) >= 1
+      primal 1/2||w||^2 + sum C_i max(0, 1 - y_i f_i) = 7.5814149186; dual e'alpha - 1/2 alpha'Q alpha = 7.5814149126; gap 6.01e-09
+ok   SVC(linear, C=0.8): duality gap primal - dual >= 0 and <= 1e-7 (both objectives recomputed from dual_coef_ / decision values)
+   SVC(linear, class_weight='balanced' = n/(2*count): {3: 0.9375, 7: 1.0714}): n_SV 12 free 2 bounded 10 non-SV 18; max alpha/C_i 1.000000000; sum dual_coef_ -5.55e-17
+      margins y f: free [0.9999999, 1.0]; bounded max 0.918689; non-SV min 1.037549
+ok   SVC(linear, class_weight='balanced' = n/(2*count): {3: 0.9375, 7: 1.0714}): alpha_i = y_i * dual_coef_i >= 0 and support_ == {i : alpha_i > 0}
+ok   SVC(linear, class_weight='balanced' = n/(2*count): {3: 0.9375, 7: 1.0714}): alpha_i <= C_i = C * class_weight[y_i] * sample_weight[i] (documented 'sets the parameter C of class i to class_weight[i]*C' / 'C * sample_weight[i]')
+ok   SVC(linear, class_weight='balanced' = n/(2*count): {3: 0.9375, 7: 1.0714}): the bounded SVs sit exactly at alpha_i = C_i and there is at least one (non-separable problem)
+ok   SVC(linear, class_weight='balanced' = n/(2*count): {3: 0.9375, 7: 1.0714}): equality constraint sum_i y_i alpha_i = sum(dual_coef_) = 0 (1e-9)
+ok   SVC(linear, class_weight='balanced' = n/(2*count): {3: 0.9375, 7: 1.0714}): complementary slackness within 1e-6 (libsvm caches the kernel in single precision, 'typedef float Qfloat'): free SVs y_i f(x_i) = 1, bounded y_i f(x_i) <= 1, non-SVs y_i f(x_i) >= 1
+      primal 1/2||w||^2 + sum C_i max(0, 1 - y_i f_i) = 8.8067267399; dual e'alpha - 1/2 alpha'Q alpha = 8.8067267251; gap 1.48e-08
+ok   SVC(linear, class_weight='balanced' = n/(2*count): {3: 0.9375, 7: 1.0714}): duality gap primal - dual >= 0 and <= 1e-7 (both objectives recomputed from dual_coef_ / decision values)
+   separable toy, C=1e+06: coef_ [0.0, 0.9999999999995283] intercept_ [-0.9999999999996855] support_ [0, 1, 2] dual_coef_ [-0.24999999999988196, -0.24999999999988207, 0.49999999999976413]
+ok   SVC(linear, C=1e+06) on a separable toy = hard-margin closed form w=(0,1), b=-1, SVs {0,1,2}, alphas (1/4, 1/4, 1/2) (C >= max alpha = 1/2 suffices)
+   separable toy, C=1: coef_ [0.0, 0.9999999999995283] intercept_ [-0.9999999999996855] support_ [0, 1, 2] dual_coef_ [-0.24999999999988196, -0.24999999999988207, 0.49999999999976413]
+ok   SVC(linear, C=1) on a separable toy = hard-margin closed form w=(0,1), b=-1, SVs {0,1,2}, alphas (1/4, 1/4, 1/2) (C >= max alpha = 1/2 suffices)
+   C=0.4 < 1/2: coef_ [1.1102230246251565e-16, 0.8] (soft margin, must differ)
+ok   SVC(linear, C=0.4 < max hard-margin alpha) is a different (soft-margin) solution
+ok   SVC shrinking=False gives the same solution as shrinking=True (dual_coef_, intercept_ within 1e-6; 'shrinking heuristic')
+ok   SVC cache_size=1 MB has no effect on the solution
+ok   SVC max_iter=1 sets fit_status_ = 1 (documented '0 if correctly fitted, 1 otherwise')
+== svm.SVC multiclass: ovo layout, votes, ovr transformation, break_ties, Platt / pairwise coupling
+ok   SVC multiclass: support vectors grouped by class in classes_ order with n_support_ counts; dual_coef_ shape (n_classes-1, n_SV); intercept_ shape n(n-1)/2
+   ovo decision_function shape (900, 6); max |diff| vs recomputation from the documented dual_coef_ layout 1.11e-15
+ok   SVC(decision_function_shape='ovo') = the 6 pairwise decisions '0 vs 1', '0 vs 2', ..., '2 vs 3' recomputed from the documented dual_coef_ layout (SV of class i vs class j uses row j-1, SV of class j uses row i)
+   grid of 900 query points: 5 with tied vote counts
+ok   SVC predict (ovo) = class with most pairwise votes (positive decision votes for class i in 'i vs j')
+ok   SVC predict with tied votes = 'the first class among the tied classes' (documented), on the tied grid points
+   ovr: max |diff| vs votes + sum_conf/(3(|sum_conf|+1)) 4.44e-16
+ok   SVC(decision_function_shape='ovr') = votes + sum_of_confidences/(3(|sum_of_confidences|+1)) recomputed from the ovo decisions (the formula of sklearn.utils.multiclass._ovr_decision_function's docstring; public docs only say 'an ovr matrix is only constructed from the ovo matrix')
+ok   ovr transformation keeps the vote order: |transformed confidences| < 1/3, argmax of ovr = a max-vote class
+ok   SVC default decision_function_shape is 'ovr' (documented default) with shape (n_samples, n_classes)
+ok   SVC(ovr, break_ties=False) predict still returns the first tied class (documented: 'the predict method does not try to break ties by default')
+ok   SVC(break_ties=True) predict == argmax(decision_function ovr) on all grid points (documented)
+ok   SVC(break_ties=True) changes the prediction on some tied points vs break_ties=False
+ok   SVC(break_ties=True, decision_function_shape='ovo') predict raises ValueError (documented)
+   binary Platt: probA_ -1.601433 probB_ 0.017442; predict_proba[:,0] [0.726605, 0.779581, 0.155814, 0.736411, 0.180662, 0.269838, 0.361097, 0.086781]
+   sigmoid(A*(-f)+B) [0.726605, 0.779581, 0.155919, 0.736411, 0.180723, 0.269839, 0.364123, 0.086922]
+   over the 900 grid points: max |predict_proba[:,0] - sigmoid| 3.94e-03
+FAIL SVC(probability=True) binary predict_proba[:, 0] = 1/(1+exp(probA_ * d + probB_)) with d = libsvm's decision value = -decision_function (sklearn flips the binary sign), clipped to [1e-7, 1-1e-7], to 1e-10 (documented formula for probA_/probB_)
+ok   SVC(probability=True) binary predict_proba = libsvm's pairwise-coupling iteration (max_error < 0.005/2 stopping rule, reproduced in plain Python) applied to the 2x2 sigmoid table, to 1e-10 -- i.e. the deviation from the documented sigmoid is the early-stopped coupling iteration
+ok   SVC(probability=True) binary predict_proba within 1e-2 of the Platt sigmoid (the documented formula holds only up to the coupling iteration's tolerance)
+ok   SVC(probability=True) binary predict_proba rows sum to 1 and predict_log_proba = log(predict_proba)
+   training points where predict != argmax predict_proba: 0 of 30 (documented: 'predict_proba may be inconsistent with predict')
+ok   SVC(probability=True) predict is unchanged by probability=True (still the sign of the decision function, documented inconsistency with predict_proba is allowed)
+   multiclass coupling: max |predict_proba - exact QP solution| 2.05e-03 (libsvm iterates to 0.005/n_classes)
+ok   SVC multiclass predict_proba = pairwise coupling (Wu-Lin-Weng method 2 QP solved exactly) of the Platt sigmoids of the ovo decisions, within 5e-3 (libsvm's iteration tolerance)
+ok   SVC multiclass predict_proba rows sum to 1
+   multiclass grid points where predict != argmax predict_proba: 17 of 900 (documented as possible)
+== svm.NuSVC
+   nu=0.5: fraction of SVs 0.6333, fraction of margin errors (y f < 1 - 1e-5) 0.3667
+ok   NuSVC(nu=0.5): fraction of support vectors >= nu and fraction of margin errors <= nu (documented bounds)
+ok   NuSVC decision_function = dual_coef_ @ K(SV, x) + intercept_ (rbf coded independently)
+ok   NuSVC: predict = classes_[1] iff decision_function > 0; margin scaled so free SVs have y_i f(x_i) = 1 (libsvm rescales rho to 1)
+   nu=0.2: SV fraction 0.3667, margin-error fraction 0.1000
+ok   NuSVC(nu=0.2): margin errors <= nu <= support vectors
+   nu=0.7: SV fraction 0.7667, margin-error fraction 0.6333
+ok   NuSVC(nu=0.7): margin errors <= nu <= support vectors
+ok   NuSVC(nu=0.5) on 25/5 classes (max feasible nu = 2*min(n_+, n_-)/n = 1/3) raises ValueError 'specified nu is infeasible'
+ok   NuSVC(nu=0.3 < 1/3) on the same data fits
+ok   NuSVC(nu=1.5) raises ValueError (nu in (0, 1])
+   NuSVC class_weight={3:1, 7:5}: max |decision diff vs unweighted| 0.00e+00; sample_weight 2 on class 7: 7.18e-01
+FAIL NuSVC(class_weight={3: 1, 7: 5}) changes the fit (documented parameter 'Set the parameter C of class i to class_weight[i]*C')
+ok   NuSVC(sample_weight = 2 on class 7) changes the fit (documented 'Per-sample weights. Rescale C per sample')
+== svm.SVR / NuSVR: epsilon tube, dual bounds, predict recomputed
+   SVR: n_SV 18 free 8 bounded 10 non-SV 22; max|dual_coef_| 2.000000; sum 0.00e+00
+      |y-f| non-SV max 0.099971; free [0.0999999, 0.1, 0.0999999, 0.0999999, 0.0999999, 0.0999999, 0.1, 0.1]; bounded min 0.109214
+ok   SVR predict = dual_coef_ @ K(SV, x) + intercept_ (rbf coded independently)
+ok   SVR dual coefficients alpha_i - alpha_i^* in [-C, C], sum = 0, support_ = nonzero ones
+ok   SVR epsilon tube (KKT, 1e-6: libsvm caches the kernel in single precision, 'typedef float Qfloat'): non-SVs |y - f| <= epsilon; free SVs |y - f| = epsilon; bounded SVs |y - f| >= epsilon
+ok   SVR sign: dual_coef_i > 0 iff the target lies above the tube (y_i - f_i >= epsilon, 1e-6)
+ok   SVR(sample_weight): |dual_coef_i| <= C * sample_weight[i] and some SV sits at that bound
+   NuSVR(nu=0.3): n_SV 15 (fraction 0.375); tube half-width recovered from the SVs 0.134154; points outside the tube 6 (fraction 0.150)
+ok   NuSVR(nu=0.3): fraction of SVs >= nu and fraction of points outside the (automatically chosen) epsilon tube <= nu; non-SVs inside the tube; |dual_coef_| <= C
+ok   NuSVR predict = dual_coef_ @ K(SV, x) + intercept_
+ok   SVR(epsilon=0): every training point is a support vector unless the residual is exactly 0 (tube of width 0)
+ok   SVR(linear) coef_ = dual_coef_ @ support_vectors_
+== svm.OneClassSVM
+   offset_ array([1.39345727]) (documented 'float') intercept_ -1.393457; n_SV 16 (fraction 0.32); outliers on training data 13 (fraction 0.26); dual_coef_ in [0.0085, 1.0000], sum 10.000000 (nu*n = 10.0)
+FAIL OneClassSVM offset_ is a Python/numpy scalar as documented ('offset_ : float')  (got ndarray of shape (1,))
+ok   OneClassSVM decision_function = score_samples - offset_ (documented)
+ok   OneClassSVM offset_ = -intercept_ (documented 'The offset is the opposite of intercept_')
+ok   OneClassSVM score_samples = dual_coef_ @ K(SV, x) (rbf coded independently, no intercept)
+ok   OneClassSVM predict = +1 iff decision_function > 0 else -1
+   decision_function < -1e-6 (training errors, xi > 0): 6; |decision| <= 1e-6 (on the boundary: free SVs, which predict() labels -1 when the value rounds to <= 0): 10
+ok   OneClassSVM(nu=0.2): fraction of training errors (decision_function < 0 beyond 1e-6) <= nu <= fraction of support vectors (documented 'upper bound on the fraction of training errors and a lower bound of the fraction of support vectors')
+ok   OneClassSVM dual: 0 <= dual_coef_ <= 1 and sum(dual_coef_) = nu * n (libsvm's scaling of the one-class dual: alpha in [0,1], sum alpha = nu l)
+ok   OneClassSVM: the three isolated far-away points are flagged as outliers (decision_function < 0)  (decision [-0.3935, -0.3935, -0.3935])
+ok   OneClassSVM shrinking=False same solution
+== svm.LinearSVC: documented primal objectives vs scipy.optimize references
+   squared_hinge/l2/dual=False, intercept_scaling=1.0: objective lib 5.580762576030 ref(L-BFGS) 5.580762576030; coef_ [1.3198037988966749, -0.8079149592437486, -0.10367562381779838] intercept_ 0.307167; ref coef [1.3198038324316181, -0.8079149741144271, -0.1036756349968532] ref intercept 0.307167
+ok   LinearSVC(squared_hinge, l2, dual=False, intercept_scaling=1.0) minimises 1/2(||w||^2 + (b/s)^2) + C sum max(0, 1 - y(w.x + b))^2: objective within 1e-8 of the L-BFGS reference and coef_ within 1e-5
+ok   LinearSVC(squared_hinge, dual=True, intercept_scaling=1.0) solves the same problem: coef_/intercept_ within 1e-5 of dual=False
+   squared_hinge/l2/dual=False, intercept_scaling=10.0: objective lib 5.530155623819 ref(L-BFGS) 5.530155623819; coef_ [1.3394195070207842, -0.8133560580301329, -0.11485281671190456] intercept_ 0.332585; ref coef [1.3394195206025081, -0.81335605116326, -0.11485280457800379] ref intercept 0.332585
+ok   LinearSVC(squared_hinge, l2, dual=False, intercept_scaling=10.0) minimises 1/2(||w||^2 + (b/s)^2) + C sum max(0, 1 - y(w.x + b))^2: objective within 1e-8 of the L-BFGS reference and coef_ within 1e-5
+ok   LinearSVC(squared_hinge, dual=True, intercept_scaling=10.0) solves the same problem: coef_/intercept_ within 1e-5 of dual=False
+   intercept_: scaling 1 -> 0.307167, scaling 100 -> 0.332858, unregularised intercept (reference) 0.332861
+ok   LinearSVC intercept_scaling=100 brings the intercept closer to the unregularised-intercept solution than intercept_scaling=1 (documented 'the higher the value, the lower the impact of regularization on it')
+ok   LinearSVC(squared_hinge) dual=True and dual=False agree on n_samples < n_features (6 x 12): coef_, intercept_ within 1e-5
+   hinge/l2 (dual, tol=1e-10): primal lib 6.0482125052; reference dual (L-BFGS-B box QP) 6.0482125052, primal at ref w 6.0482125052; coef_ [1.763854673938519, -1.0200807545486856, -0.05583804175609681] ref [1.763854673939956, -1.0200807545428614, -0.05583804175650564]
+ok   LinearSVC(loss='hinge', tol=1e-10) minimises 1/2||w~||^2 + C sum max(0, 1 - y w~.x~): primal at coef_ within 1e-7 of the dual optimum of a box-constrained QP reference (weak duality: primal >= dual)
+   LinearSVC(loss='hinge', dual=True) tolerance sweep; optimum 6.0482125052:
+      tol 0.0001: n_iter_ 147, primal 6.0482153551 (excess 2.85e-06), ConvergenceWarning False
+      tol 1e-08: n_iter_ 154, primal 6.0482125071 (excess 1.90e-09), ConvergenceWarning False
+      tol 1e-10: n_iter_ 159, primal 6.0482125052 (excess 5.45e-12), ConvergenceWarning False
+      tol 1e-11: n_iter_ 160, primal 6.0482125052 (excess 1.26e-12), ConvergenceWarning False
+      tol 1e-12: n_iter_ 163, primal 6.0482125052 (excess 2.92e-13), ConvergenceWarning False
+      tol 1e-14: n_iter_ 200000, primal 6.0482125052 (excess 2.92e-13), ConvergenceWarning True
+ok   LinearSVC(loss='hinge', dual=True): every tol in 1e-8 ... 1e-14 (max_iter=200000) returns a primal objective within 1e-7 (relative) of the optimum (a tighter tolerance must not give a worse solution than tol=1e-8)
+ok   LinearSVC(penalty='l1', loss='hinge') raises ValueError (documented 'not supported')
+   l1/squared_hinge C=0.5: objective lib 4.4543341815 ref 4.4543341815; coef_ [1.122281960137833, -0.6939251919303209, 0.0] intercept_ 0.147223; ref [1.1222819601052616, -0.6939251919520668, 0.0] 0.147223
+ok   LinearSVC(penalty='l1', squared_hinge, dual=False) minimises ||w~||_1 + C sum max(0, 1 - y w~.x~)^2 (intercept penalised too): objective within 1e-7 of the split-variable L-BFGS-B reference, coef_ within 1e-4
+ok   LinearSVC(multi_class='ovr') rows of coef_/intercept_ = the n_classes separate one-vs-rest binary fits (documented), decision_function = X @ coef_.T + intercept_
+   crammer_singer objective at its solution 18.324228; at the ovr solution 20.828728; at 0 56.000000
+ok   LinearSVC(multi_class='crammer_singer') optimises the joint objective 1/2 sum_k ||w~_k||^2 + C sum_i max_k(1 - delta_{k,y_i} - (w~_{y_i} - w~_k).x~_i): lower at its solution than at the ovr solution and at 0; decision_function recomputed
+ok   LinearSVC(crammer_singer): 200 random perturbations of size 1e-4 of (coef_, intercept_) never decrease the joint objective (local optimality of a convex problem)
+   crammer_singer SLSQP reference: status 'Positive directional derivative for linesearch', min constraint slack -4.5e-13, objective 18.3242279257 vs library 18.3242279257; max |coef diff| 1.08e-11
+ok   LinearSVC(crammer_singer, tol=1e-12) objective within 1e-6 (relative) of an SLSQP solution of the Crammer-Singer primal QP (intercept as a regularised synthetic feature), coef_/intercept_ within 1e-3
+ok   LinearSVC(fit_intercept=False) intercept_ = 0 and coef_ minimises the objective without intercept (L-BFGS reference within 1e-5)
+ok   LinearSVC(class_weight={1: 3}) = per-sample C_i = C * class_weight[y_i] in the objective (L-BFGS reference within 1e-5)
+== svm.LinearSVR vs scipy.optimize references
+   epsilon_insensitive: primal lib 5.3029866456; reference dual 5.3029866454, primal at ref 5.3029866456; coef_ [2.0513338777700505, -1.0018575092484985] intercept_ 0.439596; ref [2.051333877725836, -1.0018575093030355, 0.4395955599991561]
+ok   LinearSVR(epsilon_insensitive, tol=1e-10) minimises 1/2||w~||^2 + C sum max(0, |y - w~.x~| - eps): primal within 1e-7 of the dual optimum (box-constrained QP reference, weak duality holds), coef_ within 1e-4
+   LinearSVR(loss='epsilon_insensitive') tolerance sweep; optimum 5.3029866454:
+      tol 0.0001: n_iter_ 152, primal 5.3031907500 (excess 2.04e-04), ConvergenceWarning False
+      tol 1e-08: n_iter_ 171, primal 5.3029866890 (excess 4.36e-08), ConvergenceWarning False
+      tol 1e-10: n_iter_ 183, primal 5.3029866456 (excess 1.67e-10), ConvergenceWarning False
+      tol 1e-11: n_iter_ 188, primal 5.3029866454 (excess 1.52e-11), ConvergenceWarning False
+      tol 1e-12: n_iter_ 193, primal 5.3029866454 (excess 6.94e-12), ConvergenceWarning False
+      tol 1e-14: n_iter_ 200000, primal 5.3029866454 (excess 6.94e-12), ConvergenceWarning True
+ok   LinearSVR(loss='epsilon_insensitive'): every tol in 1e-8 ... 1e-14 (max_iter=200000) returns a primal objective within 1e-7 (relative) of the optimum (a tighter tolerance must not give a worse solution than tol=1e-8)
+   squared_epsilon_insensitive (dual=False): objective lib 3.4935071706 ref 3.4935071706; coef_ [2.021062876527173, -0.9489751042032948] ref [2.02106287652714, -0.9489751042032921]
+ok   LinearSVR(squared_epsilon_insensitive, dual=False) minimises 1/2||w~||^2 + C sum max(0, |y - w~.x~| - eps)^2: objective within 1e-8 of the L-BFGS reference, coef_ within 1e-5
+ok   LinearSVR(squared_epsilon_insensitive, dual=True) agrees with dual=False (1e-5)
+ok   LinearSVR predict = X @ coef_ + intercept_
+   LinearSVR intercept_scaling=50: intercept_ 0.43959556 (scaling 1: 0.43959556); reference intercept 50*w_b = 0.43959558; primal lib 5.2064031678 vs reference dual 5.2064031661
+ok   LinearSVR(intercept_scaling=50) minimises 1/2(||w||^2 + (b/50)^2) + C sum max(0, |y - w.x - b| - eps) (documented synthetic feature of value intercept_scaling, intercept_ = intercept_scaling * its weight): primal within 1e-7 of the box-QP dual optimum, intercept_ within 1e-4
+   tol=1e-12, max_iter=200000, 60 random data sets; (seed, excess primal over the SLSQP reference, n_iter_, ConvergenceWarning):
+      LinearSVR(epsilon_insensitive) [(32, 0.0169, 200000, True)]
+      LinearSVC(hinge) [(14, 0.0438, 200000, True), (16, 0.00482, 200000, True)]
+FAIL LinearSVR(epsilon_insensitive) / LinearSVC(hinge) with tol=1e-12, max_iter=200000 reach the optimum (primal within 1e-7 relative of an SLSQP primal-QP reference) on all of 60 random data sets  (not reached: LinearSVR 1/60, LinearSVC 2/60)
+   LinearSVR(epsilon_insensitive) on data set 32 tolerance sweep; optimum 5.7095519087:
+      tol 0.0001: n_iter_ 643, primal 5.7095547400 (excess 2.83e-06), ConvergenceWarning False
+      tol 1e-08: n_iter_ 865, primal 5.7095519132 (excess 4.53e-09), ConvergenceWarning False
+      tol 1e-10: n_iter_ 974, primal 5.7095519087 (excess 1.33e-11), ConvergenceWarning False
+      tol 1e-11: n_iter_ 1028, primal 5.7095519087 (excess 3.05e-12), ConvergenceWarning False
+      tol 1e-12: n_iter_ 200000, primal 5.7264457497 (excess 1.69e-02), ConvergenceWarning True
+      tol 1e-14: n_iter_ 200000, primal 5.7264457497 (excess 1.69e-02), ConvergenceWarning True
+FAIL LinearSVR(epsilon_insensitive) on data set 32: every tol in 1e-8 ... 1e-14 (max_iter=200000) returns a primal objective within 1e-7 (relative) of the optimum (a tighter tolerance must not give a worse solution than tol=1e-8)
+   LinearSVC(hinge) on data set 14 tolerance sweep; optimum 14.5091416497:
+      tol 0.0001: n_iter_ 1022, primal 14.5091575746 (excess 1.59e-05), ConvergenceWarning False
+      tol 1e-08: n_iter_ 1544, primal 14.5091416550 (excess 5.27e-09), ConvergenceWarning False
+      tol 1e-10: n_iter_ 1773, primal 14.5091416497 (excess 4.02e-11), ConvergenceWarning False
+      tol 1e-11: n_iter_ 1904, primal 14.5091416497 (excess 5.03e-12), ConvergenceWarning False
+      tol 1e-12: n_iter_ 200000, primal 14.5529119750 (excess 4.38e-02), ConvergenceWarning True
+      tol 1e-14: n_iter_ 200000, primal 14.5529119750 (excess 4.38e-02), ConvergenceWarning True
+FAIL LinearSVC(hinge) on data set 14: every tol in 1e-8 ... 1e-14 (max_iter=200000) returns a primal objective within 1e-7 (relative) of the optimum (a tighter tolerance must not give a worse solution than tol=1e-8)
+== svm.l1_min_c
+   balanced centred data: max_j |X_j^T y| = 5.0261442335; l1_min_c squared_hinge 0.099479835191 (0.5/den 0.099479835191); log 0.397919340764 (2/den 0.397919340764)
+ok   l1_min_c(loss='squared_hinge') = 0.5 / max(|X^T y|_inf, |sum y| * intercept_scaling) (derivation: at w=0 the gradient of C*sum(1 - y w.x)^2 is 2C X^T y; exact Fraction)
+ok   l1_min_c(loss='log') = 2 / den (gradient of the logistic loss at w=0 is X^T y / 2)
+ok   l1_min_c with unbalanced y and intercept_scaling=3: the intercept column enters as |sum y| * intercept_scaling
+   LinearSVC l1 at 0.99*l1_min_c: coef_ [0.0, 0.0, 0.0] intercept_ [0.0]; at 1.01*l1_min_c: coef_ [0.0, 0.0, 0.0027186417433539716] intercept_ [0.0]
+ok   LinearSVC(penalty='l1') at C = 0.99 * l1_min_c is the null model (coef_ and intercept_ exactly 0)
+ok   LinearSVC(penalty='l1') at C = 1.01 * l1_min_c is non-null (documented 'guaranteed not to be empty' for C > l1_min_c)
+   LogisticRegression l1 (liblinear) at 0.99*l1_min_c(log): coef_ [0.0, 0.0, 0.0] intercept_ [0.0]; at 1.01: coef_ [0.0, 0.0, 0.005437343510882712] intercept_ [0.0]
+ok   LogisticRegression(l1, liblinear) at C = 0.99 * l1_min_c(loss='log') is null and at 1.01 * l1_min_c is non-null
+ok   l1_min_c on all-zero X raises ValueError ('Ill-posed')
+== neighbors: plain-Python brute-force reference
+ok   KNeighborsClassifier.kneighbors: distances and indices equal the brute-force reference (no ties), distances sorted ascending
+ok   KNeighborsClassifier(weights='uniform') predict_proba = class counts among the k neighbours / k (rows sum to 1)
+ok   KNeighborsClassifier(weights='distance') predict_proba = (sum of 1/d over neighbours of each class) normalised to 1 (documented 'inverse of their distance')
+   query at training points 3 (class 2) and 8 (class 2) with weights='distance': proba [[0.0, 0.0, 1.0], [0.0, 0.0, 1.0]]
+ok   KNeighborsClassifier(weights='distance') query equal to a training point: that point gets weight 1 and the others 0 (rule stated in the source comment of neighbors._base._get_weights; the public docs only say 'inverse of their distance', undefined at 0) -> one-hot proba
+ok   KNeighborsClassifier(weights='distance') with two zero-distance training points of different classes: both get weight 1 -> proba 1/2 each
+ok   KNeighborsClassifier(brute) tied vote 2-2 between classes 9 and 5 -> the smallest class label (5) and proba 1/2 each (ties are undocumented; predict = classes_[argmax(predict_proba)] and np.argmax / scipy.stats.mode return the first maximum of the sorted classes_)
+ok   KNeighborsClassifier(kd_tree) tied vote 2-2 between classes 9 and 5 -> the smallest class label (5) and proba 1/2 each (ties are undocumented; predict = classes_[argmax(predict_proba)] and np.argmax / scipy.stats.mode return the first maximum of the sorted classes_)
+ok   KNeighborsClassifier(ball_tree) tied vote 2-2 between classes 9 and 5 -> the smallest class label (5) and proba 1/2 each (ties are undocumented; predict = classes_[argmax(predict_proba)] and np.argmax / scipy.stats.mode return the first maximum of the sorted classes_)
+ok   KNeighborsClassifier three-way tie 1-1-1 -> smallest class label (1)
+ok   KNeighborsClassifier(metric='minkowski', p=1.0) kneighbors = reference (sum |d|^p)^(1/p)
+ok   KNeighborsClassifier(metric='minkowski', p=3.0) kneighbors = reference (sum |d|^p)^(1/p)
+ok   KNeighborsClassifier(metric='minkowski', p=inf) kneighbors = reference (sum |d|^p)^(1/p)
+ok   KNeighborsClassifier(metric_params={'w': [1, 3]}) weighted Minkowski (sum w_j |d_j|^p)^(1/p) = reference
+ok   KNeighborsClassifier(metric='precomputed') with the Euclidean distance matrix = the Euclidean reference (kneighbors, predict_proba)
+ok   KNeighborsClassifier(n_neighbors=26 > 25 samples): predict raises ValueError ('Expected n_neighbors <= n_samples_fit')
+ok   kneighbors(n_neighbors > n_samples_fit) raises ValueError
+ok   KNeighborsClassifier.kneighbors(X=None) excludes each point from its own neighbours (documented)
+ok   KNeighborsClassifier multi-output: predict_proba is a list per output, second output = counts/k
+ok   KNeighborsRegressor(uniform) predict = mean of the k neighbour targets
+ok   KNeighborsRegressor(weights='distance') predict = sum(y_i/d_i)/sum(1/d_i)
+ok   KNeighborsRegressor(weights='distance') at a training point returns that point's target exactly (zero-distance rule)
+ok   KNeighborsRegressor multi-output: column-wise means
+ok   KNeighborsRegressor float32 input within 1e-5 of the reference
+   radius 0.25: neighbourhood sizes [6, 6, 3, 4, 7, 3]
+ok   RadiusNeighborsClassifier predict_proba = class counts within the radius / count (all queries have neighbours)
+ok   RadiusNeighborsClassifier(outlier_label=None) with an empty neighbourhood raises ValueError (documented)
+ok   RadiusNeighborsClassifier(outlier_label='most_frequent') predicts the most frequent training label (2) for an outlier, proba one-hot
+ok   RadiusNeighborsClassifier(outlier_label=2) predicts 2 for an outlier with proba one-hot on class 2, inliers unchanged
+ok   RadiusNeighborsClassifier(outlier_label=99 not in classes) -> predict 99, all class probabilities 0 and a warning (documented)
+ok   RadiusNeighborsRegressor predict = mean of targets within the radius
+ok   RadiusNeighborsRegressor empty neighbourhood -> NaN prediction with a UserWarning, other rows unaffected
+ok   RadiusNeighborsRegressor(weights='distance') = inverse-distance weighted mean within the radius
+== neighbors.NearestNeighbors: graphs, include_self, algorithms, ties, sort_results
+ok   NearestNeighbors.kneighbors_graph(mode='connectivity') = 0/1 rows of the 3 nearest others (self excluded), 'distance' holds the distances
+ok   kneighbors_graph(include_self=False) excludes the point itself; include_self=True marks the point as its own first neighbour (documented)
+ok   kneighbors_graph(include_self='auto'): True for connectivity, False for distance (documented)
+ok   NearestNeighbors.radius_neighbors_graph(mode='distance') = distances to the points within the radius, self excluded
+ok   radius_neighbors_graph(include_self=True) adds the zero-distance self entry only in connectivity mode (distance 0 is not stored as an explicit nonzero)
+ok   NearestNeighbors brute / kd_tree / ball_tree / auto give identical kneighbors on float data (all equal to the reference)
+   integer grid with many ties: neighbour index orders identical across algorithms: False; brute indices [[12, 11, 17, 13, 7, 6], [0, 1, 5, 6, 2, 10], [18, 13, 12, 17, 11, 8]]
+ok   NearestNeighbors on a grid with many tied distances: the sorted distances are identical across brute/kd_tree/ball_tree and the neighbour sets per distance level agree (documented: order within ties may depend on the data ordering)
+ok   radius_neighbors(sort_results=True) returns each row sorted by distance, sets equal to the reference
+ok   radius_neighbors(return_distance=False, sort_results=True) raises ValueError (documented)
+ok   radius_neighbors_graph(sort_results=True) rows in CSR order have non-decreasing distances
+ok   NearestNeighbors(brute).radius_neighbors at radius exactly 1.0 on the integer grid returns (2,2) and its 4 axis neighbours (documented 'Points lying on the boundary are included')  (got [7, 11, 12, 13, 17])
+ok   NearestNeighbors(kd_tree).radius_neighbors at radius exactly 1.0 on the integer grid returns (2,2) and its 4 axis neighbours (documented 'Points lying on the boundary are included')  (got [7, 11, 12, 13, 17])
+ok   NearestNeighbors(ball_tree).radius_neighbors at radius exactly 1.0 on the integer grid returns (2,2) and its 4 axis neighbours (documented 'Points lying on the boundary are included')  (got [7, 11, 12, 13, 17])
+ok   NearestNeighbors(p=1.0) brute / kd_tree / ball_tree kneighbors = reference
+ok   NearestNeighbors(p=inf) brute / kd_tree / ball_tree kneighbors = reference
+   offset 10000, brute: max |distance - exact| 4.61e-07; index rows differing 0/10
+   offset 10000, kd_tree: max |distance - exact| 1.59e-12; index rows differing 0/10
+   offset 10000, ball_tree: max |distance - exact| 1.59e-12; index rows differing 0/10
+ok   NearestNeighbors kneighbors on X + 10000 (all three algorithms) = exact neighbours of X, distances within 1e-6 (Euclidean distance is translation invariant; exact values from differences computed on the offset data would err by ~ 10000 * 1e-16)  (max distance error 4.61e-07)
+   offset 1e+06, brute: max |distance - exact| 3.10e-03; index rows differing 0/10
+   offset 1e+06, kd_tree: max |distance - exact| 1.25e-10; index rows differing 0/10
+   offset 1e+06, ball_tree: max |distance - exact| 1.25e-10; index rows differing 0/10
+FAIL NearestNeighbors kneighbors on X + 1e+06 (all three algorithms) = exact neighbours of X, distances within 1e-6 (Euclidean distance is translation invariant; exact values from differences computed on the offset data would err by ~ 1e+06 * 1e-16)  (max distance error 3.10e-03)
+== neighbors.KDTree / BallTree: query, query_radius, two_point_correlation, kernel_density normalisation (mpmath integrals)
+ok   KDTree.query(k=5) = reference
+ok   KDTree.query_radius sets = reference (d <= r), count_only = sizes
+ok   KDTree.query_radius(sort_results=True) rows sorted ascending
+ok   KDTree.two_point_correlation = number of (query, data) pairs with distance <= r (r exactly on grid distances 1.0, 2.0)
+ok   KDTree.query_radius at r exactly equal to a distance includes that point (<=)
+ok   BallTree.query(k=5) = reference
+ok   BallTree.query_radius sets = reference (d <= r), count_only = sizes
+ok   BallTree.query_radius(sort_results=True) rows sorted ascending
+ok   BallTree.two_point_correlation = number of (query, data) pairs with distance <= r (r exactly on grid distances 1.0, 2.0)
+ok   BallTree.query_radius at r exactly equal to a distance includes that point (<=)
+   gaussian 1-D h=0.7: KDTree [0.94467524, 2.4339817, 3.99232219, 0.32798993] exact [0.94467524, 2.4339817, 3.99232219, 0.32798993] (norm 0.56991754)
+ok   KDTree/BallTree.kernel_density(gaussian, 1-D) = sum_i K(||x - x_i||) with K normalised to integrate to 1 over R^1 (mpmath quad of the documented profile)
+   gaussian 2-D h=0.9: KDTree [1.62374828, 1.30563924, 1.38423312, 1.33821895] exact [1.62374828, 1.30563924, 1.38423312, 1.33821895] (norm 0.19648758)
+ok   KDTree/BallTree.kernel_density(gaussian, 2-D) = sum_i K(||x - x_i||) with K normalised to integrate to 1 over R^2 (mpmath quad of the documented profile)
+   tophat 1-D h=0.7: KDTree [0.71428571, 1.42857143, 4.28571429, 0.0] exact [0.71428571, 1.42857143, 4.28571429, 0.0] (norm 0.71428571)
+ok   KDTree/BallTree.kernel_density(tophat, 1-D) = sum_i K(||x - x_i||) with K normalised to integrate to 1 over R^1 (mpmath quad of the documented profile)
+   tophat 2-D h=0.9: KDTree [3.14380135, 1.96487584, 2.75082618, 2.35785101] exact [3.14380135, 1.96487584, 2.75082618, 2.35785101] (norm 0.39297517)
+ok   KDTree/BallTree.kernel_density(tophat, 2-D) = sum_i K(||x - x_i||) with K normalised to integrate to 1 over R^2 (mpmath quad of the documented profile)
+   epanechnikov 1-D h=0.7: KDTree [0.76112505, 1.74793847, 4.22854098, 0.0] exact [0.76112505, 1.74793847, 4.22854098, 0.0] (norm 1.07142857)
+ok   KDTree/BallTree.kernel_density(epanechnikov, 1-D) = sum_i K(||x - x_i||) with K normalised to integrate to 1 over R^1 (mpmath quad of the documented profile)
+   epanechnikov 2-D h=0.9: KDTree [2.9386632, 2.04307715, 2.80356339, 2.79198208] exact [2.9386632, 2.04307715, 2.80356339, 2.79198208] (norm 0.78595034)
+ok   KDTree/BallTree.kernel_density(epanechnikov, 2-D) = sum_i K(||x - x_i||) with K normalised to integrate to 1 over R^2 (mpmath quad of the documented profile)
+   exponential 1-D h=0.7: KDTree [1.07478272, 2.37534264, 3.63682975, 0.59709761] exact [1.07478272, 2.37534264, 3.63682975, 0.59709761] (norm 0.71428571)
+ok   KDTree/BallTree.kernel_density(exponential, 1-D) = sum_i K(||x - x_i||) with K normalised to integrate to 1 over R^1 (mpmath quad of the documented profile)
+   exponential 2-D h=0.9: KDTree [1.02943541, 0.86751294, 0.93992181, 0.96739538] exact [1.02943541, 0.86751294, 0.93992181, 0.96739538] (norm 0.19648758)
+ok   KDTree/BallTree.kernel_density(exponential, 2-D) = sum_i K(||x - x_i||) with K normalised to integrate to 1 over R^2 (mpmath quad of the documented profile)
+   linear 1-D h=0.7: KDTree [0.65977085, 1.915928, 4.30563799, 0.0] exact [0.65977085, 1.915928, 4.30563799, 0.0] (norm 1.42857143)
+ok   KDTree/BallTree.kernel_density(linear, 1-D) = sum_i K(||x - x_i||) with K normalised to integrate to 1 over R^1 (mpmath quad of the documented profile)
+   linear 2-D h=0.9: KDTree [2.67973263, 2.00228612, 2.80311676, 3.15768182] exact [2.67973263, 2.00228612, 2.80311676, 3.15768182] (norm 1.17892550)
+ok   KDTree/BallTree.kernel_density(linear, 2-D) = sum_i K(||x - x_i||) with K normalised to integrate to 1 over R^2 (mpmath quad of the documented profile)
+   cosine 1-D h=0.7: KDTree [0.74441905, 1.77071932, 4.23649901, 0.0] exact [0.74441905, 1.77071932, 4.23649901, 0.0] (norm 1.12199738)
+ok   KDTree/BallTree.kernel_density(cosine, 1-D) = sum_i K(||x - x_i||) with K normalised to integrate to 1 over R^1 (mpmath quad of the documented profile)
+   cosine 2-D h=0.9: KDTree [1.04042919, 0.7379986, 1.0206211, 1.05299629] exact [2.86319704, 2.03092668, 2.80868638, 2.89778092] (norm 0.84936370)
+FAIL KDTree/BallTree.kernel_density(cosine, 2-D) = sum_i K(||x - x_i||) with K normalised to integrate to 1 over R^2 (mpmath quad of the documented profile)
+   cosine kernel normalisation constant, h=1, d=1: library 0.7853981633974484 exact 0.785398163397
+ok   cosine kernel normalisation in d=1 = 1 / (S_(d-1) (2h/pi)^d int_0^(pi/2) u^(d-1) cos u du) (mpmath)
+   cosine kernel normalisation constant, h=1, d=2: library 0.25 exact 0.687984598471
+FAIL cosine kernel normalisation in d=2 = 1 / (S_(d-1) (2h/pi)^d int_0^(pi/2) u^(d-1) cos u du) (mpmath)
+   cosine kernel normalisation constant, h=1, d=3: library 0.6598725106858611 exact 0.659872510686
+ok   cosine kernel normalisation in d=3 = 1 / (S_(d-1) (2h/pi)^d int_0^(pi/2) u^(d-1) cos u du) (mpmath)
+   cosine kernel normalisation constant, h=1, d=4: library nan exact 0.683859440057
+FAIL cosine kernel normalisation in d=4 = 1 / (S_(d-1) (2h/pi)^d int_0^(pi/2) u^(d-1) cos u du) (mpmath)
+   cosine kernel normalisation constant, h=1, d=5: library 0.7581659350259452 exact 0.758165935026
+ok   cosine kernel normalisation in d=5 = 1 / (S_(d-1) (2h/pi)^d int_0^(pi/2) u^(d-1) cos u du) (mpmath)
+ok   gaussian kernel normalisation constants for d = 1..5 = 1/int_R^d K (mpmath, surface area 2 pi^(d/2)/Gamma(d/2))
+ok   tophat kernel normalisation constants for d = 1..5 = 1/int_R^d K (mpmath, surface area 2 pi^(d/2)/Gamma(d/2))
+ok   epanechnikov kernel normalisation constants for d = 1..5 = 1/int_R^d K (mpmath, surface area 2 pi^(d/2)/Gamma(d/2))
+ok   exponential kernel normalisation constants for d = 1..5 = 1/int_R^d K (mpmath, surface area 2 pi^(d/2)/Gamma(d/2))
+ok   linear kernel normalisation constants for d = 1..5 = 1/int_R^d K (mpmath, surface area 2 pi^(d/2)/Gamma(d/2))
+   cosine kernel_density in 3-D: KDTree [4.042818189251648, 6.7950146845168415, 5.377477730407395] exact [4.042818189251646, 6.795014684516835, 5.377477730407393]
+ok   KDTree.kernel_density(cosine, 3-D) = exact normalised cosine KDE (mpmath radial integral)
+   cosine kernel_density in 4-D: KDTree [nan, nan, nan] exact [3.082924886567057, 5.6132746861296825, 3.4367369813220914]
+FAIL KDTree.kernel_density(cosine, 4-D) = exact normalised cosine KDE (mpmath radial integral)
+ok   KDTree.kernel_density(return_log=True) = log of the density
+ok   KDTree.kernel_density(breadth_first=False, depth-first) same result
+== neighbors.LocalOutlierFactor: lrd / LOF recomputed from the k-distance definitions
+   LOF of the two planted outliers [8.255110634420687, 5.717839863001134] (ref [8.255110635228348, 5.717839863546874]); offset_ -1.5; max rel diff 9.78e-11
+ok   LocalOutlierFactor negative_outlier_factor_ = -LOF with LOF_k(p) = mean_o lrd(o) / lrd(p), lrd(p) = 1/mean_o reach_dist_k(p, o), reach_dist = max(d(p,o), k-distance(o)) (rel 1e-8; library adds 1e-10 to the mean reach distance)
+ok   LocalOutlierFactor(contamination='auto') offset_ = -1.5 (documented 'as in the original paper'), predict on training data = 1 if nof >= offset_ else -1
+ok   LocalOutlierFactor: the planted outliers have the two largest LOF values, > 1.5
+ok   LocalOutlierFactor(contamination=0.2) offset_ = 20th percentile (linear interpolation) of negative_outlier_factor_, so ~20% of the training points are flagged
+   novelty score_samples [-1.0204529372003641, -5.129329351931138, -1.3247735320187746] ref [-1.0204529372052846, -5.129329352331004, -1.3247735320595777]
+ok   LocalOutlierFactor(novelty=True).score_samples(X_new) = -LOF of the new points w.r.t. the training neighbours (lrd of training points reused)
+ok   LocalOutlierFactor(novelty=True) decision_function = score_samples - offset_, predict = sign
+ok   LocalOutlierFactor(n_neighbors=50 > 30 samples): n_neighbors_ = n_samples - 1 with a warning, LOF computed with 29 neighbours
+   7 duplicates with k=5: nof of the duplicates [-1.0, -1.0] (finite thanks to the 1e-10 guard)
+ok   LocalOutlierFactor with more duplicates than n_neighbors: negative_outlier_factor_ finite and = -1 for the duplicates (all lrd equal, 1/(0 + 1e-10))
+ok   LocalOutlierFactor(metric='precomputed') same LOF
+ok   LocalOutlierFactor(novelty=True) has no fit_predict (documented: 'fit_predict ... not available when novelty=True')
+ok   LocalOutlierFactor(novelty=False) has no predict / decision_function / score_samples on new data (documented 'only available for novelty detection')
+== neighbors.NearestCentroid: centroids, Tibshirani/ESL shrinkage recomputed, manhattan medians, priors
+ok   NearestCentroid centroids_ = per-class means (exact Fraction)
+ok   NearestCentroid predict = class of the nearest (Euclidean) centroid
+   shrunken centroids [[4.68189, 3.401458, 4.466667], [7.392081, 4.618033, 2.772349], [3.872883, 4.4, 5.831126]]
+   reference          [[4.68189, 3.401458, 4.466667], [7.392081, 4.618033, 2.772349], [3.872883, 4.4, 5.831126]]
+   raw deviations [[-0.6064, -0.9336, 0.0184], [1.7197, 0.611, -1.5969], [-1.1074, 0.2548, 1.52]]
+ok   NearestCentroid(shrink_threshold=0.5) centroids_ = xbar_j + m_k (s_j + s0) d'_kj with d'_kj = sign(d)(|d| - delta)_+, d_kj = (xbar_kj - xbar_j)/(m_k (s_j + s0)), m_k = sqrt(1/n_k - 1/n), s_j pooled within-class sd (n-K), s0 = median(s) (ESL eq. 18.4-18.5 as documented)
+ok   NearestCentroid shrinkage: some deviations shrunk to exactly 0 (soft thresholding removes features)
+ok   NearestCentroid(metric='manhattan') centroids_ = feature-wise medians (documented; even counts -> midpoint)
+ok   NearestCentroid(metric='manhattan') predict = argmin of the L1 distance to the medians
+ok   NearestCentroid(shrink_threshold) with a single-sample class: m_k = sqrt(1/1 - 1/n) finite, fits
+== neighbors.NeighborhoodComponentsAnalysis: softmax neighbour objective and gradient
+   objective sum_i p_i at init 6.83316474 -> at components_ 14.00000000 (max 20); n_iter_ 48; ||grad|| at solution (finite differences) 1.78e-09
+ok   NCA maximises sum_i p_i (softmax over squared Euclidean distances in the embedding, same-class mass): objective at components_ > at init and gradient (central finite differences) small at the solution (< 1e-4)
+   at init: library objective 6.8331647382 vs recomputed 6.8331647382; max |grad - finite differences| 6.60e-10
+ok   NCA internal objective at init = recomputed softmax neighbour loss (1e-9) and its analytic gradient = central finite differences (1e-6)
+   callback invoked 47 times with iteration numbers [1, 2, 3] ... [46, 47]; n_iter_ after fit = 48; scipy L-BFGS-B on the same objective: (nit, callbacks) = (47, 47)
+ok   NCA callback is called after every iteration with the current solution; the last one equals components_
+ok   NCA callback receives the iteration numbers 1, 2, ..., N (documented 'taking as arguments the current solution ... and the number of iterations')
+FAIL NCA n_iter_ 'counts the number of iterations performed by the optimizer' = number of callback invocations (documented 'called after every iteration of the optimizer')  (callbacks 47, n_iter_ 48)
+ok   NCA transform(X) = X @ components_.T
+ok   NCA(init='identity') with n_components=None starts from the identity (components_ shape (n_features, n_features))
+== neighbors.KernelDensity
+ok   KernelDensity.score_samples = log(mean_i K_norm(x - x_i)) (Gaussian normalised in 2-D), score = sum of log densities
+ok   KernelDensity(kernel='tophat').score_samples = log of the normalised tophat KDE (exp(score_samples) integrates to 1)
+ok   KernelDensity(kernel='epanechnikov').score_samples = log of the normalised epanechnikov KDE (exp(score_samples) integrates to 1)
+ok   KernelDensity(kernel='exponential').score_samples = log of the normalised exponential KDE (exp(score_samples) integrates to 1)
+ok   KernelDensity(kernel='linear').score_samples = log of the normalised linear KDE (exp(score_samples) integrates to 1)
+FAIL KernelDensity(kernel='cosine').score_samples = log of the normalised cosine KDE (exp(score_samples) integrates to 1)
+   d=1, n=45, unit-variance data: bandwidth_ scott 0.46704367745113423 (n^(-1/(d+4)) = 0.46704367745113423); silverman 0.4947037979673529 ((4/(d+2))^(1/(d+4)) n^(-1/(d+4)) = 0.4947037979673529)
+ok   KernelDensity(bandwidth='scott'), d=1, unit-variance data: bandwidth_ = n^(-1/(d+4)) (Scott's rule, 1e-14)
+ok   KernelDensity(bandwidth='silverman'), d=1, unit-variance data: bandwidth_ = (4/(d+2))^(1/(d+4)) n^(-1/(d+4)) (Silverman's normal-reference rule, 1e-14)
+      data x 10: scott 0.46704367745113423, silverman 0.4947037979673529 (the rules give 10x: 4.670436774511343, 4.947037979673529)
+FAIL KernelDensity(bandwidth='scott'/'silverman'), d=1: data multiplied by 10 -> bandwidth_ multiplied by 10 (both rules are proportional to the data standard deviation; user guide 'Scott's and Silverman's estimation methods')
+   d=3, n=45, unit-variance data: bandwidth_ scott 0.5805328286294041 (n^(-1/(d+4)) = 0.580532828629404); silverman 0.5623186610145994 ((4/(d+2))^(1/(d+4)) n^(-1/(d+4)) = 0.5623186610145994)
+ok   KernelDensity(bandwidth='scott'), d=3, unit-variance data: bandwidth_ = n^(-1/(d+4)) (Scott's rule, 1e-14)
+ok   KernelDensity(bandwidth='silverman'), d=3, unit-variance data: bandwidth_ = (4/(d+2))^(1/(d+4)) n^(-1/(d+4)) (Silverman's normal-reference rule, 1e-14)
+      data x 10: scott 0.5805328286294041, silverman 0.5623186610145994 (the rules give 10x: 5.80532828629404, 5.623186610145994)
+FAIL KernelDensity(bandwidth='scott'/'silverman'), d=3: data multiplied by 10 -> bandwidth_ multiplied by 10 (both rules are proportional to the data standard deviation; user guide 'Scott's and Silverman's estimation methods')
+ok   KernelDensity(bandwidth='scott') score_samples uses bandwidth_ (2-D Gaussian KDE recomputed with h = bandwidth_)
+   gaussian sample(20000): mean [-0.16380584837811046, -0.41225810239168215] (data mean [-0.17392326505081562, -0.4176123868542823]); var [1.7682718614677855, 3.9572045991181244] (var(data) + h^2 = [1.7353635486825516, 3.9460124855878513])
+ok   KernelDensity(gaussian).sample: mean within 4 sigma of the data mean and variance within 4% of var(data) + h^2 (mixture of N(x_i, h^2))
+ok   KernelDensity(tophat).sample: every sample within h of some data point
+ok   KernelDensity(epanechnikov).sample raises NotImplementedError (documented 'only for gaussian and tophat')
+ok   KernelDensity(sample_weight) score_samples = log(sum_i w_i K(x - x_i) / sum w)
+== kernel_approximation.Nystroem
+   rbf n_components=n_samples: max |Z Z^T - K| 2.54e-14 (min eigenvalue of K 3.649e-05)
+ok   Nystroem(kernel='rbf', n_components=n_samples): transform(X) @ transform(X).T = K exactly (user guide: Z Z^T = K21 K11^-1 K21^T, exact when every sample is in the basis; 1e-6, K coded independently)
+ok   Nystroem(kernel='rbf', n_components=6): Z Z^T = K[:, m] pinv(K[m, m]) K[m, :] (numpy pinv on the independently computed kernel, 1e-6)
+   poly n_components=n_samples: max |Z Z^T - K| 3.62e-12 (min eigenvalue of K 1.946e-07)
+ok   Nystroem(kernel='poly', n_components=n_samples): transform(X) @ transform(X).T = K exactly (user guide: Z Z^T = K21 K11^-1 K21^T, exact when every sample is in the basis; 1e-6, K coded independently)
+ok   Nystroem(kernel='poly', n_components=6): Z Z^T = K[:, m] pinv(K[m, m]) K[m, :] (numpy pinv on the independently computed kernel, 1e-6)
+   sigmoid n_components=n_samples: max |Z Z^T - K| 6.29e-03 (min eigenvalue of K -2.160e-02)
+FAIL Nystroem(kernel='sigmoid', n_components=n_samples): transform(X) @ transform(X).T = K exactly (user guide: Z Z^T = K21 K11^-1 K21^T, exact when every sample is in the basis; 1e-6, K coded independently) [this K is indefinite: no real feature map can reproduce it; the docstring says 'an arbitrary kernel']
+      indefinite K: max |Z Z^T - |K|| (matrix absolute value Q|L|Q^T) 2.75e-13
+ok   Nystroem(kernel='sigmoid') with an indefinite Gram matrix: Z Z^T = |K| = Q |Lambda| Q^T, i.e. the SVD-based normalization_ silently approximates the PSD kernel |K| (what the implementation computes; not documented)
+FAIL Nystroem(kernel='sigmoid', n_components=6): Z Z^T = K[:, m] pinv(K[m, m]) K[m, :] (numpy pinv on the independently computed kernel, 1e-6)
+   chi2 n_components=n_samples: max |Z Z^T - K| 1.71e-14 (min eigenvalue of K 4.231e-05)
+ok   Nystroem(kernel='chi2', n_components=n_samples): transform(X) @ transform(X).T = K exactly (user guide: Z Z^T = K21 K11^-1 K21^T, exact when every sample is in the basis; 1e-6, K coded independently)
+ok   Nystroem(kernel='chi2', n_components=6): Z Z^T = K[:, m] pinv(K[m, m]) K[m, :] (numpy pinv on the independently computed kernel, 1e-6)
+ok   Nystroem(kernel='precomputed') on the Gram matrix reproduces it: Z Z^T = K
+   sigmoid(gamma=0.05, coef0=0) on 6 points in 10-D: min eigenvalue 6.358e-02 (positive definite); max |Z Z^T - K| 3.89e-16
+ok   Nystroem(kernel='sigmoid') on data whose sigmoid Gram matrix is positive definite (min eigenvalue > 1e-3) reproduces K exactly (1e-8)
+ok   Nystroem(kernel=callable, kernel_params) = the rbf result
+ok   Nystroem(kernel='rbf', gamma=None) uses the pairwise default gamma = 1/n_features
+ok   Nystroem(n_components=50 > 20 samples): warning and n_components set to n_samples (transform has 20 columns, exact kernel)
+ok   Nystroem transform on new points: Z(new) Z(train)^T = K(new, train) when n_components = n_samples
+== kernel_approximation.RBFSampler / SkewedChi2Sampler / AdditiveChi2Sampler / PolynomialCountSketch
+   RBFSampler D=20000: max |Z Z^T - exp(-gamma||x-y||^2)| 0.0040; var(random_weights_) 0.99419 (2 gamma = 1.0)
+ok   RBFSampler(D=20000): Z Z^T approximates exp(-gamma ||x-y||^2) within 0.03 (Monte-Carlo error ~ 1/sqrt(D))
+ok   RBFSampler transform = sqrt(2/D) cos(X @ random_weights_ + random_offset_) (Rahimi-Recht random Fourier features)
+ok   RBFSampler random_weights_ ~ N(0, 2 gamma): empirical variance within 3% of 2*gamma; random_offset_ in [0, 2 pi)
+ok   RBFSampler(D=20000) for two identical points: Z(x).Z(x) = mean 2cos^2 = 1 + mean cos(2(wx+b)) ~ 1 (within 0.03)
+   RBFSampler(gamma='scale'): 1/(n_features X.var()) = 9.162506; var(random_weights_)/2 = 9.109247
+ok   RBFSampler(gamma='scale') (1.2+) uses gamma = 1/(n_features * X.var()): var(random_weights_)/2 within 3%
+   SkewedChi2Sampler D=20000: max |Z Z^T - k| 0.0040
+ok   SkewedChi2Sampler(c=1, D=20000): Z Z^T approximates prod_i 2 sqrt(x_i+c) sqrt(y_i+c)/(x_i+y_i+2c) within 0.03 (documented kernel)
+ok   SkewedChi2Sampler transform = sqrt(2/D) cos(log(X + c) @ W + b) with W = log(tan(pi u/2))/pi (secant-distributed)
+   SkewedChi2Sampler random_weights_: mean -0.0043, var 0.2523 (pdf sech(pi w) has mean 0, variance 1/4); random_offset_ in [0.0012, 6.2830]
+ok   SkewedChi2Sampler random_weights_ ~ 'secant hyperbolic distribution' with pdf sech(pi w) (the density whose Fourier transform gives the skewed-chi2 kernel): mean within 0.01 of 0, variance within 5% of 1/4; random_offset_ in [0, 2 pi)
+ok   SkewedChi2Sampler.transform raises ValueError for entries <= -skewedness
+ok   AdditiveChi2Sampler(sample_steps=1) transform = [sqrt(xL), sqrt(2xL sech(pi j L)) cos(jL log x), ... sin(...)] with the documented default sample_interval 0.8 (Vedaldi & Zisserman)
+ok   AdditiveChi2Sampler(sample_steps=2) transform = [sqrt(xL), sqrt(2xL sech(pi j L)) cos(jL log x), ... sin(...)] with the documented default sample_interval 0.5 (Vedaldi & Zisserman)
+ok   AdditiveChi2Sampler(sample_steps=3) transform = [sqrt(xL), sqrt(2xL sech(pi j L)) cos(jL log x), ... sin(...)] with the documented default sample_interval 0.4 (Vedaldi & Zisserman)
+   AdditiveChi2Sampler(3 steps): max |Z Z^T - sum 2xy/(x+y)| 0.1240
+ok   AdditiveChi2Sampler(sample_steps=3, default interval 0.4): Z Z^T approximates the additive chi2 kernel sum_i 2 x_i y_i/(x_i + y_i) within 10% relative (truncation at |j| <= 2: sech(3 pi 0.4) = 4.6%)
+   AdditiveChi2Sampler(15 steps, L=0.2): max rel |Z Z^T - k| 1.38e-04
+ok   AdditiveChi2Sampler(sample_steps=15, sample_interval=0.2): the quadrature converges, Z Z^T = additive chi2 kernel within 1e-3 relative
+ok   AdditiveChi2Sampler(sample_interval=0.3, sample_steps=4) uses the given interval
+ok   AdditiveChi2Sampler(sample_steps=4) without sample_interval raises ValueError (documented)
+ok   AdditiveChi2Sampler sparse input gives the same features
+   PolynomialCountSketch (12 x 4000 components): mean Z Z^T [[4.0273, 3.0893, 2.5984, 2.0903], [3.0893, 2.6024, 1.9318, 1.5455], [2.5984, 1.9318, 2.2411, 2.0636], [2.0903, 1.5455, 2.0636, 2.0079]]
+   (gamma x.y + coef0)^2 [[4.0273, 3.0893, 2.5984, 2.0903], [3.0893, 2.6024, 1.9318, 1.5455], [2.5984, 1.9318, 2.2411, 2.0636], [2.0903, 1.5455, 2.0636, 2.0079]]; max rel diff 0.0000
+ok   PolynomialCountSketch: Z Z^T approximates (gamma x.y + coef0)^degree in expectation (mean over 12 sketches of 4000 components within 5% relative)
+ok   PolynomialCountSketch indexHash_ in [0, n_components) of shape (degree, n_features+1 with coef0), bitHash_ in {-1, +1}
+ok   PolynomialCountSketch transform = ifft(prod_d fft(CountSketch_d([sqrt(gamma) x, sqrt(coef0)]))) (TensorSketch, recomputed with numpy fft)
+== random_projection
+   n=100, eps=0.1: 4 log n / (eps^2/2 - eps^3/3) = 3947.28873085; returned 3947
+ok   johnson_lindenstrauss_min_dim(100, eps=0.1) = floor(4 log n / (eps^2/2 - eps^3/3)) = 3947 (the rounding shown by the docstring examples, e.g. 1e6, eps=0.5 -> 663)
+FAIL johnson_lindenstrauss_min_dim(100, eps=0.1) satisfies the documented condition 'n_components >= 4 log(n_samples) / (eps^2 / 2 - eps^3 / 3)' (the 'minimal number of components' is the ceiling, 3948)
+   n=1000, eps=0.5: 4 log n / (eps^2/2 - eps^3/3) = 331.572253391; returned 331
+ok   johnson_lindenstrauss_min_dim(1000, eps=0.5) = floor(4 log n / (eps^2/2 - eps^3/3)) = 331 (the rounding shown by the docstring examples, e.g. 1e6, eps=0.5 -> 663)
+FAIL johnson_lindenstrauss_min_dim(1000, eps=0.5) satisfies the documented condition 'n_components >= 4 log(n_samples) / (eps^2 / 2 - eps^3 / 3)' (the 'minimal number of components' is the ceiling, 332)
+   n=100000, eps=0.1: 4 log n / (eps^2/2 - eps^3/3) = 9868.22182712; returned 9868
+ok   johnson_lindenstrauss_min_dim(100000, eps=0.1) = floor(4 log n / (eps^2/2 - eps^3/3)) = 9868 (the rounding shown by the docstring examples, e.g. 1e6, eps=0.5 -> 663)
+FAIL johnson_lindenstrauss_min_dim(100000, eps=0.1) satisfies the documented condition 'n_components >= 4 log(n_samples) / (eps^2 / 2 - eps^3 / 3)' (the 'minimal number of components' is the ceiling, 9869)
+   n=5, eps=0.9: 4 log n / (eps^2/2 - eps^3/3) = 39.7392077144; returned 39
+ok   johnson_lindenstrauss_min_dim(5, eps=0.9) = floor(4 log n / (eps^2/2 - eps^3/3)) = 39 (the rounding shown by the docstring examples, e.g. 1e6, eps=0.5 -> 663)
+FAIL johnson_lindenstrauss_min_dim(5, eps=0.9) satisfies the documented condition 'n_components >= 4 log(n_samples) / (eps^2 / 2 - eps^3 / 3)' (the 'minimal number of components' is the ceiling, 40)
+ok   johnson_lindenstrauss_min_dim reproduces its docstring examples: (1e6, 0.5) -> 663; (1e6, [0.5, 0.1, 0.01]) -> [663, 11841, 1112658]; ([1e4, 1e5, 1e6], 0.1) -> [7894, 9868, 11841]
+ok   johnson_lindenstrauss_min_dim with arrays of n_samples and eps broadcasts elementwise
+ok   johnson_lindenstrauss_min_dim(eps=0) raises ValueError
+   Gaussian components_ shape (1000, 50): mean -0.00012, var 0.000993 (1/n_components = 0.001)
+ok   GaussianRandomProjection components_ shape (n_components, n_features), entries ~ N(0, 1/n_components): empirical var within 3%, mean within 4 sigma
+ok   GaussianRandomProjection transform = X @ components_.T
+   squared-distance ratios after projection: mean 0.9749, min 0.8342, max 1.0869
+ok   GaussianRandomProjection(k=1000): pairwise squared distances preserved on average (E ratio = 1, sd sqrt(2/k) = 0.045 per pair): mean ratio within 0.05 of 1 and all 435 ratios within 1 +- 0.3
+ok   GaussianRandomProjection(n_components='auto', eps=0.5) n_components_ = johnson_lindenstrauss_min_dim(n_samples, eps)
+ok   GaussianRandomProjection n_components > n_features fits with a warning only
+   Sparse density_ 0.1 (1/sqrt(n_features) = 0.1); nonzero fraction 0.0998; distinct nonzero values [-0.1414213562373095, 0.1414213562373095] (+-sqrt(1/(density n_components)) = +-0.141421); fraction positive 0.5070
+ok   SparseRandomProjection density_ default = 1/sqrt(n_features) (Ping Li et al., documented)
+ok   SparseRandomProjection nonzero entries are exactly +-sqrt(1/(density * n_components)) (Li et al. formula), sign balanced within 2%, nonzero fraction within 0.01 of density
+ok   SparseRandomProjection(density=1/3) (Achlioptas): entries +-sqrt(3/n_components), nonzero fraction ~ 1/3
+ok   SparseRandomProjection(density=1): dense +-1/sqrt(n_components) matrix
+ok   SparseRandomProjection: sparse input -> sparse output by default, dense_output=True -> ndarray with the same values = X @ components_.T
+ok   SparseRandomProjection(compute_inverse_components=True) (1.1+) inverse_components_ = pinv(components_) (numpy pinv, 1e-8)
+ok   SparseRandomProjection.inverse_transform(Z) = Z @ pinv(components_).T and recovers X when n_components >= n_features (1e-8)
+ok   GaussianRandomProjection inverse_components_ = pinv(components_), inverse_transform recovers X
+ok   SparseRandomProjection.inverse_transform without compute_inverse_components computes the pseudo-inverse on the fly (same result)
+== done
