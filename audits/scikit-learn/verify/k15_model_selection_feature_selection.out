@@ -1,0 +1,275 @@
+scikit-learn 1.9.1  numpy 2.4.6  python 3.11.15
+== LeaveOneOut / LeavePOut
+ok   LeaveOneOut: user-guide example [1 2 3] [0] / [0 2 3] [1] / [0 1 3] [2] / [0 1 2] [3]  ([([1, 2, 3], [0]), ([0, 2, 3], [1]), ([0, 1, 3], [2]), ([0, 1, 2], [3])])
+ok   LeaveOneOut get_n_splits = n_samples (n=11)
+ok   LeaveOneOut with a single sample raises ValueError
+ok   LeavePOut(2) on 4 samples: user-guide example (lexicographic combinations)  ([([2, 3], [0, 1]), ([1, 3], [0, 2]), ([1, 2], [0, 3]), ([0, 3], [1, 2]), ([0, 2], [1, 3]), ([0, 1], [2, 3])])
+ok   LeavePOut(3) on 7: C(7,3) = 35 splits, test sets = itertools.combinations in order, train = complement
+ok   LeavePOut(p) with p >= n_samples raises ValueError ('p must be strictly less than the number of samples')
+== KFold / RepeatedKFold / RepeatedStratifiedKFold shuffle semantics
+ok   KFold(shuffle=True, random_state=7): indices shuffled once by RandomState(7).shuffle, then cut into consecutive folds (sizes 6,6,6,5)  (test sizes [6, 6, 6, 5])
+ok   KFold(shuffle=True, random_state=int): identical splits on repeated split() calls
+ok   KFold(shuffle=True, random_state=RandomState instance): each split() call draws a new shuffle (glossary: 'different across calls')
+FAIL KFold(shuffle=False, random_state=0): docstring says random_state then 'has no effect'  (constructor raises ValueError)
+ok   RepeatedKFold user-guide example (random_state=12883823): [2 3][0 1] / [0 1][2 3] / [0 2][1 3] / [1 3][0 2]  ([([2, 3], [0, 1]), ([0, 1], [2, 3]), ([0, 2], [1, 3]), ([1, 3], [0, 2])])
+ok   RepeatedKFold(3, n_repeats=4, random_state=3): one RandomState(3) drives successive KFold shuffles; 12 splits
+ok   RepeatedKFold: every repetition's test folds partition the samples, and repetitions differ
+ok   RepeatedStratifiedKFold(3, 3): 9 splits, each repetition a partition with per-class fold counts differing by <= 1
+ok   _RepeatedSplits: cvargs must not contain random_state/shuffle (ValueError)
+== GroupKFold (greedy balancing, 1.6+ shuffle) and StratifiedGroupKFold
+ok   GroupKFold user-guide example: [0..5] [6 7 8 9] / [0 1 2 6 7 8 9] [3 4 5] / [3..9] [0 1 2]  ([([0, 1, 2, 3, 4, 5], [6, 7, 8, 9]), ([0, 1, 2, 6, 7, 8, 9], [3, 4, 5]), ([3, 4, 5, 6, 7, 8, 9], [0, 1, 2])])
+ok   GroupKFold docstring example (groups 0,0,2,2,3,3; 2 splits): test [0 1 4 5] then [2 3]  ([([2, 3], [0, 1, 4, 5]), ([0, 1, 4, 5], [2, 3])])
+   fold sample counts [18, 17, 16, 15]  reference [18, 17, 16, 15]
+ok   GroupKFold(4), 11 groups of distinct sizes: folds = greedy 'largest group into the lightest fold' (recomputed)
+ok   GroupKFold: each group appears in exactly one test fold; test folds partition the samples
+ok   GroupKFold(3) with tied group sizes (1.6+ stable argsort): tie order = larger group label first, lightest fold = lowest index (reference)  ([[6, 7, 8, 13, 14, 15], [3, 4, 5, 11, 12], [0, 1, 2, 9, 10]])
+ok   user guide: GroupKFold 'attempts to place the same number of samples in each fold when shuffle=False' (sizes 10,10,1,1 -> 11/11)  ([11, 11])
+   shuffle=True |fold size difference| over seeds 0..11: [18, 18, 18, 0, 18, 18, 0, 0, 0, 0, 0, 18]
+FAIL GroupKFold docstring: 'the number of samples is approximately the same in each test fold when `shuffle` is True'  (sample counts differ by up to 18 of 22; shuffle=True balances the NUMBER OF GROUPS, as the user guide says)
+ok   GroupKFold(shuffle=True, random_state=5): groups permuted by RandomState(5).permutation and cut by np.array_split (group counts 3,3,3,2)
+FAIL StratifiedGroupKFold docstring: GroupKFold 'attempts to create balanced folds such that the number of distinct groups is approximately the same in each fold'  (default GroupKFold: distinct groups per test fold [1, 10] -- it balances samples, not groups)
+ok   StratifiedGroupKFold user-guide example: tests [1 8 9 12 13 14] / [2 3 10 15 16 17] / [0 4 5 6 7 11]  ([[1, 8, 9, 12, 13, 14], [2, 3, 10, 15, 16, 17], [0, 4, 5, 6, 7, 11]])
+ok   StratifiedGroupKFold docstring example: tests [4 5 6 12 13 14] / [0 1 2 3 15 16] / [7 8 9 10 11]  ([[4, 5, 6, 12, 13, 14], [0, 1, 2, 3, 15, 16], [7, 8, 9, 10, 11]])
+ok   StratifiedGroupKFold(4) on 120 samples / 25 groups / 3 classes = greedy of the implementation notes (plain-Python recomputation)
+ok   StratifiedGroupKFold Notes: 'invariant to class label' (y = ['Happy','Sad'] vs [1, 0] gives the same indices)
+ok   StratifiedGroupKFold(shuffle=True): still a partition with non-overlapping groups
+== LeaveOneGroupOut / LeavePGroupsOut / PredefinedSplit
+ok   LeaveOneGroupOut: one split per unique group in sorted label order (1, 2, 3); n_splits = 3  ([[1, 3], [2, 5, 6], [0, 4]])
+ok   LeaveOneGroupOut with one group raises ValueError
+ok   LeavePGroupsOut docstring example (groups 1,2,3; p=2): tests [0 1] / [0 2] / [1 2]
+ok   LeavePGroupsOut(2) on 4 groups: C(4,2) = 6 splits = combinations of the sorted unique labels
+ok   LeavePGroupsOut(n_groups >= number of groups) raises ValueError
+ok   PredefinedSplit docstring example (test_fold [0 1 -1 1]): [1 2 3][0] / [0 2][1 3]
+ok   PredefinedSplit: folds in sorted id order (0, 2, 5), -1 samples in every training set, n_splits = 3
+== ShuffleSplit / StratifiedShuffleSplit / GroupShuffleSplit size rules
+ok   ShuffleSplit user-guide example (10 samples, test_size=0.25, random_state=0)  (([9, 1, 6, 7, 3, 0, 5], [2, 8, 4]))
+ok   ShuffleSplit docstring example (train 0.5 / test .25 on 6): train [1 3 0] test [5 2] first
+ok   ShuffleSplit: test = first ceil(0.3*17)=6 of a fresh RandomState permutation, train = the rest (source rule)
+ok   ShuffleSplit sizes: float test_size rounded UP, float train_size rounded DOWN, None = complement, default test 0.1 (8 cases)  ([])
+FAIL ShuffleSplit(test_size=0.07) on 100 samples: 7% of 100 = 7 test samples  (got 8: ceil(0.07*100) with 0.07*100 = 7.000000000000001 in binary floating point)
+FAIL ShuffleSplit(train_size=0.29) on 100 samples: 29% of 100 = 29 training samples  (got 28: floor(0.29*100) with 0.29*100 = 28.999999999999996)
+FAIL train_test_split(test_size=0.14) on 100 samples: 14 test samples  (got 15; 0.14*100 = 14.000000000000002)
+ok   ShuffleSplit: train_size + test_size > n raises ValueError
+ok   StratifiedShuffleSplit docstring example: fold 0 train [5 2 3] test [4 1 0], fold 4 train [0 5 1] test [3 4 2]  (([5, 2, 3], [4, 1, 0]), ([0, 5, 1], [3, 4, 2]))
+ok   StratifiedShuffleSplit: per-class train counts within floor/ceil of c*n_train/n, test counts within floor/ceil of the remaining share, disjoint (20 splits)  (train class counts seen [(np.int64(9), np.int64(5), np.int64(3), np.int64(2))])
+ok   StratifiedShuffleSplit: a class with a single member raises ValueError
+ok   StratifiedShuffleSplit: n_test < n_classes raises ValueError
+ok   GroupShuffleSplit(test_size=0.25) with 10 groups: ceil(2.5) = 3 test GROUPS ('rounded up'), 7 train groups, whole groups only
+ok   GroupShuffleSplit default test_size = 0.2 of the groups (2 of 10), n_splits default 5
+== TimeSeriesSplit
+ok   TimeSeriesSplit() docstring example on 6 samples: train [0..i], test [i+1] for i = 0..4
+ok   TimeSeriesSplit(3) user-guide example: [0 1 2][3] / [0 1 2 3][4] / [0..4][5]
+ok   TimeSeriesSplit(3, test_size=2) docstring example
+ok   TimeSeriesSplit(3, test_size=2, gap=2) docstring example
+ok   TimeSeriesSplit exact index ranges: test starts n - (k-i)*test_size, train ends test_start - gap, keeps the LAST max_train_size (5 configs)  ([])
+ok   TimeSeriesSplit Notes: training size in the i-th split = i * (n_samples // (n_splits+1)) + n_samples % (n_splits+1)  ([6, 7, 8, 9, 10])
+FAIL TimeSeriesSplit Notes formula typed literally as Python, ``i * n_samples // (n_splits + 1) + n_samples % (n_splits + 1)`` (n=11, k=5)  (literal evaluation gives [6, 8, 10, 12, 14], actual sizes [6, 7, 8, 9, 10])
+FAIL TimeSeriesSplit test_size docstring: default n_samples//(n_splits+1) = 3 'is the maximum allowed value with gap=0' (n=13, k=3: test_size=4 must be refused)  (test_size=4 accepted: splits [(1, 4), (5, 4), (9, 4)])
+ok   TimeSeriesSplit: too many splits for n_samples/test_size/gap raises ValueError
+== check_cv defaults
+ok   check_cv(None) = KFold(5) without shuffling
+ok   check_cv(3, y binary, classifier=True) = StratifiedKFold(3)
+ok   check_cv(3, y binary, classifier=False) = KFold(3)
+ok   check_cv(3, y continuous, classifier=True) = KFold (y neither binary nor multiclass)
+ok   check_cv(3, y multilabel, classifier=True) = KFold
+ok   check_cv(iterable): wrapper with get_n_splits = len and the given splits
+ok   check_cv(splitter instance) returns the same object
+ok   check_cv(shuffle=True, random_state=3) -> StratifiedKFold(4, shuffle=True, random_state=3)
+ok   user guide: GridSearchCV with KFold(shuffle=True, random_state=None) uses the same shuffling for every parameter setting
+== cross_validate
+ok   cross_validate(scoring=[r2, neg_mae]): keys test_r2 / test_neg_mean_absolute_error / train_* / fit_time / score_time / estimator
+ok   cross_validate test_r2 = R^2 of a fresh OLS fit on each training fold (hand-written OLS)
+ok   cross_validate return_train_score: train_r2 = R^2 on the training fold itself
+ok   cross_validate test_neg_mean_absolute_error = -MAE on the test fold
+ok   cross_validate return_estimator: the i-th estimator is the fit on the i-th training fold
+ok   cross_validate fit_time / score_time: one non-negative float per split
+ok   cross_validate(scoring=dict): keys test_<name>; make_scorer(max_error) value = max |error| per fold
+ok   cross_validate(error_score=-99): folds whose fit fails get test AND train score -99, others are real, FitFailedWarning raised  ([-1.28781779e-02 -9.90000000e+01 -9.90000000e+01 -9.90000000e+01])
+ok   cross_validate(error_score='raise') re-raises the fit error
+ok   cross_validate default error_score=np.nan
+ok   cross_validate(return_indices=True): indices['train'/'test'] are the splitter's folds
+FAIL cross_validate(return_indices=True): docstring 'a list of integer-dtyped NumPy arrays'  (container type tuple)
+== cross_val_predict
+ok   cross_val_predict(method='predict_proba'): row i comes from the fold where i is a test sample (order restored), columns in sorted class order a,b,c
+ok   cross_val_predict(): predictions restored to the original sample order
+ok   cross_val_predict Notes: a class absent from a training fold gets predict_proba 0 in its column (KFold(3) on class-sorted y)
+ok   cross_val_predict Notes: for predict_log_proba the missing column is the minimum finite float (not -inf)
+ok   cross_val_predict(method='decision_function') on a binary target returns shape (n_samples,)
+ok   cross_val_predict with overlapping (non-partition) splits raises ValueError ('only works for partitions')
+== learning_curve / validation_curve
+ok   learning_curve float train_sizes -> floor(fraction * n_max), n_max = size of the FIRST fold's training set (82)  ([np.int64(8), np.int64(27), np.int64(41), np.int64(82)])
+FAIL learning_curve docstring: float train_sizes are 'a fraction of the maximum size of the training set' (KFold(5) on 103: largest training set has 83)  (train_sizes=1.0 -> 82; the fraction is taken of the first fold's 82)
+ok   learning_curve scores: fit on train[:n] (prefix of the fold's training indices), train score on that subset, test on the fold
+ok   learning_curve: tiny fractions clipped to 1 sample and duplicates removed with a RuntimeWarning  ([np.int64(1), np.int64(41)])
+ok   learning_curve integer train_sizes are absolute and returned sorted
+ok   learning_curve integer train_size above n_max (first fold) raises ValueError
+ok   learning_curve(exploit_incremental_learning=True): partial_fit on consecutive chunks 10, 15, 35 per fold  ([10, 15, 35])
+ok   learning_curve incremental scores equal refitting on train[:n] (running mean = prefix mean)
+ok   learning_curve(shuffle=True, random_state=11): each fold's training indices permuted by one RandomState(11) in fold order, prefixes taken
+ok   learning_curve(return_times=True): 5 outputs, fit/score times of shape (n_ticks, n_folds)
+ok   validation_curve(Ridge, alpha in [0.1, 10, 1000]): scores shape (3 params, 4 folds) = closed-form ridge per fold (test and train)
+== permutation_test_score with groups
+ok   permutation_test_score(groups=...): 'y values are permuted among samples with the same group identifier' (6 permutations)
+ok   permutation_test_score(groups, random_state=21): within-group permutations drawn group by group (sorted labels) from one RandomState
+ok   permutation_test_score p-value with groups = (C+1)/(n_permutations+1)  (score 0.9795, p 0.0500)
+== ParameterGrid / ParameterSampler
+ok   ParameterGrid: keys sorted, last key varies fastest (a outer, b inner); len = 6
+ok   ParameterGrid[i] == list(grid)[i] for every i; out of range raises IndexError
+ok   ParameterGrid(list of dicts incl. {}): grids concatenated in order, {} yields one empty setting, len = 1 + 3 + 1
+ok   ParameterSampler docstring example ({'a': [1, 2], 'b': expon()}, n_iter=4, RandomState(0))  ([{'a': 1, 'b': np.float64(0.89856)}, {'a': 1, 'b': np.float64(0.923223)}, {'a': 2, 'b': np.float64(1.878964)}, {'a': 2, 'b': np.float64(1.038159)}])
+ok   ParameterSampler, all lists: sampling WITHOUT replacement (9 distinct settings from the 12-point grid)
+ok   ParameterSampler, all lists, n_iter > grid size: returns the whole grid once, with a UserWarning
+ok   ParameterSampler with a distribution: with replacement; dict chosen, then keys in sorted order, lists by randint, distributions by rvs (replicated draws)
+ok   len(ParameterSampler) = min(n_iter, grid) for lists, n_iter with distributions
+== RandomizedSearchCV / multi-metric GridSearchCV / ranks
+ok   RandomizedSearchCV(n_iter=7, random_state=8): 7 candidates = the replicated draws (distribution + list)
+ok   RandomizedSearchCV with only lists and n_iter > grid: each of the 4 settings evaluated exactly once
+ok   RandomizedSearchCV(refit=callable): best_index_ = the callable's return value, best_params_ = params[best_index_]
+ok   refit=callable: 'the best_score_ attribute will not be available'
+ok   rank_test_score: tied means share the MIN rank (most_frequent = prior -> 1, 1, then 3)  (means [0.5  0.5  0.55], ranks [np.int32(2), np.int32(2), np.int32(1)])
+ok   error_score=nan: the failing candidate (strategy='constant' without constant) has mean nan and FitFailedWarning
+ok   error_score=nan: failed candidates are ranked last ('tied with the worst performers'), best_index_ is a valid candidate  (ranks [np.int32(2), np.int32(3), np.int32(1)], best_index_ 2)
+ok   multi-metric GridSearchCV: split<i>_test_acc / _nll and mean_test_* recomputed per fold
+ok   multi-metric GridSearchCV(refit='nll'): best_index_ = argmax mean_test_nll, best_score_ = that mean (not accuracy)
+ok   multi-metric with refit=False: no best_estimator_ / best_index_ exposed
+ok   multi-metric with refit=True raises ValueError (must name a scorer or be callable)
+== successive halving schedules
+   70 candidates, min_resources=3, factor=2: n_resources_ [3, 6, 12, 24, 48, 96] n_candidates_ [70, 35, 18, 9, 5, 3]
+ok   user guide table: n_resources_i = factor**i * min_resources = 3, 6, 12, 24, 48, 96
+FAIL user guide table: n_candidates_{i+1} = n_candidates_i // factor = 70, 35, 17, 8, 4, 2  (got [70, 35, 18, 9, 5, 3]: the code keeps ceil(n_candidates / factor))
+ok   n_remaining_candidates_ = ceil(n_candidates_[-1] / factor) (attribute docstring)
+ok   successive candidates = ceil(previous / factor) (consistent with n_remaining_candidates_ and the aggressive-elimination example)
+ok   each iteration keeps the top-scoring candidates of the previous one (cv_results_['iter'])
+ok   user-guide aggressive_elimination example, False: n_resources_ [20, 40], n_candidates_ [6, 3]
+ok   user-guide aggressive_elimination example, True: n_resources_ [20, 20, 40], n_candidates_ [6, 3, 2]
+ok   n_iterations_ = min(n_possible, n_required) without, = n_required with aggressive_elimination
+ok   user-guide example, min_resources=20 and 1000 available: n_resources_ [20, 40, 80]
+ok   user-guide example, min_resources='exhaust': n_resources_ [250, 500, 1000] (last iteration uses as much as possible)
+ok   min_resources='exhaust' (9 candidates, factor 3, 1000): r0 = 1000 // 3**2 = 111; last = 999 = the highest value <= 1000 that is a multiple of 111 and 3
+ok   min_resources='smallest' with resource != 'n_samples' -> 1
+ok   min_resources='smallest', resource='n_samples': n_classes * n_splits * 2 = 18 for a 3-class classifier, n_splits * 2 = 6 for a regressor  (18, 6)
+   factor=1.5, min_resources=4: n_resources_ [4, 6, 9, 13, 20, 30, 45]
+FAIL min_resources docstring: 'the amount of resources used at each iteration is always a multiple of min_resources' (factor=1.5 is allowed: 'int or float')  (n_resources_ [4, 6, 9, 13, 20, 30, 45])
+   243 candidates, factor 3, min 1, max 243: n_candidates_ [243, 81, 27, 9, 3] n_resources_ [1, 3, 9, 27, 81] n_required 5 n_possible 5
+FAIL n_required_iterations_ for 243 = 3**5 candidates, factor 3: 6 iterations (243, 81, 27, 9, 3, 1) to end with fewer than factor candidates  (got 5: 1 + floor(log(243, 3)) with math.log(243, 3) = 4.999999999999999)
+FAIL n_possible_iterations_ with min 1, max 243 = 3**5, factor 3: 6 (resources 1, 3, 9, 27, 81, 243 all <= max_resources)  (got 5)
+FAIL n_required_iterations_ docstring: the last iteration evaluates fewer than `factor` candidates (243 candidates)  (last iteration evaluated 3 candidates)
+ok   HalvingRandomSearchCV(n_candidates='exhaust'): first iteration samples max_resources_ // min_resources_ = 25 candidates
+ok   HalvingRandomSearchCV: n_candidates_ and n_resources_ follow the same ceil / factor**i schedule  ([25, 9, 3], [4, 12, 36])
+ok   Halving best_index_ / best_params_ / best_score_: best of the LAST iteration
+ok   Halving: resource parameter injected in the candidates' params with that iteration's amount (cv_results_['n_resources'])
+ok   resource='n_samples': each fold trains on int(n_resources_i / n_samples * |train fold|) samples (subsample drawn inside every training fold)  (n_resources_ [30, 60], first training sizes [20, 20, 20])
+FAIL Halving random_state docstring: 'used for subsampling the dataset when resources != n_samples. Ignored otherwise'  (with resource='n_samples', random_state 0 vs 1 changes the training subsamples)
+ok   Halving: cv yielding different folds on each split() call is refused (ValueError)
+== TunedThresholdClassifierCV / FixedThresholdClassifier
+   best threshold 0.260788 (recomputed 0.260788), best balanced accuracy 0.781980 (0.781980)
+ok   TunedThresholdClassifierCV default: 5-fold stratified, 100 thresholds per fold, balanced accuracy at score >= t, folds linearly interpolated on a common grid and averaged (recomputed)
+ok   TunedThresholdClassifierCV: best_threshold_ / best_score_ = argmax of the stored curve (first maximum)
+ok   TunedThresholdClassifierCV (refit=True): estimator_ refit on all data, predict = 1 where predict_proba >= best_threshold_
+ok   TunedThresholdClassifierCV(cv=0.3, thresholds=[.2,.4,.6]): one stratified 30% validation split; scores at exactly the given thresholds  ([0.6963946869070209, 0.7751423149905123, 0.6897533206831119])
+ok   TunedThresholdClassifierCV: refit=False with several folds raises ValueError; cv='prefit' with refit=True raises ValueError
+ok   TunedThresholdClassifierCV(cv='prefit', refit=False): the given fitted estimator scored on the fit data, unchanged
+ok   FixedThresholdClassifier(threshold=0.3): predict = classes_[predict_proba[:, 1] >= 0.3]
+ok   FixedThresholdClassifier(response_method='decision_function', threshold=-0.5)
+ok   FixedThresholdClassifier(pos_label=0, threshold=0.3): predict 0 where P(y=0) >= 0.3
+ok   FixedThresholdClassifier with string classes and pos_label='yes'
+   P(y=1|x=0) = 0.5  base predict [0, 1, 0]  FixedThreshold(auto) [1, 1, 0]
+FAIL FixedThresholdClassifier(threshold='auto') reproduces the estimator's default cut-off ('0.5 ... i.e. the default threshold'; user guide: positive when P > 0.5)  (at P = 0.5 exactly: base predict 0, FixedThresholdClassifier 1 -- it uses >=)
+== chi2 / r_regression / f_regression(center=False)
+ok   chi2 docstring example: stats [15.3, 6.5, 8.9], p [0.000456, 0.0387, 0.0116] (doctest NUMBER precision)  ([15.38461538  6.5         8.90909091], [0.00045632 0.03877421 0.0116256 ])
+ok   chi2 = sum_c (O_c - E_c)^2 / E_c with O_c = feature total in class c, E_c = class share * feature total (Fraction), df = n_classes - 1 (mpmath gammainc)  (stats [ 1.7345  2.4817 62.3137  2.3719  0.6643])
+ok   chi2 on a CSR matrix = dense result
+ok   chi2 with a binary target: both classes counted (df = 1)
+ok   chi2 with a negative value raises ValueError ('Input X must be non-negative')
+ok   r_regression = Pearson r (exact Fraction sums) per feature
+FAIL r_regression force_finite=True: a constant feature (all 5.0) 'will be forced to a minimal correlation of 0.0'  (got inf)
+FAIL r_regression(force_finite=False): constant feature (all 5.0) -> nan ('a correlation of np.nan is returned')  (got inf)
+ok   r_regression constant feature 0.1: 0.0 with force_finite, nan without
+ok   r_regression(center=False) = uncentred cosine x.y / (|x||y|)
+ok   f_regression(center=False): F = r_unc^2/(1-r_unc^2) * (n-1), p = F(1, n-1) upper tail (mpmath betainc)  (F [104.768    0.8298   2.8497])
+   50 random targets y (n=30): |r_regression([y, -2y], y)| > 1 in 19; f_regression not (finfo.max, p=0) in 34 (negative F with p = 1 in 19, finite positive F < finfo.max in 15); first: (0, [1.0000000000000002, -1.0000000000000002], [-6.305039478318698e+16, -6.305039478318698e+16], [1.0, 1.0])
+FAIL r_regression of features y and -2y against y lies in [-1, 1] (f_regression docstring: 'r_regression values lie in [-1, 1]'; 50 random y)  (|r| > 1 for 19 of 50 targets)
+FAIL f_regression force_finite=True: a perfectly (anti-)correlated feature gets F = finfo.max and p-value 0.0 (50 random y)  (34 of 50 targets violate it; e.g. seed 0: F [-6.305039478318698e+16, -6.305039478318698e+16], p [1.0, 1.0])
+ok   f_regression force_finite=True: constant feature -> F = 0.0, p-value 1.0
+FAIL SelectKBest(f_regression, k=1) picks a feature equal to y over a pure-noise feature  (support [True, False])
+== SelectKBest / SelectPercentile / SelectFpr / SelectFdr / SelectFwe / GenericUnivariateSelect
+ok   SelectKBest(k=2) with a 3-way tie at the top: exactly 2 features, all from the tied maximum ('ties broken in an unspecified way')  (selected [2, 4])
+ok   SelectKBest(k=5): every selected score >= every rejected score
+ok   SelectKBest(k='all') keeps all, k=0 keeps none
+ok   SelectKBest(k > n_features): all features returned, with a warning (1.5+ behaviour)
+ok   SelectKBest: a NaN score ranks below every real score
+   SelectPercentile on 20 distinct scores, features kept per percentile: {5: 1, 10: 2, 13: 3, 25: 5, 30: 6, 33: 7, 50: 10, 62.5: 12, 99: 19}
+ok   SelectPercentile, distinct scores: keeps scores > the linear (100-p)th percentile; count within floor/ceil of p% of n (9 percentiles)  ([])
+ok   SelectPercentile(50) with ties at the threshold: ties added only up to int(n * p / 100) = 4 features  (selected [1, 2, 5, 6])
+ok   SelectPercentile(100) keeps all, (0) keeps none (even with NaN scores)
+ok   SelectFpr(alpha=0.05): 'Features with p-values less than alpha' (strict: p = 0.05 rejected)
+ok   SelectFwe(alpha=0.05): Bonferroni p < alpha / n_features = 0.00625
+ok   SelectFdr = Benjamini-Hochberg step-up: largest k with p_(k) <= k*alpha/m, keep all p <= p_(k) (exact Fraction reference, 40 random sets)
+ok   SelectFdr step-UP: p_(2) = 0.021 above its bound 0.02 is still kept because p_(4) = 0.039 <= 0.04
+FAIL SelectFdr at the exact BH boundary (m=19 p-values, the largest p_(19) = 0.05 = 19*alpha/m exactly, others below their bounds): BH keeps all 19  (kept 18, exact BH keeps 19: bound computed as (alpha/m)*k = 0.049999999999999996 < p = 0.05)
+ok   GenericUnivariateSelect(mode, param) = the corresponding selector with that parameter (5 modes)
+ok   GenericUnivariateSelect default (percentile, param=1e-5) keeps only the top-scoring feature
+FAIL GenericUnivariateSelect(mode='k_best', param=3.0): docstring 'param : "all", float or int' -> 3 features  (raises TypeError)
+== mutual_info_regression / continuous mutual_info_classif (KSG / Ross recomputed, documented noise replicated)
+   mutual_info_regression [1.070916, 0.162656, 0.0]  KSG reference [1.070916, 0.162656, 0.0]
+ok   mutual_info_regression (n_neighbors=3) = KSG estimator on the scaled + 1e-10-noised data (plain-Python max-norm neighbour counts, mpmath digamma)
+ok   mutual_info_regression(n_neighbors=5) = KSG with k = 5
+   mutual_info_classif [0.897092, 0.137885, 0.0]  Ross reference [0.897092, 0.137885, 0.0]
+ok   mutual_info_classif continuous features = Ross (2014) estimator (k-th neighbour within class, m counted in the full data, singleton class dropped)
+ok   mutual_info_regression(discrete_features=[1]): discrete column scored with Ross (continuous target vs discrete feature)
+ok   mutual_info_* are clipped at 0 ('A negative value will be replaced by 0')
+ok   mutual_info_regression with the same random_state is reproducible; X is not modified (copy=True)
+== VarianceThreshold
+ok   VarianceThreshold docstring example: keeps columns 1 and 2 (constant columns removed)
+ok   VarianceThreshold(threshold=1.0).variances_ = population variance (ddof=0) of each column
+FAIL VarianceThreshold() (threshold=0) variances_ 'Variances of individual features' = [25, 1.25]  (got [10.0, 1.25]: with threshold=0 the attribute is min(variance, peak-to-peak))
+FAIL VarianceThreshold docstring: 'Features with a training-set variance lower than this threshold will be removed' (variance exactly 0.25 = threshold is kept)  (support [False, True]: the code keeps variance > threshold)
+ok   VarianceThreshold with NaN: variances_ computed ignoring NaN (nanvar)
+ok   VarianceThreshold: no feature above the threshold raises ValueError
+ok   VarianceThreshold on sparse input = dense variances
+== RFE / RFECV
+ok   RFE(n_features_to_select=3, step=1): support_ and ranking_ = reference elimination on squared OLS coefficients  (ranking [1, 1, 1, 2, 3, 4, 5, 6, 7])
+ok   RFE(n_features_to_select=4, step=2): support_ and ranking_ = reference elimination on squared OLS coefficients  (ranking [1, 1, 1, 1, 2, 3, 3, 4, 4])
+ok   RFE(n_features_to_select=2, step=3): support_ and ranking_ = reference elimination on squared OLS coefficients  (ranking [1, 1, 2, 3, 3, 3, 4, 4, 4])
+ok   RFE(n_features_to_select=None, step=1): support_ and ranking_ = reference elimination on squared OLS coefficients  (ranking [1, 1, 1, 1, 2, 3, 4, 5, 6])
+ok   RFE ranking_: selected features rank 1, the first eliminated gets the largest rank (n_features - n_selected + 1 = 7)
+ok   RFE float n_features_to_select=0.5 -> int(4.5) = 4; float step=0.25 -> int(2.25) = 2 per iteration ('rounded down')
+FAIL RFE(step=0.29) on 100 features: 'percentage (rounded down)' of 100 -> removes 29 features at the first iteration  (first iteration removes 28 features, a second one removes 1 to reach 71; 0.29*100 = 28.999999999999996)
+ok   RFE with a 2-D coef_ (multi-output/multiclass): importance = sum over rows of coef^2 (hand-set coefficients)  (ranking [1, 1, 4, 2, 5, 3], sum of squares [5.0, 9.04, 0.41000000000000003, 4.01, 0.1, 3.69])
+ok   RFE(importance_getter=callable): elimination follows the callable's importances (|row 1|)
+ok   RFE: estimator_ is refit on the selected features; transform keeps those columns
+ok   RFECV(step=1, min_features_to_select=1): feature counts [1, 2, 3, 4, 5, 6, 7, 8, 9], cv_results_ (mean/std/split) and n_features_ = argmax of summed fold R^2 (reference)  (n_features_ 8, reference 8)
+ok   RFECV(step=3, min_features_to_select=2): feature counts [2, 3, 6, 9], cv_results_ (mean/std/split) and n_features_ = argmax of summed fold R^2 (reference)  (n_features_ 9, reference 9)
+ok   RFECV(step=4, min_features_to_select=3): feature counts [3, 5, 9], cv_results_ (mean/std/split) and n_features_ = argmax of summed fold R^2 (reference)  (n_features_ 9, reference 9)
+ok   RFECV tie rule: when all feature counts score equally the SMALLEST count (min_features_to_select = 3) is chosen
+ok   RFECV: final support_ / ranking_ = RFE(n_features_to_select=n_features_) on all data
+== SelectFromModel
+ok   SelectFromModel(prefit=True) thresholds 'mean', 'median', '1.5*mean', '0.5*median', 0.5: keep |coef| >= threshold (hand-set coefficients)  ([])
+ok   SelectFromModel(prefit=True).fit does not refit (hand-set coef_ preserved in estimator_), threshold_ = 1.0
+ok   SelectFromModel(threshold=-inf, max_features=3): the 3 largest |coef|
+ok   SelectFromModel(max_features=4, threshold='mean'): both limits apply (top-4 AND >= mean)
+ok   SelectFromModel(max_features=callable): max_features_ = callable(X) = 2
+ok   SelectFromModel norm_order 1 / 2 / inf on a 2-D coef_: importance = column norm of that order, threshold 'mean' of those  ([])
+ok   SelectFromModel(importance_getter=callable) overrides coef_
+ok   SelectFromModel(importance_getter='named_steps.lr.coef_') (attrgetter path)
+ok   SelectFromModel threshold=None: 1e-5 for Lasso (l1), 'mean' for LinearRegression
+   ElasticNetCV(l1_ratio=1.0): threshold_ = 2.1762, mean |coef| = 2.1762, features kept = 9 (>= 1e-5: 9, >= mean: 4)
+FAIL SelectFromModel(ElasticNetCV(l1_ratio=1.0)): threshold_ ('Threshold value used for feature selection') is the threshold get_support applies  (threshold_ 2.1762 but support uses 1e-5)
+ok   SelectFromModel(prefit=False): fits a clone; support from the OLS coefficients (hand-written OLS)
+== SequentialFeatureSelector
+   forward greedy picks (feature, mean CV R^2): [(0, np.float64(0.48854)), (2, np.float64(0.79485)), (5, np.float64(0.89551))]
+ok   SFS forward (3 of 6): greedy on mean 5-fold R^2 of hand-written OLS
+ok   SFS backward (keep 2 of 6): removes, 4 times, the feature whose removal leaves the best CV score
+ok   SFS forward 'auto' with tol=0.02: stops at the first addition improving the score by less than tol; n_features_to_select_ = support size  (selected [0, 2, 5])
+ok   SFS backward 'auto' with negative tol=-0.01 (allowed for backward): removal continues while the score drops by less than 0.01
+ok   SFS backward 'auto', unreachable tol=1e9: the first removal is always accepted (compared with -inf, not with the all-feature score) -> 5 features
+FAIL SFS n_features_to_select='auto', tol=None: 'half of the features are selected' -- 5 features, forward and backward agree  (forward keeps 2, backward keeps 3)
+ok   SFS float n_features_to_select=0.5 on 6 features -> 3; n_features_to_select >= n_features raises ValueError
+ok   SFS: 'tol is required to be strictly positive when doing forward selection' (1.2+ docstring) -> ValueError
+== SelectorMixin API
+ok   get_support() boolean mask and get_support(indices=True) = [1, 3]
+ok   transform keeps the selected columns in order
+ok   inverse_transform puts zeros in the removed columns
+ok   get_feature_names_out() default names x1, x3; with input_features the selected names
+ok   transform of a sparse matrix stays sparse with the same columns
+== done
