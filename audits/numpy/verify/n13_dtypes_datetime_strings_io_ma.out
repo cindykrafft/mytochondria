@@ -1,0 +1,393 @@
+numpy 2.4.6  python 3.11.15  mpmath 1.4.1  TZ=IST-5:30
+---- datetime64: unit inference and values in every unit
+ok   datetime64(str): unit 'automatically selected from the form of the string' (Y, M, D, h, m, s; 1-3 fraction digits ms, 4-6 us, 7-9 ns)
+   7 timestamps x 9 units, mismatches: []
+ok   astype to Y/M/W/D/h/m/s/ms/us gives floor((t - 1970-01-01)/unit) (truncation toward -inf before the epoch)
+   datetime64('2020-01-02','W') = 2020-01-02 (int 2609); days 18263 // 7 = 2609; 1970-01-01 is a Thursday
+ok   week unit: value = days // 7 since 1970-01-01, so weeks start on Thursday (2020-01-02 is a Thursday -> itself)
+ok   datetime64('2020-03-04T05:06', 'D') truncates to the day; ('2020-03-04', 'Y') to the year
+ok   documented examples: datetime64(1,'Y') == '1971'; datetime64('2005-02','D') == '2005-02-01'; '2005' == '2005-01-01'; '2010-03-14T15' == '2010-03-14T15:00:00.00'
+ok   generic-unit array from strings picks the finest unit present ('datetime64[ms]' in the documented example)
+ok   'NAT' in any case parses to NaT; 'now'/'today' give s / D units
+ok   invalid dates raise ValueError: month 13, Feb 30, 1900-02-29, leap second 23:59:60 (documented shortcoming)
+   datetime64('2020-03-04T05:06:07.1234567890') -> unit ps, stored -3121623215564649976, exact count 1583298367123456789000, prints '1969-11-25T20:52:56.784435350024'
+   datetime64('1970-01-01T00:00:01.1234567890') -> unit ps, stored 1123456789000, exact count 1123456789000, prints '1970-01-01T00:00:01.123456789000'
+   datetime64('2020-03-04T05:06:07.1234567890123') -> unit fs, stored -4123467107735740596, exact count 1583298367123456789012300, prints '1969-12-31T22:51:16.532892264259404'
+   datetime64('2020-03-04T05:06:07.1234567890123456') -> unit as, stored 8603564775199011584, exact count 1583298367123456789012345600, prints '1970-01-01T00:00:08.603564775199011584'
+ok   10 fraction digits -> 'ps' unit; a 1970-01-01 timestamp in ps is stored exactly
+FAIL a 2020 timestamp written with >= 10 fraction digits (ps/fs/as, documented span [1969, 1970]) is stored exactly or raises, never a silently different date
+   2263-01-01 [ns] -> 1678-06-12T00:25:26.290448384  (exact: False)
+   2263-01-01 astype [ns] -> 1678-06-12T00:25:26.290448384  (exact: False)
+   1677-01-01 [ns] -> 2261-07-22T23:34:33.709551616  (exact: False)
+   1677-01-01 astype [ns] -> 2261-07-22T23:34:33.709551616  (exact: False)
+   1971-01-01 [ps] -> 1969-10-30T23:48:31.852580896768  (exact: False)
+   1971-01-01 astype [ps] -> EXC OverflowError  (exact: True)
+FAIL dates outside the documented ns span [1678, 2262] (and ps span) are rejected or exact, not wrapped (constructor and astype)
+   max 's' datetime 292277026596-12-04T15:30:07 (int 9223372036854775807 = 2**63-1: True); one second later -> NaT
+ok   '292277026596-12-04T15:30:07' is the largest 's' datetime (2**63-1 s after the epoch, exact)
+FAIL one second past the 's' range raises instead of silently becoming NaT (2**63 wraps to the NaT sentinel -2**63)  (got np.datetime64('NaT','s'))
+   datetime64(1000000000000000000, 'Y') prints '1000000000000001970'; year 1970+v = 1000000000000001970
+   datetime64(9223372036854773837, 'Y') prints '9223372036854775807'; year 1970+v = 9223372036854775807
+   datetime64(9223372036854775807, 'Y') prints '-9223372036854773839'; year 1970+v = 9223372036854777777
+ok   datetime64(v, 'Y') prints the year 1970 + v for v up to 2**63-1-1970
+FAIL datetime64(2**63-1, 'Y') (year 1970+2**63-1 > int64 max, inside the documented 'Y' span of +-9.2e18 years) prints its year
+---- datetime64: calendar against Python (leap years 1600-2400, ordinals, negative years)
+ok   years 1600..2400: days in year = 365 + calendar.isleap(y) and 'YYYY-02-29' parses iff leap  []
+ok   3000 random dates in 1..9999: int value == date.toordinal() - 719163 and str == isoformat
+ok   the same 3000 dates: .tolist() returns the datetime.date objects
+ok   astronomical years (0 = 1 BC, leap; -4 leap; -100 not leap) and years > 9999: value == proleptic Gregorian days_from_civil  []
+   str() of negative / large years: '-0001-03-01'->'-001-03-01', '-0004-02-29'->'-004-02-29', '-0100-02-28'->'-100-02-28', '-9999-01-01'->'-9999-01-01', '0000-01-01'->'0000-01-01', '10000-01-01'->'10000-01-01'
+FAIL str() of a datetime64 with a negative year keeps 4 year digits after the sign (ISO 8601 expanded form, like the input '-0001')
+ok   str() output of negative years parses back to the same date (round trip)
+ok   documented: 1600-01-01 - 0000-01-01 = 50491123200000000 us (584388 days x 86400 s)
+ok   documented: (2021-01-01 12:56:23.423 - 2001-01-01)/1 s = 631198583.423 (no leap seconds)
+---- datetime64: arithmetic, resolution promotion, Y/M units
+ok   timedelta64 addition promotes to the finer unit and the value is exact (Y+M -> M, W+D -> D, D+s -> s, ...)
+ok   datetime64[D] - datetime64[s] -> timedelta64[s], exact (2020 leap: 1.5 days = 129600 s)
+ok   documented: datetime64('2009') + 20 D = '2009-01-21' (result in D)
+ok   documented: 1 W / 1 D = 7.0 and 1 W % 10 D = 7 D
+ok   promote_types: m8[Y]+m8[M] -> m8[M]; M8[D]+M8[W] -> M8[D]; m8[7D]+m8[3D] -> m8[D] (gcd of multiples)
+ok   Y/M are nonlinear: m8[Y] + m8[D] and m8[M] + m8[D] raise TypeError (no common divisor)
+ok   documented: np.timedelta64(timedelta64(1,'Y'), 'D') raises TypeError 'same_kind'; timedelta64(1Y, 'M') = 12 M
+   astype('m8[D]'): Y {1: 365, -1: -366, 4: 1460, 100: 36524, 400: 146097, 7: 2556}  truth floor(n*146097/400) {1: 365, -1: -366, 4: 1460, 100: 36524, 400: 146097, 7: 2556};  M {1: 30, -1: -31, 12: 365, 4800: 146097, 5: 152}  truth floor(n*146097/4800) {1: 30, -1: -31, 12: 365, 4800: 146097, 5: 152}
+ok   unsafe Y/M -> D uses 'averaged values from the 400 year leap-year cycle' (146097/400 and /4800 days), floored
+ok   month arithmetic: datetime64[D] + timedelta64[M] raises (no implicit M->D); M8[M] '2020-01' + 1 M = '2020-02'; Y + M -> M
+ok   M8[M] + k months for 1990..2030, k in {1, 13, -1, -25} equals (12y + m - 1 + k) divmod 12
+ok   M8[M] -> M8[D] gives the 1st of the month; '2020-01-31' -> M -> +1 M -> D = '2020-02-01' (no end-of-month clipping)
+   m8[D] [-1,-7,-8,6,7] -> W [-1, -1, -2, 0, 1];  m8[s] [-1,-3599,-3600,-3601,3599] -> h [-1, -1, -1, -2, 0]
+ok   timedelta64 unit conversion floors toward -inf like datetime64 (-1 D -> -1 W, -3601 s -> -2 h)
+---- datetime64: NaT
+ok   NaT != NaT is True, NaT == NaT False, NaT < x and x < NaT False (datetime and timedelta)
+ok   documented: NaT - datetime = NaT timedelta; datetime + NaT timedelta = NaT
+ok   np.sort puts NaT at the end (1.18 release note) and argsort agrees
+ok   min/max and np.maximum propagate NaT like NaN; np.isnat marks it
+ok   timedelta: x / NaT = nan; NaT * 2 = NaT
+---- datetime_as_string
+ok   documented example: arange 4 steps of 60 m and timezone='UTC' appends 'Z'
+ok   documented: unit='h' -> '2002-10-27T04'; unit='s' -> '...:00'; unit='h', casting='safe' raises TypeError
+   timezone='local' (TZ=IST-5:30): ['2002-10-27T10:00+0530', '2002-10-27T11:00+0530', '2002-10-27T12:00+0530', '2002-10-27T13:00+0530']; Python astimezone: ['2002-10-27T10:00+0530', '2002-10-27T11:00+0530', '2002-10-27T12:00+0530', '2002-10-27T13:00+0530']
+ok   timezone='local': 'convert to the local timezone first, and suffix with a +-#### offset' (fixed +0530)
+   (tzdata here has no 'US/Eastern' link; using the identical zone 'America/New_York')
+   ZoneInfo('US/Eastern'): ['2002-10-27T00:30-0400', '2002-10-27T01:30-0400', '2002-10-27T01:30-0500', '2002-10-27T02:30-0500']
+ok   documented: tzinfo ZoneInfo('US/Eastern') crosses the DST boundary (-0400 -> -0500)
+ok   datetime_as_string(unit='D') of pre-epoch instants floors to the calendar day
+ok   datetime_as_string default unit shows the stored precision; 'auto' drops trailing zero groups
+ok   datetime_as_string(NaT) == 'NaT'
+   parsing '2020-01-01T00:00+0100' -> 2019-12-31T23:00, warnings ['UserWarning']
+ok   timezone offsets in strings are still converted to UTC (deprecated since 1.11: warns)
+ok   ... the warning is a UserWarning (DeprecationWarning before 2.0; 2.0 release note gh-24193: 'now issues a UserWarning')  (got ['UserWarning'])
+   note: arrays.datetime.rst still says 'deprecated:: 1.11.0 ... will raise an error in the future'
+---- business days against a plain-Python calendar
+ok   is_busday == plain-Python (weekday valid in weekmask and not a holiday) for 6 weekmasks x 300 dates with 25 random holidays
+ok   busday_count == valid days in [begin, end); when end < begin, minus the valid days in (end, begin] ('not including the day of enddates'), 6 weekmasks x 300 pairs
+ok   busday_offset: roll first (nat / forward / following / backward / preceding / modifiedfollowing / modifiedpreceding), then count offset valid days  []
+ok   busday_offset(roll='raise') on a weekend raises ValueError (documented 'Non-business day date')
+ok   documented examples: '2011-10' 0 fwd -> 2011-10-03; '2012-03' -1 fwd -> 2012-02-29; 3rd Wed Jan 2011 -> 2011-01-19; Mother's day 2012 -> 2012-05-13
+ok   documented: busday_count('2011','2012') = 260, weekmask='Sat' -> 53; 2011-07-11..18 = 5 and reversed = -5
+ok   weekmask spellings '1111100', [1,1,1,1,1,0,0], bools, 'Mon Tue Wed Thu Fri', 'MonTue Wed  Thu\tFri' agree
+ok   weekmask abbreviations are case-sensitive ('mon' raises ValueError); a length-6 weekmask raises
+ok   holidays: any order, NaT ignored (documented)
+   busdaycalendar normalised holidays: [datetime.date(2011, 7, 1), datetime.date(2011, 7, 4)]  weekmask [True, True, True, True, True, False, False]
+ok   busdaycalendar: holidays normalised (sorted, unique, NaT and weekend dates dropped); busdaycal= equals weekmask/holidays
+ok   busdaycal together with weekmask raises ValueError ('neither weekmask nor holidays may be provided')
+ok   all-zero weekmask raises ValueError (no valid days)
+   NaT inputs: is_busday -> False, busday_offset -> ValueError, busday_count -> ValueError  (undocumented)
+---- datetime_data, timedelta division / floor division / remainder
+ok   datetime_data: M8[25s] -> ('s', 25); m8[D] -> ('D', 1); M8 -> ('generic', 1)
+ok   m8[25s] + m8[s] -> m8[s], values 26 and 51 s
+ok   timedelta // timedelta == Python int floor division (negative operands floor toward -inf)
+ok   timedelta % timedelta == Python int % (result has the sign of the divisor)
+ok   divmod(timedelta, timedelta) == (//, %)
+ok   timedelta / timedelta == correctly rounded float of the exact ratio
+   m8[us] // int examples (value, got, floor): {2: [(-7, -3, -4), (-1, 0, -1), (-13, -6, -7)], -2: [(1, 0, -1), (5, -2, -3), (7, -3, -4)], 3: [(-7, -2, -3), (-1, 0, -1), (-13, -4, -5)], 7: [(-6, 0, -1), (-1, 0, -1), (-13, -1, -2)]}
+FAIL timedelta64 // int follows floor_divide ('largest integer smaller or equal', == Python timedelta // int)
+   scalar np.timedelta64(-7,'us') // 2 = -3, (-1) // 2 = 0; Python -7 // 2 = -4
+   m8[us] / 2 -> [-3, -3, 0, 0, 0, 2] (dtype timedelta64[us]); Python timedelta / 2 (round-half-even us) -> [-4, -3, 0, 0, 0, 2]
+   division by a zero timedelta: // -> 0, % -> NaT, / -> inf; warnings ['RuntimeWarning']
+ok   division by zero timedelta: / -> inf, % -> NaT, // -> 0, with RuntimeWarning (no ZeroDivisionError, unlike Python)
+---- .item() / tolist() conversion table
+ok   item() follows the documented table (NaT->None; ns/ps/fs/as->int; us..h->datetime/timedelta; D/W->date/timedelta; Y/M->date/int)  []
+ok   item() values: 2025-01-01T12:00:00.123456 exact; 123 ns -> 123; 1 W -> timedelta(days=7); 2020-06 M -> date(2020,6,1)
+ok   item() at Python's limits: date(1,1,1), datetime max 9999-12-31T23:59:59.999999, timedelta(days=999999999) and -1e6 days + 1 us are exact
+   out of Python's range: np.datetime64('10000-01-01').item() -> 2932897, np.datetime64('0000-12-31').item() -> -719163, np.timedelta64(1000000000,'D').item() -> 1000000000, np.datetime64('10000-01-01T00:00:00.000000').item() -> 253402300800000000
+ok   outside Python's datetime range item() returns the raw int count of units (years 0 and 10000, 1e9 days)
+---- strings: np.char / np.strings against Python str and bytes methods
+ok   np.char on unicode (38 strings incl. titlecase digraphs, sharp s, ligature, unicode spaces/digits): 70 method calls equal Python's str methods element-wise  (0 calls differ)
+ok   np.char on bytes (18 strings incl. titlecase digraphs, sharp s, ligature, unicode spaces/digits): 65 method calls equal Python's bytes methods element-wise  (0 calls differ)
+ok   np.strings on unicode (38 strings incl. titlecase digraphs, sharp s, ligature, unicode spaces/digits): 70 method calls equal Python's str methods element-wise  (0 calls differ)
+ok   np.strings on bytes (18 strings incl. titlecase digraphs, sharp s, ligature, unicode spaces/digits): 65 method calls equal Python's bytes methods element-wise  (0 calls differ)
+   tight dtypes: <U16 / |S16
+ok   np.char on unicode with the tight inferred itemsize (<U16): the non-case-mapping calls still equal Python (output width computed from the operation)  (0 calls differ)
+ok   np.char on bytes with the tight inferred itemsize (|S16): the non-case-mapping calls still equal Python (output width computed from the operation)  (0 calls differ)
+ok   np.strings on unicode with the tight inferred itemsize (<U16): the non-case-mapping calls still equal Python (output width computed from the operation)  (0 calls differ)
+ok   np.strings on bytes with the tight inferred itemsize (|S16): the non-case-mapping calls still equal Python (output width computed from the operation)  (0 calls differ)
+   np.char.replace(['a','ab'], 'abc', 'x') -> ['a', 'x']; replace(['ab'], 'b', 'xyzw') -> ['axy']; replace([b'a'], b'abc', b'x') -> [b'x']
+FAIL np.char.replace with old / new longer than the array itemsize == str.replace (['a','ab'] unchanged; 'ab' -> 'axyzw')
+   np.char.partition(['ab'], 'abc') -> [['', 'ab', '']]; rpartition -> [['', 'ab', '']]; Python ['ab', '', ''] / ['', '', 'ab']
+FAIL np.char.partition / rpartition with a separator longer than the array itemsize == str.partition ('ab' has no 'abc')
+   np.strings.replace(['a','ab'], 'abc', 'x') -> ['a', 'x']; replace(['ab'], 'b', 'xyzw') -> ['axy']; replace([b'a'], b'abc', b'x') -> [b'x']
+FAIL np.strings.replace with old / new longer than the array itemsize == str.replace (['a','ab'] unchanged; 'ab' -> 'axyzw')
+   np.strings.partition(['ab'], 'abc') -> [['', 'ab', '']]; rpartition -> [['', 'ab', '']]; Python ['ab', '', ''] / ['', '', 'ab']
+FAIL np.strings.partition / rpartition with a separator longer than the array itemsize == str.partition ('ab' has no 'abc')
+   np.char.upper(['ß','ﬁ','ŉ']) (dtype U1) -> ['S', 'F', 'ʼ']  Python ['SS', 'FI', 'ʼN']; swapcase('ß') -> ['S']; title('ﬁx') (U2) -> ['Fi'] Python 'Fix'
+FAIL np.char.upper / swapcase / title: 'Calls str.upper element-wise' also when the mapping lengthens the string (U1 input 'ß' -> 'SS')
+   np.strings.upper(['ß','ﬁ','ŉ']) (dtype U1) -> ['S', 'F', 'ʼ']  Python ['SS', 'FI', 'ʼN']; swapcase('ß') -> ['S']; title('ﬁx') (U2) -> ['Fi'] Python 'Fix'
+FAIL np.strings.upper / swapcase / title: 'Calls str.upper element-wise' also when the mapping lengthens the string (U1 input 'ß' -> 'SS')
+   np.char.ljust('abcdef', 2) -> ['abcdef'], rjust(.., 3) -> ['abcdef'], center(.., 4) -> ['abcdef']; Python returns 'abcdef' unchanged
+ok   np.char.ljust / rjust / center with width < len(s) return s unchanged (str.ljust semantics)
+   np.strings.ljust('abcdef', 2) -> ['abcdef'], rjust(.., 3) -> ['abcdef'], center(.., 4) -> ['abcdef']; Python returns 'abcdef' unchanged
+ok   np.strings.ljust / rjust / center with width < len(s) return s unchanged (str.ljust semantics)
+---- strings: fixed-width storage rules
+ok   np.array(['a  ']) keeps trailing spaces (dtype U3, value 'a  ')
+ok   trailing NULs are not part of the value: np.array(['a\x00\x00'])[0] == 'a' (dtype still U3), same for bytes
+ok   interior NULs are kept: str_len('a\x00b') = 3, str_len('ab\x00') = 2
+ok   np.char.strip('\x00a\x00') = '\x00a' (the trailing NUL is already gone; NUL is not whitespace)
+ok   chararray: 'values automatically have whitespace removed from the end when indexed'
+ok   np.char.equal / not_equal: 'performed by first stripping whitespace characters from the end'; ndarray == does not strip
+ok   comparison of U arrays is by code point, like Python ('B' < 'a' < 'é' < '日'); 'ab' < 'abc'
+ok   assigning a longer string to a U3 array truncates silently to 3 code points
+---- strings: str_len, add, multiply, encode/decode, mod, join, startswith tuple
+ok   np.char.str_len == len() for every test string (code points, astral plane counts 1)
+ok   np.char.add == + and multiply by 0, -1, 3 == Python s * n (negative -> '')
+ok   np.char.encode('utf-8') == str.encode and decode round-trips
+ok   np.char.encode('ascii') of non-ASCII raises UnicodeEncodeError; decode with errors='replace' matches Python
+ok   np.char.mod == Python %-formatting element-wise ('%d' of 3.9 -> '3', '%.2f', '%5s', '%x', '%r')
+ok   np.strings.str_len == len() for every test string (code points, astral plane counts 1)
+ok   np.strings.add == + and multiply by 0, -1, 3 == Python s * n (negative -> '')
+ok   np.strings.encode('utf-8') == str.encode and decode round-trips
+ok   np.strings.encode('ascii') of non-ASCII raises UnicodeEncodeError; decode with errors='replace' matches Python
+ok   np.strings.mod == Python %-formatting element-wise ('%d' of 3.9 -> '3', '%.2f', '%5s', '%x', '%r')
+ok   np.char.join(sep, seq) == sep.join(seq) where seq is each string (joins the characters)
+   np.char.startswith(['abc'], ('a','x')) -> [True, False] (Python 'abc'.startswith(('a','x')) -> True)
+ok   startswith with a tuple of prefixes broadcasts it as an array of prefixes (documented 'prefix: array_like'), unlike str.startswith's any-of
+ok   isnumeric / isdecimal on bytes raise TypeError ('only available for Unicode')
+ok   np.char.index / rindex raise ValueError when the substring is absent (like str.index)
+ok   np.char.translate with a mapping == str.translate
+ok   np.strings.slice(a, 1, 4) == s[1:4] and slice(a, None, None, -1) == s[::-1] (2.3+)
+---- StringDType (2.0+)
+   StringDType: lstrip('ǆ ',) differs: [(' ', ' ', ''), ('  padded  ', '  padded  ', 'padded  ')]
+FAIL np.strings on StringDType: the same 70 calls equal Python str methods (no width limit, so lengthening case maps are exact)
+   np.strings.partition(StringDType array, ' ') -> UFuncTypeError; with sep as a StringDType array it works
+FAIL np.strings.partition / rpartition accept a plain str separator for a StringDType array (sep: 'array-like, with StringDType, bytes_, or str_ dtype'; add/replace/find accept it)
+ok   StringDType keeps trailing NULs and trailing spaces (variable width, UTF-8)
+   StringDType.astype(np.str_) -> TypeError (the size-inferring cast is documented in the main-branch user guide; release notes do not list it before 2.5)
+ok   StringDType -> 'U4' truncates (documented 'An explicit size can still be passed, truncating entries')
+ok   StringDType(coerce=False) rejects non-strings with ValueError; default coerces 1 -> '1'
+ok   na_object=nan: arr + arr -> ['hellohello', nan, 'worldworld'] (NaN-like propagates)
+ok   na_object=nan sorts to the end
+   na_object=nan: arr != 'hello' -> [False, False, True], arr != arr -> [False, False, False], arr == arr -> [True, False, True]
+FAIL na_object=nan comparisons: == and < False, != True ('arr != "hello"' -> [False, True, True]; main-branch docs, gh-32564)
+   na_object=None: [None, ''] == '' -> [True, True]
+FAIL na_object=None: a missing entry is not equal to the empty string ([None, ''] == '' -> [False, True]; gh-32564 'distinguish None-like missing values from empty strings')
+ok   np.isnan marks nan-like missing entries
+   np.strings.str_len on a nan-like missing entry -> ValueError
+ok   na_object=None: arr[1] is None; np.sort raises ValueError ('Cannot compare null that is not a nan-like value')
+   string sentinel: ['x', '__NA__', 'yy']  upper -> ['X', '__NA__', 'YY']  str_len -> [1, 6, 2]
+ok   string sentinel: missing entries 'treated as if they have a value given by the string sentinel' (str_len = len('__NA__') = 6)
+ok   np.empty(3, StringDType()) is three empty strings
+ok   StringDType -> 'S4' of a non-ASCII string raises UnicodeEncodeError (documented: non-ASCII characters 'are rejected')
+   np.array([b'\xff', b'ok']).astype(StringDType()): no error; str_len -> [0, 2]; tolist -> UnicodeDecodeError
+FAIL 'S' -> StringDType with invalid UTF-8 bytes: 'a UnicodeDecodeError is raised during the cast'
+ok   StringDType -> V5 stores the UTF-8 bytes ('hello' -> b'hello')
+---- text I/O: savetxt / loadtxt
+ok   savetxt default fmt '%.18e' (first line == '%.18e' % 0.0), one row per line
+ok   savetxt('%.18e') -> loadtxt round trip is bit-exact for 3013 doubles (random bit patterns, subnormals, +-0, +-inf, nan, max)
+ok   the written text equals Python's '%.18e' % x for every value (inf/nan spelled 'inf'/'nan')
+ok   float32 via '%.18e' and loadtxt(dtype=float32) is bit-exact
+ok   loadtxt: default whitespace delimiter (tabs, runs of spaces, leading space), '#' comments and blank lines skipped
+ok   loadtxt: comments=['#', '//'] (several markers) and comments=None
+ok   loadtxt: skiprows 'including comments' (skiprows=2 skips a comment and the first data row)
+ok   loadtxt: usecols=(0, -1) and usecols=1 (int -> 1-D)
+ok   loadtxt: converters={0: fromhex-like} and unpack=True -> columns
+ok   loadtxt (1.23+): converters may be a single callable applied to every column
+ok   loadtxt quotechar='"' (1.23+): delimiters inside quotes are data, doubled quote "" is a literal quote  (got [['a', 'b, with comma', '3'], ['x "quoted"', 'y', '4']])
+ok   loadtxt max_rows (1.23+ doc): 'empty rows ... comment lines are not counted towards max_rows, while such lines are counted in skiprows'
+ok   loadtxt ndmin: one row -> shape (3,) by default, (1, 3) with ndmin=2; one value -> shape ()
+ok   loadtxt structured dtype (documented example: sex/age/weight)
+ok   loadtxt complex: '1+2j' and '(3-4j)' parse to complex
+ok   loadtxt(encoding='latin-1') decodes the file bytes
+ok   loadtxt: a row with the wrong number of columns raises ValueError
+ok   savetxt fmt sequence, delimiter, newline='\r\n' ends each row, header/footer prefixed by '# ' (a '\n' inside the header is kept and followed by the prefix)  '# a,b\n# second\r\n1,2.500\r\n3,4.250\r\n# end\r\n'
+ok   savetxt with a full multi-format string: 'delimiter is ignored'
+ok   savetxt 1-D input writes one value per line; comments= replaces the '# ' prefix
+ok   savetxt complex with a single fmt writes ' (%s+%sj)' % (fmt, fmt) per value  ' (1.00e+00+2.00e+00j)  (-3.50e+00-2.50e-01j)\n'
+ok   savetxt of a structured array writes one field per column
+---- text I/O: genfromtxt
+   genfromtxt(names=True, dtype=None): dtype [('name', '<U3'), ('age', '<i8'), ('score', '<f8')], rows [('ann', 31, 1.5), ('bob', -1, 2.25), ('cid', 40, nan)]
+ok   genfromtxt names=True takes the field names from the first line; dtype=None infers str / int / float per column
+ok   genfromtxt default fillers: missing int -> -1, missing float -> nan (documented defaults)
+ok   genfromtxt missing_values / filling_values per column
+ok   genfromtxt usemask=True returns a MaskedArray masking the missing entries
+ok   genfromtxt skip_header / skip_footer
+   fixed-width delimiter=[3,5,3] autostrip: [(1, 2.5, 'abc'), (10, -3.0, 'xyz')]
+ok   genfromtxt delimiter as a sequence of field widths (fixed-width columns), autostrip=True
+ok   genfromtxt usecols by field names
+ok   genfromtxt invalid_raise=False skips the bad row with a ConversionWarning
+ok   genfromtxt invalid_raise=True (default) raises ValueError on the bad row
+ok   genfromtxt with a structured dtype and no names: fields named from the dtype
+ok   genfromtxt names='a,b,c' as a comma-separated string
+ok   genfromtxt defaultfmt names unnamed fields ('var_00', 'var_01')
+ok   genfromtxt parses '%.18e' text back bit-exactly (0.1, 5e-324)
+ok   genfromtxt strips inline comments after data
+---- binary I/O: .npy format parsed by hand, save / load
+ok   np.save header for 23 dtypes: '\x93NUMPY' v1.0, little-endian uint16 HEADER_LEN, dict literal with sorted keys descr/fortran_order/shape, '\n'-terminated, total divisible by 64  []
+ok   np.save data section == the array's contiguous bytes (C order) for every dtype  []
+ok   np.load round trip preserves dtype (incl. byte order '>i4', '>f8', longdouble, M8/m8 units, V4), shape and bytes  []
+ok   int32 data bytes equal struct.pack('<6i', ...) (independent encoding)
+ok   Fortran-ordered input: fortran_order True, data in column-major order, load returns an F-contiguous equal array
+ok   non-contiguous slice is saved in C order with fortran_order False
+ok   shape (): header shape (), data 8 bytes = prod(shape) * 8 ('shape=() means there is 1 element'), load shape preserved
+ok   shape (0,): header shape (0,), data 0 bytes = prod(shape) * 8 ('shape=() means there is 1 element'), load shape preserved
+ok   shape (0, 3): header shape (0, 3), data 0 bytes = prod(shape) * 8 ('shape=() means there is 1 element'), load shape preserved
+ok   shape (1, 1, 1): header shape (1, 1, 1), data 8 bytes = prod(shape) * 8 ('shape=() means there is 1 element'), load shape preserved
+ok   nested structured dtype with a subarray field: descr == dtype.descr and load round-trips values
+ok   object array: np.load default allow_pickle=False raises ValueError; allow_pickle=True returns the objects
+ok   np.save(object array, allow_pickle=False) raises ValueError
+ok   np.load of a hand-written v1.0 file (big-endian '>u2', fortran_order True, shape (2,3)) gives [[1,2,3],[4,5,6]]
+ok   a non-latin-1... unicode field name 'é' is latin-1 encodable -> v1.0; '日' needs utf-8 -> format v3.0 (documented)
+ok   header > 65535 bytes (3000 fields) switches to format v2.0 with a uint32 HEADER_LEN, still 64-aligned
+ok   np.load(mmap_mode='r') returns a read-only memmap with the same values; np.save appends '.npy' to a bare filename
+---- savez / savez_compressed / NpzFile
+ok   savez: positional arrays named arr_0, arr_1, keywords by name, members '<name>.npy' in a zip
+ok   savez stores members uncompressed (ZIP_STORED); savez_compressed uses ZIP_DEFLATED; the member .npy bytes are identical
+ok   np.load(.npz) returns a lazy NpzFile: .files lists names without '.npy', 'in', item and .f attribute access load arrays
+ok   NpzFile also accepts the member name with the '.npy' suffix
+ok   savez with a positional array and keyword 'arr_0' raises ValueError ('Cannot use un-named variables and keyword arr_0')
+ok   an object member of an .npz raises ValueError on access with the default allow_pickle=False
+ok   accessing a closed NpzFile raises  (AttributeError)
+---- tofile / fromfile / frombuffer / fromstring
+ok   tofile writes the raw bytes (struct.pack('<4d')), no header
+ok   fromfile(dtype) reads them back; count=2 and offset=8 bytes select elements 1..2
+ok   tofile(sep=',', format='%.2f') writes text; fromfile(sep=',') reads it
+ok   frombuffer(offset=8 bytes, count=2) -> [30, 40]; read-only view of an immutable bytes object
+ok   frombuffer of a bytearray is a writeable view sharing memory (writing element 0 changes the bytearray)
+ok   frombuffer with a size not a multiple of the itemsize raises ValueError
+ok   fromstring text mode: '1, 2,3' with sep=',' -> [1, 2, 3]; sep=' ' splits on any whitespace
+ok   fromstring binary mode (sep='') raises ValueError in 2.3+ ('The binary mode of fromstring now errors, use frombuffer')
+ok   fromstring('1,2,x', sep=',') raises ValueError in 2.3+ ('error on bad data')
+---- printing: array2string / set_printoptions / repr round trips
+ok   floatmode='fixed' precision=3 -> '[0.100 0.250 0.333]' (always exactly precision digits)
+ok   floatmode='unique' ignores precision: shortest repr of each value
+ok   floatmode='maxprec' -> at most precision digits, per element '[0.1   0.25  0.333]'
+ok   floatmode='maxprec_equal' -> same digit count for all '[0.100 0.250 0.333]'
+ok   suppress_small=True prints 1e-10 as 0. next to 1; default switches to scientific
+ok   threshold=5, edgeitems=2 summarises arange(10) as '[0 1 ... 8 9]'
+ok   sign='+' and sign=' '
+ok   legacy='1.13' reproduces the old sign padding '[ 1.   0.5]' (modern '[1.  0.5]')
+   legacy='1.21' structured repr: "array([(1, 2.)], dtype=[('a', '<i4'), ('b', '<f8')])"
+ok   legacy='1.21' is accepted (1.22+)
+ok   NEP 51 (2.0): repr(np.float64(1.5)) == 'np.float64(1.5)'; legacy='1.25' restores '1.5'
+ok   np.printoptions(precision=2, threshold=3) applies inside the block and restores the previous options on exit  (inside: '[0.33 0.67 1.   2.  ]')
+ok   set_printoptions(precision=4) -> str(array([pi])) == '[3.1416]'
+ok   str of nan/inf array '[ nan  inf -inf]'
+ok   repr of an array with more than threshold=1000 elements is summarised with '...' (documented default)
+   default precision=8 / floatmode='maxprec': eval(repr(a)) reproduces 5 of 3004 values exactly (repr is not a round trip by default)
+ok   with floatmode='unique' (and threshold=sys.maxsize), eval(repr(a)) is bit-exact for all 3004 float64 values ('unique': shortest repr that uniquely identifies)
+ok   ... and for a float32 array (repr carries dtype=float32)
+ok   str(np.float64(x)) == Python repr(x) (shortest round-trip digits, same exponent style) for every value
+ok   str(np.float32(x)) round-trips and uses the minimal number of digits for 2991 random float32 (Dragon4 'unique')  []
+ok   format_float_positional(unique=False, precision=p) == exact binary value rounded half-even at p decimals ('unbiased rounding', Decimal truth)  []
+ok   format_float_scientific(unique=False, precision=p) == Decimal mantissa rounded half-even to p digits, exponent at least 2 digits  []
+ok   format_float_positional trim: 1.0 -> 'k' '1.', '.' '1.', '0' '1.0', '-' '1' (documented modes)
+ok   pad_left=4, pad_right=3 -> '   1.5  '; min_digits=4 -> '1.5000'; exp_digits=3 -> '1.e+005'; fractional=False precision=4 -> '123.5'
+ok   format_float_positional(2.0**70 + 2**20, precision=0, unique=False) prints the exact integer; unique 1e23 prints '1' followed by 23 zeros
+ok   format_float_positional(unique=True, precision=3) rounds the shortest repr: 1/3 -> '0.333', 0.1 -> '0.1'
+ok   float16 / float32 inputs use their own shortest digits (np.float32(0.1) -> '0.1', np.float16(0.1) -> '1.e-01' scientific)
+---- structured arrays: layout against ctypes, fields, assignment
+ok   align=True: field offsets, itemsize and alignment equal the C layout of the same ctypes.Structure (300 random nested/subarray layouts)
+ok   default (packed) structured dtypes: offsets are cumulative sums of itemsizes, no padding (300 layouts)
+ok   documented example: [('a','i1'),('b','f8')] has itemsize 9 packed, 16 with align=True (b at offset 8)
+ok   dict form with explicit offsets/itemsize: padding respected (itemsize 16, y at 8)
+ok   dtype equality: same names/formats/order equal; different names, order or byte order not equal
+ok   align=True dtype != the packed dtype with the same fields (different offsets/itemsize)
+ok   field titles: a field is reachable by name and by title
+ok   single-field access returns a view (writing it changes the array)
+ok   multi-field index a[['x','z']] (1.16+) is a view keeping the original offsets and itemsize ('padded' view)
+ok   recfunctions.repack_fields removes the padding (itemsize 8)
+ok   assignment between structured arrays is by field position, not name (1.14+), with casting
+ok   assigning a tuple sets fields in order; assigning a scalar sets every field
+ok   structured == compares field-wise element by element
+ok   nested dtype: a['pt']['x'] and a[1]['pt']['k'] reach the inner fields
+ok   subarray field shape: a['v'].shape == (2, 2, 3)
+---- numpy.lib.recfunctions
+ok   structured_to_unstructured flattens fields and subarrays in order, promoting to a common dtype (f4, f8 -> f8)
+ok   structured_to_unstructured(dtype=int)
+ok   structured_to_unstructured on a nested dtype flattens depth-first
+ok   unstructured_to_structured is the inverse
+   append_fields(base, 'w', [7, 8]) (default usemask=True): MaskedArray, w data [7, 8, None]
+ok   append_fields default usemask=True returns a MaskedArray; the shorter new field is padded and masked
+ok   append_fields(usemask=False) with two fields: plain ndarray, values appended
+   merge_arrays(([1,2,3],[10.5,20.5]), usemask=False): [(1, 10.5), (2, 20.5), (3, -1.0)] dtype [('f0', '<i8'), ('f1', '<f8')]
+ok   merge_arrays pads the shorter array with the default fill_value -1 ('fill_value: Filling value used to pad missing data on the shorter arrays')
+ok   merge_arrays(flatten=True) concatenates the fields
+ok   join_by inner: rows for common keys, sorted by key, colliding field 'a' renamed a1 / a2 (r1postfix='1', r2postfix='2')
+ok   join_by outer: union of keys sorted, fields of the missing side masked
+ok   join_by leftouter: exactly the keys of r1, r2 fields masked where absent
+ok   drop_fields / rename_fields
+ok   stack_arrays: records concatenated, missing field masked
+---- recarray
+ok   np.rec.fromarrays: attribute access r.x, r.y; records support r[1].y
+ok   a field named like an ndarray attribute ('size'): r.size is the attribute, r['size'] the field (documented precedence)
+ok   np.rec.array(list of tuples, formats, names)
+ok   view(np.recarray) shares data: assigning r.u writes the base array
+ok   a nested field accessed as an attribute is itself a recarray
+---- np.ma: reductions against plain Python on the unmasked data
+ok   MaskedArray.sum over the unmasked values (axis None/0/1, 60 random masks) == exact Fraction sum
+ok   mean == Fraction mean of the unmasked values
+ok   var(ddof=1) == unbiased variance of the unmasked values (n = unmasked count per slice)
+ok   std == sqrt(population variance) of the unmasked values
+ok   np.ma.median == median of the unmasked values (even counts average the two middle values)
+ok   np.ma.average(weights=W) == sum(w x)/sum(w) over unmasked positions only
+ok   min / max ignore masked values
+ok   count(axis) == number of unmasked entries
+ok   fully masked slices give the masked constant for sum/mean/median/average/min/max
+ok   np.ma.average(returned=True): the weight sum counts only unmasked positions (1+2+2 = 5), average = (1 + 6 + 8)/5 = 3
+ok   np.ma.median of even count [1,2,3,4] = 2.5; all-masked -> masked; per-row with different counts
+ok   mean of an int32 masked array is float64 (7/3); var over the unmasked ints
+ok   prod ignores masked values; cumsum keeps the mask positions and skips masked values in the running total
+---- np.ma: mask propagation, domains, fill values
+ok   binary ops: result mask = union of the operand masks (+, *, **, comparisons)
+ok   documented: ma.log([-1, 0, 1, 2]) masks the out-of-domain -1 and 0 and gives [--, --, 0.0, log 2]
+ok   ma.divide masks division by zero; ma.sqrt masks negatives; ma.arccos masks |x| > 1
+ok   the np.ma domain functions raise no RuntimeWarning
+ok   np.log (plain ufunc) on a MaskedArray: 'entries of the output masked array are masked wherever ... the input fall outside the validity domain'
+ok   integer division by zero in np.ma masks the entry
+ok   default fill_value table: bool True, int 999999, float 1e20, complex 1e20+0j, object '?', string 'N/A'
+ok   structured default fill value is per field ((999999, 1e20))
+   int8 masked array: fill_value np.int64(999999), filled() -> [1, 63] (999999 does not fit int8; warnings [])
+FAIL int8 masked array with the default fill value: filled() gives 999999 (the documented int default) or refuses, not a wrapped in-range value  (filled() -> [1, 63])
+ok   filled() uses fill_value; filled(0); compressed() returns the unmasked values in C order as 1-D
+ok   masked_where(cond, a) masks where cond; masked_invalid masks nan and +-inf
+ok   masked_equal: masks x == value and sets fill_value to value (documented)
+ok   masked_values uses isclose (rtol 1e-5, atol 1e-8): 1.0000001 masked, 1.1 not; fill_value set to value
+ok   masked_inside is inclusive of both endpoints; masked_outside masks strictly outside
+ok   masked_greater / masked_less_equal
+---- np.ma: cov / corrcoef
+ok   ma.cov(x, y) with different masks: 'a common mask is allocated', each entry is the covariance over the jointly unmasked pairs
+ok   ma.corrcoef(x, y) == Pearson r over the jointly unmasked pairs
+ok   ma.cov with allow_masked=False and masked data raises ValueError
+   ma.cov(2-row x, rows masked at different columns)[0,1] = 0.375; pairwise-complete covariance over columns 1..3 = 1.0
+FAIL ma.cov(2-D x) with different row masks: off-diagonal == covariance over the columns unmasked in both rows ('masked values are propagated pair-wise')
+   ma.corrcoef([[4,-2,4],[--,-3,4]]) = 1.2247448713915892; the two jointly observed columns (-2,-3),(4,4) have r = 1
+FAIL ma.corrcoef(2-D x) stays within [-1, 1] (a Pearson coefficient)
+---- np.ma: sort, argmax, unique, concatenate / stack, count
+ok   ma.sort puts masked values last (endwith=True default); endwith=False puts them first
+ok   argsort: masked entries last, unmasked in increasing order
+ok   argmax / argmin ignore masked values (masked max 5.0 at index 3 is skipped)
+   all-masked argmax -> 0 (fill with the minimum; undocumented result)
+ok   np.ma.unique: 'Masked values are considered the same element (masked)' -> [1, 2, 3, --]
+ok   ma.concatenate preserves the masks
+ok   np.concatenate on MaskedArrays returns a MaskedArray but 'the input masks are not preserved' (documented; use ma.concatenate)
+ok   ma.stack / ma.vstack / ma.hstack / ma.column_stack preserve masks
+ok   count() over all axes and count(axis=0)
+---- np.ma: mask sharing, hard masks, polyfit
+ok   documented slice example: assigning through a slice unmasks in the original (mask is a view): x.mask -> [F,F,F,F,T], x.data -> [1,-1,3,4,5]
+ok   masking through a slice also propagates to the original (x[1] becomes masked)
+ok   hard mask: assignment to a masked entry silently keeps it masked; after soften_mask() it unmasks (documented example)
+ok   harden_mask(): a slice assignment writes only the unmasked entries
+ok   assigning nomask to .mask unmasks everything
+ok   ma.array(x, copy=True) owns its mask: unmasking the copy leaves x masked
+ok   np.ma.polyfit: 'Any masked values in x is propagated in y, and vice-versa' -> equals the exact LS fit on the 10 jointly unmasked points
+   2-D y, mask only in column 0: column-1 coefficients [-1.8334109862528003, 10.693577516337529] vs LS on rows kept by the union mask [-1.833410986252801, 10.693577516337532]
+ok   np.ma.polyfit with 2-D y: a row masked in any column is dropped for all columns (documented '2D y ... masked rows')
+---- done
