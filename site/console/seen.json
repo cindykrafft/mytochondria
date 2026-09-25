@@ -1,5 +1,5 @@
 {
- "taken": "2026-09-24T19:35:00Z",
+ "taken": "2026-09-25T00:50:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
   {
@@ -1323,12 +1323,12 @@
    "repo": "google/guava",
    "number": 8696,
    "kind": "pr",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-24T19:10:48Z",
+   "updated": "2026-09-24T19:36:29Z",
    "title": "Document that transform and transformAsync propagate exceptions thrown by the function",
-   "note": "not a Mytochondria filing"
+   "note": "not a Mytochondria filing; closed 2026-09-24 19:36"
   }
  ],
  "merge_checked": [
