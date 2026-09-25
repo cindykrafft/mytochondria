@@ -545,18 +545,18 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-09-23T22:40:30Z",
-   "note": "not a Mytochondria filing (the owner's other work on google/* repositories); recorded so the diff stays quiet"
+   "comments": 3,
+   "updated": "2026-09-25T12:57:10Z",
+   "note": "not a Mytochondria filing (the owner's other work on google/* repositories); recorded so the diff stays quiet; cpovirk 2026-09-24 and 2026-09-25 (no internal failures; asks where the live entrySet() is implemented and tested); reply drafted 2026-09-25 for the owner"
   },
   {
    "repo": "google/guava",
    "number": 8691,
    "kind": "pr",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-23T22:39:13Z",
+   "updated": "2026-09-24T13:33:53Z",
    "note": "not a Mytochondria filing (the owner's other work on google/* repositories); recorded so the diff stays quiet"
   },
   {
