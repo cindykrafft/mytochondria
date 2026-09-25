@@ -159,12 +159,13 @@ _dt = json.load(open(os.path.join(S, "googletest-deathtest-issue.json")))
 _dt["what-happened"] = _block("googletest-5105.md", "## Revised field", fence="```")
 _dt_body = "\n\n".join("### " + FORM_LABELS[k] + "\n\n" + v for k, v in _dt.items() if k != "title")
 corrections = [
-  dict(id="reply-guava-8692", repo="google/guava", number=8692, kind="pr", level="Reply",
-       what="Reply to cpovirk with the public-code survey",
-       why=["cpovirk wrote: \"the main question is going to be whether we can find someone who is relying upon some part of it (like maybe to call `setValue`, hopefully with values that are valid!) ... I'll do some testing.\"",
-            "This reply reports what a search of Sourcegraph-indexed public code found: one caller of a navigation method on a filtered NavigableMap (teku, `lastEntry().getValue()`, unaffected) and no `setValue`/cast/identity use. It states the search's limits. A second, cross-file search (maps passed elsewhere; setValue/cast/== anywhere) found nothing affected; the reply mentions the one flow into a public API (atlasdb Transaction.getRows). Full method and tables: findings/guava-8692-usage-survey.md and guava-8692-usage-survey-crossfile.md."],
+  dict(id="reply-guava-8692-2", repo="google/guava", number=8692, kind="pr", level="Reply",
+       what="Answer cpovirk's question about live entrySet entries",
+       why=["cpovirk (Sep 25): no failures in their internal tests, and he asks: \"The description mentions that iteration over plain `entrySet` still returns live entries. Do you know where that's implemented and/or tested?\"",
+            "This reply links the implementation (FilteredEntryNavigableMap.entrySet() delegates to FilteredEntryMap, whose EntrySet wraps each entry with a predicate-checking setValue) and the tests: the testlib suites in MapsCollectionTest (235,865 tests, all passing on the PR branch), plus the new check in this PR. It points out that AbstractFilteredMapTest has no NavigableMap subclass, and offers to add one.",
+            "The earlier reply with the public-code survey has already been posted."],
        how="Open the PR and paste this into the comment box at the bottom of the conversation.",
-       text=open(os.path.join(S, "guava-8692-reply.md")).read().strip()),
+       text=open(os.path.join(S, "guava-8692-reply-2.md")).read().strip()),
   dict(id="fix-gtest-5105", repo="google/googletest", number=5105, kind="issue", level="Recommended",
        what="Replace the whole issue body",
        why=["It said `*` and `?` in a test name also break death tests. In testing, only `:` and `-` do: names with `*` or `?` still match themselves, so those tests run normally."],
