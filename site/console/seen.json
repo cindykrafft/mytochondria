@@ -1,5 +1,5 @@
 {
- "taken": "2026-09-25T12:50:00Z",
+ "taken": "2026-09-25T18:55:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
   {
@@ -545,9 +545,9 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 3,
-   "updated": "2026-09-25T12:57:10Z",
-   "note": "not a Mytochondria filing (the owner's other work on google/* repositories); recorded so the diff stays quiet; cpovirk 2026-09-24 and 2026-09-25 (no internal failures; asks where the live entrySet() is implemented and tested); reply drafted 2026-09-25 for the owner"
+   "comments": 7,
+   "updated": "2026-09-25T15:56:46Z",
+   "note": "not a Mytochondria filing (the owner's other work). cpovirk 2026-09-25 13:45-15:56: found the entrySet() override himself, 'everything is looking correct', reworked the change as google/guava#8699 (copybara, commit authored by Cindy Krafft, all 22 checks green, 'Fixes #8692'); the drafted answer to his 12:57 question is superseded and was not posted"
   },
   {
    "repo": "google/guava",
@@ -1270,10 +1270,10 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 1,
-   "updated": "2026-09-25T06:52:53Z",
+   "comments": 2,
+   "updated": "2026-09-25T13:35:11Z",
    "title": "Charge Q/10 per mismatch in ILLUMINACLIP palindrome mode",
-   "note": "TM1 PR; sebeier 2026-09-25 06:52: retarget to V0.42, drop the dependency-reduced-pom.xml change. Owner changed the base to V0.42; branch force-pushed 2026-09-25 (54af058 on V0.42, 519 tests). Reply TMR1 to be posted by the owner. CI only runs on PRs to main"
+   "note": "TM1 PR; base V0.42, head 54af058 (1 commit, mergeable clean). sebeier 06:52 asked for the retarget; owner's TMR1 reply posted 13:35. Waiting on sebeier. CI only runs on PRs to main"
   },
   {
    "repo": "alexdobin/STAR",
