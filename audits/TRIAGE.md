@@ -310,3 +310,23 @@ Channel notes. Automated Contributions Policy: no fully automated issues or PRs,
 comment descriptions**, AI use stated in the PR (template disclosure list), bug reports get "Needs Triage" and the PR waits
 for the label to go. The kit's texts are fact sheets to write from, not to paste. Seven prior threads (incl. the 48 review
 threads of #27491) read in full through two helper sessions. Fork needed: scikit-learn/scikit-learn.
+
+## Full inspection (2026-09-25): scikit-learn and NumPy beyond the survey's calls
+
+Requested: "a full inspection of sklearn and numpy since they are so heavily used in so many applications",
+independent of what the papers call. Eighteen harness groups (`scikit-learn/verify/k8`–`k16`,
+`numpy/verify/n5`–`n13`). Ledgers with every finding, its builds, its prior report and its tier:
+`scikit-learn/full-inspection.md` and `numpy/full-inspection.md`.
+
+| tier | finding | reason |
+|---|---|---|
+| file now (issue, then PR) | NumPy NP3 | since the 2.3/2.4 hash path, `np.unique(datetime, equal_nan=False)` merges NaT, but only when no optional output is requested (1.x and the sorting path keep them); the complex NaN representative is not the documented smallest one either; fix verified on a source build of `main` (4 new cases fail before, 643 passed after); no prior report |
+| file now (issue) | NumPy NP5 | 2.x: `np.select(..., default=300)` with an int8 choice returns 44 silently; `np.where` had the same bug and raises `OverflowError` since 2.5 (gh-30803), `select` still wraps on `main`; no prior report |
+| queued | NumPy NP2, NP10, NP9, NP11 | `set_state` with an out-of-range `pos` segfaults on the next draw (a public bug under NumPy's security policy, not a vulnerability); StringDType strip skips an ASCII character after a multi-byte one in `chars` (the half #26969 did not fix); `zipf` near a = 1 accepts every proposal above 2^53; `Polynomial.integ` lbnd coordinates |
+| already reported | NumPy NP1, NP4, NP6, NP7, NP8 | #15394/#16153 (MT19937 jump, maintainers kept the reference behaviour), #12282/#21091, #9956/#5452/#31926, #32522 (fix PR #32526), #20586/#15601 (fix PR #32525) |
+| cap full (SK1, SK2 unfiled) | scikit-learn | the round-6 pair stays first. Queued behind it: SK6 (`f_regression` p = 1 for a feature equal to the target; #34834 does not cover it), SK5 (cosine KDE normalisation), SK7 (TSNE mutates a precomputed D), then the branches SK12, SK10, SK11, SK9, SK8 |
+| already reported | scikit-learn SK4, SK8, SK13, SK14, SK16, SK27 | #25380 + PR #27763 (a precomputed-kernel comment is possible once #27763's reviews are read), #14054/#24732, #30332, #26658/#25623, #11395 + PR #34834, #22283 |
+
+Channel: NumPy's AI policy also forbids AI-written issue and PR descriptions and AI speaking in threads, so the NumPy
+kit is fact sheets too (`numpy/upstream/issue-np3-…`, `issue-np5-…`, `pr-bodies.md`). Prior-report threads read in full
+through two helper sessions ("Mytochondria threads scikit-learn triage", "Mytochondria threads numpy triage").
