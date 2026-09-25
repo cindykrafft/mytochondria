@@ -1,0 +1,334 @@
+scikit-learn 1.9.1  numpy 2.4.6  python 3.11.15
+== manifold: smacof / MDS
+ok   smacof(metric, max_iter=1): X = Guttman transform (1/n) B(X0) X0 of the init (documented step 3)  (max|diff| 2.22e-16, n_iter 1)
+   raw stress of returned X 25.56908069; of the init X0 36.81074081; returned stress 25.56908069
+ok   smacof(metric, max_iter=1): returned stress = sum_{i<j} (d_ij(X) - delta_ij)^2 of the RETURNED X ('final value of the stress')  (stress 25.56908069 vs of returned X 25.56908069; of the init 36.81074081)
+ok   smacof(metric, eps=1e-9): stress_ = raw stress of the returned embedding (converged run)  (stress 1.907751132 vs recomputed 1.907751132, n_iter 117)
+ok   smacof(metric, default eps, random init): stress = raw stress of the returned X  (stress 0.56595741 vs 0.56595741)
+ok   smacof on exactly 2-D-embeddable dissimilarities from a nearby init: stress -> 0 (distances reproduced)  (stress 1.23e-10, max|d-delta| 5.34e-06)
+ok   smacof(metric, normalized_stress=True) [1.7+: 'supported for metric MDS']: Stress-1 = sqrt(sum (d-delta)^2 / sum d^2)  (0.1353721636 vs 0.1353721636)
+   smacof normalized_stress default 'auto'
+ok   smacof normalized_stress default: 'auto' from 1.4 ('The default value changed from False to "auto" in version 1.4'), False-equivalent before  ('auto')
+ok   smacof(metric=False, max_iter=2): X = Guttman transform against disparities = isotonic (PAV) fit of d(X) on the delta order, symmetric, normalised to sum_(i<j) dhat^2 = n(n-1)/2 (1.7+: first iteration uses the scaled deltas)  (max|diff| 1.110e-16)
+ok   smacof(metric=False, max_iter=2) default normalized_stress='auto' -> Stress-1 = sqrt(sum (d - dhat)^2 / sum d^2) of the returned X against its disparities (user-guide formula)  (0.3300901056 vs 0.3300901056; raw 2.05674)
+ok   smacof(metric=False, normalized_stress=True, max_iter=1): Stress-1 lies in [0, 1] ('0 perfect ... 0.2 poor'; Kruskal's ratio cannot exceed 1)  (0.577644)
+   converged non-metric: stress_ 0.0951082; Kruskal Stress-1 of the returned X (optimal PAV disparities) 0.0946809
+ok   smacof(metric=False, normalized_stress=True, converged): value = Kruskal Stress-1 of the returned configuration (to 1e-3 abs)  (0.0951082 vs 0.0946809)
+   Kruskal Stress-1 (w.r.t. the delta order) of the delta run 0.0946809, of the delta^3 run 0.00684627
+FAIL non-metric smacof depends only on the rank order of the dissimilarities: delta and delta^3 give the same configuration up to similarity (converged, same init)  (Procrustes residual 2.67e-01; stresses 0.0951082 / 0.00684644; Kruskal Stress-1 of both configurations for the same ordering 0.09468 / 0.006846)
+ok   MDS(precomputed).fit(D, init=...) = smacof(D, init=...) (documented: MDS runs SMACOF): same embedding_ and stress_  (max|diff| 0.0e+00)
+ok   MDS(precomputed): dissimilarity_matrix_ is the input matrix
+ok   MDS(metric).stress_ = sum_{i<j} (d_ij(embedding_) - delta_ij)^2
+ok   MDS(euclidean): dissimilarity_matrix_ = pairwise Euclidean distances of X (plain Python)
+ok   MDS: embedding_ shape (n_samples, n_components); fit_transform returns embedding_
+ok   MDS(precomputed) with a non-symmetric matrix raises ValueError ('Must be symmetric')  (ValueError)
+ok   MDS(non-metric), default normalized_stress='auto' [1.4+] = normalized_stress=True ('non-metric MDS returns normalized stress')  (0.095219487 vs 0.095219487)
+ok   MDS(metric), default normalized_stress='auto' [1.4+] = normalized_stress=False ('metric MDS returns raw stress')  (1.9082664 vs 1.9082664)
+   MDS(n_init=3) stress_ 0.566476, n_iter_ 50
+ok   MDS: n_iter_ is a positive int <= max_iter
+ok   ClassicalMDS [1.8+] (precomputed) = top eigenvectors of -1/2 H D^2 H scaled by sqrt(eigenvalue), up to sign  (max rel 1.5e-15)
+== manifold: Isomap
+   graph connected: True
+ok   Isomap.dist_matrix_ = geodesic distances: Dijkstra (plain Python) on the symmetrised kNN graph with Euclidean edge weights  (max|diff| 8.9e-16)
+ok   Isomap.embedding_ = classical MDS of the geodesic distances (top eigvecs of -1/2 H D^2 H scaled by sqrt(eigenvalue)), up to column sign  (max rel 1.3e-15)
+ok   Isomap.reconstruction_error() = ||K(D) - K(D_fit)||_F / n_samples with K(D) = -1/2 (I-1/n) D^2 (I-1/n) (docstring Notes)  (1.21096511 vs 1.21096511)
+ok      ... with K(D_fit) computed literally from the embedding's own distance matrix
+ok   Isomap.transform(training X) reproduces embedding_ (geodesic rows through the point itself)  (max|diff| 1.8e-15)
+ok   Isomap.transform(new X): geodesic = min over the k nearest training points of (edge + dist_matrix_ row), then the kernel-PCA projection of -1/2 G^2  (max rel 1.4e-15)
+ok   Isomap path_method 'FW' and 'D' give the same geodesic matrix (both exact shortest paths)
+   radius graph not connected; radius check skipped
+ok   Isomap(n_neighbors=5, radius=1.0): both set raises ValueError ('Both n_neighbors and radius are provided')  (ValueError)
+ok   Isomap: embedding_ shape (n, n_components); kernel_pca_ eigenvalues descending
+== manifold: LocallyLinearEmbedding
+ok   LLE(standard) reconstruction weights = solution of the documented regularised local system (C + reg*trace(C) I) w = 1, w/sum(w) ('reg multiplies the trace of the local covariance')  (max|diff| 3.4e-14)
+ok   LLE(standard) weights: each row sums to 1 and is supported on the k nearest neighbours only
+ok   LLE(standard).embedding_ = eigenvectors 2..n_components+1 of (I-W)^T(I-W) (bottom, constant one skipped), up to sign  (max rel 1.0e-09)
+ok   LLE(standard).reconstruction_error_ = sum of those two eigenvalues  (2.168097e-06 vs 2.168097e-06; smallest eigenvalue -4.1e-17)
+   arpack: reconstruction_error_ 2.168097e-06 (dense 2.168097e-06); column sums [0.0, 0.0]
+ok   LLE(standard, eigen_solver='arpack') spans the same 2-D subspace as the dense solution (projector distance < 0.05)  (||P_arpack - P_dense|| 2.07e-10)
+ok   LLE(standard, eigen_solver='arpack'): the trivial constant eigenvector is excluded (columns orthogonal to 1)  (column sums [0.0, 0.0])
+ok   LLE(method='ltsa'): embedding = eigenvectors 2..3 of the LTSA alignment matrix sum_i S_i (I - G_i G_i^T) S_i^T (G_i = [1/sqrt(k), top local PCs]), up to sign  (max rel 3.9e-14)
+ok   LLE(method='ltsa').reconstruction_error_ = sum of those eigenvalues
+ok   LLE(method='hessian', n_neighbors=6): runs; columns orthonormal and orthogonal to the constant vector (null-space eigenvectors)  (E^T E [[1.0, 0.0], [0.0, 1.0]], col sums [0.0, 0.0])
+ok   LLE(method='modified', n_neighbors=6): runs; columns orthonormal and orthogonal to the constant vector (null-space eigenvectors)  (E^T E [[1.0, -0.0], [-0.0, 1.0]], col sums [0.0, 0.0])
+ok   LLE(hessian, n_components=1): documented 'n_neighbors > n_components*(1+(n_components+1)/2)' = 2: n_neighbors=2 raises, 3 runs  (ValueError, None)
+ok   LLE(hessian, n_components=2): documented 'n_neighbors > n_components*(1+(n_components+1)/2)' = 5: n_neighbors=5 raises, 6 runs  (ValueError, None)
+ok   LLE(hessian, n_components=3): documented 'n_neighbors > n_components*(1+(n_components+1)/2)' = 9: n_neighbors=9 raises, 10 runs  (ValueError, None)
+ok   LLE(modified) with n_neighbors < n_components raises ValueError  (ValueError)
+ok   LLE with n_neighbors >= n_samples raises ValueError  (ValueError)
+ok   LLE with n_components > n_features raises ValueError ('output dimension must be less than or equal to input dimension')  (ValueError)
+ok   LLE.transform(new X) = barycentre weights on the k training neighbours (same regularised system) applied to embedding_  (max|diff| 5.6e-17)
+== manifold: SpectralEmbedding / spectral_embedding
+ok   SpectralEmbedding(affinity='rbf', gamma=None): affinity_matrix_ = exp(-gamma ||x-y||^2) with gamma = 1/n_features
+ok   SpectralEmbedding: gamma_ = 1/n_features when gamma=None
+ok   SpectralEmbedding.embedding_ = eigenvectors 2..k+1 of the normalised Laplacian I - D^-1/2 A D^-1/2 (self-loops ignored) divided by sqrt(degree), up to sign  (max rel 5.6e-15; eigenvalues [0.0, 0.096639, 0.456311])
+ok   SpectralEmbedding(affinity='precomputed') on the same rbf matrix gives the same embedding
+ok   spectral_embedding(drop_first=False): first column is the constant vector (trivial eigenvector / sqrt(degree))  (spread 2.4e-16)
+ok   spectral_embedding(drop_first=True) = drop_first=False without its first column
+ok   spectral_embedding(norm_laplacian=False): eigenvectors 2..k+1 of the unnormalised Laplacian D - A, up to sign
+ok   SpectralEmbedding(affinity='nearest_neighbors', n_neighbors=None): n_neighbors = max(n_samples/10, 1), connectivity graph incl. self, symmetrised 0.5(A + A^T)  (n_neighbors_ 3)
+ok   SpectralEmbedding: embedding_ shape (n_samples, n_components); fit_transform = embedding_
+== manifold: TSNE
+ok   TSNE perplexity calibration: every conditional row p_{.|i} reaches entropy log(perplexity) within the binary-search tol 1e-5  (max |H - log perp| 9.55e-06)
+ok   TSNE conditional P rows = plain-Python binary search (rel 1e-3; both within tol)  (max|diff| 3.1e-08)
+ok   TSNE exact joint P = (p_{j|i} + p_{i|j}) / 2n (symmetrised, sums to 1)  (sum over i!=j 1.000000000000)
+ok   TSNE barnes_hut P: calibration over the k = min(n-1, 3*perplexity+1) = 25 nearest neighbours only, then P + P^T normalised to 1  (max|diff| 4.0e-10)
+ok   TSNE exact objective: KL(P||Q) with Student-t Q and gradient 4 sum_j (p_ij - q_ij)(y_i - y_j)(1+|y_i-y_j|^2)^-1 match the plain-Python formulas  (KL 1.74150337 vs 1.74150337)
+ok   TSNE barnes_hut with angle=0 and full P reproduces the exact gradient and KL (float32 tolerance): exact vs barnes_hut agree  (max|dgrad| 1.7e-08; KL 1.741504 vs 1.741503)
+   angle=0.5: rel grad error 9.36e-03
+ok   TSNE(method='exact').kl_divergence_ = KL(P||Q) of the returned embedding recomputed (rel 1e-3)  (0.13685435 vs 0.13685063; n_iter_ 999)
+   barnes_hut: kl_divergence_ 0.152456; exact KL of its sparse P at the embedding 0.154567; exact-method KL 0.136854
+ok   TSNE(method='barnes_hut').kl_divergence_ within 5% of the exact KL(P_bh||Q) of the returned embedding  (0.152456 vs 0.154567)
+ok   TSNE exact vs barnes_hut on the same small data: final KL within 25% and both trustworthiness(k=5) > 0.9  (KL 0.1369 / 0.1525; T 0.9803 / 0.9798)
+ok   TSNE(init='pca') [1.2+]: initial embedding = PCA scores rescaled so PC1 has std 1e-4 (optimisation frozen by learning_rate=1e-30)  (std col0 1.0000e-04, max rel 1.2e-07)
+ok   TSNE(learning_rate='auto') n=40, early_exaggeration=12.0: learning_rate_ = max(N / early_exaggeration / 4, 50) = 50
+ok   TSNE(learning_rate='auto') n=300, early_exaggeration=1.0: learning_rate_ = max(N / early_exaggeration / 4, 50) = 75
+ok   TSNE(perplexity >= n_samples) raises ValueError  (ValueError)
+ok   TSNE: embedding_ shape (n, 2), n_iter_ <= max_iter, n_features_in_
+ok   TSNE(metric='precomputed', method='exact') with the Euclidean distance matrix = the default euclidean run ('X is assumed to be a distance matrix'; squared internally)  (max|diff| 0.0e+00)
+FAIL TSNE(metric='precomputed', method='exact').fit(D) leaves the caller's D unchanged (estimators must not mutate X)  (max|D_after - D_before| 218; D_after == D_before**2: True)
+ok   TSNE(metric='precomputed', method='barnes_hut').fit(D) leaves D unchanged
+FAIL TSNE(metric='precomputed', method='exact') accepts a read-only distance matrix  (ValueError)
+== manifold: trustworthiness
+ok   trustworthiness(n_neighbors=1) = 1 - 2/(nk(2n-3k-1)) sum_i sum_(j in U_i^k) max(0, r(i,j) - k) (plain Python)  (0.7392857143 vs 0.7392857143)
+ok   trustworthiness(n_neighbors=5) = 1 - 2/(nk(2n-3k-1)) sum_i sum_(j in U_i^k) max(0, r(i,j) - k) (plain Python)  (0.7406060606 vs 0.7406060606)
+ok   trustworthiness(n_neighbors=10) = 1 - 2/(nk(2n-3k-1)) sum_i sum_(j in U_i^k) max(0, r(i,j) - k) (plain Python)  (0.7809195402 vs 0.7809195402)
+ok   trustworthiness(X, X) = 1
+ok   trustworthiness(n_neighbors >= n_samples/2) raises ValueError ('should be less than n_samples / 2')  (ValueError)
+ok   trustworthiness(metric='precomputed') with the distance matrix = euclidean
+== neural_network: MLP forward pass, loss_, gradients
+ok   MLPClassifier binary: out_activation_ 'logistic'; predict_proba = [1-s, s] with s = logistic of the recomputed forward pass
+ok   MLPClassifier binary (lbfgs): loss_ = -(1/n) sum [y ln p + (1-y) ln(1-p)] + alpha/(2n) ||W||^2 at the returned weights  (0.215449571052 vs 0.215449571052)
+ok   MLPClassifier.predict = classes_[proba >= 0.5] (binary threshold)
+ok   MLPClassifier multiclass: out_activation_ 'softmax'; predict_proba = softmax of the recomputed forward pass (2 hidden layers)
+ok   MLPClassifier multiclass (lbfgs): loss_ = -(1/n) sum_i ln p_i[y_i] + alpha/(2n)||W||^2  (0.19747274491 vs 0.19747274491)
+ok   MLPClassifier multilabel: independent logistic outputs; predict_proba recomputed
+ok   MLPClassifier multilabel (lbfgs): loss_ = binary cross-entropy summed over labels / n + alpha/(2n)||W||^2  (0.800459886336 vs 0.800459886336)
+ok   MLPRegressor(activation='identity'): predict = identity output of the recomputed forward pass
+ok   MLPRegressor(activation='identity', lbfgs): loss_ = (1/2n) sum (yhat - y)^2 + alpha/(2n)||W||^2 at the returned weights  (0.00632590607702 vs 0.00632590607702)
+ok   MLPRegressor(activation='logistic'): predict = identity output of the recomputed forward pass
+ok   MLPRegressor(activation='logistic', lbfgs): loss_ = (1/2n) sum (yhat - y)^2 + alpha/(2n)||W||^2 at the returned weights  (0.0289575601725 vs 0.0289575601725)
+ok   MLPRegressor(activation='tanh'): predict = identity output of the recomputed forward pass
+ok   MLPRegressor(activation='tanh', lbfgs): loss_ = (1/2n) sum (yhat - y)^2 + alpha/(2n)||W||^2 at the returned weights  (0.00953390261248 vs 0.00953390261248)
+ok   MLPRegressor(activation='relu'): predict = identity output of the recomputed forward pass
+ok   MLPRegressor(activation='relu', lbfgs): loss_ = (1/2n) sum (yhat - y)^2 + alpha/(2n)||W||^2 at the returned weights  (0.0054912963701 vs 0.0054912963701)
+   2-output regressor: loss_ 0.07639215877; user-guide (1/2n) sum_i ||yhat_i - y_i||^2 + reg 0.08479596886; mean over outputs too 0.07639215877
+FAIL MLPRegressor 2 outputs (lbfgs): loss_ = user-guide Loss = 1/(2n) sum_i ||yhat_i - y_i||_2^2 + alpha/(2n)||W||^2  (0.07639215877 vs 0.08479596886; = 0.07639215877 with the squared error also averaged over the 2 outputs)
+ok   MLPRegressor._backprop: loss = documented squared loss (recomputed) and gradients = central finite differences of it (2 hidden tanh layers)  (loss 1.15766813 vs 1.15766813; worst rel grad err 2.6e-08)
+ok   MLPClassifier._backprop (softmax + cross-entropy): loss recomputed and gradients = finite differences  (loss 1.195960891 vs 1.195960891; worst rel grad err 2.0e-08)
+ok   MLPClassifier._backprop (logistic output + binary cross-entropy, relu hidden): loss and gradients = finite differences  (worst rel grad err 8.4e-09)
+== neural_network: MLP training bookkeeping (n_iter_, t_, partial_fit, early stopping, loss_ per epoch)
+   validation_scores_ * 11: [5.0, 6.0, 6.0, 7.0, 8.0, 8.0] ...; n_iter_ 15, t_ 630
+ok   MLPClassifier(early_stopping, validation_fraction=0.2) on 53 samples: validation set of ceil(0.2*53) = 11 samples (every validation accuracy a multiple of 1/11)
+ok   MLPClassifier(early_stopping): t_ = n_iter_ * n_training_samples (42) ('number of training samples seen by the solver')  (t_ 630, n_iter_ 15)
+ok   MLPClassifier(early_stopping=True): best_loss_ is None (documented)  (None)
+ok   MLPClassifier(sgd, max_iter=7, no early stop): n_iter_ = 7, t_ = 7 * n_samples, len(loss_curve_) = 7  (n_iter_ 7, t_ 371)
+ok   MLPClassifier.partial_fit after fit: t_ + n_samples; n_iter_ = iterations of this call (1) from 1.3 ('n_iter_ ... on the current call', 1.3 changelog), cumulative before  (n_iter_ 1, t_ 424)
+FAIL MLPRegressor fit(max_iter=5) + partial_fit: t_ 'Mathematically equals n_iters * X.shape[0]' (docstring) with n_iters = n_iter_  (t_ 318, n_iter_ 1, n_iter_ * n = 53)
+ok   MLPClassifier.partial_fit first call without classes raises ValueError  (ValueError)
+ok   MLPRegressor(sgd, full batch).partial_fit: loss_ = documented loss at the weights the epoch started from  (0.521676083205 vs 0.521676083205)
+   4 mini-batches of 13, weights frozen: loss_ 1.396008424; documented loss 0.7346489989; with the L2 term counted once per batch 1.396008424
+FAIL MLPRegressor(sgd, batch_size=13 -> 4 batches per epoch, weights frozen): loss_ = documented loss (data term + alpha/(2n)||W||^2)  (1.396008424 vs 0.7346489989; = 1.396008424 with alpha/(2n)||W||^2 counted per batch)
+ok   MLPRegressor.fit(sample_weight=integers) [1.7+] = fit on rows repeated that many times (lbfgs, same init): same loss_ and coefs_  (loss 0.01381744752 vs 0.01381744752)
+== neural_network: BernoulliRBM
+ok   BernoulliRBM.transform = P(h=1|v) = logistic(v W^T + b_hidden)
+ok   BernoulliRBM.score_samples = n_features * log sigmoid(F(v_flipped) - F(v)) with one random bit flipped per sample (free energy by enumerating hidden states in mpmath)  (max|diff| 1.8e-15)
+ok   BernoulliRBM.score_samples averaged over 400 random flips -> the pseudo-likelihood sum_i log P(v_i | v_-i) (every sample within 4.5 standard errors)  (max z 2.68)
+ok   BernoulliRBM: components_ shape (n_components, n_features), intercepts shapes
+ok   BernoulliRBM float32 input: components_ and transform stay float32  (float32, float32)
+ok   BernoulliRBM sparse input: transform equals dense
+== datasets: make_classification
+ok   make_classification(shuffle=False): columns n_inf..n_inf+n_red are exact linear combinations of the informative columns (no intercept)  (residual SS [1.39582171e-29 2.84813166e-28])
+ok   make_classification(shuffle=False): the next n_repeated columns duplicate informative/redundant columns exactly
+ok   make_classification: remaining n_features - 8 columns are independent noise (|corr| with useful columns < 0.2)  (max |r| 0.061)
+ok   make_classification(weights=None, flip_y=0, shuffle=False): balanced classes (counts differ by <= 1) laid out cluster by cluster  (counts [134, 133, 133])
+ok   make_classification(class_sep=1.0): cluster means sit on hypercube vertices (+-class_sep)^n_informative (sample means, within 0.1)  (means [[-0.967, -0.967], [-1.009, 1.014], [0.997, -1.023], [0.988, 1.015]])
+ok   make_classification(class_sep=2.5): cluster means sit on hypercube vertices (+-class_sep)^n_informative (sample means, within 0.1)  (means [[-2.467, -2.467], [-2.509, 2.514], [2.497, -2.523], [2.488, 2.515]])
+ok   make_classification(weights=[0.1,0.3], 3 classes, flip_y=0): class counts = n*w with the last weight inferred as 0.6 (+- n_clusters_per_class)  (counts [100, 300, 600])
+   weights=[0.7, 0.7] (sum 1.4): returned 100 samples, class counts [65, 35]
+FAIL make_classification(weights summing to 1.4, n_samples=100): 'More than n_samples samples may be returned if the sum of weights exceeds 1'  (returned 100 samples; counts [65, 35] vs n*w = 70/70)
+ok   make_classification(flip_y=0.3, 2 classes): fraction of labels changed ~ flip_y*(1-1/n_classes) = 0.15 ('fraction of samples whose class is assigned randomly')  (0.1446)
+ok   make_classification(shift=2, scale=3): X = (X_0 + shift) * scale ('scaling happens after shifting')
+ok   make_classification(shift=None, scale=None): random per-feature shift in [-class_sep, class_sep] and scale in [1, 101] (column std range)  (col std [38.16, 34.66, 23.66, 70.8, 28.0])
+ok   make_classification: n_informative + n_redundant + n_repeated > n_features raises ValueError  (ValueError)
+ok   make_classification: n_classes * n_clusters_per_class > 2**n_informative raises ValueError  (ValueError)
+   n_repeated=2000 source columns among the 4 informative+redundant: {0: 350, 1: 658, 2: 632, 3: 360} (informational: the end columns are drawn half as often)
+== datasets: make_regression / make_sparse_uncorrelated / friedman
+ok   make_regression(noise=0, coef=True): y = X @ coef + bias exactly
+ok   make_regression: exactly n_informative nonzero coefficients, drawn from 100*U(0,1)  (coef [0.0, 76.456, 97.623, 0.0, 0.0, 0.0, 0.0, 88.979])
+ok   make_regression(noise=2.5): residual y - X coef has std 2.5 ('standard deviation of the gaussian noise')  (std 2.4985, mean -0.0104)
+ok   make_regression(effective_rank=None): X is standard normal (mean 0, variance 1)  (mean 0.0053, var 0.9967)
+ok   make_regression(n_targets=3): y shape (n, 3) and coef shape (n_features, 3), y = X coef
+ok   make_regression(effective_rank=5, tail_strength=0.2): X has the make_low_rank_matrix singular profile  (max|diff| 5.6e-16)
+FAIL make_sparse_uncorrelated: y(X) = X0 + 2 X1 - 2 X2 - 1.5 X3 (docstring formula, no noise term)  (residual std 1.0017, mean 0.0125)
+ok   make_sparse_uncorrelated: X ~ N(0,1)
+ok   make_friedman1: y = 10 sin(pi x0 x1) + 20 (x2-0.5)^2 + 10 x3 + 5 x4 (noise=0), X ~ U[0,1]^7
+ok   make_friedman1(n_features=4) raises ValueError (needs >= 5)  (InvalidParameterError)
+ok   make_friedman2: documented input ranges and y = sqrt(x0^2 + (x1 x2 - 1/(x1 x3))^2)
+ok   make_friedman3: y = arctan((x1 x2 - 1/(x1 x3)) / x0)
+ok   make_friedman3(noise=0.3): y - formula ~ 0.3 N(0,1) (same X for the same seed)  (std 0.2996)
+== datasets: blobs / moons / circles / s_curve / swiss_roll / hastie / gaussian_quantiles
+ok   make_blobs(n_samples=30001, 3 centers): 'equally divided among clusters' (remainder to the first)  ([10001, 10000, 10000])
+ok   make_blobs(centers=array, cluster_std=list): per-cluster mean = center, per-coordinate std = cluster_std
+ok   make_blobs(n_samples=[5,7,9], return_centers=True): per-cluster counts as given, centers drawn inside center_box
+ok   make_moons(101, noise=None): 50 outer / 51 inner; outer on the unit upper half circle, inner on the unit circle centred (1, 0.5) lower half
+ok   make_moons(n_samples=(3, 8)) tuple: 3 outer, 8 inner
+ok   make_circles(101, factor=0.3): outer radius 1 (50 points), inner radius factor (51 points), angles evenly spaced without duplicates
+ok   make_circles(factor=1.0) raises ValueError (factor must be < 1)  (InvalidParameterError)
+ok   make_s_curve: x = sin t, z = sign(t)(cos t - 1), y in [0,2], t in [-3pi/2, 3pi/2]
+ok   make_swiss_roll: x = t cos t, z = t sin t, y in [0,21], t in [1.5pi, 4.5pi]
+ok   make_swiss_roll(hole=True): no point in the central (t, y) rectangle  (0 in hole)
+ok   make_hastie_10_2: y = 1 if sum(x^2) > 9.34 else -1; X standard normal, shape (n, 10)
+ok   make_hastie_10_2: 9.34 is the chi2(10) median -> class balance ~ 1/2  (P(chi2_10 <= 9.34) = 0.49983; frac +1 0.4934)
+ok   make_gaussian_quantiles(mean, cov=2): classes are nested shells in squared distance from the mean
+ok   make_gaussian_quantiles: shell boundaries at cov * chi2(n_features) quantiles 1/3, 2/3 (within 4.5 standard errors of a sample quantile)  (boundaries [3.0636, 6.5538] vs [3.136, 6.8094], SE [0.075, 0.128])
+ok   make_gaussian_quantiles(n_samples=3000, n_classes=3): 'equally divided among classes' (1000 each)
+FAIL make_gaussian_quantiles(n_samples=11, n_classes=4): 'equally divided among classes' -> counts differ by at most 1  (counts [2, 2, 2, 5])
+== datasets: low-rank / spd / sparse spd / multilabel / biclusters / checkerboard
+ok   make_low_rank_matrix(30x50, effective_rank=4, tail_strength=0.5): singular values = (1-ts) exp(-(i/r)^2) + ts exp(-0.1 i/r)  (max|diff| 6.7e-16)
+ok   make_low_rank_matrix(60x20, effective_rank=10, tail_strength=0.0): singular values = (1-ts) exp(-(i/r)^2) + ts exp(-0.1 i/r)  (max|diff| 4.4e-16)
+ok   make_low_rank_matrix(40x40, effective_rank=2, tail_strength=1.0): singular values = (1-ts) exp(-(i/r)^2) + ts exp(-0.1 i/r)  (max|diff| 8.9e-16)
+ok   make_spd_matrix(6): symmetric (to 1e-12) and positive definite  (max|S - S^T| 1.2e-14; min eig 0.388)
+   make_spd_matrix exact symmetry: False (max asymmetry 1.2e-14)
+ok   make_sparse_spd_matrix(30, alpha=0.9): exactly symmetric, positive definite, sparse  (zeros 0.83, min eig 0.103)
+ok   make_sparse_spd_matrix(norm_diag=True): unit diagonal, still PD
+ok   make_sparse_spd_matrix(sparse_format='csr') [1.4+]: sparse CSR equal to the dense output
+ok   make_multilabel_classification(allow_unlabeled=True): labels per sample ~ Poisson(2) truncated to [0, n_classes] (mean 1.8095)  (mean 1.8022; min 0 max 4)
+ok   make_multilabel_classification(length=30): row sums (document lengths) ~ Poisson(30) conditioned >= 1  (mean 30.218)
+ok   make_multilabel_classification(return_distributions=True): p_c sums to 1, p_w_c columns sum to 1
+ok   make_multilabel_classification(allow_unlabeled=False): labels per sample ~ Poisson(2) truncated to [1, n_classes] (mean 2.1111)  (mean 2.1187; min 1 max 4)
+ok   make_multilabel_classification(length=30): row sums (document lengths) ~ Poisson(30) conditioned >= 1  (mean 30.125)
+ok   make_multilabel_classification(return_distributions=True): p_c sums to 1, p_w_c columns sum to 1
+ok   make_multilabel_classification(sparse=True, return_indicator='sparse') = dense variant (same seed)
+ok   make_multilabel_classification(return_indicator=False): list of label lists matching the indicator
+ok   make_biclusters((30,20), 3, noise=0): every row/column in exactly one bicluster; each bicluster block constant in [minval, maxval]; zeros elsewhere
+ok   make_checkerboard((24,18), (3,2)): 6 biclusters tile the matrix; each block constant in [minval, maxval]
+ok   make_biclusters(noise=2.0): X - noiseless X has std ~ 2 (same seed, shuffle=False)  (std 1.978)
+ok   make_sparse_coded_signal (data_transposed=False layout): Y = X D, D rows (atoms) unit norm, each code row has exactly n_nonzero_coefs nonzeros
+== datasets: bundled load_*
+ok   load_iris: data (150, 4), 50 per class, target_names setosa/versicolor/virginica, 4 feature_names
+ok   load_iris: documented summary statistics (sepal length min 4.3 max 7.9 mean 5.84; petal width mean 1.20)  (mean sl 5.8433, pw 1.1993)
+ok   load_iris(return_X_y=True) returns (data, target)
+ok   load_digits: (1797, 64), images (1797, 8, 8) = data reshaped, integer values 0..16, class counts from DESCR  ([178, 182, 177, 183, 181, 182, 181, 179, 174, 180])
+ok   load_digits(n_class=5): only digits 0..4 (the matching rows of the full set)
+ok   load_wine: (178, 13), class counts 59/71/48  ([59, 71, 48])
+ok   load_breast_cancer: (569, 30), 212 malignant (target 0) / 357 benign (target 1)
+ok   load_diabetes: (442, 10), integer target in [25, 346]
+   diabetes: max|scaled - (raw-mean)/(std*sqrt(n))| 2.78e-17; column sums of squares [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]; |mean| max 2.3e-16
+ok   load_diabetes(scaled=True): each feature mean-centred and scaled by std * sqrt(n_samples) (recomputed from scaled=False, to 1e-6 abs)  (max|diff| 2.8e-17)
+ok   load_diabetes(scaled=True): 'the sum of squares of each column totals 1' (to 1e-4)
+ok   load_diabetes(scaled=False): raw age 19..79 and sex coded 1/2
+ok   load_linnerud: data (20, 3) exercise [Chins, Situps, Jumps], target (20, 3) physiological [Weight, Waist, Pulse]
+ok   load_* return Bunch objects with DESCR text and frame=None without as_frame
+== utils.extmath
+ok   randomized_svd on an exactly rank-5 60x40 matrix: singular values = exact SVD (rel 1e-10), U S Vt reconstructs M  (max rel 5.9e-16)
+ok   randomized_svd(flip_sign=True) (60, 40): the largest-|.| loading of each left singular vector is positive
+ok   randomized_svd on an exactly rank-5 30x70 matrix: singular values = exact SVD (rel 1e-10), U S Vt reconstructs M  (max rel 2.7e-16)
+ok   randomized_svd(flip_sign=True) (30, 70): the largest-|.| loading of each left singular vector is positive
+ok   randomized_svd on a full-rank Gaussian matrix, n_iter=10: top-10 singular values within 2% of exact  (max rel 2.5e-15)
+ok   weighted_mode docstring example 1: ([4,1,4,2,4,2], ones) -> (array([4.]), array([3.]))
+ok   weighted_mode docstring example 2: weights [1,3,0.5,1.5,1,2] -> (array([2.]), array([3.5]))
+ok   weighted_mode tie ('more than one such value, only the first is returned'): smallest tied value
+ok   weighted_mode(axis=1) on a 2-D array = per-row weighted mode (plain Python)
+ok   safe_sparse_dot(sparse, dense) = dense product (returned dense)
+ok   safe_sparse_dot(sparse, sparse) is sparse unless dense_output=True
+ok   safe_sparse_dot(dense 1-D, dense 1-D) = inner product
+ok   row_norms = sqrt(sum x^2) per row; squared=True the squares; sparse same
+ok   stable_cumsum: float64 cumulative sum of the float32 input
+ok   softmax = exp(x) / sum exp(x) per row (mpmath), rows sum to 1, no overflow for |x| ~ 100
+ok   softmax(1000 + x) = softmax(x) (max subtracted before exp)
+ok   softmax(copy=False) works in place
+ok   density(sparse) = nnz / (rows * cols) (docstring example: 0.25)
+ok   cartesian docstring example (([1,2,3],[4,5],[6,7])) -> 12 rows in lexicographic order
+ok   cartesian of int and float arrays [1.2+]: dtype = most permissive (float64)
+ok   fast_logdet docstring example [[5,1],[2,8]] -> log(38)
+ok   fast_logdet(SPD) = log det (mpmath)
+ok   fast_logdet: negative determinant -> -inf; singular -> -inf
+== utils.class_weight
+ok   compute_class_weight('balanced') docstring example [1,1,1,1,0,0] -> [1.5, 0.75]
+ok   compute_class_weight('balanced') = n_samples / (n_classes * bincount(y)) (Fractions)
+ok   compute_class_weight(None) = ones; dict -> given weights, missing classes 1
+ok   compute_class_weight: labels in y missing from classes raise ValueError  (ValueError)
+ok   compute_class_weight('balanced'): a class absent from y raises ValueError ('classes should have valid labels that are in y')  (ValueError)
+ok   compute_class_weight('balanced', sample_weight) = sum(w) / (n_classes * weighted class count) ('weighted equivalent')
+ok   compute_sample_weight('balanced') docstring example -> [0.75]*4 + [1.5]*2
+ok   compute_sample_weight('balanced', 2-output y): 'the weights of each column of y will be multiplied'
+ok   compute_sample_weight([dict, dict], multi-output) = product of the per-output dict weights
+ok   compute_sample_weight('balanced', indices=bootstrap): class weights from y[indices] (repeats counted), applied to all samples  ([0.8889, 0.8889, 0.8889, 0.8889, 0.8889, 1.3333, 1.3333, 1.3333, 1.3333, 1.3333])
+ok   compute_sample_weight(dict, indices=...) raises ValueError ('Only balanced is supported ... if this is provided')  (ValueError)
+== utils: resample / shuffle / chunking / Bunch
+ok   resample default: bootstrap of n rows with replacement, arrays resampled consistently
+ok   resample(replace=False, n_samples=7): 7 distinct rows, consistent
+ok   resample(replace=False, n_samples > n) raises ValueError  (ValueError)
+ok   resample(stratify=y, n_samples=20, replace=False): class proportions preserved (15 / 5)  ([15, 5])
+ok   resample(stratify=y, replace=True, n_samples=12): 9 / 3  ([9, 3])
+ok   resample(sample_weight) [1.7+]: zero-weight rows never drawn; frequencies proportional to weights (1:3)  (frac of 5: 0.7522)
+ok   shuffle: a permutation of the rows, applied consistently to arrays and sparse matrices
+ok   shuffle(n_samples=5): first 5 rows of the permutation
+ok   gen_batches docstring examples: (7,3), (6,3), (2,3), (7,3,min_batch_size=0), (7,3,min_batch_size=2)
+ok   gen_even_slices docstring examples: (10,1), (10,10), (10,5), (10,3)
+ok   gen_even_slices(n, n_packs) for 1 <= n < 23, packs < 8: contiguous, cover 0..n, sizes differ by <= 1, larger first
+ok   gen_even_slices(10, 3, n_samples=8): slices clipped at n_samples  ([slice(0, 4, None), slice(4, 7, None), slice(7, 8, None)])
+ok   Bunch docstring: b['b'] == b.b == 2; b.a = 3 -> b['a'] == 3; b.c = 6 -> b['c'] == 6; keys readable as attributes
+ok   Bunch survives pickling (keys and attribute access)
+ok   Bunch: missing attribute raises AttributeError
+== utils.sparsefuncs
+ok   mean_variance_axis(csr, axis=0) = dense mean and population variance
+ok   mean_variance_axis(csr, axis=1) = dense mean and population variance
+ok   mean_variance_axis(csc, axis=0) = dense mean and population variance
+ok   mean_variance_axis(csc, axis=1) = dense mean and population variance
+ok   mean_variance_axis(weights, return_sum_weights=True): weighted mean / variance, sum of weights per feature
+ok   mean_variance_axis docstring example -> ([2, 0.25, 1.75], [12, 0.1875, 4.1875])
+ok   incr_mean_variance_axis docstring example (last_n=2, zero stats): = mean/var of the 6 combined rows (Fractions)  ([1.3333, 0.1667, 1.1667], [8.8889, 0.1389, 3.4722], [6.0, 6.0, 6.0])
+ok   incr_mean_variance_axis: stats of batch A updated with batch B = stats of A u B
+ok   incr_mean_variance_axis: 'NaNs are ignored' -> nanmean / nanvar per feature and per-feature counts  (n [11.0, 12.0, 10.0, 12.0, 12.0])
+ok   incr_mean_variance_axis(axis=1) from zero stats = per-row mean / variance
+== utils.validation.check_array
+ok   check_array(float32, dtype='numeric') preserves float32; int64 preserved
+ok   check_array(object array of numbers, dtype='numeric') -> float64 ('dtype is preserved unless array.dtype is object')
+ok   check_array(int, dtype=[float64, float32]) -> first listed type; float32 kept
+ok   check_array: NaN / inf raise ValueError by default (ensure_all_finite=True)
+ok   check_array(ensure_all_finite='allow-nan'): NaN passes, inf still raises
+ok   check_array(ensure_all_finite=False): NaN and inf pass
+ok   check_array(read-only, force_writeable=True): writeable result, input left read-only and unchanged
+ok   check_array(read-only) default keeps the read-only view (no copy forced)
+ok   check_array(1-D) raises ValueError ('Expected 2D array'); ensure_2d=False passes
+ok   check_array(3-D) raises unless allow_nd=True
+ok   check_array(0 samples) raises ValueError (ensure_min_samples=1); 0 features raises (ensure_min_features=1)
+ok   check_array(complex) raises ValueError ('Complex data not supported')
+ok   check_array(sparse, accept_sparse=False) raises TypeError; accept_sparse='csr' converts csc -> csr
+ok   check_array(order='F') returns Fortran-contiguous; copy=True returns a new buffer
+ok   check_array(ensure_non_negative=True) [1.6+] raises on a negative entry
+ok   check_array(list of lists) -> float64 ndarray
+== utils.multiclass.type_of_target
+ok   type_of_target([0.1, 0.6]) = 'continuous' (docstring example)  (got 'continuous')
+ok   type_of_target([1, -1, -1, 1]) = 'binary' (docstring example)  (got 'binary')
+ok   type_of_target(['a', 'b', 'a']) = 'binary' (docstring example)  (got 'binary')
+ok   type_of_target([1.0, 2.0]) = 'binary' (docstring example)  (got 'binary')
+ok   type_of_target([1, 0, 2]) = 'multiclass' (docstring example)  (got 'multiclass')
+ok   type_of_target([1.0, 0.0, 3.0]) = 'multiclass' (docstring example)  (got 'multiclass')
+ok   type_of_target(['a', 'b', 'c']) = 'multiclass' (docstring example)  (got 'multiclass')
+ok   type_of_target([[1, 2], [3, 1]]) = 'multiclass-multioutput' (docstring example)  (got 'multiclass-multioutput')
+ok   type_of_target([[1, 2]]) = 'multilabel-indicator' (docstring example)  (got 'multilabel-indicator')
+ok   type_of_target([[1.5, 2.0], [3.0, 1.6]]) = 'continuous-multioutput' (docstring example)  (got 'continuous-multioutput')
+ok   type_of_target([[0, 1], [1, 1]]) = 'multilabel-indicator' (docstring example)  (got 'multilabel-indicator')
+ok   type_of_target: <= 2 discrete values -> 'binary'  (got 'binary')
+ok   type_of_target: column vector -> 'multiclass'  (got 'multiclass')
+ok   type_of_target: column vector of floats -> 'continuous'  (got 'continuous')
+ok   type_of_target: 3d array -> 'unknown'  (got 'unknown')
+ok   type_of_target: sparse indicator -> 'multilabel-indicator'  (got 'multilabel-indicator')
+ok   type_of_target: 2 unique values, >= 2 columns -> 'multilabel-indicator'  (got 'multilabel-indicator')
+FAIL type_of_target: 1 x 2 floats: 'continuous-multioutput' needs both dimensions > 1, 'continuous' needs 1d/column -> 'unknown'  (got 'continuous-multioutput')
+FAIL type_of_target: 1 x 3 ints: 'multiclass-multioutput' needs both dimensions > 1 -> 'unknown'  (got 'multiclass-multioutput')
+FAIL type_of_target(sequence of sequences [[1,2],[3]]) -> 'unknown' (Returns: "'unknown': ... such as a 3d array, sequence of sequences")  (got 'ValueError')
+ok   type_of_target(array of non-sequence objects) -> 'unknown'  (got 'unknown')
+== utils: graph / murmurhash3_32
+ok   single_source_shortest_path_length docstring example 1 -> {0: 0, 1: 1, 2: 2}
+ok   single_source_shortest_path_length docstring example 2 (ones 6x6, source 2)
+ok   single_source_shortest_path_length on a random graph = plain-Python BFS hop counts (all sources)
+ok   single_source_shortest_path_length(cutoff=2): only paths of length <= cutoff
+ok   pure-Python MurmurHash3_x86_32 reproduces the published test vectors ('' seed 0 -> 0, '' seed 1 -> 0x514E28B7, 'hello' seed 0 -> 0x248BFA47)
+ok   murmurhash3_32(str) = MurmurHash3_x86_32 of the UTF-8 bytes; positive=False -> signed int32, positive=True -> unsigned (seeds 0, 1, 42, 2^31-1)
+ok   murmurhash3_32(bytes) = MurmurHash3_x86_32 of the bytes
+ok   murmurhash3_32(np.int32 key) = hash of its 4 little-endian bytes
+ok   murmurhash3_32(int32 array, positive=True) = element-wise unsigned hashes
