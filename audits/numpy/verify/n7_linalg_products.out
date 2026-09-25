@@ -1,0 +1,345 @@
+numpy 2.4.6  mpmath 1.4.1  python 3.11.15
+---- qr
+ok   qr reduced tall 6x4: Q (M,K) with orthonormal columns, R (K,N) upper-triangular, Q@R = A  (|Q^T Q - I| 5.6e-16, |QR - A| 1.2e-15)
+ok   qr complete tall 6x4: Q (M,M) orthogonal (|det| = 1, 'may be either +/- 1'), R (M,N) upper, Q@R = A, first K columns = reduced Q  (det Q = +1.000000)
+ok   qr mode='r' tall 6x4: returns only R (K,N), identical to reduced R
+ok   qr mode='raw' tall 6x4: h (N,M) float64, tau (K,); Householder reconstruction prod(I - tau_i v_i v_i^T) @ triu(h.T) = A and equals mode='complete'
+ok   qr tall 6x4 vs mpmath.qr at 50 digits: |R_ii| equal; Q columns and R rows equal up to a common sign per column  (sign convention undocumented; signs of diag(R): LAPACK [-1, 1, 1, 1], mpmath [-1, 1, 1, 1])
+ok   qr reduced wide 4x6: Q (M,K) with orthonormal columns, R (K,N) upper-triangular, Q@R = A  (|Q^T Q - I| 4.4e-16, |QR - A| 5.6e-16)
+ok   qr complete wide 4x6: Q (M,M) orthogonal (|det| = 1, 'may be either +/- 1'), R (M,N) upper, Q@R = A, first K columns = reduced Q  (det Q = -1.000000)
+ok   qr mode='r' wide 4x6: returns only R (K,N), identical to reduced R
+ok   qr mode='raw' wide 4x6: h (N,M) float64, tau (K,); Householder reconstruction prod(I - tau_i v_i v_i^T) @ triu(h.T) = A and equals mode='complete'
+ok   qr wide 4x6 vs mpmath.qr at 50 digits: |R_ii| equal; Q columns and R rows equal up to a common sign per column  (sign convention undocumented; signs of diag(R): LAPACK [1, -1, -1, -1], mpmath [1, -1, -1, -1])
+ok   qr reduced square 5x5: Q (M,K) with orthonormal columns, R (K,N) upper-triangular, Q@R = A  (|Q^T Q - I| 6.7e-16, |QR - A| 6.7e-16)
+ok   qr complete square 5x5: Q (M,M) orthogonal (|det| = 1, 'may be either +/- 1'), R (M,N) upper, Q@R = A, first K columns = reduced Q  (det Q = +1.000000)
+ok   qr mode='r' square 5x5: returns only R (K,N), identical to reduced R
+ok   qr mode='raw' square 5x5: h (N,M) float64, tau (K,); Householder reconstruction prod(I - tau_i v_i v_i^T) @ triu(h.T) = A and equals mode='complete'
+ok   qr square 5x5 vs mpmath.qr at 50 digits: |R_ii| equal; Q columns and R rows equal up to a common sign per column  (sign convention undocumented; signs of diag(R): LAPACK [-1, 1, -1, 1, -1], mpmath [-1, 1, -1, 1, -1])
+ok   qr on a stack (3,5,4): Q (3,5,4), R (3,4,4), each Q[i] @ R[i] = A[i] with orthonormal Q[i] (documented '... stack of the matrices')
+ok   qr stack: mode='complete' shapes (3,5,5),(3,5,4); mode='r' (3,4,4) = reduced R; mode='raw' h (3,4,5), tau (3,4)
+ok   qr complex (5,3): Q^H Q = I, R upper-triangular, Q@R = A, complex128 output
+   complex qr: diag(R) = [(-2.581844+0j), (-3.094276+0j), (2.627788+0j)] (real diagonal from LAPACK zgeqrf, undocumented)
+ok   qr dtypes: int input -> float64 Q,R; float32 stays float32; complex64 stays complex64
+ok   qr of a 1-D array raises LinAlgError ('Array must be at least two-dimensional')
+---- cholesky
+ok   cholesky: L lower-triangular, L L^T = A, equals mpmath.cholesky at 50 digits  (|L - L_mp| 2.2e-16)
+ok   cholesky reads only the lower triangle (documented 'only the lower or upper-triangular and diagonal elements of a are used'): garbage in the upper triangle ignored
+ok   cholesky(upper=True) [2.0]: U upper-triangular, U^H U = A, U = L^T
+ok   cholesky(upper=True) reads only the UPPER triangle: garbage in the lower triangle ignored
+ok   cholesky(upper=True) with garbage in the upper triangle (lower-only input) does NOT return the factor of A (here: the garbage triangle is not PD -> LinAlgError)
+ok   cholesky of a non-positive-definite symmetric matrix raises LinAlgError
+ok   cholesky on a stack (3,5,5): each L[i] equals mpmath.cholesky(A[i])
+ok   cholesky complex Hermitian: L lower with real positive diagonal, L L^H = A, equals mpmath
+ok   cholesky dtypes: int -> float64; float32 -> float32; complex64 -> complex64
+---- eig / eigvals
+ok   eig(5x5 non-symmetric): eigenvalues match mpmath.eig at 50 digits (nearest-neighbour matching)  (max |dw| 1.0e-15; np dtype complex128)
+ok   eig: A v_i = w_i v_i for every column
+ok   eig: eigenvectors have unit 2-norm (documented 'normalized (unit length)')
+ok   eigvals equals the eigenvalues from mpmath (same nearest-neighbour test)
+ok   eig of a real rotation: complex128 output, eigenvalues +-i in conjugate pairs (documented 'occur in conjugate pairs')
+   eig(rot) eigenvector 0 = [(0.7071067811865475+0j), -0.7071067811865475j] (LAPACK: unit 2-norm, largest component real)
+ok   eig of a real matrix with all-real eigenvalues returns a REAL dtype (documented 'unless the imaginary part is zero in which case it will be cast to a real type')
+ok   eig of the defective matrix [[1,1],[0,1]]: eigenvalues [1,1], eigenvector matrix rank 1 (documented 'may not be of maximum rank')  (eigenvectors [[1.0, -1.0], [0.0, 0.0]])
+ok   eig on a stack (3,4,4): eigenvalues (3,4) each matching mpmath; A[i] v = w v
+ok   eig dtypes: float32 -> float32 eigenvalues (real case) / complex64 (complex case), vectors float32; complex64 -> complex64; int -> float64  (float32 5x5 -> complex64)
+ok   eig float32 eigenvalues agree with mpmath to 1e-5 relative
+ok   eig with NaN input raises LinAlgError (source _assert_finite; docstring lists only non-convergence)
+ok   eig complex (4,4): eigenvalues match mpmath, A v = w v, unit-norm vectors
+---- eigh / eigvalsh
+ok   eigvalsh(UPLO='L', default) on a NON-symmetric input uses the lower triangle (eigenvalues of tril+tril^T from mpmath.eigsy, ascending)
+ok   eigvalsh(UPLO='U') uses the upper triangle (and differs from 'L' here)
+ok   eigh(UPLO='L'/'U') eigenvalues ascending (documented) and match the same triangle rule; V diag(w) V^T reconstructs the symmetrised triangle
+ok   eigh eigenvectors orthonormal, unit norm (documented 'normalized eigenvector')
+ok   eigh/eigvalsh reject UPLO other than 'L'/'U' (ValueError)
+ok   eigh complex Hermitian: real ascending eigenvalues match mpmath.eighe; V^H V = I; V diag(w) V^H = H
+ok   eigh/eigvalsh ignore the imaginary part of the diagonal (documented 'imaginary part of the diagonal will always be treated as zero')
+ok   eigvalsh on a stack (3,4,4): row i = eigenvalues of A[i] (mpmath)
+ok   eigh dtypes: float32 -> float32 values and vectors; complex64 -> float32 values, complex64 vectors; int -> float64
+---- svd / svdvals
+ok   svd tall 6x4 full_matrices=True: U (M,M), S (K,) descending, Vh (N,N); U, Vh orthogonal; U[:, :K] diag(s) Vh[:K] = A; s = mpmath.svd_r
+ok   svd tall 6x4 full_matrices=False: U (M,K), Vh (K,N) with orthonormal columns/rows, (u*s)@vh = A, same s
+ok   svd tall 6x4 compute_uv=False returns only s (K,) = mpmath singular values
+ok   svdvals tall 6x4 [2.0] = mpmath singular values, descending
+ok   svd wide 4x6 full_matrices=True: U (M,M), S (K,) descending, Vh (N,N); U, Vh orthogonal; U[:, :K] diag(s) Vh[:K] = A; s = mpmath.svd_r
+ok   svd wide 4x6 full_matrices=False: U (M,K), Vh (K,N) with orthonormal columns/rows, (u*s)@vh = A, same s
+ok   svd wide 4x6 compute_uv=False returns only s (K,) = mpmath singular values
+ok   svdvals wide 4x6 [2.0] = mpmath singular values, descending
+ok   svd(hermitian=True) on a symmetric matrix: s = |eigenvalues| descending (mpmath.eigsy), U orthonormal, (u*s)@vh reconstructs A
+ok   svd(hermitian=True) equals svd(hermitian=False) singular values on a symmetric matrix
+   svd(hermitian=True) on a NON-symmetric input silently uses one triangle: [3.705354, 3.303886, 1.75589, 0.679168] vs true singular values [3.792134, 3.004971, 1.899365, 0.779404] (documented 'a is assumed to be Hermitian')
+ok   svd on a stack (3,5,3): U (3,5,5), S (3,3), Vh (3,3,3); each S[i] = mpmath; reconstruction per matrix
+ok   svd complex (5,3): s real float64 = mpmath.svd_c, U^H U = I, Vh Vh^H = I, (u*s)@vh = A
+ok   svd rank-deficient (rank-2 6x4): s[2:] below 1e-14 * s[0], the two leading terms reconstruct A, U and Vh still orthogonal  (s = ['1.86e+00', '1.23e+00', '1.38e-16', '4.82e-17'])
+ok   svd dtypes: float32 -> float32 U, s, Vh; complex64 -> float32 s, complex64 U/Vh; int -> float64
+ok   svd float32 singular values agree with mpmath to 1e-5 relative
+---- tensorinv / tensorsolve
+ok   tensorinv(ind=2) of (4,6,8,3): shape a.shape[ind:] + a.shape[:ind] = (8,3,4,6) and equals inv(a.reshape(24,24)).reshape(...) (mpmath.inverse)  (max diff 3.6e-15)
+ok   tensordot(tensorinv(a), a, ind) is the identity tensor (documented)
+ok   tensorinv(ind=1) of (6,2,3): shape (2,3,6) = inv(a.reshape(6,6)).reshape(2,3,6)
+ok   tensorinv of a non-'square' tensor raises LinAlgError; ind=0 raises ValueError
+ok   tensorsolve(a (6,4,2,3,4), b (6,4)): x shape Q = (2,3,4) equals lu_solve(a.reshape(24,24), b.ravel()) (mpmath); tensordot(a, x, 3) = b
+ok   tensorsolve(axes=(0,1,2)) moves those axes of a to the right before solving (documented): same x from the permuted a
+ok   tensorsolve with prod(Q) != prod(b.shape) raises LinAlgError
+---- multi_dot
+ok   multi_dot of 4 integer matrices equals the exact chained product (Python ints)
+ok   multi_dot of 2 and of 3 matrices (different code paths) exact
+ok   multi_dot: 1-D first argument treated as a row vector -> result shape (3,)
+ok   multi_dot: 1-D last argument treated as a column vector -> (3,); both 1-D -> 0-d scalar
+ok   multi_dot with fewer than 2 arrays raises ValueError; a 3-D middle argument raises LinAlgError
+---- matrix_power
+ok   matrix_power(A, 0) = identity with the dtype of A (documented 'the identity matrix ... is returned')
+ok   matrix_power(A, 1) = A; A^2, A^3 (short-cuts) and A^30 exact for the Fibonacci matrix
+ok   matrix_power on int64 beyond 2**63 (Fib^90, F_91 = 4.66e18 < 2**63, F_92 would overflow): still exact at n=90  ([[4660046610375530309, 2880067194370816120], [2880067194370816120, 1779979416004714189]])
+ok   matrix_power int64 overflow (Fib^92 needs F_93 = 1.2e19 > 2**63): silent wraparound, no error (NumPy integer semantics; undocumented for matrix_power)  (got -6246583658587674878, exact 12200160415121876738)
+ok   matrix_power(A, -3) = inv(A)^3 (mpmath), float output
+ok   matrix_power(int A, -1) returns floating point (documented 'If the exponent is negative the elements are floating-point')
+ok   matrix_power of a singular matrix with negative exponent raises LinAlgError
+ok   matrix_power with a non-integer exponent raises TypeError; non-square raises LinAlgError
+ok   matrix_power(A, 60) of a random 3x3 agrees with 60 mpmath multiplications at 50 digits to 1e-11 relative  (rel err 1.5e-15; |A^60| ~ 1.13e+10)
+ok   matrix_power on a stack (3,2,2), n=5: each equals the exact per-matrix power
+ok   matrix_power on a stack, n=0 and n=-1 (float stack) per matrix
+---- cond
+ok   cond(p=None) = norm(x, p) * norm(inv(x), p) with the documented norm (mpmath at 50 digits)  (55.135942 vs 55.135942)
+ok   cond(p=2) = norm(x, p) * norm(inv(x), p) with the documented norm (mpmath at 50 digits)  (55.135942 vs 55.135942)
+ok   cond(p=-2) = norm(x, p) * norm(inv(x), p) with the documented norm (mpmath at 50 digits) [-2: smallest/largest singular value]  (0.018137 vs 0.018137)
+ok   cond(p=1) = norm(x, p) * norm(inv(x), p) with the documented norm (mpmath at 50 digits)  (87.859112 vs 87.859112)
+ok   cond(p=-1) = norm(x, p) * norm(inv(x), p) with the documented norm (mpmath at 50 digits)  (8.298548 vs 8.298548)
+ok   cond(p=inf) = norm(x, p) * norm(inv(x), p) with the documented norm (mpmath at 50 digits)  (122.043067 vs 122.043067)
+ok   cond(p=-inf) = norm(x, p) * norm(inv(x), p) with the documented norm (mpmath at 50 digits)  (5.964973 vs 5.964973)
+ok   cond(p='fro') = norm(x, p) * norm(inv(x), p) with the documented norm (mpmath at 50 digits)  (60.723225 vs 60.723225)
+ok   cond(p='nuc') = norm(x, p) * norm(inv(x), p) with the documented norm (mpmath at 50 digits)  (103.372740 vs 103.372740)
+ok   cond of an exactly singular matrix: p=1 (via inv) -> inf (nans converted to inf, per source); p=None (via SVD) is only 'huge' (~1e16) because gesdd returns a rounding-level smallest singular value; zero matrix -> inf for both  (cond(Sing) = 4.805e+16, cond(Sing, 1) = inf, cond(0) = inf)
+ok   cond of a non-square (6,4) matrix with p=None: s_max / s_min
+ok   cond of a non-square matrix with p=1 raises LinAlgError (needs the inverse); empty matrix raises LinAlgError
+ok   cond on a stack (3,4,4), p=None and p='fro': per-matrix values (mpmath)
+ok   cond result dtype: float64 for float64 input, float32 for float32 input (p=None and p=1)
+---- slogdet / det
+ok   slogdet(4x4): sign = sign(det), logabsdet = log|det| (mpmath.det), sign * exp(logabsdet) = det(A)  (det 0.415717, sign 1.0, logabsdet -0.877750)
+ok   slogdet of a singular matrix: (0, -inf) (documented); det = 0
+ok   slogdet complex: sign on the unit circle (|sign| = 1), logabsdet = log|det|, sign * exp(logabsdet) = det (mpmath)
+ok   slogdet where det overflows: det = -inf but slogdet = (-1, 600 ln 10) (documented robustness)
+ok   slogdet on a stack (3,4,4): per-matrix sign and log|det| (mpmath)
+ok   det of an int 5x5 matrix: float64 result equal to the exact Fraction determinant to 1e-9 relative  (exact 42754, numpy np.float64(42753.99999999998), abs err 2.18e-11)
+ok   det of an int 10x10 matrix vs Fraction: 1e-8 relative  (exact 29578378, numpy np.float64(29578378.000000034), rel err 1.1e-15)
+ok   det/slogdet dtypes: int -> float64; float32 -> float32 (det, sign, logabsdet); complex64 -> complex64 det, complex64 sign, float32 logabsdet
+ok   det of a 1-D array / non-square raises LinAlgError
+---- norm
+ok   norm(vector, ord=None) = documented formula  (8.97218)
+ok   norm(vector, ord=2) = documented formula  (8.97218)
+ok   norm(vector, ord=1) = documented formula  (17.001)
+ok   norm(vector, ord=inf) = documented formula  (7)
+ok   norm(vector, ord=-inf) = documented formula  (0.001)
+ok   norm(vector, ord=0) = documented formula  (6)
+ok   norm(vector, ord=0.5) = documented formula  (75.6495)
+ok   norm(vector, ord=3) = documented formula  (7.66167)
+ok   norm(vector, ord=-1) = documented formula  (0.000996884)
+ok   norm(vector, ord=-2) = documented formula  (0.000999998)
+ok   norm(vector, ord=4.5) = documented formula  (7.16769)
+ok   norm(vector with a zero, ord=-1) = (sum |x|^-1)^-1 = 0 (1/0 = inf term); ord=-inf = 0
+ok   norm(vector, 'fro') and ('nuc') raise ValueError ('only defined for matrices'); ord=0 on a matrix raises ValueError
+ok   norm(matrix 4x5, ord=None) = documented matrix norm (mpmath)  (4.25105)
+ok   norm(matrix 4x5, ord='fro') = documented matrix norm (mpmath)  (4.25105)
+ok   norm(matrix 4x5, ord='nuc') = documented matrix norm (mpmath)  (6.43105)
+ok   norm(matrix 4x5, ord=1) = documented matrix norm (mpmath)  (5.50034)
+ok   norm(matrix 4x5, ord=-1) = documented matrix norm (mpmath)  (1.6286)
+ok   norm(matrix 4x5, ord=2) = documented matrix norm (mpmath)  (3.94166)
+ok   norm(matrix 4x5, ord=-2) = documented matrix norm (mpmath)  (0.302765)
+ok   norm(matrix 4x5, ord=inf) = documented matrix norm (mpmath)  (5.90568)
+ok   norm(matrix 4x5, ord=-inf) = documented matrix norm (mpmath)  (1.99236)
+ok   norm(3-D, axis=(1,2), ord=1): vector of per-matrix max column sums; axis=(0,2) treats X[:, j, :] as the matrices; negative axes accepted
+ok   norm(3-D, axis=1, ord=3): vector norms along axis 1 -> shape (2,4)
+ok   norm keepdims=True: axis=(1,2) -> (2,1,1); axis=1 -> (2,1,4); axis=None -> (1,1,1)
+ok   norm(3-D, axis=None, ord=None) = 2-norm of the flattened array (documented); ord=2 with 3-D and axis=None raises ValueError
+ok   norm complex vector: sqrt(sum |z|^2), ord=1 sum |z|, ord=inf max |z|; complex matrix 'fro' and 2 (mpmath)
+ok   norm result dtype: float32 input -> float32 (vector 2-norm, ord=1, matrix 'fro', matrix 2 via svd); complex64 -> float32
+ok   norm of float32 vector agrees with the float64 truth to 1e-6 relative
+ok   norm of an int8 array is computed in float64 (source: non-inexact input cast with astype(float)): no int8 overflow, sqrt(30000) and column-sum 200
+ok   norm of int64 values 2**62: float64 result 2**62 * sqrt(2) (no integer overflow, values exactly representable)
+ok   norm of empty arrays: norm([]) = 0.0; norm(zeros((0,3))) = 0.0 (fro); ord=1 of an empty (0,3) matrix = 0.0
+ok   norm(empty (0,3), ord=2 / inf / 'nuc') = 0.0 [2.x: reductions carry initial=0]
+   norm(empty (0,3), ord=-2) raises ValueError: zero-size array to reduction operation minimum which has no identity
+   norm(empty vector, ord=-inf) raises ValueError: zero-size array to reduction operation minimum which has no identity
+ok   norm of a single-element vector: every ord (2, 1, inf, -inf, 0.5, 3, -1) = |x|
+ok   norm with NaN: vector 2-norm nan; ord=inf nan (max propagates); ord=0 counts the nan as non-zero
+ok   linalg.matrix_norm [2.0]: default 'fro' on the last two axes; ord=2 = s_max; linalg.vector_norm default: 2-norm over ALL axes (flattened) and axis=(-1) per-row
+---- lstsq
+ok   lstsq overdetermined (8,3), 1-D b: x = normal-equation solution (mpmath, 50 digits); residuals shape (1,) = ||b - Ax||^2; rank 3; s = mpmath singular values  (residual 7.361476 vs 7.361476)
+ok   lstsq 2-D b (8,2) multi-rhs: x (3,2) per column, residuals shape (K,)=(2,) each ||b_k - A x_k||^2
+ok   lstsq with b of shape (M,1): x (N,1), residuals (1,)
+ok   lstsq rank-deficient (8,3 with col3 = col1 + col2): rank 2, residuals EMPTY (documented 'If the rank of a is < N ... empty array'), x = minimum-norm solution pinv(A) b (mpmath svd)  (x [-0.03998, -0.200435, -0.240415], s ['6.7e+00', '3.1e+00', '1.0e-15'])
+ok   lstsq underdetermined (3,8): residuals EMPTY (documented 'M <= N'), rank 3, x = minimum-norm solution A^T (A A^T)^-1 b (mpmath); A x = b
+ok   lstsq square full-rank (M == N): residuals empty (M <= N), x = exact solution (mpmath lu_solve)
+ok   lstsq rcond: singular values (1, 1e-3, 1e-9); rcond=1e-6 -> rank 2 (1e-9 < 1e-6 * 1 treated as zero), rcond=1e-12 -> rank 3, rcond=-1 -> machine precision -> rank 3
+ok   lstsq rcond=None: cut-off eps * max(M,N) = 8 eps = 1.8e-15 (documented 'machine precision times max(M, N)'): s3 = 3e-16 counts as zero -> rank 2; rcond=-1 (eps only) -> rank 3  (s = ['1.00e+00', '1.00e-03', '3.08e-16'])
+ok   lstsq default rcond [2.0]: equals rcond=None (eps * max(M,N), rank 2 here), no FutureWarning
+ok   lstsq dtypes: float32 -> float32 x, residuals, s; int A with float b -> float64
+ok   lstsq float32 solution agrees with the float64 truth to 1e-4 relative
+ok   lstsq with incompatible dimensions raises LinAlgError('Incompatible dimensions'); 3-D a raises LinAlgError
+ok   lstsq complex (5,3): x = (A^H A)^-1 A^H b (mpmath), residual real float64 = ||b - A x||^2
+---- solve
+ok   solve(a stack (3,4,4), b 1-D (4,)) [2.0: 'only treated as a column vector if exactly 1-dimensional']: result (3,4), x[i] = lu_solve(a[i], b) (mpmath)
+ok   solve(a stack (3,4,4), b stack (3,4,2)): result (3,4,2), x[i] = lu_solve(a[i], b[i])
+ok   solve(a single (4,4), b stack (3,4,2)): a broadcasts against the stack of b -> (3,4,2)
+ok   solve(a (3,3,3), b (3,3)) [2.0 change]: b with ndim > 1 is a (M,K) MATRIX broadcast over the stack -> (3,3,3), x[i] = solve(a[i], b)
+ok   solve with b (M,1): x (M,1); with b (M,K) on a single a: x (M,K) (mpmath)
+ok   solve singular raises LinAlgError; non-square raises LinAlgError; b with wrong length raises ValueError
+ok   solve dtypes: float32 a and b -> float32; float32 a with float64 b -> float64; int a with int b -> float64; complex64 -> complex64
+ok   solve float32 agrees with mpmath to 1e-4 relative (cond ~ 6)
+ok   solve complex (4,4) equals mpmath lu_solve
+ok   solve with float16 input raises TypeError ('array type float16 is unsupported in linalg', source _commonType)
+---- inv
+ok   inv(4x4) equals mpmath.inverse at 50 digits; A inv(A) = I
+ok   inv on a stack (3,4,4): per-matrix mpmath inverses
+ok   inv of a singular matrix raises LinAlgError('Singular matrix')
+   inv(Hilbert 12): cond = 1.64e+16; |A inv(A) - I|_max = 8.85e-02; warnings emitted: [] (no ill-conditioning warning is documented or emitted)
+ok   inv of an ill-conditioned (Hilbert 12, cond 1e16) matrix returns without error or warning (documented: only singular raises)
+   inv([[1,2],[2,4+1e-15]]) (det ~ 1e-15) returns entries of size 4.5e+15 without warning (0 warnings)
+ok   inv dtypes: int -> float64; float32 -> float32; complex64 -> complex64
+ok   inv float32 agrees with mpmath to 1e-4 relative
+---- pinv
+ok   pinv default (rcond 1e-15): all three singular values kept, equals V S^+ U^T from mpmath.svd_r; A pinv(A) A = A  (|pinv| ~ 5.7e+08, rel diff 1.6e-08)
+ok   pinv(rcond=1e-6): the 1e-9 direction is cut (equals mpmath pinv with the same cut-off); |pinv| ~ 1e3  (|pinv - mp| 3.6e-12, max|pinv| 497.9, s = ['1.0e+00', '1.0e-03', '1.0e-09'])
+ok   pinv cut-off is 'less than OR EQUAL to rcond * largest': diag(1, 1e-3, 1e-9) with rcond=1e-3 keeps only the 1 (the 1e-3 singular value is cut)  (pinv diag = [1.0, 0.0, 0.0])
+ok   pinv rtol [2.0]: rtol=1e-6 same as rcond=1e-6; rtol=None -> max(M,N)*eps (keeps all three here); rtol and rcond together -> ValueError
+ok   pinv(rtol=None) uses the array-API cut-off max(M,N)*eps = 6.7e-16: on diag(1, 1e-3, 8e-16) it KEEPS 8e-16 (-> 1.25e15) while the NumPy default 1e-15 cuts it; 3e-16 is cut by both
+ok   pinv(hermitian=True) on Q diag(2,-1,0) Q^T = Q diag(1/2,-1,0) Q^T (closed form; the ~1e-16 eigenvalue is cut by rcond 1e-15 * 2)  (|pinv - truth| 1.7e-16)
+ok   pinv on a stack (3,4,3): result (3,3,4), each equals the mpmath pseudo-inverse
+ok   pinv with rcond broadcast per matrix (documented '(...) array_like'): rcond=[1e-15, 0.5] on a stack cuts differently
+ok   pinv of a zero (3,4) matrix is the zero (4,3) matrix (no nan)
+ok   pinv of a complex (5,3) matrix equals V S^+ U^H (mpmath.svd_c); dtype rules: float32 -> float32, int -> float64
+ok   pinv of a square invertible matrix equals inv (mpmath.inverse)
+---- matrix_rank
+ok   matrix_rank default: singular values (1, 1e-3, 1e-9) -> 3 (1e-9 > S.max * max(M,N) * eps)
+ok   matrix_rank(tol=1e-6) -> 2; tol=2 -> 0; tol=1e-12 -> 3
+ok   matrix_rank default on (1, 1e-3, 3e-16): 3e-16 < 5 * eps -> rank 2
+ok   matrix_rank rtol [2.0]: rtol=1e-6 -> 2 (threshold rtol * S.max); rtol and tol together -> ValueError; rtol=None same as default
+ok   matrix_rank(hermitian=True) of Q diag(2,-1,0) Q^T = 2
+ok   matrix_rank on a stack (2,5,3): per-matrix ranks [3, 2]; tol broadcast per matrix tol=[1e-6, 1e-25] -> [2, 3]
+ok   matrix_rank of 1-D: 1 unless all zero (documented); 0-d scalar likewise
+ok   matrix_rank of a zero matrix = 0; identity = M; rank-2 6x4 = 2
+---- trace / diagonal / diag
+ok   trace(3-D) default axis1=0, axis2=1: shape (4,), sum_i X[i,i,:]
+ok   trace offset=+1: sum_i X[i, i+1, :]; offset=-1: sum_i X[i+1, i, :]
+ok   trace(axis1=1, axis2=2): shape (2,), sum_j X[b, j, j]; axis1=-1, axis2=-2 same diagonal
+ok   diagonal(3-D, offset=1, axis1=1, axis2=2): shape (2,3) with entries X[b, j, j+1]; offset=-2 -> X[b, j+2, j], shape (2,1)
+ok   diagonal offset beyond the matrix returns an empty (M,0) diagonal; trace then 0
+ok   diag(1-D, k=2) builds a (n+2)x(n+2) matrix with v on the 2nd superdiagonal; diag(2-D, k=-1) extracts the first subdiagonal
+ok   trace of an int8 matrix is accumulated in the platform integer (documented sum dtype rule): [[100,0],[0,100]] -> 200, dtype int64
+ok   trace(dtype=float) of int matrix returns float; trace of float32 stays float32
+ok   linalg.diagonal [2.0] uses the LAST two axes (documented, 'contrary to numpy.diagonal'): equals np.diagonal(axis1=-2, axis2=-1); offset=1 likewise
+ok   linalg.trace [2.0] sums the last-two-axes diagonal: shape (2,); offset=-1; dtype= honoured
+---- outer / kron / cross
+ok   outer(a, b)[i,j] = a[i] b[j]; 2-D inputs are flattened first (documented)
+ok   kron((2,3),(2,2)): shape (4,6), K[i*2+k, j*2+l] = a[i,j] b[k,l] (documented block structure)
+ok   kron with different ndim: kron((3,), (2,2)) prepends 1s to the smaller (documented) -> shape (2,6) = kron(a.reshape(1,3), b)
+ok   kron(scalar-like 1-D, 1-D) = outer(a, b).ravel(); kron(I2, B) is block-diagonal
+ok   cross of 3-vectors = closed form; stacks (4,3)x(4,3) row-wise; anti-commutes; orthogonal to both
+ok   cross of two 2-D vectors returns the scalar z-component (1*4 - 2*3 = -2); mixed 2-D/3-D treats the 2-D one as z = 0
+ok   cross with 2-D vectors emits DeprecationWarning [deprecated in 2.0] ('Arrays of 2-dimensional vectors are deprecated')
+ok   cross with 4-vectors raises ValueError (documented 'dimension ... does not equal 3')
+ok   cross axisa=0, axisb=0, axisc=0 on (3,4) inputs: result (3,4) with column i = cross(a[:,i], b[:,i]); axis=0 equivalent; axisc=-1 puts the vectors in rows
+ok   cross broadcasts a single vector against a stack
+ok   linalg.cross [2.0]: axis=-1 default, axis=0 on (3,4) inputs; 2-D vectors raise ValueError (array-API, no deprecation path); linalg.outer rejects 2-D input (ValueError)
+---- tensordot
+ok   tensordot(a (3,4,5), b (4,5,2), axes=2): sums the last 2 axes of a with the first 2 of b -> (3,2)
+ok   tensordot axes=1 (a (3,4,5), b (5,6)) -> (3,4,6) = a @ b; axes=0 -> outer product shape (3,4,5,5,6)
+ok   tensordot axes=([1,0],[0,1]) (a (3,4,5), b (4,3,2)): sum_{i,j} a[i,j,k] b[j,i,l] -> (5,2)
+ok   tensordot axes=(2, 0) as a pair of ints (a (3,4,5), b (5,6)) -> (3,4,6); axes=([2],[0]) same; axes=(0,1)? contracts a-axis 0 with b-axis 1 on (3,4,5)x(4,3,2) -> (4,5,4,2)
+ok   tensordot with mismatched contraction lengths raises ValueError
+ok   linalg.tensordot [2.0] equals np.tensordot (axes keyword)
+---- einsum
+ok   einsum 'ii' trace equals explicit loops  (shape ())
+ok   einsum 'ii->i' diagonal equals explicit loops  (shape (3,))
+ok   einsum 'ij->ji' transpose equals explicit loops  (shape (4, 3))
+ok   einsum 'ij->' full sum equals explicit loops  (shape ())
+ok   einsum 'ij->i' row sums / 'ij->j' column sums equals explicit loops  (shape (4,))
+ok   einsum 'ij,jk->ik' matmul equals explicit loops  (shape (3, 5))
+ok   einsum 'ij,jk' implicit output = 'ik' (alphabetical free indices) equals explicit loops  (shape (3, 5))
+ok   einsum 'ij,jk->ki' transposed matmul equals explicit loops  (shape (5, 3))
+ok   einsum 'bij,bjk->bik' batch matmul equals explicit loops  (shape (2, 3, 5))
+ok   einsum '...ij,...jk->...ik' ellipsis batch matmul equals explicit loops  (shape (2, 3, 5))
+ok   einsum '...ij,jk->...ik' ellipsis broadcasting a 2-D operand equals explicit loops  (shape (2, 3, 5))
+ok   einsum 'i,j->ij' outer equals explicit loops  (shape (3, 4))
+ok   einsum 'i,i->' inner / 'i,i' implicit equals explicit loops  (shape ())
+ok   einsum 'ij,ij->ij' Hadamard equals explicit loops  (shape (3, 4))
+ok   einsum 'ij,ji->' trace of product equals explicit loops  (shape ())
+ok   einsum 'iij->ij' repeated index on one operand (partial diagonal) equals explicit loops  (shape (3, 4))
+ok   einsum 'iij->j' partial diagonal then sum equals explicit loops  (shape (4,))
+ok   einsum 'ijk->kji' 3-D permutation equals explicit loops  (shape (4, 3, 2))
+ok   einsum 'ijk,k->ij' contraction with a vector equals explicit loops  (shape (2, 3))
+ok   einsum 'i,i,i->' three operands equals explicit loops  (shape ())
+ok   einsum 'ij,jk,kl->il' three-matrix chain equals explicit loops  (shape (3, 5))
+ok   einsum 'ijk,jk->i' broadcasting-style contraction equals explicit loops  (shape (2,))
+ok   einsum 'i...->...' sum over the first axis with ellipsis equals explicit loops  (shape (3, 4))
+ok   einsum optimize=True / 'greedy' / 'optimal' give results identical to optimize=False on a three-matrix chain (exact ints)
+ok   einsum four-index chain 'bij,bjk,kl->bil' with optimize=False/True/'optimal'/path from einsum_path all equal the explicit loops
+ok   einsum_path returns (path, string_repr) with path = ['einsum_path', (pair), (pair)]: n_operands - 1 = 2 contraction tuples
+   einsum_path greedy contraction order: [(0, 1), (0, 1)]
+ok   einsum 0-d result with optimize=False is a scalar (documented); with out= it is the given array
+ok   einsum 'i,i' on int8 [100,100,100]: result dtype int8 (input dtype kept), 30000 wraps to 48 (documented overflow semantics: no promotion, no error); np.dot the same; np.sum(i8*i8) would also be int8 -- np.sum(i8, dtype=int64) needed  (einsum np.int8(48), dot np.int8(48))
+ok   einsum dtype=np.int64 on int8 operands accumulates in int64: exact 30000; dtype=float64 gives 30000.0
+ok   einsum with out= of dtype float64 from int operands requires casting: casting='safe' (default) accepts int->float; result exact
+ok   einsum invalid subscripts: mismatched dimension raises ValueError; output index not in inputs raises ValueError
+ok   einsum on float32 operands keeps float32 and matches the mpmath product of the float32 values to 1e-5 relative
+ok   einsum 'ij,jk->ik' float64 vs mpmath product (30x30) to 1e-13 relative
+---- matmul / dot
+ok   dot(a (2,3,4,2), b (2,3,2,5)): shape (2,3,4,2,3,5), dot(a,b)[i,j,k,m,n,p] = sum(a[i,j,k,:] * b[m,n,:,p]) (documented 'last axis of a and second-to-last of b')
+ok   matmul(a (2,3,4,2), b (2,3,2,5)): shape (2,3,4,5), batch-wise product (documented 'stacks of matrices are broadcast together')
+ok   matmul broadcasting of stacks: (2,1,4,2) @ (1,2,2,5) -> (2,2,4,5) with [i,j] = a[i,0] @ b[0,j]; a 2-D b broadcasts against a 4-D a
+ok   dot with a 1-D b: sum product over the last axis of a (N-D) and b; equals matmul for that case
+ok   matmul with 1-D operands: (4,) @ (4,5) -> (5,) (prepended 1 removed); (3,4) @ (4,) -> (3,); (4,) @ (4,) -> 0-d scalar
+ok   matmul with a scalar raises ValueError (documented 'scalars not allowed'); dot with a scalar multiplies
+ok   @ operator equals np.matmul for 2-D, stacked and 1-D cases
+ok   matmul/dot of 2-D int matrices exact vs Python ints; matmul of int8 keeps int8 (wraps)
+   float32 dot of 1e6 uniform(0,1) pairs: truth 250068.192232; np.dot(float32) = 250068.187500 (rel err 1.89e-08, dtype float32); np.dot(float64) rel err 1.16e-16; np.sum(a*b) float32 (pairwise) rel err 1.89e-08
+ok   np.dot float32 on 1e6 elements: result float32 with relative error below 1e-4 (BLAS sdot, float32 accumulation; reported above); float64 dot within 1e-13
+---- vdot / inner / vecdot / matvec / vecmat
+ok   vdot(a, b) = sum conj(a) b (documented conjugation of the FIRST argument); dot(a, b) does NOT conjugate; vdot(b, a) = conj(vdot(a, b))
+ok   vdot flattens multidimensional arguments (documented): vdot((2,2), (2,2)) = vdot of the raveled arrays
+ok   inner(a (2,3,4), b (5,4)): shape (2,3,5), inner[i,j,k] = sum_l a[i,j,l] b[k,l] (sum over LAST axes of both, documented); inner with a scalar multiplies
+ok   inner of complex 1-D does not conjugate (unlike vdot)
+ok   vecdot [2.0]: sum over the last axis of conj(x1) * x2 (documented conjugation of x1), shape (2,)
+ok   vecdot axis=0 sums over axis 0 -> shape (3,); broadcasting (2,1,3) x (4,3) -> (2,4); 1-D x 1-D -> scalar
+ok   linalg.vecdot [2.0] equals np.vecdot (axis keyword)
+ok   vecdot mismatched last axes raises ValueError
+ok   matvec [2.2]: (2,3,4) x (4,) -> (2,3) = sum_j A[..,i,j] v[j] with NO conjugation (documented); stack of vectors (2,4) pairs with the stack of matrices
+ok   vecmat [2.2]: (3,) x (2,3,4) -> (2,4) = sum_i conj(v[i]) A[..,i,j] (documented conjugation of the vector); stack of vectors; equals vecdot-style conj @
+ok   matvec / vecmat with mismatched core dimensions raise ValueError; real inputs: vecmat = v @ A, matvec = A @ v
+---- array-API aliases / transposes
+ok   np.transpose of a (2,3,4) stack reverses ALL axes by default (documented) -> (4,3,2); axes=(0,2,1) transposes the matrices
+ok   np.matrix_transpose / np.linalg.matrix_transpose / .mT [2.0]: swap the LAST two axes only -> (2,4,3) (documented)
+ok   matrix_transpose of a 1-D array raises ValueError (needs at least 2 dims)
+ok   np.linalg.matmul [2.0] equals np.matmul (stacked ints vs loops); np.linalg.outer equals np.outer for 1-D
+ok   np.linalg.svdvals / matrix_norm / vector_norm / diagonal / trace / cross / tensordot / vecdot / matrix_transpose exist and are listed in np.linalg.__all__ [2.0]
+ok   np.linalg.transpose (undocumented helper in every version) swaps the last two axes (source: 'swapaxes(a, -1, -2)'), unlike np.transpose
+---- LinAlgError
+ok   LinAlgError is a subclass of ValueError since 1.25 (source 'class LinAlgError(ValueError)'), so 'except ValueError' also catches it
+ok   LinAlgError raised by: solve singular, solve non-square, inv singular, inv 1-D, cholesky non-PD, qr 1-D, eig NaN, eigh 1-D, lstsq incompatible, tensorinv non-square, tensorsolve singular, matrix_power singular neg, det 1-D, cond empty, svd 1-D, matrix_power non-square, slogdet non-square
+ok   NOT LinAlgError (by design): matrix_power(A, 2.5) TypeError; norm(v, 'bad') ValueError; solve with mismatched b ValueError; matmul shape mismatch ValueError; multi_dot([A]) ValueError
+ok   singular-matrix LinAlgError message is 'Singular matrix'; non-PD cholesky message 'Matrix is not positive definite'  (LinAlgError('Singular matrix'); LinAlgError('Matrix is not positive definite'))
+---- result dtype rules
+ok   int64 input -> float64 result for inv, det, eigvalsh, cholesky, pinv, svd s, qr R, eig w, eigh V, solve, lstsq x, norm, slogdet logabsdet, cond, matrix_power -1
+ok   float32 input stays float32 (documented 'float32 stays float32') for the same functions (SPD matrix, real eigenvalues)
+ok   complex64 input -> complex64 results (real-valued outputs s, norms, eigvalsh, logabsdet, cond -> float32)
+ok   mixed dtypes: solve(float32 A, int b) -> float64; solve(float32 A, complex64 b) -> complex64; solve(float64 A, complex64 b) -> complex128
+ok   float16 and longdouble inputs raise TypeError in linalg (source _commonType: 'array type ... is unsupported in linalg')
+ok   object-dtype input raises TypeError in inv/eig
+ok   float32 results agree with the float64 truth to 1e-5 relative: inv, det, eigvalsh, cholesky, svd s (SPD 3x3)
+---- stacked broadcasting sweep
+ok   stack (2,3,4,4) inv: result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 5.6e-17)
+ok   stack (2,3,4,4) det: result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 9.4e-16)
+ok   stack (2,3,4,4) slogdet logabsdet: result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 1.8e-16)
+ok   stack (2,3,4,4) eigvals (sorted by real part): result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 9.5e-16)
+ok   stack (2,3,4,4) eigvalsh: result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 4.5e-16)
+ok   stack (2,3,4,4) svd s: result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 3.4e-16)
+ok   stack (2,3,4,4) qr |diag R|: result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 1.9e-16)
+ok   stack (2,3,4,4) cholesky: result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 1.6e-16)
+ok   stack (2,3,4,4) pinv: result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 5.5e-16)
+ok   stack (2,3,4,4) cond: result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 5.1e-16)
+ok   stack (2,3,4,4) norm(axis=(-2,-1), 'nuc'): result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 4.9e-16)
+ok   stack (2,3,4,4) matrix_power 3: result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 1.3e-16)
+ok   stack (2,3,4,4) matrix_rank: result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 0.0e+00)
+ok   stack (2,3,4,4) solve (b stacked (2,3,4,2)): result[i,j] equals the mpmath value for matrix [i,j] (2-level stack)  (worst rel diff 1.1e-16)
+ok   stack with an empty leading dimension: inv/det/eig/svd/qr/cholesky of shape (0,3,3) return empty stacks of the right shape
+ok   det/inv of an empty (0,0) matrix: det = 1.0, inv shape (0,0) (documented convention of the empty product)
+---- done
