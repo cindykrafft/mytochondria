@@ -1,0 +1,79 @@
+From c2632dcb3eab729634d3dfc4d8d3f8c19883e57a Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Fri, 25 Sep 2026 05:48:32 +0000
+Subject: [PATCH] FIX DummyRegressor(strategy="median"): unit sample weights
+ give np.median
+
+The weighted path used _weighted_percentile with the "inverted_cdf"
+method while the unweighted path uses np.median, so sample_weight=ones
+gave 2.0 instead of 2.5 for y = [1, 2, 3, 4], and integer weights did
+not act as repetitions. Use the "averaged_inverted_cdf" method (as
+metrics.median_absolute_error does since 1.8), which matches np.median
+for equal weights. Adds a regression test and a changelog entry.
+---
+ .../sklearn.dummy/XXXXX.fix.rst               |  6 ++++++
+ sklearn/dummy.py                              |  4 +++-
+ sklearn/tests/test_dummy.py                   | 21 +++++++++++++++++++
+ 3 files changed, 30 insertions(+), 1 deletion(-)
+ create mode 100644 doc/whats_new/upcoming_changes/sklearn.dummy/XXXXX.fix.rst
+
+diff --git a/doc/whats_new/upcoming_changes/sklearn.dummy/XXXXX.fix.rst b/doc/whats_new/upcoming_changes/sklearn.dummy/XXXXX.fix.rst
+new file mode 100644
+index 0000000000..6c4e4d7d8e
+--- /dev/null
++++ b/doc/whats_new/upcoming_changes/sklearn.dummy/XXXXX.fix.rst
+@@ -0,0 +1,6 @@
++- :class:`dummy.DummyRegressor` with `strategy="median"` now computes the weighted
++  median with the "averaged_inverted_cdf" method, so that unit `sample_weight`
++  gives the same value as no `sample_weight` and integer weights act as
++  repetitions (previously 2.0 instead of 2.5 for `y = [1, 2, 3, 4]` with unit
++  weights).
++  By :user:`Cindy Krafft <cindykrafft>`.
+diff --git a/sklearn/dummy.py b/sklearn/dummy.py
+index f0823567ab..1c30344cc8 100644
+--- a/sklearn/dummy.py
++++ b/sklearn/dummy.py
+@@ -581,8 +581,10 @@ class DummyRegressor(MultiOutputMixin, RegressorMixin, BaseEstimator):
+             if sample_weight is None:
+                 self.constant_ = np.median(y, axis=0)
+             else:
++                # "averaged_inverted_cdf" gives the same value as np.median
++                # for unit weights.
+                 self.constant_ = _weighted_percentile(
+-                    y, sample_weight, percentile_rank=50.0
++                    y, sample_weight, percentile_rank=50.0, average=True
+                 )
+ 
+         elif self.strategy == "quantile":
+diff --git a/sklearn/tests/test_dummy.py b/sklearn/tests/test_dummy.py
+index 61f1803b7a..7d8906b1ee 100644
+--- a/sklearn/tests/test_dummy.py
++++ b/sklearn/tests/test_dummy.py
+@@ -713,3 +713,24 @@ def test_dtype_of_classifier_probas(strategy):
+     probas = model.fit(X, y).predict_proba(X)
+ 
+     assert probas.dtype == np.float64
++
++
++def test_median_strategy_unit_sample_weight():
++    # Unit sample weights must give the same median as no sample weights: the
++    # weighted path uses the "averaged_inverted_cdf" method, which matches
++    # np.median for equal weights (even and odd sample sizes).
++    for y in ([1.0, 2.0, 3.0, 4.0], [1.0, 2.0, 3.0, 4.0, 10.0]):
++        X = [[0]] * len(y)
++        unweighted = DummyRegressor(strategy="median").fit(X, y)
++        weighted = DummyRegressor(strategy="median").fit(
++            X, y, sample_weight=np.ones(len(y))
++        )
++        assert_array_equal(weighted.constant_, unweighted.constant_)
++        assert_array_equal(unweighted.constant_, [[np.median(y)]])
++    # Integer weights are repetitions.
++    y = np.array([1.0, 2.0, 3.0, 4.0])
++    weights = np.array([1, 3, 1, 1])
++    weighted = DummyRegressor(strategy="median").fit(
++        [[0]] * 4, y, sample_weight=weights
++    )
++    assert_array_equal(weighted.constant_, [[np.median(np.repeat(y, weights))]])
+-- 
+2.43.0
+

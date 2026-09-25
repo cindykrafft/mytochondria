@@ -1,0 +1,109 @@
+From 2988fbebac87a899d5b58771e855c5ad68ed74ad Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Fri, 25 Sep 2026 05:54:31 +0000
+Subject: [PATCH] FIX PLS: make intercept_ satisfy the documented y = X @
+ coef_.T + intercept_
+
+intercept_ was the mean of y while predict centered X before applying
+coef_, so the relation documented for coef_ and intercept_ (and in the
+1.1 changelog that introduced intercept_) did not hold for data with
+non-zero feature means: X @ coef_.T + intercept_ was 30-40 % off the
+predictions on such data. Define intercept_ = y_mean - x_mean @ coef_.T
+and let predict apply the formula to the raw X; predictions are
+unchanged and X is no longer modified in place by predict(copy=False).
+Updates the prediction and copy tests and adds a changelog entry.
+---
+ .../sklearn.cross_decomposition/XXXXX.fix.rst  |  7 +++++++
+ sklearn/cross_decomposition/_pls.py            | 10 ++++++----
+ sklearn/cross_decomposition/tests/test_pls.py  | 18 ++++++++++--------
+ 3 files changed, 23 insertions(+), 12 deletions(-)
+ create mode 100644 doc/whats_new/upcoming_changes/sklearn.cross_decomposition/XXXXX.fix.rst
+
+diff --git a/doc/whats_new/upcoming_changes/sklearn.cross_decomposition/XXXXX.fix.rst b/doc/whats_new/upcoming_changes/sklearn.cross_decomposition/XXXXX.fix.rst
+new file mode 100644
+index 0000000000..1a94c03a88
+--- /dev/null
++++ b/doc/whats_new/upcoming_changes/sklearn.cross_decomposition/XXXXX.fix.rst
+@@ -0,0 +1,7 @@
++- The `intercept_` attribute of :class:`cross_decomposition.PLSRegression`,
++  :class:`cross_decomposition.PLSCanonical` and :class:`cross_decomposition.CCA`
++  is now such that the documented relation `y = X @ coef_.T + intercept_` holds
++  for the raw `X`: it was the mean of `y` while `predict` centered `X` first, so
++  users applying the documented formula to data with non-zero feature means got
++  wrong predictions. `predict` is unchanged.
++  By :user:`Cindy Krafft <cindykrafft>`.
+diff --git a/sklearn/cross_decomposition/_pls.py b/sklearn/cross_decomposition/_pls.py
+index bb720c9ab5..862264f61b 100644
+--- a/sklearn/cross_decomposition/_pls.py
++++ b/sklearn/cross_decomposition/_pls.py
+@@ -361,7 +361,9 @@ class _PLS(
+         )
+         self.coef_ = np.dot(self.x_rotations_, self.y_loadings_.T)
+         self.coef_ = (self.coef_ * self._y_std).T / self._x_std
+-        self.intercept_ = self._y_mean
++        # With coef_ expressed for uncentered X, the documented relation
++        # y = X @ coef_.T + intercept_ holds for the raw X.
++        self.intercept_ = self._y_mean - self._x_mean @ self.coef_.T
+         self._n_features_out = self.x_rotations_.shape[1]
+         return self
+ 
+@@ -457,7 +459,8 @@ class _PLS(
+             Samples.
+ 
+         copy : bool, default=True
+-            Whether to copy `X` or perform in-place normalization.
++            Whether to copy `X`. `X` is no longer modified in place by this
++            method, so this parameter has no effect.
+ 
+         Returns
+         -------
+@@ -472,8 +475,7 @@ class _PLS(
+         """
+         check_is_fitted(self)
+         X = validate_data(self, X, copy=copy, dtype=FLOAT_DTYPES, reset=False)
+-        # Only center X but do not scale it since the coefficients are already scaled
+-        X -= self._x_mean
++        # coef_ and intercept_ are expressed for the raw (uncentered, unscaled) X.
+         y_pred = X @ self.coef_.T + self.intercept_
+         return y_pred.ravel() if self._predict_1d else y_pred
+ 
+diff --git a/sklearn/cross_decomposition/tests/test_pls.py b/sklearn/cross_decomposition/tests/test_pls.py
+index 375a7826cb..fcaaf50615 100644
+--- a/sklearn/cross_decomposition/tests/test_pls.py
++++ b/sklearn/cross_decomposition/tests/test_pls.py
+@@ -407,10 +407,10 @@ def test_copy(Est):
+         pls.transform(X, y, copy=False)
+         assert_array_almost_equal(X, X_orig)
+ 
++    # predict applies coef_ and intercept_ to the raw X and never modifies it
+     X_orig = X.copy()
+-    with pytest.raises(AssertionError):
+-        pls.predict(X, copy=False)
+-        assert_array_almost_equal(X, X_orig)
++    pls.predict(X, copy=False)
++    assert_array_equal(X, X_orig)
+ 
+     # Make sure copy=True gives same transform and predictions as predict=False
+     assert_array_almost_equal(
+@@ -599,11 +599,13 @@ def test_pls_prediction(PLSEstimator, scale):
+     pls = PLSEstimator(copy=True, scale=scale).fit(X, y)
+     y_pred = pls.predict(X, copy=True)
+ 
+-    y_mean = y.mean(axis=0)
+-    X_trans = X - X.mean(axis=0)
+-
+-    assert_allclose(pls.intercept_, y_mean)
+-    assert_allclose(y_pred, X_trans @ pls.coef_.T + pls.intercept_)
++    # The documented relation holds for the raw (uncentered) X.
++    assert_allclose(y_pred, X @ pls.coef_.T + pls.intercept_)
++    assert_allclose(pls.intercept_, y.mean(axis=0) - X.mean(axis=0) @ pls.coef_.T)
++    # ... and the prediction at the training mean of X is the mean of y.
++    assert_allclose(
++        pls.predict(X.mean(axis=0, keepdims=True)), y.mean(axis=0, keepdims=True)
++    )
+ 
+ 
+ @pytest.mark.parametrize("Klass", [CCA, PLSSVD, PLSRegression, PLSCanonical])
+-- 
+2.43.0
+

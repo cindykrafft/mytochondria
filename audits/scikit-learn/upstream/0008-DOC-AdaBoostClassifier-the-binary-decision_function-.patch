@@ -1,0 +1,49 @@
+From 2c5ab1d63d766431f60d336945ce3e1c1237ddd0 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Fri, 25 Sep 2026 05:56:31 +0000
+Subject: [PATCH] DOC AdaBoostClassifier: the binary decision_function lies in
+ [-2, 2]
+
+Since 1.3 (#26521, symmetric SAMME scores) the binary decision function
+is the difference of the two class scores, so a unanimous ensemble gives
+-2 or 2 rather than the -1 or 1 the docstrings of decision_function and
+staged_decision_function still describe.
+---
+ sklearn/ensemble/_weight_boosting.py | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/sklearn/ensemble/_weight_boosting.py b/sklearn/ensemble/_weight_boosting.py
+index 9cf0568d4b..8fa63d6a4e 100644
+--- a/sklearn/ensemble/_weight_boosting.py
++++ b/sklearn/ensemble/_weight_boosting.py
+@@ -642,9 +642,10 @@ class AdaBoostClassifier(
+             The decision function of the input samples. The order of
+             outputs is the same as in the :term:`classes_` attribute.
+             Binary classification is a special case with ``k == 1``,
+-            otherwise ``k==n_classes``. For binary classification,
+-            values closer to -1 or 1 mean more like the first or second
+-            class in ``classes_``, respectively.
++            otherwise ``k==n_classes``. For binary classification, the
++            value is the difference of the two class scores and lies in
++            [-2, 2]: values closer to -2 or 2 mean more like the first or
++            second class in ``classes_``, respectively.
+         """
+         check_is_fitted(self)
+         X = self._check_X(X)
+@@ -688,9 +689,10 @@ class AdaBoostClassifier(
+             The decision function of the input samples. The order of
+             outputs is the same as in the :term:`classes_` attribute.
+             Binary classification is a special case with ``k == 1``,
+-            otherwise ``k==n_classes``. For binary classification,
+-            values closer to -1 or 1 mean more like the first or second
+-            class in ``classes_``, respectively.
++            otherwise ``k==n_classes``. For binary classification, the
++            value is the difference of the two class scores and lies in
++            [-2, 2]: values closer to -2 or 2 mean more like the first or
++            second class in ``classes_``, respectively.
+         """
+         check_is_fitted(self)
+         X = self._check_X(X)
+-- 
+2.43.0
+

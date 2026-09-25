@@ -1,0 +1,88 @@
+From c597269df0fc52c9e227b64f6311e99d531f49a4 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Fri, 25 Sep 2026 05:53:52 +0000
+Subject: [PATCH] FIX GaussianProcessClassifier: sample the restarts within the
+ log bounds
+
+The restarts of the optimizer drew theta_initial as
+np.exp(rng.uniform(bounds[:, 0], bounds[:, 1])) although kernel_.bounds
+are log-transformed, like theta. The starting points therefore lay above
+the upper bound whenever exp(log-bound) exceeds it (L-BFGS-B clips them
+to the bound; a callable optimizer can fail), and never in the lower part
+of the range, so n_restarts_optimizer did not explore the allowed space
+as documented ("sampled log-uniform randomly from the space of allowed
+theta-values"). GaussianProcessRegressor draws without the exp. Adds a
+regression test and a changelog entry.
+---
+ .../sklearn.gaussian_process/XXXXX.fix.rst    |  7 +++++
+ sklearn/gaussian_process/_gpc.py              |  3 +-
+ sklearn/gaussian_process/tests/test_gpc.py    | 28 +++++++++++++++++++
+ 3 files changed, 37 insertions(+), 1 deletion(-)
+ create mode 100644 doc/whats_new/upcoming_changes/sklearn.gaussian_process/XXXXX.fix.rst
+
+diff --git a/doc/whats_new/upcoming_changes/sklearn.gaussian_process/XXXXX.fix.rst b/doc/whats_new/upcoming_changes/sklearn.gaussian_process/XXXXX.fix.rst
+new file mode 100644
+index 0000000000..1fcfa1c392
+--- /dev/null
++++ b/doc/whats_new/upcoming_changes/sklearn.gaussian_process/XXXXX.fix.rst
+@@ -0,0 +1,7 @@
++- :class:`gaussian_process.GaussianProcessClassifier` with `n_restarts_optimizer > 0`
++  now samples the initial hyperparameters of the restarts log-uniformly within
++  the bounds, as documented. The draws were exponentiated although the bounds
++  are already in log-space, so the restarts started outside the upper bound (and
++  were clipped to it by the default optimizer) and never explored the lower part
++  of the allowed range.
++  By :user:`Cindy Krafft <cindykrafft>`.
+diff --git a/sklearn/gaussian_process/_gpc.py b/sklearn/gaussian_process/_gpc.py
+index 1cc3832316..598eb96c08 100644
+--- a/sklearn/gaussian_process/_gpc.py
++++ b/sklearn/gaussian_process/_gpc.py
+@@ -240,7 +240,8 @@ class _BinaryGaussianProcessClassifierLaplace(BaseEstimator):
+                     )
+                 bounds = self.kernel_.bounds
+                 for iteration in range(self.n_restarts_optimizer):
+-                    theta_initial = np.exp(self.rng.uniform(bounds[:, 0], bounds[:, 1]))
++                    # The bounds are already in log-space, as theta is.
++                    theta_initial = self.rng.uniform(bounds[:, 0], bounds[:, 1])
+                     optima.append(
+                         self._constrained_optimization(obj_func, theta_initial, bounds)
+                     )
+diff --git a/sklearn/gaussian_process/tests/test_gpc.py b/sklearn/gaussian_process/tests/test_gpc.py
+index b3ad6202ec..1d0a942809 100644
+--- a/sklearn/gaussian_process/tests/test_gpc.py
++++ b/sklearn/gaussian_process/tests/test_gpc.py
+@@ -337,3 +337,31 @@ def test_latent_mean_and_variance_works_on_structured_kernels():
+     gpc = GaussianProcessClassifier(kernel=kernel).fit(X, y)
+ 
+     gpc.latent_mean_and_variance(X)
++
++
++def test_random_starts_within_bounds(global_random_seed):
++    # The restarts of the optimizer start from thetas sampled log-uniformly
++    # within the bounds: the bounds are log-transformed, like theta, so the
++    # draw must not be exponentiated.
++    rng = np.random.RandomState(global_random_seed)
++    X = rng.randn(20, 2)
++    y = X[:, 0] > 0
++    kernel = C(1.0, (1e-2, 1e2)) * RBF(
++        length_scale=1.0, length_scale_bounds=(1e-1, 1e1)
++    )
++    initial_thetas = []
++
++    def optimizer(obj_func, initial_theta, bounds):
++        initial_thetas.append(initial_theta.copy())
++        return initial_theta, obj_func(initial_theta, eval_gradient=False)
++
++    gpc = GaussianProcessClassifier(
++        kernel=kernel, optimizer=optimizer, n_restarts_optimizer=50, random_state=0
++    ).fit(X, y)
++    restarts = np.array(initial_thetas[1:])
++    bounds = gpc.kernel_.bounds
++    assert restarts.shape == (50, 2)
++    assert np.all(restarts >= bounds[:, 0]) and np.all(restarts <= bounds[:, 1])
++    # log-uniform: about half of the draws fall in the lower half of each range
++    lower_half = (restarts < bounds.mean(axis=1)).mean(axis=0)
++    assert np.all(lower_half > 0.2) and np.all(lower_half < 0.8)
+-- 
+2.43.0
+
