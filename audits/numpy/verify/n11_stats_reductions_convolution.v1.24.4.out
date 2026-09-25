@@ -1,0 +1,478 @@
+numpy 1.24.4  mpmath 1.4.1  python 3.11.15
+#### nanvar / nanstd with ddof, all-NaN slices, correction= / mean=
+ok   nanvar(ddof=0) = sum (x - mean)^2 / (n_nonnan - ddof) over the 5 non-NaN values (exact)  13.2 vs 13.2
+ok   nanstd(ddof=0) = sqrt(nanvar(ddof=0))
+ok   nanvar(ddof=1) = sum (x - mean)^2 / (n_nonnan - ddof) over the 5 non-NaN values (exact)  16.5 vs 16.5
+ok   nanstd(ddof=1) = sqrt(nanvar(ddof=1))
+ok   nanvar(ddof=2) = sum (x - mean)^2 / (n_nonnan - ddof) over the 5 non-NaN values (exact)  22.0 vs 22.0
+ok   nanstd(ddof=2) = sqrt(nanvar(ddof=2))
+ok   nanvar(ddof=4) = sum (x - mean)^2 / (n_nonnan - ddof) over the 5 non-NaN values (exact)  66.0 vs 66.0
+ok   nanstd(ddof=4) = sqrt(nanvar(ddof=4))
+ok   nanvar(ddof=5) with ddof >= n_nonnan=5: NaN and RuntimeWarning 'Degrees of freedom <= 0 for slice' (documented)  nan ['Degrees of freedom <= 0 for slice.']
+ok   nanvar(ddof=6) with ddof >= n_nonnan=5: NaN and RuntimeWarning 'Degrees of freedom <= 0 for slice' (documented)  nan ['Degrees of freedom <= 0 for slice.']
+ok   nanvar(axis=1, ddof=1) with an all-NaN row: that row NaN, the others exact, RuntimeWarning raised  [ 4. nan 12.] ['Degrees of freedom <= 0 for slice.']
+ok   nanstd(axis=0, keepdims=True): shape (1, 4), columns exact (a single non-NaN value gives 0)  [[0.5 0.  2.5 0. ]]
+ok   nanvar of an all-NaN vector: NaN with a RuntimeWarning  nan ['Degrees of freedom <= 0 for slice.']
+ok   nanvar(float32 input) returns float32 ('for arrays of float types it is the same as the array type')
+ok   nanvar(int input) returns float64
+   correction= / mean= keywords are 2.0+; not present in this build
+#### nanmedian / nanpercentile / nanquantile with axis tuples and keepdims
+ok   nanmedian(axis=(0, 2), keepdims=True): shape (1, 4, 1), entries = exact median of the non-NaN values of each (i, :, k) slab  [ 2.25   nan -0.5   0.  ] vs [2.25, nan, -0.5, 0.0]
+ok   nanmedian on the all-NaN slab: NaN and RuntimeWarning 'All-NaN slice encountered'  ['All-NaN slice encountered']
+ok   nanquantile(q=[.1,.5,.9], axis=(0, 2), keepdims=True): shape (3, 1, 4, 1) (q axis first), exact H&F-7 per slab  shape (3, 1, 4, 1)
+ok   nanpercentile(30, axis=(1, 2)): shape (3,), exact H&F-7 of each block's non-NaN values  [ 1.1 -2.9 -1.5] vs [1.1, -2.9, -1.5]
+ok   nanpercentile over all three axes with keepdims: shape (2, 1, 1, 1), equals the flattened result
+ok   nanpercentile on an all-NaN row: NaN + RuntimeWarning, other row exact  [nan  2.] ['All-NaN slice encountered']
+ok   nanmedian of an all-NaN vector: NaN + RuntimeWarning  nan ['All-NaN slice encountered']
+ok   nanmedian(axis=0, keepdims=True) on a 3x2 with NaNs: [[1.5, 4.0]]
+#### nanmax / nanmin / nanargmax / nanmean / nansum / nanprod on all-NaN slices
+ok   nanmax on an all-NaN row: NaN + RuntimeWarning 'All-NaN slice encountered'; other row 1.0  [nan  1.] ['All-NaN slice encountered']
+ok   nanmin on an all-NaN row: NaN + RuntimeWarning; other row -2.0
+ok   nanmax of an all-NaN vector (axis=None): NaN + RuntimeWarning
+ok   nanargmax on an all-NaN slice raises ValueError (documented 'For all-NaN slices ValueError is raised')  ValueError: All-NaN slice encountered
+ok   nanargmin on the other row ignores the NaN: index 2
+ok   nanmean on an all-NaN row: NaN + RuntimeWarning 'Mean of empty slice'  [ nan -0.5] ['Mean of empty slice']
+ok   nansum of an all-NaN row is 0 ('zero is returned for slices that are all-NaN or empty')
+ok   nanprod of an all-NaN row is 1; other row 1*-2 = -2
+ok   nansum of an empty array is 0.0
+ok   nanmax of a +-inf / NaN mix ignores only the NaN
+#### nanmean / nansum dtype and out
+ok   nanmean(float32) returns float32 (same as input for inexact)
+ok   nanmean(float32, dtype=float64) returns float64
+ok   nanmean(int array) returns float64 (default for integer input)
+ok   nanmean(axis=1, out=o) writes into and returns o  [2. 6.]
+ok   nansum(axis=0, out=float32) writes the cast sums and returns out
+ok   nansum(int array) = sum (integer dtype kept)
+ok   nanmean(float16) returns float16
+ok   nansum(keepdims=True): shape (2, 1)
+#### average: weights, returned, axis, keepdims, zero-sum weights, dtypes
+ok   average(axis=1, weights=1-D of length 4): sum(a w) / sum(w) per row, exact  [6.375 1.75  5.125]
+ok   average(axis=0, weights same shape as a), exact
+ok   average(axis=None, weights same shape) over all elements, exact
+ok   average(returned=True): (avg, sum_of_weights) with sum_of_weights broadcast to avg's shape and dtype  sw=array([8., 8., 8.])
+ok   average(returned=True, weights=None): sum_of_weights = number of elements averaged (3.0 each)  [3. 3. 3. 3.]
+ok   average(returned=True) over all: sum_of_weights = a.size = 12.0
+ok   average(keepdims=True) with weights: shape (3, 1)
+ok   average(axis=(0, 2), weights same shape): exact per middle index  [11.88235294 14.48       17.75757576]
+ok   average with weights summing to 0 (not all zero) raises ZeroDivisionError ('sum(weights) must not be 0')  ZeroDivisionError: Weights sum to zero, can't be normalized
+ok   average with all-zero weights raises ZeroDivisionError  ZeroDivisionError: Weights sum to zero, can't be normalized
+ok   average(axis=None) with weights of a different shape raises TypeError (documented)  TypeError: Axis must be specified when shapes of a and weights differ.
+ok   average(axis=1) with 1-D weights of the wrong length raises ValueError (documented)  ValueError: Length of weights not compatible with specified axis.
+ok   average(int a, int weights) returns float64
+ok   average(float32 a, float32 weights) returns float32 ('lowest precision capable of representing both')
+ok   average(float32 a, weights=None) returns float32 (dtype of a)
+ok   average of complex values with real weights: (1+2j + 3(3-1j)) / 4
+#### median / percentile with +-inf and NaN
+ok   median([1, NaN, 3]) is NaN (NaN propagates)
+ok   median(axis=0) with a NaN in column 0: that column NaN, column 1 exact 4.0  [nan  4.]
+ok   percentile with a NaN: NaN for every q
+ok   median([-inf, 1, 2, inf]) = 1.5 (mean of the two middle values)
+ok   median([1, inf]) = inf
+ok   median([-inf, inf]) = mean(-inf, inf) = NaN (IEEE)  nan
+ok   median([1, 2, inf]) (odd n) = 2  2.0
+FAIL percentile([1.0, 2.0, inf], 50) = 2.0: documented (1-g)*y[j] + g*y[j+1] (g = 0 -> y[j]) with virtual index exactly 1 (g = 0), upper neighbour +inf  got nan warnings ['RuntimeWarning']
+FAIL percentile([0.0, inf], 0) = 0.0: documented (1-g)*y[j] + g*y[j+1] (g = 0 -> y[j]) with q = 0 with the next value +inf  got nan warnings ['RuntimeWarning']
+FAIL percentile([1.0, 2.0, 3.0, 4.0, inf], 75) = 4.0: documented (1-g)*y[j] + g*y[j+1] (g = 0 -> y[j]) with index 3 exactly, next +inf  got nan warnings ['RuntimeWarning']
+ok   percentile([-inf, 5.0, 6.0], 50) = 5.0: documented (1-g)*y[j] + g*y[j+1] (g = 0 -> y[j]) with index 1 exactly, previous -inf  got 5.0 warnings []
+FAIL percentile([1.0, 2.0, inf], 100) = inf: documented (1-g)*y[j] + g*y[j+1] (g = 0 -> y[j]) with q = 100 on +inf  got nan warnings ['RuntimeWarning']
+FAIL percentile([1.0, 2.0, inf], 75) = inf: documented (1-g)*y[j] + g*y[j+1] (g = 0 -> y[j]) with g = 0.5 between 2 and +inf  got nan warnings ['RuntimeWarning']
+ok   percentile([1.0, 2.0, inf], 60) = inf: documented (1-g)*y[j] + g*y[j+1] (g = 0 -> y[j]) with g = 0.2 between 2 and +inf  got inf warnings []
+ok   percentile([-inf, 1.0, 2.0], 25) = -inf: documented (1-g)*y[j] + g*y[j+1] (g = 0 -> y[j]) with g = 0.5 between -inf and 1  got -inf warnings ['RuntimeWarning']
+FAIL percentile([-inf, 1.0, 2.0], 10) = -inf: documented (1-g)*y[j] + g*y[j+1] (g = 0 -> y[j]) with g = 0.2 between -inf and 1  got nan warnings ['RuntimeWarning']
+FAIL median([1.0, 2.0, inf]) == quantile(.., 0.5) (documented 'median: equivalent to quantile(..., 0.5)')  median 2.0 quantile nan
+FAIL percentile([1.0, 2.0, inf], [0, 100]) == [min, max]  [1.0, nan]
+ok   median([-inf, 0.0, 1.0]) == quantile(.., 0.5) (documented 'median: equivalent to quantile(..., 0.5)')  median 0.0 quantile 0.0
+FAIL percentile([-inf, 0.0, 1.0], [0, 100]) == [min, max]  [nan, 1.0]
+FAIL median([1.0, 2.0, 3.0, inf, inf]) == quantile(.., 0.5) (documented 'median: equivalent to quantile(..., 0.5)')  median 3.0 quantile nan
+FAIL percentile([1.0, 2.0, 3.0, inf, inf], [0, 100]) == [min, max]  [1.0, nan]
+ok   quantile(method='lower') on [1, 2, inf] at 0.5 = 2  2.0
+FAIL nanpercentile([1, NaN, 2, inf], 50) = 2 (NaN dropped, then g = 0 next to +inf)  nan
+#### weighted quantile / percentile (2.0+, method='inverted_cdf')
+   weights= for quantile / percentile is 2.0+; not present in this build
+#### histogram2d / histogramdd: edges, range, density, weights, inclusive last bin on every axis
+ok   histogram2d(bins=[4, 3], range=[[-1, 2], [0, 3]]): edges = lo + i (hi - lo) / n exactly
+ok   histogram2d counts: [e_i, e_(i+1)) on each axis, last bin closed on each axis, points outside either range dropped  total 42.0 vs 42
+ok   histogram2d: the point (2.0, 3.0) = (x_max edge, y_max edge) lands in H[-1, -1] (inclusive last bin on both axes)
+ok   histogram2d: (2.0, 1.5) -> H[-1, 1]; (2.0 + 1ulp, 1.5) dropped
+ok   histogram2d(weights=): per-bin sums of the weights (exact, dyadic weights)
+ok   histogram2d(density=True) = bin_count / sample_count_in_range / bin_area (documented), exact  N in range 42
+ok   histogram2d(density=True, weights=): weights normalised to 1 -> Tw / sum(Tw) / area; integral = 1
+ok   histogram2d(bins=5) without range: edges span [min, max] of each coordinate
+ok   histogram2d(bins=5): counts exact, every point counted (max point in the last bins)
+ok   histogram2d(bins=[edge array, int]): mixed specification, exact
+ok   histogram2d(bins=one array): the same edges on both axes
+ok   histogramdd((N, 3), bins=[edges, 4, 5], range=[None, (-2, 2), (0, 10)]): exact counts, last bin closed on each axis  sum 83.0 vs 83
+ok   histogramdd edges: explicit array kept, ranges linspace'd exactly
+ok   histogramdd(sequence of D coordinate arrays) == histogramdd((N, D) array) ('unusual interpretation', documented)
+ok   histogramdd(density=True): sum(density * bin volume) = 1
+ok   histogramdd with non-monotonic edges raises ValueError  ValueError: `bins[0]` must be monotonically increasing, when an array
+#### histogram_bin_edges: the eight string estimators vs the documented formulas
+ok   histogram_bin_edges(n=200 lognormal-ish, 'sqrt'): ceil(ptp / h) = 15 bins spanning [min, max] (ptp/h = 14.142136)  numpy 15 bins
+ok   histogram_bin_edges(n=200 lognormal-ish, 'sturges'): ceil(ptp / h) = 9 bins spanning [min, max] (ptp/h = 8.643856)  numpy 9 bins
+ok   histogram_bin_edges(n=200 lognormal-ish, 'rice'): ceil(ptp / h) = 12 bins spanning [min, max] (ptp/h = 11.696071)  numpy 12 bins
+ok   histogram_bin_edges(n=200 lognormal-ish, 'scott'): ceil(ptp / h) = 11 bins spanning [min, max] (ptp/h = 10.558112)  numpy 11 bins
+ok   histogram_bin_edges(n=200 lognormal-ish, 'fd'): ceil(ptp / h) = 16 bins spanning [min, max] (ptp/h = 15.426098)  numpy 16 bins
+ok   histogram_bin_edges(n=200 lognormal-ish, 'doane'): ceil(ptp / h) = 12 bins spanning [min, max] (ptp/h = 11.881696)  numpy 12 bins
+ok   histogram_bin_edges(n=200 lognormal-ish, 'stone'): ceil(ptp / h) = 9 bins spanning [min, max] (ptp/h = 8.000000)  numpy 8 bins  (ptp/h within 1e-9 of an integer: tie, informational)
+ok   histogram_bin_edges(n=200 lognormal-ish, 'auto'): ceil(ptp / h) = 16 bins spanning [min, max] (ptp/h = 15.426098)  numpy 16 bins
+ok   histogram_bin_edges(n=1000 normal, 'sqrt'): ceil(ptp / h) = 32 bins spanning [min, max] (ptp/h = 31.622777)  numpy 32 bins
+ok   histogram_bin_edges(n=1000 normal, 'sturges'): ceil(ptp / h) = 11 bins spanning [min, max] (ptp/h = 10.965784)  numpy 11 bins
+ok   histogram_bin_edges(n=1000 normal, 'rice'): ceil(ptp / h) = 21 bins spanning [min, max] (ptp/h = 20.000000)  numpy 20 bins  (ptp/h within 1e-9 of an integer: tie, informational)
+ok   histogram_bin_edges(n=1000 normal, 'scott'): ceil(ptp / h) = 18 bins spanning [min, max] (ptp/h = 17.417014)  numpy 18 bins
+ok   histogram_bin_edges(n=1000 normal, 'fd'): ceil(ptp / h) = 24 bins spanning [min, max] (ptp/h = 23.550039)  numpy 24 bins
+ok   histogram_bin_edges(n=1000 normal, 'doane'): ceil(ptp / h) = 12 bins spanning [min, max] (ptp/h = 11.309197)  numpy 12 bins
+ok   histogram_bin_edges(n=1000 normal, 'stone'): ceil(ptp / h) = 24 bins spanning [min, max] (ptp/h = 23.000000)  numpy 23 bins  (ptp/h within 1e-9 of an integer: tie, informational)
+ok   histogram_bin_edges(n=1000 normal, 'auto'): ceil(ptp / h) = 24 bins spanning [min, max] (ptp/h = 23.550039)  numpy 24 bins
+ok   histogram_bin_edges(n=37 uniform, 'sqrt'): ceil(ptp / h) = 7 bins spanning [min, max] (ptp/h = 6.082763)  numpy 7 bins
+ok   histogram_bin_edges(n=37 uniform, 'sturges'): ceil(ptp / h) = 7 bins spanning [min, max] (ptp/h = 6.209453)  numpy 7 bins
+ok   histogram_bin_edges(n=37 uniform, 'rice'): ceil(ptp / h) = 7 bins spanning [min, max] (ptp/h = 6.664444)  numpy 7 bins
+ok   histogram_bin_edges(n=37 uniform, 'scott'): ceil(ptp / h) = 4 bins spanning [min, max] (ptp/h = 3.025028)  numpy 4 bins
+ok   histogram_bin_edges(n=37 uniform, 'fd'): ceil(ptp / h) = 4 bins spanning [min, max] (ptp/h = 3.119292)  numpy 4 bins
+ok   histogram_bin_edges(n=37 uniform, 'doane'): ceil(ptp / h) = 7 bins spanning [min, max] (ptp/h = 6.852068)  numpy 7 bins
+ok   histogram_bin_edges(n=37 uniform, 'stone'): ceil(ptp / h) = 1 bins spanning [min, max] (ptp/h = 1.000000)  numpy 1 bins
+ok   histogram_bin_edges(n=37 uniform, 'auto'): ceil(ptp / h) = 7 bins spanning [min, max] (ptp/h = 6.209453)  numpy 7 bins
+ok   histogram_bin_edges('scott', range=(0, 20)): width from the in-range data, count fills the whole range: ceil(20 / h)  42 vs 42
+ok   histogram_bin_edges('sqrt') on n = 256: documented n_h = 16 exactly -> 16 bins  numpy 16 bins
+ok   histogram_bin_edges('sturges') on n = 256: documented n_h = 9 exactly -> 9 bins  numpy 9 bins
+ok   histogram_bin_edges('rice') on n = 125: documented n_h = 10 exactly -> 10 bins  numpy 10 bins
+ok   histogram_bin_edges('rice') on n = 1000: documented n_h = 20 exactly -> 20 bins  numpy 20 bins
+ok   histogram_bin_edges('sqrt') on n = 196: documented n_h = 14 exactly -> 14 bins  numpy 14 bins
+ok   histogram_bin_edges('sturges') on n = 1024: documented n_h = 11 exactly -> 11 bins  numpy 11 bins
+   heavy-tailed n=5000: fd -> 4295 bins, sturges -> 14, sqrt -> 71; numpy 'auto' -> 4295
+ok   histogram_bin_edges('auto') = 'Minimum bin width between the sturges and fd estimators' on heavy-tailed n=5000 data  documented 4295 bins, numpy 4295
+   integer data 'sqrt' n=10000 in 0..9: 100 bins (the width >= 1 rule is 2.1+)
+   integer data 'fd' n=10000 in 0..9: 20 bins (the width >= 1 rule is 2.1+)
+   integer data 'auto' n=10000 in 0..9: 20 bins (the width >= 1 rule is 2.1+)
+ok   'fd' with IQR = 0 -> width 0 -> 1 bin (documented 'If the IQR is 0, this function returns 0 for the bin width')  1
+ok   string estimator with weights raises TypeError ('Weighted data is not supported for automated bin size selection')  TypeError: Automated estimation of the number of bins is not supported for weighted data
+ok   unknown estimator name raises ValueError  ValueError: 'bogus' is not a valid estimator for `bins`
+ok   empty data with 'auto': one bin on [0, 1]  [0. 1.]
+#### bincount: weights, minlength
+ok   bincount: length max+1 = 8, counts exact, integer dtype
+ok   bincount(weights=): out[n] += weight[i] (exact), float64 result  [3.5, 4.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.125]
+ok   bincount(minlength=12): length 12, zero-padded
+ok   bincount(minlength=3) smaller than max+1: length stays 8
+ok   bincount([], minlength=4) = four zeros
+ok   bincount with a negative value raises ValueError  ValueError: 'list' argument must have no negative elements
+ok   bincount of a float ndarray raises TypeError (cannot cast safely to intp)  TypeError: Cannot cast array data from dtype('float64') to dtype('int64') according to the rule 'safe
+   bincount([1.5, 2.7]) (list of floats) silently truncates in this build: [0, 1, 1] (deprecated in 2.1)
+ok   bincount(int weights) returns float64
+#### cumsum / cumprod / nancumsum / nancumprod: dtypes and NaN handling
+ok   cumsum(int8) accumulates in the platform integer (no wrap): dtype int_, values exact  int64 [100, 200, 300, 172, 299, 389]
+ok   cumsum(int8, dtype=int8) wraps modulo 2^8 ('Arithmetic is modular when using integer types')
+ok   cumsum(uint8) -> unsigned platform integer (uint64), exact  uint64
+ok   cumsum(bool) -> platform int counts
+ok   cumprod(int8) -> platform int, exact products
+ok   cumprod(uint16) -> uint64
+ok   cumsum(float32) stays float32
+ok   cumsum with a NaN: NaN from that position on
+ok   cumsum [1, inf, -inf, 2] -> [1, inf, nan, nan]
+ok   nancumsum: NaN treated as 0 ('Zeros are substituted for NaNs'): [0, 1, 1, 3, 7]
+ok   nancumprod: NaN treated as 1: [1, 2, 2, 6, 3]
+ok   nancumsum of all-NaN -> zeros
+ok   nancumprod(axis=1)
+ok   nancumsum(int8) = cumsum(int8) (dtype int_)
+ok   cumsum(axis=None) flattens in C order
+ok   cumsum(axis=0) / cumprod(axis=1)
+   cumulative_sum / cumulative_prod are 2.1+; not present in this build
+#### diff (n, prepend, append, bool, uint, datetime) and ediff1d
+ok   diff(n=1) exact
+ok   diff(n=2) = second differences (constant 2 for squares)
+ok   diff(n=3) of squares = 0
+ok   diff(n=0) returns the input as-is
+ok   diff(n > len) -> empty result  (0,)
+ok   diff(n=-1) raises ValueError  ValueError: order must be non-negative but got -1
+ok   diff(prepend=0, append=100)
+ok   diff(2-D, axis=0, prepend=scalar) broadcasts the scalar to a row
+ok   diff(2-D, axis=1, append=[[7], [8]])
+ok   diff with append of the wrong shape raises ValueError  ValueError: all the input arrays must have same number of dimensions, but the array at index 0 has 2 d
+ok   diff(bool): type preserved, True where consecutive elements differ
+ok   diff(uint8) wraps: [1, 0] -> 255 (documented), [5, 3] -> 254
+ok   diff(int8) keeps int8 and wraps: 127 - (-128) -> -1, -128 - 127 -> 1
+ok   diff(datetime64[D]) -> timedelta64[D] (documented exception), leap-year exact
+ok   diff(datetime64, n=2) -> timedelta64 second difference
+ok   diff(float) = correctly rounded pairwise differences
+ok   ediff1d = flat[1:] - flat[:-1]
+ok   ediff1d(to_begin=-99, to_end=[88, 99])
+ok   ediff1d flattens 2-D input (always 1-D)
+ok   ediff1d of a single element: empty differences, only to_begin
+   ediff1d(int array, to_begin=0.5): TypeError: dtype of `to_begin` must be compatible with input `ary` under the `same_kind` rule. (the docstring does not state the cast rule)
+ok   ediff1d(uint8) keeps uint8 and wraps like diff
+#### sum / prod dtype rules, empty reductions, initial= and where=
+ok   sum / prod of int8: result dtype int64 (integer narrower than platform int -> int_ / uint)  int64 int64
+ok   sum / prod of int16: result dtype int64 (integer narrower than platform int -> int_ / uint)  int64 int64
+ok   sum / prod of int32: result dtype int64 (integer narrower than platform int -> int_ / uint)  int64 int64
+ok   sum / prod of int64: result dtype int64 (integer narrower than platform int -> int_ / uint)  int64 int64
+ok   sum / prod of uint8: result dtype uint64 (integer narrower than platform int -> int_ / uint)  uint64 uint64
+ok   sum / prod of uint16: result dtype uint64 (integer narrower than platform int -> int_ / uint)  uint64 uint64
+ok   sum / prod of uint32: result dtype uint64 (integer narrower than platform int -> int_ / uint)  uint64 uint64
+ok   sum / prod of bool: result dtype int64 (integer narrower than platform int -> int_ / uint)  int64 int64
+ok   sum / prod of float16: result dtype float16 (integer narrower than platform int -> int_ / uint)  float16 float16
+ok   sum / prod of float32: result dtype float32 (integer narrower than platform int -> int_ / uint)  float32 float32
+ok   sum of 300 x int8(100) = 30000 exactly (accumulated in int_)
+ok   sum(int8, dtype=int8) wraps modulo 2^8
+ok   sum(bool) counts True
+ok   prod of 12 x int8(10) = 10^12 in int64 exactly
+ok   sum of an empty float array = 0.0
+ok   prod of an empty array = 1.0
+ok   sum of an empty int8 array = 0 of dtype int_
+ok   sum over a zero-length axis: zeros of the remaining shape
+ok   sum(initial=5) = 5 + sum
+ok   prod(initial=2) = 2 * prod
+ok   sum(empty, initial=5) = 5
+ok   sum(where=mask) sums only the selected elements
+ok   sum(where=mask, initial=0.5)
+ok   prod(where=mask)
+ok   mean(where=mask) = mean of the selected elements
+ok   sum(axis=1, where=2-D mask)
+#### max / min with initial and where; ptp
+ok   max of an empty array raises ValueError (no identity)  ValueError: zero-size array to reduction operation maximum which has no identity
+ok   max(empty, initial=-inf) = -inf
+ok   max(initial=100) larger than every element returns 100
+ok   max(initial=0) smaller than every element returns the max
+ok   min(initial=-7) returns -7
+ok   max(where=mask, initial=-inf) over the selected elements
+ok   min(where=mask, initial=inf)
+ok   max(where=mask) without initial raises ValueError (no identity for maximum)  ValueError: reduction operation 'maximum' does not have an identity, so to use a where mask one has to
+ok   max(axis=0, where, initial=-1): a column with nothing selected gives initial
+ok   max with NaN propagates NaN
+ok   ptp(int8 [-128, 127]) = 255 wraps to -1 (documented: 'values greater than 2**(n-1)-1 will be returned as negative values')  -1
+ok   ptp(uint8 [0, 255]) = 255
+ok   ptp(axis=1)
+ok   ptp with NaN is NaN
+ok   ptp of an empty array raises ValueError  ValueError: zero-size array to reduction operation maximum which has no identity
+ok   ptp(keepdims=True) shape (1, 2)
+#### convolve / correlate: full / same / valid, odd / even lengths, complex conjugation, swap
+ok   convolve complex (M=7, N=3): full = sum a_m v_(n-m); valid = the max-min+1 fully overlapping values; same = length max(M,N) centred
+ok   correlate complex (M=7, N=3) full: c_k = sum_n a[n+k] conj(v[n]), k = -(N-1)..M-1
+ok   correlate (M=7, N=3) default mode 'valid' = lags min(0, M-N)..max(0, M-N)
+ok   correlate (M=7, N=3) swapped inputs: full = time-reversed, conjugated (documented)
+ok   correlate (M=7, N=3) 'same': length max(M, N), a contiguous window of the full correlation
+ok   convolve complex (M=7, N=4): full = sum a_m v_(n-m); valid = the max-min+1 fully overlapping values; same = length max(M,N) centred
+ok   correlate complex (M=7, N=4) full: c_k = sum_n a[n+k] conj(v[n]), k = -(N-1)..M-1
+ok   correlate (M=7, N=4) default mode 'valid' = lags min(0, M-N)..max(0, M-N)
+ok   correlate (M=7, N=4) swapped inputs: full = time-reversed, conjugated (documented)
+ok   correlate (M=7, N=4) 'same': length max(M, N), a contiguous window of the full correlation
+ok   convolve complex (M=6, N=3): full = sum a_m v_(n-m); valid = the max-min+1 fully overlapping values; same = length max(M,N) centred
+ok   correlate complex (M=6, N=3) full: c_k = sum_n a[n+k] conj(v[n]), k = -(N-1)..M-1
+ok   correlate (M=6, N=3) default mode 'valid' = lags min(0, M-N)..max(0, M-N)
+ok   correlate (M=6, N=3) swapped inputs: full = time-reversed, conjugated (documented)
+ok   correlate (M=6, N=3) 'same': length max(M, N), a contiguous window of the full correlation
+ok   convolve complex (M=6, N=4): full = sum a_m v_(n-m); valid = the max-min+1 fully overlapping values; same = length max(M,N) centred
+ok   correlate complex (M=6, N=4) full: c_k = sum_n a[n+k] conj(v[n]), k = -(N-1)..M-1
+ok   correlate (M=6, N=4) default mode 'valid' = lags min(0, M-N)..max(0, M-N)
+ok   correlate (M=6, N=4) swapped inputs: full = time-reversed, conjugated (documented)
+ok   correlate (M=6, N=4) 'same': length max(M, N), a contiguous window of the full correlation
+ok   convolve complex (M=3, N=7): full = sum a_m v_(n-m); valid = the max-min+1 fully overlapping values; same = length max(M,N) centred
+ok   correlate complex (M=3, N=7) full: c_k = sum_n a[n+k] conj(v[n]), k = -(N-1)..M-1
+ok   correlate (M=3, N=7) default mode 'valid' = lags min(0, M-N)..max(0, M-N)
+ok   correlate (M=3, N=7) swapped inputs: full = time-reversed, conjugated (documented)
+ok   correlate (M=3, N=7) 'same': length max(M, N), a contiguous window of the full correlation
+ok   convolve complex (M=4, N=7): full = sum a_m v_(n-m); valid = the max-min+1 fully overlapping values; same = length max(M,N) centred
+ok   correlate complex (M=4, N=7) full: c_k = sum_n a[n+k] conj(v[n]), k = -(N-1)..M-1
+ok   correlate (M=4, N=7) default mode 'valid' = lags min(0, M-N)..max(0, M-N)
+ok   correlate (M=4, N=7) swapped inputs: full = time-reversed, conjugated (documented)
+ok   correlate (M=4, N=7) 'same': length max(M, N), a contiguous window of the full correlation
+ok   convolve complex (M=3, N=6): full = sum a_m v_(n-m); valid = the max-min+1 fully overlapping values; same = length max(M,N) centred
+ok   correlate complex (M=3, N=6) full: c_k = sum_n a[n+k] conj(v[n]), k = -(N-1)..M-1
+ok   correlate (M=3, N=6) default mode 'valid' = lags min(0, M-N)..max(0, M-N)
+ok   correlate (M=3, N=6) swapped inputs: full = time-reversed, conjugated (documented)
+ok   correlate (M=3, N=6) 'same': length max(M, N), a contiguous window of the full correlation
+ok   convolve complex (M=4, N=6): full = sum a_m v_(n-m); valid = the max-min+1 fully overlapping values; same = length max(M,N) centred
+ok   correlate complex (M=4, N=6) full: c_k = sum_n a[n+k] conj(v[n]), k = -(N-1)..M-1
+ok   correlate (M=4, N=6) default mode 'valid' = lags min(0, M-N)..max(0, M-N)
+ok   correlate (M=4, N=6) swapped inputs: full = time-reversed, conjugated (documented)
+ok   correlate (M=4, N=6) 'same': length max(M, N), a contiguous window of the full correlation
+ok   convolve complex (M=5, N=5): full = sum a_m v_(n-m); valid = the max-min+1 fully overlapping values; same = length max(M,N) centred
+ok   correlate complex (M=5, N=5) full: c_k = sum_n a[n+k] conj(v[n]), k = -(N-1)..M-1
+ok   correlate (M=5, N=5) default mode 'valid' = lags min(0, M-N)..max(0, M-N)
+ok   correlate (M=5, N=5) swapped inputs: full = time-reversed, conjugated (documented)
+ok   correlate (M=5, N=5) 'same': length max(M, N), a contiguous window of the full correlation
+ok   convolve complex (M=4, N=4): full = sum a_m v_(n-m); valid = the max-min+1 fully overlapping values; same = length max(M,N) centred
+ok   correlate complex (M=4, N=4) full: c_k = sum_n a[n+k] conj(v[n]), k = -(N-1)..M-1
+ok   correlate (M=4, N=4) default mode 'valid' = lags min(0, M-N)..max(0, M-N)
+ok   correlate (M=4, N=4) swapped inputs: full = time-reversed, conjugated (documented)
+ok   correlate (M=4, N=4) 'same': length max(M, N), a contiguous window of the full correlation
+   correlate 'same' (M=4, N=4): swapping a and v does NOT give the reversed conjugate (even overlap length: no centring rule can be reversal-symmetric; only shown for 'full' in the docstring)
+ok   convolve complex (M=1, N=5): full = sum a_m v_(n-m); valid = the max-min+1 fully overlapping values; same = length max(M,N) centred
+ok   correlate complex (M=1, N=5) full: c_k = sum_n a[n+k] conj(v[n]), k = -(N-1)..M-1
+ok   correlate (M=1, N=5) default mode 'valid' = lags min(0, M-N)..max(0, M-N)
+ok   correlate (M=1, N=5) swapped inputs: full = time-reversed, conjugated (documented)
+ok   correlate (M=1, N=5) 'same': length max(M, N), a contiguous window of the full correlation
+ok   convolve complex (M=5, N=1): full = sum a_m v_(n-m); valid = the max-min+1 fully overlapping values; same = length max(M,N) centred
+ok   correlate complex (M=5, N=1) full: c_k = sum_n a[n+k] conj(v[n]), k = -(N-1)..M-1
+ok   correlate (M=5, N=1) default mode 'valid' = lags min(0, M-N)..max(0, M-N)
+ok   correlate (M=5, N=1) swapped inputs: full = time-reversed, conjugated (documented)
+ok   correlate (M=5, N=1) 'same': length max(M, N), a contiguous window of the full correlation
+ok   convolve complex (M=2, N=9): full = sum a_m v_(n-m); valid = the max-min+1 fully overlapping values; same = length max(M,N) centred
+ok   correlate complex (M=2, N=9) full: c_k = sum_n a[n+k] conj(v[n]), k = -(N-1)..M-1
+ok   correlate (M=2, N=9) default mode 'valid' = lags min(0, M-N)..max(0, M-N)
+ok   correlate (M=2, N=9) swapped inputs: full = time-reversed, conjugated (documented)
+ok   correlate (M=2, N=9) 'same': length max(M, N), a contiguous window of the full correlation
+   correlate 'same' takes these windows of the full output (undocumented beyond 'length max(M, N)'): (M=7,N=3): full[1:+7] (convolve's centring (min-1)//2 = 1); (M=7,N=4): full[1:+7] (convolve's centring (min-1)//2 = 1); (M=6,N=3): full[1:+6] (convolve's centring (min-1)//2 = 1); (M=6,N=4): full[1:+6] (convolve's centring (min-1)//2 = 1); (M=3,N=7): full[1:+7] (convolve's centring (min-1)//2 = 1); (M=4,N=7): full[2:+7] (convolve's centring (min-1)//2 = 1); (M=3,N=6): full[1:+6] (convolve's centring (min-1)//2 = 1); (M=4,N=6): full[2:+6] (convolve's centring (min-1)//2 = 1); (M=5,N=5): full[2:+5] (convolve's centring (min-1)//2 = 2); (M=4,N=4): full[1:+4] (convolve's centring (min-1)//2 = 1); (M=1,N=5): full[0:+5] (convolve's centring (min-1)//2 = 0); (M=5,N=1): full[0:+5] (convolve's centring (min-1)//2 = 0); (M=2,N=9): full[1:+9] (convolve's centring (min-1)//2 = 0)
+ok   convolve of int lists: int result, exact
+ok   correlate of int lists 'full': exact, integer dtype
+ok   correlate([1, 2, 3], [0, 1, 0.5], 'same') = [2, 3.5, 3] (docstring example)
+ok   correlate([1, 1], [1..6], 'valid') = [11, 9, 7, 5, 3] (lags -4..0, docstring)
+ok   convolve with an empty input raises ValueError  ValueError: v cannot be empty
+ok   correlate with an unknown mode raises ValueError  ValueError: mode must be one of 'valid', 'same', or 'full' (got 'bogus')
+ok   convolve(float32, float32) returns float32
+#### piecewise
+ok   piecewise(x, [x<0, x>=0], [-x, x^2]) exact
+ok   piecewise with scalars in funclist = constant functions; uncovered points default to 0
+ok   piecewise with len(funclist) == len(condlist) + 1: the extra function is the default where all conditions are False
+ok   piecewise with len(funclist) = len(condlist) + 2 raises ValueError  ValueError: with 2 condition(s), either 2 or 3 functions are expected
+ok   piecewise with too few functions raises ValueError  ValueError: with 3 condition(s), either 3 or 4 functions are expected
+ok   piecewise with a single boolean array as condlist and [f, default]
+ok   piecewise output has the type of x ('same shape and type as x'): int x, float function -> truncated ints  [0, 0, 1, 1]
+ok   piecewise passes **kw to every function
+ok   piecewise passes *args to every function
+ok   piecewise on a 0-d x
+   piecewise with overlapping conditions [x<1, x>-1] -> [10.0, 10.0, 10.0, 20.0, 20.0, 20.0, 20.0, 20.0, 20.0] (later condition wins; the docstring does not state the priority, np.select uses the first)
+#### select
+ok   select docstring example: [x<3, x>3], [-x, x^2], default 42
+ok   select: 'When multiple conditions are satisfied, the first one encountered in condlist is used'
+ok   select broadcasts condlist (3, 1) against choices (1, 4) -> (3, 4)
+ok   select with scalar choices and default
+ok   select(int choices, default=nan) -> float64 with NaN
+ok   select with empty condlist raises ValueError  ValueError: select with an empty condition list is not possible
+ok   select with len(condlist) != len(choicelist) raises ValueError  ValueError: list of cases must be same length as list of conditions
+ok   select with a non-boolean condition raises TypeError  TypeError: invalid entry 0 in condlist: should be boolean ndarray
+ok   select default=300 with int8 choices: the value appears in the output (or an error is raised), not a silently wrapped value  [1, 300] dtype int16
+ok   select default=-129 with int8 choices: the value appears in the output (or an error is raised), not a silently wrapped value  [1, -129] dtype int16
+ok   select choice 300 (Python int) with default int8(1): the value appears in the output (or an error is raised), not a silently wrapped value  [300, 1] dtype int64
+#### where with scalars
+ok   where(c, 1, 2) -> integer [1, 2, 1]
+ok   where(c, 1, 2.5) -> float64
+ok   where(c, int8 array, 5) -> int8 (value-based in 1.x, weak scalar in 2.x)  int8
+ok   where(c, float32 array, 0.5) -> float32
+ok   where(c, int8 array, 300): 300 appears in the output (or an error is raised), not a silently wrapped value  [1, 300, 3] dtype int16
+ok   where broadcasts condition (2, 1) with x (3,) and scalar y
+ok   where(condition) alone == nonzero
+ok   where with only x (no y) raises ValueError  ValueError: either both or neither of x and y should be given
+#### interp: period, left / right, complex fp, decreasing xp, NaN in xp
+ok   interp at 54 points (incl. every xp and both sides): exact piecewise-linear value, fp[0] / fp[-1] outside
+ok   interp at x == xp[i] returns fp[i] exactly
+ok   interp(left=-99, right=99) used outside [xp[0], xp[-1]]
+ok   interp left / right do not apply at the end points themselves
+ok   interp(x=NaN) is NaN
+ok   interp(period=360) docstring example -> [7.5, 5, 8.75, 6.25, 3, 3.25, 3.5, 3.75]
+ok   interp(period=360) equals the periodic-extension definition (xp % period, sorted, wrapped) exactly
+ok   interp(period=360) on 30 angles in [-180, 180]*4 (wrap-around segment 355 -> 370)
+ok   interp(period=..): left / right ignored ('Parameters left and right are ignored if period is specified')
+ok   interp(period=0) raises ValueError  ValueError: period must be a non-zero value
+ok   interp(period=2pi) on angles in radians, wrapping near 0 and 2pi  [2.2, 1.8000000000000007] vs [2.2, 1.8000000000000007]
+ok   interp with complex fp interpolates real and imaginary parts
+ok   interp complex fp with complex left / right
+ok   interp with len(xp) != len(fp) raises ValueError  ValueError: fp and xp are not of the same length.
+ok   interp with empty xp raises ValueError  ValueError: array of sample points is empty
+   interp with decreasing xp [3, 2, 1, 0] at [0.5, 1.5, 2.5] -> [0.0, 0.0, 0.0] (documented: 'If xp is not increasing, the results are nonsense'; the increasing reorder would give [5, 15, 25])
+   interp with NaN in xp [0, 1, nan, 3] at [0.5, 1.5, 2.5, 3.5] -> [5.0, nan, nan, 30.0] (undocumented; NaN breaks the increasing assumption)
+   interp with a repeated xp value [0, 1, 1, 2] at x=1 -> [20.0]
+ok   interp of float32 inputs returns float64
+#### trapezoid: x, dx, axis
+ok   trapezoid(y, x) non-uniform = sum (x_(i+1) - x_i)(y_i + y_(i+1)) / 2, exact
+ok   trapezoid(y, dx=0.25) = trapezoid with x = 0.25 i
+ok   trapezoid(y) default dx = 1
+ok   trapezoid with decreasing x gives the negated integral
+ok   trapezoid(2-D y, 1-D x, axis=1): one integral per row
+ok   trapezoid(2-D y, 1-D x, axis=0): one integral per column
+ok   trapezoid(y, x of the same 2-D shape, axis=1): row-specific sample points
+ok   trapezoid(dx=0.5, axis=0)
+ok   trapezoid of a single sample = 0.0
+ok   trapezoid of an empty array = 0.0
+#### gradient: edge_order 1 / 2, non-uniform spacing, several axes, varargs forms
+ok   gradient(f, 0.5, edge_order=1) = derivative of the local Lagrange interpolant (central interior, secant edges)
+ok   gradient(f, x non-uniform, edge_order=1) = Lagrange-interpolant derivative (Fornberg weights), exact to 1e-13  x = [0.375, 0.625, 1.0, 1.5, 1.75, 2.875, 3.125, 3.5]
+ok   gradient(f, 0.5, edge_order=2) = derivative of the local Lagrange interpolant (central interior, 3-point one-sided edges)
+ok   gradient(f, x non-uniform, edge_order=2) = Lagrange-interpolant derivative (Fornberg weights), exact to 1e-13  x = [0.375, 0.625, 1.0, 1.5, 1.75, 2.875, 3.125, 3.5]
+ok   gradient(f, x coordinate array that is uniform) == gradient(f, scalar spacing)
+ok   gradient of a quadratic on non-uniform x with edge_order=2 is exact everywhere (6x - 2)
+ok   gradient docstring example: f = [1, 2, 4, 7, 11, 16], x = [0, 1, 1.5, 3.5, 4, 6] -> [1, 3, 3.5, 6.7, 6.9, 2.5]
+ok   gradient(2-D, dx scalar, y coordinate array): tuple (d/daxis0, d/daxis1), each exact
+ok   gradient(2-D, one scalar) applies the spacing to every axis
+ok   gradient(axis=1, coordinate array) returns a single array
+ok   gradient(axis=-1) counts from the end
+ok   gradient(axis=(0, 1), two varargs, edge_order=2)
+ok   gradient with 3 varargs for a 2-D array raises TypeError ('invalid number of arguments')  TypeError: invalid number of arguments
+ok   gradient with a coordinate array of the wrong length raises ValueError  ValueError: when 1d, distances must match the length of the corresponding dimension
+ok   gradient(edge_order=2) with 2 points raises ValueError (needs edge_order + 1)  ValueError: Shape of array too small to calculate a numerical gradient, at least (edge_order + 1) elem
+ok   gradient(edge_order=3) raises ValueError  ValueError: 'edge_order' greater than 2 not supported
+ok   gradient of uint8 decreasing data is computed in float64 (no wraparound): [-2, -2, -1.5, -1]
+ok   gradient with uint8 decreasing coordinates: spacing -1 (no wraparound)  [-1.0, -2.0, -4.0, -5.0]
+ok   gradient(float32) keeps float32
+#### unwrap: discont, period, axis;  angle(deg);  clip bounds
+ok   unwrap(wrapped phase with steps |d| < pi) recovers the phase up to the initial offset (1e-12)  max err 0.0e+00
+ok   unwrap: adjacent differences of the result are all <= pi ('never greater than pi')
+ok   unwrap docstring example: [0, pi/4, pi/2, -pi/4, 0]
+ok   unwrap(period=6) on ints -> [1..9], integer dtype  [1, 2, 3, 4, 5, 6, 7, 8, 9] int64
+ok   unwrap(period=4) docstring example -> [2..9]
+ok   unwrap([0, 1, 2, -1, 0], period=4) -> [0, 1, 2, 3, 4]
+ok   unwrap(degrees, period=360) exact  [5, 15, -5, 5, 20, -10]
+ok   unwrap(period=8, discont=None): steps with |d| > max(discont, period/2) replaced by their period complement (exact)  [0.0, 3.5, 7.0, 5.0, 9.0, 9.0, 8.0] vs [0.0, 3.5, 7.0, 5.0, 9.0, 9.0, 8.0]
+ok   unwrap(period=8, discont=1.0): steps with |d| > max(discont, period/2) replaced by their period complement (exact)  [0.0, 3.5, 7.0, 5.0, 9.0, 9.0, 8.0] vs [0.0, 3.5, 7.0, 5.0, 9.0, 9.0, 8.0]
+ok   unwrap(period=8, discont=4.0): steps with |d| > max(discont, period/2) replaced by their period complement (exact)  [0.0, 3.5, 7.0, 5.0, 9.0, 9.0, 8.0] vs [0.0, 3.5, 7.0, 5.0, 9.0, 9.0, 8.0]
+ok   unwrap(period=8, discont=5.0): steps with |d| > max(discont, period/2) replaced by their period complement (exact)  [0.0, 3.5, 7.0, 5.0, 9.0, 9.0, 8.0] vs [0.0, 3.5, 7.0, 5.0, 9.0, 9.0, 8.0]
+FAIL unwrap(period=8, discont=5): a step of exactly 5 = discont is not 'more than max(discont, period/2)' -> kept  [0, -3, -6]
+ok   unwrap(discont=4 > pi): a step of 3.5 is left alone
+ok   unwrap(default discont = pi): a step of 3.5 becomes 3.5 - 2 pi
+ok   unwrap(discont=1 < pi): acts as discont = pi (step 2 kept)
+ok   unwrap(2-D, axis=0) == column-wise 1-D unwrap
+ok   unwrap default axis=-1 on the transpose
+ok   angle(z, deg=True) = degrees(atan2(imag, real)) to 1 ulp, signed zeros follow atan2 (-1-0j -> -180, -0.0 -> 180)
+ok   angle(1j, deg=True) == 90.0 and angle(-1, deg=True) == 180.0 exactly
+ok   angle of a real array: 0 for positive, pi for negative
+ok   clip(a, 5, 2) with a_min > a_max: every value equals a_max (documented)
+ok   clip with array bounds broadcasts
+ok   clip keeps NaN elements
+ok   clip(a, None, None) raises ValueError before 2.1 ('One of max or min must be given')  ValueError: One of max or min must be given
+#### cov / corrcoef: rowvar, bias, ddof, y, complex conjugation, clipping, constant / NaN rows
+ok   cov(X.T, rowvar=False) == exact covariance of the columns (ddof=1)
+ok   cov(bias=True) normalises by N
+ok   cov(ddof=2) normalises by N - 2
+ok   cov(bias=True, ddof=1): 'ddof ... overrides the value implied by bias' -> N - 1
+ok   cov(x, y) = cov of the stacked variables (5 x 5)
+ok   cov(x.T, y.T, rowvar=False): y's columns appended as variables
+ok   cov(1-D x, 1-D y) -> 2 x 2
+ok   cov(1-D x) -> 0-d variance with ddof 1
+ok   cov(complex) = sum (x_i - m_i) conj(x_j - m_j) / (N - 1), exact
+ok   cov(complex) is Hermitian with a real positive diagonal up to rounding (1e-14 x max|C|)
+   cov(complex) measured: max |C - C^H| = 7.1e-15, max |Im C_ii| = 1.7e-16 (max |C| = 69.1); not exactly Hermitian (matrix product rounding)
+ok   corrcoef(complex) = C_ij / sqrt(C_ii C_jj)
+ok   corrcoef(complex): real and imaginary parts within [-1, 1] (clipped)
+ok   corrcoef of 300 exactly (anti-)correlated pairs with large offsets: every |r| <= 1 (clipped)  max |r| 1.0
+ok   corrcoef with a constant row: that row and column NaN, RuntimeWarning, the rest finite  ['RuntimeWarning']
+ok   corrcoef with a NaN in row 1: row / column 1 NaN, the others exact
+ok   corrcoef(bias=...) is accepted but deprecated (DeprecationWarning) and has no effect  ['DeprecationWarning']
+ok   cov(dtype=float32) returns float32
+ok   corrcoef(dtype=float32) returns float32
+ok   cov(fweights non-integer) raises TypeError  TypeError: fweights must be integer
+ok   cov(fweights negative) raises ValueError  ValueError: fweights cannot be negative
+ok   cov(aweights negative) raises ValueError  ValueError: aweights cannot be negative
+ok   cov with a single observation (N - ddof = 0): RuntimeWarning 'Degrees of freedom <= 0' and non-finite result  [[nan, nan], [nan, nan]] ['Degrees of freedom <= 0 for slice']
+#### float16 mean, complex var / std, median of ints, percentile q array + out, quantile q range, count_nonzero, apply_over_axes
+ok   mean(float16): 'float16 results are computed using float32 intermediates' -> exact float16(0.1) for 10000 copies  0.1
+ok   mean(float16) of 20000 values in [0, 100) equals float16(exact mean) (within 1 float16 ulp)  50.03125 vs 50.03158794313669
+   sum(float16, 20000 values) = inf (exact 1000631.7588627338 exceeds float16 max 65504); mean(dtype=float16) = inf (explicit float16 accumulation overflows; no float32 promise when dtype is given)
+ok   var(complex) = mean(|z - mean|^2), a real float64 (documented 'absolute value is taken before squaring')  39.1358024691358
+ok   std(complex, ddof=1) = sqrt(sum |z - mean|^2 / (n - 1))
+ok   var(complex64) returns float32
+ok   median of an even-length int array is the float mean of the middle two: [1, 2, 3, 4] -> 2.5 float64
+ok   median(int8 [100, 120]) = 110.0 (no int8 overflow in the averaging)
+ok   median(uint8 [250, 254, 1, 3]) = (3 + 250) / 2 = 126.5
+ok   percentile(q 2-D (2, 2), axis=1): shape q.shape + reduced shape = (2, 2, 3), exact  (2, 2, 3)
+ok   percentile(out=o) returns o, filled with the same values
+ok   percentile with an out of the wrong shape raises  ValueError: operands could not be broadcast together with shapes (2,2,3) (2,2,3) (3,2) 
+ok   quantile(q=-0.01) outside [0, 1] raises ValueError ('Quantiles must be in the range [0, 1]')  ValueError: Quantiles must be in the range [0, 1]
+ok   quantile(q=1.01) outside [0, 1] raises ValueError ('Quantiles must be in the range [0, 1]')  ValueError: Quantiles must be in the range [0, 1]
+ok   quantile(q=nan) outside [0, 1] raises ValueError ('Quantiles must be in the range [0, 1]')  ValueError: Quantiles must be in the range [0, 1]
+ok   percentile(q=100.5) raises ValueError  ValueError: Percentiles must be in the range [0, 100]
+ok   quantile(q=[0.5, 2.0]) raises ValueError (one entry out of range)  ValueError: Quantiles must be in the range [0, 1]
+ok   count_nonzero(axis=(0, 2), keepdims=True): shape (1, 2, 1); NaN counts as nonzero, -0.0 as zero  [2, 3]
+ok   count_nonzero(axis=1, keepdims=True): shape (3, 1, 2)
+ok   count_nonzero(axis=None) -> int total
+ok   apply_over_axes(np.sum, a, [0, 2]) == a.sum(axis=(0, 2), keepdims=True) (dims re-inserted, ndim kept)
+ok   apply_over_axes with a shape-preserving func (cumsum): repeated application
+ok   apply_over_axes(np.mean, a, 1) with a scalar axis
+ok   apply_over_axes with a func dropping all dims raises ValueError  ValueError: function is not returning an array of the correct shape
+---- done
