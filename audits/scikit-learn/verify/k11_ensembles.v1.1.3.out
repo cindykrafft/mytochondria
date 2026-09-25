@@ -1,0 +1,146 @@
+scikit-learn 1.1.3  numpy 1.24.4  python 3.11.15
+---- GradientBoosting
+ok   GBR init_ for loss='squared_error' is DummyRegressor(strategy='mean'): constant_ = mean(y)  (2.652552)
+ok   GBR init_ for loss='absolute_error' is DummyRegressor(quantile=0.5): constant_ = median(y) (n = 21, unambiguous)
+ok   GBR init_ for loss='huber' is DummyRegressor(quantile=0.5): constant_ = median(y) (n = 21, unambiguous)
+ok   GBR init_ for loss='quantile', alpha=0.9: constant_ = 0.9-quantile of y (n = 21: order statistic 19 under both the linear and the inverted-cdf definition)
+ok   GBR init='zero': predict = 0 + learning_rate * first tree
+ok   GBR init=LinearRegression(): predict = init_.predict + learning_rate * first tree, init_ fitted on the training data
+ok   GBC loss='log_loss': initial raw prediction = log-odds of the class prior (DummyClassifier(strategy='prior'))  (raw0 0.000000, expected 0.000000)
+ok   GBC loss='exponential': initial raw prediction = half the log-odds of the class prior (DummyClassifier(strategy='prior'))  (raw0 0.000000, expected 0.000000)
+ok   GBC multiclass (K=3): estimators_ has K trees per stage and softmax(initial raw) = class priors
+ok   GBR squared_error: stage-1 tree fitted to the negative gradient y - init (leaf value = mean residual of the leaf; squared error needs no line search)
+ok   GBR predict = init + learning_rate * leaf value
+ok   GBR absolute_error: leaf value = argmin_v sum|r_i - v| over the leaf (a median of the leaf residuals; the line search)  (leaf size, value, median interval) [(3, -0.04638, -0.04638, -0.04638), (10, 0.95058, 0.95058, 1.70175), (8, -2.74385, -2.74385, -2.31718)]
+ok   GBR quantile(alpha=0.8): leaf value minimises the pinball loss over the leaf residuals (an 0.8-quantile; the line search)
+ok   GBR huber(alpha=0.9): leaf value = median(r) + mean(clip(r - median, -delta, delta)) with delta = 0.9-quantile of |y - init| (Friedman 2001; median = lower or linear definition)  [(6, ['lower-median', 'linear-median']), (7, ['lower-median', 'linear-median']), (4, ['lower-median', 'linear-median']), (4, ['lower-median', 'linear-median'])]
+ok   GBC log_loss: leaf value = sum(y - p) / sum(p(1-p)) over the leaf (one Newton step, p = prior at stage 1)
+ok   GBC log_loss: predict_proba[:,1] = expit(decision_function), decision = init + lr * leaf
+ok   GBC exponential: leaf value = sum(y* exp(-y* raw)) / sum(exp(-y* raw)), y* = 2y-1 (Newton step on the exponential loss)
+ok   GBC exponential: predict_proba[:,1] = expit(2 * decision_function)
+ok   GBC multiclass log_loss: tree k leaf value = (K-1)/K * sum(y_k - p_k) / sum(p_k(1-p_k)) (Friedman's factor kept)
+ok   GBC multiclass: predict_proba = softmax(decision_function) and predict = classes_[argmax]
+ok   learning_rate: the stage-1 tree is identical for lr=0.1 and lr=0.2 and (predict - init) doubles
+ok   GBR staged_predict[i] = init + lr * cumulative sum of the first i+1 trees; last stage = predict
+ok   GBR train_score_[i] = mean squared error after stage i on the training data (loss='squared_error', subsample=1)  (train_score_[0] 2.281197)
+ok   GBR absolute_error train_score_[i] = mean |y - f_i|
+ok   GBR quantile(0.8) train_score_[i] = mean pinball loss
+ok   GBR huber train_score_[i] = mean Huber loss (1/2 r^2 if |r|<=delta else delta(|r| - delta/2)) with delta = 0.9-quantile of |y - f_{i-1}| (set before fitting stage i)
+ok   GBC binary log_loss train_score_[i] = binomial deviance = 2 * mean log loss  (train_score_[0] 1.047572, logloss 0.523786)
+ok   GBC multiclass train_score_[i] = 1 * mean multinomial log loss (NOT the deviance 2*logloss used in the binary case; documented as 'the loss')  (matches factor 1: True, factor 2: False; train_score_[0] 0.875806, logloss 0.875806)
+ok   GBC exponential train_score_[i] = mean exp(-(2y-1) * raw_i) (staged_decision_function yields shape (n, 1) as documented)
+ok   GBR subsample=0.6: every stage's tree is fitted with in-bag weight sum = int(0.6 n) = 36 (root weighted_n_node_samples)
+   stage-0 in-bag mask replicated from RandomState(7).uniform (first draw of the fit): consistent with the tree's leaf weights: True
+ok   GBR oob_improvement_[0] = OOB loss (MSE) of the init estimator minus OOB loss after stage 1 ('improvement in loss of the first stage over the init estimator')  (1.898850 vs 1.898850)
+ok   GBR train_score_[0] with subsample = MSE on the in-bag samples only
+ok   GBR oob_improvement_ has n_estimators entries (oob_scores_ / oob_score_ only exist from 1.3)
+ok   GBR n_iter_no_change: validation set = train_test_split(test_size=validation_fraction, random_state=RandomState(seed)) [replicated]; init_ and trees fitted on the remaining ceil-complement 96 samples  (n_train 96, n_estimators_ 40)
+ok   GBR early stopping rule: stop at the first stage whose validation MSE is not below (max of the previous n_iter_no_change losses) - tol; n_estimators_ = that stage + 1 < n_estimators  (stop index 39, n_estimators_ 40)
+ok   GBR feature_importances_ = normalised mean over the trees of the per-tree unnormalised total impurity (MSE) decrease per feature, sums to 1  ([0.1666 0.817  0.0164])
+   attribute loss_ present: True (deprecated in 1.1, removed in 1.3); n_estimators_ = 10
+ok   GBR random_state: same int seed -> identical predictions (subsample and max_features randomness); different seed -> different
+---- HistGradientBoosting
+ok   HGBT max_bins=16 on 1000 distinct values: bin_thresholds_ = np.percentile(x, linspace(0,100,17)[1:-1], method='midpoint') ('quantiles so that each bin contains approximately the same number of samples')  (first thresholds [0.06844 0.14115 0.19844])
+   matches the other method 'averaged_inverted_cdf': False
+ok   HGBT feature with 10 distinct values <= max_bins: thresholds = midpoints between consecutive distinct values (9 thresholds)
+ok   HGBT binning: NaN goes to its own reserved bin (index max_bins = 16 = n_bins - 1) and x maps to bin i iff thresholds[i-1] < x <= thresholds[i]  (bins [16, 0, 15, 3, 4, 7])
+ok   HGBT binning: missing values are ignored when computing the thresholds
+ok   HGBT n_samples = 250000 > 200000: thresholds are quantiles of a random 200k subsample (within 0.01 of the full-data quantiles of U(0,1) but not equal to them)  (max |diff| 0.00111)
+   exact replication with RandomState(seed from RandomState(random_state).randint(uint32 max)).choice(n, 200000, replace=False): True
+ok   HGBR categorical_features (10 categories with max_bins=10 allowed): unknown category at predict time is treated as missing: predict(cat=42) == predict(cat=NaN)
+   negative category at predict: treated as missing
+ok   HGBR categorical feature with 10 categories and max_bins=9 raises ValueError (at most max_bins unique categories)  Categorical feature at index 0 is expected to have a cardinality <= 9
+ok   HGBR categorical with missing during training: unknown category == NaN prediction (missing is a proper category)
+ok   HGBR monotonic_cst=[1,-1,0]: predictions are non-decreasing in feature 0 and non-increasing in feature 1 along grids (15 anchors x 25 points)
+   (unconstrained fit on a non-monotone target is monotone in feature 0: False)
+ok   HGBC binary monotonic_cst: predict_proba[:,1] monotone along the constrained features
+ok   HGBR early_stopping='auto': enabled iff n_samples > 10000 (do_early_stopping_ True for 10001, False for 10000; train_score_/validation_score_ empty without early stopping)
+ok   HGBR early_stopping with scoring='loss', validation_fraction=None: train_score_[i] = -(half squared error) of the ensemble after i iterations on the training data (index 0 = baseline)  (train_score_[0] -1.182472)
+ok   HGBR early-stopping rule: stop after the first iteration where none of the last n_iter_no_change scores beats the (n_iter_no_change+1)-th last + tol; n_iter_ < max_iter  (n_iter_ 151)
+ok   HGBR squared_error, l2_regularization=0.0: predict = mean(y) + leaf value -sum(g)/(sum(h) + l2) of the best-gain stump (g = f - y, h = 1)  (leaf values [-1.03487, 0.68991])
+ok   HGBR squared_error, l2_regularization=3.5: predict = mean(y) + leaf value -sum(g)/(sum(h) + l2) of the best-gain stump (g = f - y, h = 1)  (leaf values [-0.61167, 0.75996])
+ok   HGBR min_samples_leaf=6: best stump among the splits leaving >= 6 rows on each side  (differs from the unrestricted stump: False)
+ok   HGBR sample_weight: baseline = weighted mean, gradients and hessians multiplied by the weights (l2=1)
+ok   HGBR absolute_error: baseline = median(y); stump on g = sign(f - y), h = 1; leaf value replaced by median(y - f) of the leaf (line search for the non-differentiable loss)
+ok   HGBR quantile=0.7: baseline = 0.7-quantile(y) (linear); g = -q if y >= f else 1-q, h = 1; leaf value = 0.7-quantile of the leaf residuals
+ok   HGBR poisson (l2=0.5): baseline = log(mean y); g = exp(f) - y, h = exp(f); predict = exp(baseline + leaf)  (max rel diff 2.30e-08; library leaf values [-0.484211, 0.484211], hand [-0.484211, 0.484211]; sizes [15, 15])
+ok   HGBC binary log_loss (l2=0.5): baseline = logit(prior); g = p - y, h = p(1-p); predict_proba = expit(baseline + leaf)
+ok   HGBC multiclass (K=3, l2=0.5): one stump per class on g_k = p_k - y_k, h_k = p_k(1-p_k); predict_proba = softmax(log prior_k + leaf_k)
+ok   HGBR duplicated rows == sample_weight=2 when min_samples_leaf=1 and n_distinct <= max_bins (documented equivalence; binning ignores weights)
+ok   HGBR random_state: identical predictions for the same seed
+---- AdaBoost
+ok   AdaBoostClassifier SAMME: stump i is the tree fitted with the current sample weights w_i (same feature and threshold on refit)
+ok   AdaBoost SAMME: estimator_errors_[i] = weighted error rate under w_i  ([0.4167, 0.4199, 0.4132, 0.4686, 0.4019, 0.4759])
+ok   AdaBoost SAMME: estimator_weights_[i] = learning_rate * (log((1-err)/err) + log(K-1)); w_{i+1} = w_i * exp(alpha_i * 1[misclassified]) renormalised  ([0.7207, 0.7114, 0.7307, 0.5733, 0.7634, 0.5527])
+ok   AdaBoost decision_function = sum_i alpha_i (1[h_i=c] - 1/(K-1) 1[h_i!=c]) / sum alpha (1.3+, symmetric scores; before 1.3: sum_i alpha_i 1[h_i=c] / sum alpha)
+ok   AdaBoost staged_decision_function[m] = the same with the first m+1 estimators
+ok   AdaBoost predict_proba = softmax(decision / (K-1)) (Zhu et al. eq. 15); predict = classes_[argmax decision]
+ok   AdaBoost binary: decision_function = 1 * sum alpha_i * (+1 if h_i = classes_[1] else -1) / sum alpha (difference of the two class scores: factor 2 from 1.3, 1 before; shape (n,)); predict_proba = softmax([-d, d]/2); alpha = lr*log((1-err)/err) (log(K-1)=0)
+ok   AdaBoost binary decision_function docstring: 'values closer to -1 or 1 mean more like the first or second class' -> a unanimous ensemble gives |decision| = 1  (unanimous samples 12, their |decision| = [1.0])
+ok   AdaBoostClassifier algorithm history: default algorithm is 'SAMME.R' before 1.6 (deprecated in 1.4), whose estimator_weights_ are all 1  (default algorithm 'SAMME.R')
+ok   AdaBoostRegressor loss='linear': error_i = sum w |e|/max|e| (linear), beta = err/(1-err), estimator_weights_ = lr*log(1/beta), w *= beta^((1-loss)*lr) (Drucker 1997)  (weights [0.94, 0.651, 0.534, 0.921, 1.154, 0.484])
+ok   AdaBoostRegressor (linear) predict = weighted median of the estimators' predictions (smallest prediction whose cumulative weight >= half the total)
+ok   AdaBoostRegressor loss='square': error_i = sum w |e|/max|e| (square), beta = err/(1-err), estimator_weights_ = lr*log(1/beta), w *= beta^((1-loss)*lr) (Drucker 1997)  (weights [1.766, 2.074, 1.332, 1.137, 1.392, 1.795])
+ok   AdaBoostRegressor (square) predict = weighted median of the estimators' predictions (smallest prediction whose cumulative weight >= half the total)
+ok   AdaBoostRegressor loss='exponential': error_i = sum w |e|/max|e| (exponential), beta = err/(1-err), estimator_weights_ = lr*log(1/beta), w *= beta^((1-loss)*lr) (Drucker 1997)  (weights [1.136, 0.948, 0.985, 0.968, 1.149, 1.004])
+ok   AdaBoostRegressor (exponential) predict = weighted median of the estimators' predictions (smallest prediction whose cumulative weight >= half the total)
+ok   AdaBoostRegressor random_state: same seed -> identical (bootstrap draws)
+---- Bagging
+ok   BaggingClassifier max_samples=0.7 (float): each sample draw has int(0.7 * 60) = 42 indices with replacement (duplicates present)  (distinct per draw [29, 32, 31, 33, 32])
+ok   BaggingClassifier max_features=0.8 (float): int(0.8 * 4) = 3 distinct features per estimator (bootstrap_features=False)
+ok   Bagging: every base tree was fitted on exactly its drawn rows and features (leaf weighted counts = multiplicities of the drawn indices)
+ok   Bagging oob_decision_function_ = normalised sum of predict_proba over the estimators for which the sample was not drawn; oob_score_ = accuracy of its argmax  (oob_score_ 0.3667)
+ok   Bagging predict_proba = mean of the estimators' predict_proba; predict = classes_[argmax]
+ok   Bagging bootstrap=False, max_samples=25 (int): 25 distinct indices per estimator (subsampling without replacement)
+ok   BaggingRegressor max_samples=None: n draws with replacement; oob_prediction_ = mean OOB prediction; oob_score_ = R^2(y, oob_prediction_)
+ok   BaggingRegressor predict = mean of the estimators' predictions
+ok   Bagging random_state: same seed identical, different seed differs
+---- Voting
+ok   VotingClassifier hard, tie 2 vs 1 -> the class first in ascending sort order (1) [user guide]
+ok   VotingClassifier hard with weights [2, 1]: weighted vote 2 vs 1 -> class 2
+ok   VotingClassifier hard majority 2,1,2 -> 2
+ok   VotingClassifier hard weights [1,1,1.5]: 2 (1) vs 0 (1) vs 1 (1.5) -> 1
+ok   VotingClassifier soft: predict_proba = weighted average of the estimators' predict_proba; predict = argmax
+ok   VotingRegressor predict = weighted mean of the estimators' predictions; transform = the stacked predictions
+---- Stacking
+ok   StackingClassifier defaults: final_estimator_ = LogisticRegression(), stack_method_ = ['predict_proba', 'predict_proba'], cv = 5 folds
+ok   StackingClassifier binary: final estimator fitted on cross_val_predict(StratifiedKFold(5, shuffle=False), predict_proba) with the first probability column dropped (refit reproduces coef_/intercept_)  (coef [2.8461 1.3997] vs [2.8461 1.3997])
+ok   StackingClassifier transform(X) = column_stack of the refitted estimators' predict_proba[:, 1] (shape (n, 2)); predict_proba = final_estimator_.predict_proba(transform(X))
+ok   StackingClassifier passthrough=True: transform = [predictions, X] (shape (n, 2 + 3))
+ok   StackingClassifier multiclass (K=3): all K probability columns kept -> transform shape (n, 2*3)
+ok   StackingClassifier stack_method='predict': one label column per estimator
+ok   StackingRegressor defaults: final_estimator_ = RidgeCV() fitted on cross_val_predict(KFold(5, shuffle=False), predict) features (coef_, intercept_, alpha_ reproduced)  (coef [0.9989 0.0011], alpha_ 1.0)
+ok   StackingRegressor estimators_ are refitted on the full data; predict = final_estimator_.predict(transform(X))
+---- IsolationForest
+ok   IsolationForest max_samples='auto' -> max_samples_ = min(256, n) = 256 for n = 320; = n for n = 100
+ok   each isolation tree is built on max_samples_ = 256 rows drawn without replacement (root n_node_samples = 256, bootstrap=False) with max_depth = ceil(log2(256)) = 8
+ok   IsolationForest score_samples = -2^(-E[h(x)] / c(256)), h = leaf depth + c(n_leaf) with c(m) = 2(ln(m-1) + euler_gamma) - 2(m-1)/m (c(2)=1, c(1)=0), averaged over the trees  (unsplit leaves with > 2 samples hit: 7773 of 9600 sample-tree pairs)
+ok   IsolationForest contamination='auto': offset_ = -0.5 and decision_function = score_samples - offset_
+ok   IsolationForest predict = -1 iff decision_function < 0 else +1
+ok   IsolationForest contamination=0.1: offset_ = 10th percentile (linear) of the training score_samples; fraction of training outliers ~ 0.1  (offset_ -0.50234, outlier fraction 0.1000)
+ok   IsolationForest max_samples=64 (int): trees on 64 rows, normalisation c(64)
+ok   IsolationForest random_state: same seed identical scores
+---- RandomTreesEmbedding
+ok   RandomTreesEmbedding transform: sparse CSR (n, n_estimators * leaves) one-hot of the leaf index per tree (exactly one 1 per tree per row; every leaf has a training sample)  (leaves per tree [8, 8, 7, 6, 8], shape (80, 37))
+ok   RandomTreesEmbedding sparse_output=False: dense ndarray equal to the sparse one
+ok   RandomTreesEmbedding trees are totally random regression trees on max_depth=3 (each tree <= 8 leaves) fitted without bootstrap (root n_node_samples = n)
+---- Forests
+ok   RF bootstrap: n draws with replacement per tree, passed as per-row counts (leaf weighted_n_node_samples = multiplicities of the drawn indices; indices from RandomState(tree.random_state).randint(0, n, n_boot))  (root n_node_samples 72 = distinct drawn rows)
+ok   RF oob_decision_function_ = mean predict_proba over the trees whose bootstrap sample excluded the row; oob_score_ = accuracy of its argmax  (oob_score_ 0.8000)
+ok   RF predict = classes_[argmax(mean of the trees' predict_proba)] (soft vote as documented, not the majority vote)  (majority vote disagrees with the mean-probability rule on 0 of 120 samples)
+ok   RF feature_importances_ = mean of the trees' normalised impurity importances (each = total weighted Gini decrease per feature / root weight, normalised), sums to 1
+ok   RF max_samples=0.3: each tree's bootstrap has [36] rows (root weighted_n_node_samples)  (36.0)
+ok   RF max_samples=50: each tree's bootstrap has [50] rows (root weighted_n_node_samples)  (50.0)
+   max_samples=0.35 on 105 rows (36.75): root weight 37 (int -> 36, round -> 37; round expected for this version)
+ok   RF max_samples float on 105 rows: int(...) from 1.9, round(...) before
+ok   RF class_weight='balanced_subsample': per-tree weights n_boot/(K * class counts of the bootstrap sample) (leaf weights = sum of w_c over the drawn rows)
+ok   RF class_weight='balanced' (< 1.9): tree weights = n/(K * class counts of the full y) times the bootstrap multiplicities
+ok   RF min_impurity_decrease=0.02: every split satisfies N_t/N * (imp - N_tR/N_t imp_R - N_tL/N_t imp_L) >= 0.02 and the trees are smaller  (min decrease 0.0205; nodes 122 vs 378)
+ok   RF regressor: predict = mean of the trees; oob_prediction_ = mean OOB prediction; oob_score_ = R^2
+ok   RF warm_start: refit with n_estimators 5 -> 8 keeps the first 5 trees unchanged and adds 3
+ok   RF random_state: same seed identical, different seed differs
+ok   ExtraTrees default bootstrap=False: every tree uses the whole sample (root count n, weight n)
+ok   ExtraTrees: each split threshold lies within [min, max] of the feature over the node's samples (random threshold)
+ok   ExtraTreesRegressor bootstrap=True, oob_score: oob_prediction_ recomputed from the unsampled rows; oob_score_ = R^2
+ok   ExtraTrees feature_importances_ = mean of the trees' importances, sums to 1
+ok   ExtraTrees random_state: same seed identical
