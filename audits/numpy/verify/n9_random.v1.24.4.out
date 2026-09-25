@@ -1,0 +1,969 @@
+numpy 1.24.4  mpmath 1.4.1  python 3.11.15
+---- continuous distributions (moment SE: variance z-test only where the 8th moment is finite)
+ok   docstring pdf of beta(2, 7)  B(a,b)^-1 x^(a-1)(1-x)^(b-1): integrates to 1, mean = 0.222222, variance = 0.017284 (mpmath quad vs closed form)  int=1 mean=0.2222222222 var=0.01728395062
+ok   docstring pdf of gamma(0.5, 3)  x^(k-1) e^(-x/theta) / (theta^k Gamma(k)): integrates to 1, mean = 1.5, variance = 4.5 (mpmath quad vs closed form)  int=1 mean=1.5 var=4.5
+ok   docstring pdf of chisquare(3)  x^(k/2-1) e^(-x/2) / (2^(k/2) Gamma(k/2)): integrates to 1, mean = 3, variance = 6 (mpmath quad vs closed form)  int=1 mean=3 var=6
+ok   noncentral_chisquare closed forms (mean df+nonc, var 2(df+2nonc), mu4 12(df+2nonc)^2+48(df+4nonc)) agree with the Poisson mixture of chi-squares (mpmath, 30 digits)
+ok   docstring pdf of gumbel(5, 3)  exp(-(x-mu)/beta - exp(-(x-mu)/beta)) / beta: integrates to 1, mean = 6.73165, variance = 14.8044 (mpmath quad vs closed form)  int=1 mean=6.731646995 var=14.8044066
+ok   docstring pdf of laplace(-2, 0.5)  exp(-|x-mu|/lambda) / (2 lambda): integrates to 1, mean = -2, variance = 0.5 (mpmath quad vs closed form)  int=1 mean=-2 var=0.5
+ok   docstring pdf of logistic(10, 1)  e^{-(x-mu)/s} / (s (1 + e^{-(x-mu)/s})^2): integrates to 1, mean = 10, variance = 3.28987 (mpmath quad vs closed form)  int=1 mean=10 var=3.289868134
+ok   docstring pdf of normal(3, 2.5)  exp(-(x-mu)^2/(2 sigma^2)) / sqrt(2 pi sigma^2): integrates to 1, mean = 3, variance = 6.25 (mpmath quad vs closed form)  int=1 mean=3 var=6.25
+ok   docstring pdf of pareto(3)  a / (1+x)^(a+1)  (Lomax, docstring: 'Pareto II or Lomax distribution with specified shape'): integrates to 1, mean = 0.5, variance = 0.75 (mpmath quad vs closed form)  int=1 mean=0.5 var=0.75
+ok   docstring pdf of power(5)  a x^(a-1) on [0,1]: integrates to 1, mean = 0.833333, variance = 0.0198413 (mpmath quad vs closed form)  int=1 mean=0.8333333333 var=0.01984126984
+ok   docstring pdf of rayleigh(3)  x/sigma^2 exp(-x^2/(2 sigma^2)): integrates to 1, mean = 3.75994, variance = 3.86283 (mpmath quad vs closed form)  int=1 mean=3.759942412 var=3.862833059
+ok   docstring pdf of standard_t(5)  Gamma((df+1)/2)/(sqrt(pi df) Gamma(df/2)) (1+x^2/df)^(-(df+1)/2): integrates to 1, mean = 0, variance = 1.66667 (mpmath quad vs closed form)  int=1 mean=-7.57306469e-29 var=1.666666667
+ok   docstring pdf of wald(3, 2)  sqrt(scale/(2 pi x^3)) exp(-scale (x-mean)^2 / (2 mean^2 x)): integrates to 1, mean = 3, variance = 13.5 (mpmath quad vs closed form)  int=1 mean=3 var=13.5
+ok   docstring pdf of weibull(5)  a x^(a-1) exp(-x^a): integrates to 1, mean = 0.918169, variance = 0.04423 (mpmath quad vs closed form)  int=1 mean=0.9181687424 var=0.04422997798
+ok   Generator.beta(0.05, 0.05) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.499108 vs 0.5 z=-1.18; var 0.227312 vs 0.227273 z=+0.43; CDF F(sample q0.1=8.0089e-15)=0.099041 z=-2.02, F(sample q0.5=0.48973)=0.499038 z=-1.22, F(sample q0.9=1)=0.900636 z=+1.34
+ok   RandomState.beta(0.05, 0.05) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.499934 vs 0.5 z=-0.09; var 0.227328 vs 0.227273 z=+0.61; CDF F(sample q0.1=9.9662e-15)=0.100129 z=+0.27, F(sample q0.5=0.49901)=0.499907 z=-0.12, F(sample q0.9=1)=0.899858 z=-0.30
+ok   Generator.beta(2.0, 7.0) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.222434 vs 0.222222 z=+1.02; var 0.0172969 vs 0.017284 z=+0.31; CDF F(sample q0.1=0.068611)=0.099962 z=-0.08, F(sample q0.5=0.20144)=0.500897 z=+1.14, F(sample q0.9=0.40599)=0.899742 z=-0.54
+ok   RandomState.beta(2.0, 7.0) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.222347 vs 0.222222 z=+0.60; var 0.0172697 vs 0.017284 z=-0.34; CDF F(sample q0.1=0.069074)=0.101126 z=+2.37, F(sample q0.5=0.20112)=0.499981 z=-0.02, F(sample q0.9=0.40637)=0.900127 z=+0.27
+ok   Generator.beta(1.0, 1.0) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.500484 vs 0.5 z=+1.06; var 0.0833178 vs 0.0833333 z=-0.13; CDF F(sample q0.1=0.10076)=0.100760 z=+1.60, F(sample q0.5=0.50047)=0.500469 z=+0.59, F(sample q0.9=0.90042)=0.900417 z=+0.88
+ok   RandomState.beta(1.0, 1.0) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.499643 vs 0.5 z=-0.78; var 0.0831888 vs 0.0833333 z=-1.23; CDF F(sample q0.1=0.10078)=0.100775 z=+1.63, F(sample q0.5=0.49878)=0.498776 z=-1.55, F(sample q0.9=0.89982)=0.899818 z=-0.38
+ok   Generator.beta(30.0, 0.3) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.990112 vs 0.990099 z=+0.45; var 0.000311933 vs 0.000313194 z=-0.58; CDF F(sample q0.1=0.97069)=0.100427 z=+0.90, F(sample q0.5=0.99753)=0.499703 z=-0.38, F(sample q0.9=0.99999)=0.899956 z=-0.09
+ok   RandomState.beta(30.0, 0.3) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.990117 vs 0.990099 z=+0.63; var 0.000313034 vs 0.000313194 z=-0.07; CDF F(sample q0.1=0.9706)=0.100001 z=+0.00, F(sample q0.5=0.99754)=0.500328 z=+0.42, F(sample q0.9=0.99999)=0.899962 z=-0.08
+ok   Generator.beta(0.5, 0.5) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.500067 vs 0.5 z=+0.12; var 0.125006 vs 0.125 z=+0.04; CDF F(sample q0.1=0.024762)=0.100596 z=+1.26, F(sample q0.5=0.49917)=0.499470 z=-0.67, F(sample q0.9=0.9758)=0.900560 z=+1.18
+ok   RandomState.beta(0.5, 0.5) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.500749 vs 0.5 z=+1.34; var 0.124808 vs 0.125 z=-1.38; CDF F(sample q0.1=0.024551)=0.100163 z=+0.34, F(sample q0.5=0.5014)=0.500894 z=+1.13, F(sample q0.9=0.97566)=0.900274 z=+0.58
+ok   Generator.gamma(0.01, 1.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.0101337 vs 0.01 z=+0.85; var 0.0105169 vs 0.01 z=+1.33; CDF F(sample q0.1=7.826e-101)=0.100324 z=+0.68, F(sample q0.5=3.9583e-31)=0.499397 z=-0.76, F(sample q0.9=1.5768e-05)=0.900428 z=+0.90
+ok   RandomState.gamma(0.01, 1.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.00993381 vs 0.01 z=-0.42; var 0.00982653 vs 0.01 z=-0.45; CDF F(sample q0.1=6.521e-101)=0.100142 z=+0.30, F(sample q0.5=4.9715e-31)=0.500537 z=+0.68, F(sample q0.9=1.5043e-05)=0.900004 z=+0.01
+ok   Generator.gamma(0.5, 3.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.50084 vs 1.5 z=+0.25; var 4.51094 vs 4.5 z=+0.41; CDF F(sample q0.1=0.023906)=0.100460 z=+0.97, F(sample q0.5=0.68379)=0.500436 z=+0.55, F(sample q0.9=4.0566)=0.899926 z=-0.16
+ok   RandomState.gamma(0.5, 3.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.50225 vs 1.5 z=+0.67; var 4.54035 vs 4.5 z=+1.52; CDF F(sample q0.1=0.023494)=0.099595 z=-0.85, F(sample q0.5=0.68163)=0.499756 z=-0.31, F(sample q0.9=4.0731)=0.900614 z=+1.29
+ok   Generator.gamma(1000.0, 0.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 499.989 vs 500 z=-0.44; var 250.653 vs 250 z=+1.17; CDF F(sample q0.1=479.81)=0.099626 z=-0.79, F(sample q0.5=499.83)=0.499811 z=-0.24, F(sample q0.9=520.41)=0.900465 z=+0.98
+ok   RandomState.gamma(1000.0, 0.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 500.016 vs 500 z=+0.65; var 249.62 vs 250 z=-0.68; CDF F(sample q0.1=479.91)=0.100722 z=+1.52, F(sample q0.5=499.81)=0.499437 z=-0.71, F(sample q0.9=520.41)=0.900429 z=+0.90
+ok   Generator.gamma(1.0, 2.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 2.49535 vs 2.5 z=-1.18; var 6.22935 vs 6.25 z=-0.74; CDF F(sample q0.1=0.26195)=0.099479 z=-1.10, F(sample q0.5=1.734)=0.500231 z=+0.29, F(sample q0.9=5.7438)=0.899491 z=-1.07
+ok   RandomState.gamma(1.0, 2.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 2.49963 vs 2.5 z=-0.09; var 6.26167 vs 6.25 z=+0.42; CDF F(sample q0.1=0.26314)=0.099906 z=-0.20, F(sample q0.5=1.7301)=0.499453 z=-0.69, F(sample q0.9=5.7553)=0.899954 z=-0.10
+ok   Generator.standard_gamma(0.01) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.0101989 vs 0.01 z=+1.26; var 0.0108943 vs 0.01 z=+2.31; CDF F(sample q0.1=4.6901e-101)=0.099812 z=-0.40, F(sample q0.5=3.9664e-31)=0.499408 z=-0.75, F(sample q0.9=1.4162e-05)=0.899461 z=-1.14
+ok   RandomState.standard_gamma(0.01) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.0100967 vs 0.01 z=+0.61; var 0.0102787 vs 0.01 z=+0.72; CDF F(sample q0.1=1.9971e-100)=0.101269 z=+2.67, F(sample q0.5=5.4953e-31)=0.501039 z=+1.31, F(sample q0.9=1.5194e-05)=0.900094 z=+0.20
+ok   Generator.standard_gamma(2.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 2.50305 vs 2.5 z=+1.22; var 2.50924 vs 2.5 z=+1.11; CDF F(sample q0.1=0.80633)=0.100287 z=+0.60, F(sample q0.5=2.1774)=0.500470 z=+0.59, F(sample q0.9=4.626)=0.900577 z=+1.22
+ok   RandomState.standard_gamma(2.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 2.50098 vs 2.5 z=+0.39; var 2.50151 vs 2.5 z=+0.18; CDF F(sample q0.1=0.80593)=0.100188 z=+0.40, F(sample q0.5=2.1779)=0.500602 z=+0.76, F(sample q0.9=4.6196)=0.900103 z=+0.22
+ok   Generator.standard_gamma(2.5, dtype=float32) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 2.50223 vs 2.5 z=+0.89; var 2.51009 vs 2.5 z=+1.22; CDF F(sample q0.1=0.80336)=0.099565 z=-0.92, F(sample q0.5=2.1764)=0.500178 z=+0.23, F(sample q0.9=4.625)=0.900499 z=+1.05
+ok   Generator.standard_gamma(0.3, dtype=float32) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.299007 vs 0.3 z=-1.15; var 0.297208 vs 0.3 z=-1.25; CDF F(sample q0.1=0.00032546)=0.100160 z=+0.34, F(sample q0.5=0.072843)=0.499441 z=-0.71, F(sample q0.9=0.88378)=0.899844 z=-0.33
+ok   Generator.chisquare(0.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.501925 vs 0.5 z=+1.22; var 1.00637 vs 1 z=+0.79; CDF F(sample q0.1=0.00013343)=0.099708 z=-0.62, F(sample q0.5=0.087493)=0.500201 z=+0.25, F(sample q0.9=1.5127)=0.900955 z=+2.01
+ok   RandomState.chisquare(0.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.49951 vs 0.5 z=-0.31; var 0.997138 vs 1 z=-0.36; CDF F(sample q0.1=0.00013197)=0.099434 z=-1.19, F(sample q0.5=0.087715)=0.500507 z=+0.64, F(sample q0.9=1.4969)=0.899689 z=-0.66
+ok   Generator.chisquare(3.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 3.00735 vs 3 z=+1.90; var 6.02908 vs 6 z=+1.25; CDF F(sample q0.1=0.5926)=0.101875 z=+3.95, F(sample q0.5=2.3694)=0.500649 z=+0.82, F(sample q0.9=6.2546)=0.900140 z=+0.29
+ok   RandomState.chisquare(3.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 2.99796 vs 3 z=-0.53; var 5.98103 vs 6 z=-0.82; CDF F(sample q0.1=0.58381)=0.099872 z=-0.27, F(sample q0.5=2.3656)=0.499922 z=-0.10, F(sample q0.9=6.2485)=0.899875 z=-0.26
+ok   Generator.chisquare(100.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 99.9742 vs 100 z=-1.15; var 199.971 vs 200 z=-0.06; CDF F(sample q0.1=82.308)=0.099286 z=-1.50, F(sample q0.5=99.318)=0.499535 z=-0.59, F(sample q0.9=118.49)=0.899891 z=-0.23
+ok   RandomState.chisquare(100.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 99.9825 vs 100 z=-0.78; var 200.177 vs 200 z=+0.38; CDF F(sample q0.1=82.337)=0.099701 z=-0.63, F(sample q0.5=99.334)=0.500008 z=+0.01, F(sample q0.9=118.49)=0.899937 z=-0.13
+ok   Generator.exponential(scale=0.001) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.00100007 vs 0.001 z=+0.04; var 9.99072e-07 vs 1e-06 z=-0.21; CDF F(sample q0.1=0.0001048)=0.099496 z=-1.06, F(sample q0.5=0.00069391)=0.500382 z=+0.48, F(sample q0.9=0.0023)=0.899739 z=-0.55
+ok   RandomState.exponential(scale=0.001) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.00100085 vs 0.001 z=+0.54; var 1.00117e-06 vs 1e-06 z=+0.26; CDF F(sample q0.1=0.00010623)=0.100786 z=+1.66, F(sample q0.5=0.00069346)=0.500158 z=+0.20, F(sample q0.9=0.0023008)=0.899824 z=-0.37
+ok   Generator.exponential(scale=7.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 7.50373 vs 7.5 z=+0.31; var 56.2209 vs 56.25 z=-0.12; CDF F(sample q0.1=0.79235)=0.100258 z=+0.54, F(sample q0.5=5.2057)=0.500476 z=+0.60, F(sample q0.9=17.289)=0.900259 z=+0.55
+ok   RandomState.exponential(scale=7.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 7.52519 vs 7.5 z=+2.12; var 56.8183 vs 56.25 z=+2.26; CDF F(sample q0.1=0.78932)=0.099894 z=-0.22, F(sample q0.5=5.2086)=0.500667 z=+0.84, F(sample q0.9=17.33)=0.900806 z=+1.70
+ok   Generator.standard_exponential(method='zig') n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.00162 vs 1 z=+1.03; var 0.999159 vs 1 z=-0.19; CDF F(sample q0.1=0.10593)=0.100508 z=+1.07, F(sample q0.5=0.69463)=0.500739 z=+0.94, F(sample q0.9=2.3052)=0.900262 z=+0.55
+ok   RandomState.standard_exponential(method='zig') n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.996773 vs 1 z=-2.04; var 0.996437 vs 1 z=-0.80; CDF F(sample q0.1=0.10504)=0.099709 z=-0.61, F(sample q0.5=0.6917)=0.499274 z=-0.92, F(sample q0.9=2.2947)=0.899211 z=-1.66
+ok   Generator.standard_exponential(method='inv') n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.00103 vs 1 z=+0.65; var 1.0027 vs 1 z=+0.60; CDF F(sample q0.1=0.10629)=0.100832 z=+1.75, F(sample q0.5=0.69423)=0.500542 z=+0.69, F(sample q0.9=2.3062)=0.900357 z=+0.75
+ok   Generator.standard_exponential(dtype=float32, method='zig') n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.00285 vs 1 z=+1.80; var 1.00706 vs 1 z=+1.58; CDF F(sample q0.1=0.10538)=0.100013 z=+0.03, F(sample q0.5=0.69437)=0.500609 z=+0.77, F(sample q0.9=2.3071)=0.900448 z=+0.94
+ok   Generator.standard_exponential(dtype=float32, method='inv') n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.999482 vs 1 z=-0.33; var 1.00425 vs 1 z=+0.95; CDF F(sample q0.1=0.10455)=0.099270 z=-1.54, F(sample q0.5=0.69135)=0.499102 z=-1.14, F(sample q0.9=2.3009)=0.899828 z=-0.36
+ok   Generator.f(1, 48) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.04457 vs 1.04348 z=+0.45; var 2.33753 vs 2.32617 z=+0.73; CDF F(sample q0.1=0.0157)=0.099190 z=-1.71, F(sample q0.5=0.45926)=0.498774 z=-1.55, F(sample q0.9=2.811)=0.899879 z=-0.25
+ok   RandomState.f(1, 48) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.04241 vs 1.04348 z=-0.44; var 2.31012 vs 2.32617 z=-1.04; CDF F(sample q0.1=0.015931)=0.099915 z=-0.18, F(sample q0.5=0.46155)=0.499838 z=-0.21, F(sample q0.9=2.8274)=0.900833 z=+1.76
+ok   Generator.f(20, 20) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.11167 vs 1.11111 z=+0.66; var 0.294286 vs 0.29321 z=+0.82; CDF F(sample q0.1=0.55681)=0.099556 z=-0.94, F(sample q0.5=1.0008)=0.500676 z=+0.86, F(sample q0.9=1.797)=0.900673 z=+1.42
+ok   RandomState.f(20, 20) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.11131 vs 1.11111 z=+0.24; var 0.291932 vs 0.29321 z=-0.97; CDF F(sample q0.1=0.55741)=0.099962 z=-0.08, F(sample q0.5=1.0012)=0.501033 z=+1.31, F(sample q0.9=1.7915)=0.899510 z=-1.03
+ok   Generator.f(0.5, 3) n=400000: support [0,inf], exact CDF at the sample 10/50/90% quantiles [dfden<=4: infinite variance, CDF only]  CDF F(sample q0.1=0.00036057)=0.100735 z=+1.55, F(sample q0.5=0.23133)=0.500343 z=+0.43, F(sample q0.9=5.3429)=0.899663 z=-0.71
+ok   RandomState.f(0.5, 3) n=400000: support [0,inf], exact CDF at the sample 10/50/90% quantiles [dfden<=4: infinite variance, CDF only]  CDF F(sample q0.1=0.00034683)=0.099761 z=-0.50, F(sample q0.5=0.2291)=0.499196 z=-1.02, F(sample q0.9=5.3361)=0.899547 z=-0.96
+ok   Generator.f(5, 100) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.0193 vs 1.02041 z=-1.05; var 0.445393 vs 0.446862 z=-0.92; CDF F(sample q0.1=0.31963)=0.099855 z=-0.31, F(sample q0.5=0.87484)=0.499091 z=-1.15, F(sample q0.9=1.9036)=0.899625 z=-0.79
+ok   RandomState.f(5, 100) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.02058 vs 1.02041 z=+0.16; var 0.44621 vs 0.446862 z=-0.41; CDF F(sample q0.1=0.31928)=0.099643 z=-0.75, F(sample q0.5=0.87664)=0.500293 z=+0.37, F(sample q0.9=1.9067)=0.900172 z=+0.36
+ok   Generator.noncentral_f(3, 20, 3.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 2.22351 vs 2.22222 z=+0.44; var 3.38192 vs 3.39506 z=-0.75; CDF F(sample q0.1=0.47766)=0.100519 z=+1.09, F(sample q0.5=1.7528)=0.500248 z=+0.31, F(sample q0.9=4.5319)=0.900382 z=+0.80
+ok   RandomState.noncentral_f(3, 20, 3.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 2.21798 vs 2.22222 z=-1.45; var 3.37181 vs 3.39506 z=-1.33; CDF F(sample q0.1=0.47641)=0.100146 z=+0.31, F(sample q0.5=1.7518)=0.499968 z=-0.04, F(sample q0.9=4.5103)=0.899124 z=-1.85
+ok   Generator.noncentral_f(0.5, 10, 1.0) n=400000: support [0,inf], mean z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [dfnum < 1]  mean 3.74152 vs 3.75 z=-0.79; CDF F(sample q0.1=0.0021494)=0.099972 z=-0.06, F(sample q0.5=1.1169)=0.499914 z=-0.11, F(sample q0.9=10.527)=0.900157 z=+0.33
+ok   RandomState.noncentral_f(0.5, 10, 1.0) n=400000: support [0,inf], mean z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [dfnum < 1]  mean 3.76961 vs 3.75 z=+1.82; CDF F(sample q0.1=0.0022398)=0.101007 z=+2.12, F(sample q0.5=1.1316)=0.501794 z=+2.27, F(sample q0.9=10.563)=0.900660 z=+1.39
+ok   Generator.noncentral_f(5, 50, 0.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [; nonc = 0]  mean 1.04123 vs 1.04167 z=-0.39; var 0.500118 vs 0.500075 z=+0.02; CDF F(sample q0.1=0.31767)=0.099953 z=-0.10, F(sample q0.5=0.88197)=0.499877 z=-0.16, F(sample q0.9=1.9687)=0.900434 z=+0.91
+ok   RandomState.noncentral_f(5, 50, 0.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [; nonc = 0]  mean 1.04251 vs 1.04167 z=+0.76; var 0.500975 vs 0.500075 z=+0.46; CDF F(sample q0.1=0.31886)=0.100671 z=+1.41, F(sample q0.5=0.88285)=0.500448 z=+0.57, F(sample q0.9=1.9667)=0.900110 z=+0.23
+ok   Generator.noncentral_chisquare(3, 20.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 22.9955 vs 23 z=-0.30; var 85.6105 vs 86 z=-1.80; CDF F(sample q0.1=11.915)=0.100793 z=+1.67, F(sample q0.5=22.011)=0.499749 z=-0.32, F(sample q0.9=35.326)=0.899196 z=-1.69
+ok   RandomState.noncentral_chisquare(3, 20.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 22.9873 vs 23 z=-0.87; var 86.2908 vs 86 z=+1.34; CDF F(sample q0.1=11.852)=0.099132 z=-1.83, F(sample q0.5=21.999)=0.499246 z=-0.95, F(sample q0.9=35.387)=0.900118 z=+0.25
+ok   Generator.noncentral_chisquare(0.5, 2.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [df < 1 (Poisson-mixture branch)]  mean 2.50129 vs 2.5 z=+0.27; var 9.00179 vs 9 z=+0.05; CDF F(sample q0.1=0.0075163)=0.100717 z=+1.51, F(sample q0.5=1.4443)=0.499891 z=-0.14, F(sample q0.9=6.5549)=0.900261 z=+0.55
+ok   RandomState.noncentral_chisquare(0.5, 2.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [df < 1 (Poisson-mixture branch)]  mean 2.50566 vs 2.5 z=+1.19; var 9.03933 vs 9 z=+1.04; CDF F(sample q0.1=0.0072733)=0.099886 z=-0.24, F(sample q0.5=1.4505)=0.500832 z=+1.05, F(sample q0.9=6.5579)=0.900360 z=+0.76
+ok   Generator.noncentral_chisquare(5, 0.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 5.0037 vs 5 z=+0.74; var 10.0251 vs 10 z=+0.76; CDF F(sample q0.1=1.6126)=0.100280 z=+0.59, F(sample q0.5=4.3577)=0.500850 z=+1.07, F(sample q0.9=9.2404)=0.900149 z=+0.31
+ok   RandomState.noncentral_chisquare(5, 0.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 5.00201 vs 5 z=+0.40; var 9.98791 vs 10 z=-0.36; CDF F(sample q0.1=1.6154)=0.100624 z=+1.31, F(sample q0.5=4.3551)=0.500505 z=+0.64, F(sample q0.9=9.2499)=0.900499 z=+1.05
+ok   Generator.noncentral_chisquare(1.0, 0.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [df == 1]  mean 1.49867 vs 1.5 z=-0.42; var 3.9944 vs 4 z=-0.27; CDF F(sample q0.1=0.026157)=0.100279 z=+0.59, F(sample q0.5=0.73364)=0.500436 z=+0.55, F(sample q0.9=4.0244)=0.899693 z=-0.65
+ok   RandomState.noncentral_chisquare(1.0, 0.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [df == 1]  mean 1.49442 vs 1.5 z=-1.76; var 3.97698 vs 4 z=-1.10; CDF F(sample q0.1=0.025544)=0.099102 z=-1.89, F(sample q0.5=0.72924)=0.499120 z=-1.11, F(sample q0.9=4.0264)=0.899782 z=-0.46
+ok   Generator.noncentral_chisquare(0.1, 30.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [df < 1 (Poisson-mixture branch)]  mean 30.0949 vs 30.1 z=-0.29; var 119.998 vs 120.2 z=-0.69; CDF F(sample q0.1=16.796)=0.099640 z=-0.76, F(sample q0.5=29.101)=0.500237 z=+0.30, F(sample q0.9=44.632)=0.899392 z=-1.28
+ok   RandomState.noncentral_chisquare(0.1, 30.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [df < 1 (Poisson-mixture branch)]  mean 30.0913 vs 30.1 z=-0.50; var 119.987 vs 120.2 z=-0.72; CDF F(sample q0.1=16.806)=0.099860 z=-0.30, F(sample q0.5=29.094)=0.499968 z=-0.04, F(sample q0.9=44.649)=0.899616 z=-0.81
+ok   Generator.gumbel(0.0, 0.1) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'mean of mu + 0.57721 beta and a variance of pi^2/6 beta^2']  mean 0.0577709 vs 0.0577216 z=+0.24; var 0.0164266 vs 0.0164493 z=-0.42; CDF F(sample q0.1=-0.08308)=0.100747 z=+1.57, F(sample q0.5=0.036615)=0.499876 z=-0.16, F(sample q0.9=0.22512)=0.900083 z=+0.18
+ok   RandomState.gumbel(0.0, 0.1) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'mean of mu + 0.57721 beta and a variance of pi^2/6 beta^2']  mean 0.0579441 vs 0.0577216 z=+1.10; var 0.0165432 vs 0.0164493 z=+1.72; CDF F(sample q0.1=-0.083515)=0.099742 z=-0.54, F(sample q0.5=0.036714)=0.500216 z=+0.27, F(sample q0.9=0.22561)=0.900545 z=+1.15
+ok   Generator.gumbel(5.0, 3.0) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'mean of mu + 0.57721 beta and a variance of pi^2/6 beta^2']  mean 6.74109 vs 6.73165 z=+1.55; var 14.8694 vs 14.8044 z=+1.32; CDF F(sample q0.1=2.4988)=0.100070 z=+0.15, F(sample q0.5=6.1056)=0.500700 z=+0.89, F(sample q0.9=11.774)=0.900712 z=+1.50
+ok   RandomState.gumbel(5.0, 3.0) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'mean of mu + 0.57721 beta and a variance of pi^2/6 beta^2']  mean 6.72682 vs 6.73165 z=-0.79; var 14.7492 vs 14.8044 z=-1.12; CDF F(sample q0.1=2.4962)=0.099871 z=-0.27, F(sample q0.5=6.0969)=0.499694 z=-0.39, F(sample q0.9=11.746)=0.899825 z=-0.37
+ok   Generator.laplace(0.0, 1.0) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: loc is 'location (or mean)']  mean -0.000530796 vs 0 z=-0.24; var 2.0046 vs 2 z=+0.65; CDF F(sample q0.1=-1.6124)=0.099709 z=-0.61, F(sample q0.5=-0.0016268)=0.499187 z=-1.03, F(sample q0.9=1.6107)=0.900122 z=+0.26
+ok   RandomState.laplace(0.0, 1.0) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: loc is 'location (or mean)']  mean 0.00291759 vs 0 z=+1.30; var 1.98149 vs 2 z=-2.62; CDF F(sample q0.1=-1.5978)=0.101175 z=+2.48, F(sample q0.5=3.6366e-05)=0.500018 z=+0.02, F(sample q0.9=1.6051)=0.899567 z=-0.91
+ok   Generator.laplace(-2.0, 0.5) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: loc is 'location (or mean)']  mean -2.0005 vs -2 z=-0.45; var 0.498339 vs 0.5 z=-0.94; CDF F(sample q0.1=-2.8057)=0.099811 z=-0.40, F(sample q0.5=-2.0008)=0.499203 z=-1.01, F(sample q0.9=-1.1944)=0.900186 z=+0.39
+ok   RandomState.laplace(-2.0, 0.5) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: loc is 'location (or mean)']  mean -1.99911 vs -2 z=+0.79; var 0.499005 vs 0.5 z=-0.56; CDF F(sample q0.1=-2.8028)=0.100377 z=+0.79, F(sample q0.5=-1.9994)=0.500561 z=+0.71, F(sample q0.9=-1.1941)=0.900242 z=+0.51
+ok   Generator.logistic(10.0, 1.0) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: loc is 'location or mean, also median']  mean 10.0028 vs 10 z=+0.98; var 3.28009 vs 3.28987 z=-1.05; CDF F(sample q0.1=7.8128)=0.100908 z=+1.91, F(sample q0.5=9.998)=0.499489 z=-0.65, F(sample q0.9=12.2)=0.900223 z=+0.47
+ok   RandomState.logistic(10.0, 1.0) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: loc is 'location or mean, also median']  mean 9.99978 vs 10 z=-0.08; var 3.29518 vs 3.28987 z=+0.57; CDF F(sample q0.1=7.7942)=0.099232 z=-1.62, F(sample q0.5=10.005)=0.501195 z=+1.51, F(sample q0.9=12.193)=0.899588 z=-0.87
+ok   Generator.logistic(0.0, 0.01) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: loc is 'location or mean, also median']  mean -4.48553e-06 vs 0 z=-0.16; var 0.00032921 vs 0.000328987 z=+0.24; CDF F(sample q0.1=-0.022051)=0.099297 z=-1.48, F(sample q0.5=1.857e-05)=0.500464 z=+0.59, F(sample q0.9=0.021991)=0.900170 z=+0.36
+ok   RandomState.logistic(0.0, 0.01) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: loc is 'location or mean, also median']  mean 3.79343e-06 vs 0 z=+0.13; var 0.000328271 vs 0.000328987 z=-0.77; CDF F(sample q0.1=-0.021982)=0.099913 z=-0.18, F(sample q0.5=4.8946e-06)=0.500122 z=+0.15, F(sample q0.9=0.021932)=0.899640 z=-0.76
+ok   Generator.lognormal(3.0, 1.0) -> log(x) n=400000: support [0,inf], mean/variance z-tests vs exact moments [docstring: 'log(x) is normally distributed' with the given mean and sigma]  mean 3.00074 vs 3 z=+0.47; var 1.00176 vs 1 z=+0.79
+ok   RandomState.lognormal(3.0, 1.0) -> log(x) n=400000: support [0,inf], mean/variance z-tests vs exact moments [docstring: 'log(x) is normally distributed' with the given mean and sigma]  mean 2.99987 vs 3 z=-0.08; var 0.998483 vs 1 z=-0.68
+ok   Generator.lognormal(3.0, 1.0) n=400000: support [0,inf], mean z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [sigma=1: variance test skipped (kurtosis of x^2 ~ e^16 makes the CLT for s^2 invalid at n=4e5)]  mean 33.182 vs 33.1155 z=+0.97; CDF F(sample q0.1=5.5727)=0.099901 z=-0.21, F(sample q0.5=20.078)=0.499854 z=-0.18, F(sample q0.9=72.496)=0.900348 z=+0.73
+ok   RandomState.lognormal(3.0, 1.0) n=400000: support [0,inf], mean z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [sigma=1: variance test skipped (kurtosis of x^2 ~ e^16 makes the CLT for s^2 invalid at n=4e5)]  mean 33.2461 vs 33.1155 z=+1.90; CDF F(sample q0.1=5.5823)=0.100203 z=+0.43, F(sample q0.5=20.117)=0.500633 z=+0.80, F(sample q0.9=72.751)=0.900960 z=+2.02
+ok   Generator.lognormal(0.0, 0.1) -> log(x) n=400000: support [0,inf], mean/variance z-tests vs exact moments [docstring: 'log(x) is normally distributed' with the given mean and sigma]  mean 0.000289001 vs 0 z=+1.83; var 0.00998703 vs 0.01 z=-0.58
+ok   RandomState.lognormal(0.0, 0.1) -> log(x) n=400000: support [0,inf], mean/variance z-tests vs exact moments [docstring: 'log(x) is normally distributed' with the given mean and sigma]  mean 0.000126865 vs 0 z=+0.80; var 0.0100174 vs 0.01 z=+0.78
+ok   Generator.lognormal(0.0, 0.1) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.00498 vs 1.00501 z=-0.19; var 0.0101288 vs 0.0101512 z=-0.95; CDF F(sample q0.1=0.88013)=0.100823 z=+1.74, F(sample q0.5=0.99995)=0.499820 z=-0.23, F(sample q0.9=1.1369)=0.900269 z=+0.57
+ok   RandomState.lognormal(0.0, 0.1) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.00491 vs 1.00501 z=-0.65; var 0.0101199 vs 0.0101512 z=-1.33; CDF F(sample q0.1=0.87992)=0.100398 z=+0.84, F(sample q0.5=0.99993)=0.499732 z=-0.34, F(sample q0.9=1.1364)=0.899427 z=-1.21
+ok   Generator.lognormal(0.0, 3.0) -> log(x) n=400000: support [0,inf], mean/variance z-tests vs exact moments [docstring: 'log(x) is normally distributed' with the given mean and sigma]  mean 0.00227363 vs 0 z=+0.48; var 9.01296 vs 9 z=+0.64
+ok   RandomState.lognormal(0.0, 3.0) -> log(x) n=400000: support [0,inf], mean/variance z-tests vs exact moments [docstring: 'log(x) is normally distributed' with the given mean and sigma]  mean 0.00378415 vs 0 z=+0.80; var 9.00744 vs 9 z=+0.37
+ok   Generator.lognormal(0.0, 3.0) n=400000: support [0,inf], exact CDF at the sample 10/50/90% quantiles [sigma=3: variance e^18 (e^9 - 1), moments not testable at n=4e5, CDF only; exp(3 z) may underflow only below z=-248: support (0, inf)]  CDF F(sample q0.1=0.021312)=0.099776 z=-0.47, F(sample q0.5=0.99417)=0.499223 z=-0.98, F(sample q0.9=46.251)=0.899380 z=-1.31
+ok   RandomState.lognormal(0.0, 3.0) n=400000: support [0,inf], exact CDF at the sample 10/50/90% quantiles [sigma=3: variance e^18 (e^9 - 1), moments not testable at n=4e5, CDF only; exp(3 z) may underflow only below z=-248: support (0, inf)]  CDF F(sample q0.1=0.021391)=0.099993 z=-0.02, F(sample q0.5=0.99698)=0.499598 z=-0.51, F(sample q0.9=46.004)=0.899065 z=-1.97
+ok   Generator.normal(0.0, 0.1) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 2.11253e-06 vs 0 z=+0.01; var 0.00997765 vs 0.01 z=-1.00; CDF F(sample q0.1=-0.1279)=0.100450 z=+0.95, F(sample q0.5=-6.7134e-05)=0.499732 z=-0.34, F(sample q0.9=0.12804)=0.899806 z=-0.41
+ok   RandomState.normal(0.0, 0.1) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean -0.00019332 vs 0 z=-1.22; var 0.00996063 vs 0.01 z=-1.76; CDF F(sample q0.1=-0.128)=0.100273 z=+0.57, F(sample q0.5=-0.00015829)=0.499369 z=-0.80, F(sample q0.9=0.12772)=0.899229 z=-1.62
+ok   Generator.normal(3.0, 2.5) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 2.99659 vs 3 z=-0.86; var 6.25199 vs 6.25 z=+0.14; CDF F(sample q0.1=-0.20838)=0.099684 z=-0.67, F(sample q0.5=2.9971)=0.499536 z=-0.59, F(sample q0.9=6.1958)=0.899432 z=-1.20
+ok   RandomState.normal(3.0, 2.5) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 3.00395 vs 3 z=+1.00; var 6.20895 vs 6.25 z=-2.94; CDF F(sample q0.1=-0.19052)=0.100941 z=+1.98, F(sample q0.5=3.0052)=0.500834 z=+1.05, F(sample q0.9=6.2002)=0.899742 z=-0.54
+ok   Generator.normal(1000000.0, 0.001) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1e+06 vs 1e+06 z=-0.75; var 1.00043e-06 vs 1e-06 z=+0.19; CDF F(sample q0.1=1e+06)=0.099793 z=-0.44, F(sample q0.5=1e+06)=0.498927 z=-1.36, F(sample q0.9=1e+06)=0.900095 z=+0.20
+ok   RandomState.normal(1000000.0, 0.001) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1e+06 vs 1e+06 z=-0.85; var 1.00093e-06 vs 1e-06 z=+0.42; CDF F(sample q0.1=1e+06)=0.100031 z=+0.07, F(sample q0.5=1e+06)=0.499472 z=-0.67, F(sample q0.9=1e+06)=0.899998 z=-0.00
+ok   Generator.standard_normal() n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.000624965 vs 0 z=+0.40; var 1.00337 vs 1 z=+1.51; CDF F(sample q0.1=-1.2808)=0.100132 z=+0.28, F(sample q0.5=-0.00012258)=0.499951 z=-0.06, F(sample q0.9=1.2813)=0.899965 z=-0.07
+ok   RandomState.standard_normal() n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.00225516 vs 0 z=+1.43; var 1.00021 vs 1 z=+0.09; CDF F(sample q0.1=-1.2779)=0.100636 z=+1.34, F(sample q0.5=0.0013012)=0.500519 z=+0.66, F(sample q0.9=1.2839)=0.900417 z=+0.88
+ok   Generator.standard_normal(dtype=float32) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean -0.0014249 vs 0 z=-0.90; var 1.00198 vs 1 z=+0.88; CDF F(sample q0.1=-1.2837)=0.099619 z=-0.80, F(sample q0.5=-0.0032002)=0.498723 z=-1.61, F(sample q0.9=1.2811)=0.899920 z=-0.17
+ok   RandomState.randn() n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean -0.00129705 vs 0 z=-0.82; var 1.00227 vs 1 z=+1.01; CDF F(sample q0.1=-1.2843)=0.099518 z=-1.02, F(sample q0.5=-0.0011233)=0.499552 z=-0.57, F(sample q0.9=1.2819)=0.900054 z=+0.11
+ok   Generator.pareto(0.5) n=400000: support [0,inf], exact CDF at the sample 10/50/90% quantiles [Lomax: pdf a/(1+x)^(a+1) on [0, inf); a=0.5 has no mean: CDF only]  CDF F(sample q0.1=0.23507)=0.100183 z=+0.39, F(sample q0.5=3.0043)=0.500268 z=+0.34, F(sample q0.9=99.663)=0.900330 z=+0.70
+ok   RandomState.pareto(0.5) n=400000: support [0,inf], exact CDF at the sample 10/50/90% quantiles [Lomax: pdf a/(1+x)^(a+1) on [0, inf); a=0.5 has no mean: CDF only]  CDF F(sample q0.1=0.23708)=0.100913 z=+1.93, F(sample q0.5=3.0086)=0.500537 z=+0.68, F(sample q0.9=99.735)=0.900366 z=+0.77
+ok   Generator.pareto(3.0) n=400000: support [0,inf], mean z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [Lomax: pdf a/(1+x)^(a+1) on [0, inf)]  mean 0.503349 vs 0.5 z=+2.45; CDF F(sample q0.1=0.035934)=0.100494 z=+1.04, F(sample q0.5=0.26108)=0.501377 z=+1.74, F(sample q0.9=1.1538)=0.899912 z=-0.19
+ok   RandomState.pareto(3.0) n=400000: support [0,inf], mean z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [Lomax: pdf a/(1+x)^(a+1) on [0, inf)]  mean 0.501987 vs 0.5 z=+1.45; CDF F(sample q0.1=0.035709)=0.099908 z=-0.19, F(sample q0.5=0.25955)=0.499552 z=-0.57, F(sample q0.9=1.1647)=0.901417 z=+2.99
+ok   Generator.pareto(10.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [Lomax: pdf a/(1+x)^(a+1) on [0, inf)]  mean 0.110905 vs 0.111111 z=-1.05; var 0.0152367 vs 0.0154321 z=-1.95; CDF F(sample q0.1=0.010693)=0.100898 z=+1.89, F(sample q0.5=0.072065)=0.501359 z=+1.72, F(sample q0.9=0.25809)=0.899331 z=-1.41
+ok   RandomState.pareto(10.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [Lomax: pdf a/(1+x)^(a+1) on [0, inf)]  mean 0.110752 vs 0.111111 z=-1.83; var 0.0153243 vs 0.0154321 z=-1.08; CDF F(sample q0.1=0.010552)=0.099648 z=-0.74, F(sample q0.5=0.071482)=0.498639 z=-1.72, F(sample q0.9=0.25817)=0.899397 z=-1.27
+ok   Generator.power(0.3) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.230492 vs 0.230769 z=-0.63; var 0.0770395 vs 0.0771803 z=-0.78; CDF F(sample q0.1=0.00046269)=0.099905 z=-0.20, F(sample q0.5=0.098893)=0.499517 z=-0.61, F(sample q0.9=0.70279)=0.899597 z=-0.85
+ok   RandomState.power(0.3) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.230444 vs 0.230769 z=-0.74; var 0.0769681 vs 0.0771803 z=-1.17; CDF F(sample q0.1=0.00046837)=0.100271 z=+0.57, F(sample q0.5=0.098515)=0.498943 z=-1.34, F(sample q0.9=0.70217)=0.899359 z=-1.35
+ok   Generator.power(5.0) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.833187 vs 0.833333 z=-0.66; var 0.0198871 vs 0.0198413 z=+0.82; CDF F(sample q0.1=0.63073)=0.099820 z=-0.38, F(sample q0.5=0.87051)=0.499894 z=-0.13, F(sample q0.9=0.97917)=0.900090 z=+0.19
+ok   RandomState.power(5.0) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.833435 vs 0.833333 z=+0.46; var 0.019845 vs 0.0198413 z=+0.07; CDF F(sample q0.1=0.63115)=0.100152 z=+0.32, F(sample q0.5=0.87073)=0.500523 z=+0.66, F(sample q0.9=0.9791)=0.899755 z=-0.52
+ok   Generator.power(1.0) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [a=1 is uniform]  mean 0.499261 vs 0.5 z=-1.62; var 0.0831699 vs 0.0833333 z=-1.39; CDF F(sample q0.1=0.099924)=0.099924 z=-0.16, F(sample q0.5=0.49863)=0.498628 z=-1.74, F(sample q0.9=0.89926)=0.899256 z=-1.57
+ok   RandomState.power(1.0) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [a=1 is uniform]  mean 0.499403 vs 0.5 z=-1.31; var 0.0833369 vs 0.0833333 z=+0.03; CDF F(sample q0.1=0.099407)=0.099407 z=-1.25, F(sample q0.5=0.49848)=0.498482 z=-1.92, F(sample q0.9=0.89942)=0.899425 z=-1.21
+ok   Generator.rayleigh(3.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'scale, also equals the mode']  mean 3.76105 vs 3.75994 z=+0.36; var 3.85114 vs 3.86283 z=-1.28; CDF F(sample q0.1=1.381)=0.100529 z=+1.11, F(sample q0.5=3.5361)=0.500750 z=+0.95, F(sample q0.9=6.4371)=0.899943 z=-0.12
+ok   RandomState.rayleigh(3.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'scale, also equals the mode']  mean 3.7554 vs 3.75994 z=-1.46; var 3.85643 vs 3.86283 z=-0.70; CDF F(sample q0.1=1.376)=0.099851 z=-0.31, F(sample q0.5=3.529)=0.499358 z=-0.81, F(sample q0.9=6.4318)=0.899562 z=-0.92
+ok   Generator.rayleigh(0.01) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'scale, also equals the mode']  mean 0.0125462 vs 0.0125331 z=+1.26; var 4.28938e-05 vs 4.29204e-05 z=-0.26; CDF F(sample q0.1=0.0046102)=0.100818 z=+1.72, F(sample q0.5=0.011793)=0.501113 z=+1.41, F(sample q0.9=0.021478)=0.900392 z=+0.83
+ok   RandomState.rayleigh(0.01) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'scale, also equals the mode']  mean 0.0125225 vs 0.0125331 z=-1.02; var 4.29839e-05 vs 4.29204e-05 z=+0.62; CDF F(sample q0.1=0.0045759)=0.099400 z=-1.27, F(sample q0.5=0.011775)=0.500081 z=+0.10, F(sample q0.9=0.021472)=0.900267 z=+0.56
+ok   Generator.standard_cauchy() n=400000: support [-inf,inf], exact CDF at the sample 10/50/90% quantiles [no moments: quantiles only]  CDF F(sample q0.1=-3.0947)=0.099486 z=-1.08, F(sample q0.5=0.0027938)=0.500889 z=+1.12, F(sample q0.9=3.0742)=0.899895 z=-0.22
+ok   RandomState.standard_cauchy() n=400000: support [-inf,inf], exact CDF at the sample 10/50/90% quantiles [no moments: quantiles only]  CDF F(sample q0.1=-3.0792)=0.099955 z=-0.10, F(sample q0.5=0.0019773)=0.500629 z=+0.80, F(sample q0.9=3.0611)=0.899492 z=-1.07
+ok   Generator.standard_t(1.0) n=400000: support [-inf,inf], exact CDF at the sample 10/50/90% quantiles [df=1 is Cauchy: quantiles only]  CDF F(sample q0.1=-3.0724)=0.100161 z=+0.34, F(sample q0.5=-0.0020504)=0.499347 z=-0.83, F(sample q0.9=3.0828)=0.900154 z=+0.32
+ok   RandomState.standard_t(1.0) n=400000: support [-inf,inf], exact CDF at the sample 10/50/90% quantiles [df=1 is Cauchy: quantiles only]  CDF F(sample q0.1=-3.0737)=0.100123 z=+0.26, F(sample q0.5=0.0044389)=0.501413 z=+1.79, F(sample q0.9=3.0978)=0.900609 z=+1.28
+ok   Generator.standard_t(2.0) n=400000: support [-inf,inf], exact CDF at the sample 10/50/90% quantiles [df=2: infinite variance, quantiles only]  CDF F(sample q0.1=-1.8935)=0.099400 z=-1.26, F(sample q0.5=-0.0018972)=0.499329 z=-0.85, F(sample q0.9=1.8718)=0.898935 z=-2.25
+ok   RandomState.standard_t(2.0) n=400000: support [-inf,inf], exact CDF at the sample 10/50/90% quantiles [df=2: infinite variance, quantiles only]  CDF F(sample q0.1=-1.881)=0.100352 z=+0.74, F(sample q0.5=0.00025376)=0.500090 z=+0.11, F(sample q0.9=1.8824)=0.899754 z=-0.52
+ok   Generator.standard_t(5.0) n=400000: support [-inf,inf], mean z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [df=5: 8th moment infinite, mean test only]  mean 0.00226107 vs 0 z=+1.11; CDF F(sample q0.1=-1.4744)=0.100194 z=+0.41, F(sample q0.5=0.00078015)=0.500296 z=+0.37, F(sample q0.9=1.4827)=0.900870 z=+1.83
+ok   RandomState.standard_t(5.0) n=400000: support [-inf,inf], mean z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [df=5: 8th moment infinite, mean test only]  mean 0.0027139 vs 0 z=+1.33; CDF F(sample q0.1=-1.4768)=0.099879 z=-0.26, F(sample q0.5=0.003824)=0.501452 z=+1.84, F(sample q0.9=1.4784)=0.900323 z=+0.68
+ok   Generator.standard_t(30.0) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean -0.000142449 vs 0 z=-0.09; var 1.07179 vs 1.07143 z=+0.14; CDF F(sample q0.1=-1.3106)=0.099975 z=-0.05, F(sample q0.5=2.4908e-05)=0.500010 z=+0.01, F(sample q0.9=1.3092)=0.899798 z=-0.43
+ok   RandomState.standard_t(30.0) n=400000: support [-inf,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean -0.00182124 vs 0 z=-1.11; var 1.07152 vs 1.07143 z=+0.04; CDF F(sample q0.1=-1.3147)=0.099290 z=-1.50, F(sample q0.5=-0.0022229)=0.499121 z=-1.11, F(sample q0.9=1.3114)=0.900163 z=+0.34
+ok   Generator.triangular(-3.0, 0.0, 8.0) n=400000: support [-3.0,8.0], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.666 vs 1.66667 z=-0.18; var 5.37845 vs 5.38889 z=-1.04; CDF F(sample q0.1=-1.1821)=0.100149 z=+0.32, F(sample q0.5=1.3667)=0.499988 z=-0.01, F(sample q0.9=5.0316)=0.899872 z=-0.27
+ok   RandomState.triangular(-3.0, 0.0, 8.0) n=400000: support [-3.0,8.0], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.66585 vs 1.66667 z=-0.22; var 5.38191 vs 5.38889 z=-0.69; CDF F(sample q0.1=-1.1827)=0.100082 z=+0.17, F(sample q0.5=1.3728)=0.500910 z=+1.15, F(sample q0.9=5.0339)=0.900028 z=+0.06
+ok   Generator.triangular(0.0, 0.0, 1.0) n=400000: support [0.0,1.0], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [left == mode]  mean 0.333227 vs 0.333333 z=-0.28; var 0.0553496 vs 0.0555556 z=-1.98; CDF F(sample q0.1=0.051479)=0.100308 z=+0.65, F(sample q0.5=0.29278)=0.499843 z=-0.20, F(sample q0.9=0.68275)=0.899354 z=-1.36
+ok   RandomState.triangular(0.0, 0.0, 1.0) n=400000: support [0.0,1.0], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [left == mode]  mean 0.333677 vs 0.333333 z=+0.92; var 0.0556943 vs 0.0555556 z=+1.34; CDF F(sample q0.1=0.051531)=0.100406 z=+0.86, F(sample q0.5=0.29325)=0.500504 z=+0.64, F(sample q0.9=0.6848)=0.900648 z=+1.37
+ok   Generator.triangular(0.0, 1.0, 1.0) n=400000: support [0.0,1.0], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [mode == right]  mean 0.667321 vs 0.666667 z=+1.76; var 0.0556156 vs 0.0555556 z=+0.58; CDF F(sample q0.1=0.31655)=0.100206 z=+0.43, F(sample q0.5=0.70806)=0.501344 z=+1.70, F(sample q0.9=0.94901)=0.900624 z=+1.32
+ok   RandomState.triangular(0.0, 1.0, 1.0) n=400000: support [0.0,1.0], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [mode == right]  mean 0.666442 vs 0.666667 z=-0.60; var 0.0555563 vs 0.0555556 z=+0.01; CDF F(sample q0.1=0.31555)=0.099574 z=-0.90, F(sample q0.5=0.70691)=0.499729 z=-0.34, F(sample q0.9=0.94854)=0.899721 z=-0.59
+ok   Generator.triangular(10.0, 10.5, 11.0) n=400000: support [10.0,11.0], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 10.4998 vs 10.5 z=-0.65; var 0.041727 vs 0.0416667 z=+0.77; CDF F(sample q0.1=10.223)=0.099416 z=-1.23, F(sample q0.5=10.5)=0.499393 z=-0.77, F(sample q0.9=10.776)=0.899773 z=-0.48
+ok   RandomState.triangular(10.0, 10.5, 11.0) n=400000: support [10.0,11.0], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 10.5 vs 10.5 z=+0.05; var 0.041564 vs 0.0416667 z=-1.32; CDF F(sample q0.1=10.224)=0.100536 z=+1.13, F(sample q0.5=10.5)=0.499251 z=-0.95, F(sample q0.9=10.776)=0.899935 z=-0.14
+ok   Generator.uniform(-1.0, 0.0) n=400000: support [-1.0,0.0], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'The high limit may be included ... due to floating-point rounding']  mean -0.500212 vs -0.5 z=-0.46; var 0.0831822 vs 0.0833333 z=-1.28; CDF F(sample q0.1=-0.89984)=0.100159 z=+0.34, F(sample q0.5=-0.50032)=0.499685 z=-0.40, F(sample q0.9=-0.10046)=0.899540 z=-0.97
+ok   RandomState.uniform(-1.0, 0.0) n=400000: support [-1.0,0.0], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'The high limit may be included ... due to floating-point rounding']  mean -0.499758 vs -0.5 z=+0.53; var 0.0832781 vs 0.0833333 z=-0.47; CDF F(sample q0.1=-0.9001)=0.099897 z=-0.22, F(sample q0.5=-0.4995)=0.500504 z=+0.64, F(sample q0.9=-0.10006)=0.899940 z=-0.13
+ok   Generator.uniform(1000000000.0, 1000000001.0) n=400000: support [1000000000.0,1000000001.0], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'The high limit may be included ... due to floating-point rounding']  mean 1e+09 vs 1e+09 z=-1.23; var 0.0833915 vs 0.0833333 z=+0.49; CDF F(sample q0.1=1e+09)=0.099740 z=-0.55, F(sample q0.5=1e+09)=0.498456 z=-1.95, F(sample q0.9=1e+09)=0.900120 z=+0.25
+ok   RandomState.uniform(1000000000.0, 1000000001.0) n=400000: support [1000000000.0,1000000001.0], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'The high limit may be included ... due to floating-point rounding']  mean 1e+09 vs 1e+09 z=+0.03; var 0.0834174 vs 0.0833333 z=+0.71; CDF F(sample q0.1=1e+09)=0.100202 z=+0.43, F(sample q0.5=1e+09)=0.499380 z=-0.78, F(sample q0.9=1e+09)=0.900003 z=+0.01
+ok   Generator.uniform(0.0, 1e-300) scaled by 1e300 n=400000: support [0,1e-300], mean/variance z-tests vs exact moments [tiny width: moments of x*1e300 (float squares of 1e-300 underflow)]  mean 0.50075 vs 0.5 z=+1.64; var 0.083405 vs 0.0833333 z=+0.61
+ok   RandomState.uniform(0.0, 1e-300) scaled by 1e300 n=400000: support [0,1e-300], mean/variance z-tests vs exact moments [tiny width: moments of x*1e300 (float squares of 1e-300 underflow)]  mean 0.500082 vs 0.5 z=+0.18; var 0.0834173 vs 0.0833333 z=+0.71
+ok   Generator.random() n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'half-open interval [0.0, 1.0)']  mean 0.499964 vs 0.5 z=-0.08; var 0.0835223 vs 0.0833333 z=+1.60; CDF F(sample q0.1=0.099951)=0.099951 z=-0.10, F(sample q0.5=0.49953)=0.499535 z=-0.59, F(sample q0.9=0.90036)=0.900364 z=+0.77
+ok   RandomState.random() n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'half-open interval [0.0, 1.0)']  mean 0.50009 vs 0.5 z=+0.20; var 0.0833235 vs 0.0833333 z=-0.08; CDF F(sample q0.1=0.099672)=0.099672 z=-0.69, F(sample q0.5=0.5008)=0.500797 z=+1.01, F(sample q0.9=0.89968)=0.899683 z=-0.67
+ok   Generator.random(dtype=float32) n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.499838 vs 0.5 z=-0.35; var 0.0832742 vs 0.0833333 z=-0.50; CDF F(sample q0.1=0.099992)=0.099992 z=-0.02, F(sample q0.5=0.4998)=0.499803 z=-0.25, F(sample q0.9=0.89921)=0.899205 z=-1.68
+ok   RandomState.rand() n=400000: support [0,1], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.499521 vs 0.5 z=-1.05; var 0.08343 vs 0.0833333 z=+0.82; CDF F(sample q0.1=0.099035)=0.099035 z=-2.04, F(sample q0.5=0.4995)=0.499503 z=-0.63, F(sample q0.9=0.89997)=0.899967 z=-0.07
+ok   Generator.vonmises(0, 0.01) n=400000: support [-3.14159265358979323846264338328,3.14159265358979323846264338328], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [moments of theta on [-pi, pi] by mpmath quad of exp(kappa cos)/(2 pi I0)]  mean 0.00230105 vs 0 z=+0.80; var 3.27156 vs 3.26988 z=+0.36; CDF F(sample q0.1=-2.507)=0.100054 z=+0.11, F(sample q0.5=0.0057116)=0.500918 z=+1.16, F(sample q0.9=2.5108)=0.900541 z=+1.14
+ok   RandomState.vonmises(0, 0.01) n=400000: support [-3.14159265358979323846264338328,3.14159265358979323846264338328], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [moments of theta on [-pi, pi] by mpmath quad of exp(kappa cos)/(2 pi I0)]  mean -0.000581546 vs 0 z=-0.20; var 3.27215 vs 3.26988 z=+0.49; CDF F(sample q0.1=-2.508)=0.099904 z=-0.20, F(sample q0.5=-0.00038507)=0.499938 z=-0.08, F(sample q0.9=2.5062)=0.899818 z=-0.38
+ok   Generator.vonmises(0, 4.0) n=400000: support [-3.14159265358979323846264338328,3.14159265358979323846264338328], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [moments of theta on [-pi, pi] by mpmath quad of exp(kappa cos)/(2 pi I0)]  mean 0.0013374 vs 0 z=+1.55; var 0.297785 vs 0.298228 z=-0.57; CDF F(sample q0.1=-0.67886)=0.100344 z=+0.72, F(sample q0.5=0.0014001)=0.501076 z=+1.36, F(sample q0.9=0.68105)=0.900350 z=+0.74
+ok   RandomState.vonmises(0, 4.0) n=400000: support [-3.14159265358979323846264338328,3.14159265358979323846264338328], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [moments of theta on [-pi, pi] by mpmath quad of exp(kappa cos)/(2 pi I0)]  mean 0.000206672 vs 0 z=+0.24; var 0.298996 vs 0.298228 z=+0.99; CDF F(sample q0.1=-0.68074)=0.099749 z=-0.53, F(sample q0.5=-0.00023844)=0.499817 z=-0.23, F(sample q0.9=0.6801)=0.900049 z=+0.10
+ok   Generator.vonmises(0, 1000.0) n=400000: support [-3.14159265358979323846264338328,3.14159265358979323846264338328], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [moments of theta on [-pi, pi] by mpmath quad of exp(kappa cos)/(2 pi I0)]  mean 2.42556e-05 vs 0 z=+0.48; var 0.000998125 vs 0.0010005 z=-1.06; CDF F(sample q0.1=-0.04052)=0.100077 z=+0.16, F(sample q0.5=9.571e-05)=0.501207 z=+1.53, F(sample q0.9=0.040493)=0.899774 z=-0.48
+ok   RandomState.vonmises(0, 1000.0) n=400000: support [-3.14159265358979323846264338328,3.14159265358979323846264338328], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [moments of theta on [-pi, pi] by mpmath quad of exp(kappa cos)/(2 pi I0)]  mean 0.00010307 vs 0 z=+2.06; var 0.00100228 vs 0.0010005 z=+0.79; CDF F(sample q0.1=-0.040474)=0.100334 z=+0.70, F(sample q0.5=0.00011699)=0.501476 z=+1.87, F(sample q0.9=0.040755)=0.901222 z=+2.58
+ok   Generator.vonmises(0, 1e-09) n=400000: support [-3.14159265358979323846264338328,3.14159265358979323846264338328], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [moments of theta on [-pi, pi] by mpmath quad of exp(kappa cos)/(2 pi I0); kappa < 1e-8 uniform branch]  mean 0.000730079 vs 0 z=+0.25; var 3.29437 vs 3.28987 z=+0.97; CDF F(sample q0.1=-2.513)=0.100039 z=+0.08, F(sample q0.5=0.00031485)=0.500050 z=+0.06, F(sample q0.9=2.5155)=0.900347 z=+0.73
+ok   RandomState.vonmises(0, 1e-09) n=400000: support [-3.14159265358979323846264338328,3.14159265358979323846264338328], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [moments of theta on [-pi, pi] by mpmath quad of exp(kappa cos)/(2 pi I0); kappa < 1e-8 uniform branch]  mean -0.00370719 vs 0 z=-1.29; var 3.29855 vs 3.28987 z=+1.87; CDF F(sample q0.1=-2.5211)=0.098753 z=-2.63, F(sample q0.5=-0.0068735)=0.498906 z=-1.38, F(sample q0.9=2.5113)=0.899688 z=-0.66
+ok   Generator.vonmises(0, 10000000.0) n=400000: support [-3.14159265358979323846264338328,3.14159265358979323846264338328], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [moments of theta on [-pi, pi] by mpmath quad of exp(kappa cos)/(2 pi I0); kappa > 1e6: Generator uses a wrapped normal]  mean 8.19409e-07 vs 0 z=+1.64; var 9.98074e-08 vs 1e-07 z=-0.86; CDF F(sample q0.1=-0.00040401)=0.100696 z=+1.47, F(sample q0.5=1.4912e-07)=0.500188 z=+0.24, F(sample q0.9=0.00040638)=0.900616 z=+1.30
+ok   RandomState.vonmises(0, 10000000.0) n=400000: support [-3.14159265358979323846264338328,3.14159265358979323846264338328], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [moments of theta on [-pi, pi] by mpmath quad of exp(kappa cos)/(2 pi I0); kappa > 1e6: Generator uses a wrapped normal]  mean 5.49149e-07 vs 0 z=+1.10; var 1.00199e-07 vs 1e-07 z=+0.89; CDF F(sample q0.1=-0.00040452)=0.100413 z=+0.87, F(sample q0.5=2.1335e-07)=0.500269 z=+0.34, F(sample q0.9=0.00040683)=0.900869 z=+1.83
+ok   Generator.wald(3.0, 2.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'mean : Distribution mean']  mean 2.99317 vs 3 z=-1.18; var 13.2264 vs 13.5 z=-2.59; CDF F(sample q0.1=0.53579)=0.099468 z=-1.12, F(sample q0.5=1.7545)=0.500696 z=+0.88, F(sample q0.9=6.8384)=0.899935 z=-0.14
+ok   RandomState.wald(3.0, 2.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'mean : Distribution mean']  mean 3.00473 vs 3 z=+0.81; var 13.5791 vs 13.5 z=+0.75; CDF F(sample q0.1=0.53715)=0.100023 z=+0.05, F(sample q0.5=1.7503)=0.499762 z=-0.30, F(sample q0.9=6.8411)=0.900002 z=+0.00
+ok   Generator.wald(1.0, 100.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'mean : Distribution mean']  mean 0.999708 vs 1 z=-1.85; var 0.00999413 vs 0.01 z=-0.25; CDF F(sample q0.1=0.87532)=0.099496 z=-1.06, F(sample q0.5=0.99463)=0.498404 z=-2.02, F(sample q0.9=1.1308)=0.899992 z=-0.02
+ok   RandomState.wald(1.0, 100.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'mean : Distribution mean']  mean 1.00008 vs 1 z=+0.47; var 0.0100176 vs 0.01 z=+0.76; CDF F(sample q0.1=0.87568)=0.100225 z=+0.47, F(sample q0.5=0.99505)=0.500075 z=+0.09, F(sample q0.9=1.1311)=0.900367 z=+0.77
+ok   Generator.wald(0.1, 0.01) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'mean : Distribution mean']  mean 0.0997017 vs 0.1 z=-0.60; var 0.100628 vs 0.1 z=+0.32; CDF F(sample q0.1=0.0034965)=0.100234 z=+0.49, F(sample q0.5=0.01776)=0.498748 z=-1.58, F(sample q0.9=0.21108)=0.899866 z=-0.28
+ok   RandomState.wald(0.1, 0.01) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [docstring: 'mean : Distribution mean']  mean 0.100026 vs 0.1 z=+0.05; var 0.0993321 vs 0.1 z=-0.34; CDF F(sample q0.1=0.0034936)=0.100086 z=+0.18, F(sample q0.5=0.017813)=0.499489 z=-0.65, F(sample q0.9=0.21126)=0.899934 z=-0.14
+ok   Generator.weibull(0.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 2.00323 vs 2 z=+0.46; var 19.8264 vs 20 z=-0.59; CDF F(sample q0.1=0.011046)=0.099768 z=-0.49, F(sample q0.5=0.48346)=0.501081 z=+1.37, F(sample q0.9=5.326)=0.900522 z=+1.10
+ok   RandomState.weibull(0.5) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 1.99625 vs 2 z=-0.53; var 19.4854 vs 20 z=-1.75; CDF F(sample q0.1=0.011124)=0.100098 z=+0.21, F(sample q0.5=0.48191)=0.500524 z=+0.66, F(sample q0.9=5.2989)=0.899935 z=-0.14
+ok   Generator.weibull(1.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [a=1 reduces to the exponential (docstring)]  mean 0.999456 vs 1 z=-0.34; var 0.99665 vs 1 z=-0.75; CDF F(sample q0.1=0.10574)=0.100341 z=+0.72, F(sample q0.5=0.69395)=0.500401 z=+0.51, F(sample q0.9=2.2957)=0.899306 z=-1.46
+ok   RandomState.weibull(1.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles [a=1 reduces to the exponential (docstring)]  mean 0.997742 vs 1 z=-1.43; var 0.999485 vs 1 z=-0.12; CDF F(sample q0.1=0.10451)=0.099232 z=-1.62, F(sample q0.5=0.6888)=0.497822 z=-2.76, F(sample q0.9=2.2992)=0.899661 z=-0.72
+ok   Generator.weibull(5.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.91793 vs 0.918169 z=-0.72; var 0.0443343 vs 0.04423 z=+1.09; CDF F(sample q0.1=0.63627)=0.099029 z=-2.05, F(sample q0.5=0.92938)=0.500105 z=+0.13, F(sample q0.9=1.1814)=0.899920 z=-0.17
+ok   RandomState.weibull(5.0) n=400000: support [0,inf], mean/variance z-tests vs exact moments, exact CDF at the sample 10/50/90% quantiles  mean 0.917866 vs 0.918169 z=-0.91; var 0.0441353 vs 0.04423 z=-0.99; CDF F(sample q0.1=0.63782)=0.100174 z=+0.37, F(sample q0.5=0.92901)=0.499418 z=-0.74, F(sample q0.9=1.1808)=0.899262 z=-1.56
+   continuous block 9.9 s
+ok   Generator.vonmises(3.0, 4.0): all in [-pi, pi] (docstring 'on the interval [-pi, pi]'), E cos(X-mu) = I1/I0 = 0.863523, E sin(X-mu) = 0  min -3.141585 max 3.141589; cos z=-0.41 sin z=+0.94
+ok   RandomState.vonmises(3.0, 4.0): all in [-pi, pi] (docstring 'on the interval [-pi, pi]'), E cos(X-mu) = I1/I0 = 0.863523, E sin(X-mu) = 0  min -3.141588 max 3.141589; cos z=+0.14 sin z=+0.36
+ok   Generator.vonmises(-3.1, 0.5): all in [-pi, pi] (docstring 'on the interval [-pi, pi]'), E cos(X-mu) = I1/I0 = 0.2425, E sin(X-mu) = 0  min -3.141591 max 3.141585; cos z=+0.28 sin z=-0.56
+ok   RandomState.vonmises(-3.1, 0.5): all in [-pi, pi] (docstring 'on the interval [-pi, pi]'), E cos(X-mu) = I1/I0 = 0.2425, E sin(X-mu) = 0  min -3.141586 max 3.141584; cos z=-0.84 sin z=-0.62
+ok   Generator.vonmises(3.14, 10000000.0): all in [-pi, pi] (docstring 'on the interval [-pi, pi]'), E cos(X-mu) = I1/I0 = 1, E sin(X-mu) = 0  min 3.138530 max 3.141389; cos z=-0.95 sin z=-0.34
+ok   RandomState.vonmises(3.14, 10000000.0): all in [-pi, pi] (docstring 'on the interval [-pi, pi]'), E cos(X-mu) = I1/I0 = 1, E sin(X-mu) = 0  min 3.138600 max 3.141529; cos z=-0.22 sin z=+0.77
+---- discrete distributions
+ok   binomial(1000000000, 0.3) exact pmf table by ratio recurrence from the mode (start value mpmath loggamma): total mass 1  mass 0.9999999999998881
+ok   binomial(1000000, 1e-07) exact pmf table by ratio recurrence from the mode (start value mpmath loggamma): total mass 1  mass 1.0
+ok   Generator.binomial(1000000000, 0.3) n=400000: support int [0,1000000000], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 3e+08 vs 3e+08 z=-2.13; var 2.10536e+08 vs 2.1e+08 z=+1.14; CDF P(X<=299985508)=0.158653 z=+2.14, P(X<=300000000)=0.500016 z=+2.24, P(X<=300014491)=0.841347 z=-0.08
+ok   RandomState.binomial(1000000000, 0.3) n=400000: support int [0,1000000000], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 3e+08 vs 3e+08 z=+0.92; var 2.0965e+08 vs 2.1e+08 z=-0.74; CDF P(X<=299985508)=0.158653 z=-1.24, P(X<=300000000)=0.500016 z=-0.33, P(X<=300014491)=0.841347 z=-0.83
+ok   Generator.binomial(10, 1e-06) n=400000: support int [0,10], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 1.25e-05 vs 1e-05 z=+0.50; var 1.24998e-05 vs 9.99999e-06 z=+0.50; CDF P(X<=0)=0.99999 count-tail p=7.42e-01
+ok   RandomState.binomial(10, 1e-06) n=400000: support int [0,10], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 7.5e-06 vs 1e-05 z=-0.50; var 7.49994e-06 vs 9.99999e-06 z=-0.50; CDF P(X<=0)=0.99999 count-tail p=8.67e-01
+ok   Generator.binomial(10, 0.999999) n=400000: support int [0,10], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 9.99999 vs 9.99999 z=+0.00; var 9.9999e-06 vs 9.99999e-06 z=-0.00; CDF P(X<=9)=9.99996e-06 count-tail p=1.00e+00
+ok   RandomState.binomial(10, 0.999999) n=400000: support int [0,10], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 10 vs 9.99999 z=+1.00; var 4.99998e-06 vs 9.99999e-06 z=-1.00; CDF P(X<=9)=9.99996e-06 count-tail p=4.76e-01
+ok   Generator.binomial(1, 0.5) n=400000: support int [0,1], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 0.499405 vs 0.5 z=-0.75; var 0.25 vs 0.25 z=+0.00; CDF P(X<=0)=0.5 z=+0.75
+ok   RandomState.binomial(1, 0.5) n=400000: support int [0,1], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 0.500352 vs 0.5 z=+0.45; var 0.25 vs 0.25 z=+0.00; CDF P(X<=0)=0.5 z=-0.45
+ok   Generator.binomial(50, 0.5) n=400000: support int [0,50], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 24.9975 vs 25 z=-0.44; var 12.4923 vs 12.5 z=-0.28; CDF P(X<=21)=0.161118 z=+0.71, P(X<=25)=0.556138 z=+1.01, P(X<=28)=0.838882 z=+0.21
+ok   RandomState.binomial(50, 0.5) n=400000: support int [0,50], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 24.9999 vs 25 z=-0.02; var 12.522 vs 12.5 z=+0.80; CDF P(X<=21)=0.161118 z=-1.21, P(X<=25)=0.556138 z=+0.48, P(X<=28)=0.838882 z=-0.94
+ok   Generator.binomial(1000, 0.01) n=400000: support int [0,1000], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 10.0016 vs 10 z=+0.32; var 9.92426 vs 9.9 z=+1.07; CDF P(X<=6)=0.128877 z=-0.49, P(X<=10)=0.583041 z=+0.23, P(X<=13)=0.865565 z=-0.41
+ok   RandomState.binomial(1000, 0.01) n=400000: support int [0,1000], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 9.99697 vs 10 z=-0.61; var 9.86003 vs 9.9 z=-1.76; CDF P(X<=6)=0.128877 z=-0.31, P(X<=10)=0.583041 z=+0.15, P(X<=13)=0.865565 z=+1.65
+ok   Generator.binomial(1000000, 1e-07) n=400000: support int [0,1000000], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 0.10019 vs 0.1 z=+0.38; var 0.100492 vs 0.1 z=+0.90; CDF P(X<=0)=0.904837 z=-0.02
+ok   RandomState.binomial(1000000, 1e-07) n=400000: support int [0,1000000], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 0.100273 vs 0.1 z=+0.55; var 0.0996729 vs 0.1 z=-0.60; CDF P(X<=0)=0.904837 z=-1.06
+ok   Generator.geometric(0.0001) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [support k = 1, 2, ... (docstring f(k) = (1-p)^(k-1) p)]  mean 9996.3 vs 10000 z=-0.23; var 9.99472e+07 vs 9.999e+07 z=-0.10; CDF P(X<=10000)=0.632139 z=+0.22, P(X<=19999)=0.864665 z=+1.54
+ok   RandomState.geometric(0.0001) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [support k = 1, 2, ... (docstring f(k) = (1-p)^(k-1) p)]  mean 9995.37 vs 10000 z=-0.29; var 9.97653e+07 vs 9.999e+07 z=-0.50; CDF P(X<=10000)=0.632139 z=+0.40, P(X<=19999)=0.864665 z=+1.03
+ok   Generator.geometric(0.35) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [support k = 1, 2, ... (docstring f(k) = (1-p)^(k-1) p)]  mean 2.85257 vs 2.85714 z=-1.26; var 5.26578 vs 5.30612 z=-1.68; CDF P(X<=2)=0.5775 z=+0.75, P(X<=5)=0.883971 z=+0.95
+ok   RandomState.geometric(0.35) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [support k = 1, 2, ... (docstring f(k) = (1-p)^(k-1) p)]  mean 2.86012 vs 2.85714 z=+0.82; var 5.33523 vs 5.30612 z=+1.21; CDF P(X<=2)=0.5775 z=-0.22, P(X<=5)=0.883971 z=-0.93
+ok   Generator.geometric(0.4) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [support k = 1, 2, ... (docstring f(k) = (1-p)^(k-1) p)]  mean 2.4993 vs 2.5 z=-0.23; var 3.74289 vs 3.75 z=-0.42; CDF P(X<=2)=0.64 z=+0.39, P(X<=4)=0.8704 z=+1.09
+ok   RandomState.geometric(0.4) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [support k = 1, 2, ... (docstring f(k) = (1-p)^(k-1) p)]  mean 2.49771 vs 2.5 z=-0.75; var 3.75454 vs 3.75 z=+0.27; CDF P(X<=2)=0.64 z=+1.32, P(X<=4)=0.8704 z=+0.46
+ok   Generator.geometric(0.2) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [support k = 1, 2, ... (docstring f(k) = (1-p)^(k-1) p)]  mean 4.99866 vs 5 z=-0.19; var 20.0305 vs 20 z=+0.34; CDF P(X<=5)=0.67232 z=+0.47, P(X<=9)=0.865782 z=-0.16
+ok   RandomState.geometric(0.2) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [support k = 1, 2, ... (docstring f(k) = (1-p)^(k-1) p)]  mean 5.01161 vs 5 z=+1.64; var 20.1257 vs 20 z=+1.40; CDF P(X<=5)=0.67232 z=-0.42, P(X<=9)=0.865782 z=-1.74
+ok   Generator.geometric(0.999) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [support k = 1, 2, ... (docstring f(k) = (1-p)^(k-1) p)]  mean 1.00098 vs 1.001 z=-0.47; var 0.000981544 vs 0.001002 z=-0.41; CDF P(X<=1)=0.999 z=+0.50
+ok   RandomState.geometric(0.999) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [support k = 1, 2, ... (docstring f(k) = (1-p)^(k-1) p)]  mean 1.00099 vs 1.001 z=-0.17; var 0.000991515 vs 0.001002 z=-0.21; CDF P(X<=1)=0.999 z=+0.15
+ok   Generator.geometric(1e-15) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [support k = 1, 2, ... (docstring f(k) = (1-p)^(k-1) p)]  mean 9.98392e+14 vs 1e+15 z=-1.02; var 9.95709e+29 vs 1e+30 z=-0.96; CDF P(X<=999999999999999)=0.632121 z=+0.58, P(X<=1999999999999999)=0.864665 z=+0.42
+ok   RandomState.geometric(1e-15) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [support k = 1, 2, ... (docstring f(k) = (1-p)^(k-1) p)]  mean 1.00116e+15 vs 1e+15 z=+0.73; var 9.98433e+29 vs 1e+30 z=-0.35; CDF P(X<=999999999999999)=0.632121 z=-0.10, P(X<=1999999999999999)=0.864665 z=-1.65
+ok   Generator.hypergeometric(100, 2, 10) n=400000: support int [8,10], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 9.80487 vs 9.80392 z=+1.44; var 0.174688 vs 0.175104 z=-0.71; CDF P(X<=9)=0.187342 z=-1.67
+ok   RandomState.hypergeometric(100, 2, 10) n=400000: support int [8,10], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 9.80454 vs 9.80392 z=+0.94; var 0.174704 vs 0.175104 z=-0.68; CDF P(X<=9)=0.187342 z=-0.99
+ok   Generator.hypergeometric(15, 15, 15) n=400000: support int [0,15], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 7.50134 vs 7.5 z=+0.61; var 1.94177 vs 1.93966 z=+0.50; CDF P(X<=6)=0.233046 z=-0.57, P(X<=7)=0.5 z=-0.10, P(X<=8)=0.766954 z=-0.44
+ok   RandomState.hypergeometric(15, 15, 15) n=400000: support int [0,15], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 7.4966 vs 7.5 z=-1.54; var 1.94219 vs 1.93966 z=+0.59; CDF P(X<=6)=0.233046 z=+1.15, P(X<=7)=0.5 z=+0.48, P(X<=8)=0.766954 z=+1.25
+ok   Generator.hypergeometric(999999999, 999999999, 1000) n=400000: support int [0,1000], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 500.036 vs 500 z=+1.43; var 250.548 vs 250 z=+0.98; CDF P(X<=484)=0.163468 z=-0.03, P(X<=500)=0.512613 z=-0.25, P(X<=515)=0.836532 z=-0.70
+ok   RandomState.hypergeometric(999999999, 999999999, 1000) n=400000: support int [0,1000], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 500.005 vs 500 z=+0.21; var 251.025 vs 250 z=+1.83; CDF P(X<=484)=0.163468 z=-0.99, P(X<=500)=0.512613 z=-0.23, P(X<=515)=0.836532 z=-0.27
+ok   Generator.hypergeometric(1000, 1000, 1990) n=400000: support int [990,1000], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 995.004 vs 995 z=+1.73; var 2.48091 vs 2.48874 z=-1.48; CDF P(X<=993)=0.171258 z=-1.93, P(X<=995)=0.623356 z=-0.85, P(X<=996)=0.828742 z=-0.19
+ok   RandomState.hypergeometric(1000, 1000, 1990) n=400000: support int [990,1000], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 994.998 vs 995 z=-0.87; var 2.48304 vs 2.48874 z=-1.08; CDF P(X<=993)=0.171258 z=-0.19, P(X<=995)=0.623356 z=+1.62, P(X<=996)=0.828742 z=+1.46
+ok   Generator.hypergeometric(5, 95, 100) n=400000: support int [5,5], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  degenerate: all == 5.0: True; CDF 
+ok   RandomState.hypergeometric(5, 95, 100) n=400000: support int [5,5], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  degenerate: all == 5.0: True; CDF 
+ok   Generator.hypergeometric(999999999, 10, 5) n=400000: support int [0,5], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 5 vs 5 z=+0.14; var 0 vs 5e-08 z=-0.14; CDF P(X<=4)=5e-08 count-tail p=1.00e+00
+ok   RandomState.hypergeometric(999999999, 10, 5) n=400000: support int [0,5], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 5 vs 5 z=-6.93 [rare events: 1 non-modal draws vs Poisson(0.02), exact two-sided p=3.96e-02]; var 2.49999e-06 vs 5e-08 z=+6.93; CDF P(X<=4)=5e-08 count-tail p=3.96e-02
+ok   Generator.hypergeometric(7, 3, 9) n=400000: support int [6,7], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 6.29873 vs 6.3 z=-1.76; var 0.209488 vs 0.21 z=-1.77; CDF P(X<=6)=0.7 z=+1.76
+ok   RandomState.hypergeometric(7, 3, 9) n=400000: support int [6,7], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 6.29885 vs 6.3 z=-1.58; var 0.209541 vs 0.21 z=-1.58; CDF P(X<=6)=0.7 z=+1.58
+ok   Generator.hypergeometric(20, 30, 50) n=400000: support int [20,20], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  degenerate: all == 20.0: True; CDF 
+ok   RandomState.hypergeometric(20, 30, 50) n=400000: support int [20,20], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  degenerate: all == 20.0: True; CDF 
+ok   Generator.hypergeometric(500, 600, 400) n=400000: support int [0,400], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 181.825 vs 181.818 z=+0.55; var 63.2004 vs 63.1679 z=+0.23; CDF P(X<=173)=0.147519 z=-0.45, P(X<=181)=0.484235 z=-1.15, P(X<=189)=0.833228 z=-0.72
+ok   RandomState.hypergeometric(500, 600, 400) n=400000: support int [0,400], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values  mean 181.79 vs 181.818 z=-2.27; var 63.1738 vs 63.1679 z=+0.04; CDF P(X<=173)=0.147519 z=+1.99, P(X<=181)=0.484235 z=+1.79, P(X<=189)=0.833228 z=+1.50
+ok   Generator.logseries(0.6) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [pmf -p^k/(k ln(1-p)) (docstring)]  mean 1.63811 vs 1.63704 z=+0.57; var 1.41917 vs 1.4127 z=+0.73; CDF P(X<=1)=0.654814 z=+0.58, P(X<=2)=0.851258 z=-0.59
+ok   RandomState.logseries(0.6) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [pmf -p^k/(k ln(1-p)) (docstring)]  mean 1.63605 vs 1.63704 z=-0.53; var 1.40532 vs 1.4127 z=-0.84; CDF P(X<=1)=0.654814 z=+0.26, P(X<=2)=0.851258 z=-0.29
+ok   Generator.logseries(0.999) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [pmf -p^k/(k ln(1-p)) (docstring)]  mean 145.012 vs 144.62 z=+0.71; var 124994 vs 123705 z=+0.97; CDF P(X<=144)=0.783393 z=-1.51, P(X<=496)=0.918391 z=-0.33
+ok   RandomState.logseries(0.999) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [pmf -p^k/(k ln(1-p)) (docstring)]  mean 145.55 vs 144.62 z=+1.67; var 124966 vs 123705 z=+0.95; CDF P(X<=144)=0.783393 z=-1.23, P(X<=496)=0.918391 z=-1.70
+ok   Generator.logseries(1e-06) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [pmf -p^k/(k ln(1-p)) (docstring)]  mean 1 vs 1 z=-0.45; var 0 vs 5.00001e-07 z=-0.45; CDF P(X<=1)=0.999999 count-tail p=1.00e+00
+ok   RandomState.logseries(1e-06) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [pmf -p^k/(k ln(1-p)) (docstring)]  mean 1 vs 1 z=-0.45; var 0 vs 5.00001e-07 z=-0.45; CDF P(X<=1)=0.999999 count-tail p=1.00e+00
+ok   Generator.logseries(0.9999999) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [pmf -p^k/(k ln(1-p)) (docstring)]  mean 621987 vs 620421 z=+0.41; var 5.73701e+12 vs 5.81928e+12 z=-0.89; CDF P(X<=620420)=0.859548 z=-1.73, P(X<=3032739)=0.944308 z=-1.08
+ok   RandomState.logseries(0.9999999) n=400000: support int [1,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [pmf -p^k/(k ln(1-p)) (docstring)]  mean 618928 vs 620421 z=-0.39; var 5.73283e+12 vs 5.81928e+12 z=-0.94; CDF P(X<=620420)=0.859548 z=-0.99, P(X<=3032739)=0.944308 z=-0.30
+ok   Generator.negative_binomial(1.0, 0.1) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [number of failures before n successes, pmf Gamma(N+n)/(N! Gamma(n)) p^n (1-p)^N (docstring)]  mean 9.01891 vs 9 z=+1.26; var 89.9921 vs 90 z=-0.02; CDF P(X<=9)=0.651322 z=-1.29, P(X<=18)=0.864915 z=-0.92
+ok   RandomState.negative_binomial(1.0, 0.1) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [number of failures before n successes, pmf Gamma(N+n)/(N! Gamma(n)) p^n (1-p)^N (docstring)]  mean 8.96386 vs 9 z=-2.41; var 89.5212 vs 90 z=-1.19; CDF P(X<=9)=0.651322 z=+1.96, P(X<=18)=0.864915 z=+1.37
+ok   Generator.negative_binomial(2.5, 0.3) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [number of failures before n successes, pmf Gamma(N+n)/(N! Gamma(n)) p^n (1-p)^N (docstring); non-integer n]  mean 5.84638 vs 5.83333 z=+1.87; var 19.5056 vs 19.4444 z=+0.94; CDF P(X<=1)=0.135561 z=-0.59, P(X<=5)=0.556184 z=-0.87, P(X<=10)=0.862161 z=-1.54
+ok   RandomState.negative_binomial(2.5, 0.3) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [number of failures before n successes, pmf Gamma(N+n)/(N! Gamma(n)) p^n (1-p)^N (docstring); non-integer n]  mean 5.83971 vs 5.83333 z=+0.91; var 19.4413 vs 19.4444 z=-0.05; CDF P(X<=1)=0.135561 z=-1.89, P(X<=5)=0.556184 z=-0.63, P(X<=10)=0.862161 z=+0.32
+ok   Generator.negative_binomial(100.0, 0.999) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [number of failures before n successes, pmf Gamma(N+n)/(N! Gamma(n)) p^n (1-p)^N (docstring)]  mean 0.099955 vs 0.1001 z=-0.29; var 0.100169 vs 0.1002 z=-0.06; CDF P(X<=0)=0.904792 z=+0.35
+ok   RandomState.negative_binomial(100.0, 0.999) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [number of failures before n successes, pmf Gamma(N+n)/(N! Gamma(n)) p^n (1-p)^N (docstring)]  mean 0.10089 vs 0.1001 z=+1.58; var 0.100926 vs 0.1002 z=+1.32; CDF P(X<=0)=0.904792 z=-1.66
+ok   Generator.negative_binomial(0.5, 0.01) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [number of failures before n successes, pmf Gamma(N+n)/(N! Gamma(n)) p^n (1-p)^N (docstring); non-integer n]  mean 49.3389 vs 49.5 z=-1.45; var 4945.01 vs 4950 z=-0.17; CDF P(X<=49)=0.682696 z=+2.15, P(X<=119)=0.879211 z=+1.47
+ok   RandomState.negative_binomial(0.5, 0.01) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [number of failures before n successes, pmf Gamma(N+n)/(N! Gamma(n)) p^n (1-p)^N (docstring); non-integer n]  mean 49.5034 vs 49.5 z=+0.03; var 4943.32 vs 4950 z=-0.23; CDF P(X<=49)=0.682696 z=-0.60, P(X<=119)=0.879211 z=+0.18
+ok   Generator.negative_binomial(0.001, 0.5) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [number of failures before n successes, pmf Gamma(N+n)/(N! Gamma(n)) p^n (1-p)^N (docstring); non-integer n]  mean 0.0010075 vs 0.001 z=+0.11; var 0.00194148 vs 0.002 z=-0.23; CDF P(X<=0)=0.999307 z=-0.35
+ok   RandomState.negative_binomial(0.001, 0.5) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [number of failures before n successes, pmf Gamma(N+n)/(N! Gamma(n)) p^n (1-p)^N (docstring); non-integer n]  mean 0.00092 vs 0.001 z=-1.13; var 0.00166915 vs 0.002 z=-1.30; CDF P(X<=0)=0.999307 z=+0.37
+ok   Generator.poisson(5.0) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [docstring: 'mean and variance, which should be approximately lam']  mean 5.00565 vs 5 z=+1.60; var 5.01022 vs 5 z=+0.87; CDF P(X<=2)=0.124652 z=-0.98, P(X<=5)=0.615961 z=-1.50, P(X<=7)=0.866628 z=-1.20
+ok   RandomState.poisson(5.0) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [docstring: 'mean and variance, which should be approximately lam']  mean 4.99423 vs 5 z=-1.63; var 5.0068 vs 5 z=+0.58; CDF P(X<=2)=0.124652 z=+2.25, P(X<=5)=0.615961 z=+0.27, P(X<=7)=0.866628 z=-0.34
+ok   Generator.poisson(1000000.0) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [docstring: 'mean and variance, which should be approximately lam']  mean 1e+06 vs 1e+06 z=+0.37; var 996877 vs 1e+06 z=-1.40; CDF P(X<=999000)=0.158776 z=-0.92, P(X<=1000000)=0.500266 z=-0.37, P(X<=1001000)=0.841466 z=-0.04
+ok   RandomState.poisson(1000000.0) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [docstring: 'mean and variance, which should be approximately lam']  mean 999999 vs 1e+06 z=-0.62; var 1.00354e+06 vs 1e+06 z=+1.58; CDF P(X<=999000)=0.158776 z=+1.30, P(X<=1000000)=0.500266 z=+0.27, P(X<=1001000)=0.841466 z=-0.27
+ok   Generator.poisson(0.01) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [docstring: 'mean and variance, which should be approximately lam']  mean 0.00977 vs 0.01 z=-1.45; var 0.00977455 vs 0.01 z=-1.41; CDF P(X<=0)=0.99005 z=+1.47
+ok   RandomState.poisson(0.01) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [docstring: 'mean and variance, which should be approximately lam']  mean 0.0100425 vs 0.01 z=+0.27; var 0.0100366 vs 0.01 z=+0.23; CDF P(X<=0)=0.99005 z=-0.29
+ok   Generator.poisson(1000.0) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [docstring: 'mean and variance, which should be approximately lam']  mean 1000.14 vs 1000 z=+2.77; var 1000.12 vs 1000 z=+0.05; CDF P(X<=968)=0.159596 z=-1.50, P(X<=1000)=0.508409 z=-2.35, P(X<=1031)=0.840423 z=-3.01
+ok   RandomState.poisson(1000.0) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [docstring: 'mean and variance, which should be approximately lam']  mean 999.916 vs 1000 z=-1.67; var 996.966 vs 1000 z=-1.36; CDF P(X<=968)=0.159596 z=+1.49, P(X<=1000)=0.508409 z=+0.34, P(X<=1031)=0.840423 z=+1.72
+ok   Generator.poisson(9.99) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [docstring: 'mean and variance, which should be approximately lam']  mean 9.9879 vs 9.99 z=-0.42; var 9.98212 vs 9.99 z=-0.34; CDF P(X<=6)=0.130773 z=+0.38, P(X<=9)=0.459181 z=+0.85, P(X<=13)=0.865192 z=+0.29
+ok   RandomState.poisson(9.99) n=400000: support int [0,inf], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [docstring: 'mean and variance, which should be approximately lam']  mean 9.99751 vs 9.99 z=+1.50; var 9.98508 vs 9.99 z=-0.22; CDF P(X<=6)=0.130773 z=-1.82, P(X<=9)=0.459181 z=-0.97, P(X<=13)=0.865192 z=-1.87
+FAIL Generator.zipf(1.001) n=400000: support int [1,9.223372036854776e+18], empirical CDF vs exact CDF values [pmf k^-a / zeta(a) conditioned on k <= 2^63 (untruncated mass beyond 2^63: 0.957); moments zeta(a-r)/zeta(a) where finite]  CDF P(X<=1)=0.0230916 z=-11.49, P(X<=2)=0.0346294 z=-14.28, P(X<=10)=0.0675724 z=-19.80, P(X<=1000000)=0.330159 z=-52.73, P(X<=1000000000000000)=0.797269 z=-87.93
+FAIL RandomState.zipf(1.001) n=400000: support int [1,9.223372036854776e+18], empirical CDF vs exact CDF values [pmf k^-a / zeta(a) conditioned on k <= 2^63 (untruncated mass beyond 2^63: 0.957); moments zeta(a-r)/zeta(a) where finite]  CDF P(X<=1)=0.0230916 z=-9.92, P(X<=2)=0.0346294 z=-13.50, P(X<=10)=0.0675724 z=-20.57, P(X<=1000000)=0.330159 z=-52.32, P(X<=1000000000000000)=0.797269 z=-87.89
+FAIL Generator.zipf(1.1) n=400000: support int [1,9.223372036854776e+18], empirical CDF vs exact CDF values [pmf k^-a / zeta(a) conditioned on k <= 2^63 (untruncated mass beyond 2^63: 0.012); moments zeta(a-r)/zeta(a) where finite]  CDF P(X<=1)=0.0956248 z=-2.33, P(X<=2)=0.140235 z=-3.32, P(X<=3)=0.168794 z=-2.48, P(X<=10)=0.256289 z=-2.95, P(X<=100)=0.409085 z=-5.08, P(X<=10000)=0.631449 z=-7.05
+FAIL RandomState.zipf(1.1) n=400000: support int [1,9.223372036854776e+18], empirical CDF vs exact CDF values [pmf k^-a / zeta(a) conditioned on k <= 2^63 (untruncated mass beyond 2^63: 0.012); moments zeta(a-r)/zeta(a) where finite]  CDF P(X<=1)=0.0956248 z=-2.73, P(X<=2)=0.140235 z=-2.37, P(X<=3)=0.168794 z=-2.71, P(X<=10)=0.256289 z=-4.17, P(X<=100)=0.409085 z=-6.13, P(X<=10000)=0.631449 z=-8.98
+ok   Generator.zipf(2.5) n=400000: support int [1,9.223372036854776e+18], empirical CDF vs exact CDF values [pmf k^-a / zeta(a) conditioned on k <= 2^63 (untruncated mass beyond 2^63: 1.77e-29); moments zeta(a-r)/zeta(a) where finite]  CDF P(X<=1)=0.745441 z=-0.09, P(X<=2)=0.877218 z=+0.13, P(X<=3)=0.925038 z=-0.97, P(X<=10)=0.985414 z=+0.28
+ok   RandomState.zipf(2.5) n=400000: support int [1,9.223372036854776e+18], empirical CDF vs exact CDF values [pmf k^-a / zeta(a) conditioned on k <= 2^63 (untruncated mass beyond 2^63: 1.77e-29); moments zeta(a-r)/zeta(a) where finite]  CDF P(X<=1)=0.745441 z=-0.02, P(X<=2)=0.877218 z=-0.02, P(X<=3)=0.925038 z=+0.88, P(X<=10)=0.985414 z=-0.18
+ok   Generator.zipf(4.0) n=400000: support int [1,9.223372036854776e+18], mean z-tests vs exact moments, empirical CDF vs exact CDF values [pmf k^-a / zeta(a) conditioned on k <= 2^63 (untruncated mass beyond 2^63: 0); moments zeta(a-r)/zeta(a) where finite]  mean 1.11083 vs 1.11063 z=+0.24; CDF P(X<=1)=0.923938 z=+0.05, P(X<=2)=0.981685 z=-0.16, P(X<=5)=0.998179 z=+0.95
+ok   RandomState.zipf(4.0) n=400000: support int [1,9.223372036854776e+18], mean z-tests vs exact moments, empirical CDF vs exact CDF values [pmf k^-a / zeta(a) conditioned on k <= 2^63 (untruncated mass beyond 2^63: 0); moments zeta(a-r)/zeta(a) where finite]  mean 1.10955 vs 1.11063 z=-1.28; CDF P(X<=1)=0.923938 z=+1.37, P(X<=2)=0.981685 z=+1.04, P(X<=5)=0.998179 z=+0.43
+ok   Generator.zipf(10.0) n=400000: support int [1,9.223372036854776e+18], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [pmf k^-a / zeta(a) conditioned on k <= 2^63 (untruncated mass beyond 2^63: 0); moments zeta(a-r)/zeta(a) where finite]  mean 1.00105 vs 1.00101 z=+0.68; var 0.0010964 vs 0.00105307 z=+0.74; CDF P(X<=1)=0.999006 z=-0.63, P(X<=2)=0.999982 count-tail p=8.61e-01
+ok   RandomState.zipf(10.0) n=400000: support int [1,9.223372036854776e+18], mean/variance z-tests vs exact moments, empirical CDF vs exact CDF values [pmf k^-a / zeta(a) conditioned on k <= 2^63 (untruncated mass beyond 2^63: 0); moments zeta(a-r)/zeta(a) where finite]  mean 1.0009 vs 1.00101 z=-2.10; var 0.000919181 vs 0.00105307 z=-2.29; CDF P(X<=1)=0.999006 z=+1.93, P(X<=2)=0.999982 count-tail p=1.44e-01
+   discrete block 5.2 s
+   zipf(1.1): P(X=1) empirical 0.09466; untruncated 1/zeta(1.1) = 0.09448; truncated at 2^63 = 0.09562
+   zipf(1.1): P(X > 2^53): exact truncated law 0.01214; numpy Generator 0.01797; rejection step re-run with float64 T 0.01799; with T-1 = expm1((a-1) log1p(1/X)) 0.01222
+   zipf(1.001): P(X > 2^53): exact truncated law 0.15375; numpy Generator 0.19598; rejection step re-run with float64 T 0.19610; with T-1 = expm1((a-1) log1p(1/X)) 0.15421
+---- multivariate distributions
+ok   Generator.dirichlet((10.0, 5.0, 3.0)) rows are points of the simplex: no NaN, sum to 1 (docstring 'sum_i x_i = 1'), entries in [0, 1]  NaN rows 0, max |sum-1| 4.44e-16, rows with sum > 1+1e-12: 0
+ok   Generator.dirichlet((10.0, 5.0, 3.0)) marginals are beta(alpha_i, alpha0 - alpha_i): mean / variance z-tests per component (finite rows)  [0] mean z=-1.54 var z=+0.55; [1] mean z=+1.26 var z=+0.47; [2] mean z=+0.54 var z=+0.35
+ok   RandomState.dirichlet((10.0, 5.0, 3.0)) rows are points of the simplex: no NaN, sum to 1 (docstring 'sum_i x_i = 1'), entries in [0, 1]  NaN rows 0, max |sum-1| 4.44e-16, rows with sum > 1+1e-12: 0
+ok   RandomState.dirichlet((10.0, 5.0, 3.0)) marginals are beta(alpha_i, alpha0 - alpha_i): mean / variance z-tests per component (finite rows)  [0] mean z=+0.53 var z=+0.71; [1] mean z=-0.63 var z=+0.31; [2] mean z=+0.05 var z=+0.07
+ok   Generator.dirichlet((0.05, 0.05, 0.05)) rows are points of the simplex: no NaN, sum to 1 (docstring 'sum_i x_i = 1'), entries in [0, 1]  NaN rows 0, max |sum-1| 2.22e-16, rows with sum > 1+1e-12: 0
+ok   Generator.dirichlet((0.05, 0.05, 0.05)) marginals are beta(alpha_i, alpha0 - alpha_i): mean / variance z-tests per component (finite rows) [small alpha: Generator stick-breaking path when alpha.max() < 0.1]  [0] mean z=-0.33 var z=-0.93; [1] mean z=-0.59 var z=-1.10; [2] mean z=+0.92 var z=+1.13
+ok   RandomState.dirichlet((0.05, 0.05, 0.05)) rows are points of the simplex: no NaN, sum to 1 (docstring 'sum_i x_i = 1'), entries in [0, 1]  NaN rows 0, max |sum-1| 4.44e-16, rows with sum > 1+1e-12: 0
+ok   RandomState.dirichlet((0.05, 0.05, 0.05)) marginals are beta(alpha_i, alpha0 - alpha_i): mean / variance z-tests per component (finite rows) [small alpha: Generator stick-breaking path when alpha.max() < 0.1]  [0] mean z=-0.30 var z=-0.76; [1] mean z=-0.21 var z=-0.81; [2] mean z=+0.51 var z=+0.06
+ok   Generator.dirichlet((1.0, 1.0)) rows are points of the simplex: no NaN, sum to 1 (docstring 'sum_i x_i = 1'), entries in [0, 1]  NaN rows 0, max |sum-1| 2.22e-16, rows with sum > 1+1e-12: 0
+ok   Generator.dirichlet((1.0, 1.0)) marginals are beta(alpha_i, alpha0 - alpha_i): mean / variance z-tests per component (finite rows)  [0] mean z=-0.21 var z=-1.39; [1] mean z=+0.21 var z=-1.39
+ok   RandomState.dirichlet((1.0, 1.0)) rows are points of the simplex: no NaN, sum to 1 (docstring 'sum_i x_i = 1'), entries in [0, 1]  NaN rows 0, max |sum-1| 2.22e-16, rows with sum > 1+1e-12: 0
+ok   RandomState.dirichlet((1.0, 1.0)) marginals are beta(alpha_i, alpha0 - alpha_i): mean / variance z-tests per component (finite rows)  [0] mean z=+0.46 var z=+0.09; [1] mean z=-0.46 var z=+0.09
+ok   Generator.dirichlet((0.02, 0.5, 3.0)) rows are points of the simplex: no NaN, sum to 1 (docstring 'sum_i x_i = 1'), entries in [0, 1]  NaN rows 0, max |sum-1| 2.22e-16, rows with sum > 1+1e-12: 0
+ok   Generator.dirichlet((0.02, 0.5, 3.0)) marginals are beta(alpha_i, alpha0 - alpha_i): mean / variance z-tests per component (finite rows)  [0] mean z=-0.21 var z=-0.35; [1] mean z=+0.05 var z=-0.28; [2] mean z=-0.01 var z=-0.10
+ok   RandomState.dirichlet((0.02, 0.5, 3.0)) rows are points of the simplex: no NaN, sum to 1 (docstring 'sum_i x_i = 1'), entries in [0, 1]  NaN rows 0, max |sum-1| 2.22e-16, rows with sum > 1+1e-12: 0
+ok   RandomState.dirichlet((0.02, 0.5, 3.0)) marginals are beta(alpha_i, alpha0 - alpha_i): mean / variance z-tests per component (finite rows)  [0] mean z=-2.37 var z=-2.21; [1] mean z=-0.96 var z=-1.36; [2] mean z=+1.44 var z=-1.62
+ok   Generator.dirichlet((0.001, 0.001)) rows are points of the simplex: no NaN, sum to 1 (docstring 'sum_i x_i = 1'), entries in [0, 1]  NaN rows 0, max |sum-1| 0.00e+00, rows with sum > 1+1e-12: 0
+ok   Generator.dirichlet((0.001, 0.001)) marginals are beta(alpha_i, alpha0 - alpha_i): mean / variance z-tests per component (finite rows) [small alpha: Generator stick-breaking path when alpha.max() < 0.1]  [0] mean z=+0.81 var z=-0.71; [1] mean z=-0.81 var z=-0.71
+FAIL RandomState.dirichlet((0.001, 0.001)) rows are points of the simplex: no NaN, sum to 1 (docstring 'sum_i x_i = 1'), entries in [0, 1]  NaN rows 96917, max |sum-1| inf, rows with sum > 1+1e-12: 113
+ok   RandomState.dirichlet((0.001, 0.001)) marginals are beta(alpha_i, alpha0 - alpha_i): mean / variance z-tests per component (finite rows) [small alpha: Generator stick-breaking path when alpha.max() < 0.1]  [0] mean z=-1.23 var z=-0.67; [1] mean z=+1.23 var z=-0.67
+ok   Generator.multinomial(20, [0.167, 0.167, 0.167, 0.167, 0.167, 0.167]) rows sum to n, integer, within [0, n]
+ok   Generator.multinomial(20, p) marginals binomial(n, p_i): mean / variance z-tests  [0] mean z=+2.24 var z=+0.32; [1] mean z=-1.39 var z=-1.00; [2] mean z=-0.68 var z=-0.39; [3] mean z=+0.01 var z=-1.31; [4] mean z=-1.22 var z=-1.05; [5] mean z=+1.04 var z=+0.59
+ok   Generator.multinomial(20, p) cov(X0, X1) = -n p0 p1 = -0.5556 (SE from the exact trinomial E[(X0-m0)^2 (X1-m1)^2])  sample cov -0.55685 z=-0.29
+ok   RandomState.multinomial(20, [0.167, 0.167, 0.167, 0.167, 0.167, 0.167]) rows sum to n, integer, within [0, n]
+ok   RandomState.multinomial(20, p) marginals binomial(n, p_i): mean / variance z-tests  [0] mean z=+0.07 var z=+1.37; [1] mean z=-0.60 var z=-1.56; [2] mean z=+1.09 var z=+1.62; [3] mean z=-0.91 var z=+0.97; [4] mean z=+0.55 var z=+0.99; [5] mean z=-0.21 var z=+0.19
+ok   RandomState.multinomial(20, p) cov(X0, X1) = -n p0 p1 = -0.5556 (SE from the exact trinomial E[(X0-m0)^2 (X1-m1)^2])  sample cov -0.55652 z=-0.22
+ok   Generator.multinomial(100, [0.1, 0.2, 0.7]) rows sum to n, integer, within [0, n]
+ok   Generator.multinomial(100, p) marginals binomial(n, p_i): mean / variance z-tests  [0] mean z=-0.46 var z=-0.23; [1] mean z=+0.99 var z=-1.09; [2] mean z=-0.56 var z=-0.04
+ok   Generator.multinomial(100, p) cov(X0, X1) = -n p0 p1 = -2 (SE from the exact trinomial E[(X0-m0)^2 (X1-m1)^2])  sample cov -1.9792 z=+1.09
+ok   RandomState.multinomial(100, [0.1, 0.2, 0.7]) rows sum to n, integer, within [0, n]
+ok   RandomState.multinomial(100, p) marginals binomial(n, p_i): mean / variance z-tests  [0] mean z=+0.48 var z=+0.29; [1] mean z=-0.32 var z=-0.06; [2] mean z=-0.04 var z=+0.81
+ok   RandomState.multinomial(100, p) cov(X0, X1) = -n p0 p1 = -2 (SE from the exact trinomial E[(X0-m0)^2 (X1-m1)^2])  sample cov -1.983 z=+0.89
+ok   Generator.multinomial(7, [0.5, 0.0, 0.5]) rows sum to n, integer, within [0, n]
+ok   Generator.multinomial(7, p) marginals binomial(n, p_i): mean / variance z-tests [zero probability never drawn]  [0] mean z=+1.79 var z=-1.76; [1] degenerate all==0.0: True; [2] mean z=-1.79 var z=-1.76
+ok   Generator.multinomial: category with p=0 has count 0 always
+ok   Generator.multinomial(7, p) cov(X0, X1) = -n p0 p1 = -0 (SE from the exact trinomial E[(X0-m0)^2 (X1-m1)^2])  sample cov 0 z=+0.00
+ok   RandomState.multinomial(7, [0.5, 0.0, 0.5]) rows sum to n, integer, within [0, n]
+ok   RandomState.multinomial(7, p) marginals binomial(n, p_i): mean / variance z-tests [zero probability never drawn]  [0] mean z=-0.14 var z=-2.62; [1] degenerate all==0.0: True; [2] mean z=+0.14 var z=-2.62
+ok   RandomState.multinomial: category with p=0 has count 0 always
+ok   RandomState.multinomial(7, p) cov(X0, X1) = -n p0 p1 = -0 (SE from the exact trinomial E[(X0-m0)^2 (X1-m1)^2])  sample cov 0 z=+0.00
+ok   Generator.multinomial(1, [0.3, 0.7]) rows sum to n, integer, within [0, n]
+ok   Generator.multinomial(1, p) marginals binomial(n, p_i): mean / variance z-tests  [0] mean z=-1.94 var z=-1.94; [1] mean z=+1.94 var z=-1.94
+ok   Generator.multinomial(1, p) cov(X0, X1) = -n p0 p1 = -0.21 (SE from the exact trinomial E[(X0-m0)^2 (X1-m1)^2])  sample cov -0.20944 z=+1.94
+ok   RandomState.multinomial(1, [0.3, 0.7]) rows sum to n, integer, within [0, n]
+ok   RandomState.multinomial(1, p) marginals binomial(n, p_i): mean / variance z-tests  [0] mean z=-1.75 var z=-1.76; [1] mean z=+1.75 var z=-1.76
+ok   RandomState.multinomial(1, p) cov(X0, X1) = -n p0 p1 = -0.21 (SE from the exact trinomial E[(X0-m0)^2 (X1-m1)^2])  sample cov -0.20949 z=+1.76
+ok   Generator.multivariate_hypergeometric([16, 8, 4], 6, method='marginals') rows sum to nsample, 0 <= x_i <= colors_i, integer
+ok   Generator.multivariate_hypergeometric([16, 8, 4], 6, 'marginals') marginals hypergeometric(c_i, N-c_i, nsample): mean / variance z-tests  [0] mean z=-1.24 var z=-0.34; [1] mean z=+1.29 var z=+1.57; [2] mean z=+0.10 var z=-1.42
+ok   Generator.multivariate_hypergeometric([16, 8, 4], 6, method='count') rows sum to nsample, 0 <= x_i <= colors_i, integer
+ok   Generator.multivariate_hypergeometric([16, 8, 4], 6, 'count') marginals hypergeometric(c_i, N-c_i, nsample): mean / variance z-tests  [0] mean z=-0.86 var z=-0.18; [1] mean z=+0.16 var z=+1.08; [2] mean z=+1.01 var z=-0.45
+ok   Generator.multivariate_hypergeometric([5, 3, 2, 1], 11, method='marginals') rows sum to nsample, 0 <= x_i <= colors_i, integer
+ok   Generator.multivariate_hypergeometric([5, 3, 2, 1], 11, 'marginals') marginals hypergeometric(c_i, N-c_i, nsample): mean / variance z-tests [nsample = sum(colors): variate equals colors]  [0] degenerate all==5.0: True; [1] degenerate all==3.0: True; [2] degenerate all==2.0: True; [3] degenerate all==1.0: True
+ok   Generator.multivariate_hypergeometric([5, 3, 2, 1], 11, method='count') rows sum to nsample, 0 <= x_i <= colors_i, integer
+ok   Generator.multivariate_hypergeometric([5, 3, 2, 1], 11, 'count') marginals hypergeometric(c_i, N-c_i, nsample): mean / variance z-tests [nsample = sum(colors): variate equals colors]  [0] degenerate all==5.0: True; [1] degenerate all==3.0: True; [2] degenerate all==2.0: True; [3] degenerate all==1.0: True
+ok   Generator.multivariate_hypergeometric([1000, 1, 1], 500, method='marginals') rows sum to nsample, 0 <= x_i <= colors_i, integer
+ok   Generator.multivariate_hypergeometric([1000, 1, 1], 500, 'marginals') marginals hypergeometric(c_i, N-c_i, nsample): mean / variance z-tests  [0] mean z=-1.60 var z=+0.66; [1] mean z=+1.31 var z=+0.63; [2] mean z=+0.95 var z=+0.59
+ok   Generator.multivariate_hypergeometric([1000, 1, 1], 500, method='count') rows sum to nsample, 0 <= x_i <= colors_i, integer
+ok   Generator.multivariate_hypergeometric([1000, 1, 1], 500, 'count') marginals hypergeometric(c_i, N-c_i, nsample): mean / variance z-tests  [0] mean z=+2.15 var z=-0.00; [1] mean z=-1.00 var z=-1.39; [2] mean z=-2.05 var z=-3.70
+ok   Generator.multivariate_hypergeometric([3, 3, 3], 0, method='marginals') rows sum to nsample, 0 <= x_i <= colors_i, integer
+ok   Generator.multivariate_hypergeometric([3, 3, 3], 0, 'marginals') marginals hypergeometric(c_i, N-c_i, nsample): mean / variance z-tests [nsample=0]  [0] degenerate all==0.0: True; [1] degenerate all==0.0: True; [2] degenerate all==0.0: True
+ok   Generator.multivariate_hypergeometric([3, 3, 3], 0, method='count') rows sum to nsample, 0 <= x_i <= colors_i, integer
+ok   Generator.multivariate_hypergeometric([3, 3, 3], 0, 'count') marginals hypergeometric(c_i, N-c_i, nsample): mean / variance z-tests [nsample=0]  [0] degenerate all==0.0: True; [1] degenerate all==0.0: True; [2] degenerate all==0.0: True
+ok   Generator.multivariate_hypergeometric([16, 8, 4], 28, method='marginals') rows sum to nsample, 0 <= x_i <= colors_i, integer
+ok   Generator.multivariate_hypergeometric([16, 8, 4], 28, 'marginals') marginals hypergeometric(c_i, N-c_i, nsample): mean / variance z-tests [nsample = sum(colors): variate equals colors]  [0] degenerate all==16.0: True; [1] degenerate all==8.0: True; [2] degenerate all==4.0: True
+ok   Generator.multivariate_hypergeometric([16, 8, 4], 28, method='count') rows sum to nsample, 0 <= x_i <= colors_i, integer
+ok   Generator.multivariate_hypergeometric([16, 8, 4], 28, 'count') marginals hypergeometric(c_i, N-c_i, nsample): mean / variance z-tests [nsample = sum(colors): variate equals colors]  [0] degenerate all==16.0: True; [1] degenerate all==8.0: True; [2] degenerate all==4.0: True
+ok   Generator.multivariate_hypergeometric(colors, nsample > sum(colors)) raises ValueError (docstring 'nsample must not be greater than sum(colors)')
+ok   Generator.multivariate_hypergeometric method='bogus' raises ValueError ('Must be count or marginals')
+ok   Generator.multivariate_hypergeometric negative color raises ValueError ('must be nonnegative')
+ok   Generator.multivariate_hypergeometric sum(colors) >= 10**9 with method='marginals' raises ValueError ('must be less than 10**9')
+ok   Generator.multivariate_normal 3-D method='svd': means and all covariance entries within z (SE (s_ii s_jj + s_ij^2)/n)  m0 z=-0.43 m1 z=+0.66 m2 z=-0.18 c00 z=+1.44 c01 z=+0.18 c02 z=+0.69 c11 z=+0.65 c12 z=-0.23 c22 z=+0.26
+ok   Generator.multivariate_normal 3-D method='cholesky': means and all covariance entries within z (SE (s_ii s_jj + s_ij^2)/n)  m0 z=-1.38 m1 z=+1.31 m2 z=-0.99 c00 z=-2.33 c01 z=+0.52 c02 z=-0.21 c11 z=+0.83 c12 z=+0.00 c22 z=+0.66
+ok   Generator.multivariate_normal 3-D method='eigh': means and all covariance entries within z (SE (s_ii s_jj + s_ij^2)/n)  m0 z=-2.98 m1 z=-0.96 m2 z=-1.08 c00 z=+0.72 c01 z=+0.47 c02 z=+0.45 c11 z=+0.05 c12 z=+0.39 c22 z=+0.34
+ok   RandomState.multivariate_normal 3-D: means and covariance entries within z  m0 z=+0.29 m1 z=+2.14 m2 z=-0.86 c00 z=-1.83 c01 z=-0.75 c02 z=-2.00 c11 z=+0.09 c12 z=-0.75 c22 z=-0.17
+ok   Generator.multivariate_normal with a singular PSD covariance (rank 2): no warning ('positive-semidefinite for proper sampling'), x0 == x1 to 1e-6, var x0 = 1, var x2 = 2  warnings [] max|x0-x1| 3.73e-08 var z +0.23 -0.89
+ok   RandomState.multivariate_normal with a singular PSD covariance (rank 2): no warning ('positive-semidefinite for proper sampling'), x0 == x1 to 1e-6, var x0 = 1, var x2 = 2  warnings [] max|x0-x1| 3.72e-08 var z -0.21 -1.30
+ok   Generator.multivariate_normal(check_valid='warn' default) on a non-PSD cov warns RuntimeWarning  ['covariance is not symmetric positive-semidefinite.']
+ok   Generator.multivariate_normal(check_valid='raise') on a non-PSD cov raises ValueError
+ok   Generator.multivariate_normal(check_valid='ignore') on a non-PSD cov is silent
+ok   Generator.multivariate_normal(check_valid='bogus') raises ValueError
+ok   Generator.multivariate_normal output shape: size=(3, 3) with N=2 -> (3, 3, 2); size=None -> (2,)
+ok   Generator.multivariate_normal: mean length != cov size raises ValueError; non-square cov raises ValueError
+ok   RandomState.multivariate_normal(check_valid='warn' default) on a non-PSD cov warns RuntimeWarning  ['covariance is not symmetric positive-semidefinite.']
+ok   RandomState.multivariate_normal(check_valid='raise') on a non-PSD cov raises ValueError
+ok   RandomState.multivariate_normal(check_valid='ignore') on a non-PSD cov is silent
+ok   RandomState.multivariate_normal(check_valid='bogus') raises ValueError
+ok   RandomState.multivariate_normal output shape: size=(3, 3) with N=2 -> (3, 3, 2); size=None -> (2,)
+ok   RandomState.multivariate_normal: mean length != cov size raises ValueError; non-square cov raises ValueError
+ok   Generator.multivariate_normal(method='bogus') raises ValueError
+   distributions total 26.6 s
+---- boundary values and parameter validation (docstring ranges)
+ok   Generator.binomial(n, p=0) == 0 ('p ... >= 0 and <= 1')  first [0, 0, 0]
+ok   RandomState.binomial(n, p=0) == 0 ('p ... >= 0 and <= 1')  first [0, 0, 0]
+ok   Generator.binomial(n, p=1) == n  first [10, 10, 10]
+ok   RandomState.binomial(n, p=1) == n  first [10, 10, 10]
+ok   Generator.binomial(n=0, p) == 0 ('n ... >= 0')  first [0, 0, 0]
+ok   RandomState.binomial(n=0, p) == 0 ('n ... >= 0')  first [0, 0, 0]
+ok   Generator.poisson(lam=0) == 0 ('must be >= 0')  first [0, 0, 0]
+ok   RandomState.poisson(lam=0) == 0 ('must be >= 0')  first [0, 0, 0]
+ok   Generator.geometric(p=1) == 1 (first trial succeeds)  first [1, 1, 1]
+ok   RandomState.geometric(p=1) == 1 (first trial succeeds)  first [1, 1, 1]
+ok   Generator.negative_binomial(n, p=1) == 0 (no failures)  first [0, 0, 0]
+ok   RandomState.negative_binomial(n, p=1) == 0 (no failures)  first [0, 0, 0]
+ok   Generator.hypergeometric(ngood=0, nbad, nsample) == 0  first [0, 0, 0]
+ok   RandomState.hypergeometric(ngood=0, nbad, nsample) == 0  first [0, 0, 0]
+ok   Generator.hypergeometric(ngood, nbad=0, nsample) == nsample  first [3, 3, 3]
+ok   RandomState.hypergeometric(ngood, nbad=0, nsample) == nsample  first [3, 3, 3]
+ok   Generator.hypergeometric(ngood, nbad, nsample=ngood+nbad) == ngood ('less than or equal to the sum')  first [10, 10, 10]
+ok   RandomState.hypergeometric(ngood, nbad, nsample=ngood+nbad) == ngood ('less than or equal to the sum')  first [10, 10, 10]
+ok   Generator.logseries(p=0) == 1 ('Must be in the range [0, 1)')  first [1, 1, 1]
+ok   RandomState.logseries(p=0) == 1 ('Must be in the range [0, 1)')  first [1, 1, 1]
+ok   Generator.gamma(shape=0) == 0 ('Must be non-negative')  first [0.0, 0.0, 0.0]
+ok   RandomState.gamma(shape=0) == 0 ('Must be non-negative')  first [0.0, 0.0, 0.0]
+ok   Generator.standard_gamma(shape=0) == 0  first [0.0, 0.0, 0.0]
+ok   RandomState.standard_gamma(shape=0) == 0  first [0.0, 0.0, 0.0]
+ok   Generator.gamma(shape, scale=0) == 0  first [0.0, 0.0, 0.0]
+ok   RandomState.gamma(shape, scale=0) == 0  first [0.0, 0.0, 0.0]
+ok   Generator.exponential(scale=0) == 0 ('Must be non-negative')  first [0.0, 0.0, 0.0]
+ok   RandomState.exponential(scale=0) == 0 ('Must be non-negative')  first [0.0, 0.0, 0.0]
+ok   Generator.normal(loc, scale=0) == loc ('Must be non-negative')  first [3.0, 3.0, 3.0]
+ok   RandomState.normal(loc, scale=0) == loc ('Must be non-negative')  first [3.0, 3.0, 3.0]
+ok   Generator.lognormal(mean, sigma=0) == exp(mean)  first [1.0, 1.0, 1.0]
+ok   RandomState.lognormal(mean, sigma=0) == exp(mean)  first [1.0, 1.0, 1.0]
+ok   Generator.laplace(loc, scale=0) == loc  first [1.5, 1.5, 1.5]
+ok   RandomState.laplace(loc, scale=0) == loc  first [1.5, 1.5, 1.5]
+ok   Generator.gumbel(loc, scale=0) == loc  first [1.5, 1.5, 1.5]
+ok   RandomState.gumbel(loc, scale=0) == loc  first [1.5, 1.5, 1.5]
+ok   Generator.logistic(loc, scale=0) == loc  first [1.5, 1.5, 1.5]
+ok   RandomState.logistic(loc, scale=0) == loc  first [1.5, 1.5, 1.5]
+ok   Generator.rayleigh(scale=0) == 0  first [0.0, 0.0, 0.0]
+ok   RandomState.rayleigh(scale=0) == 0  first [0.0, 0.0, 0.0]
+ok   Generator.uniform(low, high=low) == low ('When high == low, values of low will be returned')  first [2.0, 2.0, 2.0]
+ok   RandomState.uniform(low, high=low) == low ('When high == low, values of low will be returned')  first [2.0, 2.0, 2.0]
+ok   Generator.triangular(1, 1, 1+1e-15) stays in [left, right]
+ok   Generator.binomial(n=-1) raises ValueError ('>= 0')  ValueError: n < 0
+ok   RandomState.binomial(n=-1) raises ValueError ('>= 0')  ValueError: n < 0
+ok   Generator.binomial(p=1.5) raises ValueError  ValueError: p < 0, p > 1 or p is NaN
+ok   RandomState.binomial(p=1.5) raises ValueError  ValueError: p < 0, p > 1 or p is NaN
+ok   Generator.binomial(p=nan) raises ValueError  ValueError: p < 0, p > 1 or p is NaN
+ok   RandomState.binomial(p=nan) raises ValueError  ValueError: p < 0, p > 1 or p is NaN
+ok   Generator.poisson(lam=-1) raises ValueError  ValueError: lam < 0 or lam is NaN
+ok   RandomState.poisson(lam=-1) raises ValueError  ValueError: lam < 0 or lam is NaN
+ok   Generator.poisson(lam=1e19) raises ValueError ('lam is within 10 sigma of the maximum representable value')  ValueError: lam value too large
+ok   RandomState.poisson(lam=1e19) raises ValueError ('lam is within 10 sigma of the maximum representable value')  ValueError: lam value too large
+ok   Generator.geometric(p=0) raises ValueError  ValueError: p <= 0, p > 1 or p contains NaNs
+ok   RandomState.geometric(p=0) raises ValueError  ValueError: p <= 0, p > 1 or p contains NaNs
+ok   Generator.geometric(p=1.5) raises ValueError  ValueError: p <= 0, p > 1 or p contains NaNs
+ok   RandomState.geometric(p=1.5) raises ValueError  ValueError: p <= 0, p > 1 or p contains NaNs
+ok   Generator.negative_binomial(n=0) raises ValueError ('> 0')  ValueError: n <= 0
+ok   RandomState.negative_binomial(n=0) raises ValueError ('> 0')  ValueError: n <= 0
+ok   Generator.negative_binomial(p=0) raises ValueError ('Must satisfy 0 < p <= 1')  ValueError: p <= 0, p > 1 or p contains NaNs
+ok   Generator.hypergeometric(nsample > ngood + nbad) raises ValueError  ValueError: ngood + nbad < nsample
+ok   RandomState.hypergeometric(nsample > ngood + nbad) raises ValueError  ValueError: ngood + nbad < nsample
+ok   Generator.hypergeometric(ngood=10**9) raises ValueError ('Must be nonnegative and less than 10**9')  ValueError: both ngood and nbad must be less than 1000000000
+ok   Generator.hypergeometric(ngood=-1) raises ValueError  ValueError: ngood < 0
+ok   RandomState.hypergeometric(ngood=-1) raises ValueError  ValueError: ngood < 0
+ok   RandomState.hypergeometric(nsample=0) raises ValueError (legacy: 'Must be at least 1')  ValueError: nsample < 1 or nsample is NaN
+ok   Generator.logseries(p=1) raises ValueError ('[0, 1)')  ValueError: p < 0, p >= 1 or p is NaN
+ok   RandomState.logseries(p=1) raises ValueError ('[0, 1)')  ValueError: p < 0, p >= 1 or p is NaN
+ok   Generator.logseries(p=-0.1) raises ValueError  ValueError: p < 0, p >= 1 or p is NaN
+ok   RandomState.logseries(p=-0.1) raises ValueError  ValueError: p < 0, p >= 1 or p is NaN
+ok   Generator.logseries(p=nan) raises ValueError  ValueError: p < 0, p >= 1 or p is NaN
+ok   RandomState.logseries(p=nan) raises ValueError  ValueError: p < 0, p >= 1 or p is NaN
+ok   Generator.zipf(a=1) raises ValueError ('Must be greater than 1')  ValueError: a <= 1 or a is NaN
+ok   RandomState.zipf(a=1) raises ValueError ('Must be greater than 1')  ValueError: a <= 1 or a is NaN
+ok   Generator.vonmises(kappa=-1) raises ValueError ('has to be >=0')  ValueError: kappa < 0
+ok   RandomState.vonmises(kappa=-1) raises ValueError ('has to be >=0')  ValueError: kappa < 0
+ok   Generator.power(a=0) raises ValueError ('Raises ValueError If a <= 0')  ValueError: a <= 0
+ok   RandomState.power(a=0) raises ValueError ('Raises ValueError If a <= 0')  ValueError: a <= 0
+ok   Generator.pareto(a=0) raises ValueError ('Must be positive')  ValueError: a <= 0
+ok   RandomState.pareto(a=0) raises ValueError ('Must be positive')  ValueError: a <= 0
+ok   Generator.beta(a=0) raises ValueError ('positive (>0)')  ValueError: a <= 0
+ok   RandomState.beta(a=0) raises ValueError ('positive (>0)')  ValueError: a <= 0
+ok   Generator.gamma(shape=-1) raises ValueError  ValueError: shape < 0
+ok   RandomState.gamma(shape=-1) raises ValueError  ValueError: shape < 0
+ok   Generator.normal(scale=-1) raises ValueError  ValueError: scale < 0
+ok   RandomState.normal(scale=-1) raises ValueError  ValueError: scale < 0
+ok   Generator.uniform(low=3, high=2) raises ValueError ('high - low must be non-negative')  ValueError: high - low < 0
+ok   Generator.triangular(left == right) raises ValueError ('must be larger than left')  ValueError: left == right
+ok   RandomState.triangular(left == right) raises ValueError ('must be larger than left')  ValueError: left == right
+ok   Generator.triangular(mode > right) raises ValueError ('left <= mode <= right')  ValueError: mode > right
+ok   RandomState.triangular(mode > right) raises ValueError ('left <= mode <= right')  ValueError: mode > right
+ok   Generator.chisquare(df=0) raises ValueError ('must be > 0')  ValueError: df <= 0
+ok   RandomState.chisquare(df=0) raises ValueError ('must be > 0')  ValueError: df <= 0
+ok   Generator.noncentral_chisquare(df=0) raises ValueError  ValueError: df <= 0
+ok   RandomState.noncentral_chisquare(df=0) raises ValueError  ValueError: df <= 0
+ok   Generator.noncentral_chisquare(nonc=-1) raises ValueError ('non-negative')  ValueError: nonc < 0
+ok   RandomState.noncentral_chisquare(nonc=-1) raises ValueError ('non-negative')  ValueError: nonc < 0
+ok   Generator.f(dfden=0) raises ValueError  ValueError: dfden <= 0
+ok   RandomState.f(dfden=0) raises ValueError  ValueError: dfden <= 0
+ok   Generator.noncentral_f(nonc=-1) raises ValueError ('>= 0')  ValueError: nonc < 0
+ok   RandomState.noncentral_f(nonc=-1) raises ValueError ('>= 0')  ValueError: nonc < 0
+ok   Generator.wald(scale=0) raises ValueError ('must be > 0')  ValueError: scale <= 0
+ok   RandomState.wald(scale=0) raises ValueError ('must be > 0')  ValueError: scale <= 0
+ok   Generator.wald(mean=0) raises ValueError ('must be > 0')  ValueError: mean <= 0
+ok   RandomState.wald(mean=0) raises ValueError ('must be > 0')  ValueError: mean <= 0
+ok   Generator.standard_t(df=0) raises ValueError ('must be > 0')  ValueError: df <= 0
+ok   RandomState.standard_t(df=0) raises ValueError ('must be > 0')  ValueError: df <= 0
+ok   Generator.weibull(a=-1) raises ValueError ('Must be nonnegative')  ValueError: a < 0
+ok   RandomState.weibull(a=-1) raises ValueError ('Must be nonnegative')  ValueError: a < 0
+ok   Generator.rayleigh(scale=-1) raises ValueError  ValueError: scale < 0
+ok   RandomState.rayleigh(scale=-1) raises ValueError  ValueError: scale < 0
+ok   Generator.dirichlet(alpha with a negative entry) raises ValueError  ValueError: alpha <= 0
+ok   RandomState.dirichlet(alpha with a negative entry) raises ValueError  ValueError: alpha <= 0
+ok   Generator.multinomial(n=-1) raises ValueError  ValueError: n < 0
+ok   RandomState.multinomial(n=-1) raises ValueError  ValueError: n < 0
+ok   Generator.multinomial(pvals containing NaN) raises ValueError ('pvals contains NaNs')  ValueError: pvals < 0, pvals > 1 or pvals contains NaNs
+ok   RandomState.multinomial(pvals containing NaN) raises ValueError ('pvals contains NaNs')  ValueError: pvals < 0, pvals > 1 or pvals contains NaNs
+ok   Generator.multinomial(sum(pvals[:-1]) > 1) raises ValueError  ValueError: sum(pvals[:-1]) > 1.0
+ok   RandomState.multinomial(sum(pvals[:-1]) > 1) raises ValueError  ValueError: sum(pvals[:-1]) > 1.0
+ok   Generator.multinomial(pvals < 0) raises ValueError  ValueError: pvals < 0, pvals > 1 or pvals contains NaNs
+ok   RandomState.multinomial(pvals < 0) raises ValueError  ValueError: pvals < 0, pvals > 1 or pvals contains NaNs
+ok   Generator.dirichlet([0, 1]) raises ValueError (this build's docstring: 'less than or equal to zero')  ValueError: alpha <= 0
+ok   RandomState.dirichlet([0, 1]) raises ValueError (this build's docstring: 'less than or equal to zero')  ValueError: alpha <= 0
+ok   Generator.hypergeometric(nsample=0) == 0 (docstring 'nsample ... Must be nonnegative')
+ok   Generator.binomial(n=10.7) truncates n to 10 (docstring 'Floats are also accepted, but they will be truncated to integers'): same stream as n=10
+ok   RandomState.binomial(n=10.7) truncates n to 10: same stream as n=10
+ok   Generator.multinomial: the last pvals entry is ignored (docstring 'the last element is always assumed to account for the remaining probability'): [0.6, 0.6] == [0.6, 0.4] stream
+ok   RandomState.multinomial: the last pvals entry is ignored (docstring 'the last element is always assumed to account for the remaining probability'): [0.6, 0.6] == [0.6, 0.4] stream
+   RandomState.uniform(3, 2) (docstring: 'If high < low, the results are officially undefined'): returns values in [2.0011, 2.9997]
+   Generator.weibull(a=0) ('Must be nonnegative'): returns [0.0] (the code's convention; the a -> 0 limit of (-ln U)^(1/a) is not a distribution)
+   RandomState.weibull(a=0) ('Must be nonnegative'): returns [0.0] (the code's convention; the a -> 0 limit of (-ln U)^(1/a) is not a distribution)
+FAIL RandomState.negative_binomial(1, p=0) (legacy docstring: 'p is in the interval [0, 1]') returns non-negative counts or raises  returned [-9223372036854775808]; docstring mentions [0, 1]: True
+FAIL Generator.wald(mean=1e9, scale=2.25): all samples > 0 (inverse Gaussian support) [fixed in 2.3.4 for Generator (gh-29926)]  n_negative 181, n_zero 53061, min -423.9
+FAIL RandomState.wald(mean=1e9, scale=2.25): all samples > 0 (inverse Gaussian support) [legacy_wald keeps the old formula]  n_negative 202, n_zero 53580, min -211.9
+ok   Generator.geometric(p=1e-17): no negative counts (support k >= 1; Generator clamps at int64 max since 1.25, changelog gh-23691 'Don't return negative values from Generator.geometric')  min 35975397160, n_negative 0
+FAIL RandomState.geometric(p=1e-17): no negative counts (support k >= 1; Generator clamps at int64 max since 1.25, changelog gh-23691 'Don't return negative values from Generator.geometric')  min -9223372036854775808, n_negative 20000
+FAIL Generator.geometric(p=1e-300): no negative counts (support k >= 1; Generator clamps at int64 max since 1.25, changelog gh-23691 'Don't return negative values from Generator.geometric')  min -9223372036854775808, n_negative 20000
+FAIL RandomState.geometric(p=1e-300): no negative counts (support k >= 1; Generator clamps at int64 max since 1.25, changelog gh-23691 'Don't return negative values from Generator.geometric')  min -9223372036854775808, n_negative 20000
+FAIL RandomState.negative_binomial(1e10, 1e-10) (mean 1e20 > int64 max): returns non-negative counts or raises (Generator raises the documented ValueError)  returned [-9223372036854775808]
+ok   Generator.negative_binomial(1e10, 1e-10) raises ValueError (docstring constraint n(1-p)/p + 10 n sqrt(n) (1-p)/p < 2**63 - 1 - 10 sqrt(2**63 - 1))
+ok   Generator.beta(1e-3, 1e-3): no NaN, all in [0, 1] (2.0 changelog gh-24267 'Fix generation of nan by beta')  NaN 0
+ok   Generator.shuffle(read-only array) raises ValueError (1.23 changelog gh-20621 'Check writeable flag in shuffle')
+ok   Generator.multinomial(n=3e9) rows sum to n (n beyond int32; changelog gh-25119 'Make n a long int')
+ok   RandomState.beta(1e-3, 1e-3): no NaN, all in [0, 1] (2.0 changelog gh-24267 'Fix generation of nan by beta')  NaN 0
+ok   RandomState.shuffle(read-only array) raises ValueError (1.23 changelog gh-20621 'Check writeable flag in shuffle')
+ok   RandomState.multinomial(n=3e9) rows sum to n (n beyond int32; changelog gh-25119 'Make n a long int')
+ok   Generator.permuted(x, out=read-only) raises ValueError
+FAIL Generator.choice(2-D a, size=()) returns one row of shape (2,) ('output ndim = a.ndim - 1 + len(size)'; 2.0 changelog gh-26544)  ValueError: setting an array element with a sequence.
+FAIL Generator.zipf(a=2000) returns (a > 1 is the only documented constraint; P(X > 1) < 3e-309) instead of hanging  no result within 10 s
+FAIL RandomState.zipf(a=2000) returns (a > 1 is the only documented constraint; P(X > 1) < 3e-309) instead of hanging  no result within 10 s
+ok   RandomState.zipf(a=1024) returns  rc=0 [1 1 1]
+---- integers / randint
+ok   Generator.integers full range of int8 (endpoint False with high = max+1, and endpoint=True with high = max): dtype kept, extremes / top bit / low bit uniform  min -128 max 127
+ok   Generator.integers(full int8): chi-square uniformity over 256 cells (exact p-value)  chi2=245.2 df=255 p=0.659
+ok   Generator.integers(dtype=int8): high = max+2 raises ValueError; low = min-1 raises ValueError
+ok   Generator.integers(dtype=int8, endpoint=True): high = max+1 raises ValueError
+ok   RandomState.randint full range of int8: dtype kept, extremes reached / top half 1/2
+ok   RandomState.randint(dtype=int8): high = max+2 raises ValueError
+ok   Generator.integers full range of int16 (endpoint False with high = max+1, and endpoint=True with high = max): dtype kept, extremes / top bit / low bit uniform  min -32768 max 32767
+ok   Generator.integers(dtype=int16): high = max+2 raises ValueError; low = min-1 raises ValueError
+ok   Generator.integers(dtype=int16, endpoint=True): high = max+1 raises ValueError
+ok   RandomState.randint full range of int16: dtype kept, extremes reached / top half 1/2
+ok   RandomState.randint(dtype=int16): high = max+2 raises ValueError
+ok   Generator.integers full range of int32 (endpoint False with high = max+1, and endpoint=True with high = max): dtype kept, extremes / top bit / low bit uniform  top-half fraction z=+0.69, odd fraction z=+0.80
+ok   Generator.integers(dtype=int32): high = max+2 raises ValueError; low = min-1 raises ValueError
+ok   Generator.integers(dtype=int32, endpoint=True): high = max+1 raises ValueError
+ok   RandomState.randint full range of int32: dtype kept, extremes reached / top half 1/2
+ok   RandomState.randint(dtype=int32): high = max+2 raises ValueError
+ok   Generator.integers full range of int64 (endpoint False with high = max+1, and endpoint=True with high = max): dtype kept, extremes / top bit / low bit uniform  top-half fraction z=-0.07, odd fraction z=+0.03
+ok   Generator.integers(dtype=int64): high = max+2 raises ValueError; low = min-1 raises ValueError
+ok   Generator.integers(dtype=int64, endpoint=True): high = max+1 raises ValueError
+ok   RandomState.randint full range of int64: dtype kept, extremes reached / top half 1/2
+ok   RandomState.randint(dtype=int64): high = max+2 raises ValueError
+ok   Generator.integers full range of uint8 (endpoint False with high = max+1, and endpoint=True with high = max): dtype kept, extremes / top bit / low bit uniform  min 0 max 255
+ok   Generator.integers(full uint8): chi-square uniformity over 256 cells (exact p-value)  chi2=236.8 df=255 p=0.787
+ok   Generator.integers(dtype=uint8): high = max+2 raises ValueError; low = min-1 raises ValueError
+ok   Generator.integers(dtype=uint8, endpoint=True): high = max+1 raises ValueError
+ok   RandomState.randint full range of uint8: dtype kept, extremes reached / top half 1/2
+ok   RandomState.randint(dtype=uint8): high = max+2 raises ValueError
+ok   Generator.integers full range of uint16 (endpoint False with high = max+1, and endpoint=True with high = max): dtype kept, extremes / top bit / low bit uniform  min 0 max 65535
+ok   Generator.integers(dtype=uint16): high = max+2 raises ValueError; low = min-1 raises ValueError
+ok   Generator.integers(dtype=uint16, endpoint=True): high = max+1 raises ValueError
+ok   RandomState.randint full range of uint16: dtype kept, extremes reached / top half 1/2
+ok   RandomState.randint(dtype=uint16): high = max+2 raises ValueError
+ok   Generator.integers full range of uint32 (endpoint False with high = max+1, and endpoint=True with high = max): dtype kept, extremes / top bit / low bit uniform  top-half fraction z=-1.19, odd fraction z=-0.09
+ok   Generator.integers(dtype=uint32): high = max+2 raises ValueError; low = min-1 raises ValueError
+ok   Generator.integers(dtype=uint32, endpoint=True): high = max+1 raises ValueError
+ok   RandomState.randint full range of uint32: dtype kept, extremes reached / top half 1/2
+ok   RandomState.randint(dtype=uint32): high = max+2 raises ValueError
+ok   Generator.integers full range of uint64 (endpoint False with high = max+1, and endpoint=True with high = max): dtype kept, extremes / top bit / low bit uniform  top-half fraction z=-1.48, odd fraction z=+0.55
+ok   Generator.integers(dtype=uint64): high = max+2 raises ValueError; low = min-1 raises ValueError
+ok   Generator.integers(dtype=uint64, endpoint=True): high = max+1 raises ValueError
+ok   RandomState.randint full range of uint64: dtype kept, extremes reached / top half 1/2
+ok   RandomState.randint(dtype=uint64): high = max+2 raises ValueError
+ok   Generator.integers(0, 2, dtype=bool) and (False, True, endpoint=True): dtype bool, P(True) = 1/2  z=-0.37 +0.14
+ok   Generator.integers(0, 3, dtype=bool) raises ValueError
+ok   RandomState.randint(0, 2, dtype=bool): dtype bool, P(True) = 1/2
+ok   Generator.integers(5, 5) raises ValueError (empty [low, high))
+ok   Generator.integers(5, 5, endpoint=True) == 5
+ok   Generator.integers(6, 5, endpoint=True) raises ValueError
+ok   Generator.integers(0, 10, dtype=float) raises TypeError (integer dtypes only)  TypeError: Unsupported dtype dtype('float64') for integers
+ok   Generator.integers(0, 10, dtype='>i8') (non-native byteorder) raises ValueError ('Byteorder must be native')  ValueError: Providing a dtype with a non-native byteorder is not supported. If you
+ok   Generator.integers(0, 2**64, dtype=uint64) accepted; 2**64 + 1 raises ValueError
+ok   Generator.integers(7) (high=None): 'results are from 0 to low' exclusive -> [0, 6], default dtype int64
+ok   Generator.integers(7, endpoint=True) (high=None): [0, 7]
+ok   Generator.integers(0, 10) with size=None returns a numpy int64 scalar (docstring 'single value is returned')  int64
+ok   Generator.integers(0, 10, size=0) returns an empty int64 array; size=(2, 0) keeps the shape
+ok   Generator.integers([1, 3, 5, 7], [[10], [20]], dtype=uint8) (docstring example): shape (2, 4), each cell covers exactly [low_j, high_i - 1]
+ok   Generator.integers(broadcast, endpoint=True): each cell covers exactly [low_j, high_i]
+ok   Generator.integers(broadcast) with a low > high cell raises ValueError
+ok   RandomState.randint([1, 3, 5, 7], [[10], [20]]) broadcasting: each cell covers exactly [low_j, high_i - 1]
+ok   Generator.integers(0, 10): chi-square uniformity over 10 cells (exact p-value)  chi2=10.4 df=9 p=0.322
+ok   Generator.integers(-3, 3, endpoint=True, dtype=int16): chi-square uniformity over 7 cells (exact p-value)  chi2=8.6 df=6 p=0.197
+ok   Generator.integers(0, 7, dtype=int8): chi-square uniformity over 7 cells (exact p-value)  chi2=2.4 df=6 p=0.88
+ok   Generator.integers(0, 1000): chi-square uniformity over 1000 cells (exact p-value)  chi2=1024.8 df=999 p=0.278
+ok   Generator.integers(0, 3*2**61) // 2**61 (non-power-of-two range near 2**63): chi-square uniformity over 3 cells (exact p-value)  chi2=11.1 df=2 p=0.00388
+ok   Generator.integers(0, 3*2**62, dtype=uint64) // 2**62: chi-square uniformity over 3 cells (exact p-value)  chi2=2.8 df=2 p=0.241
+ok   Generator.integers(0, 10**12 + 7) // (10**11 + 1): chi-square uniformity over 10 cells (exact p-value)  chi2=4.4 df=9 p=0.885
+ok   Generator.integers(0, 2**31 + 5, dtype=uint32) mod 7 [approximately uniform: 2**31+5 cells]: chi-square uniformity over 7 cells (exact p-value)  chi2=4.6 df=6 p=0.593
+ok   RandomState.randint(0, 10): chi-square uniformity over 10 cells (exact p-value)  chi2=2.5 df=9 p=0.981
+ok   RandomState.randint(0, 3*2**61) // 2**61: chi-square uniformity over 3 cells (exact p-value)  chi2=1.7 df=2 p=0.432
+ok   RandomState.randint(-3, 4, dtype=int8): chi-square uniformity over 7 cells (exact p-value)  chi2=3.8 df=6 p=0.703
+ok   RandomState.randint(7) (high=None): [0, 6], default dtype np.int_ ('int')
+ok   RandomState.randint(5, 5) raises ValueError
+ok   RandomState.random_integers(1, 6): closed interval [1, 6] ('inclusive'); random_integers(6) -> [1, 6]; DeprecationWarning ('This function has been deprecated')
+ok   RandomState.random_integers(1, 6): chi-square uniformity over 6 cells (exact p-value)  chi2=3.4 df=5 p=0.642
+ok   RandomState.tomaxint(): 'uniformly distributed random integers in the interval [0, np.iinfo(long).max]' = [0, 9223372036854775807]; top half fraction 1/2  dtype int64
+---- random(dtype, out) and the raw-to-float mappings
+ok   Generator.random(out=a) fills a in place and returns a itself
+ok   Generator.random(size, dtype=float32, out=float32 array) accepted and returned
+ok   Generator.random(dtype=float32, out=float64 array) raises TypeError ('must match the type')  TypeError: Supplied output array has the wrong type. Expected float32, got float6
+ok   Generator.random(size=(3,), out=array of shape (4,)) raises ValueError ('same shape as the provided size')
+ok   Generator.random(out=non-contiguous) raises ValueError  ValueError: Supplied output array must be contiguous, writable, aligned, and in ma
+ok   Generator.random(dtype=int32) raises TypeError ('only float64 and float32 are supported')  TypeError: Unsupported dtype dtype('int32') for random
+ok   Generator.random() with size=None returns a Python float (docstring example 'type(rfloat) -> float')
+ok   Generator.standard_normal(out=) returns out (float64 and float32)
+ok   Generator.standard_normal(out=a) writes the same values as the size= call
+ok   Generator.standard_exponential(out=) returns out (float64 and float32)
+ok   Generator.standard_exponential(out=a) writes the same values as the size= call
+ok   Generator.standard_gamma(2.0)(out=) returns out (float64 and float32)
+ok   Generator.standard_gamma(2.0)(out=a) writes the same values as the size= call
+ok   Generator.standard_normal(dtype=int64) raises TypeError
+   Generator.standard_exponential(method='bogus') (docstring: "Either 'inv' or 'zig'"): accepted silently; equals the 'inv' stream: True
+ok   Generator(PCG64).random() == (raw >> 11) * 2**-53 (next_double of the bit generator; 53-bit resolution)
+ok   Generator(PCG64).random(dtype=float32) == (next_uint32 >> 8) * 2**-24 with next_uint32 = low then high half of each raw word
+ok   RandomState(0).random_sample == CPython random.random() from the same MT19937 state (res53: (a>>5)*2**26 + (b>>6)) / 2**53
+ok   RandomState(0).standard_normal == Marsaglia polar method on CPython's MT19937 doubles (returns f*x2, caches f*x1)  max diff 0.00e+00
+ok   RandomState(12345).random_sample == CPython random.random() from the same MT19937 state (res53: (a>>5)*2**26 + (b>>6)) / 2**53
+ok   RandomState(12345).standard_normal == Marsaglia polar method on CPython's MT19937 doubles (returns f*x2, caches f*x1)  max diff 0.00e+00
+ok   RandomState(4294967295).random_sample == CPython random.random() from the same MT19937 state (res53: (a>>5)*2**26 + (b>>6)) / 2**53
+ok   RandomState(4294967295).standard_normal == Marsaglia polar method on CPython's MT19937 doubles (returns f*x2, caches f*x1)  max diff 0.00e+00
+ok   RandomState: random / random_sample / rand are the same stream (documented aliases)
+ok   module-level np.random.ranf / sample / random / random_sample / rand (legacy aliases) after np.random.seed(3) == RandomState(3).random_sample  5 aliases present
+ok   RandomState: randn(20) == standard_normal(20) (documented equivalence)
+ok   np.random.seed(s) + np.random.random_sample == RandomState(s).random_sample (module-level singleton)
+ok   np.random.set_bit_generator(PCG64(123)) (1.24 release note): module random_sample equals Generator(PCG64(123)).random (same next_double)
+---- choice
+ok   Generator.choice: p summing to 1 + 1e-9 is accepted (tolerance sqrt(eps) = 1.5e-8)
+ok   Generator.choice: p summing to 1 + 1e-7 raises ValueError ('probabilities do not sum to 1')
+ok   Generator.choice: negative p raises ValueError; NaN p raises ValueError; 2-D p raises ValueError; len(p) != len(a) raises ValueError
+ok   Generator.choice: empty a with size > 0 raises ValueError; choice([], 0) and choice(0, 0) return empty; choice(-1) raises ValueError
+ok   Generator.choice(3, 4, replace=False) raises ValueError (sample larger than population)
+ok   Generator.choice: zero-probability entries are never chosen (400k draws); fractions of the two p=0.5 entries 1/2
+ok   Generator.choice(5, 2, replace=False, p with two non-zero entries) always returns exactly those two
+ok   Generator.choice(5, 3, replace=False, p with two non-zero entries) raises ValueError ('Fewer non-zero entries in p than size')
+ok   Generator.choice(5) with size=None returns a scalar integer  int
+ok   Generator.choice(4, p=[0.1, 0.05, 0.25, 0.6]) frequencies: chi-square vs p (exact p-value)  chi2=4.99 p=0.173
+ok   Generator.choice(4, 2, replace=False, p) ordered pairs follow successive weighted sampling P(i, j) = p_i p_j / (1 - p_i) (60000 calls, chi-square 11 df)  chi2=6.33 p=0.85
+ok   Generator.choice(5, 3, replace=False): all 60 ordered triples equally likely (60000 calls, chi-square 59 df)  chi2=48.2 p=0.842
+ok   Generator.choice(2-D array, 2, replace=False) selects whole rows (axis 0)
+ok   RandomState.choice: p summing to 1 + 1e-9 is accepted (tolerance sqrt(eps) = 1.5e-8)
+ok   RandomState.choice: p summing to 1 + 1e-7 raises ValueError ('probabilities do not sum to 1')
+ok   RandomState.choice: negative p raises ValueError; NaN p raises ValueError; 2-D p raises ValueError; len(p) != len(a) raises ValueError
+ok   RandomState.choice: empty a with size > 0 raises ValueError; choice([], 0) and choice(0, 0) return empty; choice(-1) raises ValueError
+ok   RandomState.choice(3, 4, replace=False) raises ValueError (sample larger than population)
+ok   RandomState.choice: zero-probability entries are never chosen (400k draws); fractions of the two p=0.5 entries 1/2
+ok   RandomState.choice(5, 2, replace=False, p with two non-zero entries) always returns exactly those two
+ok   RandomState.choice(5, 3, replace=False, p with two non-zero entries) raises ValueError ('Fewer non-zero entries in p than size')
+ok   RandomState.choice(5) with size=None returns a scalar integer  int
+ok   RandomState.choice(4, p=[0.1, 0.05, 0.25, 0.6]) frequencies: chi-square vs p (exact p-value)  chi2=6.00 p=0.111
+ok   RandomState.choice(4, 2, replace=False, p) ordered pairs follow successive weighted sampling P(i, j) = p_i p_j / (1 - p_i) (60000 calls, chi-square 11 df)  chi2=12.34 p=0.339
+ok   RandomState.choice(5, 3, replace=False): all 60 ordered triples equally likely (60000 calls, chi-square 59 df)  chi2=60.6 p=0.417
+ok   RandomState.choice(2-D array) raises ValueError (legacy docstring: 'a : 1-D array-like or int')
+ok   Generator.choice(a, 5, axis=1): shape (4, 5), every output column is a column of a ('size shape will be inserted into the axis dimension')
+ok   Generator.choice(a, (2, 2), axis=1): output ndim = a.ndim - 1 + len(size) -> shape (4, 2, 2)
+ok   Generator.choice(a, 2, replace=False, axis=1): two distinct columns
+ok   Generator.choice(axis=2) on a 2-D array raises AxisError (ValueError / IndexError subclass)
+ok   Generator.choice(20, 5, replace=False, shuffle=False) (partial Fisher-Yates path): distinct entries, inclusion probability k/n (decile chi-square)  chi2=4.6 p=0.864
+ok   Generator.choice(20, 5, replace=False) (shuffle=True): the first element is uniform over the population (decile chi-square)  chi2=10.9 p=0.286
+ok   Generator.choice(100000, 10, replace=False, shuffle=False) (Floyd path): distinct entries, inclusion probability k/n (decile chi-square)  chi2=18.3 p=0.0317
+ok   Generator.choice(100000, 10, replace=False) (shuffle=True): the first element is uniform over the population (decile chi-square)  chi2=7.7 p=0.565
+---- shuffle / permutation / permuted
+ok   Generator.permuted(tile(arange(4)), axis=1): each row shuffled independently: all 24 permutations of 4 equally likely (400000 draws, chi-square 23 df)  chi2=27.3 p=0.245
+ok   Generator.shuffle(arange(4)): all 24 permutations of 4 equally likely (48000 draws, chi-square 23 df)  chi2=28.7 p=0.189
+ok   Generator.permutation(4): all 24 permutations of 4 equally likely (48000 draws, chi-square 23 df)  chi2=24.3 p=0.389
+ok   Generator.shuffle(2-D) shuffles rows only: rows intact, same multiset of rows
+ok   Generator.shuffle(list) works in place and returns None
+ok   Generator.permutation(array) returns a shuffled copy and leaves the input unchanged
+ok   Generator.permutation(2-D) permutes rows only
+ok   Generator.shuffle of a 0-d array raises TypeError  TypeError: len() of unsized object
+ok   Generator.shuffle(object array) permutes the object references
+ok   Generator.shuffle(non-contiguous view) shuffles the viewed elements in the base array and leaves the others
+ok   Generator.shuffle(column view) shuffles only that column
+ok   RandomState.shuffle(arange(4)): all 24 permutations of 4 equally likely (48000 draws, chi-square 23 df)  chi2=28.9 p=0.185
+ok   RandomState.permutation(4): all 24 permutations of 4 equally likely (48000 draws, chi-square 23 df)  chi2=15.4 p=0.878
+ok   RandomState.shuffle(2-D) shuffles rows only: rows intact, same multiset of rows
+ok   RandomState.shuffle(list) works in place and returns None
+ok   RandomState.permutation(array) returns a shuffled copy and leaves the input unchanged
+ok   RandomState.permutation(2-D) permutes rows only
+ok   RandomState.shuffle of a 0-d array raises TypeError  TypeError: len() of unsized object
+ok   RandomState.shuffle(object array) permutes the object references
+ok   RandomState.shuffle(non-contiguous view) shuffles the viewed elements in the base array and leaves the others
+ok   RandomState.shuffle(column view) shuffles only that column
+ok   Generator.shuffle(x, axis=1): columns permuted as whole columns (same permutation for every row)
+ok   Generator.permutation(x, axis=1): columns permuted as a whole, input unchanged
+ok   Generator.permuted(x, axis=1): 'each slice along the given axis is shuffled independently': rows keep their elements; x unchanged
+ok   Generator.permuted(x, axis=0): each column keeps its elements
+ok   Generator.permuted(x) (axis=None): 'the flattened array is shuffled' -> same shape, all 24 values, elements move across rows
+ok   Generator.permuted(x, axis=1, out=x): shuffles in place and returns out
+ok   Generator.permuted(out= of the wrong shape) raises ValueError
+ok   Generator.permutation(5, axis=1) / permutation(scalar array) raise (AxisError for 0-d: docstring example)
+ok   Generator.permutation(int) = shuffled arange
+---- bytes
+ok   Generator.bytes(400000): type bytes, length exact, byte values uniform (chi-square 255 df)  chi2=248.4 p=0.604
+ok   Generator.bytes(0) == b'' and bytes(1), bytes(7) have exact lengths
+ok   RandomState.bytes(400000): type bytes, length exact, byte values uniform (chi-square 255 df)  chi2=262.6 p=0.359
+ok   RandomState.bytes(0) == b'' and bytes(1), bytes(7) have exact lengths
+---- SeedSequence
+ok   SeedSequence(entropy).generate_state(4) and (2, uint64) reproduce the 10 C++ reference vectors of O'Neill's seed_seq (gist 540829265469e673d045)  pure-Python port also matches: True
+ok   SeedSequence(entropy, spawn_key, pool_size).generate_state(16) / (8, uint64) == pure-Python seed_seq hash for 8 entropy / spawn_key / pool_size cases (words little-endian, spawn_key appended after zero-padding the run entropy to pool_size)  mismatch []
+ok   SeedSequence.spawn: children get spawn_key parent+(i,) with i continuing across calls (n_children_spawned), same entropy; grandchildren extend the key
+ok   SeedSequence(-1) raises ValueError ('All integer values must be non-negative'); SeedSequence(1.5) raises TypeError; pool_size=3 raises ValueError
+ok   SeedSequence() (entropy None) draws a 128-bit OS integer (pool_size * 32 bits); two instances differ  entropy bits 128
+ok   SeedSequence(sq1.entropy) regenerates the same state (docstring example)
+ok   SeedSequence.generate_state(dtype=float) raises ValueError ('only support uint32 or uint64')
+---- bit generators vs pure-Python references
+ok   PCG64(0).random_raw(2000) == pure-Python PCG64 started from the published state dict  first [11749869230777074271, 4976686463289251617]
+ok   PCG64(12345).random_raw(2000) == pure-Python PCG64 started from the published state dict  first [4193609425186963869, 5843160025838961886]
+ok   PCG64(1267650600228229401496703205379).random_raw(2000) == pure-Python PCG64 started from the published state dict  first [14354261917088063500, 1804587304559453289]
+ok   PCG64: state dict after mixed 64/32-bit consumption reproduces the remaining raw stream
+ok   PCG64DXSM(0).random_raw(2000) == pure-Python PCG64DXSM started from the published state dict  first [15672045205194312304, 10230625629676741203]
+ok   PCG64DXSM(12345).random_raw(2000) == pure-Python PCG64DXSM started from the published state dict  first [17193872397121361007, 6225879447261284483]
+ok   PCG64DXSM(1267650600228229401496703205379).random_raw(2000) == pure-Python PCG64DXSM started from the published state dict  first [17519334449632286390, 6490195906946977717]
+ok   PCG64DXSM: state dict after mixed 64/32-bit consumption reproduces the remaining raw stream
+ok   MT19937(0).random_raw(2000) == pure-Python MT19937 started from the published state dict  first [2058676884, 2606108953]
+ok   MT19937(12345).random_raw(2000) == pure-Python MT19937 started from the published state dict  first [1622936285, 3620788691]
+ok   MT19937(1267650600228229401496703205379).random_raw(2000) == pure-Python MT19937 started from the published state dict  first [2436742346, 991856171]
+ok   MT19937: state dict after mixed 64/32-bit consumption reproduces the remaining raw stream
+ok   Philox(0).random_raw(2000) == pure-Python Philox started from the published state dict  first [259491006799949737, 4754966410622352325]
+ok   Philox(12345).random_raw(2000) == pure-Python Philox started from the published state dict  first [7761547988346370368, 12048877680314648833]
+ok   Philox(1267650600228229401496703205379).random_raw(2000) == pure-Python Philox started from the published state dict  first [9873400379394006536, 494996256796688614]
+ok   Philox: state dict after mixed 64/32-bit consumption reproduces the remaining raw stream
+ok   SFC64(0).random_raw(2000) == pure-Python SFC64 started from the published state dict  first [10490465040999277362, 4331856608414834465]
+ok   SFC64(12345).random_raw(2000) == pure-Python SFC64 started from the published state dict  first [3527068094297800258, 5648030432468382359]
+ok   SFC64(1267650600228229401496703205379).random_raw(2000) == pure-Python SFC64 started from the published state dict  first [11926326711579858690, 12703999545579207220]
+ok   SFC64: state dict after mixed 64/32-bit consumption reproduces the remaining raw stream
+ok   MT19937(99).random_raw(3000) == CPython random.getrandbits(32) from the same (key, pos) (independent C implementation)
+ok   PCG64(seed=0xdeadbeaf).random_raw(1000) == numpy/random/tests/data/pcg64-testset-1.csv (pure-Python reference agrees: True)
+ok   PCG64(seed=0x0).random_raw(1000) == numpy/random/tests/data/pcg64-testset-2.csv (pure-Python reference agrees: True)
+ok   PCG64DXSM(seed=0xdeadbeaf).random_raw(1000) == numpy/random/tests/data/pcg64dxsm-testset-1.csv (pure-Python reference agrees: True)
+ok   PCG64DXSM(seed=0x0).random_raw(1000) == numpy/random/tests/data/pcg64dxsm-testset-2.csv (pure-Python reference agrees: True)
+ok   MT19937(seed=0xdeadbeaf).random_raw(1000) == numpy/random/tests/data/mt19937-testset-1.csv (pure-Python reference agrees: True)
+ok   MT19937(seed=0x0).random_raw(1000) == numpy/random/tests/data/mt19937-testset-2.csv (pure-Python reference agrees: True)
+ok   Philox(seed=0xdeadbeaf).random_raw(1000) == numpy/random/tests/data/philox-testset-1.csv (pure-Python reference agrees: True)
+ok   Philox(seed=0x0).random_raw(1000) == numpy/random/tests/data/philox-testset-2.csv (pure-Python reference agrees: True)
+ok   SFC64(seed=0xdeadbeaf).random_raw(1000) == numpy/random/tests/data/sfc64-testset-1.csv (pure-Python reference agrees: True)
+ok   SFC64(seed=0x0).random_raw(1000) == numpy/random/tests/data/sfc64-testset-2.csv (pure-Python reference agrees: True)
+ok   Seeding chain: PCG64 / PCG64DXSM state = srandom(seed words 0-1, inc words 2-3 of generate_state(4, uint64)); Philox key = generate_state(2, uint64), counter 0; SFC64 = generate_state(3, uint64) + counter 1, 12 discarded outputs; MT19937 key = [0x80000000] + generate_state(624)[1:] (pure-Python SeedSequence)  mismatch []
+   MT19937(SeedSequence) starts with pos = 623 (the Cython loop variable after range(1, 624)); the first output is tempered key[623] = a SeedSequence word, not an MT19937 recurrence output
+---- advance / jumped
+ok   PCG64 jump step 210306068529402873165736369884012333109 (docstring) is the odd integer nearest (phi-1) 2**128 ('The step size is phi-1 when multiplied by 2**128')  (phi-1) 2^128 = 210306068529402873165736369884012333108.064
+ok   PCG64.advance(delta) state == pure-Python LCG jump-ahead (Brown 1994) for delta = 1, 1000, 2**100+12345, 2**128-1  bad []
+ok   PCG64.advance(1000) then random_raw(10) == draws 1000..1009 of the fresh stream ('as-if delta draws have occurred')
+ok   PCG64.advance resets the buffered 32-bit half ('resets any pre-computed random numbers')
+ok   PCG64.jumped() / jumped(3) state == advance by jumps * 210306068529402873165736369884012333109; the original is unchanged
+ok   PCG64.jumped() returns a new PCG64 instance (type preserved)
+ok   PCG64DXSM.advance(delta) state == pure-Python LCG jump-ahead (Brown 1994) for delta = 1, 1000, 2**100+12345, 2**128-1  bad []
+ok   PCG64DXSM.advance(1000) then random_raw(10) == draws 1000..1009 of the fresh stream ('as-if delta draws have occurred')
+ok   PCG64DXSM.advance resets the buffered 32-bit half ('resets any pre-computed random numbers')
+ok   PCG64DXSM.jumped() / jumped(3) state == advance by jumps * 210306068529402873165736369884012333109; the original is unchanged
+ok   PCG64DXSM.jumped() returns a new PCG64DXSM instance (type preserved)
+FAIL Philox.advance(1) then random_raw(4) == raw draws 1..4 of the fresh stream (docstring: 'Advance the underlying RNG as-if delta draws have occurred')  observed == draws 4..7 (one 4-word counter block skipped): True; == pure-Python counter+1 block: True
+ok   Philox.jumped() == counter + 2**128 (implementation: advance(2**128)), i.e. 2**130 raw draws; docstring 'as-if (2**128) * jumps random numbers have been generated'
+   Philox: advance(delta) adds delta to the 256-bit counter; each counter value yields 4 raw 64-bit draws (class docstring: 'advance can be used to advance the counter')
+ok   Philox(counter=5, key=77) (explicit key/counter): raw stream == pure-Python Philox4x64-10 from counter 5+1
+ok   Philox(seed, key=...) raises ValueError (seed and key are mutually exclusive)
+ok   MT19937: Berlekamp-Massey on the output LSBs gives the degree-19937 characteristic polynomial, and x**(2**16) mod P predicts outputs 2**16 + t exactly (method check, 0.7 s)  L=19937
+FAIL MT19937 seeded by SeedSequence (pos 623): jumped(1) raw outputs == outputs 2**128 + t of the original stream (docstring 'as-if 2**(128 * jumps) random numbers have been generated')  start pos 623, jumped pos 588; agreeing outputs per 624-block: [0, 0, 0, 0]
+FAIL MT19937 after 700 draws (pos 75): jumped(1) raw outputs == outputs 2**128 + t of the original stream (docstring 'as-if 2**(128 * jumps) random numbers have been generated')  start pos 75, jumped pos 40; agreeing outputs per 624-block: [0, 0, 0, 0]
+FAIL MT19937 legacy-seeded, 1248 draws (pos 624, a block boundary): jumped(1) raw outputs == outputs 2**128 + t of the original stream (docstring 'as-if 2**(128 * jumps) random numbers have been generated')  start pos 624, jumped pos 589; agreeing outputs per 624-block: [518, 446, 410, 373]
+FAIL MT19937 seeded by SeedSequence (pos 623): jumped(2) raw outputs == outputs 2**256 + t of the original stream (docstring 'as-if 2**(128 * jumps) random numbers have been generated')  start pos 623, jumped pos 553; agreeing outputs per 624-block: [0, 0, 0, 0]
+   numpy's own test (test_generator_mt19937.test_jumped) compares only the jumped key hash and pos with Matsumoto's C jump code; the jump code treats key/pos as a circular buffer (gen_next), numpy's generator regenerates whole blocks from key[0]
+ok   MT19937: jumped().jumped() == jumped(2) (jumps compose)
+ok   SFC64 has no jumped / advance (documented bit generators with jump support: PCG64, PCG64DXSM, Philox, MT19937)
+---- state round trips, pickling, spawn
+ok   PCG64: state dict round trip (with a buffered 32-bit half) continues the stream exactly
+ok   PCG64: setting a state dict with the wrong bit_generator name raises ValueError
+ok   pickle round trip of Generator(PCG64) continues the stream
+ok   pickle round trip of PCG64 continues the raw stream
+ok   PCG64DXSM: state dict round trip (with a buffered 32-bit half) continues the stream exactly
+ok   PCG64DXSM: setting a state dict with the wrong bit_generator name raises ValueError
+ok   pickle round trip of Generator(PCG64DXSM) continues the stream
+ok   pickle round trip of PCG64DXSM continues the raw stream
+ok   MT19937: state dict round trip (with a buffered 32-bit half) continues the stream exactly
+ok   MT19937: setting a state dict with the wrong bit_generator name raises ValueError
+ok   pickle round trip of Generator(MT19937) continues the stream
+ok   pickle round trip of MT19937 continues the raw stream
+ok   Philox: state dict round trip (with a buffered 32-bit half) continues the stream exactly
+ok   Philox: setting a state dict with the wrong bit_generator name raises ValueError
+ok   pickle round trip of Generator(Philox) continues the stream
+ok   pickle round trip of Philox continues the raw stream
+ok   SFC64: state dict round trip (with a buffered 32-bit half) continues the stream exactly
+ok   SFC64: setting a state dict with the wrong bit_generator name raises ValueError
+ok   pickle round trip of Generator(SFC64) continues the stream
+ok   pickle round trip of SFC64 continues the raw stream
+ok   RandomState.get_state(): ('MT19937', 624 uint32 key, pos, has_gauss, cached_gaussian) with has_gauss = 1 after an odd number of normals
+ok   RandomState.set_state(5-tuple) restores the cached gaussian: next normals identical
+ok   RandomState.set_state(3-tuple) (documented backwards-compatible form) is accepted and drops the cached gaussian (next normal is fresh, not the cached value)
+ok   RandomState.get_state(legacy=False) returns the dict form (with has_gauss / gauss); set_state(dict) round trips
+ok   pickle round trip of RandomState continues the stream
+ok   RandomState.set_state(('MT19937', 623 words, 0)) is rejected (ValueError or IndexError)  IndexError: index 623 is out of bounds for axis 0 with size 623
+ok   RandomState.set_state(('PCG64', ...)) raises ValueError (state must match the bit generator)
+FAIL RandomState.set_state(('MT19937', key, pos=10**7)) then drawing: the out-of-range pos (key has 624 words) is rejected with an exception instead of reading past the key array (docstring: 'an integer pos'; 1.26.3 release note gh-25466 'avoid seg fault from OOB access in RandomState.set_state()')  rc=-11 accepted
+FAIL MT19937.state = {'key': ..., 'pos': 700} then drawing: the out-of-range pos (key has 624 words) is rejected with an exception instead of reading past the key array (docstring: 'an integer pos'; 1.26.3 release note gh-25466 'avoid seg fault from OOB access in RandomState.set_state()')  rc=0 accepted
+992360685
+ok   Generator.spawn / BitGenerator.spawn / seed_seq absent before 1.25 (added in 1.25.0, release-noted)
+---- legacy seeding and seed types
+ok   RandomState(int s) state == init_genrand(s) (Knuth 1812433253 recurrence), pos 624, no cached gaussian, for s = 0, 1, 12345, 2**32-1
+ok   RandomState(sequence) state == init_by_array(sequence) (MT19937 reference, incl. a 700-word key)
+ok   RandomState([s]) state == CPython random.Random(s) state (CPython seeds MT19937 with init_by_array of the 32-bit words)
+   RandomState(np.array([7])) == RandomState(7) (init_genrand, via .squeeze()): True; == RandomState([7]) (init_by_array): False  (docstring: 'an array (or other sequence) of such integers')
+ok   RandomState(np.uint32(7)) == RandomState(7); RandomState(np.int64(7)) == RandomState(7)
+ok   RandomState(2**32) and RandomState(-1) raise ValueError ('any integer between 0 and 2**32 - 1 inclusive')
+ok   RandomState([2**32]) and RandomState([-1, 3]) raise ValueError
+ok   RandomState(1.5) raises TypeError; RandomState([]) raises ValueError; RandomState([[1, 2], [3, 4]]) raises ValueError  TypeError: Cannot cast scalar from dtype('float64') to dtype('int64') according t; ValueError: Seed must be non-empty
+ok   RandomState.seed(s) re-seeds == RandomState(s)
+ok   RandomState(None) and np.random.seed() use OS entropy: two instances differ
+ok   MT19937()._legacy_seeding(s) state == RandomState(s) state
+ok   RandomState(PCG64(55)).random_sample == Generator(PCG64(55)).random (legacy_double = next_double of the bit generator)
+ok   RandomState(PCG64).seed() raises TypeError ('can only re-seed a MT19937 BitGenerator')
+ok   RandomState(MT19937(SeedSequence(123456789))) (docstring example): random_sample == res53 of the pure-Python MT stream
+ok   default_rng(s) == Generator(PCG64(s)) == Generator(PCG64(SeedSequence(s))) (documented: int passed to SeedSequence)
+ok   default_rng(Generator) returns it unaltered ('If passed a Generator, it will be returned unaltered')
+ok   default_rng(BitGenerator) wraps it ('it will be wrapped by Generator'): .bit_generator is the same object
+ok   default_rng(-1) raises ValueError ('all values must be non-negative'); default_rng([1, -2]) raises ValueError
+ok   default_rng(1.5) raises TypeError; default_rng('abc') raises TypeError  TypeError: SeedSequence expects int or sequence of ints for entropy not 1.5; TypeError: SeedSequence expects int or sequence of ints for entropy not abc
+ok   default_rng(np.int64(5)) == default_rng(5); default_rng(np.array([1, 2], dtype=uint64)) == default_rng([1, 2]) (element-wise uint32 coercion)
+ok   default_rng([2**40, 7]) == pure-Python SeedSequence chain -> PCG64 srandom -> XSL-RR
+ok   default_rng() twice (OS entropy) gives different streams
+ok   default_rng(RandomState) not documented in this build: raises TypeError  TypeError: SeedSequence expects int or sequence of ints for entropy not RandomSta
+---- docstring examples
+ok   default_rng docstring: default_rng(12345).random() -> 0.22733602246716966 (a Python float)  0.22733602246716966
+ok   default_rng docstring: default_rng(12345).integers(low=0, high=10, size=3) -> array([6, 2, 7]), elements numpy.int64  [6, 2, 7]
+ok   default_rng docstring: default_rng(seed=42).random((3, 3)) matches the printed 8-digit array  max diff 4.7e-09
+ok   random/index.rst: default_rng(122807528840384100672342137672332424406).random() -> 0.5363922081269535  0.5363922081269535
+ok   default_rng docstring: print(rng) -> 'Generator(PCG64)'  Generator(PCG64)
+ok   PCG64 docstring parallel example: [Generator(PCG64(s)) for s in SeedSequence(1234).spawn(10)] gives 10 distinct streams
+ok   MT19937 docstring example: chained jumped() generators give 10 distinct streams
+ok   Generator.permuted docstring example shape: rows of arange(24).reshape(3, 8) keep their 8 values
+ok   Generator.choice docstring example choice(5, 3, p=[0.1, 0, 0.3, 0.6, 0]) only returns 0, 2, 3
+ok   Generator.integers docstring example integers(5, size=(2, 4)): shape (2, 4), values 0..4
+ok   Generator.integers docstring examples with 3 different upper / lower bounds: each element in its own range
+---- stream identity across builds (digests of the first draws from seed 20260925; expected values recorded with numpy 2.4.6)
+ok   Generator stream beta_big identical to numpy 2.4.6
+ok   Generator stream beta_small identical to numpy 2.4.6
+ok   Generator stream binomial_btpe identical to numpy 2.4.6
+ok   Generator stream binomial_inv identical to numpy 2.4.6
+ok   Generator stream binomial_p_gt_half identical to numpy 2.4.6
+ok   Generator stream bytes identical to numpy 2.4.6
+ok   Generator stream chisquare identical to numpy 2.4.6
+ok   Generator stream choice identical to numpy 2.4.6
+ok   Generator stream choice_noreplace identical to numpy 2.4.6
+ok   Generator stream choice_noreplace_big identical to numpy 2.4.6
+ok   Generator stream choice_noreplace_p identical to numpy 2.4.6
+ok   Generator stream choice_noshuffle identical to numpy 2.4.6
+ok   Generator stream choice_p identical to numpy 2.4.6
+ok   Generator stream dirichlet identical to numpy 2.4.6
+ok   Generator stream dirichlet_small identical to numpy 2.4.6
+ok   Generator stream exponential identical to numpy 2.4.6
+ok   Generator stream f identical to numpy 2.4.6
+ok   Generator stream gamma identical to numpy 2.4.6
+ok   Generator stream geometric_inv identical to numpy 2.4.6
+ok   Generator stream geometric_search identical to numpy 2.4.6
+ok   Generator stream gumbel identical to numpy 2.4.6
+ok   Generator stream hypergeometric_hrua identical to numpy 2.4.6
+ok   Generator stream hypergeometric_small identical to numpy 2.4.6
+ok   Generator stream integers_bool identical to numpy 2.4.6
+ok   Generator stream integers_broadcast identical to numpy 2.4.6
+ok   Generator stream integers_endpoint identical to numpy 2.4.6
+ok   Generator stream integers_int16 identical to numpy 2.4.6
+ok   Generator stream integers_int32 identical to numpy 2.4.6
+ok   Generator stream integers_int64 identical to numpy 2.4.6
+ok   Generator stream integers_int64_full identical to numpy 2.4.6
+ok   Generator stream integers_uint64_full identical to numpy 2.4.6
+ok   Generator stream integers_uint8 identical to numpy 2.4.6
+ok   Generator stream laplace identical to numpy 2.4.6
+ok   Generator stream logistic identical to numpy 2.4.6
+ok   Generator stream lognormal identical to numpy 2.4.6
+ok   Generator stream logseries identical to numpy 2.4.6
+ok   Generator stream multinomial identical to numpy 2.4.6
+ok   Generator stream mvhg_count identical to numpy 2.4.6
+ok   Generator stream mvhg_marginals identical to numpy 2.4.6
+ok   Generator stream mvnormal_cholesky identical to numpy 2.4.6
+ok   Generator stream mvnormal_svd identical to numpy 2.4.6
+ok   Generator stream negative_binomial identical to numpy 2.4.6
+ok   Generator stream noncentral_chisquare identical to numpy 2.4.6
+ok   Generator stream noncentral_chisquare_df_lt_1 identical to numpy 2.4.6
+ok   Generator stream noncentral_f identical to numpy 2.4.6
+ok   Generator stream normal identical to numpy 2.4.6
+ok   Generator stream pareto identical to numpy 2.4.6
+ok   Generator stream permutation identical to numpy 2.4.6
+ok   Generator stream permuted identical to numpy 2.4.6
+ok   Generator stream poisson_ptrs identical to numpy 2.4.6
+ok   Generator stream poisson_small identical to numpy 2.4.6
+ok   Generator stream power identical to numpy 2.4.6
+ok   Generator stream random identical to numpy 2.4.6
+ok   Generator stream random_f32 identical to numpy 2.4.6
+ok   Generator stream rayleigh identical to numpy 2.4.6
+ok   Generator stream shuffle identical to numpy 2.4.6
+ok   Generator stream standard_cauchy identical to numpy 2.4.6
+ok   Generator stream standard_exponential identical to numpy 2.4.6
+ok   Generator stream standard_exponential_f32 identical to numpy 2.4.6
+ok   Generator stream standard_exponential_inv identical to numpy 2.4.6
+ok   Generator stream standard_gamma_0.3 identical to numpy 2.4.6
+ok   Generator stream standard_gamma_3 identical to numpy 2.4.6
+ok   Generator stream standard_gamma_f32 identical to numpy 2.4.6
+ok   Generator stream standard_normal identical to numpy 2.4.6
+ok   Generator stream standard_normal_f32 identical to numpy 2.4.6
+ok   Generator stream standard_t identical to numpy 2.4.6
+ok   Generator stream triangular identical to numpy 2.4.6
+ok   Generator stream uniform identical to numpy 2.4.6
+ok   Generator stream vonmises identical to numpy 2.4.6
+ok   Generator stream vonmises_big_kappa identical to numpy 2.4.6
+ok   Generator stream wald differs from numpy 2.4.6 [release-noted: 2.3.4 release notes gh-29926 / 2.4.0 changelog gh-29609 'fix negative samples generated by Wald distribution' (new closed form for every draw)]  06147b3dadb5a5b1 vs 0985c036f9692908
+ok   Generator stream wald_extreme differs from numpy 2.4.6 [release-noted: 2.3.4 release notes gh-29926 'fix negative samples generated by Wald distribution']  32d9891417bfd7e4 vs 710d4bdc80097504
+ok   Generator stream weibull identical to numpy 2.4.6
+ok   Generator stream zipf identical to numpy 2.4.6
+ok   Generator stream zipf_near_1 differs from numpy 2.4.6 [release-noted: 2.1.0 changelog gh-27048 'Fix long delays/hangs with zipf(a) when a near 1' (proposals restricted to U > Umin)]  92ea46efde3f6490 vs 04cda9f5f2496f00
+ok   RandomState stream beta_big identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  460e8598a1288c4c vs 460e8598a1288c4c
+ok   RandomState stream beta_small identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  b117a07b68d314b8 vs b117a07b68d314b8
+ok   RandomState stream binomial_btpe identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  4e112f7bf7a59a80 vs 4e112f7bf7a59a80
+ok   RandomState stream binomial_inv identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  a8a0cb6387ecfefc vs a8a0cb6387ecfefc
+ok   RandomState stream bytes identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  3102614821cc2053 vs 3102614821cc2053
+ok   RandomState stream chisquare identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  ed1b89f02373b0d4 vs ed1b89f02373b0d4
+ok   RandomState stream choice identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  4e83046d1049d152 vs 4e83046d1049d152
+ok   RandomState stream choice_noreplace identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  228244bf04c8a6fd vs 228244bf04c8a6fd
+ok   RandomState stream choice_noreplace_p identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  8c3e4f4b7507910c vs 8c3e4f4b7507910c
+ok   RandomState stream choice_p identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  08a1b7db1b657821 vs 08a1b7db1b657821
+ok   RandomState stream dirichlet identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  8202f6e05dba4dc3 vs 8202f6e05dba4dc3
+ok   RandomState stream exponential identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  49729129a0e30962 vs 49729129a0e30962
+ok   RandomState stream f identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  5453a688e88aed01 vs 5453a688e88aed01
+ok   RandomState stream gamma identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  f2d26b1801947130 vs f2d26b1801947130
+ok   RandomState stream geometric identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  2320d10548c73093 vs 2320d10548c73093
+ok   RandomState stream geometric_inv identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  d73f30fed31c928b vs d73f30fed31c928b
+ok   RandomState stream gumbel identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  350750bab3f3cdf7 vs 350750bab3f3cdf7
+ok   RandomState stream hypergeometric_hrua identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  1d41d16d675211d8 vs 1d41d16d675211d8
+ok   RandomState stream hypergeometric_small identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  668e6e94505c6c24 vs 668e6e94505c6c24
+ok   RandomState stream laplace identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  b87f1372cc542588 vs b87f1372cc542588
+ok   RandomState stream logistic identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  94222f1bd426e92c vs 94222f1bd426e92c
+ok   RandomState stream lognormal identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  ebb3115734449a54 vs ebb3115734449a54
+ok   RandomState stream logseries identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  4ce5b8d18512535d vs 4ce5b8d18512535d
+ok   RandomState stream multinomial identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  ef63d62993af881e vs ef63d62993af881e
+ok   RandomState stream multivariate_normal identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  8e74ccb22ae36ba0 vs 8e74ccb22ae36ba0
+ok   RandomState stream negative_binomial identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  8a051a0c8b6aabed vs 8a051a0c8b6aabed
+ok   RandomState stream noncentral_chisquare identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  8e40282b940dc8c8 vs 8e40282b940dc8c8
+ok   RandomState stream noncentral_chisquare_df_lt_1 identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  4b364158e011cddb vs 4b364158e011cddb
+ok   RandomState stream noncentral_f identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  46c56ce38bf6d30b vs 46c56ce38bf6d30b
+ok   RandomState stream normal identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  5aec99f85d8aa794 vs 5aec99f85d8aa794
+ok   RandomState stream pareto identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  afe0c77daefc1940 vs afe0c77daefc1940
+ok   RandomState stream permutation identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  85933990cd8d5ebb vs 85933990cd8d5ebb
+ok   RandomState stream poisson_ptrs identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  de2c7d158a95b7af vs de2c7d158a95b7af
+ok   RandomState stream poisson_small identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  6ef711c397ff1cad vs 6ef711c397ff1cad
+ok   RandomState stream power identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  2538bb7d824fcf89 vs 2538bb7d824fcf89
+ok   RandomState stream rand identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  a79508f81d664cfd vs a79508f81d664cfd
+ok   RandomState stream randint identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  07ffd25f90a36bdd vs 07ffd25f90a36bdd
+ok   RandomState stream randint_bool identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  f54c59c1bc07941a vs f54c59c1bc07941a
+ok   RandomState stream randint_int16 identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  b662be6f68edddd6 vs b662be6f68edddd6
+ok   RandomState stream randint_int32 identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  e77e71682dc27dac vs e77e71682dc27dac
+ok   RandomState stream randint_int64_full identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  f2aaec8207bfd758 vs f2aaec8207bfd758
+ok   RandomState stream randint_uint64_full identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  205e0e61636f6cb4 vs 205e0e61636f6cb4
+ok   RandomState stream randint_uint8 identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  9737652babf1823b vs 9737652babf1823b
+ok   RandomState stream randn identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  2561cbba12492103 vs 2561cbba12492103
+ok   RandomState stream random_integers identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  868d1f8741056894 vs 868d1f8741056894
+ok   RandomState stream random_sample identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  a79508f81d664cfd vs a79508f81d664cfd
+ok   RandomState stream rayleigh identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  303774e898f939ad vs 303774e898f939ad
+ok   RandomState stream shuffle identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  85933990cd8d5ebb vs 85933990cd8d5ebb
+ok   RandomState stream standard_cauchy identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  feef311a9674b6b5 vs feef311a9674b6b5
+ok   RandomState stream standard_exponential identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  8ec2bbead313a8a4 vs 8ec2bbead313a8a4
+ok   RandomState stream standard_gamma_0.3 identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  bd1ae63117c382c7 vs bd1ae63117c382c7
+ok   RandomState stream standard_gamma_3 identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  2387943b33a43efd vs 2387943b33a43efd
+ok   RandomState stream standard_normal identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  36e9e1a4d8dd4c90 vs 36e9e1a4d8dd4c90
+ok   RandomState stream standard_t identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  24d720d3ef90cef5 vs 24d720d3ef90cef5
+ok   RandomState stream tomaxint identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  8a4fa950def113a8 vs 8a4fa950def113a8
+ok   RandomState stream triangular identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  afac5b94dd2ffa8c vs afac5b94dd2ffa8c
+ok   RandomState stream uniform identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  3254e70479ce4ccf vs 3254e70479ce4ccf
+ok   RandomState stream vonmises identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  a333d8e2778ab079 vs a333d8e2778ab079
+ok   RandomState stream wald identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  48c09951367ccd96 vs 48c09951367ccd96
+ok   RandomState stream weibull identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  5075b269b6f91ff9 vs 5075b269b6f91ff9
+ok   RandomState stream zipf identical to numpy 2.4.6 (legacy streams frozen: 'no more modifications to RandomState')  6a95617fde7f04d6 vs 6a95617fde7f04d6
+ok   coverage: every public Generator method is called somewhere in this harness  missing []
+ok   coverage: every public RandomState method is called somewhere in this harness  missing []
+   total 84.8 s
