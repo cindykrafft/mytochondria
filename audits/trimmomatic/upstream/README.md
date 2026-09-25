@@ -11,8 +11,23 @@ this directory:_
 
 | branch | commit | patch | finding |
 |---|---|---|---|
-| `fix/palindrome-mismatch-penalty` | `71fb53e` on `ef98d62` | `0001-Charge-Q-10-per-mismatch-in-ILLUMINACLIP-palindrome-.patch` | TM1 |
+| `fix/palindrome-mismatch-penalty` | `54af058` on `V0.42` @ `6bd48b5` (rebuilt 2026-09-25; the pushed `71fb53e` on `main` carried a stray `dependency-reduced-pom.xml` line-ending change and a model trailer) | `0001-Charge-Q-10-per-mismatch-in-ILLUMINACLIP-palindrome-.patch` | TM1 |
 | `fix/maxinfo-normalisation` | `2c78514` on `ef98d62` | `0002-Keep-MAXINFO-score-tables-inside-long-range-for-larg.patch` | TM2 |
+
+**2026-09-25, first maintainer reply.** sebeier (collaborator) on #90: "Good catch, thanks for the
+detailed report! Palindrome mode should indeed charge Q/10 like simple mode. I've asked for a small
+change on PR #91. The plan would be that this fix will go into 0.42." On #91: "Could you retarget this
+to the V0.42 branch so it makes it into the next release? And please drop the change to
+dependency-reduced-pom.xml, it seems to only change line endings from a local build." The branch is
+rebuilt on `V0.42` (fix and test only; `mvn -B clean verify` on JDK 25: 517 tests before, 519 after,
+the new test fails without the fix; the trimmer file is identical on `main` and `V0.42` outside the
+two lines) and waits for the owner to change the PR base before it is force-pushed; the reply is
+`comment-tmr1-91-v042.md`. Two lessons: the shade plugin rewrites `dependency-reduced-pom.xml` on every
+`mvn package`/`verify`, so stage only the intended files in this repository; and the workflow runs for
+PRs against `main` only, so a PR against a release branch has no CI and the local run is the record.
+Release branches `V0.42` and `V0.43` exist beside `main`; `MaximumInformationTrimmer.java` was
+rewritten on `V0.42` (+148/-104), so TM2 is re-verified there before its patch is rebuilt (the
+`0002` patch here is still the `main`-based one and also carries the stray POM change).
 
 Ranking under the two-unanswered-filings cap: **TM1 goes first** (default settings,
 silent, every version since 0.32), **TM2 second** (settings the cohort does not use;

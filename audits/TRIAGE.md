@@ -267,6 +267,14 @@ Held up: `getExpectedDoublets`, `propHomotypic`, the default k set, `cxds2` agai
 end-to-end run on simulated doublets (AUC 1.000, recall 0.81, no false positive). Executed on 1.16.0 and on 1.4.0 / 1.8.0 / 1.12.0
 built from their release commits; `devel` read (identical code), not installable on this R.
 
+## Replies, 2026-09-25
+
+- **Trimmomatic TM1** (#90 / PR #91): sebeier (collaborator) confirmed the bug and plans the fix for 0.42; asked
+  to retarget PR #91 to `V0.42` and drop the `dependency-reduced-pom.xml` change. Branch rebuilt on `V0.42`
+  (fix + test only, 519 tests pass), reply drafted (`audits/trimmomatic/upstream/comment-tmr1-91-v042.md`).
+  Waiting on the owner to change the PR base; then force-push and post. TM2 is next, after re-verification on
+  `V0.42`, where MAXINFO was rewritten.
+
 ## Round 6 (2026-09-25): NumPy, scikit-learn
 
 Asked for by hand ("still worth it to check sklearn and numpy even though they are heavily tested"): the two

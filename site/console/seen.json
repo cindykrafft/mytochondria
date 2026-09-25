@@ -1,5 +1,5 @@
 {
- "taken": "2026-09-25T00:50:00Z",
+ "taken": "2026-09-25T10:45:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
   {
@@ -1259,10 +1259,10 @@
    "kind": "issue",
    "state": "open",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-09-24T18:36:43Z",
+   "comments": 1,
+   "updated": "2026-09-25T06:55:17Z",
    "title": "ILLUMINACLIP palindrome mode charges int(Q/10) per mismatch instead of Q/10 (integer division), unlike simple mode and the README",
-   "note": "TM1 issue filed by the owner 2026-09-24"
+   "note": "TM1 issue filed by the owner 2026-09-24; sebeier (collaborator) 2026-09-25 06:55: good catch, palindrome mode should charge Q/10, fix planned for 0.42, change requested on PR #91"
   },
   {
    "repo": "usadellab/Trimmomatic",
@@ -1270,10 +1270,10 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-09-24T18:37:12Z",
+   "comments": 1,
+   "updated": "2026-09-25T06:52:53Z",
    "title": "Charge Q/10 per mismatch in ILLUMINACLIP palindrome mode",
-   "note": "TM1 PR filed by the owner 2026-09-24; fork has no Actions runs (Actions not enabled on the fork)"
+   "note": "TM1 PR; sebeier 2026-09-25 06:52: retarget to V0.42, drop the dependency-reduced-pom.xml change. Branch rebuilt on V0.42 (54af058, 519 tests), not pushed; reply TMR1 drafted; waits for the owner to retarget. CI only runs on PRs to main"
   },
   {
    "repo": "alexdobin/STAR",
