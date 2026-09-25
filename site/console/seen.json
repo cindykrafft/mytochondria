@@ -1,5 +1,5 @@
 {
- "taken": "2026-09-25T10:45:00Z",
+ "taken": "2026-09-25T12:50:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
   {
@@ -1293,7 +1293,7 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-24T16:55:53Z",
+   "updated": "2026-09-25T04:29:02Z",
    "title": "math::fast::qadd/qsub give wrong results on AArch64 (signed intrinsics)",
    "note": "not a Mytochondria filing"
   },
