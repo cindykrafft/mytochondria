@@ -1,0 +1,101 @@
+scikit-learn 1.5.2  numpy 1.26.4  python 3.11.15
+   n=400 d=2 offset 0e+00 solver auto            (-> covariance_eigh): explained_variance_ rel dev 0.0e+00, ratio rel dev 0.0e+00, PC1 scores rel dev 2.1e-16
+ok   PCA n=400 d=2 offset 0e+00 solver='auto': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 0e+00 solver full            (-> full           ): explained_variance_ rel dev 6.7e-16, ratio rel dev 0.0e+00, PC1 scores rel dev 0.0e+00
+ok   PCA n=400 d=2 offset 0e+00 solver='full': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 0e+00 solver arpack          (-> arpack         ): explained_variance_ rel dev 2.2e-16, ratio rel dev 0.0e+00, PC1 scores rel dev 2.1e-16
+ok   PCA n=400 d=2 offset 0e+00 solver='arpack': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 0e+00 solver randomized      (-> randomized     ): explained_variance_ rel dev 1.3e-15, ratio rel dev 1.1e-15, PC1 scores rel dev 2.1e-16
+ok   PCA n=400 d=2 offset 0e+00 solver='randomized': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 0e+00 solver covariance_eigh (-> covariance_eigh): explained_variance_ rel dev 0.0e+00, ratio rel dev 0.0e+00, PC1 scores rel dev 2.1e-16
+ok   PCA n=400 d=2 offset 0e+00 solver='covariance_eigh': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+04 solver auto            (-> covariance_eigh): explained_variance_ rel dev 2.3e-08, ratio rel dev 6.0e-08, PC1 scores rel dev 1.7e-09
+ok   PCA n=400 d=2 offset 1e+04 solver='auto': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+04 solver full            (-> full           ): explained_variance_ rel dev 2.2e-14, ratio rel dev 1.1e-16, PC1 scores rel dev 8.3e-13
+ok   PCA n=400 d=2 offset 1e+04 solver='full': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+04 solver arpack          (-> arpack         ): explained_variance_ rel dev 2.3e-14, ratio rel dev 1.1e-16, PC1 scores rel dev 7.4e-13
+ok   PCA n=400 d=2 offset 1e+04 solver='arpack': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+04 solver randomized      (-> randomized     ): explained_variance_ rel dev 2.2e-14, ratio rel dev 6.7e-16, PC1 scores rel dev 8.3e-13
+ok   PCA n=400 d=2 offset 1e+04 solver='randomized': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+04 solver covariance_eigh (-> covariance_eigh): explained_variance_ rel dev 2.3e-08, ratio rel dev 6.0e-08, PC1 scores rel dev 1.7e-09
+ok   PCA n=400 d=2 offset 1e+04 solver='covariance_eigh': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+06 solver auto            (-> covariance_eigh): explained_variance_ rel dev 4.5e-04, ratio rel dev 6.6e-05, PC1 scores rel dev 2.0e-05   <-- 
+FAIL PCA n=400 d=2 offset 1e+06 solver='auto': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+06 solver full            (-> full           ): explained_variance_ rel dev 4.1e-12, ratio rel dev 2.7e-13, PC1 scores rel dev 1.5e-10
+ok   PCA n=400 d=2 offset 1e+06 solver='full': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+06 solver arpack          (-> arpack         ): explained_variance_ rel dev 4.1e-12, ratio rel dev 2.7e-13, PC1 scores rel dev 1.1e-10
+ok   PCA n=400 d=2 offset 1e+06 solver='arpack': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+06 solver randomized      (-> randomized     ): explained_variance_ rel dev 4.1e-12, ratio rel dev 2.7e-13, PC1 scores rel dev 1.3e-10
+ok   PCA n=400 d=2 offset 1e+06 solver='randomized': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+06 solver covariance_eigh (-> covariance_eigh): explained_variance_ rel dev 4.5e-04, ratio rel dev 6.6e-05, PC1 scores rel dev 2.0e-05   <-- 
+FAIL PCA n=400 d=2 offset 1e+06 solver='covariance_eigh': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+07 solver auto            (-> covariance_eigh): explained_variance_ rel dev 1.1e-02, ratio rel dev 6.2e-03, PC1 scores rel dev 4.0e-03   <-- 
+FAIL PCA n=400 d=2 offset 1e+07 solver='auto': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+07 solver full            (-> full           ): explained_variance_ rel dev 2.0e-11, ratio rel dev 4.3e-12, PC1 scores rel dev 9.5e-10
+ok   PCA n=400 d=2 offset 1e+07 solver='full': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+07 solver arpack          (-> arpack         ): explained_variance_ rel dev 2.0e-11, ratio rel dev 4.3e-12, PC1 scores rel dev 9.5e-10
+ok   PCA n=400 d=2 offset 1e+07 solver='arpack': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+07 solver randomized      (-> randomized     ): explained_variance_ rel dev 2.0e-11, ratio rel dev 4.3e-12, PC1 scores rel dev 8.6e-10
+ok   PCA n=400 d=2 offset 1e+07 solver='randomized': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+07 solver covariance_eigh (-> covariance_eigh): explained_variance_ rel dev 1.1e-02, ratio rel dev 6.2e-03, PC1 scores rel dev 4.0e-03   <-- 
+FAIL PCA n=400 d=2 offset 1e+07 solver='covariance_eigh': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+08 solver auto            (-> covariance_eigh): explained_variance_ rel dev 1.9e+00, ratio rel dev 6.2e-03, PC1 scores rel dev 2.6e-02   <-- 
+FAIL PCA n=400 d=2 offset 1e+08 solver='auto': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+08 solver full            (-> full           ): explained_variance_ rel dev 3.4e-10, ratio rel dev 3.8e-11, PC1 scores rel dev 4.1e-09
+ok   PCA n=400 d=2 offset 1e+08 solver='full': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+08 solver arpack          (-> arpack         ): explained_variance_ rel dev 3.4e-10, ratio rel dev 3.8e-11, PC1 scores rel dev 5.8e-09
+ok   PCA n=400 d=2 offset 1e+08 solver='arpack': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+08 solver randomized      (-> randomized     ): explained_variance_ rel dev 3.4e-10, ratio rel dev 3.8e-11, PC1 scores rel dev 5.8e-09
+ok   PCA n=400 d=2 offset 1e+08 solver='randomized': explained_variance_ within 1e-6 relative of exact
+   n=400 d=2 offset 1e+08 solver covariance_eigh (-> covariance_eigh): explained_variance_ rel dev 1.9e+00, ratio rel dev 6.2e-03, PC1 scores rel dev 2.6e-02   <-- 
+FAIL PCA n=400 d=2 offset 1e+08 solver='covariance_eigh': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 0e+00 solver auto            (-> covariance_eigh): explained_variance_ rel dev 1.1e-15, ratio rel dev 1.6e-15, PC1 scores rel dev 1.0e-15
+ok   PCA n=20000 d=5 offset 0e+00 solver='auto': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 0e+00 solver full            (-> full           ): explained_variance_ rel dev 2.7e-15, ratio rel dev 2.9e-15, PC1 scores rel dev 0.0e+00
+ok   PCA n=20000 d=5 offset 0e+00 solver='full': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 0e+00 solver arpack          (-> arpack         ): explained_variance_ rel dev 2.0e-15, ratio rel dev 2.1e-15, PC1 scores rel dev 4.3e-16
+ok   PCA n=20000 d=5 offset 0e+00 solver='arpack': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 0e+00 solver randomized      (-> randomized     ): explained_variance_ rel dev 1.6e-15, ratio rel dev 2.4e-15, PC1 scores rel dev 7.1e-16
+ok   PCA n=20000 d=5 offset 0e+00 solver='randomized': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 0e+00 solver covariance_eigh (-> covariance_eigh): explained_variance_ rel dev 1.1e-15, ratio rel dev 1.6e-15, PC1 scores rel dev 1.0e-15
+ok   PCA n=20000 d=5 offset 0e+00 solver='covariance_eigh': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+04 solver auto            (-> covariance_eigh): explained_variance_ rel dev 1.2e-06, ratio rel dev 1.3e-06, PC1 scores rel dev 7.4e-08   <-- 
+FAIL PCA n=20000 d=5 offset 1e+04 solver='auto': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+04 solver full            (-> full           ): explained_variance_ rel dev 6.0e-15, ratio rel dev 4.2e-15, PC1 scores rel dev 2.8e-12
+ok   PCA n=20000 d=5 offset 1e+04 solver='full': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+04 solver arpack          (-> arpack         ): explained_variance_ rel dev 5.8e-15, ratio rel dev 4.0e-15, PC1 scores rel dev 2.8e-12
+ok   PCA n=20000 d=5 offset 1e+04 solver='arpack': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+04 solver randomized      (-> randomized     ): explained_variance_ rel dev 5.8e-15, ratio rel dev 4.0e-15, PC1 scores rel dev 3.0e-12
+ok   PCA n=20000 d=5 offset 1e+04 solver='randomized': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+04 solver covariance_eigh (-> covariance_eigh): explained_variance_ rel dev 1.2e-06, ratio rel dev 1.3e-06, PC1 scores rel dev 7.4e-08   <-- 
+FAIL PCA n=20000 d=5 offset 1e+04 solver='covariance_eigh': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+06 solver auto            (-> covariance_eigh): explained_variance_ rel dev 1.5e-02, ratio rel dev 1.6e-02, PC1 scores rel dev 3.6e-04   <-- 
+FAIL PCA n=20000 d=5 offset 1e+06 solver='auto': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+06 solver full            (-> full           ): explained_variance_ rel dev 1.0e-12, ratio rel dev 9.3e-13, PC1 scores rel dev 1.7e-10
+ok   PCA n=20000 d=5 offset 1e+06 solver='full': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+06 solver arpack          (-> arpack         ): explained_variance_ rel dev 1.0e-12, ratio rel dev 9.3e-13, PC1 scores rel dev 1.8e-10
+ok   PCA n=20000 d=5 offset 1e+06 solver='arpack': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+06 solver randomized      (-> randomized     ): explained_variance_ rel dev 1.0e-12, ratio rel dev 9.3e-13, PC1 scores rel dev 1.7e-10
+ok   PCA n=20000 d=5 offset 1e+06 solver='randomized': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+06 solver covariance_eigh (-> covariance_eigh): explained_variance_ rel dev 1.5e-02, ratio rel dev 1.6e-02, PC1 scores rel dev 3.6e-04   <-- 
+FAIL PCA n=20000 d=5 offset 1e+06 solver='covariance_eigh': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+07 solver auto            (-> covariance_eigh): explained_variance_ rel dev 2.2e-01, ratio rel dev 1.8e-01, PC1 scores rel dev 3.7e-02   <-- 
+FAIL PCA n=20000 d=5 offset 1e+07 solver='auto': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+07 solver full            (-> full           ): explained_variance_ rel dev 3.8e-12, ratio rel dev 2.5e-12, PC1 scores rel dev 1.2e-09
+ok   PCA n=20000 d=5 offset 1e+07 solver='full': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+07 solver arpack          (-> arpack         ): explained_variance_ rel dev 3.8e-12, ratio rel dev 2.5e-12, PC1 scores rel dev 1.1e-09
+ok   PCA n=20000 d=5 offset 1e+07 solver='arpack': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+07 solver randomized      (-> randomized     ): explained_variance_ rel dev 3.8e-12, ratio rel dev 2.5e-12, PC1 scores rel dev 9.7e-10
+ok   PCA n=20000 d=5 offset 1e+07 solver='randomized': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+07 solver covariance_eigh (-> covariance_eigh): explained_variance_ rel dev 2.2e-01, ratio rel dev 1.8e-01, PC1 scores rel dev 3.7e-02   <-- 
+FAIL PCA n=20000 d=5 offset 1e+07 solver='covariance_eigh': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+08 solver auto            (-> covariance_eigh): explained_variance_ rel dev 8.4e+00, ratio rel dev 1.0e+00, PC1 scores rel dev 3.7e-01   <-- 
+FAIL PCA n=20000 d=5 offset 1e+08 solver='auto': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+08 solver full            (-> full           ): explained_variance_ rel dev 1.4e-10, ratio rel dev 1.3e-10, PC1 scores rel dev 2.7e-08
+ok   PCA n=20000 d=5 offset 1e+08 solver='full': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+08 solver arpack          (-> arpack         ): explained_variance_ rel dev 1.4e-10, ratio rel dev 1.3e-10, PC1 scores rel dev 2.5e-08
+ok   PCA n=20000 d=5 offset 1e+08 solver='arpack': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+08 solver randomized      (-> randomized     ): explained_variance_ rel dev 1.4e-10, ratio rel dev 1.3e-10, PC1 scores rel dev 2.5e-08
+ok   PCA n=20000 d=5 offset 1e+08 solver='randomized': explained_variance_ within 1e-6 relative of exact
+   n=20000 d=5 offset 1e+08 solver covariance_eigh (-> covariance_eigh): explained_variance_ rel dev 8.4e+00, ratio rel dev 1.0e+00, PC1 scores rel dev 3.7e-01   <-- 
+FAIL PCA n=20000 d=5 offset 1e+08 solver='covariance_eigh': explained_variance_ within 1e-6 relative of exact

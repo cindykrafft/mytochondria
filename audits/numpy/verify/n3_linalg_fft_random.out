@@ -1,0 +1,46 @@
+numpy 2.4.6  python 3.11.15
+ok   eig: A v = lambda v for every pair (unsorted, complex allowed)
+   eig eigenvalue order as returned: [2.428, -1.623, -1.623, -0.694, -0.694, -0.213] (not sorted)
+ok   eigh: ascending eigenvalues, orthonormal eigenvectors, exact reconstruction
+ok   svd: descending singular values, U diag(s) Vt = A
+ok   norm(A) default = Frobenius; norm(A, 2) = largest singular value; norm(v) = 2-norm
+ok   det = product of eigenvalues
+ok   solve: A x = b to 1e-12
+   near-rank-3 6x6 matrix singular values: ['4.48e+00', '3.97e+00', '2.10e+00', '1.92e-14', '4.96e-15', '6.07e-16']
+FAIL matrix_rank uses tol = S.max() * max(M,N) * eps: rank 3 here
+ok   pinv default cut-off (rcond 1e-15 * largest singular value): the 1e-14 directions are NOT cut, so pinv(B) B is far from a rank-3 projector  (||B pinv(B) B - B|| = 5.21e-02; ||pinv(B)|| = 2.08e+14)
+FAIL lstsq(rcond=None) cut-off = eps * max(M,N) reports rank 3  (rank 4)
+ok   fft = unnormalised DFT (sum x_k e^{-2 pi i jk/N})
+ok   ifft(fft(x)) = x (1/N on the inverse by default)
+ok   fft(norm='ortho') = DFT / sqrt(N); norm='forward' = DFT / N
+ok   rfft = first N/2+1 bins of fft
+ok   fftfreq(N, d) = [0, 1, ..., N/2-1, -N/2, ..., -1]/(N d)
+ok   Parseval: sum |x|^2 = sum |X|^2 / N
+   fft of a float32 input: result dtype complex64; max |fft32 - fft64| / max|fft64| = 4.83e-08
+ok   fft of float32 input agrees with the float64 transform to 1e-6 relative
+   power spectrum from float32 input: max relative error of |X|^2 over bins with |X64|^2 > 1 % of the max: 3.80e-07
+ok   default_rng(seed): identical streams
+ok   RandomState(seed).randn reproducible
+   RandomState(0).randn(3) = [1.764052345967664, 0.4001572083672233, 0.9787379841057392] (the legacy stream, frozen across versions); default_rng(0).standard_normal(3) = [0.1257302210933933, -0.1321048632913019, 0.6404226504432821]
+ok   RandomState(0).randn(3) equals the values every NumPy since 1.0 produced
+ok   default_rng(0).standard_normal(3) equals the values every NumPy since 1.17 produced
+ok   choice(p=) accepts probabilities that sum to 1 within ~1e-8
+ok   choice(p=) rejects probabilities summing to 1.1 (ValueError)
+ok   choice(p=) frequencies within 0.005 of p at n=2e5
+ok   integers(low, high) excludes high; endpoint=True includes it
+ok   RandomState.randint(low, high) excludes high
+ok   permutation is a permutation
+ok   Generator.shuffle on a 2-D array shuffles rows only (axis 0)
+ok   multivariate_normal with a PSD covariance: sample covariance within 0.02 of cov
+   multivariate_normal with a non-PSD covariance [[1,2],[2,1]]: warning 'RuntimeWarning'; sample covariance [[1.999, 0.996], [0.996, 1.999]] (the negative eigenvalue is dropped)
+FAIL multivariate_normal(check_valid='warn') warns on a non-PSD covariance and returns samples from the PSD part
+ok   binomial(20, 0.35): mean and variance within 0.01 of 7 and 4.55
+ok   normal(3, 2): mean and SD within 1 %
+ok   exponential(scale=2.5): the parameter is the scale (mean 2.5), not the rate
+ok   gamma(shape=3, scale=2): mean 6, variance 12
+ok   choice with p and replace=True: frequencies within 0.003
+ok   choice(replace=False, p): the first draw follows p
+ok   linspace(0, 1, 11) hits the endpoint exactly
+   arange(0, 1, 0.1) has 10 elements; arange(1, 1.3, 0.1) has 4 ([1.0, 1.1, 1.2000000000000002, 1.3000000000000003]) -- documented: use linspace for non-integer steps
+ok   isclose(a, b) is asymmetric: tolerance atol + rtol*|b|  (isclose(1.0,1.05)=True, isclose(1.05,1.0)=False)
+ok   allclose default atol=1e-8 makes tiny numbers 'close' to 0

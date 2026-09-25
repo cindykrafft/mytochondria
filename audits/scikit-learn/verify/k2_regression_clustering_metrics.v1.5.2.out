@@ -1,0 +1,30 @@
+scikit-learn 1.5.2  numpy 1.26.4  python 3.11.15
+ok   r2_score exact
+ok   mean_absolute_error exact
+ok   mean_squared_error exact
+ok   root_mean_squared_error = sqrt(MSE)
+ok   mean_absolute_percentage_error = mean |y - p| / |y| (a fraction, not a percentage)
+   MAPE with a zero target: 2.252e+15 (|0-1|/max(eps,0) averaged with 0: eps = 8.88e-16)
+ok   explained_variance_score = 1 - var(y - p)/var(y)
+   r2_score with constant y_true: perfect prediction -> 1.0, imperfect -> 0.0; force_finite=False -> n/a, n/a
+ok   r2_score with constant y_true: 1.0 for a perfect prediction and 0.0 otherwise (force_finite default)
+ok   r2_score multioutput='uniform_average' (default) = mean of per-output R2
+ok   r2_score multioutput='variance_weighted' weights by var(y_j)
+ok   adjusted_rand_score exact
+ok   adjusted_rand_score symmetric and 1 for identical partitions
+ok   rand_score exact
+ok   mutual_info_score exact (natural log)
+ok   normalized_mutual_info_score(average_method='arithmetic') exact
+ok   normalized_mutual_info_score(average_method='geometric') exact
+ok   normalized_mutual_info_score(average_method='min') exact
+ok   normalized_mutual_info_score(average_method='max') exact
+ok   normalized_mutual_info_score default average is arithmetic
+ok   homogeneity = MI/H(true), completeness = MI/H(pred), v_measure = harmonic mean
+ok   adjusted_mutual_info_score = (MI - E[MI]) / (mean(H) - E[MI]) with the exact hypergeometric E[MI]  (0.431050442 vs 0.431050442)
+ok   fowlkes_mallows_score = TP / sqrt((TP+FP)(TP+FN)) over pairs
+ok   silhouette_score = mean of exact silhouette samples (euclidean)
+ok   silhouette_samples exact
+ok   silhouette of a singleton cluster is 0 (defined that way), others computed against it as a candidate neighbour
+ok   silhouette_score(metric='precomputed') equals the euclidean result
+ok   calinski_harabasz_score = (B/(k-1)) / (W/(n-k))
+ok   davies_bouldin_score = mean_i max_j (s_i + s_j)/d(c_i, c_j) with s = mean euclidean distance to the centroid

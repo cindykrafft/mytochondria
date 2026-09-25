@@ -1,0 +1,67 @@
+numpy 2.4.6  python 3.11.15
+ok   mean exact
+ok   var(ddof=0) exact
+ok   std(ddof=0) = sqrt(var)
+ok   var(ddof=1) exact
+ok   std(ddof=1) = sqrt(var)
+ok   median (odd n) = middle value
+ok   median (even n) = mean of the two middle values
+ok   average(weights) = sum w x / sum w
+ok   percentile method 'inverted_cdf' on n=5 at 15 probabilities equals the H&F definition
+ok   percentile method 'averaged_inverted_cdf' on n=5 at 15 probabilities equals the H&F definition
+ok   percentile method 'closest_observation' on n=5 at 15 probabilities equals the H&F definition
+ok   percentile method 'interpolated_inverted_cdf' on n=5 at 15 probabilities equals the H&F definition
+ok   percentile method 'hazen' on n=5 at 15 probabilities equals the H&F definition
+ok   percentile method 'weibull' on n=5 at 15 probabilities equals the H&F definition
+ok   percentile method 'linear' on n=5 at 15 probabilities equals the H&F definition
+ok   percentile method 'median_unbiased' on n=5 at 15 probabilities equals the H&F definition
+ok   percentile method 'normal_unbiased' on n=5 at 15 probabilities equals the H&F definition
+ok   percentile method 'lower' on n=5 at 15 probabilities equals the H&F definition
+ok   percentile method 'higher' on n=5 at 15 probabilities equals the H&F definition
+ok   percentile method 'nearest' on n=5 at 15 probabilities equals the H&F definition
+ok   percentile method 'midpoint' on n=5 at 15 probabilities equals the H&F definition
+ok   percentile method 'inverted_cdf' on n=8 at 15 probabilities equals the H&F definition
+ok   percentile method 'averaged_inverted_cdf' on n=8 at 15 probabilities equals the H&F definition
+ok   percentile method 'closest_observation' on n=8 at 15 probabilities equals the H&F definition
+ok   percentile method 'interpolated_inverted_cdf' on n=8 at 15 probabilities equals the H&F definition
+ok   percentile method 'hazen' on n=8 at 15 probabilities equals the H&F definition
+ok   percentile method 'weibull' on n=8 at 15 probabilities equals the H&F definition
+ok   percentile method 'linear' on n=8 at 15 probabilities equals the H&F definition
+ok   percentile method 'median_unbiased' on n=8 at 15 probabilities equals the H&F definition
+ok   percentile method 'normal_unbiased' on n=8 at 15 probabilities equals the H&F definition
+ok   percentile method 'lower' on n=8 at 15 probabilities equals the H&F definition
+ok   percentile method 'higher' on n=8 at 15 probabilities equals the H&F definition
+ok   percentile method 'nearest' on n=8 at 15 probabilities equals the H&F definition
+ok   percentile method 'midpoint' on n=8 at 15 probabilities equals the H&F definition
+ok   percentile method 'inverted_cdf' on n=257 at 15 probabilities equals the H&F definition
+ok   percentile method 'averaged_inverted_cdf' on n=257 at 15 probabilities equals the H&F definition
+ok   percentile method 'closest_observation' on n=257 at 15 probabilities equals the H&F definition
+ok   percentile method 'interpolated_inverted_cdf' on n=257 at 15 probabilities equals the H&F definition
+ok   percentile method 'hazen' on n=257 at 15 probabilities equals the H&F definition
+ok   percentile method 'weibull' on n=257 at 15 probabilities equals the H&F definition
+ok   percentile method 'linear' on n=257 at 15 probabilities equals the H&F definition
+ok   percentile method 'median_unbiased' on n=257 at 15 probabilities equals the H&F definition
+ok   percentile method 'normal_unbiased' on n=257 at 15 probabilities equals the H&F definition
+ok   percentile method 'lower' on n=257 at 15 probabilities equals the H&F definition
+ok   percentile method 'higher' on n=257 at 15 probabilities equals the H&F definition
+ok   percentile method 'nearest' on n=257 at 15 probabilities equals the H&F definition
+ok   percentile method 'midpoint' on n=257 at 15 probabilities equals the H&F definition
+ok   quantile(q) == percentile(100 q) (default method)
+ok   percentile default method is 'linear' (H&F 7)
+ok   nanpercentile = percentile over the non-NaN values
+ok   nanmean / nanstd over the non-NaN values
+ok   nanmedian over the non-NaN values
+ok   cov (ddof=1 default) exact
+ok   cov(bias=True) = ddof 0
+ok   cov(fweights, aweights, ddof=1): factor v1 - ddof * v2 / v1 with v1 = sum w, v2 = sum w a
+ok   corrcoef = cov / sqrt(var_i var_j)
+ok   corrcoef |r| <= 1 (clipped)
+   corrcoef diagonal: [1.0, 1.0, 1.0, 1.0] (1 - diag: [0.0, 0.0, 0.0, 0.0])
+   float32 (1e6, 4) array, column mean along axis 0: np.float32(1499.3807); the same column contiguous: np.float32(1499.9995); float64: np.float64(1499.9995237492064); exact 1499.999524
+FAIL float32 mean along axis 0 of a C-ordered (n, k) array is within 1e-6 relative of the exact mean  (relative error 4.13e-04; contiguous copy 8.02e-09)
+ok   float32 mean of the contiguous column is within 1e-6 relative (pairwise summation)
+FAIL float32 var along axis 0 within 1e-4 relative of exact  (got np.float32(83297.625), float64 np.float64(83333.34125209857))
+   float32 sum along axis 0: np.float32(1.4993807e+09); contiguous: np.float32(1.4999995e+09); exact 1499999523.7
+   float32 cumsum last element: np.float32(1.4993807e+09) (relative error 4.13e-04)
+ok   float32 median equals the float64 median to float32 precision  (np.float32(1499.9995) vs np.float64(1499.99951171875))
+ok   mean of an int64 array is computed in float64 (exact for these values)

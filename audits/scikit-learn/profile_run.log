@@ -1,0 +1,86 @@
+cohort: 322
+full text: 0   survey-cache fallback: 322   ({'offline': 322})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  scikit-learn named                               283
+  UMAP also used                                   92
+  scanpy / Seurat also used                        71
+  PCA                                              55
+  scikit-learn version stated                      31
+  random forest / extra trees                      23
+  logistic regression                              23
+  hierarchical / agglomerative clustering          20
+  linear / ridge / lasso / elastic net             20
+  gradient boosting                                19
+  SVM / SVC / SVR                                  18
+  cross-validation                                 16
+  StandardScaler / MinMaxScaler / normalization    15
+  accuracy / precision / recall / F1               15
+  k-means                                          13
+  t-SNE / MDS / Isomap (manifold)                  13
+  nearest neighbours                               12
+  DBSCAN / HDBSCAN / OPTICS                        11
+  NMF                                              11
+  feature importance / permutation / SHAP          10
+  Gaussian mixture                                 10
+  silhouette / ARI / NMI (clustering metrics)      8
+  AUC / ROC                                        6
+  Gaussian process / kernel methods                4
+  train/test split                                 4
+  spectral clustering / embedding                  3
+  calibration                                      2
+  R2 / MSE / MAE                                   2
+  MLP / neural network                             2
+  LDA (discriminant)                               2
+  class imbalance handling                         1
+
+VERSION FAMILY: {'1.0': 10, '0.22': 8, '1.2': 8, '0.21': 8, '1.3': 6, '0.24': 6, '1.5': 4, '1.1': 4, '1.6': 2, '0.0': 2, '0.23': 2, '0.20': 2, '1.7': 1, '0.18': 1, '1.4': 1, '0.2': 1, '0.19': 1}
+VERSIONS (top 20): {'1.0.2': 8, '0.21.3': 6, '1.2.2': 5, '0.24.2': 4, '0.22': 3, '1.3.2': 3, '0.22.1': 3, '1.1.1': 3, '1.3.0': 2, '1.6.1': 2, '1.5.2': 2, '0.24.1': 2, '0.0': 2, '1.2.0': 2, '0.23.1': 2, '1.1.2': 1, '1.7.2': 1, '1.5.1': 1, '0.18.3': 1, '1.2.1': 1}
+
+CV folds: {'10': 3}
+AUC values: {}
+n components: {'2': 3, '30': 1, '3': 1, '8': 1, '5': 1, '201': 1, '75': 1, '50': 1}
+accuracy %: {}
+train/test ratios: {}
+
+CO-PACKAGES (top 40):
+  Python                   118
+  SciPy                    111
+  R                        96
+  UMAP                     92
+  NumPy                    74
+  Matplotlib               59
+  Scanpy                   51
+  seaborn                  50
+  ImageJ                   46
+  Seurat                   44
+  STAR                     38
+  MACS2                    37
+  DESeq2                   32
+  statsmodels              31
+  SAMtools                 31
+  ggplot2                  30
+  scDblFinder              28
+  PyTorch                  27
+  Cutadapt                 27
+  GSEA                     25
+  BEDTools                 24
+  Bowtie2                  24
+  AlphaFold                23
+  Jupyter                  21
+  FastQC                   21
+  QuPath                   20
+  edgeR                    19
+  AnnData                  19
+  Cellpose                 19
+  featureCounts            18
+  TensorFlow               18
+  BLAST                    18
+  XGBoost                  17
+  HOMER                    17
+  clusterProfiler          16
+  limma                    16
+  Picard                   16
+  BWA                      15
+  scikit-image             15
+  DeepLabCut               15

@@ -1,0 +1,29 @@
+scikit-learn 1.2.2  numpy 1.24.4  python 3.11.15
+   KMeans float64 offset 0e+00: inertia_ 739.1735 vs exact for its own centres 739.1735 (rel 1.5e-16); max |centre - cluster mean| 4.4e-15; labels = nearest centre on 100.0 %
+ok   KMeans float64 offset 0e+00: inertia_ within 1e-6 relative of the exact sum of squared distances to its centres
+ok   KMeans float64 offset 0e+00: every label is the nearest centre
+ok   StandardScaler float64 offset 0e+00: var_ within 1e-9 relative of exact  (rel err 0.0e+00)
+ok   PCA float64 offset 0e+00: explained_variance_ within 1e-6 relative of the offset-free fit  (max relative deviation 0.0e+00)
+ok   silhouette_score float64 offset 0e+00 within 1e-6 of exact  (0.68161 vs 0.68161)
+   KMeans float64 offset 1e+06: inertia_ 739.1735 vs exact for its own centres 739.1735 (rel 1.5e-16); max |centre - cluster mean| 8.1e-10; labels = nearest centre on 100.0 %
+ok   KMeans float64 offset 1e+06: inertia_ within 1e-6 relative of the exact sum of squared distances to its centres
+ok   KMeans float64 offset 1e+06: every label is the nearest centre
+ok   StandardScaler float64 offset 1e+06: var_ within 1e-9 relative of exact  (rel err 9.4e-13)
+ok   PCA float64 offset 1e+06: explained_variance_ within 1e-6 relative of the offset-free fit  (max relative deviation 8.1e-13)
+FAIL silhouette_score float64 offset 1e+06 within 1e-6 of exact  (0.68161 vs 0.68161)
+   KMeans float64 offset 1e+08: inertia_ 739.1735 vs exact for its own centres 739.1735 (rel 1.5e-16); max |centre - cluster mean| 7.5e-08; labels = nearest centre on 100.0 %
+ok   KMeans float64 offset 1e+08: inertia_ within 1e-6 relative of the exact sum of squared distances to its centres
+ok   KMeans float64 offset 1e+08: every label is the nearest centre
+ok   StandardScaler float64 offset 1e+08: var_ within 1e-9 relative of exact  (rel err 1.3e-10)
+ok   PCA float64 offset 1e+08: explained_variance_ within 1e-6 relative of the offset-free fit  (max relative deviation 1.6e-10)
+FAIL silhouette_score float64 offset 1e+08 within 1e-6 of exact  (0.71961 vs 0.68161)
+   roc_curve thresholds: [1.8, 0.8, 0.4, 0.35, 0.1] (first element max score + 1)
+ok   roc_curve first threshold is above every score so that the curve starts at (0,0)
+   cross_val_predict(predict_proba) with class 2 absent from a training fold: shape (22, 3), rows sum to 1: True, warning: ['Number of classes in training fold (2) does not match total number of classes (3). Results']
+ok   cross_val_predict(predict_proba): output has one column per class of y and the missing class gets probability 0 in that fold  (column 2 in fold 1 rows max 0.000)
+ok   SimpleImputer(median) uses np.nanmedian (linear, even-length average)
+ok   SimpleImputer(mean) uses np.nanmean
+ok   LabelEncoder classes_ sorted lexicographically
+ok   OneHotEncoder(drop='first') drops the first sorted category
+ok   TSNE(perplexity=30) on 20 samples raises ValueError
+ok   TSNE exposes kl_divergence_ (non-negative)  (0.4307)

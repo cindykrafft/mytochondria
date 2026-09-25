@@ -1,0 +1,37 @@
+scikit-learn 1.1.3  numpy 1.24.4  python 3.11.15
+ok   roc_auc_score with ties = Mann-Whitney with ties at 1/2 (0.712503)
+ok   roc_curve(drop_intermediate=False): the 12 (fpr, tpr) points at every distinct threshold
+ok   auc(fpr, tpr) of the full curve equals roc_auc_score
+ok   roc_curve default drop_intermediate keeps a subset of the points (12 of 12) with the same trapezoid area
+ok   average_precision_score = sum (R_k - R_k-1) P_k over distinct thresholds (0.689943)
+ok   precision_recall_curve ends at (recall 0, precision 1)
+ok   roc_auc_score with all scores equal = 0.5
+ok   average_precision_score with all scores equal = prevalence
+ok   roc_auc_score with one class raises ValueError
+ok   precision/recall/F1 average='macro' exact
+ok   precision/recall/F1 average='weighted' exact
+ok   precision/recall/F1 average='micro' exact
+ok   macro PRF with labels=[0..3] where 2 is never predicted and 3 never occurs, zero_division=0: undefined terms count as 0 in the mean
+   zero_division=1 per class: precision [0.6864864864864865, 0.813953488372093, 1.0, 1.0], recall [0.9071428571428571, 0.6862745098039216, 0.0, 1.0], F1 [0.7815384615384615, 0.7446808510638299, 0.0, 1.0], support [140, 102, 29, 0]
+ok   macro precision with zero_division=1: the two undefined precisions (classes 2 and 3) count as 1  (got 0.875110)
+ok   macro recall with zero_division=1: class 3 (no true samples) counts as 1, class 2 (present, never predicted) as 0  (got 0.648354)
+ok   macro F1 with zero_division=1: class 3 counts as 1, class 2 (precision 1 by fiat, recall 0) as 0  (got 0.631555)
+ok   matthews_corrcoef multiclass exact
+ok   cohen_kappa_score(weights=None) exact
+ok   cohen_kappa_score(weights=linear) exact
+ok   cohen_kappa_score(weights=quadratic) exact
+ok   balanced_accuracy_score = mean recall over classes present in y_true
+ok   balanced_accuracy_score(adjusted=True) = (BA - 1/K)/(1 - 1/K) with K classes present in y_true
+ok   accuracy_score exact
+ok   confusion_matrix rows = true labels, columns = predicted, in `labels` order
+ok   confusion_matrix(normalize='true') rows sum to 1
+ok   log_loss exact for probabilities in (0,1) that sum to 1
+   log_loss with one sample at probability exactly 0 for the true class: 0.1151 (eps clipping: clipped to a finite value = -log(eps)/n)
+ok   log_loss of a certain wrong prediction is finite only through clipping; value equals -log(eps)/n for some eps  (0.1151; -log(1e-15)/n = 0.1151, -log(2.2e-16)/n = 0.1201)
+ok   roc_auc_score(multi_class='ovr', average='macro') = mean of one-vs-rest AUCs
+ok   roc_auc_score(multi_class='ovr', average='weighted') = prevalence-weighted mean
+ok   roc_auc_score(multi_class='ovo', average='macro') = mean over pairs of the two-direction average (Hand & Till)
+ok   roc_auc_score binary from the positive-class column equals the exact AUC
+ok   f1_score with no positive prediction and zero_division=0 is 0
+ok   f1_score with no positive prediction and zero_division=1 is 1 when y_true has positives? (precision undefined -> 1, recall 0 -> F1 0)  (0.0)
+ok   f1_score with y_true and y_pred all negative, zero_division=1 -> 1.0  (1.0)

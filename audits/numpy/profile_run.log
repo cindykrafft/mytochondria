@@ -1,0 +1,80 @@
+cohort: 253
+full text: 0   survey-cache fallback: 253   ({'offline': 253})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  NumPy named                                      218
+  SciPy also used                                  147
+  Matplotlib also used                             135
+  image / array processing                         86
+  pandas also used                                 69
+  scikit-learn also used                           64
+  sorting / unique / ranking                       43
+  normalisation / z-score                          40
+  random numbers / permutation / bootstrap         29
+  mean / median / std / variance                   28
+  custom code stated                               26
+  NumPy version stated                             26
+  integration (trapz, cumsum)                      22
+  masking / thresholding                           21
+  eig / SVD / linear algebra                       20
+  argmax / peak detection                          20
+  correlation (corrcoef, Pearson, cross-correlation) 19
+  histogram / binning                              12
+  FFT / spectral                                   9
+  smoothing / convolution / moving average         9
+  interpolation (interp)                           8
+  polynomial fitting (polyfit)                     5
+  nan handling                                     5
+  gradient / derivative / diff                     3
+  percentiles / quantiles                          1
+
+VERSION FAMILY: {'1.19': 15, '1.24': 11, '1.26': 9, '1.21': 9, '1.23': 8, '1.20': 8, '1.18': 7, '1.22': 4, '1.17': 4, '1.16': 3, '3.5': 2, '2.0': 1, '126.4': 1, '2.2': 1, '1.11': 1, '1.9': 1, '1.15': 1, '0.25': 1, '1.12': 1}
+VERSIONS (top 20): {'1.24.3': 5, '1.19.2': 5, '1.19.5': 5, '1.20.3': 5, '1.21.5': 4, '1.21.6': 4, '1.24.2': 3, '1.23.4': 3, '1.19.4': 3, '1.24.4': 2, '1.26.2': 2, '1.20': 2, '1.23.5': 2, '1.26.4': 2, '1.26.3': 2, '1.18.1': 2, '1.16.4': 2, '1.18.5': 2, '1.26': 2, '1.22.3': 2}
+
+bin counts: {'3': 1, '9': 1}
+percentiles named: {}
+polynomial degrees: {}
+resample counts: {'100': 4, '500': 1}
+Python versions: {'3.7': 18, '3.8': 10, '3.9': 8, '3.10': 5, '3.6': 5, '3.11': 4, '2.7': 3, '7.34': 1, '0.24': 1, '3.0': 1}
+
+CO-PACKAGES (top 40):
+  SciPy                    166
+  Matplotlib               135
+  Python                   119
+  seaborn                  78
+  scikit-learn             74
+  R                        68
+  UMAP                     58
+  ImageJ                   51
+  Scanpy                   38
+  ggplot2                  32
+  statsmodels              30
+  Seurat                   25
+  SAMtools                 25
+  AlphaFold                24
+  STAR                     23
+  Jupyter                  23
+  tidyverse                23
+  DESeq2                   22
+  PyTorch                  21
+  MACS2                    20
+  ChimeraX                 20
+  AnnData                  20
+  scikit-image             19
+  pandas                   18
+  Bowtie2                  17
+  PHENIX                   17
+  scDblFinder              17
+  featureCounts            15
+  limma                    14
+  PyMOL                    14
+  Cutadapt                 14
+  GSEA                     13
+  Picard                   13
+  edgeR                    12
+  BWA                      12
+  pheatmap                 12
+  OpenCV                   12
+  ggpubr                   11
+  lme4                     11
+  BLAST                    11

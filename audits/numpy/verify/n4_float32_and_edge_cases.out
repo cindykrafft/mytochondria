@@ -1,0 +1,23 @@
+numpy 2.4.6  python 3.11.15
+   image stack (2000, 64, 64) float32: mean along axis 0 max relative error 2.18e-06; std along axis 0 max relative error 1.22e-06
+FAIL mean of a 2000-frame float32 stack along axis 0 within 1e-6 relative of float64
+ok   std of a 2000-frame float32 stack along axis 0 within 1e-4 relative of float64
+   same stack with the frame axis last (contiguous): mean max relative error 1.10e-07
+   (200000, 10) float32 matrix, values 100 +- 1: column mean max relative error 1.38e-05; column var max relative error 5.46e-05; dtype=np.float64 accumulator: 0.00e+00
+FAIL column means of a (200000, 10) float32 matrix within 1e-6 relative
+ok   column variances of a (200000, 10) float32 matrix within 1e-3 relative
+ok   mean(axis=0, dtype=np.float64) recovers full precision
+   z-scores from the float32 statistics: max abs error 1.51e-03, mean z-score of column 0 4.47e-04 (should be 0)
+   (5e6, 2) float32 matrix: column mean relative error 2.93e-02; column 0 contiguous copy: 4.73e-08
+FAIL column means of a (5e6, 2) float32 matrix within 1e-5 relative
+ok   histogram(float32 data, bins=50): same counts and edges as for the float64-widened data  (counts differ in 0 bins)
+ok   histogram(float32 data ~1e6, bins=10): same as float64-widened data  (edges dtype float32; counts [9825, 10011, 10140, 10044, 9947, 10062, 9932, 10041, 9953, 10045] vs [9825, 10011, 10140, 10044, 9947, 10062, 9932, 10041, 9953, 10045])
+ok   percentile of float32 data equals the float64 result to float32 precision  (dtype float64)
+ok   interp with float32 inputs computed in float64 (result float64)  (result dtype float64)
+ok   corrcoef of float32 data is computed in float64 (cov upcasts) and matches the float64 result to 1e-9  (result dtype float64)
+   diff of uint8 [5, 3, 200, 250] = [254, 197, 50] (unsigned wrap-around, documented)
+ok   mean of a uint8 array accumulates in float64 (exact)
+ok   sum of a uint8 array accumulates in the platform integer (no overflow)
+ok   var of an int array is exact in float64
+   float16 array mean: np.float16(1.0005e+03) vs float64 1000.3077 (float16 mean uses a float32 intermediate: relative error 1.92e-04)
+   float32 cumsum of 2000 values ~1000: final relative error 9.25e-08

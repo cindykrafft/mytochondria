@@ -1,0 +1,61 @@
+scikit-learn 1.3.2  numpy 1.26.4  python 3.11.15
+ok   PCA(full) explained_variance_ = eigenvalues of the sample covariance (ddof=1)
+ok   PCA explained_variance_ratio_ = eigenvalue / total variance
+ok   PCA components_ orthonormal and span the eigenvectors
+ok   PCA transform = (X - mean_) @ components_.T
+ok   PCA inverse_transform(transform(X)) = X with all components
+ok   PCA(n_components=3) explained_variance_ratio_ still divides by the total variance of all 8 features
+ok   PCA(n_components=3) noise_variance_ = mean of the 5 discarded eigenvalues
+ok   PCA(whiten=True): transformed columns have unit variance (ddof=1)  (ddof=1 var [1.0, 1.0, 1.0])
+ok   PCA(whiten=True) inverse_transform recovers the rank-k reconstruction
+ok   PCA(n_components=float): smallest k with cumulative ratio >= threshold (0.819931 -> 4 components)  (4)
+ok   PCA(n_components=float) with the threshold exactly equal to a cumulative ratio (0.819930812818) keeps 4 (docstring: explained variance 'greater than' the threshold)  (4)
+ok   PCA(svd_solver='arpack') explained_variance_ratio_ within 1e-6 of the exact ratios (denominator = total variance)  (max rel diff 1.3e-15)
+ok   PCA(svd_solver='arpack') noise_variance_ = (total - explained)/(d - k)
+ok   PCA(svd_solver='randomized') explained_variance_ratio_ within 1e-6 of the exact ratios (denominator = total variance)  (max rel diff 7.8e-16)
+ok   PCA(svd_solver='randomized') noise_variance_ = (total - explained)/(d - k)
+   PCA on float32 input: explained_variance_ratio_ dtype float32; max relative deviation from the float64 exact ratios 5.29e-07
+ok   PCA on float32 input: ratios within 1e-4 of exact
+   PCA on float32 input with values ~1e4 (variances ~1-30): max relative deviation of the ratios 3.56e-06; explained_variance_ [22.461299896240234, 19.454599380493164, 12.871399879455566] vs exact [22.4613, 19.4547, 12.8714]
+ok   PCA on float32 with a 1e4 offset: explained_variance_ within 1e-2 of exact
+ok   StandardScaler mean_ and var_ (ddof=0) exact
+ok   StandardScaler scale_ = sqrt(var_) (population SD, ddof=0)
+ok   StandardScaler: a constant feature gets scale_ = 1 and transforms to 0
+ok   StandardScaler inverse_transform round trip
+   StandardScaler on float32 values ~1e4: var_ dtype float64; max relative error of var_ vs exact 1.51e-05; of mean_ 2.61e-09
+ok   StandardScaler on float32 values ~1e4 with variances 1-30: var_ within 1e-3 of exact
+ok   StandardScaler partial_fit in 6 batches equals fit
+ok   MinMaxScaler = (x - min)/(max - min)
+ok   RobustScaler = (x - median)/(Q3 - Q1) with linear-interpolation quartiles
+ok   normalize(norm='l2') rows have unit norm; 'l1' rows sum to 1 in absolute value
+ok   KMeans labels_ = argmin squared distance to cluster_centers_
+ok   KMeans inertia_ = sum of squared distances to the assigned centres  (1144.639178 vs 1144.639178)
+ok   KMeans cluster_centers_ = means of the assigned points
+ok   KMeans score(X) = -inertia_
+ok   KMeans transform = euclidean distances to the centres
+   KMeans on float32: inertia_ 1144.6390380859375 vs recomputed in float64 with its own centres 1144.639178 (relative diff 1.22e-07)
+ok   KMeans on float32: inertia_ within 1e-5 relative of the float64 recomputation
+   KMeans on float32 with a 1e4 offset: inertia_ 1144.625244140625 vs float64 recomputation 1144.6253; labels agree with the float64 fit: 1.000 (up to label permutation not checked)
+ok   KMeans on float32 with a 1e4 offset: inertia_ within 1e-3 relative of the float64 recomputation
+ok   GaussianMixture('full') score = mean log-likelihood of the mixture
+ok   GaussianMixture('full') predict_proba = responsibilities
+ok   GaussianMixture('full') bic = -2 LL + p log n with p = 23
+ok   GaussianMixture('diag') score = mean log-likelihood of the mixture
+ok   GaussianMixture('diag') predict_proba = responsibilities
+ok   GaussianMixture('diag') bic = -2 LL + p log n with p = 19
+ok   GaussianMixture('spherical') score = mean log-likelihood of the mixture
+ok   GaussianMixture('spherical') predict_proba = responsibilities
+ok   GaussianMixture('spherical') bic = -2 LL + p log n with p = 15
+ok   GaussianMixture('tied') score = mean log-likelihood of the mixture
+ok   GaussianMixture('tied') predict_proba = responsibilities
+ok   GaussianMixture('tied') bic = -2 LL + p log n with p = 14
+ok   DBSCAN: neighbours at distance exactly eps count (<= eps), min_samples includes the point itself  ([0, 0, 0, -1])
+ok   DBSCAN with eps just below the spacing: everything is noise
+ok   AgglomerativeClustering(linkage='single') partition equals scipy linkage + fcluster(4)
+ok   AgglomerativeClustering(linkage='complete') partition equals scipy linkage + fcluster(4)
+ok   AgglomerativeClustering(linkage='average') partition equals scipy linkage + fcluster(4)
+ok   AgglomerativeClustering(linkage='ward') partition equals scipy linkage + fcluster(4)
+ok   AgglomerativeClustering('single') vs scipy: ARI = 1  (ARI 1.0000)
+ok   AgglomerativeClustering('complete') vs scipy: ARI = 1  (ARI 1.0000)
+ok   AgglomerativeClustering('average') vs scipy: ARI = 1  (ARI 1.0000)
+ok   AgglomerativeClustering('ward') vs scipy: ARI = 1  (ARI 1.0000)

@@ -1,0 +1,25 @@
+scikit-learn 1.1.3  numpy 1.24.4  python 3.11.15
+ok   KFold(5) on 103 samples: the first 103 % 5 = 3 folds have one extra sample (21,21,21,20,20)  ([21, 21, 21, 20, 20])
+ok   StratifiedKFold(5): every fold's class counts differ from the proportional share by at most 1  ([{1: 5, 0: 14, 2: 2}, {0: 14, 2: 2, 1: 5}, {2: 2, 0: 14, 1: 5}, {0: 14, 2: 1, 1: 5}, {0: 14, 1: 5, 2: 1}])
+ok   StratifiedKFold: the 8-sample class is spread over folds (no fold without it, at most 2 per fold)
+ok   train_test_split(test_size=0.25, stratify=y): test size = ceil(0.25 n) = 26 and class counts within 1 of proportional  (test 26, counts Counter({0: 18, 1: 6, 2: 2}))
+ok   train_test_split(test_size=0.2) on 103 samples: test size = ceil(20.6) = 21  (21)
+ok   cross_val_score = per-fold accuracy of a fresh fit on each training fold
+ok   GridSearchCV mean_test_score = unweighted mean of the fold scores (folds of 21 and 20 samples)  (unweighted 0.856190, sample-weighted 0.854369)
+ok   GridSearchCV std_test_score = population SD (ddof=0) of the fold scores
+ok   permutation_test_score p-value = (C + 1)/(n_permutations + 1) with C = permutations scoring >= the true score
+ok   calibration_curve(strategy='uniform', 5 bins): bins [0,.2),[.2,.4),...,[.8,1]; fraction of positives and mean predicted per non-empty bin
+ok   calibration_curve(strategy='quantile'): edges at percentiles (linear), bins by searchsorted on the inner edges
+ok   LinearRegression = OLS with intercept (normal equations)
+ok   Ridge(alpha): solves (Xc'Xc + alpha I) w = Xc'yc on centred data, intercept unpenalised, alpha NOT scaled by n
+ok   Ridge with sample_weight: weighted centring and weighted normal equations, alpha unchanged
+ok   Ridge: duplicating every sample equals sample_weight=2 (and differs from the unweighted fit because alpha is absolute)
+ok   LogisticRegression predict = argmax predict_proba and predict_proba rows sum to 1
+ok   LogisticRegression predict_proba = sigmoid(decision_function) (binary)
+ok   class_weight='balanced' = n / (k n_c)
+ok   LogisticRegression multiclass: predict_proba = softmax(decision_function)
+ok   RandomForest feature_importances_ sum to 1 and equal the mean of the trees' importances
+ok   oob_score_ = accuracy of the out-of-bag votes
+ok   RandomForest predict_proba = mean of the trees' predict_proba
+   SVC(probability=True): predict disagrees with argmax predict_proba on 1.9 % of the training samples (Platt scaling with internal CV; documented)
+ok   mutual_info_classif(discrete_features=True) = mutual_info_score (natural log)

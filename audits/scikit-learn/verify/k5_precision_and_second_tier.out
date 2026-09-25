@@ -1,0 +1,38 @@
+scikit-learn 1.9.1  numpy 2.4.6  python 3.11.15
+   float64 coordinates offset by 0e+00: euclidean_distances max abs error 2.70e-13 (max rel 8.13e-13); KMeans ARI vs truth 1.000; silhouette 0.6741 vs exact 0.6741
+ok   euclidean_distances on float64 data offset by 0e+00: relative error below 1e-6
+ok   KMeans on float64 data offset by 0e+00 recovers the four clusters (ARI > 0.99)
+   float64 coordinates offset by 1e+04: euclidean_distances max abs error 1.09e-06 (max rel 1.61e-06); KMeans ARI vs truth 1.000; silhouette 0.6741 vs exact 0.6741
+FAIL euclidean_distances on float64 data offset by 1e+04: relative error below 1e-6
+ok   KMeans on float64 data offset by 1e+04 recovers the four clusters (ARI > 0.99)
+   float64 coordinates offset by 1e+06: euclidean_distances max abs error 1.41e-02 (max rel 2.79e-02); KMeans ARI vs truth 1.000; silhouette 0.6741 vs exact 0.6741
+FAIL euclidean_distances on float64 data offset by 1e+06: relative error below 1e-6
+ok   KMeans on float64 data offset by 1e+06 recovers the four clusters (ARI > 0.99)
+   float64 coordinates offset by 1e+07: euclidean_distances max abs error 2.91e-01 (max rel 1.24e+00); KMeans ARI vs truth 1.000; silhouette 0.6743 vs exact 0.6741
+FAIL euclidean_distances on float64 data offset by 1e+07: relative error below 1e-6
+ok   KMeans on float64 data offset by 1e+07 recovers the four clusters (ARI > 0.99)
+   float64 coordinates offset by 1e+08: euclidean_distances max abs error 3.29e+00 (max rel 2.43e+01); KMeans ARI vs truth 1.000; silhouette 0.7169 vs exact 0.6741
+FAIL euclidean_distances on float64 data offset by 1e+08: relative error below 1e-6
+ok   KMeans on float64 data offset by 1e+08 recovers the four clusters (ARI > 0.99)
+   float32 coordinates offset by 1e4: euclidean_distances max abs error 1.30e-03 (upcast to float64 in chunks)
+FAIL euclidean_distances on float32 data offset by 1e4: max error below 1e-3
+ok   NMF(beta_loss='frobenius') reconstruction_err_ = ||X - WH||_F (not squared)  (15.736738 vs 15.736738, squared 247.6449)
+FAIL NMF(beta_loss='kullback-leibler') reconstruction_err_ = generalised KL divergence sum(x log(x/wh) - x + wh)  (17.536792 vs 153.784022; sqrt(2 KL) = 17.537618)
+ok   LDA explained_variance_ratio_ agrees between solver='svd' and solver='eigen'  (svd [0.77262, 0.22738], eigen [0.77262, 0.22738])
+ok   LDA explained_variance_ratio_ sums to 1 over the k-1 discriminants
+ok   LDA transform agrees between solvers up to sign and scale (correlation 1)
+ok   f_classif = scipy.stats.f_oneway per feature (F and p)
+ok   f_regression: F = r^2/(1-r^2) (n-2) with p from F(1, n-2)
+ok   KernelDensity(gaussian).score_samples = log of the properly normalised KDE in 2-D
+ok   KernelDensity(tophat) normalised by the disc area pi h^2 in 2-D
+ok   KBinsDiscretizer(strategy='quantile') edges = percentiles 0,20,...,100 with a documented method (averaged_inverted_cdf)
+ok   KBinsDiscretizer codes = searchsorted on the inner edges (right-closed bins except the last)  (mismatch on 0 values)
+ok   KBinsDiscretizer(strategy='uniform') edges = linspace(min, max, 5)
+ok   QuantileTransformer quantiles_ = percentiles at linspace(0,1,n_quantiles) (linear)
+ok   QuantileTransformer(output='uniform') transform = interpolated empirical CDF (average of the two monotone interpolations)
+ok   PowerTransformer(box-cox) lambdas_ = scipy.stats.boxcox MLE lambda  (-0.036934 vs -0.036934)
+ok   permutation_importance importances_mean = mean over repeats of (baseline - permuted score), importances_std = SD (ddof=0)
+ok   roc_auc_score(max_fpr=0.2) = McClish-standardised partial AUC
+   LogisticRegression(penalty=None, tol=0.0001): max |coef - MLE| = 4.67e-04, max relative 2.73e-03 (lbfgs, n_iter 12)
+   LogisticRegression(penalty=None, tol=1e-08): max |coef - MLE| = 3.34e-07, max relative 1.90e-07 (lbfgs, n_iter 17)
+FAIL LogisticRegression(penalty=None) with the default tol=1e-4 is within 1e-3 relative of the exact MLE coefficients

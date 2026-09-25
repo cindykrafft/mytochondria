@@ -1,0 +1,36 @@
+numpy 1.26.4  python 3.11.15
+ok   histogram(bins=4, range=(0,10)): bins [a,b) except the last [a,b]; edges exact
+ok   histogram with unequal explicit edges: same rule
+ok   histogram(density=True): sum(density * width) = 1
+ok   histogram(density=True) = count / (n_in_range * width)
+ok   histogram(range=): values outside the range are dropped, not clipped
+ok   histogram(bins='auto') = min(Freedman-Diaconis, Sturges) width -> 11 bins  (11)
+   float32 values on float64 edges [0.1, 0.3, 0.5, 0.7]: counts [2, 2, 3] (values as float64: [0.10000000149011612, 0.20000000298023224, 0.30000001192092896, 0.4000000059604645, 0.5, 0.6000000238418579, 0.699999988079071])
+ok   float32 values on the edges: counted by their exact (float64-widened) value against the edges
+ok   digitize(right=False): index i with bins[i-1] <= x < bins[i]
+ok   digitize(right=True): bins[i-1] < x <= bins[i]
+ok   searchsorted side='left'/'right'
+ok   polyfit(deg=2) coefficients exact (highest power first)
+ok   polyfit(full=True) residual = sum of squared residuals
+ok   polyfit(cov=True) = RSS/(n - deg - 1) (A^T A)^-1  (ratio to the exact scaling 1.000000; RSS/(n-deg-3) would give 1.125000)
+ok   polyfit(cov='unscaled') = (A^T A)^-1
+ok   polyfit(w=): minimises sum (w_i (y_i - p(x_i)))^2, i.e. w = 1/sigma_i, not 1/sigma_i^2
+   polyfit degree 3 on x = 2000..2020: max |fit - data| 4.768e-06 (centred abscissa: 1.421e-13); RankWarning raised: False
+ok   polyfit degree 3 on years 2000-2020 reproduces an exact cubic to 1e-6 relative
+ok   interp linear between points
+ok   interp outside xp is clamped to fp[0] / fp[-1] (no extrapolation)
+ok   interp(left=, right=) override the clamping
+ok   interp(period=) wraps the abscissa
+   interp with non-increasing xp [0.0, 2.0, 1.0, 4.0]: [2.5, 7.5, 5.333333333333333] (documented as unchecked; results are meaningless)
+ok   trapezoid(y, x) exact
+ok   trapezoid(y, dx=0.5) exact
+ok   gradient interior (uniform spacing) = central difference
+ok   gradient edges default edge_order=1 = one-sided difference
+ok   gradient edge_order=2 edges = second-order one-sided stencil
+ok   gradient with uneven spacing: second-order interior formula
+ok   gradient of x^2 on uneven spacing is exact in the interior (2x)
+ok   lstsq solution exact; residuals = sum of squared residuals
+   unique([1, nan, 2, nan, 1]) = [1.0, 2.0, nan] (NaNs collapsed to one)
+ok   round half to even: round(0.5)=0, round(1.5)=2, round(2.5)=2
+   np.round(2.675, 2) = 2.68 (Python round: 2.67; 2.675 is stored below the half, but 2.675 * 100 rounds up to exactly 267.5 in binary, then half-to-even gives 268 -- the documented multiply-rint-divide algorithm)
+ok   round(x, 2) for x = 1.005 (stored below 1.005) gives 1.0  (1.0)
