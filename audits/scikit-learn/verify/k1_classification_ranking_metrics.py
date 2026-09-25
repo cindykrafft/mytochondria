@@ -30,9 +30,13 @@ report("precision_recall_curve ends at (recall 0, precision 1)", rec[-1] == 0 an
 # degenerate score vectors
 report("roc_auc_score with all scores equal = 0.5", close(metrics.roc_auc_score(y, [0.5] * n), 0.5))
 report("average_precision_score with all scores equal = prevalence", close(metrics.average_precision_score(y, [0.5] * n), sum(y) / n))
-try:
-    metrics.roc_auc_score([0] * 10, [0.1] * 10); report("roc_auc_score with one class raises", False)
-except ValueError: report("roc_auc_score with one class raises ValueError", True)
+import warnings as _w
+with _w.catch_warnings(record=True) as _wl:
+    _w.simplefilter("always")
+    try:
+        _r = metrics.roc_auc_score([0] * 10, [0.1] * 10); _how = f"returns {_r} with {_wl[0].category.__name__ if _wl else 'no warning'}"; _ok = bool(_wl) and np.isnan(_r)
+    except ValueError as e: _how = f"raises ValueError ({str(e)[:60]})"; _ok = True
+report("roc_auc_score with one class: raises ValueError (up to 1.8) or returns nan with a warning (1.9)", _ok, f"({_how})")
 
 # ---- multiclass PRF, MCC, kappa, balanced accuracy
 labels = [0, 1, 2, 3]

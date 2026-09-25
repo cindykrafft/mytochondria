@@ -30,7 +30,7 @@ ok   RobustScaler = (x - median)/(Q3 - Q1) with linear-interpolation quartiles
 ok   normalize(norm='l2') rows have unit norm; 'l1' rows sum to 1 in absolute value
 ok   KMeans labels_ = argmin squared distance to cluster_centers_
 ok   KMeans inertia_ = sum of squared distances to the assigned centres  (1144.639178 vs 1144.639178)
-ok   KMeans cluster_centers_ = means of the assigned points
+ok   KMeans cluster_centers_ = means of the assigned points  (max |centre - mean of its points| 2.7e-15; n_iter_ 3)
 ok   KMeans score(X) = -inertia_
 ok   KMeans transform = euclidean distances to the centres
    KMeans on float32: inertia_ 1144.6390380859375 vs recomputed in float64 with its own centres 1144.639178 (relative diff 1.22e-07)

@@ -7,9 +7,10 @@ ok   norm(A) default = Frobenius; norm(A, 2) = largest singular value; norm(v) =
 ok   det = product of eigenvalues
 ok   solve: A x = b to 1e-12
    near-rank-3 6x6 matrix singular values: ['4.48e+00', '3.97e+00', '2.10e+00', '1.92e-14', '4.96e-15', '6.07e-16']
-FAIL matrix_rank uses tol = S.max() * max(M,N) * eps: rank 3 here
+   documented cut-off S.max() * max(M,N) * eps = 5.97e-15: 4 singular values above it (the 1e-14 perturbation is above the cut-off, so the documented rank is 4, not 3)
+ok   matrix_rank = number of singular values above S.max() * max(M,N) * eps (documented default)  (rank 4)
 ok   pinv default cut-off (rcond 1e-15 * largest singular value): the 1e-14 directions are NOT cut, so pinv(B) B is far from a rank-3 projector  (||B pinv(B) B - B|| = 5.21e-02; ||pinv(B)|| = 2.08e+14)
-FAIL lstsq(rcond=None) cut-off = eps * max(M,N) reports rank 3  (rank 4)
+ok   lstsq(rcond=None) rank = number of singular values above eps * max(M,N) * S.max() (documented default)  (rank 4)
 ok   fft = unnormalised DFT (sum x_k e^{-2 pi i jk/N})
 ok   ifft(fft(x)) = x (1/N on the inverse by default)
 ok   fft(norm='ortho') = DFT / sqrt(N); norm='forward' = DFT / N
@@ -32,8 +33,8 @@ ok   RandomState.randint(low, high) excludes high
 ok   permutation is a permutation
 ok   Generator.shuffle on a 2-D array shuffles rows only (axis 0)
 ok   multivariate_normal with a PSD covariance: sample covariance within 0.02 of cov
-   multivariate_normal with a non-PSD covariance [[1,2],[2,1]]: warning 'RuntimeWarning'; sample covariance [[1.999, 0.996], [0.996, 1.999]] (the negative eigenvalue is dropped)
-FAIL multivariate_normal(check_valid='warn') warns on a non-PSD covariance and returns samples from the PSD part
+   multivariate_normal with a non-PSD covariance [[1,2],[2,1]] (eigenvalues 3 and -1): warning 'RuntimeWarning'; sample covariance [[1.999, 0.996], [0.996, 1.999]] = V |L| V^T = [[2,1],[1,2]] (the SVD factorisation uses the absolute singular values)
+ok   multivariate_normal(check_valid='warn') warns on a non-PSD covariance and samples from V |L| V^T (documented as undefined; here [[2,1],[1,2]])
 ok   binomial(20, 0.35): mean and variance within 0.01 of 7 and 4.55
 ok   normal(3, 2): mean and SD within 1 %
 ok   exponential(scale=2.5): the parameter is the scale (mean 2.5), not the rate

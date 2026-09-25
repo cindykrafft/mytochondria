@@ -79,3 +79,19 @@ ok   PCA n=20000 d=5 offset 1e+08 solver='full': explained_variance_ within 1e-6
 ok   PCA n=20000 d=5 offset 1e+08 solver='arpack': explained_variance_ within 1e-6 relative of exact
    n=20000 d=5 offset 1e+08 solver randomized      (-> randomized     ): explained_variance_ rel dev 1.4e-10, ratio rel dev 1.3e-10, PC1 scores rel dev 2.4e-08
 ok   PCA n=20000 d=5 offset 1e+08 solver='randomized': explained_variance_ within 1e-6 relative of exact
+   float32 n=20000 d=5 offset 0e+00 solver auto            (-> full           ): explained_variance_ rel dev 3.6e-07, ratio rel dev 2.6e-07
+ok   PCA float32 n=20000 d=5 offset 0e+00 solver='auto': explained_variance_ within 1e-3 relative of exact
+   float32 n=20000 d=5 offset 0e+00 solver full            (-> full           ): explained_variance_ rel dev 3.6e-07, ratio rel dev 2.6e-07
+ok   PCA float32 n=20000 d=5 offset 0e+00 solver='full': explained_variance_ within 1e-3 relative of exact
+   float32 n=20000 d=5 offset 1e+02 solver auto            (-> full           ): explained_variance_ rel dev 3.8e-06, ratio rel dev 4.0e-06
+ok   PCA float32 n=20000 d=5 offset 1e+02 solver='auto': explained_variance_ within 1e-3 relative of exact
+   float32 n=20000 d=5 offset 1e+02 solver full            (-> full           ): explained_variance_ rel dev 3.8e-06, ratio rel dev 4.0e-06
+ok   PCA float32 n=20000 d=5 offset 1e+02 solver='full': explained_variance_ within 1e-3 relative of exact
+   float32 n=20000 d=5 offset 1e+03 solver auto            (-> full           ): explained_variance_ rel dev 2.4e-06, ratio rel dev 1.3e-06
+ok   PCA float32 n=20000 d=5 offset 1e+03 solver='auto': explained_variance_ within 1e-3 relative of exact
+   float32 n=20000 d=5 offset 1e+03 solver full            (-> full           ): explained_variance_ rel dev 2.4e-06, ratio rel dev 1.3e-06
+ok   PCA float32 n=20000 d=5 offset 1e+03 solver='full': explained_variance_ within 1e-3 relative of exact
+   float32 n=20000 d=5 offset 1e+04 solver auto            (-> full           ): explained_variance_ rel dev 2.2e-04, ratio rel dev 2.1e-04
+ok   PCA float32 n=20000 d=5 offset 1e+04 solver='auto': explained_variance_ within 1e-3 relative of exact
+   float32 n=20000 d=5 offset 1e+04 solver full            (-> full           ): explained_variance_ rel dev 2.2e-04, ratio rel dev 2.1e-04
+ok   PCA float32 n=20000 d=5 offset 1e+04 solver='full': explained_variance_ within 1e-3 relative of exact

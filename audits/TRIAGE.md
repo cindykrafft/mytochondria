@@ -266,3 +266,39 @@ Held up: `getExpectedDoublets`, `propHomotypic`, the default k set, `cxds2` agai
 "griffiths" and "optim" thresholds against ports, `createDoublets` sums, the stats table with character / integer labels, and the
 end-to-end run on simulated doublets (AUC 1.000, recall 0.81, no false positive). Executed on 1.16.0 and on 1.4.0 / 1.8.0 / 1.12.0
 built from their release commits; `devel` read (identical code), not installable on this R.
+
+## Round 6 (2026-09-25): NumPy, scikit-learn
+
+Asked for by hand ("still worth it to check sklearn and numpy even though they are heavily tested"): the two
+most-used general numerical libraries in the survey, executed against exact recomputations on the current
+release and the cohort's older lines. Kit under `audits/scikit-learn/upstream/`; nothing to file for NumPy.
+
+### NumPy (253 papers; `audits/numpy/`)
+
+| tier | finding | reason |
+|---|---|---|
+| held (open upstream) | NumPy N1 | float32 `mean`/`sum`/`var` along the sample axis of a C-ordered array use a plain running sum, not the pairwise summation used along the fast axis: 2.2e-6 relative on a 2,000-frame image stack, 1.4e-5 on 200,000 × 10, 2.9e-2 on 5,000,000 × 2; `dtype=np.float64` removes it; documented in the `np.sum` notes and open as numpy/numpy#22956 (2023, maintainers discussed a float64 accumulator) and #8869 (2017); #8786 (stable-sum request) answered by S. Berg in 2025: "nothing to do about mean/sum directly … a new function would be the simplest". Nothing to add |
+| held | NumPy N2–N5 | `closest_observation` tie rule (fixed in 2.1.0); `multivariate_normal` on a non-PSD covariance samples from V\|Λ\|Vᵀ (documented undefined); float32 FFT in single precision since 2.0 (release-noted); `np.round(2.675, 2)` = 2.68 (documented) |
+
+Held up: every quantile method (2.x) vs Hyndman & Fan, moments and nan variants, `cov`/`corrcoef` weights, `histogram`
+edge rules, `digitize`, `polyfit` (coefficients, residual, `cov` scaling), `interp`, `trapezoid`, `gradient`, `lstsq`,
+`eig`/`eigh`/`svd`/`solve`/`det`/`norm`/`matrix_rank`/`pinv` cut-offs as documented, `fft` family vs an explicit DFT,
+the generators' streams and distributions. Channel: AI policy (`doc/source/dev/ai_policy.rst`, disclosure mandatory,
+"an AI agent that writes code and then submits a pull request autonomously is not permitted") recorded for any later filing.
+
+### scikit-learn (322 papers; kit under `audits/scikit-learn/upstream/`)
+
+| tier | finding | reason |
+|---|---|---|
+| file now (issue; PR after triage) | scikit-learn SK1 | every release since 1.5.0: `PCA`'s `covariance_eigh` solver, which `svd_solver="auto"` selects for dense data with ≤ 1000 features and ≥ 10× as many samples, forms the covariance as `X.T @ X − n·mean⊗mean` and loses the variance of offset features to cancellation: float32 values around 100 with unit spread give `explained_variance_` 33 % off, around 1e3 87 % (ratio 54 %), float64 values around 1e6 1.7 %, 1e7 20 % (PC1 scores 3.5 %), 1e8 meaningless; `full` (the `auto` choice up to 1.4) is exact throughout; batched centred accumulation with the same memory footprint verified (k7 62/62, new test fails on `main`, `test_pca.py` 388 passed); the solver's PR (#27491) has a reviewer note "numerically more unstable than np.cov" without follow-up and #29534 is a different (rank-deficient, whiten) instability; no prior report |
+| ready (second, direct doc PR) | scikit-learn SK2 | every version: `NMF.reconstruction_err_` / `MiniBatchNMF.reconstruction_err_` documented as "Frobenius norm … or beta-divergence" is `sqrt(2·D_β)` for the KL and IS losses (40.12 for a KL divergence of 804.56); docstring patch |
+| held | scikit-learn SK3, N1–N4 | `euclidean_distances` dot-product expansion at large float64 offsets (silhouette 0.717 for 0.674 at 1e8; open #31210/#24502); `LogisticRegression` default `tol` 2.7e-3 from the MLE; `KBinsDiscretizer` quantile method change in 1.9; `roc_auc_score` one class → `nan` in 1.9; `KMeans` centres on a `tol` stop (#16081) |
+
+Held up: every ranking, classification, regression and clustering metric checked against exact recomputations, `PCA` with the
+`full`/`arpack`/`randomized` solvers, the scalers and transformers, `KMeans`, `GaussianMixture`, `DBSCAN`, agglomerative
+clustering vs scipy, the splitters and searches, `Ridge`, `LogisticRegression`, `RandomForest`, LDA, KDE, NMF Frobenius error.
+
+Channel notes. Automated Contributions Policy: no fully automated issues or PRs, **no AI-generated text in issue, PR or
+comment descriptions**, AI use stated in the PR (template disclosure list), bug reports get "Needs Triage" and the PR waits
+for the label to go. The kit's texts are fact sheets to write from, not to paste. Seven prior threads (incl. the 48 review
+threads of #27491) read in full through two helper sessions. Fork needed: scikit-learn/scikit-learn.

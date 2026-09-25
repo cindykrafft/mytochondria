@@ -1,0 +1,53 @@
+From 0ea3d613437c8115714f150bf2394d4f9181cad3 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Fri, 25 Sep 2026 04:35:50 +0000
+Subject: [PATCH] DOC NMF: say what reconstruction_err_ is for non-Frobenius
+ losses
+
+The attribute is computed with _beta_divergence(..., square_root=True), i.e.
+sqrt(2 * D_beta(X, WH)). For beta_loss='frobenius' that is the Frobenius norm
+of X - WH, as documented; for 'kullback-leibler' and 'itakura-saito' it is the
+square root of twice the divergence, not the divergence itself (17.54 vs a KL
+divergence of 153.78 on a 60 x 20 example). Document the actual quantity in
+NMF and MiniBatchNMF.
+---
+ sklearn/decomposition/_nmf.py | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/sklearn/decomposition/_nmf.py b/sklearn/decomposition/_nmf.py
+index f721484cfb..4b7c7a303c 100644
+--- a/sklearn/decomposition/_nmf.py
++++ b/sklearn/decomposition/_nmf.py
+@@ -1475,9 +1475,11 @@ class NMF(_BaseNMF):
+         features.
+ 
+     reconstruction_err_ : float
+-        Frobenius norm of the matrix difference, or beta-divergence, between
+-        the training data ``X`` and the reconstructed data ``WH`` from
+-        the fitted model.
++        Distance between the training data ``X`` and the reconstructed data
++        ``WH`` from the fitted model: the Frobenius norm of the difference for
++        ``beta_loss='frobenius'``, and the square root of twice the
++        beta-divergence for the other losses (so that it reduces to the
++        Frobenius norm for ``beta_loss=2``).
+ 
+     n_iter_ : int
+         Actual number of iterations.
+@@ -1914,9 +1916,11 @@ class MiniBatchNMF(_BaseNMF):
+         features.
+ 
+     reconstruction_err_ : float
+-        Frobenius norm of the matrix difference, or beta-divergence, between
+-        the training data `X` and the reconstructed data `WH` from
+-        the fitted model.
++        Distance between the training data `X` and the reconstructed data
++        `WH` from the fitted model: the Frobenius norm of the difference for
++        `beta_loss='frobenius'`, and the square root of twice the
++        beta-divergence for the other losses (so that it reduces to the
++        Frobenius norm for `beta_loss=2`).
+ 
+     n_iter_ : int
+         Actual number of started iterations over the whole dataset.
+-- 
+2.43.0
+

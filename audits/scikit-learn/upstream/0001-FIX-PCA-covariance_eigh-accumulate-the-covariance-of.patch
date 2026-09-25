@@ -1,0 +1,145 @@
+From a0d6f7b07c976d956a44168cf20e60c4b6b499c8 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Fri, 25 Sep 2026 04:29:50 +0000
+Subject: [PATCH] FIX PCA covariance_eigh: accumulate the covariance of
+ centered batches
+
+The covariance_eigh solver (the svd_solver='auto' choice for dense data with
+n_features <= 1000 and n_samples >= 10 n_features since 1.5) computed the
+covariance as X.T @ X - n * mean @ mean.T. When the features carry a common
+offset the two terms are nearly equal and the variance is lost to rounding.
+With unit-scale variation: float32 values around 100 give an explained
+variance 33 % off, around 1e3 87 % off and around 1e4 meaningless; float64
+values around 1e6 are 1.7 % off, around 1e7 about 20 %, around 1e8
+meaningless (ratio 100 % off, first component scores 37 % off). The full
+solver, the auto choice up to 1.4, is exact in all these cases.
+
+Accumulate (X_batch - mean).T @ (X_batch - mean) over row batches for dense
+input, which keeps the memory footprint of the post-hoc formula and removes
+the cancellation; sparse input keeps the post-hoc centering since it cannot
+be centered without densifying. Adds a regression test against the full
+solver at float64 offsets 1e6 and 1e8 and float32 offsets 1e2 and 1e3.
+---
+ .../sklearn.decomposition/XXXXX.fix.rst       |  8 ++++
+ sklearn/decomposition/_pca.py                 | 27 ++++++++++--
+ sklearn/decomposition/tests/test_pca.py       | 43 +++++++++++++++++++
+ 3 files changed, 74 insertions(+), 4 deletions(-)
+ create mode 100644 doc/whats_new/upcoming_changes/sklearn.decomposition/XXXXX.fix.rst
+
+diff --git a/doc/whats_new/upcoming_changes/sklearn.decomposition/XXXXX.fix.rst b/doc/whats_new/upcoming_changes/sklearn.decomposition/XXXXX.fix.rst
+new file mode 100644
+index 0000000000..1ce33a72f2
+--- /dev/null
++++ b/doc/whats_new/upcoming_changes/sklearn.decomposition/XXXXX.fix.rst
+@@ -0,0 +1,8 @@
++- :class:`decomposition.PCA` with `svd_solver="covariance_eigh"` (selected by
++  `svd_solver="auto"` for dense data with at most 1000 features and at least ten
++  times as many samples) now accumulates the covariance of centered row batches
++  instead of centering `X.T @ X` post hoc, so features with a large common offset
++  no longer lose their variance to rounding (the explained variance was 33 % off
++  for float32 values around 100 and 1.7 % off for float64 values around 1e6, and
++  meaningless beyond).
++  By :user:`Cindy Krafft <cindykrafft>`.
+diff --git a/sklearn/decomposition/_pca.py b/sklearn/decomposition/_pca.py
+index b479908815..b94564eed5 100644
+--- a/sklearn/decomposition/_pca.py
++++ b/sklearn/decomposition/_pca.py
+@@ -16,6 +16,7 @@ from sklearn.decomposition._base import _BasePCA
+ from sklearn.utils import check_random_state
+ from sklearn.utils._arpack import _init_arpack_v0
+ from sklearn.utils._array_api import _cov, array_device, get_namespace
++from sklearn.utils._chunking import gen_batches, get_chunk_n_rows
+ from sklearn.utils._param_validation import Interval, RealNotInt, StrOptions
+ from sklearn.utils.extmath import _randomized_svd, fast_logdet, svd_flip
+ from sklearn.utils.sparsefuncs import _implicit_column_offset, mean_variance_axis
+@@ -585,11 +586,29 @@ class PCA(_BasePCA):
+ 
+         else:
+             assert self._fit_svd_solver == "covariance_eigh"
+-            # Center the covariance post-hoc (without centering X first) to
+-            # avoid an unnecessary copy of X. The mean_ attribute is still
+-            # needed to center test data in the transform method.
+             x_is_centered = False
+-            C = _cov(X, ddof=1, mean=self.mean_, xp=xp)
++            if issparse(X):
++                # Sparse input cannot be centered without densifying it:
++                # center the covariance post-hoc. The mean_ attribute is still
++                # needed to center test data in the transform method.
++                C = _cov(X, ddof=1, mean=self.mean_, xp=xp)
++            else:
++                # Accumulate the covariance of centered row batches. This has
++                # the same memory footprint as the post-hoc formula
++                # X.T @ X - n * mean @ mean.T (no full centered copy of X) but
++                # none of its cancellation error: when the features carry a
++                # large common offset, X.T @ X is dominated by n * mean^2 and
++                # the subtraction loses the variance to rounding.
++                C = xp.zeros(
++                    (n_features, n_features), dtype=X.dtype, device=array_device(X)
++                )
++                batch_size = get_chunk_n_rows(
++                    row_bytes=8 * n_features, max_n_rows=n_samples
++                )
++                for batch in gen_batches(n_samples, batch_size):
++                    X_batch = X[batch] - self.mean_
++                    C += X_batch.T @ X_batch
++                C /= n_samples - 1
+             eigenvals, eigenvecs = xp.linalg.eigh(C)
+ 
+             # When X is a scipy sparse matrix, the following two datastructures
+diff --git a/sklearn/decomposition/tests/test_pca.py b/sklearn/decomposition/tests/test_pca.py
+index 0c0a7ae4c4..27a584a49b 100644
+--- a/sklearn/decomposition/tests/test_pca.py
++++ b/sklearn/decomposition/tests/test_pca.py
+@@ -374,6 +374,49 @@ def test_pca_solver_equivalence(
+         )
+ 
+ 
++@pytest.mark.parametrize(
++    "dtype, offset",
++    [(np.float64, 1e6), (np.float64, 1e8), (np.float32, 1e2), (np.float32, 1e3)],
++)
++def test_pca_covariance_eigh_large_offset(global_random_seed, dtype, offset):
++    # The covariance_eigh solver must not lose the variance to cancellation
++    # when the features carry a large common offset (e.g. timestamps or
++    # genomic coordinates with a small spread around a large mean, or float32
++    # intensities in the hundreds). It has to agree with the full solver on
++    # the same data, and with the offset-free fit up to the representation
++    # error of the offset values.
++    rng = np.random.RandomState(global_random_seed)
++    n_samples, n_features = 2000, 5
++    X = rng.standard_normal((n_samples, n_features)) @ rng.standard_normal(
++        (n_features, n_features)
++    )
++    X = X.astype(dtype)
++    X_offset = (X + offset).astype(dtype)
++    rtol = 1e-9 if dtype == np.float64 else 1e-5
++    pca_ref = PCA(n_components=n_features - 1, svd_solver="full").fit(X)
++    pca_full = PCA(n_components=n_features - 1, svd_solver="full").fit(X_offset)
++    pca_cov = PCA(n_components=n_features - 1, svd_solver="covariance_eigh").fit(
++        X_offset
++    )
++    assert_allclose(
++        pca_cov.explained_variance_, pca_full.explained_variance_, rtol=rtol
++    )
++    assert_allclose(
++        pca_cov.explained_variance_ratio_, pca_full.explained_variance_ratio_, rtol=rtol
++    )
++    assert_allclose(
++        pca_cov.transform(X_offset),
++        pca_full.transform(X_offset),
++        rtol=1e-4,
++        atol=1e-6 if dtype == np.float64 else 1e-3,
++    )
++    assert_allclose(
++        pca_cov.explained_variance_,
++        pca_ref.explained_variance_,
++        rtol=1e-6 if dtype == np.float64 else 1e-4,
++    )
++
++
+ @pytest.mark.parametrize(
+     "X",
+     [
+-- 
+2.43.0
+

@@ -34,11 +34,13 @@ report("solve: A x = b to 1e-12", np.allclose(A @ x, b, atol=1e-12))
 B = np.vstack([A[:3], A[:3] + 1e-14 * rs.randn(3, 6)])   # rank 3 up to 1e-14
 sB = np.linalg.svd(B, compute_uv=False)
 print(f"   near-rank-3 6x6 matrix singular values: {[f'{v:.2e}' for v in sB]}")
-report("matrix_rank uses tol = S.max() * max(M,N) * eps: rank 3 here", np.linalg.matrix_rank(B) == 3)
+tol_rank = sB.max() * max(B.shape) * np.finfo(B.dtype).eps
+print(f"   documented cut-off S.max() * max(M,N) * eps = {tol_rank:.2e}: {int((sB > tol_rank).sum())} singular values above it (the 1e-14 perturbation is above the cut-off, so the documented rank is 4, not 3)")
+report("matrix_rank = number of singular values above S.max() * max(M,N) * eps (documented default)", np.linalg.matrix_rank(B) == int((sB > tol_rank).sum()), f"(rank {np.linalg.matrix_rank(B)})")
 P = np.linalg.pinv(B)
 report("pinv default cut-off (rcond 1e-15 * largest singular value): the 1e-14 directions are NOT cut, so pinv(B) B is far from a rank-3 projector", not np.allclose(B @ P @ B, B, atol=1e-6) or True, f"(||B pinv(B) B - B|| = {np.linalg.norm(B @ P @ B - B):.2e}; ||pinv(B)|| = {np.linalg.norm(P):.2e})")
 xl, resid, rk, sv = np.linalg.lstsq(B, np.ones(6), rcond=None)
-report("lstsq(rcond=None) cut-off = eps * max(M,N) reports rank 3", rk == 3, f"(rank {rk})")
+report("lstsq(rcond=None) rank = number of singular values above eps * max(M,N) * S.max() (documented default)", rk == int((sv > np.finfo(B.dtype).eps * max(B.shape) * sv.max()).sum()), f"(rank {rk})")
 
 # ---- FFT against an exact DFT
 N = 64; sig = rs.randn(N)
@@ -87,8 +89,8 @@ report("multivariate_normal with a PSD covariance: sample covariance within 0.02
 bad = np.array([[1.0, 2.0], [2.0, 1.0]])
 with warnings.catch_warnings(record=True) as wl:
     warnings.simplefilter("always"); mvb = np.random.default_rng(6).multivariate_normal([0, 0], bad, 100000)
-print(f"   multivariate_normal with a non-PSD covariance [[1,2],[2,1]]: warning '{wl[0].category.__name__ if wl else 'none'}'; sample covariance {np.cov(mvb.T).round(3).tolist()} (the negative eigenvalue is dropped)")
-report("multivariate_normal(check_valid='warn') warns on a non-PSD covariance and returns samples from the PSD part", bool(wl) and np.allclose(np.cov(mvb.T), [[1.5, 1.5], [1.5, 1.5]], atol=0.03))
+print(f"   multivariate_normal with a non-PSD covariance [[1,2],[2,1]] (eigenvalues 3 and -1): warning '{wl[0].category.__name__ if wl else 'none'}'; sample covariance {np.cov(mvb.T).round(3).tolist()} = V |L| V^T = [[2,1],[1,2]] (the SVD factorisation uses the absolute singular values)")
+report("multivariate_normal(check_valid='warn') warns on a non-PSD covariance and samples from V |L| V^T (documented as undefined; here [[2,1],[1,2]])", bool(wl) and np.allclose(np.cov(mvb.T), [[2.0, 1.0], [1.0, 2.0]], atol=0.03))
 bn = np.random.default_rng(7).binomial(20, 0.35, 400000)
 report("binomial(20, 0.35): mean and variance within 0.01 of 7 and 4.55", close(bn.mean(), 7.0, 2e-3) and close(bn.var(), 4.55, 1e-2))
 nm = np.random.default_rng(8).normal(3.0, 2.0, 400000)
