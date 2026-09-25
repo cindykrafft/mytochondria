@@ -1,0 +1,397 @@
+numpy 1.26.4  python 3.11.15
+---- reshape / ravel / flatten / resize
+ok   reshape (4,6)->(2, 12) order='C' reads/writes C order, order='F' reads/writes F order
+ok   reshape (4,6)->(3, 2, 4) order='C' reads/writes C order, order='F' reads/writes F order
+ok   reshape (4,6)->(24,) order='C' reads/writes C order, order='F' reads/writes F order
+ok   reshape (4,6)->(1, 24, 1) order='C' reads/writes C order, order='F' reads/writes F order
+ok   reshape order='A': F order for a Fortran-contiguous input ('A' means F order if a is Fortran *contiguous* in memory)
+ok   reshape order='A' on a non-contiguous (neither C nor F) view uses C order
+ok   reshape -1 inference: (-1, 4) of 24 -> (6, 4); (2, -1, 3) -> (2, 4, 3)
+ok   reshape: two -1 raise ValueError ('One shape dimension can be -1')
+ok   reshape: incompatible size raises ValueError
+ok   reshape -1 of an empty array with a zero dimension: (0, -1) raises (ambiguous), (-1, 3) of shape (0, 6) -> (0, 3)
+ok   reshape of a C-contiguous array is a view (np.shares_memory)
+ok   ravel(order='K') / flatten('K') of transpose(2,0,1): memory order, negative strides keep their logical order
+ok   ravel C / F / A of transpose(2,0,1) = plain C / F traversal
+ok   ravel(order='K') / flatten('K') of F-copy: memory order, negative strides keep their logical order
+ok   ravel C / F / A of F-copy = plain C / F traversal
+ok   ravel(order='K') / flatten('K') of [:, ::2, 1:]: memory order, negative strides keep their logical order
+ok   ravel C / F / A of [:, ::2, 1:] = plain C / F traversal
+ok   ravel(order='K') / flatten('K') of [::-1] (negative stride): memory order, negative strides keep their logical order
+ok   ravel C / F / A of [::-1] (negative stride) = plain C / F traversal
+ok   ravel(order='K') / flatten('K') of T[:, ::-1]: memory order, negative strides keep their logical order
+ok   ravel C / F / A of T[:, ::-1] = plain C / F traversal
+ok   ravel(order='K') / flatten('K') of swapaxes(0,2)[::2]: memory order, negative strides keep their logical order
+ok   ravel C / F / A of swapaxes(0,2)[::2] = plain C / F traversal
+   arange(6)[::-1].ravel('K') = [5, 4, 3, 2, 1, 0] (documented: negative strides are not reversed)
+ok   ravel of a contiguous array returns a view; flatten always returns a copy
+ok   ravel(order='F') of a Fortran-contiguous array shares memory, ravel('C') does not
+ok   np.resize((2, 3)->(3, 4)) 'filled with repeated copies of a' in C order
+ok   np.resize((2, 3)->(1, 5)) 'filled with repeated copies of a' in C order
+ok   np.resize((2, 3)->(7,)) 'filled with repeated copies of a' in C order
+ok   np.resize((2, 3)->(2, 3)) 'filled with repeated copies of a' in C order
+ok   np.resize((2, 3)->(0,)) 'filled with repeated copies of a' in C order
+ok   np.resize of an empty array returns zeros of the new shape
+ok   np.resize negative size raises ValueError
+ok   ndarray.resize enlarging 'missing entries are filled with zeros' (C order)
+ok   ndarray.resize shrinking keeps the first elements in C order
+ok   ndarray.resize raises ValueError when another array references it (refcheck=True)
+ok   ndarray.resize on a non-owning view raises ValueError
+ok   ndarray.resize of a Fortran array: data 'flattened (in the order that the data are stored in memory), resized, and reshaped' (F order, zero-filled)  [[1, 5, 0], [4, 3, 0], [2, 6, 0]]
+ok   ndarray.resize docstring: [[0,1],[2,3]] order='F' resized to (2,1) -> [[0],[2]]
+---- broadcasting
+ok   broadcast_shapes: trailing-dimension rule ('equal, or one of them is 1'), ValueError otherwise, on 12 cases
+ok   broadcast_shapes accepts ints as 1-tuples and no argument gives ()
+ok   broadcast_to: values repeated along the new axis and the view is read-only
+ok   broadcast_to: incompatible shape raises ValueError; shape shorter than ndim raises ValueError
+ok   broadcast_to: scalar to () and negative dimension raises ValueError
+ok   broadcast_to shares memory with the input (stride 0 on the new axis)
+ok   broadcast_arrays (docstring example) values
+ok   broadcast_arrays returns a list (1.x)
+ok   broadcast_arrays: writing to a result emits the deprecation warning ('deprecated:: 1.17 ... if written to, a deprecation warning will be emitted')
+ok   broadcast_arrays: incompatible shapes raise ValueError
+ok   np.broadcast object: shape / size / nd / numiter
+ok   arithmetic broadcasting (4,1)+(3,) = outer sum
+---- take / put / putmask / place / take_along_axis / put_along_axis / choose / compress
+ok   take mode='wrap' wraps every index modulo n (incl. negatives)
+ok   take mode='clip' clips to [0, n-1] ('clipping to the range'; 'this disables indexing with negative numbers')
+ok   take mode='raise' (default): negative indices in range allowed, out-of-range raises IndexError
+ok   take axis=1 with 2-D indices: out[i, j, k, l] = a[i, ind[j,k], l] (shape Ni + Nj + Nk)
+ok   take axis=None works on the flattened array
+ok   take on an empty index list returns an empty array of shape (0,)
+ok   put mode='wrap' with v shorter than ind ('it will be repeated as necessary')
+ok   put mode='clip' with v shorter than ind ('it will be repeated as necessary')
+ok   put mode='raise': negative index counts from the end; out-of-range raises IndexError
+ok   put acts on the flattened target ('a.flat[ind] = v')
+ok   putmask docstring example ([[0,1,2],[9,16,25]])
+ok   putmask repeats values POSITIONALLY: 'a.flat[n] = values[n]' -> values[n % len(values)]  [0, 20, 30, 0, 20, 0, 10]
+ok   place uses vals SEQUENTIALLY: 'the first N elements of vals', repeated when shorter  [0, 10, 20, 0, 30, 0, 10]
+ok   place with an empty vals and a non-empty mask raises ('this sequence must be non-empty')
+ok   place with empty vals and an all-False mask is a no-op
+ok   putmask with values the same size as a: values[n] used at masked n (a[mask] = values would differ)
+ok   take_along_axis(a, argsort(a, axis=1), axis=1) = row-wise sorted (reference sorted())
+ok   take_along_axis axis=0 = column-wise sorted
+ok   take_along_axis with keepdims argmax picks the row maxima
+ok   take_along_axis axis=None on flattened input with 1-D indices
+ok   take_along_axis: indices of different ndim raise ValueError
+ok   put_along_axis writes -1 at the row argmax (first occurrence)
+   put_along_axis with repeated index [0,0] <- [1,2]: row 0 col 0 = 2 (no documented order; 2 = last-wins observed)
+ok   choose docstring example ([20, 31, 12, 3])
+ok   choose mode='clip' ([20, 31, 12, 3] for [2, 4, 1, 0])
+ok   choose mode='wrap' ([20, 1, 12, 3] for [2, 4, 1, 0])
+ok   choose mode='wrap' negative index -1 selects the last choice; 'clip' maps negatives to 0
+ok   choose mode='raise' raises ValueError for an out-of-range choice
+ok   choose broadcasting (docstring: [[10,-10,10],[-10,10,-10],[10,-10,10]])
+   choose(0, 40 choices): ValueError
+ok   compress docstring examples (axis=0, axis=1, axis=None)
+ok   compress: condition shorter than the axis -> 'output is truncated to the length of the condition'
+ok   compress: condition longer than the axis with a True beyond it raises IndexError
+   compress: condition longer than the axis but False beyond it -> [1]
+---- pad (plain-Python 1-D reference applied axis by axis, per the Notes)
+ok   pad: all 11 1-D docstring examples reproduced by numpy
+ok   pad: the plain-Python reference reproduces the same 11 docstring examples (reference sanity)
+ok   pad 2-D 'minimum' docstring example ((3,2),(2,3)) = reference
+ok   pad 1-D float mode='constant': 11 option x width cases (widths up to 25 on n=5, one-sided) = reference  failing (reflect_type, width): []
+ok   pad 1-D float mode='edge': 11 option x width cases (widths up to 25 on n=5, one-sided) = reference  failing (reflect_type, width): []
+ok   pad 1-D float mode='linear_ramp': 22 option x width cases (widths up to 25 on n=5, one-sided) = reference  failing (reflect_type, width): []
+ok   pad 1-D float mode='maximum': 44 option x width cases (widths up to 25 on n=5, one-sided) = reference  failing (reflect_type, width): []
+ok   pad 1-D float mode='minimum': 22 option x width cases (widths up to 25 on n=5, one-sided) = reference  failing (reflect_type, width): []
+ok   pad 1-D float mode='mean': 33 option x width cases (widths up to 25 on n=5, one-sided) = reference  failing (reflect_type, width): []
+ok   pad 1-D float mode='median': 33 option x width cases (widths up to 25 on n=5, one-sided) = reference  failing (reflect_type, width): []
+   reflect {} (25, 1): numpy    [-2, 5, 15, 16, 15, 5, -2, -7, -2, 5, 15, 16, 15, 16, 15, 5, -2, -7, -2, 5, 15, 16, 15, 5, -2, -7, -2, 5, 15, 16, 15]
+   reflect {} (25, 1): reference [-2, -7, -2, 5, 15, 16, 15, 5, -2, -7, -2, 5, 15, 16, 15, 5, -2, -7, -2, 5, 15, 16, 15, 5, -2, -7, -2, 5, 15, 16, 15]
+FAIL pad 1-D float mode='reflect' ('mirrored on the first and last values', periodic for widths > n-1): 22 option x width cases (widths up to 25 on n=5, one-sided) = reference  failing (reflect_type, width): [('', (25, 1)), ('', (1, 25)), ('odd', (25, 1)), ('odd', (1, 25))]
+   symmetric {} (25, 1): numpy    [5, -2, -7, -7, -2, 5, 15, 16, 16, 16, 16, 15, 5, -2, -7, -7, -2, 5, 15, 16, 16, 15, 5, -2, -7, -7, -2, 5, 15, 16, 16]
+   symmetric {} (25, 1): reference [16, 15, 5, -2, -7, -7, -2, 5, 15, 16, 16, 15, 5, -2, -7, -7, -2, 5, 15, 16, 16, 15, 5, -2, -7, -7, -2, 5, 15, 16, 16]
+FAIL pad 1-D float mode='symmetric' ('mirrored along the edge', periodic for widths > n): 22 option x width cases (widths up to 25 on n=5, one-sided) = reference  failing (reflect_type, width): [('', (25, 1)), ('', (1, 25)), ('odd', (25, 1)), ('odd', (1, 25))]
+ok   pad 1-D float mode='wrap' (1.25 release note: 'always fills the space with strict multiples of original data'): 11 option x width cases (widths up to 25 on n=5, one-sided) = reference  failing (reflect_type, width): []
+   vector [-7.0, -2.0, 5.0, 15.0, 16.0]; reflect (13,17) = [15.0, 16.0, 15.0, 5.0, -2.0, -7.0, -2.0, 5.0]...
+   reflect odd (9,2) = [-58.0, -53.0, -48.0, -41.0, -31.0, -30.0, -29.0, -19.0, -12.0, -7.0, -2.0, 5.0, 15.0, 16.0, 17.0, 27.0]
+ok   pad int dtype: mean/median rounded half-to-even (np.round), linear_ramp floored (linspace int dtype rounds towards -inf)
+   mean of [1,2] -> 2 (1.5 -> 2), of [1,2,4] (7/3) -> 2
+ok   pad 2-D constant / edge / linear_ramp / stat modes (per-axis per-side values): 'corners calculated by using padded values from the first axis' = reference
+ok   pad 2-D reflect / symmetric / wrap incl. widths larger than the axis = reference (axis-by-axis)
+ok   pad constant corners: later axis wins ([[3,1,4],[3,0,4],[3,2,4]] for constant_values=((1,2),(3,4)))
+ok   pad 3-D 'wrap' and 'symmetric' = reference
+ok   pad float32 input keeps float32; mean = float32(7/3)
+ok   pad 'empty': shape grows and the original values sit in the middle (pad values undefined)
+ok   pad callable (docstring pad_with example, default and padder=100)
+ok   pad callable receives (vector, iaxis_pad_width, iaxis, kwargs); vector = a 1-D line of the padded array, 'already padded with zeros'  [(0, (1, 2), 5), (1, (3, 0), 6)]
+   pad callable call count for (2,3) padded ((1,2),(3,0)): 11 (axis 0: 6 columns of the padded array incl. the pad columns; axis 1: 5 rows); the count is not documented
+ok   pad: negative pad width raises ValueError
+ok   pad: stat modes on an empty axis raise, constant on empty works
+ok   pad: 'reflect' / 'wrap' on an empty axis with nonzero width raise ValueError
+ok   pad: unsupported keyword for the mode raises ValueError (e.g. stat_length with 'edge')
+   pad reflect of a length-1 array (not documented): [7, 7, 7, 7, 7, 7], symmetric odd: [7, 7, 7, 7, 7]
+---- roll / rot90 / flip / tile / repeat
+ok   roll 1-D: out[(i+shift) % n] = x[i] for shifts 2, -2, 13, -23, 0
+ok   roll axis=None flattens, rolls and restores the shape (docstring: roll(x2, 1) -> [[9,0,1,2,3],[4,5,6,7,8]])
+ok   roll axis=1 and tuple shifts ((1, 1), axis=(1, 0)) and ((2, -1), (0, 1))
+ok   roll with the same axis repeated adds the shifts (roll(x, (1, 2), axis=(0, 0)) == roll(x, 3))
+ok   roll of an empty array; shift tuple with axis=None sums the shifts on the flattened array
+ok   roll: shift tuple / axis tuple length mismatch raises ValueError
+ok   rot90 k = 0..7 and negative k (k mod 4) = repeated counter-clockwise rotation
+ok   rot90(m, k, axes=(1,0)) is the reverse of rot90(m, k, axes=(0,1)) ('rot90(m, k=1, axes=(1,0)) is the reverse')
+ok   rot90 on 3-D with axes=(1,2) rotates each 2-D slab
+ok   rot90: axes of equal values or wrong length raise ValueError
+ok   flip axis=None reverses every axis; flip axis tuple; fliplr / flipud
+ok   flip returns a view (O(1))
+ok   fliplr of a 1-D array raises ValueError ('must be >= 2-d')
+ok   tile: reps promoted / array promoted by prepending 1s, output = periodic extension (9 cases incl. docstring)
+ok   repeat: scalar repeats, per-element repeats, axis=None flattens
+ok   repeat with zero repeats drops elements; negative repeats and wrong-length repeats raise ValueError
+---- meshgrid / mgrid / ogrid / indices / ix_
+ok   meshgrid 'xy' (default): outputs of shape (N, M) = (len(y), len(x)); X[j][i] = x[i], Y[j][i] = y[j]
+ok   meshgrid 'ij': shape (M, N); X[i][j] = x[i]
+ok   meshgrid 3-D 'xy': shape (N, M, P) per the Notes
+ok   meshgrid sparse=True: shapes (1, M) and (N, 1) for 'xy', broadcast to the dense grid
+ok   meshgrid sparse 'ij': shapes (M, 1) and (1, N)
+ok   meshgrid copy=False returns views of the inputs (shares memory, zero stride)
+ok   meshgrid of one / zero inputs: 1-D -> (array,), none -> ()
+ok   meshgrid bad indexing string raises ValueError
+ok   mgrid[0:5, 0:3]: shape (2, 5, 3), dense index grids
+ok   mgrid complex step 5j: 'the integer part of its magnitude is interpreted as the number of points', stop INCLUSIVE
+ok   mgrid real step: stop EXCLUSIVE (like arange)
+ok   mgrid mixed complex steps (4j, 3j): shape (2, 4, 3), values linspace
+   mgrid[0:1:3.5j] (non-integer magnitude) -> [0.0, 0.5, 1.0] (docstring: integer part of the magnitude)
+ok   mgrid[0:1:3.5j] uses int(3.5) = 3 points
+ok   mgrid[0:1:3.5j]: 'the stop value **is inclusive**' also for a non-integer magnitude -> [0, 0.5, 1]  [0.0, 0.5, 1.0]
+ok   ogrid[0:1:3.5j] likewise [0, 0.5, 1] (same docstring sentence)  [0.0, 0.5, 1.0]
+ok   ogrid 1-D complex step = mgrid
+ok   ogrid[0:5, 0:3]: open grids of shapes (5, 1) and (1, 3)
+ok   indices((2,3)): grid[k][i][j] = (i, j)[k]
+ok   indices sparse=True returns a tuple of shapes (2,1), (1,3)
+ok   indices dtype=
+ok   ix_: open mesh shapes (2,1)/(1,2), a[ix_] = cross product selection
+ok   ix_ with a boolean sequence converts it to the nonzero indices
+ok   ix_ with a 2-D argument raises ValueError ('Cross index must be 1 dimensional')
+---- linspace / arange / logspace / geomspace
+ok   linspace docstring examples (2..3 num=5, endpoint=False, retstep)
+ok   linspace: 'stop is the last sample' EXACTLY (y[-1] = stop) and first = start
+ok   linspace values within 4 ulp of max(|start|, |stop|) of the exact start + i*(stop-start)/(num-1) (Fraction; no bound is documented)  worst 2.03e-16
+   linspace worst |error| / max(|start|,|stop|) vs Fraction truth: 2.03e-16 (= 0.92 ulp)
+ok   linspace endpoint=False: all but the last of num+1 samples; step = (stop-start)/num
+ok   linspace num=1: [start]; retstep step is NaN when endpoint=True (undefined step)
+ok   linspace num=1 endpoint=False: [start], step = stop - start
+ok   linspace num=0 -> empty; negative num raises ValueError
+ok   linspace dtype is never integer by inference ('float is chosen even if the arguments would produce an array of integers')
+ok   linspace integer dtype: 'rounded towards -inf' (1.20+)  [-3, -2, -1, 0, 1, 2]
+ok   linspace(0,1,4,dtype=int) -> [0,0,0,1] (floor of 0, 1/3, 2/3, 1)
+ok   linspace array start/stop: axis=1 places samples on the last axis
+   linspace(inf, inf, 3) = [nan, nan, inf]
+ok   linspace dtype=float32: output float32, stop exact, values = float32 of the float64 samples
+ok   arange dtype=float32 length ceil((1-0)/0.1) = 10
+ok   linspace complex endpoints
+ok   arange float length = ceil((stop - start)/step) evaluated in float (documented)  len=4 ceil=4
+   arange(1, 1.3, 0.1) = [1.0, 1.1, 1.2000000000000002, 1.3000000000000003] length 4; (1.3-1)/0.1 = 3.0000000000000004; last > stop: True
+ok   arange(1, 1.3, 0.1): the documented hazard occurs ('may result in the last element of out being greater than stop')
+ok   arange float: length ceil((stop-start)/step) and out[i] = start + i*(dtype(start+step) - dtype(start)) (Warnings section) within 2 ulp
+ok   arange docstring integer examples and step sign
+ok   arange(0, 5, 0.5, dtype=int) -> ten zeros; arange(-3, 3, 0.5, dtype=int) -> [-3..8] (Warnings section)
+ok   arange step 0 raises ZeroDivisionError / ValueError
+   arange step=0 raises ZeroDivisionError
+ok   arange integer dtype default int64 / float for float args
+ok   arange large int64 near 2**53 exact
+ok   logspace(0,3,4) = [1,10,100,1000] exactly (10.0**k)
+ok   logspace base=2 docstring = [4, 5.0397, 6.3496, 8] (2**linspace) within 1e-15
+ok   logspace endpoint=False
+ok   1.25+: array base: result shape (num, len(base)) with column j = base[j]**linspace
+ok   1.25+: array base with axis=-1 puts samples last
+ok   geomspace(1, 1000, 4) = [1, 10, 100, 1000] (docstring)
+ok   geomspace endpoints exact (result[0] = start, result[-1] = stop) incl. decreasing and negative ranges
+ok   geomspace interior values within 1e-14 relative of s*(e/s)**(i/(n-1))  worst 3.29e-15
+   geomspace worst rel error 3.29e-15
+ok   geomspace(1, 256, 9, dtype=int_) truncates (docstring: [1,2,4,7,16,32,63,127,256] 'may not produce exact integers')
+   geomspace(1,256,9,dtype=int_) = [1, 2, 4, 7, 16, 32, 63, 127, 256]
+ok   geomspace(-1000, -1, 4) = [-1000, -100, -10, -1]
+ok   geomspace(1j, 1000j, 4) is a straight line [1j, 10j, 100j, 1000j] (docstring)
+ok   geomspace(-1, 1, 5) complex: half circle exp(i*pi*(1 - k/4)) (docstring 'Circle')
+ok   geomspace with zero raises ValueError ('Geometric sequence cannot include zero')
+   geomspace(-1, 1, 3) real (sign change) -> [-1.0, nan, 1.0] (no documented error)
+---- insert / delete / append
+ok   insert docstring: insert(a, 1, 5) flattens -> [1,5,1,2,2,3,3]
+ok   insert axis=1 scalar index vs [1] sequence ('obj=0 behaves very different from obj=[0]')
+ok   insert multiple indices refer to positions in the ORIGINAL array: insert(b, [2, 2], [5, 6]) and slice(2,4)
+ok   insert unsorted index list: values placed before each original position (stable)
+ok   insert float values into int array are cast ([2.5, 3] -> [2, 3])
+ok   insert index == len appends; negative index counts from the end (before the last)
+ok   insert out-of-range index raises IndexError (both signs)
+ok   pre-2.1.2: insert with a boolean obj casts it 'to the integers 0 and 1' (versionchanged 2.1.2) -> before positions 1, 0, 1  [9, 0, 9, 9, 1, 2]
+ok   delete docstring: delete(arr, 1, 0), delete(arr, np.s_[::2], 1), delete(arr, [1,3,5], None)
+ok   delete negative indices and repeated indices (deleted once)
+ok   delete with a boolean mask of the axis length removes the True positions
+ok   delete boolean mask of the wrong length raises ValueError
+ok   delete out-of-range index raises IndexError (scalar and sequence)
+ok   delete empty index list returns a copy
+ok   append flattens without axis; with axis needs matching ndim (ValueError)
+---- split family
+ok   array_split: 'l % n sub-arrays of size l//n + 1 and the rest of size l//n' (n = 0..13, k = 1..6)
+ok   array_split docstring: 8 into 3 -> [0,1,2],[3,4,5],[6,7]
+ok   split: equal division required else ValueError ('array split does not result in an equal division')
+ok   split at indices incl. one beyond the end -> empty last piece (docstring)
+ok   split with decreasing indices gives empty pieces
+ok   split sections=0 raises (ZeroDivisionError/ValueError)
+ok   array_split sections <= 0 raises ValueError ('number sections must be larger than 0')
+ok   hsplit splits axis 1 of 2-D, axis 0 of 1-D; vsplit axis 0; dsplit axis 2
+ok   vsplit of 1-D and dsplit of 2-D raise ValueError ('only works on arrays of 2/3 or more dimensions')
+ok   split pieces are views of the input
+---- stack family / concatenate / block / atleast_*d
+ok   stack axis 0 / 1 / -1 of 1-D arrays
+ok   stack: shape mismatch raises ValueError; empty list raises ValueError
+ok   stack axis out of range raises AxisError
+ok   hstack 1-D concatenates, 2-D along axis 1; vstack promotes 1-D to rows
+ok   dstack of 1-D -> (1, N, k); of 2-D -> (M, N, k)
+ok   column_stack: 1-D arrays become columns; 2-D stacked as-is
+ok   row_stack = vstack; 1.x: no warning
+ok   concatenate axis=None flattens all inputs first
+ok   concatenate: ndim mismatch / shape mismatch off-axis raise ValueError
+ok   concatenate: zero-length inputs allowed
+ok   concatenate dtype=float from ints
+ok   concatenate dtype=int from floats raises TypeError under default casting='same_kind'
+ok   concatenate dtype=int casting='unsafe' truncates ([1.7, -1.7] -> [1, -1])
+ok   concatenate casting='no' with differing dtypes raises TypeError
+ok   concatenate out= and dtype= together raise TypeError
+ok   concatenate out= receives the result
+ok   block docstring (2x2 / 3x3 blocks) -> 5x5 with the blocks in place
+ok   block 1-D = hstack; [[a],[b]] = vstack; scalars are 0-d blocks
+ok   block: mismatched list depths raise ValueError; empty list raises ValueError
+ok   block: incompatible shapes raise ValueError
+ok   atleast_1d: scalar -> (1,), 1-D unchanged (same object)
+ok   atleast_2d: (N,) -> (1, N); scalar -> (1, 1)
+ok   atleast_3d: (N,) -> (1, N, 1); (M, N) -> (M, N, 1); scalar -> (1,1,1); 3-D unchanged
+ok   atleast_1d of several inputs returns a list (1.x)
+---- expand_dims / squeeze / moveaxis / swapaxes / rollaxis / transpose
+ok   expand_dims axis 0 / 1 / -1 / tuple (0, 3) / (0, -1)
+ok   expand_dims out-of-range axis raises AxisError; repeated axis raises ValueError
+ok   squeeze removes all length-1 axes; axis selects; tuple axis
+ok   squeeze axis with length != 1 raises ValueError
+ok   squeeze of (1,1) returns 0-d; squeeze axis out of range raises AxisError
+ok   moveaxis docstring shapes: (0,-1)->(4,5,3); (-1,0)->(5,3,4); ([0,1],[-1,-2])->(5,4,3)
+ok   moveaxis values: out[j,k,i] = a[i,j,k]
+ok   moveaxis repeated source raises ValueError; source/destination length mismatch raises ValueError
+ok   swapaxes values and view
+ok   rollaxis docstring shapes: (3,1)->(3,6,4,5); (2)->(5,3,4,6); (1,4)->(3,5,6,4)
+ok   rollaxis start > ndim raises AxisError
+ok   transpose with axes incl. negative: out[j,k,i] = a[i,j,k] for axes (1,-1,0)
+ok   transpose default reverses axes; repeated axes raise ValueError; wrong length raises ValueError
+ok   1-D transpose is a no-op
+---- triu / tril / tri / diag / diagflat / diagonal / fill_diagonal
+ok   triu / tril for k = -4..5: keep j - i >= k / <= k
+ok   triu/tril on 3-D apply to the final two axes
+ok   tri(N, M, k) = ones where j <= i + k; dtype
+ok   triu of a 1-D array: treated as a row repeated (documented 'k-th diagonal zeroed' of the broadcast (N,N))
+ok   diag of 2-D extracts the k-th diagonal for k = -3..3 (empty beyond)
+ok   diag of 1-D builds a 2-D array with v on the k-th diagonal (size len(v)+|k|)
+ok   diag of 3-D raises ValueError ('Input must be 1- or 2-d')
+ok   diagflat flattens the input first; k offset
+ok   diagonal returns a read-only view ('Starting in NumPy 1.9 it returns a read-only view'): write raises ValueError
+ok   np.diag of 2-D also returns the read-only diagonal view
+ok   diagonal offsets and axis1/axis2 on 3-D: result's last axis is the diagonal
+ok   diagonal axis1 == axis2 raises ValueError
+ok   fill_diagonal tall wrap=False: only the first N rows ([5,0,0],[0,5,0],[0,0,5], rest 0)
+ok   fill_diagonal wrap=True: flat step ncols+1 continues after the square block (docstring 7x3: rows 0,1,2,4,5,6)  [[4, 0, 0], [0, 4, 0], [0, 0, 4], [0, 0, 0], [4, 0, 0], [0, 4, 0], [0, 0, 4]]
+ok   fill_diagonal wide array and val sequence (repeated/truncated to the diagonal)
+ok   fill_diagonal with shorter val repeats it cyclically
+ok   fill_diagonal 3-D: a[i,i,i] only
+ok   fill_diagonal on a non-hypercube N-D (N>2) raises ValueError ('All dimensions of input must be of equal length')
+---- ravel_multi_index / unravel_index
+ok   ravel_multi_index docstring: [22, 41, 37] (C), [31, 41, 13] (F)
+ok   ravel_multi_index mode='clip' / 'wrap' docstring: [22, 23, 19] and (4,2) with modes ('clip','wrap') -> 12
+ok   ravel_multi_index scalar docstring: (3,1,4,1) in (6,7,8,9) -> 1621
+ok   ravel_multi_index wrap/clip x C/F against the closed-form strides (incl. negative / oversized)
+ok   ravel_multi_index mode='raise' out of range raises ValueError
+ok   unravel_index docstring: [22,41,37] in (7,6) -> ([3,6,6],[4,5,1]); F -> ([3,6,6],[4,5,1]) for [31,41,13]; 1621 -> (3,1,4,1)
+ok   unravel_index round-trips every flat index of (3,4,5) in C and F
+ok   unravel_index out-of-range / negative raises ValueError
+ok   unravel_index with shape () and index 0 -> ()
+---- advanced indexing semantics
+ok   a[arr1, :, arr2]: advanced indices separated by a slice -> broadcast dims FIRST: shape (2, 4), r[k, j] = a[i0[k], j, i2[k]]
+ok   a[:, arr1, arr2]: adjacent advanced indices -> dims in place: shape (3, 2)
+ok   a[(2,1) idx, :, (2,) idx]: broadcast (2,2) index dims first -> (2, 2, 4)
+ok   an integer counts as an advanced index: a[arr, :, 1] -> dims first (2, 4) (docstring 'not x[arr1, :, 1]')
+ok   a[1, :, arr] also puts the advanced dim first: shape (2, 4)
+ok   a[..., arr] = take(arr, axis=-1)
+ok   doc shapes: x[:, ind_1, ind_2] -> (10,2,3,4,40,50); x[:, ind_1, :, ind_2] -> (2,3,4,10,30,50)
+ok   doc: x[..., ind, :] shape (10, 2, 5, 2, 30) for x (10,20,30), ind (2,5,2)
+ok   boolean mask with fewer dims (3,4) on (3,4,5): result (count, 5), rows in C order of True positions
+ok   1-D boolean on axis 0 = nonzero index; combined with a slice and an int array
+ok   boolean mask of wrong length raises IndexError
+ok   repeated indices in assignment: final value is one of the assigned values ('no guarantee for the iteration order')
+   x[[1,1,3,1]] = [10,20,30,40] -> x[1] = 40.0 (last-wins observed: True; the docs promise no order)
+ok   x[[1,1,3,1]] += 1 increments only once (docstring [0, 11, 20, 31, 40])
+ok   np.add.at accumulates repeated indices ([0, 13, 20, 31, 40])
+ok   np.add.at with a tuple of index arrays and values
+ok   np.multiply.at accumulates; unary ufunc.at (negative twice = identity)
+ok   negative indices count from the end; out-of-bounds raise IndexError (int and array)
+ok   empty index array: a[[]] shape (0, 4, 5); a[:, []] shape (3, 0, 5); on an int array dtype preserved
+ok   float index arrays raise IndexError
+ok   advanced indexing returns a copy, basic slicing a view
+ok   x[()] of a 0-d array returns a scalar; x[...] a 0-d view
+---- nonzero / argwhere / where
+ok   nonzero: row-major (C) order indices per dimension (docstring)
+ok   1.17-2.0: nonzero on a 0-d array warns DeprecationWarning and behaves as atleast_1d
+ok   argwhere: (N, ndim) grouped by element (docstring [[0,2],[1,0],[1,1],[1,2]])
+ok   argwhere on 0-d: 'produces a result of the correct shape for a 0D array' -> (1, 0) / (0, 0)
+ok   argwhere on an empty array -> (0, ndim)
+ok   where 3-arg: result dtype = result_type(x, y) (int8 array, float32 array -> float32)
+ok   where 3-arg: int64 array and float python scalar -> float64; values chosen elementwise
+ok   where(uint8 array, python int 7) stays uint8 (both value-based 1.x and NEP 50 2.x)
+ok   1.x value-based casting: where(uint8 array, 300) -> uint16 with the exact value
+ok   where with only x raises ValueError ('either both or neither of x and y should be given')
+ok   where 1-arg = nonzero
+ok   where broadcasting (3,1) cond with (4,) x
+---- apply_along_axis / vectorize / frompyfunc
+ok   apply_along_axis scalar result: axis removed (docstring my_func -> [4., 5., 6.])
+ok   apply_along_axis 1-D result replaces the axis (sorted rows)
+ok   apply_along_axis 2-D result: the axis is replaced by the result's dims (docstring (3,3,3))
+   apply_along_axis where the first call returns int 0 and later calls floats -> [0, 2, 4] dtype int64 (output buffer is allocated from the first result's dtype; not documented)
+ok   apply_along_axis pitfall recorded: output dtype follows the FIRST call (later floats truncated)
+ok   apply_along_axis on an axis of length 0 raises ValueError ('Cannot apply_along_axis when any iteration dimensions are 0')
+ok   apply_along_axis 3-D axis=1 = per-fibre cumsum
+ok   vectorize without otypes calls the function on the first element one extra time (documented: cache=True prevents 'calling the function twice')  [1, 1, 2, 3]
+ok   vectorize cache=True calls the function exactly once per element
+ok   vectorize with otypes calls once per element
+ok   vectorize first-call inference pitfall: 'output type determined by calling the function with the first element' -> int, fractions lost  [0, 1, 2]
+ok   vectorize otypes=[float] fixes it ([0.0, 1.5, 2.5])
+ok   vectorize otypes as a typecode string 'd' and multiple outputs
+ok   vectorize excluded by keyword name: p not vectorized (docstring polyval: [3, 4, 1 ... ])
+ok   vectorize excluded by position (excluded.add(0))
+ok   vectorize signature '(n),(n)->()' loops over the leading dims (docstring pearsonr)
+ok   vectorize signature '(n),(m)->(k)' output core dim from the result (docstring convolve shape (3, 5))
+ok   vectorize signature: mismatched core dims raise ValueError
+ok   vectorize of an empty input without otypes raises ValueError ('cannot call vectorize on size 0 inputs unless otypes is set')
+ok   frompyfunc returns an object-dtype array (docstring 'always returns PyObject arrays')
+ok   frompyfunc ufunc attributes nin / nout / identity kw
+ok   frompyfunc with Fractions keeps exact Python objects
+---- copyto / shares_memory / trim_zeros / sliding_window_view / as_strided / array_equal
+ok   copyto default casting='same_kind' rejects float -> int (TypeError)
+ok   copyto casting='unsafe' truncates toward zero
+ok   copyto where= copies only where True
+ok   copyto broadcasts src to dst
+ok   copyto casting='no' with float32 -> float64 raises TypeError; 'safe' allows it
+   copyto(uint8, 300) -> [44, 44]
+ok   shares_memory exact: x[::2] and x[1::2] do not share; may_share_memory (bounds) says they may
+ok   shares_memory overlapping slices True; disjoint halves False for both
+FAIL shares_memory max_work=0: 'Only the memory bounds of a and b are checked.' (1.x docstring, max_work=MAY_SHARE_BOUNDS = 0)  got ['TooHardError', 'TooHardError', False], may_share_memory gives [True, True, False]
+ok   shares_memory max_work=1 (finite effort) solves the interleaved case exactly: False
+ok   shares_memory of an array with a copy is False
+ok   trim_zeros docstring: default 'fb' -> [1,2,3,0,2,1]; 'b' -> [0,0,0,1,2,3,0,2,1]
+ok   trim_zeros 'f'; all-zeros -> empty; list input returns a list
+ok   trim_zeros treats -0.0 and False as zero, NaN as non-zero
+ok   sliding_window_view 1-D: shape (n-w+1, w), row i = x[i:i+w]
+ok   sliding_window_view 2-D (2,2): shape (2,3,2,2), windows = sub-blocks
+ok   sliding_window_view axis=1: window dim appended last (3, 2, 3)
+ok   sliding_window_view axis tuple; repeated axis windows along the same axis twice (docstring (2,2) on axis (0,0) -> shape (2,4,2,2))
+ok   sliding_window_view default writeable=False (write raises ValueError); a view (shares memory)
+ok   sliding_window_view writeable=True writes through to the original (shared locations)
+ok   sliding_window_view window larger than the axis raises ValueError; negative window raises ValueError
+ok   sliding_window_view window_shape length != axis count raises ValueError
+ok   as_strided: shape (4,3) strides (16,8) on int64 -> rows [2i, 2i+1, 2i+2]
+ok   as_strided zero strides broadcast one element
+ok   as_strided writeable=False returns a read-only view
+ok   array_equal: shape and values; equal_nan=True treats NaN == NaN; default False
+   array_equal([nan+1j],[1+nanj], equal_nan=True) = True (docs: NaN considered equal; complex rule not stated)
+ok   array_equal with equal_nan on int arrays works (no isnan TypeError)
+ok   array_equiv: broadcastable and equal -> True (docstring [1,2] vs [[1,2],[1,2]]); [1,2] vs [[1,2,1,2],...] False
+ok   array_equiv of non-broadcastable shapes returns False (no exception)
+#### elapsed 0.2 s
