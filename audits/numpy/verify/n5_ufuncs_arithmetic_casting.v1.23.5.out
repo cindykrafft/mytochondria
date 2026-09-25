@@ -1,0 +1,486 @@
+numpy 1.23.5  python 3.11.15  mpmath 1.4.1  SIMD: AVX FMA3 AVX2 AVX512F AVX512CD AVX512VPOPCNTDQ AVX512VL AVX512BW AVX512DQ AVX512VNNI AVX512IFMA AVX512VBMI AVX512VBMI2 AVX512BITALG AVX512_SKX AVX512_CLX AVX512_CNL AVX512_ICL
+---- rounding
+   np.round[0.5, 1.5, 2.5, 3.5, -0.5, -1.5, -2.5, 4.5, 5.5, 0.0] = [0.0, 2.0, 2.0, 4.0, -0.0, -2.0, -2.0, 4.0, 6.0, 0.0]
+ok   round: exact binary halves round half to even ("1.5 and 2.5 round to 2.0, -0.5 and 0.5 round to 0.0")
+ok   round(-0.5) is -0.0 (rint keeps the sign, IEEE roundToIntegralTiesToEven)
+ok   np.around is the same function as np.round
+   round(0.125, 2) = 0.12   documented algorithm 0.12   Python round 0.12
+   round(0.375, 2) = 0.38   documented algorithm 0.38   Python round 0.38
+   round(0.5, 1) = 0.5   documented algorithm 0.5   Python round 0.5
+   round(1.5, 1) = 1.5   documented algorithm 1.5   Python round 1.5
+   round(2.5, 1) = 2.5   documented algorithm 2.5   Python round 2.5
+   round(2.675, 2) = 2.68   documented algorithm 2.68   Python round 2.67
+   round(1.005, 2) = 1.0   documented algorithm 1.0   Python round 1.0
+   round(1.45, 1) = 1.4   documented algorithm 1.4   Python round 1.4
+   round(0.285, 2) = 0.28   documented algorithm 0.28   Python round 0.28
+   round(56294995342131.5, 3) = 56294995342131.51   documented algorithm 56294995342131.51   Python round 56294995342131.5
+   round(1234.5, -2) = 1200.0   documented algorithm 1200.0   Python round 1200.0
+   round(150.0, -2) = 200.0   documented algorithm 200.0   Python round 200.0
+   round(250.0, -2) = 200.0   documented algorithm 200.0   Python round 200.0
+   round(350.0, -2) = 400.0   documented algorithm 400.0   Python round 400.0
+   round(-250.0, -2) = -200.0   documented algorithm -200.0   Python round -200.0
+ok   round(x, decimals) equals the documented "true_divide(rint(a * 10**decimals), 10**decimals)" (positive and negative decimals)
+ok   round(0.125, 2) = 0.12 and round(0.375, 2) = 0.38: exact binary halves at decimals=2 round to even
+ok   round(56294995342131.5, 3) = 56294995342131.51 (the documented inexact example)
+ok   round(2.675, 2) = 2.68 (documented fast algorithm; Python's decimal-correct round gives 2.67)
+   round(int64 [15, 25, 35, -25, -15, 1234], -1) = [20, 20, 40, -20, -20, 1230] dtype int64; Python round: [20, 20, 40, -20, -20, 1230]
+ok   round on integers with negative decimals: half to even, integer dtype preserved (equals Python round(int, -1))
+ok   round on integers with positive decimals returns the values unchanged, integer dtype preserved
+   round(int8 [127, -128, 5], -1) = [-126, 126, 0] dtype int8  (130 does not fit int8: wraps)
+ok   round(int8 127, -1): result dtype int8 (value wraps, recorded)
+ok   round(np.int64(25), -1) returns an integer scalar 20
+   float32 round: [0.0, 2.0, 2.0, -0.0, 0.0, 3.0, 1.0] dtype float32; round(., 2) of [0.125, 2.675f, 1.45f] = [0.11999999731779099, 2.680000066757202, 1.4500000476837158] (float32 emulation [0.11999999731779099, 2.680000066757202, 1.4500000476837158])
+ok   round on float32: half to even, result dtype float32
+ok   round(float32, 2) computed in float32 (matches an emulation of the documented algorithm in float32)
+ok   rint on 14 values equals the math-module definition  ([-3.0, -2.0, -2.0, -0.0, -0.0, -0.0]...)
+ok   floor on 14 values equals the math-module definition  ([-3.0, -3.0, -2.0, -1.0, -1.0, -0.0]...)
+ok   ceil on 14 values equals the math-module definition  ([-2.0, -2.0, -1.0, -0.0, -0.0, -0.0]...)
+ok   trunc on 14 values equals the math-module definition  ([-2.0, -2.0, -1.0, -0.0, -0.0, -0.0]...)
+ok   fix on 14 values equals the math-module definition  ([-2.0, -2.0, -1.0, -0.0, -0.0, -0.0]...)
+ok   floor(-2.5) == -3 (documented: NumPy uses the mathematical floor, not floor-towards-zero)
+ok   fix(-2.5) == -2 (documented: rounds towards zero) and fix(2.7) == 2
+ok   signed zeros: ceil(-0.5), trunc(-0.5), rint(-0.4), floor(-0.0) are all -0.0 (C99 / IEEE)
+ok   rint on int input returns float64 (no integer loop); floor/ceil/trunc on int input keep the int dtype on 2.x (integer loops added in 2.1) and return float64 on 1.x  (rint float64, floor float64, trunc float64)
+---- integer and float division semantics
+ok   floor_divide on negative ints equals Python // (floor)
+ok   remainder / mod on negative ints "has the same sign as the divisor" (equals Python %)
+ok   fmod on negative ints "has the same sign as the dividend" (equals C fmod)
+ok   divmod on ints equals Python divmod
+ok   floor_divide / remainder on int arrays: [-7//2, 7//-2, -7//-2, 7//2] and remainders
+ok   int8: floor_divide / remainder equal Python semantics
+ok   uint8: floor_divide / remainder equal Python semantics
+ok   int32: floor_divide / remainder equal Python semantics
+ok   floor_divide on floats equals Python // including the sign of zero results
+ok   remainder on floats equals Python % including the sign of zero results (remainder(-0.0, 3.0) = +0.0)
+ok   fmod on floats equals math.fmod including signed zeros (fmod(-0.0, 3.0) = -0.0)
+ok   divmod on floats equals Python divmod
+ok   floor_divide and remainder satisfy "a = a % b + b * (a // b)" up to roundoff
+   int array // 0 -> [0, 0, 0] warnings ['RuntimeWarning'] ['divide by zero encountered in floor_divide']
+ok   int array floor_divide by 0 returns 0 with a RuntimeWarning (divide by zero)
+ok   int remainder by 0 "Returns 0 when x2 is 0 and both x1 and x2 are integers" (with a warning)  (warnings ['RuntimeWarning'])
+ok   int fmod by 0 returns 0 (recorded) with a warning  (got [0, 0], warnings ['RuntimeWarning'])
+ok   int divmod by 0 returns (0, 0) with a warning  (warnings ['RuntimeWarning'])
+ok   np.int64(7) // np.int64(0) returns 0 with a RuntimeWarning (no ZeroDivisionError, unlike Python)  (warnings ['RuntimeWarning'])
+   int array / 0 -> [inf, -inf, nan] dtype float64 warnings ['RuntimeWarning']
+ok   int array / 0 -> [inf, -inf, nan] float64 with RuntimeWarnings (divide, invalid)
+ok   errstate(divide='raise'): int array // 0 raises FloatingPointError
+   1/0, -1/0, 0/0, 1/-0.0 = [inf, -inf, nan, -inf] warnings ['RuntimeWarning'] ['divide by zero encountered in divide', 'invalid value encountered in divide']
+ok   float division by zero follows IEEE: 1/0=inf, -1/0=-inf, 0/0=nan, 1/-0.0=-inf, with RuntimeWarnings
+   1.0//0.0, 1.0%0.0, fmod(1,0), -1.0//0.0, 0.0//0.0 = [inf, nan, nan, -inf, nan] warnings ['divide by zero encountered in floor_divide', 'invalid value encountered in floor_divide', 'invalid value encountered in fmod', 'invalid value encountered in remainder']
+ok   float floor_divide by 0.0 -> inf / -inf / nan (IEEE, recorded), remainder and fmod by 0.0 -> nan, with warnings
+ok   negative(0.0) = -0.0, 0.0 * -1 = -0.0, sqrt(-0.0) = -0.0 (IEEE), -0.0 + 0.0 = +0.0
+ok   abs(-0.0) = +0.0 and -0.0 == 0.0 compares equal
+ok   np.round(-0.4) = -0.0, np.sign(-0.0) = 0.0 with signbit(sign(-0.0)) recorded  (signbit(sign(-0.0)) = False)
+---- integer overflow
+ok   int8 arrays: add/sub/mul/neg/abs/square/power overflow wrap modulo 2**8 silently (no warning)  (max+1=-128, min-1=127, -min=-128, abs(min)=-128, 2**7=-128, warnings [])
+ok   int8 scalars: max+1 and -min / 0-1 wrap the same way AND raise RuntimeWarning('overflow')  (warnings ['overflow encountered in byte_scalars'])
+ok   int16 arrays: add/sub/mul/neg/abs/square/power overflow wrap modulo 2**16 silently (no warning)  (max+1=-32768, min-1=32767, -min=-32768, abs(min)=-32768, 2**15=-32768, warnings [])
+ok   int16 scalars: max+1 and -min / 0-1 wrap the same way AND raise RuntimeWarning('overflow')  (warnings ['overflow encountered in short_scalars'])
+ok   int32 arrays: add/sub/mul/neg/abs/square/power overflow wrap modulo 2**32 silently (no warning)  (max+1=-2147483648, min-1=2147483647, -min=-2147483648, abs(min)=-2147483648, 2**31=-2147483648, warnings [])
+ok   int32 scalars: max+1 and -min / 0-1 wrap the same way AND raise RuntimeWarning('overflow')  (warnings ['overflow encountered in int_scalars'])
+ok   int64 arrays: add/sub/mul/neg/abs/square/power overflow wrap modulo 2**64 silently (no warning)  (max+1=-9223372036854775808, min-1=9223372036854775807, -min=-9223372036854775808, abs(min)=-9223372036854775808, 2**63=-9223372036854775808, warnings [])
+ok   int64 scalars: max+1 and -min / 0-1 wrap the same way AND raise RuntimeWarning('overflow')  (warnings ['overflow encountered in long_scalars'])
+ok   uint8 arrays: add/sub/mul/neg/abs/square/power overflow wrap modulo 2**8 silently (no warning)  (max+1=0, min-1=255, -min=0, abs(min)=0, 2**7=128, warnings [])
+ok   uint8 scalars: max+1 and -min / 0-1 wrap the same way AND raise RuntimeWarning('overflow')  (warnings ['overflow encountered in ubyte_scalars'])
+ok   uint16 arrays: add/sub/mul/neg/abs/square/power overflow wrap modulo 2**16 silently (no warning)  (max+1=0, min-1=65535, -min=0, abs(min)=0, 2**15=32768, warnings [])
+ok   uint16 scalars: max+1 and -min / 0-1 wrap the same way AND raise RuntimeWarning('overflow')  (warnings ['overflow encountered in ushort_scalars'])
+ok   uint32 arrays: add/sub/mul/neg/abs/square/power overflow wrap modulo 2**32 silently (no warning)  (max+1=0, min-1=4294967295, -min=0, abs(min)=0, 2**31=2147483648, warnings [])
+ok   uint32 scalars: max+1 and -min / 0-1 wrap the same way AND raise RuntimeWarning('overflow')  (warnings ['overflow encountered in uint_scalars'])
+ok   uint64 arrays: add/sub/mul/neg/abs/square/power overflow wrap modulo 2**64 silently (no warning)  (max+1=0, min-1=18446744073709551615, -min=0, abs(min)=0, 2**63=9223372036854775808, warnings [])
+ok   uint64 scalars: max+1 and -min / 0-1 wrap the same way AND raise RuntimeWarning('overflow')  (warnings ['overflow encountered in ulong_scalars'])
+ok   abs(int8 min) is int8 min (two's complement has no +128); array silent, scalar warning recorded  (scalar warnings [])
+ok   abs(int64 min) is int64 min  (warnings [])
+ok   errstate(over='raise'): scalar int8 127 + 1 raises FloatingPointError, array does not
+ok   errstate(over='ignore') silences the scalar overflow warning
+ok   np.int64(2)**63 wraps to int64 min (scalar warns); int64 array 2**70 wraps to 0 silently  (warnings [])
+ok   square(int8 100): 10000 mod 256 = 16 for scalar and array (scalar warning recorded)  (scalar warnings [])
+ok   negative on unsigned wraps: -uint8(1) = 255 (scalar warns), array [255, 0] silent  (scalar warnings [])
+ok   positive on unsigned and on ints is a copy ('Equivalent to x.copy()')
+ok   positive on bool raises TypeError (only defined for types that support arithmetic)  (UFuncTypeError)
+ok   int8 array + Python int 100 (fits int8): result int8 -56, silent (both 1.x and 2.x)  (warnings [])
+---- power
+ok   np.power(int, negative int) raises ValueError ("An integer type raised to a negative integer power will raise a ValueError")
+ok   np.power(2.0, -1) = 0.5 and Python-float exponent on int array gives float64
+ok   np.power(int, 0) = 1 and 0**0 = 1 for ints and floats (C pow convention)
+ok   power(0.0, -1) = inf with divide warning; "Negative values raised to a non-integral value will return nan" (invalid warning)  (warnings ['divide by zero encountered in power', 'invalid value encountered in power'])
+ok   power(-8+0j, 1/3) gives the complex principal root 1+1.732j
+ok   int64 power exact while it fits: 2**62, 3**39, (-2)**63
+ok   np.power(np.int64(3), 41) wraps modulo 2**64 (3**41 > int64 max)
+ok   power on int8: 2**7 wraps to -128, 3**5 = 243 -> -13
+ok   float_power promotes ints/float16/float32 to at least float64 ("minimum precision of float64"): int8 ** -1 -> float64 [0.5, 0.25]
+ok   float_power(10, 300) = 1e300 (no float32 overflow), float_power(-8, 1/3) = nan
+ok   float power of a few exact cases equals Python **
+ok   reciprocal on ints: "For integer arguments with absolute value larger than 1 the result is always zero"
+   reciprocal(int 0) = [-9223372036854775808] warnings ['RuntimeWarning'] ['divide by zero encountered in reciprocal']   (docs: 'For integer zero the result is an overflow')
+ok   reciprocal(int array [0]): documented 'overflow'; actual result and warning recorded  (result [-9223372036854775808], warnings ['RuntimeWarning'])
+ok   reciprocal on floats is 1/x: reciprocal(4.0) = 0.25, reciprocal(0.0) = inf
+ok   np.square(-3) = 9, square(1.5) = 2.25, square(3+4j) = -7+24j
+---- gcd / lcm / bitwise / shifts
+   gcd: [0, 5, 5, 6, 6, 6, 1, 34359738368, 1]  lcm: [0, 0, 0, 36, 36, 36, 91, 3298534883328, 1]
+ok   gcd of |x1| and |x2| incl. zeros and negatives equals math.gcd (gcd(0,0) = 0)
+ok   lcm of |x1| and |x2| incl. zeros and negatives equals |a*b|/gcd, lcm(0, x) = 0
+ok   gcd / lcm on int8 / uint8 arrays: dtype preserved, values exact
+   gcd(int64 min, 2**62) = 4611686018427387904 (math.gcd 4611686018427387904); lcm(int8 100, 30) = [44] (true 300 wraps to 44); warnings []
+ok   gcd(int64 min, 2**62) = 2**62 (|int64 min| overflows; recorded)  (got 4611686018427387904)
+ok   lcm on int8 overflows silently: lcm(100, 30) = 300 wraps to 44 (recorded, modular)  (got [44])
+ok   gcd / lcm reject floats (TypeError: no loop)
+ok   bitwise and/or/xor/invert on int8/int32/int64/uint8 equal Python's two's-complement semantics reduced to the width (~(-5) = 4, ~uint8(0) = 255)
+ok   invert on bool is logical not; bitwise ops reject floats (TypeError)
+ok   left_shift beyond the width gives 0 and right_shift beyond the width gives 0 / -1 (sign fill): equals Python's big-int shift reduced modulo 2**bits (npy_lshift/npy_rshift guard the C UB)  (mismatches [])
+   shift by a negative count (C undefined; numpy casts to size_t so it is treated as >= width): 1 << -1 = 0, -8 >> -1 = -1, warnings []
+ok   left_shift by a negative count: 0 (count cast to size_t is >= width; recorded), right_shift(-8, -1) = -1
+ok   left_shift(int8 1, 7) = -128 (sign bit set), left_shift(uint8 255, 1) = 254 (top bit dropped)
+ok   np.left_shift(1, 70) with Python ints: default int64 -> 0 (shift >= 64)  (got 0, dtype int64)
+---- accuracy vs mpmath (ulps)
+ok   exp float64: max error 1.27 ulp vs exact, 1 representable steps from the correctly rounded value, over 487 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -0.0009585340422376574 / -0.0006394606222464616)
+ok   exp float32: max error 1.64 ulp vs exact, 2 representable steps from the correctly rounded value, over 345 points; <= 3 steps (numpy validation-set tolerance)  (worst at x = -0.0002671455731615424 / -0.00036225951043888927)
+ok   exp float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 326 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -8.0703125 / None)
+ok   expm1 float64: max error 0.94 ulp vs exact, 1 representable steps from the correctly rounded value, over 644 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -4.121466489376866 / -0.000926311297694292)
+ok   expm1 float32: max error 0.81 ulp vs exact, 1 representable steps from the correctly rounded value, over 504 points; <= 3 steps (numpy validation-set tolerance)  (worst at x = -2.433241605758667 / -0.0009263113024644554)
+ok   expm1 float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 487 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -1.830078125 / None)
+ok   log float64: max error 1.45 ulp vs exact, 1 representable steps from the correctly rounded value, over 485 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 1.055176218176634 / 0.9594698448947292)
+ok   log float32: max error 2.11 ulp vs exact, 2 representable steps from the correctly rounded value, over 348 points; <= 4 steps (numpy validation-set tolerance)  (worst at x = 1.0567257404327393 / 0.9064508676528931)
+ok   log float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 323 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 4.6171875 / None)
+ok   log1p float64: max error 1.17 ulp vs exact, 1 representable steps from the correctly rounded value, over 643 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 0.3995386306555794 / 0.2196535742988679)
+ok   log1p float32: max error 1.50 ulp vs exact, 2 representable steps from the correctly rounded value, over 566 points; <= 2 steps (numpy validation-set tolerance)  (worst at x = 0.3980849087238312 / 0.3980849087238312)
+ok   log1p float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 399 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 0.1273193359375 / None)
+ok   log2 float64: max error 1.38 ulp vs exact, 1 representable steps from the correctly rounded value, over 484 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 0.9591728852365691 / 1.0572307161867442)
+ok   log2 float32: max error 1.69 ulp vs exact, 2 representable steps from the correctly rounded value, over 350 points; <= 3 steps (numpy validation-set tolerance)  (worst at x = 0.9174584746360779 / 0.9174584746360779)
+ok   log2 float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 326 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 0.95458984375 / None)
+FAIL log10 float64: max error 1.57 ulp vs exact, 2 representable steps from the correctly rounded value, over 483 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 1.0180821837933742 / 1.0180821837933742)
+ok   log10 float32: max error 1.45 ulp vs exact, 1 representable steps from the correctly rounded value, over 342 points; <= 4 steps (numpy validation-set tolerance)  (worst at x = 1.073709487915039 / 4.956500279722366e+29)
+ok   log10 float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 171 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 1.078125 / None)
+ok   sqrt float64: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 324 points; <= 1 steps (expected)  (worst at x = 0.8578593140966518 / None)
+ok   sqrt float32: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 259 points; <= 1 steps (expected)  (worst at x = 0.9667178392410278 / None)
+ok   sqrt float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 248 points; <= 1 steps (expected)  (worst at x = 1.14453125 / None)
+ok   cbrt float64: max error 1.58 ulp vs exact, 2 representable steps from the correctly rounded value, over 483 points; <= 2 steps (numpy validation-set tolerance)  (worst at x = 7.996386640462901e-263 / 7.996386640462901e-263)
+ok   cbrt float32: max error 1.60 ulp vs exact, 2 representable steps from the correctly rounded value, over 242 points; <= 2 steps (numpy validation-set tolerance)  (worst at x = 6.249338150024414 / 6.249338150024414)
+ok   cbrt float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 233 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -0.74609375 / None)
+FAIL sin float64: max error 2.29 ulp vs exact, 2 representable steps from the correctly rounded value, over 646 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -1.8207887939783607 / 1.4327017147349768)
+ok   sin float32: max error 0.89 ulp vs exact, 1 representable steps from the correctly rounded value, over 646 points; <= 2 steps (numpy validation-set tolerance)  (worst at x = -7.114702224731445 / -3.0905141830444336)
+ok   sin float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 376 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 9.453125 / None)
+FAIL cos float64: max error 2.41 ulp vs exact, 2 representable steps from the correctly rounded value, over 646 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 3.167999666878833 / 0.00019672972613164687)
+ok   cos float32: max error 0.93 ulp vs exact, 1 representable steps from the correctly rounded value, over 646 points; <= 2 steps (numpy validation-set tolerance)  (worst at x = -30449.833984375 / -3.8294622898101807)
+ok   cos float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 378 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -3.947265625 / None)
+FAIL tan float64: max error 1.70 ulp vs exact, 2 representable steps from the correctly rounded value, over 644 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -1.2614726287522613 / -1.2614726287522613)
+ok   tan float32: max error 1.54 ulp vs exact, 2 representable steps from the correctly rounded value, over 644 points; <= 4 steps (numpy validation-set tolerance)  (worst at x = 4708982784.0 / 4708982784.0)
+ok   tan float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 377 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 0.298095703125 / None)
+FAIL arcsin float64: max error 1.88 ulp vs exact, 2 representable steps from the correctly rounded value, over 484 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 0.5071060476757239 / 0.5071060476757239)
+ok   arcsin float32: max error 1.85 ulp vs exact, 2 representable steps from the correctly rounded value, over 484 points; <= 4 steps (numpy validation-set tolerance)  (worst at x = -0.5302553176879883 / -0.5595307946205139)
+ok   arcsin float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 484 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 1.0 / None)
+ok   arccos float64: max error 1.26 ulp vs exact, 1 representable steps from the correctly rounded value, over 643 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 0.8641734085785553 / -0.0005988627062789324)
+ok   arccos float32: max error 1.24 ulp vs exact, 1 representable steps from the correctly rounded value, over 643 points; <= 3 steps (numpy validation-set tolerance)  (worst at x = 0.9928670525550842 / 0.00019826753123197705)
+ok   arccos float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 643 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -6.079673767089844e-06 / None)
+ok   arctan float64: max error 0.98 ulp vs exact, 1 representable steps from the correctly rounded value, over 643 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 0.15868566188181177 / 2.4040870171542785)
+ok   arctan float32: max error 0.93 ulp vs exact, 1 representable steps from the correctly rounded value, over 419 points; <= 3 steps (numpy validation-set tolerance)  (worst at x = 4.455717086791992 / -3.3431291580200195)
+ok   arctan float16: max error 0.50 ulp vs exact, 1 representable steps from the correctly rounded value, over 414 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -6.4296875 / -6.4296875)
+ok   sinh float64: max error 1.41 ulp vs exact, 1 representable steps from the correctly rounded value, over 483 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -0.7861462196816422 / -0.5117337530063875)
+ok   sinh float32: max error 0.95 ulp vs exact, 1 representable steps from the correctly rounded value, over 341 points; <= 2 steps (numpy validation-set tolerance)  (worst at x = 8.067875862121582 / 1.2125741243362427)
+ok   sinh float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 323 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 3.3203125 / None)
+ok   cosh float64: max error 1.48 ulp vs exact, 1 representable steps from the correctly rounded value, over 483 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 2.837526638135852 / -7.084683250839108)
+ok   cosh float32: max error 1.50 ulp vs exact, 1 representable steps from the correctly rounded value, over 337 points; <= 3 steps (numpy validation-set tolerance)  (worst at x = -6.625064373016357 / -7.156222820281982)
+ok   cosh float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 323 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -7.2734375 / None)
+ok   tanh float64: max error 0.90 ulp vs exact, 1 representable steps from the correctly rounded value, over 485 points; <= 2 steps (numpy validation-set tolerance)  (worst at x = -0.00039519037376994177 / 0.0004965563388343243)
+ok   tanh float32: max error 1.26 ulp vs exact, 1 representable steps from the correctly rounded value, over 484 points; <= 2 steps (numpy validation-set tolerance)  (worst at x = -0.5099195837974548 / 0.0006541404873132706)
+ok   tanh float16: max error 0.49 ulp vs exact, 0 representable steps from the correctly rounded value, over 484 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 3.53125 / None)
+ok   arcsinh float64: max error 0.52 ulp vs exact, 1 representable steps from the correctly rounded value, over 642 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 0.36117611748528056 / -0.0009502172621547843)
+ok   arcsinh float32: max error 0.50 ulp vs exact, 1 representable steps from the correctly rounded value, over 406 points; <= 2 steps (numpy validation-set tolerance)  (worst at x = -7.620246887207031 / -7.620246887207031)
+ok   arcsinh float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 401 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -5.9375 / None)
+ok   arccosh float64: max error 0.95 ulp vs exact, 1 representable steps from the correctly rounded value, over 483 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 1.0000156691500894 / 1.0004653873664844)
+ok   arccosh float32: max error 1.16 ulp vs exact, 1 representable steps from the correctly rounded value, over 347 points; <= 2 steps (numpy validation-set tolerance)  (worst at x = 1.0000923871994019 / 1.0000931024551392)
+ok   arccosh float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 326 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 7.50390625 / None)
+ok   arctanh float64: max error 1.03 ulp vs exact, 1 representable steps from the correctly rounded value, over 484 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 0.0007629302306525593 / -0.00019895467220867392)
+ok   arctanh float32: max error 1.02 ulp vs exact, 1 representable steps from the correctly rounded value, over 392 points; <= 2 steps (numpy validation-set tolerance)  (worst at x = 7.612705667270347e-05 / 0.0003239084908273071)
+ok   arctanh float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 329 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -0.76220703125 / None)
+ok   exp2 float64: max error 0.96 ulp vs exact, 1 representable steps from the correctly rounded value, over 485 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = -9.199748597310332 / -0.0001308434163505048)
+ok   exp2 float32: max error 0.93 ulp vs exact, 1 representable steps from the correctly rounded value, over 345 points; <= 2 steps (numpy validation-set tolerance)  (worst at x = -3.77382230758667 / -0.00026328529929742217)
+ok   exp2 float16: max error 0.49 ulp vs exact, 0 representable steps from the correctly rounded value, over 326 points; <= 1 steps (numpy validation-set tolerance)  (worst at x = 0.9501953125 / None)
+ok   deg2rad float64: max error 0.63 ulp vs exact, 1 representable steps from the correctly rounded value, over 165 points; <= 1 steps (expected)  (worst at x = -198.4283467451356 / -77.74601326895959)
+ok   deg2rad float32: max error 0.58 ulp vs exact, 1 representable steps from the correctly rounded value, over 164 points; <= 1 steps (expected)  (worst at x = 341.3804931640625 / 72.82630157470703)
+ok   deg2rad float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 164 points; <= 1 steps (expected)  (worst at x = 242.5 / None)
+ok   rad2deg float64: max error 0.79 ulp vs exact, 1 representable steps from the correctly rounded value, over 163 points; <= 1 steps (expected)  (worst at x = -4.409731998667481 / -0.8566407266882479)
+ok   rad2deg float32: max error 1.34 ulp vs exact, 1 representable steps from the correctly rounded value, over 163 points; <= 2 steps (expected)  (worst at x = 0.5463192462921143 / 3.6865828037261963)
+ok   rad2deg float16: max error 0.50 ulp vs exact, 0 representable steps from the correctly rounded value, over 163 points; <= 1 steps (expected)  (worst at x = 3.123046875 / None)
+ok   i0 float64: max error 2.94 ulp vs exact, 3 representable steps from the correctly rounded value, over 488 points; <= 8 steps (expected)  (worst at x = -6.681477544367745 / 1.7088194396937872)
+ok   i0 float32: max error 3.99 ulp vs exact, 4 representable steps from the correctly rounded value, over 486 points; <= 8 steps (expected)  (worst at x = 7.878545761108398 / 7.878545761108398)
+   sin float64 at [10000000000.0, 1000000000000000.0, 1e+22, -1e+22, 1.152921504606847e+18, 1e+300]: ['0.30', '0.21', '0.06', '0.06', '0.16', '0.43'] ulp; sin(1e22) = -0.8522008497671888 (true -0.8522008497671888)
+ok   sin float64 at 1e10 / 1e15 / 1e22 / 1e300: exact range reduction, <= 1 step from the correctly rounded value  (max 0.43 ulp)
+   sin float32 at [10000000000.0, 999999986991104.0, 9.999999778196308e+21, 3.0000000054977558e+38]: ['0.23', '0.17', '0.48', '0.28'] ulp
+ok   sin float32 at 1e10 / 1e15 / 1e22 / 3e38: <= 4 steps (float32 SIMD path)  (max 0.48 ulp)
+   cos float64 at [10000000000.0, 1000000000000000.0, 1e+22, -1e+22, 1.152921504606847e+18, 1e+300]: ['0.49', '0.48', '0.42', '0.42', '0.22', '0.24'] ulp; cos(1e22) = 0.523214785395139 (true 0.52321478539513895)
+ok   cos float64 at 1e10 / 1e15 / 1e22 / 1e300: exact range reduction, <= 1 step from the correctly rounded value  (max 0.49 ulp)
+   cos float32 at [10000000000.0, 999999986991104.0, 9.999999778196308e+21, 3.0000000054977558e+38]: ['0.50', '0.46', '0.27', '0.38'] ulp
+ok   cos float32 at 1e10 / 1e15 / 1e22 / 3e38: <= 4 steps (float32 SIMD path)  (max 0.50 ulp)
+   tan float64 at [10000000000.0, 1000000000000000.0, 1e+22, -1e+22, 1.152921504606847e+18, 1e+300]: ['0.63', '0.25', '0.46', '0.46', '0.78', '0.66'] ulp; tan(1e22) = -1.6287782256068988 (true -1.6287782256068989)
+ok   tan float64 at 1e10 / 1e15 / 1e22 / 1e300: exact range reduction, <= 1 step from the correctly rounded value  (max 0.78 ulp)
+   tan float32 at [10000000000.0, 999999986991104.0, 9.999999778196308e+21, 3.0000000054977558e+38]: ['0.52', '0.31', '0.26', '0.04'] ulp
+ok   tan float32 at 1e10 / 1e15 / 1e22 / 3e38: <= 4 steps (float32 SIMD path)  (max 0.52 ulp)
+ok   hypot float64: max error 0.50 ulp vs exact, 1 steps from the correctly rounded value, over 184 points; <= 1 steps  (worst at (-7.730560641655227e+299, 8.948307128534333e+299))
+ok   arctan2 float64: max error 0.50 ulp vs exact, 0 steps from the correctly rounded value, over 182 points; <= 1 steps  (worst at (3.841492385126978e+299, -9.461626735544749e+299))
+ok   hypot float32: max error 0.50 ulp vs exact, 0 steps from the correctly rounded value, over 124 points; <= 1 steps  (worst at (7.474425792694092, -5.17434024810791))
+ok   arctan2 float32: max error 0.84 ulp vs exact, 1 steps from the correctly rounded value, over 101 points; <= 4 steps  (worst at (9.796302795410156, 7.157519340515137))
+ok   hypot float16: max error 0.50 ulp vs exact, 0 steps from the correctly rounded value, over 124 points; <= 1 steps  (worst at (2.326171875, 4.08984375))
+ok   arctan2 float16: max error 0.50 ulp vs exact, 0 steps from the correctly rounded value, over 101 points; <= 1 steps  (worst at (-0.51953125, 5.26171875))
+ok   logaddexp float64: max error 0.97 ulp vs exact, 1 steps from the correctly rounded value, over 286 points; <= 2 steps  (worst at (-0.0009147666714716487, 0.0005666313218824449))
+ok   logaddexp2 float64: max error 0.90 ulp vs exact, 1 steps from the correctly rounded value, over 286 points; <= 2 steps  (worst at (0.00010115023480606971, 7.875992056294648e-05))
+ok   logaddexp float32: max error 1.02 ulp vs exact, 1 steps from the correctly rounded value, over 134 points; <= 2 steps  (worst at (-0.0007599934469908476, 0.0008773464360274374))
+ok   logaddexp2 float32: max error 1.88 ulp vs exact, 2 steps from the correctly rounded value, over 134 points; <= 2 steps  (worst at (-0.0001886863901745528, -0.0008912110351957381))
+ok   logaddexp float16: max error 0.50 ulp vs exact, 0 steps from the correctly rounded value, over 36 points; <= 2 steps  (worst at (-0.0004668235778808594, 0.0004038810729980469))
+ok   logaddexp2 float16: max error 0.46 ulp vs exact, 0 steps from the correctly rounded value, over 36 points; <= 2 steps  (worst at (-0.0006914138793945312, -0.0007348060607910156))
+ok   power float64: max error 0.50 ulp vs exact, 0 steps from the correctly rounded value, over 166 points; <= 1 steps  (worst at (4.017787140947897, 3.7565317490957106))
+ok   power float32: max error 0.50 ulp vs exact, 0 steps from the correctly rounded value, over 136 points; <= 2 steps  (worst at (8.647680282592773, -9.697847366333008))
+ok   power float16: max error 0.50 ulp vs exact, 0 steps from the correctly rounded value, over 91 points; <= 1 steps  (worst at (6.16796875, -3.126953125))
+ok   arctan2 special values follow the documented C99 table (+-0/+0 -> +-0, +-0/-0 -> +-pi, +-inf/+-inf -> +-pi/4, 3pi/4 ...) for float64 and float32, matching math.atan2
+ok   arctan2 range is [-pi, pi] and arctan2(1, 1) = pi/4 to 1 ulp; arctan2 rejects complex (TypeError)
+ok   logaddexp(-inf, -inf) = -inf, logaddexp(x, -inf) = x, logaddexp(1000, 1000) = 1000 + log 2 (no overflow)
+ok   sinc float64: max ABSOLUTE error 1.07 eps over 487 points in [-100, 100] <= 3 eps (the definition sin(pi x)/(pi x) cannot do better; relative error near integer x is unbounded: max 1594438934443075765440536182295620853940790834833017937068032 ulp)  (worst at x = 0.09222600747433773)
+ok   sinc float32: max ABSOLUTE error 0.59 eps over 487 points in [-100, 100] <= 3 eps (the definition sin(pi x)/(pi x) cannot do better; relative error near integer x is unbounded: max 35787104942271955188664700032723714048 ulp)  (worst at x = 0.0008474972564727068)
+ok   sinc float16: max ABSOLUTE error 0.77 eps over 487 points in [-100, 100] <= 3 eps (the definition sin(pi x)/(pi x) cannot do better; relative error near integer x is unbounded: max inf ulp)  (worst at x = -83.0625)
+ok   sinc(0) = 1 exactly; sinc(0.5) = 2/pi within 1 ulp
+   sinc at integers 1, 2, 3, 10, 100, 1e6 = [3.8981718325193755e-17, -3.8981718325193755e-17, 3.8981718325193755e-17, -3.898171832519376e-17, 6.2528371445095934e-18, -7.104397124211949e-17] (mathematically 0; sin(pi*n) in floating point is ~n*1e-16)
+ok   sinc at nonzero integers is ~1e-17 not exactly 0 (recorded, expected from the definition sin(pi x)/(pi x))
+ok   i0 vs mpmath besseli(0, x): within 8 ulp on [0, 30] (docs: peak relative error 5.8e-16, i.e. ~3 ulp)
+   i0(0), i0(1), i0(8), i0(700), i0(720) = [1.0, 1.2660658777520082, 427.56411572180474, 1.5295933476718735e+302, inf]  (mpmath i0(1) = 1.2660658777520083)
+ok   i0(-x) = i0(x) and i0 returns float64 for int input
+ok   sinc is the normalised sinc "sin(pi x)/(pi x)": sinc(1.5) = -2/(3 pi)
+ok   deg2rad(180) == pi and rad2deg(pi) == 180 exactly (x * pi / 180)  (deg2rad(180) = 3.141592653589793)
+ok   exp2(10) = 1024 exactly, exp2(-1074) is the smallest subnormal, exp2 of int input is float64
+   float32 exp over 2000 points vs float64 exp rounded: max 1.75 float32-ulp (SIMD comment in loops_exponent_log: 2.52 max)
+---- complex branch cuts
+ok   sqrt(-4+0j) = 2j and sqrt(-4-0j) = -2j (branch cut [-inf, 0), continuous from above; signed zero selects the side)
+ok   log(-1+0j) = i pi and log(-1-0j) = -i pi ('handles the floating-point negative zero as an infinitesimal negative number')
+ok   angle(-1+0j) = pi and angle(-1-0j) = -pi (atan2 with signed zero)
+ok   angle(1+1j, deg=True) = 45, angle(0j) = 0, angle(-0.0+0j) = pi (atan2(+0, -0) = pi)
+ok   exp(i pi) = -1 + 1.22e-16j (float pi), exp(complex(0, 0)) = 1
+ok   abs(3+4j) = 5 exactly, abs(1e200+1e200j) does not overflow (hypot), abs(complex(inf, nan)) = inf (C99)
+ok   power(-1+0j, 0.5) = 1j, power(2j, 2) = -4 (integer exponent exact), power(0j, 0) = 1
+ok   power(0j, 1+1j) = 0 and power(0j, -1) = nan+nanj / inf with warning recorded  (0j**(1+1j) = (nan+nanj), 0j**-1 = (nan+nanj))
+   arcsin(2.0+0j) = (1.5707963267948966+1.3169578969248166j)   arcsin(2.0-0j) = (1.5707963267948966-1.3169578969248166j)   cmath: (1.5707963267948966+1.3169578969248166j), (1.5707963267948966-1.3169578969248166j)
+ok   arcsin(+2.0+0j) and (+2.0-0j): |x|>1 branch cut, the signed zero selects the side, equals cmath (C99) to 1e-15
+   arccos(2.0+0j) = -1.3169578969248166j   arccos(2.0-0j) = 1.3169578969248166j   cmath: -1.3169578969248166j, 1.3169578969248166j
+ok   arccos(+2.0+0j) and (+2.0-0j): |x|>1 branch cut, the signed zero selects the side, equals cmath (C99) to 1e-15
+   arctanh(2.0+0j) = (0.5493061443340549+1.5707963267948966j)   arctanh(2.0-0j) = (0.5493061443340549-1.5707963267948966j)   cmath: (0.5493061443340549+1.5707963267948966j), (0.5493061443340549-1.5707963267948966j)
+ok   arctanh(+2.0+0j) and (+2.0-0j): |x|>1 branch cut, the signed zero selects the side, equals cmath (C99) to 1e-15
+   arcsin(-2.0+0j) = (-1.5707963267948966+1.3169578969248166j)   arcsin(-2.0-0j) = (-1.5707963267948966-1.3169578969248166j)   cmath: (-1.5707963267948966+1.3169578969248166j), (-1.5707963267948966-1.3169578969248166j)
+ok   arcsin(-2.0+0j) and (-2.0-0j): |x|>1 branch cut, the signed zero selects the side, equals cmath (C99) to 1e-15
+   arccos(-2.0+0j) = (3.141592653589793-1.3169578969248166j)   arccos(-2.0-0j) = (3.141592653589793+1.3169578969248166j)   cmath: (3.141592653589793-1.3169578969248166j), (3.141592653589793+1.3169578969248166j)
+ok   arccos(-2.0+0j) and (-2.0-0j): |x|>1 branch cut, the signed zero selects the side, equals cmath (C99) to 1e-15
+   arctanh(-2.0+0j) = (-0.5493061443340549+1.5707963267948966j)   arctanh(-2.0-0j) = (-0.5493061443340549-1.5707963267948966j)   cmath: (-0.5493061443340549+1.5707963267948966j), (-0.5493061443340549-1.5707963267948966j)
+ok   arctanh(-2.0+0j) and (-2.0-0j): |x|>1 branch cut, the signed zero selects the side, equals cmath (C99) to 1e-15
+   arccosh(0.5+0j) = 1.0471975511965979j   arccosh(0.5-0j) = -1.0471975511965979j   cmath: 1.0471975511965979j, -1.0471975511965979j
+ok   arccosh(+0.5+0j) and (+0.5-0j): |x|>1 branch cut, the signed zero selects the side, equals cmath (C99) to 1e-15
+   arccosh(-2.0+0j) = (1.3169578969248166+3.141592653589793j)   arccosh(-2.0-0j) = (1.3169578969248166-3.141592653589793j)   cmath: (1.3169578969248166+3.141592653589793j), (1.3169578969248166-3.141592653589793j)
+ok   arccosh(-2.0+0j) and (-2.0-0j): |x|>1 branch cut, the signed zero selects the side, equals cmath (C99) to 1e-15
+ok   arcsin(2+0j) imaginary part = +1.3169578969248166 (limit from above, Im z >= 0 side)
+ok   real arcsin(2.0) / arccos(2.0) / arctanh(2.0) / arccosh(0.5) are nan with an invalid RuntimeWarning (real input never gives complex)
+ok   real-valued arcsin(2), arccos(-2), arctanh(2), arccosh(0.5) yield nan + 'invalid' warning; arctanh(1) = inf ('divide')  (warnings ['divide by zero encountered in arctanh', 'invalid value encountered in arccos', 'invalid value encountered in arccosh', 'invalid value encountered in arcsin', 'invalid value encountered in arctanh'])
+ok   complex sqrt / log / exp of a random point agree with cmath to 2 ulp
+ok   sign(3+4j) = 1+0j (1.x: sign of the real part)  (got (1+0j))
+ok   complex round rounds real and imaginary parts separately, half to even
+---- clip / isclose / sign / nan_to_num
+ok   clip with a_min > a_max: "returns an array in which all values are equal to a_max"
+ok   clip(a, 2, 5) basic; a_min=None / a_max=None clip one side; both None returns a unchanged (2.x) or errors (1.x)  (both None: ValueError)
+   clip([nan, 0.5, 7], 0, 1) = [nan, 0.5, 1.0]; clip([0.5, 7], nan, 1) = [0.5, 1.0]; clip([0.5, 7], 0, nan) = [0.5, 7.0]
+ok   clip propagates NaN in a (NaN stays NaN; minimum/maximum propagate)
+ok   clip with a scalar NaN bound on <= 1.24 means 'no clipping on that side' with a DeprecationWarning (deprecated behaviour)  (got [0.5, 1.0], [0.5, 7.0])
+ok   clip with integer bounds on an int array keeps the int dtype; float bounds on an int array give float64
+ok   clip(int8 array, -200, 200): 1.x value-based promotion -> int16 result, values unchanged  (dtype int16, None)
+ok   clip(int8 array, 0, 100) with in-range Python ints keeps int8
+ok   clip(float array, out=int array) on <= 1.24 casts unsafely with a DeprecationWarning: out = [0, 1, 2]  (None, out [0, 1, 2], warnings ['DeprecationWarning'])
+ok   clip(float64 array, out=float32 array) writes into out (same_kind) -> [0.5, 1.7, 2.5] float32
+ok   clip in place (out=a) works
+ok   clip equals minimum(a_max, maximum(a, a_min)) for random data incl. array bounds
+ok   isclose asymmetry: isclose(100, 110, rtol=0.095, atol=0) True but isclose(110, 100, ...) False (|a-b| <= atol + rtol*|b|)
+ok   isclose(nan, nan) False by default, True with equal_nan=True; allclose likewise
+ok   isclose(inf, inf) True, isclose(inf, -inf) False, isclose(inf, 1e308) False
+ok   isclose(1e-9, 2e-9) is True with the default atol=1e-8 (documented warning), False with atol=0
+ok   isclose formula on random pairs equals abs(a-b) <= atol + rtol*abs(b) computed in Python
+ok   isclose returns a Python/NumPy bool for scalars and a bool array for arrays; allclose returns a Python bool
+ok   isclose on ints and bools works (bool is numeric): isclose(True, True), isclose(3, 3)
+ok   sign(-0.0) = 0, sign(0.0) = 0, sign(-3) = -1, sign(nan) = nan, sign(-inf) = -1
+ok   signbit(-0.0) True, signbit(0.0) False, signbit(-nan) True, signbit(nan) False, signbit(-inf) True
+ok   copysign(1, -0.0) = -1, copysign(-1, 0.0) = 1, copysign(3, -nan) = -3, copysign(nan, -1) is a negative nan, copysign(3, nan) = 3
+ok   sign on ints returns the int dtype; signbit on ints works (False for 0)
+ok   nan_to_num defaults: nan -> 0.0, inf -> finfo.max, -inf -> finfo.min
+ok   nan_to_num with custom nan / posinf / neginf
+ok   nan_to_num on float32 uses the float32 max/min and keeps float32
+ok   nan_to_num on ints: "If x is not inexact, then no replacements are made" (values and dtype unchanged)
+ok   nan_to_num on complex applies to real and imaginary parts separately
+ok   nan_to_num on a scalar returns a scalar: nan_to_num(np.nan) = 0.0
+ok   nan_to_num(copy=False) modifies in place and returns the same array
+---- errstate
+   sqrt(-1), log(-1), log(0), 0/0, inf-inf, inf*0, 1e308*10, 1e-308/1e10 = [nan, nan, -inf, nan, nan, nan, inf, 1e-318]; warnings: ['divide by zero encountered in log', 'invalid value encountered in double_scalars', 'invalid value encountered in log', 'invalid value encountered in sqrt', 'overflow encountered in double_scalars']
+ok   sqrt(-1) and log(-1) are nan with 'invalid value' RuntimeWarning; log(0) = -inf with 'divide by zero'
+ok   0/0, inf-inf, inf*0 are nan (invalid); 1e308*10 = inf (overflow); 1e-308/1e10 underflows to a subnormal/0
+ok   errstate(all='raise'): invalid, divide, overflow and underflow raise FloatingPointError  (FloatingPointError, FloatingPointError, FloatingPointError, FloatingPointError)
+ok   errstate(all='ignore') silences everything
+ok   errstate(invalid='ignore') silences sqrt(-1) but 1/0 still warns
+ok   errstate(all='call') calls the handler with the error kind  (['invalid value', 'divide by zero'])
+ok   seterr returns the previous settings and errstate restores them on exit; default is divide/over/invalid='warn', under='ignore'  (default {'divide': 'warn', 'over': 'warn', 'under': 'ignore', 'invalid': 'warn'})
+ok   scalar np.float64(-1) ** 0.5 and sqrt(np.float64(-1)) are nan with an invalid warning (scalars obey errstate like arrays)  (warnings ['RuntimeWarning'])
+ok   errstate(under='raise') raises on 1e-308 * 1e-10 (underflow flag set)  (FloatingPointError)
+---- float -> int casts
+   astype(int64) of [nan, inf, -inf, 1e20, -1e20, 3.99, -3.99] = [-9223372036854775808, -9223372036854775808, -9223372036854775808, -9223372036854775808, -9223372036854775808, 3, -3]  warnings [] []
+ok   float64 -> int64: in-range values truncate toward zero (3.99 -> 3, -3.99 -> -3); nan/inf/out-of-range recorded (undefined)
+   astype(int32) of [nan, inf, -inf, 1e20, -1e20, 3.99, -3.99] = [-2147483648, -2147483648, -2147483648, -2147483648, -2147483648, 3, -3]  warnings [] []
+ok   float64 -> int32: in-range values truncate toward zero (3.99 -> 3, -3.99 -> -3); nan/inf/out-of-range recorded (undefined)
+   astype(int8) of [nan, inf, -inf, 1e20, -1e20, 3.99, -3.99] = [0, 0, 0, 0, 0, 3, -3]  warnings [] []
+ok   float64 -> int8: in-range values truncate toward zero (3.99 -> 3, -3.99 -> -3); nan/inf/out-of-range recorded (undefined)
+   astype(uint8) of [nan, inf, -inf, 1e20, -1e20, 3.99, -3.99] = [0, 0, 0, 0, 0, 3, 253]  warnings [] []
+ok   float64 -> uint8: in-range values truncate toward zero (3.99 -> 3, -3.99 -> wraps); nan/inf/out-of-range recorded (undefined)
+   astype(uint64) of [nan, inf, -inf, 1e20, -1e20, 3.99, -3.99] = [9223372036854775808, 0, 9223372036854775808, 0, 9223372036854775808, 3, 18446744073709551613]  warnings [] []
+ok   float64 -> uint64: in-range values truncate toward zero (3.99 -> 3, -3.99 -> wraps); nan/inf/out-of-range recorded (undefined)
+ok   float -> int cast of nan/inf/out-of-range emits RuntimeWarning('invalid value encountered in cast') on numpy >= 1.24  (warnings [])
+   np.int64(np.nan) -> ValueError; int(np.float64(nan)) -> ValueError
+ok   int(np.float64(nan)) raises ValueError like Python; np.int64(nan) recorded
+ok   float32 -> float16 overflow gives inf (65504 is the max), 1e5 -> inf; float64 1e300 -> float32 inf
+ok   np.float64(1e20).astype(np.int64) vs np.array: both recorded as int64 min on x86 (cvttsd2si 'integer indefinite')  (scalar -9223372036854775808, array -9223372036854775808)
+---- astype all pairs at boundary values
+   121 dtype pairs; 461 exactly representable values, 66 int->int wrap cases, 84 in-range float->int truncations; mismatches []
+ok   astype: exactly representable boundary values are preserved for every (src, dst) pair
+ok   astype int -> narrower int wraps modulo 2**bits (C conversion), for every pair
+ok   astype int -> float rounds to nearest (int64 max -> 2**63 in float64 and float32), float -> narrower float rounds to nearest or overflows to inf
+ok   astype float -> int in range truncates toward zero for every pair
+ok   int64 max -> float64 is 9223372036854775808.0 (not exactly representable; recorded, rounds up)
+ok   uint64 max -> int64 wraps to -1; int64 -1 -> uint64 is 2**64-1; int8 -1 -> uint8 255
+ok   float64 -> float16: 65520 rounds to inf (above the midpoint to 65504+32), 1e-8 -> subnormal 1.1920929e-07 * ... rounding to nearest float16
+ok   bool <-> numeric: astype(bool) is nonzero test (nan -> True, -0.0 -> False); True -> 1
+ok   astype(complex) then back: float64 -> complex128 -> float64 round trip; complex -> float discards imag with ComplexWarning
+---- promotion
+ok   1.x value-based: np.float32(1) + 1.0 -> float64 (scalar + scalar promotes to float64)  (got float64)
+ok   1.x value-based: np.int8(100) + 100 -> int64 200, no warning  (got 200 int64, warnings [])
+ok   1.x value-based: uint8 array + 300 -> uint16 [301]  (got uint16)
+ok   1.x value-based: np.uint8(1) + 300 -> int64 301
+ok   1.x value-based: np.float32(1) + 3e100 -> float64 3e100
+ok   1.x value-based: float32 array + np.float64(1) -> float32 (0-d operands ignored for the dtype)
+ok   1.x value-based: uint8 array + np.int64(1) -> uint8; uint8 array + 200 -> uint8 (wraps to 44)
+ok   1.x value-based: np.array(1.0, float32) + 1e-14 == 1.0 is False (0-d array computed in float64)
+ok   1.x value-based: (np.float32(1) + 1j) is complex128
+ok   promote_types over all 196 pairs of bool/int/uint/float/complex equals the documented rules (uint64+int64 -> float64, int16+float16 -> float32, int32+float32 -> float64, float64+complex64 -> complex128) and result_type of arrays agrees  (mismatches [])
+ok   documented examples: promote_types(int8, uint8) = int16, (int16, uint16) = int32, (int64, uint64) = float64, (int8, float16) = float16, (uint8, float16) = float16, (int16, float16) = float32, (float16, complex64) = complex64
+ok   promote_types is symmetric (all pairs)
+   promote_types is NOT associative for 28 of 2744 triples, e.g. [('int8', 'uint8', 'float16', 'float32', 'float16'), ('int8', 'uint16', 'float16', 'float64', 'float32'), ('int8', 'uint16', 'float32', 'float64', 'float32')] (documented nowhere; result_type with several dtypes is NOT the left-to-right pairwise reduction either, see next line)
+   result_type(int8, uint8, float16) = float16 (pairwise left-to-right would give float32); result_type(int8, float16, uint8) = float16; result_type(int8, uint16, float16) = float32
+ok   result_type with three dtypes is order-independent for (int8, uint8, float16) (recorded: it is not the naive left-to-right pairwise reduction)
+ok   can_cast(a, b, 'safe') over all pairs equals promote_types(a, b) == b (the safe cast lattice)  (mismatches [])
+ok   can_cast specifics: int64->float64 True (documented safe though lossy), uint64->int64 False, float64->float32 False, int16->float16 False, int8->float16 True, float32->complex64 True, float64->complex64 False
+ok   can_cast casting modes: 'no' only identical, 'equiv' same-kind/size, 'same_kind' float64->float32 True int->float True float->int False, 'unsafe' everything
+ok   can_cast with a Python int value is value-based on 1.x: can_cast(300, uint8) False, can_cast(100, uint8) True
+ok   result_type of an int8 array with a Python float is float64 (2.x, weak float -> default) / float64 (1.x)
+ok   result_type(int8 array, Python int 1) is int8 on both; result_type(np.int8, np.float32) is float32
+ok   np.add(int8 array, int16 array).dtype is int16; (uint8 + int8) arrays give int16; (uint64 + int64) arrays give float64
+---- finfo / iinfo
+   float16: eps 0.0009765625 max 65504.0 tiny 6.103515625e-05 smallest_subnormal 5.960464477539063e-08 precision 3 resolution 0.0010004043579101562 nmant 10 nexp 5 minexp -14 maxexp 16 epsneg 0.00048828125
+ok   finfo(float16): eps=2^-10, max=(2-2^-10)*2^15, tiny=2^-14, smallest_subnormal=2^-24, precision 3, resolution 0.001, nmant/nexp/minexp/maxexp/epsneg per IEEE 754
+   float32: eps 1.1920928955078125e-07 max 3.4028234663852886e+38 tiny 1.1754943508222875e-38 smallest_subnormal 1.401298464324817e-45 precision 6 resolution 9.999999974752427e-07 nmant 23 nexp 8 minexp -126 maxexp 128 epsneg 5.960464477539063e-08
+ok   finfo(float32): eps=2^-23, max=(2-2^-23)*2^127, tiny=2^-126, smallest_subnormal=2^-149, precision 6, resolution 1e-06, nmant/nexp/minexp/maxexp/epsneg per IEEE 754
+   float64: eps 2.220446049250313e-16 max 1.7976931348623157e+308 tiny 2.2250738585072014e-308 smallest_subnormal 5e-324 precision 15 resolution 1e-15 nmant 52 nexp 11 minexp -1022 maxexp 1024 epsneg 1.1102230246251565e-16
+ok   finfo(float64): eps=2^-52, max=(2-2^-52)*2^1023, tiny=2^-1022, smallest_subnormal=2^-1074, precision 15, resolution 1e-15, nmant/nexp/minexp/maxexp/epsneg per IEEE 754
+   longdouble: bits 128 nmant 63 eps 1.0842021724855044e-19 tiny 3.3621031431120935063e-4932 max 1.189731495357231765e+4932 smallest_subnormal 4e-4951 precision 18; np.float128 available: True
+ok   longdouble is the x86 80-bit extended format: nmant 63, eps 2^-63, tiny 2^-16382, maxexp 16384, precision 18, smallest_subnormal 2^-16445, 16-byte storage
+ok   longdouble arithmetic really carries 64 mantissa bits: (1 + 2^-60) - 1 == 2^-60 in longdouble but 0 in float64
+ok   np.float128 is an alias of longdouble on this platform (name is a misnomer: 80-bit precision in 16 bytes)
+ok   longdouble(0.1) parsed from a string is closer to 1/10 than float64(0.1)
+ok   iinfo(int8): bits 8, min -128, max 127 (two's complement)
+ok   iinfo(int16): bits 16, min -32768, max 32767 (two's complement)
+ok   iinfo(int32): bits 32, min -2147483648, max 2147483647 (two's complement)
+ok   iinfo(int64): bits 64, min -9223372036854775808, max 9223372036854775807 (two's complement)
+ok   iinfo(uint8): bits 8, min 0, max 255 (two's complement)
+ok   iinfo(uint16): bits 16, min 0, max 65535 (two's complement)
+ok   iinfo(uint32): bits 32, min 0, max 4294967295 (two's complement)
+ok   iinfo(uint64): bits 64, min 0, max 18446744073709551615 (two's complement)
+ok   iinfo of a bool / float raises ValueError; finfo of an int raises ValueError
+ok   finfo(complex128) reports the float64 values; finfo accepts a scalar instance or a dtype string
+---- nextafter / spacing / frexp / ldexp / modf
+ok   nextafter(0, 1) = 2^-1074, nextafter(0, -1) = -2^-1074, nextafter(-0.0, 1) = 2^-1074
+ok   nextafter(1, 2) = 1 + 2^-52, nextafter(1, 0) = 1 - 2^-53 (equals math.nextafter)
+ok   nextafter(max, inf) = inf, nextafter(inf, 0) = max, nextafter(x, x) = x, nextafter(nan, 1) = nan
+ok   nextafter across the subnormal boundary: nextafter(2^-1022, 0) = 2^-1022 - 2^-1074 (exact, gradual underflow)
+ok   nextafter float32: nextafter(0f, 1) = 2^-149, nextafter(1f, 2) = 1 + 2^-23, nextafter(max32, inf) = inf; float16: nextafter(0h, 1) = 2^-24
+ok   nextafter(np.float32(1), 2) with a Python-int direction: float32 on 2.x (weak Python scalar), float64 on 1.x (scalar-scalar value-based promotion)  (dtype float64)
+ok   spacing(1) = eps, spacing(0) = 2^-1074, spacing(2^-1074) = 2^-1074, spacing(2^-1022) = 2^-1074
+   spacing(float64 max) = inf, spacing(float32 max) = inf, warnings ['overflow encountered in spacing']  (the adjacent number below is 2^971 away; numpy computes nextafter(x, inf) - x)
+ok   spacing(max) is inf with an overflow RuntimeWarning (implemented as nextafter(x, +inf) - x; the documented invariant 'no representable number between x + spacing(x) and x' still holds) -- recorded
+ok   spacing(-1) = -eps (signed toward larger magnitude), spacing(inf) = nan, spacing(nan) = nan, spacing(2**k) = 2**(k-52)
+ok   spacing(x) == nextafter(x, inf) - x for random positive x; float32 spacing(1f) = 2^-23; float16 spacing(1h) = 2^-10
+ok   spacing(x) == 0 never for finite x; 'there should not be any representable number between x + spacing(x) and x'
+ok   frexp equals math.frexp (|mantissa| in [0.5, 1), documented '(-1, 1)'), incl. subnormals 5e-324 -> (0.5, -1073), and ldexp(m, e) round-trips exactly
+ok   frexp(0) = (0, 0), frexp(-0.0) keeps the sign, frexp(inf) = (inf, 0), frexp(nan) = (nan, 0)
+ok   frexp exponent dtype is int32 (C int); frexp of float32 gives a float32 mantissa
+   ldexp(1, -1074) = 5e-324, ldexp(1, 1024) = inf, ldexp(1, -1075) = 0.0 (ties to even -> 0), ldexp(3, -1075) = 1e-323 (1.5 subnormal ulps -> 2 ulps), ldexp(1f, -149) = 1.401298464324817e-45, ldexp(1f, 128) = inf, ldexp(0.75, 1024) = 1.348269851146737e+308; warnings ['overflow encountered in ldexp']
+ok   ldexp(1, -1074) = 2^-1074 exact, ldexp(1, 1024) = inf (overflow warning), ldexp(1, -1075) = 0 (round half to even), ldexp(3, -1075) = 2*2^-1074, float32 ldexp(1, -149) = 2^-149
+ok   ldexp rejects a float exponent (TypeError: no loop) and accepts int arrays; x * 2**e agrees for random pairs
+ok   modf(-3.5) = (-0.5, -3.0): 'fractional and integral parts are negative if the given number is negative'
+ok   modf(-0.5) = (-0.5, -0.0) and modf(-0.0) = (-0.0, -0.0): the integral part keeps the sign (C modf)
+ok   modf(inf) = (0.0, inf), modf(nan) = (nan, nan), modf on ints returns float64 pairs
+ok   modf equals math.modf on random values and preserves float32
+ok   divmod(x, 1) is modf with the parts swapped and a non-negative remainder (documented): divmod(-3.5, 1) = (-4, 0.5)
+---- reductions and dtypes
+ok   true_divide of ints -> float64: np.int64(7)/np.int64(2) = 3.5 float64, int8/int8 array -> float64, int32/int32 -> float64
+ok   true_divide has no integer loops (types start at 'ee->e'); ints are cast to float64
+ok   np.divide(int arr, int arr, out=int arr) raises TypeError (cannot cast float64 output to int with same_kind)
+ok   np.divide(int, int, out=int, casting='unsafe') truncates: 7/2 -> 3; floor_divide with int out works
+ok   sum of int8 accumulates in int64 (platform long) by default: max + 1 exact; mean is float64 and exact  (sum 128)
+ok   sum of int16 accumulates in int64 (platform long) by default: max + 1 exact; mean is float64 and exact  (sum 32768)
+ok   sum of int32 accumulates in int64 (platform long) by default: max + 1 exact; mean is float64 and exact  (sum 2147483648)
+ok   sum of int64 accumulates in int64 (platform long) by default: max + 1 wraps silently to int64 min (recorded); mean is float64 and exact  (sum -9223372036854775808)
+ok   sum of uint8 accumulates in uint64: max + 1 exact; prod dtype uint64  (sum 256)
+ok   sum of uint16 accumulates in uint64: max + 1 exact; prod dtype uint64  (sum 65536)
+ok   sum of uint32 accumulates in uint64: max + 1 exact; prod dtype uint64  (sum 4294967296)
+ok   sum of uint64 accumulates in uint64: max + 1 wraps silently to 0 (recorded); prod dtype uint64  (sum 0)
+ok   sum(bool) is int64 [count], mean(bool) float64, sum(int8, dtype=int8) wraps
+ok   mean(float32) stays float32 ('same precision as the input'), mean(float32, dtype=float64) is float64, mean(float16) returns float16 (computed in float32)
+ok   np.add.reduce(int8 array) -> int64 ('upcast to conserve precision'), np.add.reduce(int8, dtype=int8) wraps, np.multiply.reduce(int8) -> int64
+ok   np.maximum.reduce / np.minimum.reduce keep the input dtype (no upcast)
+ok   np.add.accumulate(int8) is int64 too? -> accumulate keeps int8 (no upcast, documented only for reduce) -- recorded  (accumulate int8 dtype int64, value [100, 200]; reduceat dtype int64)
+   float32 sum of 1e6 values in [1, 2): exact 1499941.1888022423; add.reduce 1499941.375 (rel err 1.24e-07); accumulate[-1] 1499918.375 (rel err 1.52e-05); math.fsum 1499941.1888022423
+ok   np.add.reduce(float32) == x.sum() (same pairwise path) and is within 1e-6 relative of the exact sum (pairwise summation)
+ok   np.add.accumulate(float32)[-1] is a naive running sum: error at least 10x that of the pairwise reduce (report)  (accumulate error 1.52e-05 vs reduce 1.24e-07)
+   strided float32 x[::2] sum rel err 7.11e-08; axis-0 sum of a (1e6, 1) view rel err 1.24e-07
+ok   np.sum(float32, dtype=float64) is exact to 1e-15 relative
+---- ufunc methods
+ok   add.reduce over axis 1 of [[1,2],[3,4]] = [3,7]; multiply.reduce([]) = 1 (identity); add.reduce([]) = 0
+ok   maximum.reduce([]) raises ValueError (no identity); maximum.reduce([], initial=-inf) = -inf
+ok   add.reduce(where=mask) and add.reduce(initial=10)
+ok   add.reduce(axis=None) reduces everything; axis=(0,1) on 3-d; keepdims
+ok   subtract.reduce is left-associative: ((1-2)-3) = -4; divide.reduce([8,2,2]) = 2.0
+ok   add.accumulate([1,2,3,4]) = [1,3,6,10]; subtract.accumulate([1,2,3]) = [1,-1,-4]; multiply.accumulate along axis 0 of a 2-d array
+ok   reduceat(arange(1,9), [0,4,1,5,2,6,3,7]) equals the documented slice semantics (decreasing pairs give array[indices[i]])  ([10, 5, 14, 6, 18, 7, 22, 8])
+ok   reduceat with the documented [::2] trick gives the pair sums [10, 14, 18, 22]
+ok   reduceat indices [4, 1]: matches the documented rules for add and maximum  (add [5, 35])
+ok   reduceat indices [7]: matches the documented rules for add and maximum  (add [8])
+ok   reduceat indices [0]: matches the documented rules for add and maximum  (add [36])
+ok   reduceat indices [3, 3, 3]: matches the documented rules for add and maximum  (add [4, 4, 30])
+ok   reduceat indices [5, 2, 6, 0]: matches the documented rules for add and maximum  (add [6, 18, 7, 36])
+ok   reduceat indices [0, 7, 2]: matches the documented rules for add and maximum  (add [28, 8, 33])
+ok   reduceat with an index >= len raises IndexError; a negative index raises IndexError (documented 'an error is raised')  (IndexError, IndexError)
+ok   reduceat along axis=1 of a 2-d array and with dtype=float
+ok   multiply.outer([1,2,3],[4,5]) has shape (3,2) with a[i]*b[j]; subtract.outer; outer of 2-d inputs has shape a.shape + b.shape
+ok   add.at accumulates repeated indices ([3, 1, 0]) whereas fancy-index += applies once ([1, 1, 0])
+ok   negative.at (unary) and add.at with a value array
+ok   out= aliasing an input with overlapping views is computed as if no overlap (documented since 1.13): add(a[:-1], a[1:], out=a[1:]) -> [0,1,3,5,7]
+ok   a[1:] += a[:-1] likewise gives [0,1,3,5,7] (not the running sum)
+ok   in-place out=a and out= with a reversed view of itself are correct
+ok   where= with out= leaves the unselected positions of out untouched
+ok   where= without out= leaves unselected positions uninitialized (documented): selected values correct, others recorded  (unselected 0.8030871086242246, 0.7980909108673888)
+ok   out= with a wrong shape raises ValueError; out= must be an array (list raises TypeError)
+ok   out= tuple form and dtype= keyword: add(int8, int8, dtype=int16) does not wrap; out=(o,) writes o and returns it
+ok   sum(dtype=float32) of an int array computes in float32; np.add.reduce(float64, dtype=float32) casts the accumulator
+ok   np.mean of an int array with dtype=np.int32 (documented: intermediate in that dtype) returns an int-typed mean: mean([1,2], dtype=int32) = 1
+---- scalars, bool, heaviside
+ok   np.float64 results: array.sum() and array[0] are np.float64 (a float subclass), not Python float
+ok   np.int64 is not a subclass of Python int; np.array([1])[0] is np.int64; bool_ is not a bool subclass
+ok   np.float64(1) / 0 gives inf with a warning (no ZeroDivisionError); np.int64(1) / 0 gives inf too
+ok   np.sqrt(4.0) returns np.float64 for a Python float, np.float32 for np.float32 input; np.sqrt(4) (Python int) returns np.float64
+ok   0-d array results: np.add(np.array(1.0), 1) returns a NumPy scalar (np.float64), not a 0-d array
+ok   np.bool_: True + True is True (logical or), True * True is True, True & False is False, True / True is 1.0 float64
+ok   np.bool_ subtract and negative raise TypeError ('numpy boolean subtract ... is not supported'), Python True - True is 0
+ok   np.array([True, True]).sum() = 2 (int), np.add(bool arr, bool arr) is bool (logical or), np.True_ + 1 = 2 int64
+ok   np.bool_ ** and abs: True ** True = 1 (int8 in 2.x / recorded), ~True is False, np.True_ == 1  (True**True type int8)
+ok   heaviside(x, 0.5): 0 for x<0, 0.5 at +-0, 1 for x>0, nan for nan, 0/1 at -+inf
+ok   heaviside(0, 7) = 7 (x2 is returned at zero), heaviside on int input gives float64 (only float loops)
+ok   heaviside(x, nan) at x=0 is nan; heaviside float32 stays float32
+ok   np.abs on int8 array keeps int8; np.abs(complex) is float64 (magnitude); np.abs on bool is bool
+ok   np.abs(-np.inf) = inf, abs(nan) = nan, abs(np.int64 min) recorded above, np.absolute is np.abs
+ok   np.rint on float16 / float32 keeps the dtype and rounds half to even (2.5h -> 2)
+ok   np.trunc/floor/ceil on float16 keep float16; np.floor(np.float16(-0.5)) = -1

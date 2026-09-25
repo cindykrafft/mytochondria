@@ -1,0 +1,196 @@
+scikit-learn 1.2.2  numpy 1.24.4  python 3.11.15
+== naive_bayes: GaussianNB
+   theta_ [[2.5, 3.0], [6.75, 3.5]]  var_ [[1.250000006234375, 0.500000006234375], [2.187500006234375, 7.250000006234375]]  epsilon_ 6.234e-09 (exact 6.234e-09)  class_prior_ [0.5, 0.5]
+ok   GaussianNB theta_ = per-class mean (exact)
+ok   GaussianNB epsilon_ = var_smoothing * max_j var(X[:, j]) (population variance)
+ok   GaussianNB var_ = per-class population variance + epsilon_ (exact)
+ok   GaussianNB class_prior_ = class counts / n (exact 4/8, 4/8)
+   predict_proba [0.007386949455494078, 0.8590000438701249, 1.0, 0.20165289293847097, 1.0]
+   exact         [0.0073869494554940785, 0.859000043870125, 1.0, 0.2016528929384711, 1.0]
+ok   GaussianNB predict_proba = softmax of exact Gaussian log-likelihood + log prior (rel 1e-9)
+ok   GaussianNB predict_log_proba = exact log posterior (abs 1e-9, incl. a far-away point with log p ~ -1e4)  (max abs diff 6.66e-16)
+ok   GaussianNB predict = argmax of exact posterior
+ok   GaussianNB(priors=[0.3,0.7]): class_prior_ is the given prior and theta_/var_ unchanged
+ok   GaussianNB(priors): predict_proba uses the given prior (exact)
+ok   GaussianNB(priors not summing to 1) raises ValueError
+ok   GaussianNB(sample_weight): theta_ = weighted mean, var_ = weighted population variance + epsilon_, class_count_ = sum of weights (exact)
+ok   GaussianNB(sample_weight=integer w) equals fitting on rows repeated w times (theta_, var_, class_prior_)
+   partial_fit(2 chunks) vs fit: max |theta_/var_ diff| 3.30e-09; epsilon_ 5.188e-09 vs fit 6.234e-09
+ok   GaussianNB partial_fit over two chunks equals fit (theta_, var_ within 1e-7 rel, class_count_, class_prior_) at the default var_smoothing
+   var_smoothing=0.5: fit var_ [[4.3671875, 3.6171875], [5.3046875, 10.3671875]]; partial_fit var_ [[2.71875, 1.96875], [4.40625, 9.46875]]; exact class-var + 0.5*max var [[4.3671875, 3.6171875], [5.3046875, 10.3671875]]; fit epsilon_ 3.1171875, partial_fit epsilon_ 2.59375
+ok   GaussianNB(var_smoothing=0.5) fit: var_ = class variance + var_smoothing*max var(X) (exact)
+FAIL GaussianNB(var_smoothing=0.5) partial_fit over two chunks: var_ equals the fit result on the same data (docs: epsilon_ is 'absolute additive value to variances')  (max rel diff 4.56e-01)
+ok   GaussianNB with one sample per class: var_ == epsilon_ exactly (zero variance plus smoothing)
+ok   GaussianNB float32 input: predict_proba within 1e-5 of the exact float64 posterior  (dtype of theta_ float64)
+ok   GaussianNB with offset 1e6 added to X: var_ within 1e-6 relative of the offset-free var_ (two-pass variance)  (max rel diff 0.00e+00)
+== naive_bayes: MultinomialNB / ComplementNB / BernoulliNB / CategoricalNB
+   feature_count_ [[6.0, 2.0, 0.0, 1.0], [0.0, 1.0, 5.0, 3.0], [1.0, 0.0, 1.0, 9.0]] class_count_ [3.0, 2.0, 2.0]
+ok   MultinomialNB feature_count_ / class_count_ are the summed counts
+ok   MultinomialNB feature_log_prob_ = log((N_cj + alpha) / (N_c + alpha*n_features)), alpha=1 (rel 1e-12)
+ok   MultinomialNB class_log_prior_ = log(class_count_/n) (fit_prior=True)
+ok   MultinomialNB(fit_prior=False): class_log_prior_ = log(1/n_classes) uniform
+ok   MultinomialNB(class_prior=[.2,.3,.5]): class_log_prior_ = log(class_prior)
+ok   MultinomialNB(alpha per feature array): feature_log_prob_ uses alpha_j in numerator and sum_j alpha_j in denominator
+ok   MultinomialNB predict_log_proba = X.feature_log_prob_.T + class_log_prior_ minus logsumexp (rel 1e-9)
+ok   MultinomialNB predict_proba = softmax of the joint log likelihood (rel 1e-9)
+ok   MultinomialNB all-zero row: predict_proba = class prior
+ok   MultinomialNB(alpha=0, force_alpha=True): 'no smoothing' -> feature_log_prob_ = log(N_cj/N_c) with -inf for unseen features
+ok   MultinomialNB(alpha=1e-12, force_alpha=False): alpha is set to 1e-10 (documented) with a warning
+ok   MultinomialNB(sample_weight): feature_count_ = sum w*x, class_count_ = sum w, class_log_prior_ from weighted counts (exact)
+ok   MultinomialNB partial_fit over two chunks equals fit (feature_log_prob_, class_log_prior_)
+ok   MultinomialNB rejects negative counts (ValueError)
+   ComplementNB(norm=False) feature_all_ [7.0, 3.0, 6.0, 13.0] feature_log_prob_[0] [2.484907, 2.484907, 1.232144, 0.613104]
+ok   ComplementNB(norm=False) feature_all_ = per-feature totals and feature_log_prob_ = -log((N_j + alpha - N_cj)/sum) (rel 1e-12)
+ok   ComplementNB(norm=False) predict = argmax(X . feature_log_prob_.T) with no class prior (3 classes) and predict_proba = softmax of it
+   ComplementNB(norm=True) feature_all_ [7.0, 3.0, 6.0, 13.0] feature_log_prob_[0] [0.36462, 0.36462, 0.180797, 0.089963]
+ok   ComplementNB(norm=True) feature_all_ = per-feature totals and feature_log_prob_ = log(comp/sum) / sum(log(comp/sum)) (rel 1e-12)
+ok   ComplementNB(norm=True) predict = argmax(X . feature_log_prob_.T) with no class prior (3 classes) and predict_proba = softmax of it
+ok   BernoulliNB(binarize=0.0): feature_count_ counts x > 0.0 and feature_log_prob_ = log((N_cj+alpha)/(N_c+2alpha)) (rel 1e-12)
+ok   BernoulliNB(binarize=0.0) predict_log_proba = sum_j [x_j log p_cj + (1-x_j) log(1-p_cj)] + log prior, normalised (absent features penalised; rel 1e-9)
+ok   BernoulliNB(binarize=0.5): feature_count_ counts x > 0.5 and feature_log_prob_ = log((N_cj+alpha)/(N_c+2alpha)) (rel 1e-12)
+ok   BernoulliNB(binarize=0.5) predict_log_proba = sum_j [x_j log p_cj + (1-x_j) log(1-p_cj)] + log prior, normalised (absent features penalised; rel 1e-9)
+ok   BernoulliNB(binarize=None): X is used as-is (feature_count_ = sum of the fractional values)
+ok   BernoulliNB(binarize=None) with fractional x: jll = x log p + (1-x) log(1-p) using its own feature_log_prob_ (documented formula, rel 1e-9)
+ok   CategoricalNB n_categories_ = max+1 per feature and category_count_ = per (class, category) counts
+ok   CategoricalNB feature_log_prob_[i] = log((N_tic + alpha)/(N_c + alpha*n_categories_i)) (rel 1e-12)
+ok   CategoricalNB predict_log_proba = sum_i log P(x_i | y) + log prior, normalised (rel 1e-9)
+ok   CategoricalNB(min_categories=[5,3], alpha=0.5): feature 0 gets 5 categories (2 unseen) and the smoothing denominator N_c + 0.5*5
+ok   CategoricalNB(min_categories=4 scalar): applied to every feature
+ok   CategoricalNB partial_fit over two chunks equals fit (feature_log_prob_)
+ok   CategoricalNB predict with an unseen category index (3 >= n_categories_) raises IndexError
+== tree: reference implementation
+   root gini 0.5 (exact 1 - 2*(1/2)^2 = 0.5); best weighted decrease 0.500000 by [(1, 3.5, False)]
+   gini: root feature 1 threshold 3.5 impurity 0.500000 n_leaves 2
+ok   DecisionTreeClassifier(gini) every node: impurity by hand (1 - sum p^2), split = max weighted impurity decrease with midpoint threshold, leaves only when pure/too small, value = class fractions
+   entropy: root feature 1 threshold 3.5 impurity 1.000000 n_leaves 2
+ok   DecisionTreeClassifier(entropy) every node: impurity by hand (-sum p log2 p), split = max weighted impurity decrease with midpoint threshold, leaves only when pure/too small, value = class fractions
+   log_loss: root feature 1 threshold 3.5 impurity 1.000000 n_leaves 2
+ok   DecisionTreeClassifier(log_loss) every node: impurity by hand (-sum p log2 p), split = max weighted impurity decrease with midpoint threshold, leaves only when pure/too small, value = class fractions
+ok   DecisionTreeClassifier(entropy) impurity uses log base 2 (root = 1.0 bit for a 5/5 split)
+   tie dataset: candidates with equal decrease [(0, 0.5, False), (0, 2.5, False)]; chosen threshold 0.5
+ok   DecisionTreeClassifier tie between thresholds of one feature: the lowest threshold is kept (strict '>' on the proxy, ascending scan)
+ok   DecisionTreeClassifier(min_samples_split=8) on 60 random rows: whole tree equals the reference builder under that rule (n_leaves 7, depth 3)
+ok   DecisionTreeClassifier(min_samples_leaf=5) on 60 random rows: whole tree equals the reference builder under that rule (n_leaves 5, depth 3)
+ok   DecisionTreeClassifier(min_samples_split=0.2 (ceil(0.2 n))) on 60 random rows: whole tree equals the reference builder under that rule (n_leaves 6, depth 3)
+ok   DecisionTreeClassifier(max_depth=3) on 60 random rows: whole tree equals the reference builder under that rule (n_leaves 7, depth 3)
+ok   DecisionTreeClassifier(min_weight_fraction_leaf=0.1, sample_weight): every leaf holds >= 10% of the total weight and the tree equals the weighted reference   (min leaf weight 15.0, 10% = 14.600000000000001)
+ok   DecisionTreeClassifier(class_weight={0:1,1:3}) equals the tree grown with sample_weight = class weight (impurities, values, splits)
+FAIL DecisionTreeClassifier(class_weight='balanced') uses n_samples / (n_classes * bincount(y)) as sample weights  node 11 should be a leaf (reference impurity 0.0e+00, library impurity 1.1e-15 > EPSILON 2.2e-16?, value [0.0, 1.0])
+   balanced tree: internal nodes whose samples are all one class: [11] (impurities [1.1102230246251565e-15])
+FAIL DecisionTreeClassifier(class_weight='balanced'): no single-class node is split further (docs: 'nodes are expanded until all leaves are pure'; pure test is impurity <= 2.2e-16)  (split pure nodes [11])
+ok   DecisionTreeClassifier(max_features=1): every split is the best split over the feature it uses (non-constant draw), tree otherwise standard
+ok   DecisionTreeClassifier apply() equals an independent traversal of tree_ arrays (x <= threshold goes left)
+ok   DecisionTreeClassifier predict_proba = weighted class fractions of the training rows in the leaf (sample_weight)
+ok   DecisionTreeClassifier decision_path rows are exactly the root-to-leaf node sets of the traversal
+ok   DecisionTreeClassifier feature_importances_ = normalised sum over splits of weighted impurity decrease (recomputed from tree_ arrays)
+ok   feature_importances_ sum to 1
+   Regressor pruning path: 14 alphas, first [0.0, 3e-06, 0.000751, 0.001359] (ref [0.0, 3e-06, 0.000751, 0.001359]); impurities first [0.025234, 0.025237, 0.025988] (ref [0.025234, 0.025237, 0.025988])
+ok   DecisionTreeRegressor cost_complexity_pruning_path: ccp_alphas = successive weakest-link alpha_eff = (R(t) - R(T_t))/(|leaves|-1) and impurities = sum of leaf R (recomputed from tree_)
+ok   DecisionTreeRegressor pruning path alphas are non-decreasing and end at the root-only tree impurity
+ok   DecisionTreeRegressor(ccp_alpha) strictly between successive path alphas: total leaf impurity equals the path impurity of the last alpha <= ccp_alpha  (13/13 alphas)
+ok   DecisionTreeRegressor(ccp_alpha) exactly equal to a path alpha: that weakest link is pruned too (docs: pruning stops only when the minimal alpha_eff is *greater* than ccp_alpha)  (13/13 alphas)
+   Classifier pruning path: 8 alphas, first [0.0, 0.016049, 0.025, 0.030159] (ref [0.0, 0.016049, 0.025, 0.030159]); impurities first [0.0, 0.032099, 0.057099] (ref [0.0, 0.032099, 0.057099])
+ok   DecisionTreeClassifier cost_complexity_pruning_path: ccp_alphas = successive weakest-link alpha_eff = (R(t) - R(T_t))/(|leaves|-1) and impurities = sum of leaf R (recomputed from tree_)
+ok   DecisionTreeClassifier pruning path alphas are non-decreasing and end at the root-only tree impurity
+ok   DecisionTreeClassifier(ccp_alpha) strictly between successive path alphas: total leaf impurity equals the path impurity of the last alpha <= ccp_alpha  (7/7 alphas)
+ok   DecisionTreeClassifier(ccp_alpha) exactly equal to a path alpha: that weakest link is pruned too (docs: pruning stops only when the minimal alpha_eff is *greater* than ccp_alpha)  (7/7 alphas)
+ok   DecisionTreeRegressor(max_leaf_nodes=3) = best-first growth by largest weighted impurity decrease: exactly 3 leaves and the same split set as the reference  (got [(0, 0.13312020897865295), (1, 0.7358229458332062)]..., ref [(0, 0.13312020897865295), (1, 0.7358229458332062)]...)
+ok   DecisionTreeRegressor(max_leaf_nodes=5) = best-first growth by largest weighted impurity decrease: exactly 5 leaves and the same split set as the reference  (got [(0, 0.13312020897865295), (0, 0.8318053483963013), (1, 0.39712345600128174)]..., ref [(0, 0.13312020897865295), (0, 0.8318053483963013), (1, 0.39712345600128174)]...)
+ok   DecisionTreeRegressor(max_leaf_nodes=8) = best-first growth by largest weighted impurity decrease: exactly 8 leaves and the same split set as the reference  (got [(0, 0.13312020897865295), (0, 0.17744170129299164), (0, 0.23490969836711884)]..., ref [(0, 0.13312020897865295), (0, 0.17744170129299164), (0, 0.23490969836711884)]...)
+ok   DecisionTreeRegressor(squared_error) whole tree: impurity = variance and splits maximise the weighted decrease
+ok   DecisionTreeRegressor(absolute_error) whole tree: impurity = mean |y - median|, leaf value = median and splits maximise the weighted decrease
+ok   DecisionTreeRegressor(poisson) whole tree: impurity = mean y log(y/ybar) (half Poisson deviance), leaf value = mean and splits maximise the weighted decrease
+ok   DecisionTreeRegressor(squared_error, sample_weight) whole tree: weighted impurities and weighted mean leaf values
+ok   DecisionTreeRegressor(absolute_error, sample_weight) whole tree: weighted impurities and weighted median (midpoint at an exact half-weight tie) leaf values
+ok   DecisionTreeRegressor(poisson, sample_weight) whole tree: weighted impurities and weighted mean leaf values
+ok   DecisionTreeRegressor(absolute_error) root value = median of an even-count node = midpoint of the two middle values (6.0)
+ok   DecisionTreeRegressor(poisson) rejects negative targets (ValueError)
+ok   tree_.value (classifier, <1.4) holds weighted class counts (root row sums to n)
+ok   DecisionTreeRegressor multi-output: value[leaf] = per-output means of the training rows in the leaf and predict returns shape (n, 2)
+   friedman_mse root feature 1 vs squared_error root feature 0; FutureWarning: False
+   friedman_mse vs squared_error single output, full trees: 8 differing nodes of 159 (differences arise only at tied 2-sample nodes)
+ok   DecisionTreeRegressor(friedman_mse) single-output equals squared_error split choice at max_depth=3 (documented in the 1.9 deprecation as 'always equivalent'; proxies rank splits identically for one output)
+FAIL DecisionTreeRegressor(friedman_mse) multi-output chooses the same root split as squared_error (1.9 deprecation note: 'both were always equivalent')  (friedman feature 1, squared_error feature 0; Friedman proxy maximises (sum_k dmean_k)^2 which is 0 for feature 0 here)
+ok   ExtraTreeClassifier: every split threshold lies in [min, max) of the feature over the node's training rows (random draw, max mapped to min)
+ok   ExtraTreeClassifier thresholds are not midpoints between adjacent values (they are uniform draws)
+ok   ExtraTreeClassifier predict_proba = class fractions of the training rows in the leaf
+ok   ExtraTreeRegressor thresholds within [min, max) and leaf values = means
+   export_text leaf weights [[0.0, 2.0], [49.0, 4.0], [24.0, 10.0], [0.0, 57.0]]
+ok   export_text(show_weights=True) prints the weighted class counts of each leaf (value * weighted_n_node_samples) and 'class:' = argmax
+ok   export_text regressor leaf 'value:' = leaf mean (tree_.value)
+== dummy
+ok   DummyClassifier(most_frequent): predict = most frequent class, predict_proba one-hot
+ok   DummyClassifier(prior): class_prior_ = [.5,.3,.2], predict = most frequent, predict_proba = prior for every row
+ok   DummyClassifier(prior) predict_log_proba = log prior
+   stratified: class frequencies over 30000 draws [0.4972, 0.3038, 0.1989] (prior [.5,.3,.2])
+ok   DummyClassifier(stratified) predict_proba rows are one-hot multinomial(1, prior) samples and predict = the class with probability one (same random_state)
+ok   DummyClassifier(stratified) empirical class frequencies within 0.01 of the prior
+ok   DummyClassifier(uniform): predict_proba = 1/3 and predicted class frequencies within 0.01 of 1/3  (freq [0.3325, 0.3362, 0.3313])
+ok   DummyClassifier(constant=2): predict = 2, predict_proba one-hot on class 2
+ok   DummyClassifier(constant not in classes) raises ValueError
+ok   DummyClassifier.score = accuracy (most_frequent on this y = 3/7)
+ok   DummyClassifier.score with sample_weight = weighted accuracy
+ok   DummyClassifier(prior, sample_weight): class_prior_ = weighted class frequencies [5, 6, 10]/21
+ok   DummyClassifier multi-output: class_prior_ is a list per output and predict returns (n, 2)
+ok   DummyRegressor(mean): constant_ = mean = 4.0
+ok   DummyRegressor(median): constant_ = 3.0 (np.median)
+ok   DummyRegressor(quantile=0.25): np.percentile linear interpolation -> 2.0
+ok   DummyRegressor(quantile=0.9): np.percentile linear -> 4 + 0.6*6 = 7.6
+ok   DummyRegressor(constant=3.5): predict = 3.5
+ok   DummyRegressor(mean, sample_weight): weighted mean (1+2+6+4+10)/6
+   DummyRegressor(median) on [1,2,3,4]: no weights 2.5, sample_weight=ones 2.0; repeated data [1,2,2,3,4] median 2.0 vs sample_weight=[1,2,1,1] 2.0
+FAIL DummyRegressor(median): sample_weight=ones gives the same median (2.5) as no sample_weight (unit-weight invariance)
+ok   DummyRegressor(median, sample_weight=[1,2,1,1]) equals the median of the rows repeated by weight (2.0)
+   DummyRegressor(quantile=0.25) on [1,2,3,4]: no weights 1.75, sample_weight=ones 1.0
+FAIL DummyRegressor(quantile=0.25): sample_weight=ones equals no sample_weight (1.75)
+ok   DummyRegressor.score = R^2 (mean predictor on y itself -> 0.0; constant 2.5 on [1,2,3,4] -> 1 - 5/5 = 0.0; constant 3.5 -> 1 - 9/5 = -0.8)
+ok   DummyRegressor multi-output median: constant_ shape (1, 2) = [3, -3]
+== multiclass
+ok   OneVsRestClassifier: per-class estimators equal separate binary fits of class-vs-rest (coef_)
+ok   OneVsRestClassifier.predict_proba = per-class P(class) normalised to sum 1 (documented: 'rows sum to 1' in the single-label case)
+ok   OneVsRestClassifier.decision_function = stacked binary decision functions; predict = argmax
+ok   OneVsRestClassifier multilabel: predict_proba = marginal per-label probabilities (not normalised) and predict = indicator of decision_function > 0
+ok   OneVsOneClassifier: pairwise estimators equal separate fits on the class pairs (label 0 for the smaller class)
+ok   OneVsOneClassifier.decision_function = votes + sum_of_confidences / (3 (|sum| + 1)) recomputed from the pairwise estimators
+ok   OneVsOneClassifier.predict = argmax of that (confidence breaks vote ties without overturning a vote difference of 1)
+   OvO: 0 test rows with a full vote tie (1,1,1) -> decided by confidences
+   OvO triangle: 2 grid points with cyclic votes (1,1,1); library predictions there [0, 1, 1] per class
+ok   OneVsOneClassifier on cyclic-vote points (votes 1,1,1): predict = argmax of the summed confidences (documented confidence tie-break), recomputed from the pairwise fits  (2 tie points)
+ok   OutputCodeClassifier(code_size=2): int(n_classes*code_size) = 6 estimators, code_book_ shape (3, 6) in {-1, 1} (estimator has decision_function)
+ok   OutputCodeClassifier.predict = class whose code word is nearest (euclidean) to the vector of binary decision_function values
+ok   OutputCodeClassifier estimators are binary fits on the code-book columns (constant columns get a constant predictor)  (4 non-constant columns of 6)
+ok   OutputCodeClassifier with an estimator lacking decision_function: code_book_ in {0, 1}
+== multioutput
+ok   MultiOutputClassifier: each output's estimator equals a separate fit; predict_proba is a list per output
+ok   MultiOutputRegressor(Ridge): per-output coef_ equal separate fits and predict stacks them
+ok   ClassifierChain(order=[2,0,1]) fit: estimator k is fit on [X, true labels of the previous outputs in chain order]
+ok   ClassifierChain predict: chained features are the previous *predictions* and columns are put back in the original output order
+ok   ClassifierChain predict_proba: P(label) from each estimator given the predicted chain features
+ok   ClassifierChain(cv=KFold(3, shuffle)): chained training features are cross_val_predict predictions of the earlier links (recomputed)
+ok   RegressorChain(order=[1,0]): second link fit on [X, y1] and predict chains the first prediction, output re-ordered
+ok   ClassifierChain(order='random', random_state): order_ is a permutation of the outputs
+== semi_supervised
+   26 unlabeled of 40
+   LabelPropagation(rbf) n_iter_ 115; max |label_distributions_ - closed form| 2.70e-14
+ok   LabelPropagation(rbf): label_distributions_ on unlabeled rows = harmonic fixed point (I - T_uu)^-1 T_ul Y_l with T = row-normalised rbf kernel (abs 1e-8)
+ok   LabelPropagation: labeled rows are clamped to their one-hot label; rows sum to 1; transduction_ = argmax
+ok   LabelPropagation.predict_proba(X_train) = row-normalised K(X, X_train) . label_distributions_ (rbf, documented 'transduction' note: not equal to transduction_)
+ok   LabelPropagation(knn, n_neighbors=5): T = row-normalised connectivity graph of the 5 nearest neighbours *including the point itself*; fixed point matches (abs 1e-8)  (max diff 1.84e-14)
+ok   LabelPropagation(tol=1e-3): n_iter_ and label_distributions_ equal a plain re-implementation of the iteration (stop when L1 change < tol)  (n_iter_ 24 vs 24)
+ok   LabelPropagation(max_iter=2, tol=0): ConvergenceWarning and n_iter_ == max_iter
+   LabelSpreading(alpha=0.2) n_iter_ 18; max |diff to (1-a)(I - aS)^-1 Y| 2.70e-14
+ok   LabelSpreading(alpha=0.2): label_distributions_ = row-normalised (I - alpha S)^-1 Y with S = D^-1/2 W D^-1/2, zero diagonal, D from the off-diagonal rbf weights (abs 1e-8)
+   LabelSpreading(alpha=0.8) n_iter_ 102; max |diff to (1-a)(I - aS)^-1 Y| 3.08e-14
+ok   LabelSpreading(alpha=0.8): label_distributions_ = row-normalised (I - alpha S)^-1 Y with S = D^-1/2 W D^-1/2, zero diagonal, D from the off-diagonal rbf weights (abs 1e-8)
+ok   LabelSpreading transduction_ on unlabeled rows recovers the two-blob labels  (96 % correct)
+   LabelSpreading(knn): kNN graph asymmetric (|W - W^T| sum 92); nodes with zero in-degree 1
+ok   LabelSpreading(knn): closed form with S = D^-1/2 W D^-1/2 where D holds the *column* sums (in-degree) of the asymmetric kNN graph and isolated columns get degree 1 (scipy normalized Laplacian, axis=0)  (max diff 6.66e-16)
+   SelfTraining(threshold=0.9): n_iter_ 4, termination no_change, labeled per round [26, 16, 3, 3]
+ok   SelfTrainingClassifier(threshold=0.9): transduction_, labeled_iter_, n_iter_ and termination_condition_ equal a plain re-implementation (select max proba > threshold each round)  (got 4/no_change, ref 4/no_change)
+   SelfTraining(k_best=7, max_iter=4): n_iter_ 4, termination max_iter, labeled per round [26, 7, 7, 7, 7]
+ok   SelfTrainingClassifier(k_best=7, max_iter=4): transduction_, labeled_iter_, n_iter_ and termination_condition_ equal a plain re-implementation (select max proba top k_best each round)  (got 4/max_iter, ref 4/max_iter)
+   SelfTraining(threshold=0.75, max_iter=None): n_iter_ 7, termination no_change, labeled per round [26, 52, 15, 3, 3, 1, 2]
+ok   SelfTrainingClassifier(threshold=0.75, max_iter=None): transduction_, labeled_iter_, n_iter_ and termination_condition_ equal a plain re-implementation (select max proba > threshold each round)  (got 7/no_change, ref 7/no_change)
+ok   SelfTrainingClassifier: labeled_iter_ is 0 for initially labeled rows, -1 for never-labeled rows, and predict/predict_proba delegate to the final estimator_
+ok   SelfTrainingClassifier(k_best larger than the unlabeled count) fits with a warning rather than raising
+done

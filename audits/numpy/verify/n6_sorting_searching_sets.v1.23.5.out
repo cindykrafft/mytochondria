@@ -1,0 +1,319 @@
+numpy 1.23.5  python 3.11.15
+---- sort / argsort per kind and dtype (reference: Python sorted() with the documented key)
+ok   sort(int64 with ties) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(int64 with ties): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(int64 with ties) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(int16 (radix path for stable)) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(int16 (radix path for stable)): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(int16 (radix path for stable)) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(int8) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(int8): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(int8) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(uint8) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(uint8): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(uint8) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(bool) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(bool): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(bool) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(uint64 with 2**64-1 / 2**63 extremes) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(uint64 with 2**64-1 / 2**63 extremes): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(uint64 with 2**64-1 / 2**63 extremes) unstable kinds coincide with the stable permutation on this data: ['quicksort:True', 'heapsort:True']
+ok   sort(int64 with -2**63 / 2**63-1 extremes) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(int64 with -2**63 / 2**63-1 extremes): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(int64 with -2**63 / 2**63-1 extremes) unstable kinds coincide with the stable permutation on this data: ['quicksort:True', 'heapsort:True']
+   float data: 44 NaN (15 with the sign bit set), 20 inf, 181 zeros (85 negative)
+ok   sort(float64 with NaN/-NaN/inf/-0.0 (documented 'NaN sorted to the end')) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(float64 with NaN/-NaN/inf/-0.0 (documented 'NaN sorted to the end')): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(float64 with NaN/-NaN/inf/-0.0 (documented 'NaN sorted to the end')) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(float32 with NaN/inf/-0.0) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(float32 with NaN/inf/-0.0): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(float32 with NaN/inf/-0.0) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(float16) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(float16): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(float16) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+   complex data: 55 nan+Rj, 41 R+nanj, 32 nan+nanj
+ok   sort(complex128 with every NaN placement (documented order [R+Rj, R+nanj, nan+Rj, nan+nanj])) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(complex128 with every NaN placement (documented order [R+Rj, R+nanj, nan+Rj, nan+nanj])): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(complex128 with every NaN placement (documented order [R+Rj, R+nanj, nan+Rj, nan+nanj])) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(complex64) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(complex64): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(complex64) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(unicode strings (incl. empty and prefixes)) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(unicode strings (incl. empty and prefixes)): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(unicode strings (incl. empty and prefixes)) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(bytes) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(bytes): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(bytes) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(datetime64[D] with NaT (documented 'NaT and NaN always sort to the end')) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(datetime64[D] with NaT (documented 'NaT and NaN always sort to the end')): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(datetime64[D] with NaT (documented 'NaT and NaN always sort to the end')) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(timedelta64[s] with NaT) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(timedelta64[s] with NaT): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(timedelta64[s] with NaT) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(structured, order='x' (unspecified fields break ties in dtype order)) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(structured, order='x' (unspecified fields break ties in dtype order)): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(structured, order='x' (unspecified fields break ties in dtype order)) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(structured, order=['s'] then x) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(structured, order=['s'] then x): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(structured, order=['s'] then x) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(structured, order=['s','x']) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(structured, order=['s','x']): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(structured, order=['s','x']) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(structured, no order (all fields in dtype order)) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(structured, no order (all fields in dtype order)): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(structured, no order (all fields in dtype order)) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(object array of Python ints) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(object array of Python ints): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(object array of Python ints) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(object array of Python str) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(object array of Python str): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(object array of Python str) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+ok   sort(object array of tuples) for kinds ['quicksort', 'mergesort', 'heapsort', 'stable'] equals the reference order
+ok   argsort(object array of tuples): every kind sorts; mergesort/stable return the first-occurrence (stable) permutation
+   argsort(object array of tuples) unstable kinds coincide with the stable permutation on this data: ['quicksort:False', 'heapsort:False']
+---- NaN placement / signed NaN / -0.0
+   NaN sign bits in input: [False, True, False, True]
+ok   sort(kind=quicksort): every NaN (both signs) at the end, non-NaN prefix sorted
+   argsort(kind=quicksort) NaN index order: [1, 3, 5, 7] (input order [1, 3, 5, 7])
+ok   sort(kind=mergesort): every NaN (both signs) at the end, non-NaN prefix sorted
+ok   argsort(kind=mergesort): NaN indices keep input order (stable: 'items with the same key in the same relative order')
+ok   sort(kind=mergesort): NaN payloads / signs preserved in input order (bitwise)
+ok   sort(kind=heapsort): every NaN (both signs) at the end, non-NaN prefix sorted
+   argsort(kind=heapsort) NaN index order: [5, 7, 3, 1] (input order [1, 3, 5, 7])
+ok   sort(kind=stable): every NaN (both signs) at the end, non-NaN prefix sorted
+ok   argsort(kind=stable): NaN indices keep input order (stable: 'items with the same key in the same relative order')
+ok   sort(kind=stable): NaN payloads / signs preserved in input order (bitwise)
+ok   sort(complex, kind=quicksort) categories in documented order [R+Rj, R+nanj, nan+Rj, nan+nanj] and each sorted by its non-NaN part
+ok   sort(complex, kind=mergesort) categories in documented order [R+Rj, R+nanj, nan+Rj, nan+nanj] and each sorted by its non-NaN part
+ok   sort(complex, kind=heapsort) categories in documented order [R+Rj, R+nanj, nan+Rj, nan+nanj] and each sorted by its non-NaN part
+ok   sort(complex, kind=stable) categories in documented order [R+Rj, R+nanj, nan+Rj, nan+nanj] and each sorted by its non-NaN part
+ok   sort(kind=quicksort) treats -0.0 == 0.0 (zeros contiguous between -1 and 1)
+   kind=quicksort: zero sign bits after sort [False, True, False, True, True] (input [False, True, False, True, True]), argsort zero indices [0, 1, 2, 3, 6]
+ok   sort(kind=mergesort) treats -0.0 == 0.0 (zeros contiguous between -1 and 1)
+ok   sort(kind=mergesort) keeps -0.0 / 0.0 in input order (stable), argsort gives their indices ascending
+ok   sort(kind=heapsort) treats -0.0 == 0.0 (zeros contiguous between -1 and 1)
+   kind=heapsort: zero sign bits after sort [False, True, True, False, True] (input [False, True, False, True, True]), argsort zero indices [2, 3, 1, 0, 6]
+ok   sort(kind=stable) treats -0.0 == 0.0 (zeros contiguous between -1 and 1)
+ok   sort(kind=stable) keeps -0.0 / 0.0 in input order (stable), argsort gives their indices ascending
+ok   kind='stable' and kind='mergesort' give bitwise-identical sort and identical argsort on every dtype (documented equivalent)
+---- axis / 0-d / empty / views
+ok   sort(axis=-1) sorts each row
+ok   sort(axis=0) sorts each column
+ok   sort(axis=None) flattens (C order) then sorts
+ok   sort() default axis is -1 (last)
+ok   sort(3-D, axis=1) sorts every lane
+ok   argsort(axis=0, kind=quicksort) per column (a sorting permutation)
+ok   argsort(axis=0, kind=mergesort) per column (stable order)
+ok   argsort(axis=0, kind=heapsort) per column (a sorting permutation)
+ok   argsort(axis=0, kind=stable) per column (stable order)
+ok   argsort(axis=None) indexes the flattened array
+ok   sort(0-d array) raises AxisError (axis -1 out of bounds for 0-d; documented 'axis ... default is -1')  (got AxisError)
+ok   sort(0-d, axis=None) returns a 1-element 1-D array; argsort(0-d) returns [0]
+ok   sort / argsort of empty arrays keep shape and dtype
+ok   sort of a single element
+ok   sort of a strided view a[::3]
+ok   sort of a reversed view a[::-1] (stable argsort = first occurrence in the view's order)
+ok   sort of a Fortran-ordered 2-D array along both axes equals the C-ordered result
+ok   sort of a transposed view M.T along the last axis sorts the original columns
+ok   sort of a column slice M[:, 2]
+ok   in-place ndarray.sort() on a strided view sorts exactly the viewed elements of the base and nothing else
+ok   in-place sort of a column view modifies only that column
+ok   np.sort returns a copy (input untouched)
+---- partition / argpartition (kth in sorted position, smaller before, 'equal or greater behind'; NaN 'bigger than inf')
+ok   partition / argpartition(float64 with NaN/inf/-0.0) for kth in [0, 1, 1500, 2999, -1, -3, (2, 7, 1500, 2998), [5, 4]]
+ok   partition / argpartition(float32) for kth in [0, 1, 1500, 2999, -1, -3, (2, 7, 1500, 2998), [5, 4]]
+ok   partition / argpartition(int64 with many ties) for kth in [0, 1, 1500, 2999, -1, -3, (2, 7, 1500, 2998), [5, 4]]
+ok   partition / argpartition(int16) for kth in [0, 1, 1500, 2999, -1, -3, (2, 7, 1500, 2998), [5, 4]]
+ok   partition / argpartition(uint64 extremes) for kth in [0, 1, 1500, 2999, -1, -3, (2, 7, 1500, 2998), [5, 4]]
+ok   partition / argpartition(complex with NaN) for kth in [0, 1, 1500, 2999, -1, -3, (2, 7, 1500, 2998), [5, 4]]
+ok   partition / argpartition(strings) for kth in [0, 1, 1500, 2999, -1, -3, (2, 7, 1500, 2998), [5, 4]]
+ok   partition / argpartition(datetime with NaT) for kth in [0, 1, 1500, 2999, -1, -3, (2, 7, 1500, 2998), [5, 4]]
+ok   partition / argpartition(object ints) for kth in [0, 1, 1500, 2999, -1, -3, (2, 7, 1500, 2998), [5, 4]]
+ok   partition places NaN after inf ('sort order of np.nan is bigger than np.inf')
+ok   partition(axis=0, kth=4): every column has its 5th smallest at row 4 with smaller above and larger below; argpartition consistent
+ok   partition(axis=None) on 2-D flattens; kth out of range raises ValueError
+ok   partition with kth out of range raises ValueError  (got ValueError)
+ok   partition of empty / single element
+---- lexsort ('last key is the primary sort key'; 'indirect stable sort')
+ok   lexsort((b, a)) == stable sort by (a, b)
+ok   lexsort((c, b, a)) == stable sort by (a, b, c) with a string tertiary key
+ok   lexsort((a, c)) with a string primary key
+ok   lexsort((a,)) with a single key == stable argsort
+ok   lexsort with all-equal keys returns arange (stability)
+ok   lexsort with a 2-D keys array (rows are keys, last row primary)
+ok   lexsort(axis=0) sorts every column independently
+ok   lexsort with a float key containing NaN uses the documented order (NaN last, stable)
+ok   lexsort with a complex key
+ok   lexsort documented example: ((first_names, surnames)) -> [1, 2, 0]
+---- searchsorted (documented: left a[i-1] < v <= a[i], right a[i-1] <= v < a[i]; same as bisect_left / bisect_right)
+ok   searchsorted(int64 a with ties, v inside/outside), both sides
+ok   searchsorted(float64 a with NaN at the end, v with NaN/inf/-0.0 (NaN largest)), both sides
+ok   searchsorted(float32 a / float32 v), both sides
+ok   searchsorted(complex a with NaN placements / complex v), both sides
+ok   searchsorted(strings), both sides
+ok   searchsorted(bytes), both sides
+ok   searchsorted(datetime64 a with NaT, v with NaT), both sides
+ok   searchsorted(unsorted float a with sorter= (Python stable argsort)), both sides
+   float32 v [0.10000000149011612, 0.20000000298023224, 0.15000000596046448] widened exactly to [0.10000000149011612, 0.20000000298023224, 0.15000000596046448]; searchsorted in float64 a [0.1, 0.10000000149011612, 0.2, 0.3]: left [1, 3, 2], right [2, 3, 2]
+ok   searchsorted(float64 a, float32 v): v is widened exactly (float32(0.1) lands after float64 0.1, float32(0.2) after 0.2), both sides == bisect on the widened values
+ok   searchsorted(float32 a, float64 v): a widened exactly, so float64 0.1 sorts before float32(0.1)
+ok   searchsorted(int a, float v) compares in float; (float a, int v) exact
+ok   searchsorted with a scalar v returns a 0-d integer
+ok   searchsorted(a, a, side='left') gives the first occurrence and side='right' one past the last (ties)
+ok   searchsorted on an empty a returns 0
+   searchsorted on a DESCENDING a [5,4,3,2,1] for v [3, 6, 0]: [0, 5, 0] (undefined: 'a must be sorted in ascending order'; recorded, not checked)
+   searchsorted on an UNSORTED a [1,5,2,8,3] for v [3, 4]: [3, 5] (undefined; a plain bisect on the unsorted list gives [3, 5])
+---- unique (sorted values; return_index = 'indices of the first occurrences'; inverse reconstructs; counts)
+ok   unique(int64 with ties) values sorted and unique; return_index first occurrence; counts; inverse round trip; plain unique() agrees  (values ok True, index ok True, counts ok True, inverse ok True, round trip ok True, plain unique ok True)
+ok   unique(int8) values sorted and unique; return_index first occurrence; counts; inverse round trip; plain unique() agrees  (values ok True, index ok True, counts ok True, inverse ok True, round trip ok True, plain unique ok True)
+ok   unique(uint64 extremes) values sorted and unique; return_index first occurrence; counts; inverse round trip; plain unique() agrees  (values ok True, index ok True, counts ok True, inverse ok True, round trip ok True, plain unique ok True)
+ok   unique(bool) values sorted and unique; return_index first occurrence; counts; inverse round trip; plain unique() agrees  (values ok True, index ok True, counts ok True, inverse ok True, round trip ok True, plain unique ok True)
+ok   unique(float64 with NaN/-NaN/inf/-0.0, equal_nan=True (one NaN)) values sorted and unique; return_index first occurrence; counts; inverse round trip; plain unique() agrees  (values ok True, index ok True, counts ok True, inverse ok True, round trip ok True, plain unique ok True)
+ok   unique(float32 with NaN) values sorted and unique; return_index first occurrence; counts; inverse round trip; plain unique() agrees  (values ok True, index ok True, counts ok True, inverse ok True, round trip ok True, plain unique ok True)
+ok   unique(complex with NaN placements, equal_nan=True (all complex NaNs 'considered equivalent'; representative = smallest in lex order, index = its first occurrence)) values sorted and unique; return_index first occurrence; counts; inverse round trip; plain unique() agrees  (values ok True, index ok True, counts ok True, inverse ok True, round trip ok True, plain unique ok True)
+ok   unique(strings) values sorted and unique; return_index first occurrence; counts; inverse round trip; plain unique() agrees  (values ok True, index ok True, counts ok True, inverse ok True, round trip ok True, plain unique ok True)
+ok   unique(bytes) values sorted and unique; return_index first occurrence; counts; inverse round trip; plain unique() agrees  (values ok True, index ok True, counts ok True, inverse ok True, round trip ok True, plain unique ok True)
+ok   unique(datetime with NaT (equal_nan=True: one NaT)) values sorted and unique; return_index first occurrence; counts; inverse round trip; plain unique() agrees  (values ok True, index ok True, counts ok True, inverse ok True, round trip ok True, plain unique ok True)
+ok   unique(structured) values sorted and unique; return_index first occurrence; counts; inverse round trip; plain unique() agrees  (values ok True, index ok True, counts ok True, inverse ok True, round trip ok True, plain unique ok True)
+ok   unique(object ints) values sorted and unique; return_index first occurrence; counts; inverse round trip; plain unique() agrees  (values ok True, index ok True, counts ok True, inverse ok True, round trip ok True, plain unique ok True)
+ok   unique(object str) values sorted and unique; return_index first occurrence; counts; inverse round trip; plain unique() agrees  (values ok True, index ok True, counts ok True, inverse ok True, round trip ok True, plain unique ok True)
+ok   unique(float, equal_nan=False) keeps every NaN (4) at the end; equal_nan=True collapses to one
+ok   unique(float, equal_nan=False, return_counts) counts each NaN once; equal_nan=True gives count 4 and first-occurrence index 0
+   complex NaN representative, 3000-element data: plain unique() -> ['(nan-3j)'], unique(return_counts=True) -> ['(nan-3j)'], smallest NaN in the documented order -> ['(nan-3j)']
+ok   unique(complex) with and without return_counts pick the same NaN representative (documented: 'the smallest one in the lexicographical order')
+ok   unique(complex NaNs, equal_nan=True) -> [1+2j, 1+nanj] (representative 'the smallest one in the lexicographical order')  (got [1. +2.j 1.+nanj])
+ok   unique(complex NaNs, equal_nan=False) keeps every NaN entry (5, incl. the repeated nan+1j: NaN != NaN) in the documented order  (got [ 1. +2.j  1.+nanj  2.+nanj nan +1.j nan +1.j nan+nanj])
+ok   unique(datetime with 2 NaT, equal_nan=False) keeps both NaT (no-extra-output path; 'If True, collapses multiple NaN values ... into one')  (got ['2020-01-01'        'NaT'        'NaT'])
+ok   unique(datetime with 2 NaT, equal_nan=False) keeps both NaT (return_counts path; 'If True, collapses multiple NaN values ... into one')  (got ['2020-01-01'        'NaT'        'NaT'])
+ok   unique(timedelta NaT, equal_nan=False/True)
+ok   unique([-0.0, 0.0, ...]) collapses to a single zero (documented equal)
+   which zero is kept: unique([-0.0, 0.0, 0.0, -0.0]) -> signbit True; unique([0.0, -0.0]) -> signbit False; with return_index (mergesort) -> index [0] (undocumented which representative)
+ok   unique(axis=0): unique rows in lexicographic order, first-occurrence index, counts, inverse reconstructs rows  (inverse shape (40,))
+ok   unique(axis=1): unique columns, index, counts, inverse reconstructs
+ok   unique(3-D, axis=0) unique 2x2 slabs, sorted lexicographically by flattened slab
+ok   unique(2-D, axis=None) flattens; inverse reconstructs the input (2.x: reshaped to the input shape)  (inverse shape (42,))
+   unique(axis=0) on float rows with two identical NaN-containing rows [nan, 0.5]: 2 NaN row(s) kept, equal_nan default (rows compared as structured void: NaN != NaN)
+ok   unique(structured, axis=0) equals unique(structured)
+ok   unique(object, axis=0) raises TypeError (documented 'not supported if the axis kwarg is used')  (got TypeError)
+ok   unique of an empty array: empty outputs, dtype kept, index/inverse/counts empty
+ok   unique output is sorted for ints / floats / strings (documented 'The sorted unique values')
+   unique_values / unique_counts / unique_inverse / unique_all: absent on this build (added in 2.0)
+---- intersect1d / setdiff1d / union1d / setxor1d (reference: Python set)
+ok   intersect1d: sorted unique common values
+ok   union1d: sorted unique union
+ok   setdiff1d: sorted unique values of ar1 not in ar2
+ok   setxor1d: sorted unique values in exactly one
+ok   assume_unique=True with genuinely unique inputs: intersect1d / union1d / setxor1d sorted
+ok   setdiff1d(assume_unique=True) keeps ar1's order ('only sorted if the input is sorted')
+ok   intersect1d(return_indices=True): indices of the FIRST occurrences in ar1 and ar2
+ok   intersect1d(assume_unique=True, return_indices=True) indices index the inputs
+ok   set operations on 2-D inputs flatten; on empty inputs return empty; union of disjoint
+ok   intersect1d / setdiff1d on strings
+ok   intersect1d on floats with ties, exact
+   NaN in set operations (NaN != NaN): intersect1d([nan,1],[nan,1]) = [1.0], setdiff1d([nan,1],[nan]) = [1.0, nan], union1d([nan,1],[nan]) = [1.0, nan], setxor1d([nan,1],[nan]) = [1.0, nan, nan] (recorded; not documented)
+---- isin / in1d (kind=None/'sort'/'table' 'will not affect the final result'; invert; NaN; mixed dtypes)
+ok   isin(int, kind=None) equals the Python set membership (shape kept) and invert= negates
+ok   isin(int, kind=None, assume_unique=True) with unique inputs
+ok   in1d(kind=None) equals the flattened isin
+ok   isin(kind=None) with 2 test elements (element-wise loop path) and with a large test set
+ok   isin with NaN never matches (NaN != NaN), both directions and invert
+ok   isin mixed dtypes: int element in float test and float element in int test compare by value
+ok   isin on strings and on empty inputs
+ok   isin with a scalar element returns a 0-d bool
+---- argmax / argmin ('the indices corresponding to the first occurrence'; NaN propagates like max)
+ok   argmax / argmin (axis=None) on ties: first occurrence in C order
+ok   argmax / argmin axis=0 per column first occurrence
+ok   argmax / argmin axis=1 per row first occurrence
+ok   argmax keepdims=True keeps a size-1 axis; take_along_axis recovers the max
+ok   argmax on a Fortran-ordered copy gives the same (C-order first occurrence) index
+ok   argmax / argmin with NaN return the index of the FIRST NaN (float64 and float32; NaN propagates as in max)
+ok   argmax with NaN along axes: NaN wins in its slice, others normal
+ok   argmax / argmin on -0.0 vs 0.0: equal, so first occurrence
+ok   argmax / argmin on complex use the lexicographic (real, then imag) order, first occurrence
+ok   argmax on complex with NaN returns the first NaN entry (any placement)
+ok   argmax / argmin on unicode strings (code-point order, first occurrence)
+ok   argmax / argmin on bytes
+ok   argmax on bool returns the first True; argmin the first False; all-False argmax is 0
+ok   argmax / argmin on uint64 max and int64 min extremes
+ok   argmax / argmin on datetime64 without NaT
+ok   argmax / argmin on datetime64 with NaT return the NaT index (NaT propagates; np.max gives NaT)
+ok   argmax / argmin on 1-D int64 ties and on float64 with inf
+ok   argmax(out=) writes into out
+ok   argmax of an empty array raises ValueError  (got ValueError)
+ok   nanargmax / nanargmin ignore NaN and return the first occurrence among the rest
+ok   nanargmax / nanargmin along axis=1 with NaN in some rows
+ok   nanargmax on an all-NaN array raises ValueError (documented)  (got ValueError)
+ok   nanargmax with one all-NaN slice raises ValueError  (got ValueError)
+ok   nanargmin on an all-NaN array raises ValueError (documented)  (got ValueError)
+ok   nanargmin with one all-NaN slice raises ValueError  (got ValueError)
+ok   nanargmax / nanargmin on an array without NaN equal argmax / argmin (first occurrence)
+   nanargmax([nan, -inf]) = 0 (NaN is replaced by -inf internally; docs: 'results cannot be trusted if a slice contains only NaNs and -Infs'; recorded, not checked)
+---- max / min ('NaN values are propagated'); nanmax / nanmin ('All-NaN slice' RuntimeWarning and NaN)
+ok   max / min propagate NaN (whole array and per axis)
+ok   max / min with -NaN and with NaN in float32 propagate too
+   np.max on a unicode array: raises UFuncTypeError (argmax on strings works)
+ok   max / min without NaN match Python max / min (float64, int64, uint64 extremes, datetime)
+ok   nanmax / nanmin ignore NaN (whole array and per axis)
+ok   nanmax([1, 2, nan, inf]) = inf and nanmax([1, 2, nan, -inf]) = 2 (documented examples)
+ok   nanmax / nanmin on all-NaN slices return NaN for that slice and raise RuntimeWarning  (warnings: ['RuntimeWarning', 'RuntimeWarning'])
+ok   nanmax / nanmin on integer arrays (no NaN possible) match max / min
+ok   max of an empty array raises ValueError; initial= allows it
+ok   max(initial=) participates as an element (documented: 'np.max([5], initial=6) -> 6')
+ok   max(where=~isnan, initial=) skips NaN (documented example)
+ok   nanmax with at least one non-NaN raises no warning  ([])
+---- nonzero / flatnonzero / argwhere / where / count_nonzero / extract / compress
+ok   nonzero returns indices in C order for C- and Fortran-ordered arrays (documented 'always ... row-major, C-style order')
+ok   flatnonzero == nonzero(ravel) == flat C-order indices
+ok   argwhere == transpose(nonzero) (rows of coordinates); 0-d argwhere shape (1, 0) / (0, 0)
+ok   where(condition) with one argument == nonzero(condition)
+ok   nonzero on floats: NaN and -0.0 count as nonzero / zero respectively; on bool; on strings (empty is zero)
+ok   count_nonzero: total, axis=0, axis=1, tuple axis, keepdims
+ok   count_nonzero 3-D with axis=(0, 2)
+ok   count_nonzero on floats with NaN (nonzero) and on strings
+ok   extract(cond, arr) == arr[cond] (C order) and == compress(ravel(cond), ravel(arr))
+ok   extract with a non-boolean condition (nonzero = True)
+ok   compress(axis=0) selects rows; axis=1 columns; axis=None flattens
+ok   compress with a shorter condition truncates (documented)
+ok   compress with a longer condition raises IndexError  (got IndexError)
+---- sort_complex / msort / digitize / trim_zeros / bincount
+ok   sort_complex sorts by real then imag (documented example) and returns complex
+ok   sort_complex output dtypes: int8/int16 -> complex64, int32/int64/float32/float64 -> complex128, complex64 stays
+ok   sort_complex does not modify its input
+ok   msort(a) == sort(a, axis=0); no deprecation warning before 1.24  (DeprecationWarning: False)
+ok   digitize with DECREASING bins, right=False: 'bins[i-1] > x >= bins[i]'
+ok   digitize with DECREASING bins, right=True: 'bins[i-1] >= x > bins[i]'
+ok   digitize with increasing bins, right=False / True (documented tables)
+ok   digitize on 500 random values against 12 random decreasing bins, both right settings
+ok   digitize with non-monotonic bins raises ValueError  (got ValueError)
+ok   digitize of NaN: increasing bins -> len(bins) (NaN sorts last); decreasing bins -> 0
+ok   digitize 2-D x keeps shape; single-bin edge; values equal to bins
+ok   trim_zeros 'fb' / 'f' / 'b' (documented examples)
+ok   trim_zeros of all zeros -> empty; of no zeros -> unchanged; list input returns a list (documented); NaN is not a zero
+   trim_zeros on 2-D input: not supported before 2.2 (raises ValueError)
+ok   bincount == Counter (length = max + 1); minlength pads; minlength smaller is ignored
+ok   bincount(weights=) sums the weights per bin exactly (integer-valued weights)
+ok   bincount([1, -1]) raises ValueError (documented 'contains elements with negative values')  (got ValueError)
+ok   bincount(float64 ARRAY [1.5, 2.0]) raises TypeError (documented 'If the type of the input is float or complex')  (got TypeError)
+FAIL bincount(float LIST [1.5, 2.0]) raises TypeError (documented 'If the type of the input is float or complex')  (got returns [0, 1, 1]; warnings [])
+   bincount(uint64 array [1, 2]): raises TypeError (1.x refuses the uint64 -> intp cast)
+ok   bincount of a 2-D input raises ValueError; empty input with minlength gives zeros; dtype int
+ok   bincount on uint8 / int8 / bool inputs
+---- integer extremes
+ok   uint64 extremes: sort, argsort, unique, partition, searchsorted, argmax all consistent with Python ints
+ok   int64 extremes: sort, argsort, unique, partition, searchsorted, argmin consistent with Python ints
+ok   float64 extremes (max, subnormals, tiny, inf) sort correctly for every kind
+---- n = 1e6 sorts vs Python sorted()
+   1e6 float data: 999 NaN, 500 negative zeros
+ok   sort / argsort of 1e6 int64 with ~1000 ties each, kind=quicksort
+ok   sort / argsort of 1e6 float64 with 999 NaN and -0.0, kind=quicksort
+ok   sort / argsort of 1e6 int64 with ~1000 ties each, kind=mergesort (stable permutation exact)
+ok   sort / argsort of 1e6 float64 with 999 NaN and -0.0, kind=mergesort
+ok   sort / argsort of 1e6 int64 with ~1000 ties each, kind=heapsort
+ok   sort / argsort of 1e6 float64 with 999 NaN and -0.0, kind=heapsort
+ok   sort / argsort of 1e6 int64 with ~1000 ties each, kind=stable (stable permutation exact)
+ok   sort / argsort of 1e6 float64 with 999 NaN and -0.0, kind=stable
+ok   sort of 1e6 float32 for every kind
+ok   sort / stable argsort of 2e5 strings for every kind
+ok   sort / stable argsort of 1e6 int16 (radix sort path) for every kind
+ok   1e6: partition kth=N//2 equals the sorted median; searchsorted of 1000 probes; unique with counts
+   1e6 section took 40.0 s; whole harness 43.8 s
