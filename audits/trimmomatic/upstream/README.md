@@ -21,7 +21,7 @@ to the V0.42 branch so it makes it into the next release? And please drop the ch
 dependency-reduced-pom.xml, it seems to only change line endings from a local build." The branch is
 rebuilt on `V0.42` (fix and test only; `mvn -B clean verify` on JDK 25: 517 tests before, 519 after,
 the new test fails without the fix; the trimmer file is identical on `main` and `V0.42` outside the
-two lines) and waits for the owner to change the PR base before it is force-pushed; the reply is
+two lines) and was force-pushed to the fork on 2026-09-25 after the owner changed the PR base to `V0.42` (`71fb53e` -> `54af058`; `refs/pull/91/head` confirmed at `54af058`); the reply is
 `comment-tmr1-91-v042.md`. Two lessons: the shade plugin rewrites `dependency-reduced-pom.xml` on every
 `mvn package`/`verify`, so stage only the intended files in this repository; and the workflow runs for
 PRs against `main` only, so a PR against a release branch has no CI and the local run is the record.
