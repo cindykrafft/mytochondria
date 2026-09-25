@@ -1,0 +1,444 @@
+scikit-learn 1.1.3  numpy 1.24.4  python 3.11.15
+== sklearn.covariance
+   empirical_covariance on 12x3 integers: max dev from exact rational (divisor n) 1.4e-16; dtype float64
+ok   empirical_covariance = (1/n) sum (x-mean)(x-mean)^T exactly (MLE, divisor n_samples, not n-1)
+ok   empirical_covariance(assume_centered=True) = X^T X / n exactly ('data will not be centered')
+ok   empirical_covariance docstring example [[1,1,1]x3,[0,0,0]x3] -> 0.25 everywhere
+   empirical_covariance(1-D vector of length 3): shape (3, 3), values [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], warning: ['Only one sample available. You may want to reshape your data']
+ok   empirical_covariance(1-D input) treats it as ONE sample of 3 features (zeros + 'Only one sample' warning)
+ok   EmpiricalCovariance.location_ = column means exactly
+ok   EmpiricalCovariance.covariance_ = exact MLE covariance
+ok   EmpiricalCovariance.precision_ = exact inverse of covariance_ (within 1e-10 rel)  (max rel dev 9.6e-16)
+ok   EmpiricalCovariance(store_precision=False).precision_ is None and get_precision() still returns the inverse
+ok   EmpiricalCovariance(assume_centered=True): location_ = 0 and covariance_ = X^T X / n
+   mahalanobis exact (squared) [4.549085, 4.946875, 2.466046] vs library [4.549085, 4.946875, 2.466046]
+ok   EmpiricalCovariance.mahalanobis = SQUARED Mahalanobis distance (x-mu)^T P (x-mu) (docstring: 'Squared Mahalanobis distances')
+   score(X_test) = -8.61075959135388 vs mean of log N(x | location_, covariance_) = -8.61075959135388
+ok   EmpiricalCovariance.score(X_test) = sample mean of the Gaussian log-density log N(x | location_, covariance_)
+ok   log_likelihood(emp_cov, precision) = -(tr(S P) - log det P + p log 2pi)/2 ('accounts for normalization terms')  (-7.679757897202386 vs -7.679757897202386)
+ok   error_norm(frobenius, scaling, squared) = sum(err^2)/n_features
+ok   error_norm(spectral, squared=False) = sqrt(max singular value(err^T err)/n_features)
+ok   error_norm(frobenius, scaling=False, squared=False) = Frobenius norm of the error
+   float32 input: covariance_ dtype float64, location_ dtype float32, max dev from float64 fit 0.0e+00
+ok   EmpiricalCovariance float32 input: covariance_ within 1e-5 of the float64 result
+ok   EmpiricalCovariance with 1e6 offset: covariance_ within 1e-9 relative of the offset-free exact covariance  (dev 1.4e-16)
+ok   shrunk_covariance(cov, 0.3) = (1 - shrinkage) * cov + shrinkage * mu * I, mu = trace(cov)/n_features (exact)
+ok   ShrunkCovariance(shrinkage=0.3).fit(X).covariance_ = shrunk exact MLE covariance
+ok   ShrunkCovariance(shrinkage=0) = EmpiricalCovariance; shrinkage=1 = mu * I
+   Ledoit-Wolf exact: m=7.369375 d^2=84.515564 bbar^2=15.230943 shrinkage=b^2/d^2=0.1802146584; library ledoit_wolf_shrinkage=0.18021465841052595
+ok   ledoit_wolf_shrinkage = min(bbar^2, d^2)/d^2 of Ledoit & Wolf (2004) exactly (data centered first)
+ok   LedoitWolf.shrinkage_ and covariance_ = (1-s) S + s m I with the 2004 closed form
+ok   ledoit_wolf(X) function returns the same (covariance, shrinkage)
+ok   block_size in (1,2,3,1000) 'is purely a memory optimization and does not affect results' (within 1e-13)  (spread 1.1e-16)
+ok   LedoitWolf(assume_centered=True) on uncentered data uses S = X^T X/n and raw x_k in the formula
+ok   LedoitWolf with 1e6 offset: shrinkage_ within 1e-8 of the offset-free value  (dev 7.7e-14)
+ok   LedoitWolf on a single feature: shrinkage_ = 0 and covariance_ = variance ('the result is the same whatever the shrinkage')
+   LedoitWolf on 20000 x 5 iid N(0, I): shrinkage_ = 1.0000 (user guide: 'approaches 1 as the number of samples increases' when the population covariance is a multiple of the identity)
+ok   LedoitWolf on iid N(0,I) with n=20000: shrinkage_ > 0.8 (user guide caveat)
+   LedoitWolf float32 input: covariance_ dtype float32, shrinkage_ dev 5.3e-08
+ok   LedoitWolf float32 input: shrinkage_ within 1e-5 of exact
+   OAS exact (sklearn's documented variant without the 2/p terms) = 0.2006133757; paper Eq. 23 with 2/p = 0.1654435513; library shrinkage_ = 0.20061337572790938
+ok   OAS.shrinkage_ = (tr(S^2)+tr(S)^2)/((n+1)(tr(S^2)-tr(S)^2/p)) capped at 1 (docstring: Eq. 23 of Chen 2010 with the 2/p factors omitted)
+ok   OAS.covariance_ = (1-rho) S + rho mu I with that rho
+ok   oas(X) function returns the same (covariance, shrinkage)
+FAIL OAS: omitting the 2/p terms of Chen et al. Eq. 23 'doesn't affect the value of the estimator' (docstring) -- |shrinkage difference| < 1e-2 on 20x4 data  (|diff| 3.52e-02, relative 21.3%)
+   OAS with n=60, p=4: sklearn variant 0.81210 vs Eq. 23 0.73032 (relative difference 11.2%); library 0.81210
+   OAS with n=60, p=10: sklearn variant 0.49357 vs Eq. 23 0.48320 (relative difference 2.1%); library 0.49357
+   OAS with n=60, p=50: sklearn variant 0.79622 vs Eq. 23 0.79548 (relative difference 0.1%); library 0.79622
+   OAS with n=60, p=200: sklearn variant 0.95073 vs Eq. 23 0.95067 (relative difference 0.0%); library 0.95073
+ok   OAS when S is a multiple of the identity (denominator 0): shrinkage_ = 1 and covariance_ = S
+ok   OAS single feature: shrinkage_ = 0
+ok   OAS(assume_centered=True) on uncentered data uses S = X^T X / n
+   MinCovDet 1-D (n=33, h=18): raw_covariance_ 0.096304, min variance over all h-windows of sorted x 0.083898; raw_location_ -0.201227 vs mean of raw support -0.283789
+ok   MinCovDet 1-D: raw_support_ has h = ceil((n+p+1)/2) = 18 points
+ok   MinCovDet 1-D: raw_covariance_ = variance (ddof=0) of the raw support
+FAIL MinCovDet 1-D: raw_covariance_ is the minimum variance over all h-subsets (the MCD subset) within 1e-9
+FAIL MinCovDet 1-D: raw_location_ = mean of raw support ('raw robust estimated location')  (location -0.201227, support mean -0.283789)
+   MinCovDet p=2 n=14 h=9: brute force over 2002 subsets min det 6.817871e-01; library det(raw_covariance_) 6.817871e-01; support match True
+ok   MinCovDet p=2: raw_support_ has h = ceil((n+p+1)/2) = 9 points
+ok   MinCovDet p=2: raw_covariance_ = MLE covariance of X[raw_support_] and raw_location_ = its mean
+ok   MinCovDet p=2: FastMCD finds the global minimum-determinant h-subset (brute force over 2002 subsets)
+   MinCovDet support_fraction=None: h=52 (expected 52); consistency factor 3.401928; reweighted support 87 (ref 87); cov dev 0.0e+00; dist_ dev 1.5e-16
+ok   MinCovDet support_fraction=None: raw support size = ceil((n+p+1)/2)
+ok   MinCovDet support_fraction=None: covariance_ = consistency-corrected + reweighted covariance (median/chi2 correction, <1.8) recomputed from raw estimates with mpmath chi2
+ok   MinCovDet support_fraction=None: support_ = mask of raw-corrected squared distances below chi2(p).isf(0.025) ('reweighting step')
+ok   MinCovDet support_fraction=None: location_ = mean of reweighted support
+ok   MinCovDet support_fraction=None: dist_ = squared Mahalanobis distances of training data under the final (location_, covariance_)
+ok   MinCovDet support_fraction=None: mahalanobis(X_train) == dist_
+ok   MinCovDet support_fraction=None: correct_covariance(X) called after fit returns raw_covariance_ * consistency factor of the CURRENT (reweighted) support_/dist_
+FAIL MinCovDet support_fraction=None: correct_covariance(X) called after fit leaves dist_ unchanged (docstring documents only the returned matrix)  (dist_ was divided by 1.3823 in place)
+   MinCovDet support_fraction=0.75: h=75 (expected 75); consistency factor 2.032391; reweighted support 91 (ref 91); cov dev 1.3e-16; dist_ dev 4.0e-16
+ok   MinCovDet support_fraction=0.75: raw support size = int(support_fraction*n)
+ok   MinCovDet support_fraction=0.75: covariance_ = consistency-corrected + reweighted covariance (median/chi2 correction, <1.8) recomputed from raw estimates with mpmath chi2
+ok   MinCovDet support_fraction=0.75: support_ = mask of raw-corrected squared distances below chi2(p).isf(0.025) ('reweighting step')
+ok   MinCovDet support_fraction=0.75: location_ = mean of reweighted support
+ok   MinCovDet support_fraction=0.75: dist_ = squared Mahalanobis distances of training data under the final (location_, covariance_)
+ok   MinCovDet support_fraction=0.75: mahalanobis(X_train) == dist_
+ok   MinCovDet support_fraction=0.75: correct_covariance(X) called after fit returns raw_covariance_ * consistency factor of the CURRENT (reweighted) support_/dist_
+FAIL MinCovDet support_fraction=0.75: correct_covariance(X) called after fit leaves dist_ unchanged (docstring documents only the returned matrix)  (dist_ was divided by 1.1631 in place)
+ok   MinCovDet(assume_centered=True): raw_location_ = 0 and raw_covariance_ = X[support]^T X[support] / h
+ok   MinCovDet with 1e6 offset: covariance_ within 1e-6 relative of the offset-free fit  (dev 6.3e-12)
+   MinCovDet float32: covariance_ dtype float64, dev from float64 5.0e-09
+ok   MinCovDet float32 input: covariance_ within 1e-4 of the float64 fit
+   EllipticEnvelope(contamination=0.1): offset_ -10.318011, training outliers 10 of 100, decision<0 count 10
+ok   EllipticEnvelope(contamination=0.1): covariance_/location_ equal MinCovDet with the same random_state (documented inheritance)
+ok   EllipticEnvelope(contamination=0.1): score_samples = -mahalanobis and decision_function = score_samples - offset_
+ok   EllipticEnvelope(contamination=0.1): offset_ = percentile(-dist_, 100*contamination) so that round(contamination*n) training samples are outliers
+ok   EllipticEnvelope(contamination=0.1): predict is -1 iff decision_function < 0 and +1 otherwise
+ok   EllipticEnvelope(contamination=0.1): score(X, y) = accuracy of predict
+   EllipticEnvelope(contamination=0.25): offset_ -4.099084, training outliers 25 of 100, decision<0 count 25
+ok   EllipticEnvelope(contamination=0.25): covariance_/location_ equal MinCovDet with the same random_state (documented inheritance)
+ok   EllipticEnvelope(contamination=0.25): score_samples = -mahalanobis and decision_function = score_samples - offset_
+ok   EllipticEnvelope(contamination=0.25): offset_ = percentile(-dist_, 100*contamination) so that round(contamination*n) training samples are outliers
+ok   EllipticEnvelope(contamination=0.25): predict is -1 iff decision_function < 0 and +1 otherwise
+ok   EllipticEnvelope(contamination=0.25): score(X, y) = accuracy of predict
+ok   EllipticEnvelope(contamination=0.6) raises ('Range is (0, 0.5]')
+   GraphicalLasso alpha=0.05 mode=cd: n_iter_=2, max |precision_ - ADMM| 5.1e-13 (ADMM 163 it), KKT: |W_ii-S_ii| 6.0e-15, off-diag bound violation 5.4e-14, sign residual 5.4e-14, 7 non-zero edges
+ok   GraphicalLasso(alpha=0.05, mode='cd') precision_ matches an independent ADMM solution of argmin tr(SK) - log det K + alpha ||K||_offdiag_1 within 1e-5
+ok   GraphicalLasso(alpha=0.05, mode='cd') KKT: diag(K^-1) = diag(S) (diagonal not penalised), |K^-1 - S|_offdiag <= alpha, and = alpha*sign(K_ij) where K_ij != 0
+ok   GraphicalLasso(alpha=0.05, mode='cd') covariance_ = inverse of precision_ (within 1e-6)
+ok   GraphicalLasso(alpha=0.05, mode='cd') location_ = column means
+   GraphicalLasso alpha=0.05 mode=lars: n_iter_=2, max |precision_ - ADMM| 5.0e-13 (ADMM 163 it), KKT: |W_ii-S_ii| 4.4e-16, off-diag bound violation 1.2e-16, sign residual 4.0e-16, 7 non-zero edges
+ok   GraphicalLasso(alpha=0.05, mode='lars') precision_ matches an independent ADMM solution of argmin tr(SK) - log det K + alpha ||K||_offdiag_1 within 1e-5
+ok   GraphicalLasso(alpha=0.05, mode='lars') KKT: diag(K^-1) = diag(S) (diagonal not penalised), |K^-1 - S|_offdiag <= alpha, and = alpha*sign(K_ij) where K_ij != 0
+ok   GraphicalLasso(alpha=0.05, mode='lars') covariance_ = inverse of precision_ (within 1e-6)
+ok   GraphicalLasso(alpha=0.05, mode='lars') location_ = column means
+   GraphicalLasso alpha=0.2 mode=cd: n_iter_=5, max |precision_ - ADMM| 1.6e-13 (ADMM 88 it), KKT: |W_ii-S_ii| 2.6e-13, off-diag bound violation 0.0e+00, sign residual 1.5e-13, 4 non-zero edges
+ok   GraphicalLasso(alpha=0.2, mode='cd') precision_ matches an independent ADMM solution of argmin tr(SK) - log det K + alpha ||K||_offdiag_1 within 1e-5
+ok   GraphicalLasso(alpha=0.2, mode='cd') KKT: diag(K^-1) = diag(S) (diagonal not penalised), |K^-1 - S|_offdiag <= alpha, and = alpha*sign(K_ij) where K_ij != 0
+ok   GraphicalLasso(alpha=0.2, mode='cd') covariance_ = inverse of precision_ (within 1e-6)
+ok   GraphicalLasso(alpha=0.2, mode='cd') location_ = column means
+   GraphicalLasso alpha=0.2 mode=lars: n_iter_=5, max |precision_ - ADMM| 1.6e-13 (ADMM 88 it), KKT: |W_ii-S_ii| 2.5e-13, off-diag bound violation 0.0e+00, sign residual 1.4e-13, 4 non-zero edges
+ok   GraphicalLasso(alpha=0.2, mode='lars') precision_ matches an independent ADMM solution of argmin tr(SK) - log det K + alpha ||K||_offdiag_1 within 1e-5
+ok   GraphicalLasso(alpha=0.2, mode='lars') KKT: diag(K^-1) = diag(S) (diagonal not penalised), |K^-1 - S|_offdiag <= alpha, and = alpha*sign(K_ij) where K_ij != 0
+ok   GraphicalLasso(alpha=0.2, mode='lars') covariance_ = inverse of precision_ (within 1e-6)
+ok   GraphicalLasso(alpha=0.2, mode='lars') location_ = column means
+ok   GraphicalLasso(alpha=0): precision_ = inverse of the empirical covariance and covariance_ = empirical covariance (accepted although the docstring says 'Range is (0, inf]')
+ok   GraphicalLasso(alpha > max |S_ij|, i!=j): precision_ is diagonal with 1/S_ii
+   graphical_lasso(S, 0.1, tol=1e-8, enet_tol=1e-12) costs: objective [23.500803031246328, 23.495218453698044, 23.495218338274917] ... 23.49521834 (documented objective of the result 5.11644767; difference 18.37877066 = 2 p log(2 pi) = 18.37877066); final dual gap -6.95e-12 (my recomputation -6.95e-12), n_iter 4
+ok   graphical_lasso return_costs: reported 'objective' = tr(SK) - log det K + alpha ||K||_offdiag_1 + 2 p log(2 pi) (constant shift, documented only as 'the objective function')
+ok   graphical_lasso (enet_tol=1e-12): objective is non-increasing over iterations and the final dual gap tr(SK) - p + alpha||K||_1 is below tol=1e-8
+   graphical_lasso(S, 0.1) with default tol=1e-4, enet_tol=1e-4: n_iter 3, final gap -3.40e-07, objective monotone: True (inner CD solved only to enet_tol)
+ok   graphical_lasso with default tolerances converges (dual gap < 1e-4) before max_iter
+ok   GraphicalLasso with 1e6 offset: precision_ within 1e-6 of the offset-free fit  (dev 7.8e-12)
+   GraphicalLassoCV(alphas=4, n_refinements=1): cv_results_ alphas [0.7939, 0.17104, 0.03685, 0.00794, 0.0]; expected grid logspace(0.01*alpha_max, alpha_max, 4) desc + [0] = [0.7939, 0.17104, 0.03685, 0.00794, 0.0]; mean_test_score [-7.449, -7.0716, -7.0109, -7.0077, -7.1098]; alpha_ 0.00794
+ok   GraphicalLassoCV(alphas=int): first grid = logspace(log10(0.01*alpha_max), log10(alpha_max), n_alphas) descending, then alpha=0 appended
+ok   GraphicalLassoCV.alpha_ = grid alpha with the highest mean_test_score (ties -> smallest alpha), alpha=0 row excluded
+ok   GraphicalLassoCV cv_results_ alpha=0 row = per-fold EmpiricalCovariance test log-likelihood (recomputed)
+ok   GraphicalLassoCV: mean_test_score / std_test_score are the mean / std over the split columns
+ok   GraphicalLassoCV final precision_ = GraphicalLasso(alpha=alpha_) refit on the whole data ('the model is fit again using the entire training set')
+ok   GraphicalLassoCV(alphas=list): cv_results_ alphas = the list sorted descending + [0], no refinement
+== sklearn.cross_decomposition
+   PLSRegression K=1: n_iter_ [15] (ref [15]); |x_weights| cols [1.0]; coef_ shape (4, 3), dev from the version's convention 4.6e-16
+ok   PLSRegression K=1: x_weights_ = unit-norm left singular vectors of X_k^T Y_k from the power method (NIPALS reference, mode A)
+ok   PLSRegression K=1: y_weights_ = Y_k^T t_k / (t_k^T t_k), 'never normalized' (user guide)
+ok   PLSRegression K=1: x_loadings_ / y_loadings_ = regressions of X_k, Y_k on the x-score xi_k
+ok   PLSRegression K=1: x_scores_ = X_k u_k and y_scores_ = Y_k v_k / (v_k^T v_k)
+ok   PLSRegression K=1: x_rotations_ = W (P^T W)^-1 and transform(X_train) = x_scores_ ('XP = Xi')
+ok   PLSRegression K=1: x_scores_ columns are mutually orthogonal (Xi^T Xi diagonal)
+ok   PLSRegression K=1: coef_ shape (n_features, n_targets) [<1.3] and = x_rotations_ y_loadings_^T * y_std (scaled-X coefficients)
+ok   PLSRegression K=1: predict(X) = ((X - x_mean)/x_std) @ coef_ + intercept_ [<1.3], intercept_ = y mean
+FAIL PLSRegression K=1: documented formula 'Y = X @ coef_ + intercept_' reproduces predict(X) on data with non-zero feature means  (max rel dev 3.8e-01)
+ok   PLSRegression K=1: predict(X) = NIPALS reference prediction
+ok   PLSRegression K=1: transform(X, y) returns (x_scores, y_scores) with y_scores = Y_scaled @ y_rotations_
+   PLSRegression K=2: n_iter_ [15, 9] (ref [15, 9]); |x_weights| cols [1.0, 1.0]; coef_ shape (4, 3), dev from the version's convention 4.5e-16
+ok   PLSRegression K=2: x_weights_ = unit-norm left singular vectors of X_k^T Y_k from the power method (NIPALS reference, mode A)
+ok   PLSRegression K=2: y_weights_ = Y_k^T t_k / (t_k^T t_k), 'never normalized' (user guide)
+ok   PLSRegression K=2: x_loadings_ / y_loadings_ = regressions of X_k, Y_k on the x-score xi_k
+ok   PLSRegression K=2: x_scores_ = X_k u_k and y_scores_ = Y_k v_k / (v_k^T v_k)
+ok   PLSRegression K=2: x_rotations_ = W (P^T W)^-1 and transform(X_train) = x_scores_ ('XP = Xi')
+ok   PLSRegression K=2: x_scores_ columns are mutually orthogonal (Xi^T Xi diagonal)
+ok   PLSRegression K=2: coef_ shape (n_features, n_targets) [<1.3] and = x_rotations_ y_loadings_^T * y_std (scaled-X coefficients)
+ok   PLSRegression K=2: predict(X) = ((X - x_mean)/x_std) @ coef_ + intercept_ [<1.3], intercept_ = y mean
+FAIL PLSRegression K=2: documented formula 'Y = X @ coef_ + intercept_' reproduces predict(X) on data with non-zero feature means  (max rel dev 3.8e-01)
+ok   PLSRegression K=2: predict(X) = NIPALS reference prediction
+ok   PLSRegression K=2: transform(X, y) returns (x_scores, y_scores) with y_scores = Y_scaled @ y_rotations_
+   PLSRegression K=3: n_iter_ [15, 9, 10] (ref [15, 9, 10]); |x_weights| cols [1.0, 1.0, 1.0]; coef_ shape (4, 3), dev from the version's convention 6.0e-16
+ok   PLSRegression K=3: x_weights_ = unit-norm left singular vectors of X_k^T Y_k from the power method (NIPALS reference, mode A)
+ok   PLSRegression K=3: y_weights_ = Y_k^T t_k / (t_k^T t_k), 'never normalized' (user guide)
+ok   PLSRegression K=3: x_loadings_ / y_loadings_ = regressions of X_k, Y_k on the x-score xi_k
+ok   PLSRegression K=3: x_scores_ = X_k u_k and y_scores_ = Y_k v_k / (v_k^T v_k)
+ok   PLSRegression K=3: x_rotations_ = W (P^T W)^-1 and transform(X_train) = x_scores_ ('XP = Xi')
+ok   PLSRegression K=3: x_scores_ columns are mutually orthogonal (Xi^T Xi diagonal)
+ok   PLSRegression K=3: coef_ shape (n_features, n_targets) [<1.3] and = x_rotations_ y_loadings_^T * y_std (scaled-X coefficients)
+ok   PLSRegression K=3: predict(X) = ((X - x_mean)/x_std) @ coef_ + intercept_ [<1.3], intercept_ = y mean
+FAIL PLSRegression K=3: documented formula 'Y = X @ coef_ + intercept_' reproduces predict(X) on data with non-zero feature means  (max rel dev 3.3e-01)
+ok   PLSRegression K=3: predict(X) = NIPALS reference prediction
+ok   PLSRegression K=3: transform(X, y) returns (x_scores, y_scores) with y_scores = Y_scaled @ y_rotations_
+   PLSRegression default tol=1e-6: coef dev from the tightly converged reference 1.7e-01, n_iter_ [8, 4]
+ok   PLSRegression default tol=1e-6 agrees with the converged reference within 1e-4
+ok   PLSRegression n_components = n_features: inverse_transform(transform(X)) = X ('only exact if n_components=n_features')
+ok   PLSRegression(scale=False): weights/loadings/coef from the centred-only reference
+   PLSRegression fitted with 1-D y: predict shape (25, 1) (1.3+ ravel to (n_samples,); earlier versions return (n_samples, 1))
+ok   PLSRegression 1-D y (PLS1): predict returns shape (n_samples, 1) [<1.3] and matches the reference
+ok   PLSRegression n_components > min(n_samples, n_features) raises ValueError  (n_components == 5, must be <= 4.)
+ok   PLSRegression n_components = n_features (4) > n_targets (3) is allowed (bound is rank of X^T X)
+ok   PLSCanonical n_components > min(n_samples, n_features, n_targets) raises ValueError
+ok   CCA n_components > min(n_samples, n_features, n_targets) raises ValueError
+   PLSRegression float32 input: coef_ dtype float64, predict dev from float64 fit 1.4e-05
+ok   PLSRegression float32 input: predictions within 1e-4 of the float64 fit
+   PLSRegression with constant y: warnings ['Y residual is constant at iteration 0'], coef_ [0.0, 0.0, 0.0, 0.0], predict [3.0, 3.0]
+ok   PLSRegression with constant y warns 'y residual is constant', coef_ = 0 and predict = the constant
+ok   PLSCanonical K=1 algorithm='nipals': x_weights_, y_weights_ (both unit norm, 'canonical'), loadings and rotations = reference
+ok   PLSCanonical K=1 algorithm='nipals': transform(X, y) = (Xi, Omega) of the reference; predict = reference
+ok   PLSCanonical K=1 algorithm='svd': x_weights_, y_weights_ (both unit norm, 'canonical'), loadings and rotations = reference
+ok   PLSCanonical K=1 algorithm='svd': transform(X, y) = (Xi, Omega) of the reference; predict = reference
+ok   PLSCanonical K=2 algorithm='nipals': x_weights_, y_weights_ (both unit norm, 'canonical'), loadings and rotations = reference
+ok   PLSCanonical K=2 algorithm='nipals': transform(X, y) = (Xi, Omega) of the reference; predict = reference
+ok   PLSCanonical K=2 algorithm='svd': x_weights_, y_weights_ (both unit norm, 'canonical'), loadings and rotations = reference
+ok   PLSCanonical K=2 algorithm='svd': transform(X, y) = (Xi, Omega) of the reference; predict = reference
+ok   PLSCanonical K=3 algorithm='nipals': x_weights_, y_weights_ (both unit norm, 'canonical'), loadings and rotations = reference
+ok   PLSCanonical K=3 algorithm='nipals': transform(X, y) = (Xi, Omega) of the reference; predict = reference
+ok   PLSCanonical K=3 algorithm='svd': x_weights_, y_weights_ (both unit norm, 'canonical'), loadings and rotations = reference
+ok   PLSCanonical K=3 algorithm='svd': transform(X, y) = (Xi, Omega) of the reference; predict = reference
+   PLSCanonical nipals (tol=1e-14 on ||u_i - u_(i-1)||^2) vs svd: x_weights_ dev 3.9e-08, predict dev 6.9e-09
+ok   PLSCanonical algorithm='nipals' and 'svd' agree within 1e-6 (documented: two ways of performing step a; power method stops at ||u_i - u_(i-1)||^2 < tol)
+ok   PLSCanonical with n_components = n_features = n_targets = 3: inverse_transform(transform(X, y)) = (X, y)
+ok   PLSSVD K=1 scale=True: x_weights_/y_weights_ = leading singular vectors of X^T Y (sign: largest |u| entry positive) and transform = XU, YV
+ok   PLSSVD K=1 scale=False: x_weights_/y_weights_ = leading singular vectors of X^T Y (sign: largest |u| entry positive) and transform = XU, YV
+ok   PLSSVD K=2 scale=True: x_weights_/y_weights_ = leading singular vectors of X^T Y (sign: largest |u| entry positive) and transform = XU, YV
+ok   PLSSVD K=2 scale=False: x_weights_/y_weights_ = leading singular vectors of X^T Y (sign: largest |u| entry positive) and transform = XU, YV
+ok   PLSSVD K=3 scale=True: x_weights_/y_weights_ = leading singular vectors of X^T Y (sign: largest |u| entry positive) and transform = XU, YV
+ok   PLSSVD K=3 scale=False: x_weights_/y_weights_ = leading singular vectors of X^T Y (sign: largest |u| entry positive) and transform = XU, YV
+   PLSSVD(1) vs PLSCanonical(1, nipals tol=1e-14): x_scores dev 2.0e-08, y_scores dev 9.4e-09; vs PLSCanonical(1, algorithm='svd'): 1.3e-16
+ok   PLSSVD(n_components=1) and PLSCanonical(n_components=1) transforms are 'strictly equivalent' (user guide; within 1e-6 for nipals, 1e-10 for algorithm='svd')
+ok   PLSSVD n_components > min(n_samples, n_features, n_targets) raises ValueError
+   CCA K=1: corr(x_scores, y_scores) [0.9965359476] vs singular values of Sxx^-1/2 Sxy Syy^-1/2 [0.9965359476]; |cos| rotations vs canonical weights x [1.0] y [1.0]
+ok   CCA K=1: correlations of the transformed pairs = the first 1 canonical correlations (SVD of the whitened cross-covariance)
+ok   CCA K=1: x_rotations_/y_rotations_ columns are parallel to the canonical weight vectors
+ok   CCA K=1: weights/loadings/predict = mode-B NIPALS reference
+   CCA K=2: corr(x_scores, y_scores) [0.9965359476, 0.9883322457] vs singular values of Sxx^-1/2 Sxy Syy^-1/2 [0.9965359476, 0.9883322457]; |cos| rotations vs canonical weights x [1.0, 1.0] y [1.0, 1.0]
+ok   CCA K=2: correlations of the transformed pairs = the first 2 canonical correlations (SVD of the whitened cross-covariance)
+ok   CCA K=2: x_rotations_/y_rotations_ columns are parallel to the canonical weight vectors
+ok   CCA K=2: weights/loadings/predict = mode-B NIPALS reference
+   CCA K=3: corr(x_scores, y_scores) [0.9965359476, 0.9883322457, 0.9706174936] vs singular values of Sxx^-1/2 Sxy Syy^-1/2 [0.9965359476, 0.9883322457, 0.9706174936]; |cos| rotations vs canonical weights x [1.0, 1.0, 1.0] y [1.0, 1.0, 1.0]
+ok   CCA K=3: correlations of the transformed pairs = the first 3 canonical correlations (SVD of the whitened cross-covariance)
+ok   CCA K=3: x_rotations_/y_rotations_ columns are parallel to the canonical weight vectors
+ok   CCA K=3: weights/loadings/predict = mode-B NIPALS reference
+ok   CCA transformed x and y scores are unit-correlation-free across components (Xi^T Xi and Omega^T Omega diagonal)
+ok   PLSRegression with 1e6 offset on X: predictions within 1e-6 of the offset-free fit  (dev 3.0e-11)
+== sklearn.kernel_ridge.KernelRidge
+ok   KernelRidge(linear, alpha=1): dual_coef_ = (K + alpha I)^-1 y exactly (rational arithmetic)
+ok   KernelRidge(linear): predict(X_test) = K(X_test, X_fit) @ dual_coef_
+ok   KernelRidge(linear, alpha) predictions = primal ridge (X^T X + alpha I)^-1 X^T y without intercept (kernel trick identity)
+ok   KernelRidge(poly, gamma=1, coef0=1, degree=2, alpha=2): dual_coef_ and predict exact with K = (x.y + 1)^2
+ok   KernelRidge(rbf, gamma=0.3, alpha=0.5): dual_coef_ = (K + alpha I)^-1 y with K = exp(-gamma ||x-y||^2)
+ok   KernelRidge(rbf, gamma=None -> 1/n_features, alpha=0.5): dual_coef_ = (K + alpha I)^-1 y with K = exp(-gamma ||x-y||^2)
+ok   KernelRidge(kernel='precomputed'): fit on K and predict on K_test reproduce the rbf model
+ok   KernelRidge sample_weight: dual_coef_ = (K + alpha diag(1/w))^-1 y (minimiser of sum_i w_i (y_i - f_i)^2 + alpha ||f||^2)
+ok   KernelRidge integer sample_weight 2 on a sample == duplicating that sample (predictions equal)
+ok   KernelRidge scalar float sample_weight=2.0 == alpha/2 (uniform reweighting)
+ok   KernelRidge multi-output with alpha array: column j solved with alpha_j ('penalties are assumed to be specific to the targets')
+ok   KernelRidge multi-output scalar alpha: each column = separate single-output fit
+ok   KernelRidge(alpha=0) with a full-rank rbf kernel interpolates the training targets
+   KernelRidge float32 input: dual_coef_ dtype float32, dev from float64 2.6e-07
+ok   KernelRidge float32 input: dual_coef_ within 1e-4 of the float64 fit
+   KernelRidge rbf with feature offset 1e+03: dual_coef_ dev from exact (offset-free) 1.7e-10
+ok   KernelRidge rbf with feature offset 1e+03: dual_coef_ within 1e-4 of the exact translation-invariant solution (rbf_kernel uses the ||x||^2 + ||y||^2 - 2 x.y expansion)
+   KernelRidge rbf with feature offset 1e+05: dual_coef_ dev from exact (offset-free) 2.3e-06
+ok   KernelRidge rbf with feature offset 1e+05: dual_coef_ within 1e-4 of the exact translation-invariant solution (rbf_kernel uses the ||x||^2 + ||y||^2 - 2 x.y expansion)
+== sklearn.isotonic
+ok   isotonic_regression docstring example -> [2.75]*4 + [7.333..]*6
+ok   isotonic_regression(y) = exact pool-adjacent-violators solution (Fractions), ties and negatives included
+ok   isotonic_regression(y, sample_weight) = exact weighted PAVA
+ok   isotonic_regression(increasing=False) = exact non-increasing PAVA (reverse, fit, reverse)
+ok   isotonic_regression(y_min=0, y_max=5) = clip(PAVA, y_min, y_max) ('lower bound on the lowest predicted value')
+ok   isotonic fit is non-decreasing and preserves the weighted mean (sum w y = sum w yhat)
+ok   isotonic_regression of a constant / already-increasing sequence returns it unchanged; single element unchanged
+ok   isotonic_regression with 1e8 offset and float64: exact
+   isotonic_regression float32 input: output dtype float32
+ok   isotonic_regression float32 input returns float32 within 1e-6 of exact
+ok   IsotonicRegression with tied X, unweighted: fitted values = PAVA on tie-pooled weighted means ('secondary method from de Leeuw 1977') exactly
+ok   IsotonicRegression unweighted: X_thresholds_ ascending unique, y_thresholds_ non-decreasing, X_min_/X_max_ = range of (positive-weight) X
+ok   IsotonicRegression unweighted: predictions between thresholds are linear interpolations (compared with np.interp over the untrimmed fit)
+ok   IsotonicRegression unweighted: transform == predict
+ok   IsotonicRegression with tied X, weighted (zero weights dropped): fitted values = PAVA on tie-pooled weighted means ('secondary method from de Leeuw 1977') exactly
+ok   IsotonicRegression weighted (zero weights dropped): X_thresholds_ ascending unique, y_thresholds_ non-decreasing, X_min_/X_max_ = range of (positive-weight) X
+ok   IsotonicRegression weighted (zero weights dropped): predictions between thresholds are linear interpolations (compared with np.interp over the untrimmed fit)
+ok   IsotonicRegression weighted (zero weights dropped): transform == predict
+ok   IsotonicRegression(out_of_bounds='nan'): NaN outside [X_min_, X_max_], defined at the bounds
+ok   IsotonicRegression(out_of_bounds='clip'): outside values get the nearest endpoint value
+ok   IsotonicRegression(out_of_bounds='raise') raises ValueError outside the domain
+ok   IsotonicRegression(y_min=0, y_max=3): fitted values clipped
+ok   IsotonicRegression(increasing=False): fitted values = non-increasing PAVA on pooled ties
+   increasing='auto' on decreasing data: my Spearman rho -0.7637, increasing_ False, check_increasing False
+ok   IsotonicRegression(increasing='auto') on decreasing data: increasing_ = (Spearman rho >= 0) and the fit is monotone in that direction
+   increasing='auto' on increasing data: my Spearman rho 0.8897, increasing_ True, check_increasing True
+ok   IsotonicRegression(increasing='auto') on increasing data: increasing_ = (Spearman rho >= 0) and the fit is monotone in that direction
+ok   check_increasing([1..5], [2,4,6,8,10]) True and ([1..5], [10,8,6,4,2]) False (docstring)
+   check_increasing rho=0.7, n=5: Fisher 95% CI (-0.477, 0.978) spans zero -> warning issued: True
+ok   check_increasing warns when the Fisher-transform 95% CI of rho spans zero (rho=0.7, n=5)
+   IsotonicRegression float32: X_thresholds_ dtype float32, predict dtype float32
+ok   IsotonicRegression float32 input: predictions within 1e-6 of the exact fit
+   IsotonicRegression with a single distinct X (out_of_bounds='nan' default): thresholds [2.0]/[3.0], predict([0, 2, 5]) = [3.0, 3.0, 3.0]
+ok   IsotonicRegression single distinct X: prediction at X = weighted mean 3.0
+FAIL IsotonicRegression single distinct X with out_of_bounds='nan': predictions outside the (degenerate) training domain are NaN ('predictions will be NaN')  (got [3.0, 3.0, 3.0])
+ok   IsotonicRegression constant y: all predictions = the constant
+ok   IsotonicRegression 2-D input with one column accepted; get_feature_names_out = ['isotonicregression0']
+ok   IsotonicRegression rejects NaN in y (ValueError)
+== sklearn.gaussian_process
+ok   kernel RBF iso: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel RBF iso: np.diag(k(X, X)) == k.diag(X)
+ok   kernel RBF iso: k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel RBF iso: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 7.6e-11)
+ok   kernel RBF iso: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel RBF anisotropic: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel RBF anisotropic: np.diag(k(X, X)) == k.diag(X)
+ok   kernel RBF anisotropic: k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel RBF anisotropic: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 1.2e-10)
+ok   kernel RBF anisotropic: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel Matern nu=0.5: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel Matern nu=0.5: np.diag(k(X, X)) == k.diag(X)
+ok   kernel Matern nu=0.5: k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel Matern nu=0.5: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 7.0e-11)
+ok   kernel Matern nu=0.5: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel Matern nu=1.5: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel Matern nu=1.5: np.diag(k(X, X)) == k.diag(X)
+ok   kernel Matern nu=1.5: k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel Matern nu=1.5: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 1.2e-10)
+ok   kernel Matern nu=1.5: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel Matern nu=2.5 anisotropic: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel Matern nu=2.5 anisotropic: np.diag(k(X, X)) == k.diag(X)
+ok   kernel Matern nu=2.5 anisotropic: k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel Matern nu=2.5 anisotropic: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 1.2e-10)
+ok   kernel Matern nu=2.5 anisotropic: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel Matern nu=inf: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel Matern nu=inf: np.diag(k(X, X)) == k.diag(X)
+ok   kernel Matern nu=inf: k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel Matern nu=inf: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 1.1e-10)
+ok   kernel Matern nu=inf: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel Matern nu=0.7 (general, Bessel K_nu via mpmath): k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel Matern nu=0.7 (general, Bessel K_nu via mpmath): np.diag(k(X, X)) == k.diag(X)
+ok   kernel Matern nu=0.7 (general, Bessel K_nu via mpmath): k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel Matern nu=0.7 (general, Bessel K_nu via mpmath): eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 5.9e-06; numerical gradient in the library)
+ok   kernel Matern nu=0.7 (general, Bessel K_nu via mpmath): the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel RationalQuadratic: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel RationalQuadratic: np.diag(k(X, X)) == k.diag(X)
+ok   kernel RationalQuadratic: k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel RationalQuadratic: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 6.7e-11)
+ok   kernel RationalQuadratic: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel ExpSineSquared: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel ExpSineSquared: np.diag(k(X, X)) == k.diag(X)
+ok   kernel ExpSineSquared: k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel ExpSineSquared: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 4.7e-11)
+ok   kernel ExpSineSquared: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel DotProduct: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel DotProduct: np.diag(k(X, X)) == k.diag(X)
+ok   kernel DotProduct: k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel DotProduct: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 6.5e-11)
+ok   kernel DotProduct: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel ConstantKernel: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel ConstantKernel: np.diag(k(X, X)) == k.diag(X)
+ok   kernel ConstantKernel: k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel ConstantKernel: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 5.1e-11)
+ok   kernel ConstantKernel: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel WhiteKernel: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel WhiteKernel: np.diag(k(X, X)) == k.diag(X)
+ok   kernel WhiteKernel: k(X, Y=X) is all zeros while k(X) = noise_level * I (documented exception)
+ok   kernel WhiteKernel: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 1.9e-11)
+ok   kernel WhiteKernel: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel Sum C*RBF + White: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel Sum C*RBF + White: np.diag(k(X, X)) == k.diag(X)
+ok   kernel Sum C*RBF + White: k(X) - k(X, Y=X) = noise_level * I (a sum containing a WhiteKernel inherits its exception)
+ok   kernel Sum C*RBF + White: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 8.5e-11)
+ok   kernel Sum C*RBF + White: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel Product RBF*ESS: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel Product RBF*ESS: np.diag(k(X, X)) == k.diag(X)
+ok   kernel Product RBF*ESS: k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel Product RBF*ESS: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 5.5e-11)
+ok   kernel Product RBF*ESS: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel Exponentiation DotProduct**2: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel Exponentiation DotProduct**2: np.diag(k(X, X)) == k.diag(X)
+ok   kernel Exponentiation DotProduct**2: k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel Exponentiation DotProduct**2: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 8.9e-11)
+ok   kernel Exponentiation DotProduct**2: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   kernel PairwiseKernel rbf gamma=0.4: k(X) and k(X, Y) match the documented formula coded independently
+ok   kernel PairwiseKernel rbf gamma=0.4: np.diag(k(X, X)) == k.diag(X)
+ok   kernel PairwiseKernel rbf gamma=0.4: k(X) == k(X, Y=X) (user guide identity for all kernels except WhiteKernel)
+ok   kernel PairwiseKernel rbf gamma=0.4: eval_gradient = d k / d log(theta) (central finite differences in theta space, shape (n, n, n_dims))  (max dev 8.9e-07; numerical gradient in the library)
+ok   kernel PairwiseKernel rbf gamma=0.4: the gradient array is symmetric in (i, j) and K returned with eval_gradient equals k(X)
+ok   compound kernel theta = log of the non-fixed hyperparameters in k1__..., k2__ order; fixed ones excluded
+ok   compound kernel bounds = log-transformed (n_dims, 2) bounds, anisotropic bounds repeated per dimension
+ok   setting theta updates the underlying parameters as exp(theta) and leaves the fixed WhiteKernel untouched
+ok   clone_with_theta returns a modified clone and leaves the original unchanged
+ok   setting theta with the wrong number of entries raises ValueError
+ok   kernel arithmetic: RBF() + 2 == RBF() + ConstantKernel(2) and 3 * RBF() == ConstantKernel(3) * RBF() (docstring equivalences)
+ok   kernel repr: ConstantKernel prints as sqrt(value)**2, e.g. ConstantKernel(4.0) -> '2**2'
+ok   GPR RBF (fixed): posterior mean = K*^T (K + alpha I)^-1 y, cov = K** - K*^T (K + alpha I)^-1 K* (closed form with my kernel formulas)
+ok   GPR RBF: return_std == sqrt(diag(return_cov)) (consistency of the two outputs)
+ok   GPR RBF: log_marginal_likelihood_value_ = -1/2 y^T K^-1 y - 1/2 log|K| - n/2 log 2pi and equals log_marginal_likelihood(kernel_.theta)
+ok   GPR RBF: alpha_ = (K + alpha I)^-1 y and L_ is the lower Cholesky factor of K + alpha I
+ok   GPR Matern 1.5 (fixed): posterior mean = K*^T (K + alpha I)^-1 y, cov = K** - K*^T (K + alpha I)^-1 K* (closed form with my kernel formulas)
+ok   GPR Matern 1.5: return_std == sqrt(diag(return_cov)) (consistency of the two outputs)
+ok   GPR Matern 1.5: log_marginal_likelihood_value_ = -1/2 y^T K^-1 y - 1/2 log|K| - n/2 log 2pi and equals log_marginal_likelihood(kernel_.theta)
+ok   GPR Matern 1.5: alpha_ = (K + alpha I)^-1 y and L_ is the lower Cholesky factor of K + alpha I
+ok   GPR RationalQuadratic (fixed): posterior mean = K*^T (K + alpha I)^-1 y, cov = K** - K*^T (K + alpha I)^-1 K* (closed form with my kernel formulas)
+ok   GPR RationalQuadratic: return_std == sqrt(diag(return_cov)) (consistency of the two outputs)
+ok   GPR RationalQuadratic: log_marginal_likelihood_value_ = -1/2 y^T K^-1 y - 1/2 log|K| - n/2 log 2pi and equals log_marginal_likelihood(kernel_.theta)
+ok   GPR RationalQuadratic: alpha_ = (K + alpha I)^-1 y and L_ is the lower Cholesky factor of K + alpha I
+ok   GPR ExpSineSquared (fixed): posterior mean = K*^T (K + alpha I)^-1 y, cov = K** - K*^T (K + alpha I)^-1 K* (closed form with my kernel formulas)
+ok   GPR ExpSineSquared: return_std == sqrt(diag(return_cov)) (consistency of the two outputs)
+ok   GPR ExpSineSquared: log_marginal_likelihood_value_ = -1/2 y^T K^-1 y - 1/2 log|K| - n/2 log 2pi and equals log_marginal_likelihood(kernel_.theta)
+ok   GPR ExpSineSquared: alpha_ = (K + alpha I)^-1 y and L_ is the lower Cholesky factor of K + alpha I
+ok   GPR DotProduct (fixed): posterior mean = K*^T (K + alpha I)^-1 y, cov = K** - K*^T (K + alpha I)^-1 K* (closed form with my kernel formulas)
+ok   GPR DotProduct: return_std == sqrt(diag(return_cov)) (consistency of the two outputs)
+ok   GPR DotProduct: log_marginal_likelihood_value_ = -1/2 y^T K^-1 y - 1/2 log|K| - n/2 log 2pi and equals log_marginal_likelihood(kernel_.theta)
+ok   GPR DotProduct: alpha_ = (K + alpha I)^-1 y and L_ is the lower Cholesky factor of K + alpha I
+ok   GPR C*RBF + WhiteKernel (fixed): posterior mean = K*^T (K + alpha I)^-1 y, cov = K** - K*^T (K + alpha I)^-1 K* (closed form with my kernel formulas)
+ok   GPR C*RBF + WhiteKernel: return_std == sqrt(diag(return_cov)) (consistency of the two outputs)
+ok   GPR C*RBF + WhiteKernel: log_marginal_likelihood_value_ = -1/2 y^T K^-1 y - 1/2 log|K| - n/2 log 2pi and equals log_marginal_likelihood(kernel_.theta)
+ok   GPR C*RBF + WhiteKernel: alpha_ = (K + alpha I)^-1 y and L_ is the lower Cholesky factor of K + alpha I
+   GPR with a WhiteKernel in the kernel: predictive variance at a query point includes noise_level (0.05): var 0.082975 vs without-noise 0.032975
+ok   GPR alpha array (per-sample noise): K + diag(alpha) in mean, cov and LML
+   GPR LML gradient (single output) at theta=[0.4055, -0.2231, -2.9957]: analytic [-2.298036, 3.010985, -0.903259] vs finite differences of my closed form [-2.298036, 3.010985, -0.903259]
+ok   GPR log_marginal_likelihood(theta, eval_gradient=True) (single output): value = closed form and gradient = central finite differences w.r.t. log-hyperparameters (sign: gradient of the LML itself)
+ok   GPR log_marginal_likelihood at another theta (single output): clone_kernel=True leaves kernel_.theta unchanged; value and gradient match
+   GPR LML gradient (two outputs (LML summed over outputs)) at theta=[0.4055, -0.2231, -2.9957]: analytic [-3.92717, 6.422819, -1.804641] vs finite differences of my closed form [-3.92717, 6.422819, -1.804641]
+ok   GPR log_marginal_likelihood(theta, eval_gradient=True) (two outputs (LML summed over outputs)): value = closed form and gradient = central finite differences w.r.t. log-hyperparameters (sign: gradient of the LML itself)
+ok   GPR log_marginal_likelihood at another theta (two outputs (LML summed over outputs)): clone_kernel=True leaves kernel_.theta unchanged; value and gradient match
+ok   GPR log_marginal_likelihood(theta=None) returns log_marginal_likelihood_value_
+ok   GPR log_marginal_likelihood(None, eval_gradient=True) raises ValueError
+ok   GPR normalize_y=True: targets standardised with mean and std (ddof=0), predictions un-normalised: mean = std*m + mean, std = std*s, cov = std^2 * c
+   GPR normalize_y=True: log_marginal_likelihood_value_ -8.581201; closed form on standardised targets -8.581201; with the Jacobian term -n log(std) of the change of variables -10.774791
+ok   GPR normalize_y=True: log_marginal_likelihood_value_ = LML of the standardised targets (no -n log std Jacobian term; informational)
+ok   GPR normalize_y=True far from the data: mean -> training mean and std -> std_y * sqrt(constant_value) (user guide: prior mean is the training data's mean)
+ok   GPR normalize_y=False far from the data: mean -> 0 ('prior mean is assumed to be constant and zero')
+ok   GPR multi-output normalize_y=True: per-target standardisation; return_std shape (n, n_targets), return_cov shape (n, n, n_targets)
+   sample_y(40000 draws) at 3 points: sample mean [-0.6207, -0.3523, 0.2594] vs mean [-0.6207, -0.3514, 0.2596]; sample cov rel Frobenius dev 0.013
+ok   GPR sample_y: shape (n_samples_X, n_samples); sample mean within 4 sigma/sqrt(n) and sample covariance within 5% (Frobenius) of predict(return_cov)
+ok   GPR sample_y multi-target: shape (n_samples_X, n_targets, n_samples)
+ok   GPR unfitted predict = GP prior: mean 0, cov = kernel(X), std = sqrt(diag)
+ok   GPR predict(return_std=True, return_cov=True) raises RuntimeError ('At most one of the two can be requested')
+ok   GPR default kernel (None) prior = ConstantKernel(1) * RBF(1): prior std 1
+   GPR fitted kernel_ = 0.951**2 * RBF(length_scale=1.37) + WhiteKernel(noise_level=0.0432); LML -8.126013; FD gradient of my closed form at theta_opt [-6e-06, -1.2e-05, -7e-06]; at bound [False, False, False]
+ok   GPR fit maximises the LML: finite-difference gradient of the closed-form LML vanishes at kernel_.theta (|g| < 1e-3) for every interior dimension
+ok   GPR log_marginal_likelihood_value_ after fit = closed-form LML at kernel_.theta
+   GPR n_restarts_optimizer=300 initial thetas: range [[-4.58, -4.56], [4.55, 4.59]] vs log-bounds [[-4.61, 4.61], [-4.61, 4.61]]; fraction below midpoint [0.473, 0.53]
+ok   GPR restarts: initial thetas are within the (log) bounds and roughly uniform there ('sampled log-uniform randomly from the space of allowed theta-values')
+   GPC restarts: 34 of 300 initial thetas made the objective raise ({'LinAlgError'}) when evaluated by a callable optimizer
+   GPC n_restarts_optimizer=300 initial thetas: range [[0.01, 0.01], [94.97, 98.94]] vs log-bounds [[-4.61, 4.61], [-4.61, 4.61]]; fraction below midpoint [0.0, 0.0]; fraction outside bounds [0.333, 0.333]
+FAIL GPC restarts: initial thetas are within the (log) bounds and roughly uniform there ('sampled log-uniform randomly from the space of allowed theta-values')
+   GPC Laplace: my posterior mode f_hat [-1.23305, -1.53326, -1.67428, -1.563]..., library pi_ [0.22565, 0.17752, 0.15786, 0.17322]... vs sigmoid(f_hat) [0.22565, 0.17752, 0.15786, 0.17322]..., LML -6.88504864 vs reference -6.88504864
+ok   GPC binary: pi_ = sigmoid(posterior mode) and W_sr_ = sqrt(pi (1 - pi)) of the Newton mode of the Laplace approximation (plain-numpy reference)
+ok   GPC binary: log_marginal_likelihood_value_ = -1/2 f^T K^-1 f + sum log sigmoid(y f) - 1/2 log|I + W^1/2 K W^1/2| (RW2006 eq. 3.32)
+   latent_mean_and_variance not available in this version (added later); skipped
+   GPC predict_proba(class 1) [0.21514, 0.56085, 0.71425, 0.81191, 0.58867] vs exact Gaussian integral of the sigmoid (mpmath quad) [0.21515, 0.56083, 0.71421, 0.81191, 0.58866]; max |dev| 3.89e-05
+ok   GPC predict_proba = int sigmoid(z) N(z | latent mean, var) dz within 5e-3 (Williams & Barber erf approximation) and rows sum to 1
+ok   GPC predict = classes_[1] iff the latent mean is positive (MAP decision, RW 3.4.2) and agrees with predict_proba > 0.5 where |mean| > 0.05
+ok   GPC classes_ sorted and n_classes_ = 2; default kernel is 1.0 * RBF(1.0) with fixed bounds when kernel=None
+   GPC LML gradient at theta [0.693, 0.0]: analytic [1.055733, 1.12558] vs FD of my Laplace LML [1.055733, 1.12558]
+ok   GPC log_marginal_likelihood(theta=[0.693, 0.0], eval_gradient=True): value = Laplace LML and gradient = finite differences (RW Algorithm 5.1, implicit dependence through the mode included)
+   GPC LML gradient at theta [0.293, 0.3]: analytic [1.157269, 0.341757] vs FD of my Laplace LML [1.157269, 0.341757]
+ok   GPC log_marginal_likelihood(theta=[0.293, 0.3], eval_gradient=True): value = Laplace LML and gradient = finite differences (RW Algorithm 5.1, implicit dependence through the mode included)
+   GPC one_vs_rest 3 classes: predict_proba row 0 [0.64186, 0.17552, 0.18262] vs normalised binary GPCs [0.64186, 0.17552, 0.18262] vs normalised exact integrals [0.64184, 0.17553, 0.18263]
+ok   GPC multi_class='one_vs_rest': predict_proba = row-normalised probabilities of the per-class binary Laplace GPCs (documented OvR combination)
+ok   GPC one_vs_rest: probabilities within 5e-3 of normalised exact sigmoid-Gaussian integrals of my Laplace reference
+ok   GPC one_vs_rest: log_marginal_likelihood_value_ = mean of the binary LMLs; kernel_ is a CompoundKernel of 3 kernels; predict = argmax proba
+ok   GPC multi_class='one_vs_one': predict_proba raises ValueError ('does not support predicting probability estimates')
+ok   GPC multi_class='one_vs_one': predict returns class labels from classes_
+ok   GPC with a single class raises ValueError
+   GPR float32 input: prediction dtype float64, dev from float64 5.7e-08
+ok   GPR float32 input: predictions within 1e-4 of the float64 fit
+   GPR RBF with 1e4 offset on X: prediction dev from the offset-free fit 1.1e-12 (pdist/cdist compute differences directly)
+ok   GPR RBF with 1e4 offset on X: predictions within 1e-6 of the offset-free fit (stationary kernel evaluated on differences)
+== done
