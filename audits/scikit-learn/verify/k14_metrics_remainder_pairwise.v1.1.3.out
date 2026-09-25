@@ -1,0 +1,577 @@
+scikit-learn 1.1.3  numpy 1.24.4  python 3.11.15
+---- classification: multilabel set-wise metrics
+ok   fbeta_score(beta=0.5, average='macro') multilabel = (1+b^2)tp/((1+b^2)tp+b^2 fn+fp) per label, averaged (0.649558)
+ok   fbeta_score(beta=0.5, average='micro') multilabel = (1+b^2)tp/((1+b^2)tp+b^2 fn+fp) per label, averaged (0.642857)
+ok   fbeta_score(beta=0.5, average='weighted') multilabel = (1+b^2)tp/((1+b^2)tp+b^2 fn+fp) per label, averaged (0.648137)
+ok   fbeta_score(beta=0.5, average='samples') = mean over samples of the per-sample F-beta (0.550148)
+ok   fbeta_score(beta=1.0, average='macro') multilabel = (1+b^2)tp/((1+b^2)tp+b^2 fn+fp) per label, averaged (0.657143)
+ok   fbeta_score(beta=1.0, average='micro') multilabel = (1+b^2)tp/((1+b^2)tp+b^2 fn+fp) per label, averaged (0.656934)
+ok   fbeta_score(beta=1.0, average='weighted') multilabel = (1+b^2)tp/((1+b^2)tp+b^2 fn+fp) per label, averaged (0.658408)
+ok   fbeta_score(beta=1.0, average='samples') = mean over samples of the per-sample F-beta (0.549524)
+ok   fbeta_score(beta=2.0, average='macro') multilabel = (1+b^2)tp/((1+b^2)tp+b^2 fn+fp) per label, averaged (0.667572)
+ok   fbeta_score(beta=2.0, average='micro') multilabel = (1+b^2)tp/((1+b^2)tp+b^2 fn+fp) per label, averaged (0.671642)
+ok   fbeta_score(beta=2.0, average='weighted') multilabel = (1+b^2)tp/((1+b^2)tp+b^2 fn+fp) per label, averaged (0.671418)
+ok   fbeta_score(beta=2.0, average='samples') = mean over samples of the per-sample F-beta (0.580394)
+ok   fbeta_score(average=None) returns the per-label array
+ok   fbeta_score(beta=0, average='macro') 'considers only precision' (docstring)
+ok   precision_score(average='samples', zero_division=0): samples with empty true AND predicted sets take the zero_division value (0.570833)  (got 0.570833)
+ok   recall_score(average='samples', zero_division=0): samples with empty true AND predicted sets take the zero_division value (0.627083)  (got 0.627083)
+ok   f1_score(average='samples', zero_division=0): samples with empty true AND predicted sets take the zero_division value (0.549524)  (got 0.549524)
+ok   precision_score(average='samples', zero_division=1): samples with empty true AND predicted sets take the zero_division value (0.695833)  (got 0.695833)
+ok   recall_score(average='samples', zero_division=1): samples with empty true AND predicted sets take the zero_division value (0.777083)  (got 0.777083)
+ok   f1_score(average='samples', zero_division=1): samples with empty true AND predicted sets take the zero_division value (0.624524)  (got 0.624524)
+ok   f1_score(average='samples', sample_weight) = weighted mean of per-sample F1
+ok   f1_score(average='macro', sample_weight): tp/fp/fn are weight sums
+ok   f1_score(average='micro', sample_weight): tp/fp/fn are weight sums
+ok   f1_score(average='weighted', sample_weight): tp/fp/fn are weight sums
+---- classification: PRF labels / pos_label, jaccard
+ok   precision_recall_fscore_support(labels=[3,1], average=None): rows 'in the order given' with support = true counts
+ok   precision_recall_fscore_support(labels=[3,1], average='macro'): computed over the selected labels only (micro sums their tp/fp/fn)  (0.726103, 0.753968, 0.738095)
+ok   precision_recall_fscore_support(labels=[3,1], average='micro'): computed over the selected labels only (micro sums their tp/fp/fn)  (0.727273, 0.750000, 0.738462)
+ok   precision_recall_fscore_support(labels=[3,1], average='weighted'): computed over the selected labels only (micro sums their tp/fp/fn)  (0.730928, 0.750000, 0.738690)
+ok   labels containing an absent class (9): 'assigned 0 samples' -> support 0 and P=R=F=zero_division
+ok   precision_recall_fscore_support(average='binary', pos_label='a') reports the class 'a' only
+ok   precision_recall_fscore_support(average='binary', pos_label='b') reports the class 'b' only
+ok   pos_label='z' not present with two classes raises ValueError
+ok   pos_label is ignored when average != 'binary' (macro over both classes)
+ok   jaccard_score binary pos_label=0 = tp/(tp+fp+fn) for that class
+ok   jaccard_score binary pos_label=1 = tp/(tp+fp+fn) for that class
+ok   jaccard_score multiclass average=None = per-class tp/(tp+fp+fn) (one-vs-rest)
+ok   jaccard_score multiclass average='macro'
+ok   jaccard_score multiclass average='micro'
+ok   jaccard_score multiclass average='weighted'
+ok   jaccard_score multiclass average='micro' with labels=[0,2] restricts the sums to those classes
+ok   jaccard_score multilabel average='macro'
+ok   jaccard_score multilabel average='micro'
+ok   jaccard_score multilabel average='weighted'
+ok   jaccard_score(average='samples', zero_division=0) = mean over samples of |y & yhat| / |y | yhat|, empty union -> zero_division
+ok   jaccard_score(average='samples', zero_division=1) = mean over samples of |y & yhat| / |y | yhat|, empty union -> zero_division
+ok   jaccard_score(average='samples', sample_weight) weighted mean
+---- classification: hamming, zero-one, subset accuracy
+ok   hamming_loss multilabel = (# label entries that differ) / (n_samples * n_labels)
+ok   hamming_loss multilabel with sample_weight = sum_i w_i diff_i / (n_labels * sum w)
+ok   hamming_loss multiclass = fraction of misclassified samples
+ok   hamming_loss multiclass with sample_weight = weighted fraction
+ok   zero_one_loss multilabel = fraction of samples whose label set does not exactly match
+ok   zero_one_loss(normalize=False) = number of misclassified samples
+ok   zero_one_loss with sample_weight = weighted fraction
+ok   accuracy_score multilabel = subset accuracy = 1 - zero_one_loss
+ok   accuracy_score(normalize=False) multilabel = number of exactly matched samples
+ok   hamming_loss <= zero_one_loss (user guide: 'upper bounded by the zero-one loss')
+---- classification: brier, hinge, top-k
+ok   brier_score_loss binary = mean (y - p)^2 (0.346328)
+ok   brier_score_loss(pos_label=0) on 1 - p gives the same value
+ok   brier_score_loss with sample_weight
+ok   brier string labels with pos_label='ham'
+ok   brier string labels without pos_label raises ValueError ('an error will be raised')
+ok   brier y_true in {2,5}: pos_label 'defaults to the greater label' 5
+ok   brier y_true in {-1,1}: pos_label defaults to 1
+ok   brier y_proba outside [0,1] raises ValueError
+ok   hinge_loss binary = mean max(0, 1 - y*d), y in {-1,+1} (1.306250)
+ok   hinge_loss binary with sample_weight
+ok   hinge_loss binary string labels: 'positive label being greater than the negative label' ('b' > 'a')
+ok   hinge_loss multiclass = mean max(0, 1 + max_(j!=y) w_j - w_y) (Crammer-Singer, user guide) (2.075000)
+ok   hinge_loss multiclass with a class absent from y_true: raises without labels=, exact with labels=[0,1,2]
+ok   top_k_accuracy_score(k=1) with tied scores: hit iff the true label is among the top k, ties broken toward the highest index (0.2600)
+ok   top_k_accuracy_score(k=2) with tied scores: hit iff the true label is among the top k, ties broken toward the highest index (0.5600)
+ok   top_k_accuracy_score(k=3) with tied scores: hit iff the true label is among the top k, ties broken toward the highest index (0.7600)
+ok   top_k_accuracy_score(normalize=False) = number of hits
+ok   top_k_accuracy_score with sample_weight
+ok   top_k_accuracy_score(k >= n_classes) = 1.0 ('will result in a perfect score')
+ok   top_k multiclass with a class absent from y_true: raises without labels=, exact with labels=[0,1,2,3]
+ok   top_k labels in a non-sorted order raise ValueError (implementation check 'Parameter labels must be ordered')
+ok   top_k binary k=1 with scores in [0,1]: predicted positive iff score > 0.5
+ok   top_k binary k=1 with decision scores: threshold 0
+ok   top_k binary k=2 = 1.0
+---- classification: report, multilabel confusion, likelihood ratios, d2_log_loss
+ok   classification_report(output_dict=True): per-class precision/recall/f1/support exact
+ok   classification_report 'accuracy' entry = accuracy_score
+ok   classification_report 'macro avg' = unweighted means
+ok   classification_report 'weighted avg' = support-weighted means
+ok   classification_report text prints the class-0 precision with digits=3
+ok   classification_report(labels=[0,1]) reports 'micro avg' (not 'accuracy') over the selected labels
+ok   classification_report multilabel has a 'samples avg' row = 'samples' average
+ok   multilabel_confusion_matrix per label = [[tn, fp], [fn, tp]]
+ok   multilabel_confusion_matrix(samplewise=True) = one 2x2 per sample
+ok   multilabel_confusion_matrix(labels=[2,0]) 'in the order specified in labels'
+ok   multilabel_confusion_matrix multiclass = one-vs-rest binarisation, sorted labels
+ok   multilabel_confusion_matrix with sample_weight sums the weights
+---- classification: weighted MCC/kappa/balanced accuracy, log_loss
+ok   matthews_corrcoef with sample_weight = MCC of the weighted confusion matrix
+ok   matthews_corrcoef with integer sample_weight = MCC of the repeated sample
+ok   cohen_kappa_score(weights=None) with sample_weight = kappa of the weighted confusion matrix
+ok   cohen_kappa_score(weights=linear) with sample_weight = kappa of the weighted confusion matrix
+ok   cohen_kappa_score(weights=quadratic) with sample_weight = kappa of the weighted confusion matrix
+ok   balanced_accuracy_score with sample_weight = mean of weighted per-class recalls
+ok   balanced_accuracy_score(adjusted=True) with sample_weight = (BA - 1/4)/(1 - 1/4)
+ok   log_loss(labels=[0,1,2]) when y_true lacks a class = -mean log p[y] over the given label order
+ok   log_loss without labels when y_true lacks a class raises ValueError
+ok   log_loss(normalize=False) = sum
+ok   log_loss with 1-D probabilities of the positive class
+ok   log_loss clips probabilities at eps = 1e-15 (pre-1.2 default): p=0 at the true class gives -log(eps)/2 = 17.269388  (got 17.269388)
+ok   log_loss on float32 probabilities clips at 1e-15 -> 17.2694  (got 17.2694)
+ok   log_loss on rows not summing to 1 (pre-1.5): renormalised -> [0.5, 0.5] -> log 2  (got 0.693147)
+---- ranking: DCG / NDCG, LRAP, ranking loss, coverage, det_curve, multilabel AUC/AP
+ok   dcg_score(k=None) with ties = average of DCG over all permutations of tied groups, discount 1/log2(r+2) (3.777940)
+ok   dcg_score(k=2) with ties = average of DCG over all permutations of tied groups, discount 1/log2(r+2) (2.176008)
+ok   dcg_score(k=3) with ties = average of DCG over all permutations of tied groups, discount 1/log2(r+2) (3.013508)
+ok   dcg_score(log_base=10) uses discount 1/log_base(r+2)
+ok   dcg_score(log_base=2.72) uses discount 1/log_base(r+2)
+ok   dcg_score with sample_weight
+ok   dcg_score(ignore_ties=True) on tie-free scores equals the tie-averaged value
+ok   ndcg_score(k=None) = DCG / ideal DCG, 0 for an all-irrelevant row (0.724747)
+ok   ndcg_score(k=2) = DCG / ideal DCG, 0 for an all-irrelevant row (0.521663)
+ok   ndcg_score of a perfect ranking is 1 (rows with some relevance)
+ok   ndcg_score with all scores tied in a row: that row scores E[DCG]/IDCG
+   ndcg_score with negative y_true on 1.1.3: 0.891518232979178 (deprecation path)
+ok   ndcg_score with a single document raises ValueError
+ok   label_ranking_average_precision_score = mean over samples of (1/|y|) sum_j |L_ij|/rank_ij with >= ties (user guide) (0.576597)
+ok   LRAP: samples with no or all relevant labels count 1
+ok   LRAP with sample_weight
+ok   label_ranking_loss = mean |{(k,l): f_k <= f_l, y_k=1, y_l=0}| / (|y| (L-|y|)) (ties count as errors) (0.495833)
+ok   label_ranking_loss of no/all-relevant rows is 0
+ok   coverage_error = mean max_(j: y_j=1) |{k: f_k >= f_j}| (ties -> maximal rank), 0 for a row without true labels (3.6500)
+ok   coverage_error with sample_weight
+ok   coverage_error >= average number of true labels (its documented best value)
+ok   det_curve: for every finite threshold fpr = FP(score >= thr)/N and fnr = FN(score < thr)/P (docstring definitions)
+ok   det_curve: thresholds increasing, fpr non-increasing, fnr non-decreasing
+ok   det_curve: first point has fnr = 0 (every positive caught), last point has the minimal fpr (0 on 1.7+, where an fpr=0 point is always present)
+   det_curve on 1.1.3: 11 points, no inf threshold (False)
+ok   det_curve with a single class raises ValueError
+ok   det_curve pos_label='b' with string labels
+ok   roc_auc_score multilabel-indicator average='macro' = mean of per-label AUCs
+ok   roc_auc_score multilabel average=None = per-label array
+ok   roc_auc_score multilabel average='micro' = AUC of the flattened (y, score)
+ok   roc_auc_score multilabel average='samples' = mean of per-sample AUCs (each row ranked across labels)
+ok   roc_auc_score multilabel average='weighted' = per-label AUCs weighted by the number of positives
+ok   average_precision_score multilabel average='macro' = mean of per-label AP
+ok   average_precision_score multilabel average='micro' = AP of the flattened arrays
+ok   average_precision_score multilabel average='samples' = mean of per-sample AP
+ok   average_precision_score multilabel average='weighted'
+---- regression: MSLE, median AE, max_error, pinball, Tweedie, D2, MAPE, r2/EV force_finite, RMSE
+ok   mean_squared_log_error = mean (log(1+y) - log(1+p))^2 (0.097977)
+ok   mean_squared_log_error with sample_weight
+ok   mean_squared_log_error with y_true = -1 raises ValueError
+ok   mean_squared_log_error with y_pred = -2 raises ValueError
+ok   mean_squared_log_error with a target in (-1, 0): rejected (pre-1.6: negative values rejected)
+ok   median_absolute_error = median |y - p| (1.1250)
+ok   median_absolute_error with integer sample_weight (pre-1.8 inverted_cdf) = first value whose cumulative weight reaches half (1.2500)  (got 1.2500; repeated-sample median would be 1.2500)
+ok   median_absolute_error(multioutput='raw_values') gives one median per output (the user guide says 'does not support multioutput': it does)
+ok   median_absolute_error(multioutput=[0.25, 0.75]) = weighted average of the per-output medians
+ok   max_error = max |y - p|
+ok   max_error with multioutput raises ValueError ('Multioutput not supported')
+ok   mean_pinball_loss(alpha=0.1) = mean alpha*max(y-p,0) + (1-alpha)*max(p-y,0) (0.573958)
+ok   mean_pinball_loss(alpha=0.5) = mean alpha*max(y-p,0) + (1-alpha)*max(p-y,0) (0.578125)
+ok   mean_pinball_loss(alpha=0.9) = mean alpha*max(y-p,0) + (1-alpha)*max(p-y,0) (0.582292)
+ok   mean_pinball_loss(alpha=0.5) = half the mean absolute error (user guide)
+ok   mean_pinball_loss with sample_weight
+ok   mean_pinball_loss multioutput raw_values
+ok   mean_tweedie_deviance(power=0) = user-guide formula (1.690104)
+ok   mean_tweedie_deviance(power=1) = user-guide formula (0.525756)
+ok   mean_tweedie_deviance(power=1.5) = user-guide formula (0.378081)
+ok   mean_tweedie_deviance(power=2) = user-guide formula (0.317758)
+ok   mean_tweedie_deviance(power=3) = user-guide formula (0.313895)
+ok   mean_tweedie_deviance(power=-1) = user-guide formula (9.026910)
+ok   mean_tweedie_deviance(power=1) with sample_weight
+ok   mean_poisson_deviance == power=1 and mean_gamma_deviance == power=2 (documented)
+ok   mean_tweedie_deviance(power=0) == mean_squared_error
+ok   power=1 with y_true = 0 allowed (0 log 0 = 0)
+ok   power=1.5 with y_true = 0 allowed
+ok   power=2 with y_true = 0 raises ValueError ('strictly positive y')
+ok   power=3 with negative y_true raises
+ok   power=1 with y_pred = 0 raises ValueError ('strictly positive y_pred')
+ok   power=-1 with y_pred = 0 raises, negative y_true allowed
+ok   power=-1 with negative y_true uses max(y, 0)^(2-p) in the first term (user-guide formula)
+ok   power=0.5 is rejected (power must be <= 0 or >= 1)
+ok   Tweedie deviance is homogeneous of degree 2-power: scaling y and p by 3 multiplies power=1.5 deviance by 3^0.5
+ok   d2_tweedie_score(power=0) = 1 - dev(y, p) / dev(y, mean y) (0.767091)
+ok   d2_tweedie_score(power=1) = 1 - dev(y, p) / dev(y, mean y) (0.638816)
+ok   d2_tweedie_score(power=2) = 1 - dev(y, p) / dev(y, mean y) (0.092675)
+ok   d2_tweedie_score with sample_weight uses the weighted mean as null model
+ok   d2_tweedie_score(power=0) == r2_score (documented)
+ok   d2_tweedie_score of the mean prediction is 0
+ok   d2_tweedie_score with one sample returns NaN
+ok   d2_pinball_score(alpha=0.5) = 1 - pinball(y,p)/pinball(y, alpha-quantile of y), pre-1.9 unweighted: numpy 'linear' percentile (0.504464)  (got 0.504464; averaged_inverted_cdf would give 0.504464)
+ok   d2_pinball_score(alpha=0.9) = 1 - pinball(y,p)/pinball(y, alpha-quantile of y), pre-1.9 unweighted: numpy 'linear' percentile (-0.488285)  (got -0.488285; averaged_inverted_cdf would give -0.502688)
+ok   d2_pinball_score(alpha=0.25) = 1 - pinball(y,p)/pinball(y, alpha-quantile of y), pre-1.9 unweighted: numpy 'linear' percentile (0.361272)  (got 0.361272; averaged_inverted_cdf would give 0.361272)
+ok   d2_pinball_score with integer sample_weight = the repeated-sample computation  (check uses the inverted_cdf weighted median)
+ok   d2_absolute_error_score == d2_pinball_score(alpha=0.5)
+ok   d2_pinball_score multioutput raw_values
+ok   mean_absolute_percentage_error with a zero target: that term is |p| / eps with eps = finfo(float64).eps = 2^-52 (1.5950e+15)
+ok   mean_absolute_percentage_error (no zeros) = mean |y-p|/|y|
+ok   mean_absolute_percentage_error multioutput raw_values
+ok   mean_absolute_percentage_error with sample_weight
+ok   r2_score with sample_weight = 1 - sum w (y-p)^2 / sum w (y - weighted mean)^2
+ok   r2_score constant y_true, imperfect prediction, force_finite=False -> -inf
+ok   r2_score constant y_true, perfect prediction, force_finite=False -> NaN
+ok   r2_score constant y_true with force_finite=True (default): 0.0 imperfect, 1.0 perfect
+ok   r2_score multioutput='variance_weighted' = per-output R2 weighted by the total sums of squares
+ok   r2_score multioutput='raw_values' / 'uniform_average'
+ok   explained_variance_score = 1 - Var(y - p)/Var(y)
+ok   explained_variance_score with sample_weight (weighted variances)
+ok   explained_variance_score multioutput raw_values / uniform_average / variance_weighted
+ok   explained_variance_score constant y_true: force_finite=True gives 0.0/1.0, force_finite=False gives -inf/NaN
+ok   explained_variance_score constant y_true with a constant offset prediction (Var(y-p)=0) is 1.0 under force_finite (documented 'perfect' rule counts residual variance)
+---- clustering: contingency, pair confusion, consensus_score, V-measure beta, degenerate counts, silhouette sample_size
+ok   contingency_matrix C[i, j] = # samples in true class i and cluster j (sorted labels)
+ok   contingency_matrix(eps=0.5) adds eps to every entry and returns float
+ok   contingency_matrix(sparse=True) is a CSR matrix with the same counts
+ok   contingency_matrix(sparse=True, eps=...) raises ValueError
+ok   contingency_matrix(dtype=float) honours dtype
+ok   contingency_matrix with string labels
+ok   pair_confusion_matrix over ordered pairs i != j: C00 = different in both, C11 = same in both, C01 = different true / same pred, C10 = same true / different pred
+ok   pair_confusion_matrix of identical clusterings is diagonal
+ok   rand_score = (C00 + C11) / n(n-1) from the pair confusion matrix (documented relation)
+ok   consensus_score(jaccard) = best one-to-one matching of bicluster Jaccard similarities / max(n_a, n_b) (0.284659)
+ok   consensus_score(jaccard) = best one-to-one matching of bicluster Jaccard similarities / max(n_a, n_b) (0.284659)
+ok   consensus_score(jaccard) = best one-to-one matching of bicluster Jaccard similarities / max(n_a, n_b) (1.000000)
+ok   consensus_score with a callable similarity
+ok   consensus_score docstring example = 1.0
+ok   homogeneity_completeness_v_measure(beta=0.5): V = (1+beta) h c / (beta h + c)
+ok   homogeneity_completeness_v_measure(beta=1.0): V = (1+beta) h c / (beta h + c)
+ok   homogeneity_completeness_v_measure(beta=2.0): V = (1+beta) h c / (beta h + c)
+ok   v_measure_score(beta=1) == normalized_mutual_info_score (arithmetic) (documented identity)
+ok   homogeneity_completeness_v_measure of empty inputs = (1, 1, 1)
+ok   calinski_harabasz_score with a single cluster raises ValueError ('2 to n_samples - 1')
+ok   calinski_harabasz_score with n_labels == n_samples raises ValueError
+ok   davies_bouldin_score with a single cluster raises ValueError ('2 to n_samples - 1')
+ok   davies_bouldin_score with n_labels == n_samples raises ValueError
+ok   silhouette_score with a single cluster raises ValueError ('2 to n_samples - 1')
+ok   silhouette_score with n_labels == n_samples raises ValueError
+   calinski_harabasz_score with zero within-cluster dispersion (undocumented, informational): 1.0
+ok   silhouette_score(sample_size=None) = full mean
+ok   silhouette_score(sample_size=20, random_state=7) = mean silhouette of the subset RandomState(7).permutation(n)[:20], computed within the subset  (0.726795 vs full 0.729403)
+ok   silhouette_score(metric='precomputed', sample_size=20, random_state=7) subsets rows and columns consistently
+ok   silhouette_score(sample_size > n_samples) uses all samples (permutation truncation)
+---- pairwise: every distance metric against plain-Python formulas
+ok   pairwise_distances(X, Y, metric='euclidean') = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='l2') = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='sqeuclidean') = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='manhattan') = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='l1') = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='cityblock') = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='chebyshev') = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='minkowski', p=...) = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='minkowski', p=..., w=...) = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='minkowski') = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='cosine') = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='correlation') = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='braycurtis') = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='canberra') = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='hamming') = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='seuclidean', V=...) = plain-Python formula on every pair
+ok   pairwise_distances(X, Y, metric='mahalanobis', VI=...) = plain-Python formula on every pair
+   euclidean distance of the identical pair (X[3], Y[2]): 0.0
+ok   pairwise_distances('braycurtis') on signed data uses scipy's sum|x-y| / sum|x+y| (sklearn defers to scipy for this name)
+ok   pairwise_distances(X, metric='seuclidean') without V uses V = var(X, ddof=1) per feature (scipy pdist default)
+ok   ... and n_jobs=2 gives the same matrix (V is computed once, not per slice)
+ok   pairwise_distances(X, metric='mahalanobis') without VI uses VI = inv(cov(X.T)) (scipy pdist default)
+ok   ... and n_jobs=2 gives the same matrix
+   pairwise_distances(X, Y, metric='seuclidean') without V/VI: ValueError: The 'V' parameter is required for the seuclidean metric when Y is passed.
+   pairwise_distances(X, Y, metric='mahalanobis') without V/VI: ValueError: The 'VI' parameter is required for the mahalanobis metric when Y is passed.
+ok   haversine_distances = 2 arcsin(sqrt(sin^2(dlat/2) + cos lat1 cos lat2 sin^2(dlon/2))) (docstring formula)  (max err 2.98e-08; antipode 3.141592623787471 vs pi)
+ok   pairwise_distances(metric='haversine') == haversine_distances
+ok   haversine_distances with 3 columns raises ValueError ('The dimension of the data must be 2')
+ok   nan_euclidean_distances docstring example [3,na,na,6] vs [1,na,4,5] = sqrt(4/2 ((3-1)^2 + (6-5)^2))
+ok   nan_euclidean_distances(squared=False): weight = n_features / n_present on each pair, NaN when no common present coordinate
+ok   nan_euclidean_distances(squared=True): weight = n_features / n_present on each pair, NaN when no common present coordinate
+ok   pairwise_distances(metric='nan_euclidean') == nan_euclidean_distances
+ok   nan_euclidean_distances(missing_values=-99) treats -99 as missing
+ok   nan_euclidean_distances(X) (Y=None) has a zero diagonal and is symmetric (NaN where no common coordinate)
+---- pairwise: boolean metrics (scipy names) and DistanceMetric boolean classes
+ok   pairwise_distances(metric='dice') on 0/1 data = scipy's documented boolean formula; non-zero entries count as True
+ok   pairwise_distances(metric='hamming') on 0/1 data = scipy's documented boolean formula
+ok   pairwise_distances(metric='jaccard') on 0/1 data = scipy's documented boolean formula; non-zero entries count as True
+   'kulsinski' is in PAIRWISE_BOOLEAN_FUNCTIONS but this scipy no longer provides it (environment: scipy newer than the release supports) -> not checked
+ok   pairwise_distances(metric='matching') on 0/1 data = scipy's documented boolean formula
+ok   pairwise_distances(metric='rogerstanimoto') on 0/1 data = scipy's documented boolean formula; non-zero entries count as True
+ok   pairwise_distances(metric='russellrao') on 0/1 data = scipy's documented boolean formula; non-zero entries count as True
+ok   pairwise_distances(metric='sokalmichener') on 0/1 data = scipy's documented boolean formula; non-zero entries count as True
+ok   pairwise_distances(metric='sokalsneath') on 0/1 data = scipy's documented boolean formula; non-zero entries count as True
+ok   pairwise_distances(metric='yule') on 0/1 data = scipy's documented boolean formula; non-zero entries count as True
+   docstring lists scipy metrics ['braycurtis', 'canberra', 'chebyshev', 'correlation', 'dice', 'hamming', 'jaccard', 'kulsinski', 'mahalanobis', 'minkowski', 'rogerstanimoto', 'russellrao', 'seuclidean', 'sokalmichener', 'sokalsneath', 'sqeuclidean', 'yule']; removal/deprecation notes for []
+ok   pairwise_distances accepts metric='braycurtis' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='canberra' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='chebyshev' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='correlation' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='dice' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='hamming' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='jaccard' listed in its docstring (or the docstring notes its removal)
+   docstring-listed 'kulsinski' rejected, but this sklearn release predates scipy's removal of it (environment artifact) (ValueError: Unknown Distance Metric: kulsinski)
+ok   pairwise_distances accepts metric='mahalanobis' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='minkowski' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='rogerstanimoto' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='russellrao' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='seuclidean' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='sokalmichener' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='sokalsneath' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='sqeuclidean' listed in its docstring (or the docstring notes its removal)
+ok   pairwise_distances accepts metric='yule' listed in its docstring (or the docstring notes its removal)
+   'wminkowski' (in _VALID_METRICS: True; not in the docstring): ValueError: Unknown Distance Metric: wminkowski
+---- pairwise: Y=None symmetry, n_jobs, sparse input, callables, precomputed
+ok   pairwise_distances(X, metric='euclidean') with Y=None: symmetric, zero diagonal (exactly), equal to pairwise_distances(X, X)
+ok   pairwise_distances(metric='euclidean', n_jobs=2) == n_jobs=1 ('breaking down the pairwise matrix into n_jobs even slices')
+ok   pairwise_distances(X, metric='manhattan') with Y=None: symmetric, zero diagonal, equal to pairwise_distances(X, X)
+ok   pairwise_distances(metric='manhattan', n_jobs=2) == n_jobs=1 ('breaking down the pairwise matrix into n_jobs even slices')
+ok   pairwise_distances(X, metric='cosine') with Y=None: symmetric, zero diagonal, equal to pairwise_distances(X, X)
+ok   pairwise_distances(metric='cosine', n_jobs=2) == n_jobs=1 ('breaking down the pairwise matrix into n_jobs even slices')
+ok   pairwise_distances(X, metric='chebyshev') with Y=None: symmetric, zero diagonal (exactly), equal to pairwise_distances(X, X)
+ok   pairwise_distances(metric='chebyshev', n_jobs=2) == n_jobs=1 ('breaking down the pairwise matrix into n_jobs even slices')
+ok   pairwise_distances(X, metric='canberra') with Y=None: symmetric, zero diagonal (exactly), equal to pairwise_distances(X, X)
+ok   pairwise_distances(metric='canberra', n_jobs=2) == n_jobs=1 ('breaking down the pairwise matrix into n_jobs even slices')
+ok   pairwise_distances(X, metric='correlation') with Y=None: symmetric, zero diagonal (exactly), equal to pairwise_distances(X, X)
+ok   pairwise_distances(metric='correlation', n_jobs=2) == n_jobs=1 ('breaking down the pairwise matrix into n_jobs even slices')
+ok   pairwise_distances(X, metric='minkowski') with Y=None: symmetric, zero diagonal (exactly), equal to pairwise_distances(X, X)
+ok   pairwise_distances(metric='minkowski', n_jobs=2) == n_jobs=1 ('breaking down the pairwise matrix into n_jobs even slices')
+ok   pairwise_distances(X, metric='braycurtis') with Y=None: symmetric, zero diagonal (exactly), equal to pairwise_distances(X, X)
+ok   pairwise_distances(metric='braycurtis', n_jobs=2) == n_jobs=1 ('breaking down the pairwise matrix into n_jobs even slices')
+ok   pairwise_distances(X, metric='sqeuclidean') with Y=None: symmetric, zero diagonal (exactly), equal to pairwise_distances(X, X)
+ok   pairwise_distances(metric='sqeuclidean', n_jobs=2) == n_jobs=1 ('breaking down the pairwise matrix into n_jobs even slices')
+ok   pairwise_distances(metric='euclidean') on CSR input == dense ('All metrics support sparse matrix inputs except nan_euclidean')
+ok   pairwise_distances(metric='manhattan') on CSR input == dense ('All metrics support sparse matrix inputs except nan_euclidean')
+ok   pairwise_distances(metric='cosine') on CSR input == dense ('All metrics support sparse matrix inputs except nan_euclidean')
+ok   pairwise_distances(metric='l1') on CSR input == dense ('All metrics support sparse matrix inputs except nan_euclidean')
+ok   pairwise_distances(metric='l2') on CSR input == dense ('All metrics support sparse matrix inputs except nan_euclidean')
+ok   pairwise_distances(metric='cityblock') on CSR input == dense ('All metrics support sparse matrix inputs except nan_euclidean')
+ok   pairwise_distances(metric='chebyshev') on sparse input raises TypeError (scipy metrics 'do not support sparse matrix inputs')
+ok   pairwise_distances(metric=callable) calls it on every pair of rows
+ok   pairwise_distances(metric=callable, Y=None): symmetric result
+   callable metric with Y=None: diagonal = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0] (callable(x, x) = 1 here; sklearn evaluates it)
+ok   pairwise_distances(metric='precomputed') returns X as is
+ok   pairwise_distances(metric='precomputed') with negative entries raises ValueError
+---- pairwise: argmin, argmin_min, chunked, paired
+ok   pairwise_distances_argmin_min(metric='euclidean'): index of the closest Y row and its distance
+ok   pairwise_distances_argmin_min(metric='manhattan'): index of the closest Y row and its distance
+ok   pairwise_distances_argmin_min(metric='cosine'): index of the closest Y row and its distance
+ok   pairwise_distances_argmin_min(metric='minkowski', metric_kwargs): index of the closest Y row and its distance
+ok   pairwise_distances_argmin_min(metric='chebyshev'): index of the closest Y row and its distance  (rows with tied minima: [1])
+   tied rows [1]: sklearn chose [1], first index would be [1]
+ok   pairwise_distances_argmin_min(axis=0): for each Y row the closest X row
+   argmin with exact ties (distance 1 to three / two Y rows): [0, 3] (np.argmin convention would be [0, 3])
+ok   pairwise_distances_chunked: vertical chunks that concatenate to pairwise_distances(X)
+ok   pairwise_distances_chunked(working_memory=0.000137 MiB = two 9-column float64 rows): every chunk fits ('sought maximum memory'), so chunk sizes <= 2  (sizes [2, 2, 2, 2, 1])
+ok   pairwise_distances_chunked(reduce_func): radius neighbours from the reduced chunks = exact neighbours
+ok   reduce_func(D_chunk, start): 'start' is the first row index of each chunk  (starts [0, 2, 4, 6, 8])
+ok   reduce_func returning a tuple yields tuples of per-chunk results
+ok   reduce_func returning the wrong length raises ValueError ('should return ... of length D_chunk.shape[0]')
+ok   pairwise_distances_chunked(metric='seuclidean') without V: V from the whole X, not per chunk
+ok   pairwise_distances_chunked(X, Y, working_memory = one row) yields single rows equal to pairwise_distances(X, Y)
+ok   paired_distances(metric='euclidean') = d(X[i], Y[i]) row by row
+ok   paired_distances(metric='l2') = d(X[i], Y[i]) row by row
+ok   paired_distances(metric='manhattan') = d(X[i], Y[i]) row by row
+ok   paired_distances(metric='l1') = d(X[i], Y[i]) row by row
+ok   paired_distances(metric='cityblock') = d(X[i], Y[i]) row by row
+ok   paired_distances(metric='cosine') = d(X[i], Y[i]) row by row
+ok   paired_cosine_distances = 1 - cos = half the squared euclidean distance of the unit-normalised rows (docstring note)
+ok   paired_distances(metric=callable) applies it row by row
+ok   paired_distances with different numbers of rows raises ValueError
+ok   paired_distances(metric='chebyshev') (not in PAIRED_DISTANCES) raises ValueError
+---- pairwise: euclidean_distances with given norms, cosine clipping
+ok   euclidean_distances with the correct X_norm_squared / Y_norm_squared = exact distances
+ok   ... norms given as (n, 1) and (1, n) shapes are accepted
+ok   euclidean_distances(squared=True) = sum of squares
+ok   float64: given norms are used in dist = sqrt(dot(x,x) - 2 dot(x,y) + dot(y,y)): X norms + 1 -> sqrt(d^2 + 1)
+   float32 input with wrong X_norm_squared: max |d - true| = 1.64e-07 ('may be unused if passed as np.float32')
+ok   cosine_distances clipped to [0, 2]: parallel rows give >= 0, antiparallel <= 2  (parallel 1.1102230246251565e-16, antiparallel 2.0, similarity 0.9999999999999999)
+ok   cosine_distances(X) with Y=None: exactly zero diagonal
+ok   cosine_similarity = <x,y>/(|x||y|) on every pair
+ok   cosine_similarity(dense_output=False) on two CSR inputs returns sparse with the same values
+   cosine_similarity with a zero row (undocumented): [0.0, 0.0], cosine_distances: [0.0, 1.0]
+---- pairwise: every kernel in PAIRWISE_KERNEL_FUNCTIONS, default gamma, filter_params, callables
+ok   pairwise_kernels(metric='additive_chi2') with default parameters = docstring formula
+ok   pairwise_kernels(metric='additive_chi2') == the PAIRWISE_KERNEL_FUNCTIONS function
+ok   pairwise_kernels(metric='additive_chi2', Y=None) is symmetric and equals K(X, X)
+ok   pairwise_kernels(metric='chi2') with default parameters = docstring formula (gamma default 1)
+ok   pairwise_kernels(metric='chi2') == the PAIRWISE_KERNEL_FUNCTIONS function
+ok   pairwise_kernels(metric='chi2', Y=None) is symmetric and equals K(X, X)
+ok   pairwise_kernels(metric='cosine') with default parameters = docstring formula
+ok   pairwise_kernels(metric='cosine') == the PAIRWISE_KERNEL_FUNCTIONS function
+ok   pairwise_kernels(metric='cosine', Y=None) is symmetric and equals K(X, X)
+ok   pairwise_kernels(metric='laplacian') with default parameters = docstring formula (gamma = 1/n_features)
+ok   pairwise_kernels(metric='laplacian') == the PAIRWISE_KERNEL_FUNCTIONS function
+ok   pairwise_kernels(metric='laplacian', Y=None) is symmetric and equals K(X, X)
+ok   pairwise_kernels(metric='linear') with default parameters = docstring formula
+ok   pairwise_kernels(metric='linear') == the PAIRWISE_KERNEL_FUNCTIONS function
+ok   pairwise_kernels(metric='linear', Y=None) is symmetric and equals K(X, X)
+ok   pairwise_kernels(metric='poly') with default parameters = docstring formula (gamma = 1/n_features)
+ok   pairwise_kernels(metric='poly') == the PAIRWISE_KERNEL_FUNCTIONS function
+ok   pairwise_kernels(metric='poly', Y=None) is symmetric and equals K(X, X)
+ok   pairwise_kernels(metric='polynomial') with default parameters = docstring formula (gamma = 1/n_features)
+ok   pairwise_kernels(metric='polynomial') == the PAIRWISE_KERNEL_FUNCTIONS function
+ok   pairwise_kernels(metric='polynomial', Y=None) is symmetric and equals K(X, X)
+ok   pairwise_kernels(metric='rbf') with default parameters = docstring formula (gamma = 1/n_features)
+ok   pairwise_kernels(metric='rbf') == the PAIRWISE_KERNEL_FUNCTIONS function
+ok   pairwise_kernels(metric='rbf', Y=None) is symmetric and equals K(X, X)
+ok   pairwise_kernels(metric='sigmoid') with default parameters = docstring formula (gamma = 1/n_features)
+ok   pairwise_kernels(metric='sigmoid') == the PAIRWISE_KERNEL_FUNCTIONS function
+ok   pairwise_kernels(metric='sigmoid', Y=None) is symmetric and equals K(X, X)
+ok   pairwise_kernels(metric='polynomial', {'gamma': 0.3, 'degree': 2, 'coef0': -0.5})
+ok   pairwise_kernels(metric='rbf', {'gamma': 0.3})
+ok   pairwise_kernels(metric='laplacian', {'gamma': 0.3})
+ok   pairwise_kernels(metric='sigmoid', {'gamma': 0.3, 'coef0': -0.5})
+ok   pairwise_kernels(metric='chi2', {'gamma': 0.3})
+ok   chi2_kernel with negative input raises ValueError ('X and Y have to be non-negative')
+ok   additive_chi2_kernel with negative input raises ValueError
+ok   pairwise_kernels(metric='linear', filter_params=True, gamma=3): the invalid gamma is filtered out
+ok   pairwise_kernels(metric='rbf', filter_params=True, gamma=0.3, degree=5): degree filtered, gamma kept
+ok   pairwise_kernels(metric='linear', gamma=3) without filter_params raises TypeError
+ok   pairwise_kernels(metric=callable) evaluates it on every pair of rows
+ok   pairwise_kernels(metric=callable, s=2) passes the keyword to the callable
+ok   pairwise_kernels(metric='precomputed') returns X as is
+ok   pairwise_kernels(n_jobs=2) == n_jobs=1
+ok   pairwise_kernels(metric='linear') on CSR input == dense
+ok   pairwise_kernels(metric='poly') on CSR input == dense
+ok   pairwise_kernels(metric='rbf') on CSR input == dense
+ok   pairwise_kernels(metric='sigmoid') on CSR input == dense
+ok   pairwise_kernels(metric='cosine') on CSR input == dense
+ok   pairwise_kernels(metric='laplacian') on CSR input == dense
+ok   rbf_kernel(gamma=None) on X with 4 features: gamma = 0.25 (docstring '1.0 / n_features')
+---- DistanceMetric.get_metric: every documented identifier, pairwise, rdist round trip, float32
+ok   DistanceMetric.get_metric('euclidean').pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('l2').pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('manhattan').pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('cityblock').pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('l1').pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('chebyshev').pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('infinity').pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('minkowski', p=...).pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('p', p=...).pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('minkowski', p=..., w=...).pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('minkowski', p=...).pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('minkowski', p=...).pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('seuclidean', V=...).pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('mahalanobis', VI=...).pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('mahalanobis', V=...).pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('hamming').pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('canberra').pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric.get_metric('braycurtis').pairwise(X, Y) = docstring formula
+ok      ... pairwise(X) symmetric with zero diagonal
+ok   DistanceMetric 'braycurtis' uses sum|x-y| / (sum|x| + sum|y|) (its docstring), which differs from pairwise_distances('braycurtis') = scipy's sum|x+y| denominator on signed data
+   braycurtis on signed data: DistanceMetric 1.000000 vs pairwise_distances 3.750000
+ok   DistanceMetric 'haversine' = docstring formula
+ok   DistanceMetric.get_metric('jaccard') on boolean data (non-zero = True) = docstring formula
+ok   DistanceMetric.get_metric('matching') on boolean data (non-zero = True) = docstring formula
+ok   DistanceMetric.get_metric('dice') on boolean data (non-zero = True) = docstring formula
+ok   DistanceMetric.get_metric('kulsinski') on boolean data (non-zero = True) = docstring formula
+ok   DistanceMetric.get_metric('rogerstanimoto') on boolean data (non-zero = True) = docstring formula
+ok   DistanceMetric.get_metric('russellrao') on boolean data (non-zero = True) = docstring formula
+ok   DistanceMetric.get_metric('sokalmichener') on boolean data (non-zero = True) = docstring formula
+ok   DistanceMetric.get_metric('sokalsneath') on boolean data (non-zero = True) = docstring formula
+ok   DistanceMetric 'pyfunc' with func
+ok   DistanceMetric.get_metric('minkowski', p=0.5) raises ValueError before 1.3 (p >= 1 required)
+ok   DistanceMetric.get_metric('nope') raises ValueError
+ok   DistanceMetric('euclidean') [EuclideanDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d^2 (rank-preserving)
+ok   DistanceMetric('l2') [EuclideanDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d^2 (rank-preserving)
+ok   DistanceMetric('manhattan') [ManhattanDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d itself (rank-preserving)
+ok   DistanceMetric('cityblock') [ManhattanDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d itself (rank-preserving)
+ok   DistanceMetric('l1') [ManhattanDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d itself (rank-preserving)
+ok   DistanceMetric('chebyshev') [ChebyshevDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d itself (rank-preserving)
+ok   DistanceMetric('infinity') [ChebyshevDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d itself (rank-preserving)
+ok   DistanceMetric('minkowski', p=3) [MinkowskiDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d^p (rank-preserving)
+ok   DistanceMetric('p', p=3) [MinkowskiDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d^p (rank-preserving)
+ok   DistanceMetric('minkowski', p=3) [MinkowskiDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d^p (rank-preserving)
+ok   DistanceMetric('minkowski', p=1) [ManhattanDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d itself (rank-preserving)
+ok   DistanceMetric('minkowski', p=2) [EuclideanDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d^2 (rank-preserving)
+ok   DistanceMetric('seuclidean') [SEuclideanDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d^2 (rank-preserving)
+ok   DistanceMetric('mahalanobis') [MahalanobisDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d^2 (rank-preserving)
+ok   DistanceMetric('mahalanobis') [MahalanobisDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = d^2 (rank-preserving)
+ok   DistanceMetric('haversine') [HaversineDistance]: rdist_to_dist(dist_to_rdist(D)) == D, reduced distance = sin^2(d/2) (rank-preserving)
+   haversine round trip max |back - D| = 1.2e-08 (arcsin near 1 at the antipode loses ~sqrt(eps); tolerance 1e-7)
+   DistanceMetric.get_metric(dtype=np.float32) not supported on 1.1.3: __init__() got an unexpected keyword argument 'dtype'
+---- scorers: every get_scorer_names() entry on fixed-output estimators, make_scorer, check_scoring, multimetric
+ok   get_scorer('accuracy')(est, X, y) = exact metric of the fixed outputs  (0.466667)
+ok   get_scorer('adjusted_mutual_info_score')(est, X, y) = exact metric of the fixed outputs  (-0.038448)
+ok   get_scorer('adjusted_rand_score')(est, X, y) = exact metric of the fixed outputs  (-0.028056)
+ok   get_scorer('average_precision')(est, X, y) = exact metric of the fixed outputs  (0.487156)
+ok   get_scorer('balanced_accuracy')(est, X, y) = exact metric of the fixed outputs  (0.459821)
+ok   get_scorer('completeness_score')(est, X, y) = exact metric of the fixed outputs  (0.022107)
+ok   get_scorer('explained_variance')(est, X, y) = exact metric of the fixed outputs  (0.881268)
+ok   get_scorer('f1')(est, X, y) = exact metric of the fixed outputs  (0.529412)
+ok   get_scorer('f1_macro')(est, X, y) = exact metric of the fixed outputs  (0.457014)
+ok   get_scorer('f1_micro')(est, X, y) = exact metric of the fixed outputs  (0.466667)
+ok   get_scorer('f1_samples')(est, X, y) = exact metric of the fixed outputs  (0.549524)
+ok   get_scorer('f1_weighted')(est, X, y) = exact metric of the fixed outputs  (0.461840)
+ok   get_scorer('fowlkes_mallows_score')(est, X, y) = exact metric of the fixed outputs  (0.319376)
+ok   get_scorer('homogeneity_score')(est, X, y) = exact metric of the fixed outputs  (0.022669)
+ok   get_scorer('jaccard')(est, X, y) = exact metric of the fixed outputs  (0.360000)
+ok   get_scorer('jaccard_macro')(est, X, y) = exact metric of the fixed outputs  (0.299048)
+ok   get_scorer('jaccard_micro')(est, X, y) = exact metric of the fixed outputs  (0.304348)
+ok   get_scorer('jaccard_samples')(est, X, y) = exact metric of the fixed outputs  (0.445833)
+ok   get_scorer('jaccard_weighted')(est, X, y) = exact metric of the fixed outputs  (0.303111)
+ok   get_scorer('matthews_corrcoef')(est, X, y) = exact metric of the fixed outputs  (-0.081832)
+ok   get_scorer('max_error')(est, X, y) = -exact metric of the fixed outputs (greater is better: loss sign-flipped)  (-2.000000)
+ok   get_scorer('mutual_info_score')(est, X, y) = exact metric of the fixed outputs  (0.023821)
+ok   get_scorer('neg_brier_score')(est, X, y) = -exact metric of the fixed outputs (greater is better: loss sign-flipped)  (-0.333203)
+ok   get_scorer('neg_log_loss')(est, X, y) = -exact metric of the fixed outputs (greater is better: loss sign-flipped)  (-0.949691)
+ok   get_scorer('neg_mean_absolute_error')(est, X, y) = -exact metric of the fixed outputs (greater is better: loss sign-flipped)  (-0.885417)
+ok   get_scorer('neg_mean_absolute_percentage_error')(est, X, y) = -exact metric of the fixed outputs (greater is better: loss sign-flipped)  (-0.211961)
+ok   get_scorer('neg_mean_gamma_deviance')(est, X, y) = -exact metric of the fixed outputs (greater is better: loss sign-flipped)  (-0.121416)
+ok   get_scorer('neg_mean_poisson_deviance')(est, X, y) = -exact metric of the fixed outputs (greater is better: loss sign-flipped)  (-0.220543)
+ok   get_scorer('neg_mean_squared_error')(est, X, y) = -exact metric of the fixed outputs (greater is better: loss sign-flipped)  (-1.184896)
+ok   get_scorer('neg_mean_squared_log_error')(est, X, y) = -exact metric of the fixed outputs (greater is better: loss sign-flipped)  (-0.031291)
+ok   get_scorer('neg_median_absolute_error')(est, X, y) = -exact metric of the fixed outputs (greater is better: loss sign-flipped)  (-0.625000)
+ok   get_scorer('neg_root_mean_squared_error')(est, X, y) = -exact metric of the fixed outputs (greater is better: loss sign-flipped)  (-1.088529)
+ok   get_scorer('normalized_mutual_info_score')(est, X, y) = exact metric of the fixed outputs  (0.022384)
+ok   get_scorer('precision')(est, X, y) = exact metric of the fixed outputs  (0.500000)
+ok   get_scorer('precision_macro')(est, X, y) = exact metric of the fixed outputs  (0.458333)
+ok   get_scorer('precision_micro')(est, X, y) = exact metric of the fixed outputs  (0.466667)
+ok   get_scorer('precision_samples')(est, X, y) = exact metric of the fixed outputs  (0.570833)
+ok   get_scorer('precision_weighted')(est, X, y) = exact metric of the fixed outputs  (0.461111)
+ok   get_scorer('r2')(est, X, y) = exact metric of the fixed outputs  (0.851159)
+ok   get_scorer('rand_score')(est, X, y) = exact metric of the fixed outputs  (0.539683)
+ok   get_scorer('recall')(est, X, y) = exact metric of the fixed outputs  (0.562500)
+ok   get_scorer('recall_macro')(est, X, y) = exact metric of the fixed outputs  (0.459821)
+ok   get_scorer('recall_micro')(est, X, y) = exact metric of the fixed outputs  (0.466667)
+ok   get_scorer('recall_samples')(est, X, y) = exact metric of the fixed outputs  (0.627083)
+ok   get_scorer('recall_weighted')(est, X, y) = exact metric of the fixed outputs  (0.466667)
+ok   get_scorer('roc_auc')(est, X, y) = exact metric of the fixed outputs  (0.428571)
+ok   get_scorer('roc_auc_ovo')(est, X, y) = exact metric of the fixed outputs  (0.504011)
+ok   get_scorer('roc_auc_ovo_weighted')(est, X, y) = exact metric of the fixed outputs  (0.501852)
+ok   get_scorer('roc_auc_ovr')(est, X, y) = exact metric of the fixed outputs  (0.498630)
+ok   get_scorer('roc_auc_ovr_weighted')(est, X, y) = exact metric of the fixed outputs  (0.500598)
+FAIL get_scorer('top_k_accuracy')(est, X, y) = exact metric of the fixed outputs  (ValueError: multiclass format is not supported)
+ok   get_scorer('v_measure_score')(est, X, y) = exact metric of the fixed outputs  (0.022384)
+   scorer names without an exact truth here: []
+ok   every scorer name in get_scorer_names() received an exact check
+ok   every scorer name of the user-guide table that exists since 1.0 is in get_scorer_names()  (missing [])
+   (main-branch scorer table not compared on 1.1.3); names outside it: ['matthews_corrcoef', 'max_error']
+FAIL roc_auc_score(multi_class='ovo', average='weighted') = the user guide's formula 1/(c(c-1)) sum_(j<k) p(j u k)(AUC(j|k)+AUC(k|j)) (0.334568)  (got 0.501852; the prevalence-weighted AVERAGE sum p s / sum p = 0.501852; the literal formula gives 2/c = 0.6667 for a perfect classifier)
+ok   scorer(est, X, y, sample_weight=w): accuracy uses the weights
+ok   ... neg_log_loss uses the weights
+ok   ... roc_auc uses the weights (weighted Mann-Whitney on the decision function)
+ok   ... neg_mean_squared_error uses the weights
+ok   ... f1_macro uses the weights
+ok   make_scorer(fbeta_score, beta=2, average='macro'): **kwargs are passed to score_func
+ok   make_scorer(f1_score, pos_label=0): f1 of class 0
+ok   make_scorer(mean_squared_error, greater_is_better=False) 'will sign-flip the outcome'
+ok   make_scorer(brier_score_loss, needs_*=predict_proba, greater_is_better=False) on a binary estimator feeds the positive-class column
+ok   make_scorer(roc_auc_score, needs_*=('decision_function', 'predict_proba')): the first available method (decision_function) is used  (proba ranking would give 0.441964)
+ok   make_scorer(log_loss, predict_proba) on a multiclass estimator passes the full probability matrix
+ok   check_scoring(classifier) with scoring=None uses estimator.score (accuracy for ClassifierMixin)
+ok   check_scoring(regressor) with scoring=None uses estimator.score (R^2 for RegressorMixin)
+ok   check_scoring(est, scoring='f1_macro') equals get_scorer('f1_macro')
+ok   check_scoring on an estimator without score and scoring=None raises TypeError
+ok   check_scoring(..., allow_none=True) returns None for such an estimator
+ok   get_scorer(callable) returns it as is; get_scorer(None) returns None (docstring)
+ok   get_scorer('not_a_scorer') raises ValueError (InvalidParameterError / ValueError)
+ok   get_scorer(name) returns a new object on each call (docstring note)
+   check_scoring on 1.1.3 does not document list/dict scoring
+ok   cross_validate(scoring=['accuracy', 'neg_log_loss']): per-fold test scores = exact metrics on each KFold(3) test block
+ok   cross_validate(scoring=dict with a make_scorer entry): keys test_<name>, signs flipped for losses
