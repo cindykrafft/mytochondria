@@ -1,0 +1,435 @@
+numpy 1.26.4  mpmath 1.4.1  python 3.11.15
+#### module functions of the six series kinds
+ok   polyval(x, c) = sum c_i B_i(x) from the recurrence in mpmath at x in [-3.0, -1.0, -0.5, 0.0, 0.3, 1.0, 2.5, 10.0]  (max rel err 0.0e+00; c=[-2, 0, 1, -3, -2, -3])
+ok   polyval scalar x returns a 0-d result equal to the mpmath value
+ok   polyval at a complex point equals the recurrence with complex x
+ok   polyval(x, c 2-D, tensor=True): shape c.shape[1:] + x.shape, column k evaluated at every x
+ok   polyval(tensor=False): shape c.shape[1:], column k evaluated at x[k]
+ok   polyval2d(x, y, c) = sum c_ij B_i(x) B_j(y) exactly (Fraction)
+ok   polygrid2d: shape x.shape + y.shape, entry [i, j] = p(x[i], y[j])
+ok   polyval3d(x, y, z, c) = sum c_ijk B_i(x) B_j(y) B_k(z) exactly
+ok   polygrid3d: shape x.shape + y.shape + z.shape on the Cartesian product
+ok   polyvander(x, 5): V[..., i] = B_i(x) (recurrence in mpmath), shape x.shape + (6,)
+ok   polyvander2d(x, y, [3, 2]): column (deg[1]+1)*i + j = B_i(x) B_j(y); V @ c.flat = val2d
+ok   polyvander3d(x, y, z, [2, 2, 1]): column (d1+1)(d2+1) i + (d2+1) j + k = B_i(x) B_j(y) B_k(z); V @ c.flat = val3d
+ok   polyfit(x, y, deg=3) = exact least-squares coefficients in the poly basis (Fraction normal equations)  (max rel err 8.3e-14)
+ok   polyfit(full=True): [resid, rank, sv, rcond] with resid = sum of squared residuals, rank 4, 4 singular values, rcond = len(x)*eps  (resid 4.20582 exact 4.20582)
+ok   polyfit(deg=[0, 2, 3]): 'only those terms' -- coefficient of degree 1 exactly 0, the rest the exact LS over B_0, B_2, B_3
+ok   polyfit(w=): 'weight w[i] applies to the unsquared residual' -> minimises sum (w_i r_i)^2 (normal equations with w^2)
+ok   polyfit with 2-D y: one fit per column, coefficients in the columns
+ok   polyroots(c) = mpmath.polyroots of the equivalent power series (degree 5, 4 complex)  (max abs err 1.4e-15, |root| <= 1.25)
+ok   polyroots: 'if all the roots are real then out is also real' (roots -3/2, -1/3, 1/2, 2)
+ok   polycompanion(c): (deg, deg) matrix whose eigenvalues are the roots (vs mpmath)
+ok   polyfromroots: product (x - r_i) expanded exactly in the poly basis  (coef [0.75, 1.625, -5.875, -1.25, 1.0])
+ok   polyfromroots with complex roots returns a complex array (documented) whose values are the exact real expansion
+ok   polyder(c, m=2, scl=3): exact second derivative times scl**2 (documented 'multiplication by scl**m')
+ok   polyder(c, 0) returns c unchanged; der beyond the degree gives [0]
+ok   polyint(c, m=2, k=[1,-2], lbnd=1/2, scl=3): each step = scl * antiderivative, then constant so the value at lbnd is k[i]  (max rel err 1.5e-16)
+ok   polyint(c, k=7/3, lbnd=-1.5): value of the integral at lbnd equals k
+ok   polyint: default lbnd=0, k=[] -> value 0 at 0; m=0 leaves c unchanged
+ok   polyint raises ValueError for len(k) > m and for scl / lbnd non-scalar
+ok   polyadd / sub of different lengths: exact (aligned at the low end)
+ok   polymul: exact product expanded in the poly basis (linearisation)
+ok   polymulx: multiplication by x exact (uses the recurrence)
+ok   polydiv: quotient and remainder exact (deg rem < deg divisor)  (quotient [-1.592593, -1.111111, 0.666667], remainder [3.592593, 1.518519])
+ok   polydiv by a higher-degree series: quotient [0], remainder the dividend
+ok   polypow(c, 3) exact; pow(c, 0) = [1]; pow > maxpower raises ValueError
+ok   polyline(off=2.5, scl=-1.5) represents off + scl*x (exact in the poly basis)
+ok   polyline(off, 0) is the constant [off]
+ok   poly functions trim trailing zeros of the inputs ('c is a trimmed copy'): add([1,2,0,0],[0,0,0]) -> [1,2]
+ok   chebval(x, c) = sum c_i B_i(x) from the recurrence in mpmath at x in [-3.0, -1.0, -0.5, 0.0, 0.3, 1.0, 2.5, 10.0]  (max rel err 0.0e+00; c=[-4, 2, 5, 3, -2, -2])
+ok   chebval scalar x returns a 0-d result equal to the mpmath value
+ok   chebval at a complex point equals the recurrence with complex x
+ok   chebval(x, c 2-D, tensor=True): shape c.shape[1:] + x.shape, column k evaluated at every x
+ok   chebval(tensor=False): shape c.shape[1:], column k evaluated at x[k]
+ok   chebval2d(x, y, c) = sum c_ij B_i(x) B_j(y) exactly (Fraction)
+ok   chebgrid2d: shape x.shape + y.shape, entry [i, j] = p(x[i], y[j])
+ok   chebval3d(x, y, z, c) = sum c_ijk B_i(x) B_j(y) B_k(z) exactly
+ok   chebgrid3d: shape x.shape + y.shape + z.shape on the Cartesian product
+ok   chebvander(x, 5): V[..., i] = B_i(x) (recurrence in mpmath), shape x.shape + (6,)
+ok   chebvander2d(x, y, [3, 2]): column (deg[1]+1)*i + j = B_i(x) B_j(y); V @ c.flat = val2d
+ok   chebvander3d(x, y, z, [2, 2, 1]): column (d1+1)(d2+1) i + (d2+1) j + k = B_i(x) B_j(y) B_k(z); V @ c.flat = val3d
+ok   chebfit(x, y, deg=3) = exact least-squares coefficients in the cheb basis (Fraction normal equations)  (max rel err 4.3e-13)
+ok   chebfit(full=True): [resid, rank, sv, rcond] with resid = sum of squared residuals, rank 4, 4 singular values, rcond = len(x)*eps  (resid 4.20582 exact 4.20582)
+ok   chebfit(deg=[0, 2, 3]): 'only those terms' -- coefficient of degree 1 exactly 0, the rest the exact LS over B_0, B_2, B_3
+ok   chebfit(w=): 'weight w[i] applies to the unsquared residual' -> minimises sum (w_i r_i)^2 (normal equations with w^2)
+ok   chebfit with 2-D y: one fit per column, coefficients in the columns
+ok   chebroots(c) = mpmath.polyroots of the equivalent power series (degree 5, 2 complex)  (max abs err 8.9e-16, |root| <= 1.15)
+ok   chebroots: 'if all the roots are real then out is also real' (roots -3/2, -1/3, 1/2, 2)
+ok   chebcompanion(c): (deg, deg) matrix whose eigenvalues are the roots (vs mpmath)
+ok   chebcompanion of the basis polynomial B_6 is symmetric (documented: 'scaled to be symmetric')
+ok   chebfromroots: product (x - r_i) expanded exactly in the cheb basis  (coef [-1.8125, 0.6875, -2.4375, -0.3125, 0.125])
+ok   chebfromroots with complex roots returns a complex array (documented) whose values are the exact real expansion
+ok   chebder(c, m=2, scl=3): exact second derivative times scl**2 (documented 'multiplication by scl**m')
+ok   chebder(c, 0) returns c unchanged; der beyond the degree gives [0]
+ok   chebint(c, m=2, k=[1,-2], lbnd=1/2, scl=3): each step = scl * antiderivative, then constant so the value at lbnd is k[i]  (max rel err 0.0e+00)
+ok   chebint(c, k=7/3, lbnd=-1.5): value of the integral at lbnd equals k
+ok   chebint: default lbnd=0, k=[] -> value 0 at 0; m=0 leaves c unchanged
+ok   chebint raises ValueError for len(k) > m and for scl / lbnd non-scalar
+ok   chebadd / sub of different lengths: exact (aligned at the low end)
+ok   chebmul: exact product expanded in the cheb basis (linearisation)
+ok   chebmulx: multiplication by x exact (uses the recurrence)
+ok   chebdiv: quotient and remainder exact (deg rem < deg divisor)  (quotient [0.222222, 1.333333, 1.333333], remainder [-2.888889, -3.666667])
+ok   chebdiv by a higher-degree series: quotient [0], remainder the dividend
+ok   chebpow(c, 3) exact; pow(c, 0) = [1]; pow > maxpower raises ValueError
+ok   chebline(off=2.5, scl=-1.5) represents off + scl*x (exact in the cheb basis)
+ok   chebline(off, 0) is the constant [off]
+ok   poly2cheb([3,-1,2,5,-4,1]) exact (Fraction) and cheb2poly inverts it
+ok   cheb functions trim trailing zeros of the inputs ('c is a trimmed copy'): add([1,2,0,0],[0,0,0]) -> [1,2]
+ok   legval(x, c) = sum c_i B_i(x) from the recurrence in mpmath at x in [-3.0, -1.0, -0.5, 0.0, 0.3, 1.0, 2.5, 10.0]  (max rel err 3.6e-15; c=[3, 3, -2, 0, -2, -3])
+ok   legval scalar x returns a 0-d result equal to the mpmath value
+ok   legval at a complex point equals the recurrence with complex x
+ok   legval(x, c 2-D, tensor=True): shape c.shape[1:] + x.shape, column k evaluated at every x
+ok   legval(tensor=False): shape c.shape[1:], column k evaluated at x[k]
+ok   legval2d(x, y, c) = sum c_ij B_i(x) B_j(y) exactly (Fraction)
+ok   leggrid2d: shape x.shape + y.shape, entry [i, j] = p(x[i], y[j])
+ok   legval3d(x, y, z, c) = sum c_ijk B_i(x) B_j(y) B_k(z) exactly
+ok   leggrid3d: shape x.shape + y.shape + z.shape on the Cartesian product
+ok   legvander(x, 5): V[..., i] = B_i(x) (recurrence in mpmath), shape x.shape + (6,)
+ok   legvander2d(x, y, [3, 2]): column (deg[1]+1)*i + j = B_i(x) B_j(y); V @ c.flat = val2d
+ok   legvander3d(x, y, z, [2, 2, 1]): column (d1+1)(d2+1) i + (d2+1) j + k = B_i(x) B_j(y) B_k(z); V @ c.flat = val3d
+ok   legfit(x, y, deg=3) = exact least-squares coefficients in the leg basis (Fraction normal equations)  (max rel err 3.5e-13)
+ok   legfit(full=True): [resid, rank, sv, rcond] with resid = sum of squared residuals, rank 4, 4 singular values, rcond = len(x)*eps  (resid 4.20582 exact 4.20582)
+ok   legfit(deg=[0, 2, 3]): 'only those terms' -- coefficient of degree 1 exactly 0, the rest the exact LS over B_0, B_2, B_3
+ok   legfit(w=): 'weight w[i] applies to the unsquared residual' -> minimises sum (w_i r_i)^2 (normal equations with w^2)
+ok   legfit with 2-D y: one fit per column, coefficients in the columns
+ok   legroots(c) = mpmath.polyroots of the equivalent power series (degree 5, 2 complex)  (max abs err 1.0e-15, |root| <= 1.05)
+ok   legroots: 'if all the roots are real then out is also real' (roots -3/2, -1/3, 1/2, 2)
+ok   legcompanion(c): (deg, deg) matrix whose eigenvalues are the roots (vs mpmath)
+ok   legcompanion of the basis polynomial B_6 is symmetric (documented: 'scaled to be symmetric')
+ok   legfromroots: product (x - r_i) expanded exactly in the leg basis  (coef [-1.008333, 0.875, -3.345238, -0.5, 0.228571])
+ok   legfromroots with complex roots returns a complex array (documented) whose values are the exact real expansion
+ok   legder(c, m=2, scl=3): exact second derivative times scl**2 (documented 'multiplication by scl**m')
+ok   legder(c, 0) returns c unchanged; der beyond the degree gives [0]
+ok   legint(c, m=2, k=[1,-2], lbnd=1/2, scl=3): each step = scl * antiderivative, then constant so the value at lbnd is k[i]  (max rel err 3.0e-16)
+ok   legint(c, k=7/3, lbnd=-1.5): value of the integral at lbnd equals k
+ok   legint: default lbnd=0, k=[] -> value 0 at 0; m=0 leaves c unchanged
+ok   legint raises ValueError for len(k) > m and for scl / lbnd non-scalar
+ok   legadd / sub of different lengths: exact (aligned at the low end)
+ok   legmul: exact product expanded in the leg basis (linearisation)
+ok   legmulx: multiplication by x exact (uses the recurrence)
+ok   legdiv: quotient and remainder exact (deg rem < deg divisor)  (quotient [1.592593, -1.666667, 1.296296], remainder [7.0, -1.0])
+ok   legdiv by a higher-degree series: quotient [0], remainder the dividend
+ok   legpow(c, 3) exact; pow(c, 0) = [1]; pow > maxpower raises ValueError
+ok   legline(off=2.5, scl=-1.5) represents off + scl*x (exact in the leg basis)
+ok   legline(off, 0) is the constant [off]
+ok   poly2leg([3,-1,2,5,-4,1]) exact (Fraction) and leg2poly inverts it
+ok   leg functions trim trailing zeros of the inputs ('c is a trimmed copy'): add([1,2,0,0],[0,0,0]) -> [1,2]
+ok   hermval(x, c) = sum c_i B_i(x) from the recurrence in mpmath at x in [-3.0, -1.0, -0.5, 0.0, 0.3, 1.0, 2.5, 10.0]  (max rel err 1.2e-16; c=[-4, -5, -4, 5, -4, 2])
+ok   hermval scalar x returns a 0-d result equal to the mpmath value
+ok   hermval at a complex point equals the recurrence with complex x
+ok   hermval(x, c 2-D, tensor=True): shape c.shape[1:] + x.shape, column k evaluated at every x
+ok   hermval(tensor=False): shape c.shape[1:], column k evaluated at x[k]
+ok   hermval2d(x, y, c) = sum c_ij B_i(x) B_j(y) exactly (Fraction)
+ok   hermgrid2d: shape x.shape + y.shape, entry [i, j] = p(x[i], y[j])
+ok   hermval3d(x, y, z, c) = sum c_ijk B_i(x) B_j(y) B_k(z) exactly
+ok   hermgrid3d: shape x.shape + y.shape + z.shape on the Cartesian product
+ok   hermvander(x, 5): V[..., i] = B_i(x) (recurrence in mpmath), shape x.shape + (6,)
+ok   hermvander2d(x, y, [3, 2]): column (deg[1]+1)*i + j = B_i(x) B_j(y); V @ c.flat = val2d
+ok   hermvander3d(x, y, z, [2, 2, 1]): column (d1+1)(d2+1) i + (d2+1) j + k = B_i(x) B_j(y) B_k(z); V @ c.flat = val3d
+ok   hermfit(x, y, deg=3) = exact least-squares coefficients in the herm basis (Fraction normal equations)  (max rel err 1.3e-13)
+ok   hermfit(full=True): [resid, rank, sv, rcond] with resid = sum of squared residuals, rank 4, 4 singular values, rcond = len(x)*eps  (resid 4.20582 exact 4.20582)
+ok   hermfit(deg=[0, 2, 3]): 'only those terms' -- coefficient of degree 1 exactly 0, the rest the exact LS over B_0, B_2, B_3
+ok   hermfit(w=): 'weight w[i] applies to the unsquared residual' -> minimises sum (w_i r_i)^2 (normal equations with w^2)
+ok   hermfit with 2-D y: one fit per column, coefficients in the columns
+ok   hermroots(c) = mpmath.polyroots of the equivalent power series (degree 5, 0 complex)  (max abs err 1.6e-15, |root| <= 2.2)
+ok   hermroots: 'if all the roots are real then out is also real' (roots -3/2, -1/3, 1/2, 2)
+ok   hermcompanion(c): (deg, deg) matrix whose eigenvalues are the roots (vs mpmath)
+ok   hermcompanion of the basis polynomial B_6 is symmetric (documented: 'scaled to be symmetric')
+ok   hermfromroots: product (x - r_i) expanded exactly in the herm basis  (coef [-1.4375, -0.125, -0.71875, -0.15625, 0.0625])
+ok   hermfromroots with complex roots returns a complex array (documented) whose values are the exact real expansion
+ok   hermder(c, m=2, scl=3): exact second derivative times scl**2 (documented 'multiplication by scl**m')
+ok   hermder(c, 0) returns c unchanged; der beyond the degree gives [0]
+ok   hermint(c, m=2, k=[1,-2], lbnd=1/2, scl=3): each step = scl * antiderivative, then constant so the value at lbnd is k[i]  (max rel err 2.1e-16)
+ok   hermint(c, k=7/3, lbnd=-1.5): value of the integral at lbnd equals k
+ok   hermint: default lbnd=0, k=[] -> value 0 at 0; m=0 leaves c unchanged
+ok   hermint raises ValueError for len(k) > m and for scl / lbnd non-scalar
+ok   hermadd / sub of different lengths: exact (aligned at the low end)
+ok   hermmul: exact product expanded in the herm basis (linearisation)
+ok   hermmulx: multiplication by x exact (uses the recurrence)
+ok   hermdiv: quotient and remainder exact (deg rem < deg divisor)  (quotient [-5.111111, -1.0, 0.666667], remainder [-12.111111, 15.333333])
+ok   hermdiv by a higher-degree series: quotient [0], remainder the dividend
+ok   hermpow(c, 3) exact; pow(c, 0) = [1]; pow > maxpower raises ValueError
+ok   hermline(off=2.5, scl=-1.5) represents off + scl*x (exact in the herm basis)
+ok   hermline(off, 0) is the constant [off]
+ok   poly2herm([3,-1,2,5,-4,1]) exact (Fraction) and herm2poly inverts it
+ok   herm functions trim trailing zeros of the inputs ('c is a trimmed copy'): add([1,2,0,0],[0,0,0]) -> [1,2]
+ok   hermeval(x, c) = sum c_i B_i(x) from the recurrence in mpmath at x in [-3.0, -1.0, -0.5, 0.0, 0.3, 1.0, 2.5, 10.0]  (max rel err 4.1e-16; c=[2, -3, 1, -4, -4, 3])
+ok   hermeval scalar x returns a 0-d result equal to the mpmath value
+ok   hermeval at a complex point equals the recurrence with complex x
+ok   hermeval(x, c 2-D, tensor=True): shape c.shape[1:] + x.shape, column k evaluated at every x
+ok   hermeval(tensor=False): shape c.shape[1:], column k evaluated at x[k]
+ok   hermeval2d(x, y, c) = sum c_ij B_i(x) B_j(y) exactly (Fraction)
+ok   hermegrid2d: shape x.shape + y.shape, entry [i, j] = p(x[i], y[j])
+ok   hermeval3d(x, y, z, c) = sum c_ijk B_i(x) B_j(y) B_k(z) exactly
+ok   hermegrid3d: shape x.shape + y.shape + z.shape on the Cartesian product
+ok   hermevander(x, 5): V[..., i] = B_i(x) (recurrence in mpmath), shape x.shape + (6,)
+ok   hermevander2d(x, y, [3, 2]): column (deg[1]+1)*i + j = B_i(x) B_j(y); V @ c.flat = val2d
+ok   hermevander3d(x, y, z, [2, 2, 1]): column (d1+1)(d2+1) i + (d2+1) j + k = B_i(x) B_j(y) B_k(z); V @ c.flat = val3d
+ok   hermefit(x, y, deg=3) = exact least-squares coefficients in the herme basis (Fraction normal equations)  (max rel err 1.8e-13)
+ok   hermefit(full=True): [resid, rank, sv, rcond] with resid = sum of squared residuals, rank 4, 4 singular values, rcond = len(x)*eps  (resid 4.20582 exact 4.20582)
+ok   hermefit(deg=[0, 2, 3]): 'only those terms' -- coefficient of degree 1 exactly 0, the rest the exact LS over B_0, B_2, B_3
+ok   hermefit(w=): 'weight w[i] applies to the unsquared residual' -> minimises sum (w_i r_i)^2 (normal equations with w^2)
+ok   hermefit with 2-D y: one fit per column, coefficients in the columns
+ok   hermeroots(c) = mpmath.polyroots of the equivalent power series (degree 5, 0 complex)  (max abs err 3.6e-15, |root| <= 3.5)
+ok   hermeroots: 'if all the roots are real then out is also real' (roots -3/2, -1/3, 1/2, 2)
+ok   hermecompanion(c): (deg, deg) matrix whose eigenvalues are the roots (vs mpmath)
+ok   hermecompanion of the basis polynomial B_6 is symmetric (documented: 'scaled to be symmetric')
+ok   hermefromroots: product (x - r_i) expanded exactly in the herme basis  (coef [-2.125, -2.125, 0.125, -1.25, 1.0])
+ok   hermefromroots with complex roots returns a complex array (documented) whose values are the exact real expansion
+ok   hermeder(c, m=2, scl=3): exact second derivative times scl**2 (documented 'multiplication by scl**m')
+ok   hermeder(c, 0) returns c unchanged; der beyond the degree gives [0]
+ok   hermeint(c, m=2, k=[1,-2], lbnd=1/2, scl=3): each step = scl * antiderivative, then constant so the value at lbnd is k[i]  (max rel err 1.2e-15)
+ok   hermeint(c, k=7/3, lbnd=-1.5): value of the integral at lbnd equals k
+ok   hermeint: default lbnd=0, k=[] -> value 0 at 0; m=0 leaves c unchanged
+ok   hermeint raises ValueError for len(k) > m and for scl / lbnd non-scalar
+ok   hermeadd / sub of different lengths: exact (aligned at the low end)
+ok   hermemul: exact product expanded in the herme basis (linearisation)
+ok   hermemulx: multiplication by x exact (uses the recurrence)
+ok   hermediv: quotient and remainder exact (deg rem < deg divisor)  (quotient [0.074074, -1.222222, 0.666667], remainder [4.814815, 1.925926])
+ok   hermediv by a higher-degree series: quotient [0], remainder the dividend
+ok   hermepow(c, 3) exact; pow(c, 0) = [1]; pow > maxpower raises ValueError
+ok   hermeline(off=2.5, scl=-1.5) represents off + scl*x (exact in the herme basis)
+ok   hermeline(off, 0) is the constant [off]
+ok   poly2herme([3,-1,2,5,-4,1]) exact (Fraction) and herme2poly inverts it
+ok   herme functions trim trailing zeros of the inputs ('c is a trimmed copy'): add([1,2,0,0],[0,0,0]) -> [1,2]
+ok   lagval(x, c) = sum c_i B_i(x) from the recurrence in mpmath at x in [-3.0, -1.0, -0.5, 0.0, 0.3, 1.0, 2.5, 10.0]  (max rel err 1.5e-15; c=[1, 3, 5, -2, -5, 2])
+ok   lagval scalar x returns a 0-d result equal to the mpmath value
+ok   lagval at a complex point equals the recurrence with complex x
+ok   lagval(x, c 2-D, tensor=True): shape c.shape[1:] + x.shape, column k evaluated at every x
+ok   lagval(tensor=False): shape c.shape[1:], column k evaluated at x[k]
+ok   lagval2d(x, y, c) = sum c_ij B_i(x) B_j(y) exactly (Fraction)
+ok   laggrid2d: shape x.shape + y.shape, entry [i, j] = p(x[i], y[j])
+ok   lagval3d(x, y, z, c) = sum c_ijk B_i(x) B_j(y) B_k(z) exactly
+ok   laggrid3d: shape x.shape + y.shape + z.shape on the Cartesian product
+ok   lagvander(x, 5): V[..., i] = B_i(x) (recurrence in mpmath), shape x.shape + (6,)
+ok   lagvander2d(x, y, [3, 2]): column (deg[1]+1)*i + j = B_i(x) B_j(y); V @ c.flat = val2d
+ok   lagvander3d(x, y, z, [2, 2, 1]): column (d1+1)(d2+1) i + (d2+1) j + k = B_i(x) B_j(y) B_k(z); V @ c.flat = val3d
+ok   lagfit(x, y, deg=3) = exact least-squares coefficients in the lag basis (Fraction normal equations)  (max rel err 2.2e-15)
+ok   lagfit(full=True): [resid, rank, sv, rcond] with resid = sum of squared residuals, rank 4, 4 singular values, rcond = len(x)*eps  (resid 4.20582 exact 4.20582)
+ok   lagfit(deg=[0, 2, 3]): 'only those terms' -- coefficient of degree 1 exactly 0, the rest the exact LS over B_0, B_2, B_3
+ok   lagfit(w=): 'weight w[i] applies to the unsquared residual' -> minimises sum (w_i r_i)^2 (normal equations with w^2)
+ok   lagfit with 2-D y: one fit per column, coefficients in the columns
+ok   lagroots(c) = mpmath.polyroots of the equivalent power series (degree 5, 0 complex)  (max abs err 7.1e-15, |root| <= 12)
+ok   lagroots: 'if all the roots are real then out is also real' (roots -3/2, -1/3, 1/2, 2)
+ok   lagcompanion(c): (deg, deg) matrix whose eigenvalues are the roots (vs mpmath)
+ok   lagcompanion of the basis polynomial B_6 is symmetric (documented: 'scaled to be symmetric')
+ok   lagfromroots: product (x - r_i) expanded exactly in the lag basis  (coef [7.125, -51.625, 109.75, -88.5, 24.0])
+ok   lagfromroots with complex roots returns a complex array (documented) whose values are the exact real expansion
+ok   lagder(c, m=2, scl=3): exact second derivative times scl**2 (documented 'multiplication by scl**m')
+ok   lagder(c, 0) returns c unchanged; der beyond the degree gives [0]
+ok   lagint(c, m=2, k=[1,-2], lbnd=1/2, scl=3): each step = scl * antiderivative, then constant so the value at lbnd is k[i]  (max rel err 1.5e-16)
+ok   lagint(c, k=7/3, lbnd=-1.5): value of the integral at lbnd equals k
+ok   lagint: default lbnd=0, k=[] -> value 0 at 0; m=0 leaves c unchanged
+ok   lagint raises ValueError for len(k) > m and for scl / lbnd non-scalar
+ok   lagadd / sub of different lengths: exact (aligned at the low end)
+ok   lagmul: exact product expanded in the lag basis (linearisation)
+ok   lagmulx: multiplication by x exact (uses the recurrence)
+ok   lagdiv: quotient and remainder exact (deg rem < deg divisor)  (quotient [0.814815, 0.555556, 0.111111], remainder [2.814815, -0.222222])
+ok   lagdiv by a higher-degree series: quotient [0], remainder the dividend
+ok   lagpow(c, 3) exact; pow(c, 0) = [1]; pow > maxpower raises ValueError
+ok   lagline(off=2.5, scl=-1.5) represents off + scl*x (exact in the lag basis)
+ok   lagline(off, 0) is the constant [off]
+ok   poly2lag([3,-1,2,5,-4,1]) exact (Fraction) and lag2poly inverts it
+ok   lag functions trim trailing zeros of the inputs ('c is a trimmed copy'): add([1,2,0,0],[0,0,0]) -> [1,2]
+#### gauss quadrature, weight functions, Chebyshev points and interpolation
+ok   chebgauss(1): nodes are the roots of B_1 (mpmath polyroots of the exact basis polynomial)  (max abs err 6.1e-17)
+ok   chebgauss(1): weights sum to the integral of the weight function 3.141592654
+ok   chebgauss(1): integrates x^k exactly for k <= 2n-1 = 1 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 6.1e-17; x^(2n) off by 1.00e+00, as expected)
+ok   chebgauss(5): nodes are the roots of B_5 (mpmath polyroots of the exact basis polynomial)  (max abs err 1.1e-16)
+ok   chebgauss(5): weights sum to the integral of the weight function 3.141592654
+ok   chebgauss(5): integrates x^k exactly for k <= 2n-1 = 9 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 1.1e-16; x^(2n) off by 7.94e-03, as expected)
+   chebgauss(5): max relative weight error vs the mpmath Vandermonde-moment solve at the exact nodes 3.5e-16 (smallest weight 6.28e-01) (informational)
+ok   chebgauss(12): nodes are the roots of B_12 (mpmath polyroots of the exact basis polynomial)  (max abs err 2.8e-16)
+ok   chebgauss(12): weights sum to the integral of the weight function 3.141592654
+ok   chebgauss(12): integrates x^k exactly for k <= 2n-1 = 23 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 1.2e-16; x^(2n) off by 7.40e-07, as expected)
+   chebgauss(12): max relative weight error vs the mpmath Vandermonde-moment solve at the exact nodes 1.1e-15 (smallest weight 2.62e-01) (informational)
+ok   chebweight(x) = documented weight function (ndarray and scalar input)
+FAIL chebweight accepts a plain Python list ('x : array_like' in the docstring)  (TypeError: unsupported operand type(s) for +: 'float' and 'list')
+ok   leggauss(1): nodes are the roots of B_1 (mpmath polyroots of the exact basis polynomial)  (max abs err 0.0e+00)
+ok   leggauss(1): weights sum to the integral of the weight function 2
+ok   leggauss(1): integrates x^k exactly for k <= 2n-1 = 1 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 0.0e+00; x^(2n) off by 1.00e+00, as expected)
+ok   leggauss(5): nodes are the roots of B_5 (mpmath polyroots of the exact basis polynomial)  (max abs err 0.0e+00)
+ok   leggauss(5): weights sum to the integral of the weight function 2
+ok   leggauss(5): integrates x^k exactly for k <= 2n-1 = 9 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 1.9e-16; x^(2n) off by 1.61e-02, as expected)
+   leggauss(5): max relative weight error vs the mpmath Vandermonde-moment solve at the exact nodes 1.3e-15 (smallest weight 2.37e-01) (informational)
+ok   leggauss(12): nodes are the roots of B_12 (mpmath polyroots of the exact basis polynomial)  (max abs err 1.1e-16)
+ok   leggauss(12): weights sum to the integral of the weight function 2
+ok   leggauss(12): integrates x^k exactly for k <= 2n-1 = 23 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 3.9e-16; x^(2n) off by 2.29e-06, as expected)
+   leggauss(12): max relative weight error vs the mpmath Vandermonde-moment solve at the exact nodes 4.5e-15 (smallest weight 4.72e-02) (informational)
+ok   legweight(x) = documented weight function (ndarray and scalar input)
+FAIL legweight accepts a plain Python list ('x : array_like' in the docstring)  (TypeError: can't multiply sequence by non-int of type 'float')
+ok   hermgauss(1): nodes are the roots of B_1 (mpmath polyroots of the exact basis polynomial)  (max abs err 0.0e+00)
+ok   hermgauss(1): weights sum to the integral of the weight function 1.772453851
+ok   hermgauss(1): integrates x^k exactly for k <= 2n-1 = 1 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 8.2e-17; x^(2n) off by 1.00e+00, as expected)
+ok   hermgauss(5): nodes are the roots of B_5 (mpmath polyroots of the exact basis polynomial)  (max abs err 0.0e+00)
+ok   hermgauss(5): weights sum to the integral of the weight function 1.772453851
+ok   hermgauss(5): integrates x^k exactly for k <= 2n-1 = 9 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 1.4e-16; x^(2n) off by 1.27e-01, as expected)
+   hermgauss(5): max relative weight error vs the mpmath Vandermonde-moment solve at the exact nodes 1.4e-16 (smallest weight 2.00e-02) (informational)
+ok   hermgauss(12): nodes are the roots of B_12 (mpmath polyroots of the exact basis polynomial)  (max abs err 0.0e+00)
+ok   hermgauss(12): weights sum to the integral of the weight function 1.772453851
+ok   hermgauss(12): integrates x^k exactly for k <= 2n-1 = 23 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 3.8e-16; x^(2n) off by 1.51e-03, as expected)
+   hermgauss(12): max relative weight error vs the mpmath Vandermonde-moment solve at the exact nodes 1.6e-15 (smallest weight 2.66e-07) (informational)
+ok   hermweight(x) = documented weight function (ndarray and scalar input)
+FAIL hermweight accepts a plain Python list ('x : array_like' in the docstring)  (TypeError: unsupported operand type(s) for ** or pow(): 'list' and 'int')
+ok   hermegauss(1): nodes are the roots of B_1 (mpmath polyroots of the exact basis polynomial)  (max abs err 0.0e+00)
+ok   hermegauss(1): weights sum to the integral of the weight function 2.506628275
+ok   hermegauss(1): integrates x^k exactly for k <= 2n-1 = 1 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 1.0e-16; x^(2n) off by 1.00e+00, as expected)
+ok   hermegauss(5): nodes are the roots of B_5 (mpmath polyroots of the exact basis polynomial)  (max abs err 0.0e+00)
+ok   hermegauss(5): weights sum to the integral of the weight function 2.506628275
+ok   hermegauss(5): integrates x^k exactly for k <= 2n-1 = 9 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 1.3e-15; x^(2n) off by 1.27e-01, as expected)
+   hermegauss(5): max relative weight error vs the mpmath Vandermonde-moment solve at the exact nodes 1.2e-15 (smallest weight 2.82e-02) (informational)
+ok   hermegauss(12): nodes are the roots of B_12 (mpmath polyroots of the exact basis polynomial)  (max abs err 4.4e-16)
+ok   hermegauss(12): weights sum to the integral of the weight function 2.506628275
+ok   hermegauss(12): integrates x^k exactly for k <= 2n-1 = 23 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 1.3e-15; x^(2n) off by 1.51e-03, as expected)
+   hermegauss(12): max relative weight error vs the mpmath Vandermonde-moment solve at the exact nodes 5.1e-14 (smallest weight 3.76e-07) (informational)
+ok   hermeweight(x) = documented weight function (ndarray and scalar input)
+FAIL hermeweight accepts a plain Python list ('x : array_like' in the docstring)  (TypeError: unsupported operand type(s) for ** or pow(): 'list' and 'int')
+ok   laggauss(1): nodes are the roots of B_1 (mpmath polyroots of the exact basis polynomial)  (max abs err 0.0e+00)
+ok   laggauss(1): weights sum to the integral of the weight function 1
+ok   laggauss(1): integrates x^k exactly for k <= 2n-1 = 1 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 0.0e+00; x^(2n) off by 5.00e-01, as expected)
+ok   laggauss(5): nodes are the roots of B_5 (mpmath polyroots of the exact basis polynomial)  (max abs err 5.6e-17)
+ok   laggauss(5): weights sum to the integral of the weight function 1
+ok   laggauss(5): integrates x^k exactly for k <= 2n-1 = 9 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 1.2e-15; x^(2n) off by 3.97e-03, as expected)
+   laggauss(5): max relative weight error vs the mpmath Vandermonde-moment solve at the exact nodes 1.6e-15 (smallest weight 2.34e-05) (informational)
+ok   laggauss(12): nodes are the roots of B_12 (mpmath polyroots of the exact basis polynomial)  (max abs err 4.4e-16)
+ok   laggauss(12): weights sum to the integral of the weight function 1
+ok   laggauss(12): integrates x^k exactly for k <= 2n-1 = 23 (closed-form moments; the double nodes / weights summed in mpmath)  (max rel err 1.1e-14; x^(2n) off by 3.70e-07, as expected)
+   laggauss(12): max relative weight error vs the mpmath Vandermonde-moment solve at the exact nodes 1.3e-10 (smallest weight 8.15e-16) (informational)
+ok   lagweight(x) = documented weight function (ndarray and scalar input)
+FAIL lagweight accepts a plain Python list ('x : array_like' in the docstring)  (TypeError: bad operand type for unary -: 'list')
+ok   chebgauss(7): closed form x_i = cos(pi (2i-1)/(2n)), w_i = pi/n
+ok   chebpts1(5) = {cos(pi (k + 1/2)/5)} (returned ascending, the docstring lists them descending: same set), chebpts2(5) = cos(pi k/4) ascending
+ok   chebinterpolate(x^3 - 2x + 1/2, deg=3): exact Chebyshev coefficients of the polynomial (Fraction) to 1e-14 abs  (max abs err 1.1e-16)
+ok   chebinterpolate at a higher degree than the function: the extra coefficients are 0 (to 1e-14)  (max |extra coef| 2.5e-16)
+ok   chebinterpolate(exp, 10) interpolates: series equals exp at the 11 Chebyshev points of the first kind
+   chebinterpolate(exp, 10): max |interpolant - exp| on [-1,1] = 2.71e-11 (informational; 11 T_11 coefficient ~ 2.4e-11)
+ok   chebinterpolate(func, deg, args=): extra arguments are passed to func
+ok   Chebyshev.interpolate(x^2, 2, domain=[0, 2]): series on the domain whose convert().coef is [0, 0, 1]
+#### polyutils
+ok   trimcoef([1,2,0,0]) = [1,2]; trimcoef([0,0]) = [0]; trimcoef(tol=1e-4) removes trailing |c| <= tol: [1,1e-3,1e-5,1e-5] -> [1,1e-3]
+ok   trimseq removes only exact trailing zeros; an all-zero sequence keeps its first element
+ok   as_series: 2-D parsed by row into float64 arrays; 1-D into size-1 arrays; trailing zeros trimmed unless trim=False
+ok   as_series raises ValueError for an empty series and for a 3-D input
+ok   as_series of complex input gives complex arrays, of integer input float64
+ok   getdomain(real x) = [min, max]; complex x -> corners of the bounding rectangle
+ok   mapparms(old, new): off + scl*x maps old[i] -> new[i]: [2,10] -> [-1,1] is off=-1.5, scl=1/4
+ok   mapparms([-1,1],[1,-1]) = (-0, -1); complex domains: ([0, 1j], [1, 1+1j]) -> (1, 1)
+ok   mapdomain(x, old, new) = new[0] + m (x - old[0]), m = (new1-new0)/(old1-old0); endpoints map to endpoints
+ok   mapdomain preserves the shape and an ndarray subtype (np.matrix)
+ok   np.vander(x, 4): columns x^3, x^2, x, 1 (decreasing); increasing=True reverses; default N = len(x)
+#### ABCPolyBase classes
+ok   Polynomial([1,2,3], domain=[0,10]).mapparms() = (-1, 1/5): off + scl*x maps domain to window
+ok   __call__ maps x through the domain->window map first: p(x) = c(off + scl*x) (exact composition)
+ok   __call__ on a scalar / 2-D ndarray keeps the shape
+ok   __call__ accepts a plain list argument (1.x: 'off + scl*arg' on the raw argument; 2.x maps through pu.mapdomain -> informational on 1.x)  (TypeError: can't multiply sequence by non-int of type 'numpy.float64') -- 1.x does not
+ok   deriv() of a series with domain [0,10] is the derivative w.r.t. x (chain rule: coef scaled by scl = window/domain ratio = 1/5), domain kept
+ok   deriv(2) = second derivative w.r.t. x (scl**2)
+ok   integ(k=[4], lbnd=3) on domain [0,10]: antiderivative w.r.t. x with value 4 at x = 3 (lbnd in domain coordinates)
+ok   integ(2, k=[1,2], lbnd=0) on domain [0,10]: first integral is 1 at x=0, second is 2 at x=0 (exact)
+   integ() with lbnd omitted on domain [0,10]: value at x=0 is -5, at x=5 (window origin) 0; integ(lbnd=0): value at x=0 is 0
+FAIL integ() with lbnd omitted equals integ(lbnd=0): an explicit lbnd is taken in domain coordinates (mapped through off + scl*lbnd), so the default should be the domain point 0  (lbnd=None integrates from the WINDOW origin x=5)
+ok   integ then deriv returns the original series values (round trip on the mapped domain)
+ok   roots() of a series on domain [0,10]: roots of c mapped back through window -> domain (x = 0 and 10 for u^2 - 1)
+ok   roots() on domain [-2,6]: equals mpmath roots of the composed polynomial in x
+ok   Polynomial.fit: default domain = [min(x), max(x)], window = [-1, 1]
+ok   Polynomial.fit(x, y, 3).convert().coef = exact least-squares coefficients in the unshifted x (documented usage of convert())  (max rel err 9.5e-14; exact [-1140824517.3519602, 1711256.4754056858, -855.6355810474804, 0.14260673642824673])
+ok   fit values equal the exact LS polynomial at the data (domain-mapped fit is well conditioned on years 2000-2020)  (max rel err 3.0e-12)
+ok   convert() round trip: convert().convert(domain=orig) recovers the coefficients on the original domain (domain [0,10], 1e-12)
+   the same round trip through raw-x coefficients ~1e9 for the years 2000-2020 fit: max rel coefficient err 7.2e-09 (informational; ill-conditioned representation, documented note in convert())
+ok   convert(kind=Chebyshev) gives the exact Chebyshev coefficients of the x-polynomial; convert(kind=Chebyshev, domain=orig) keeps the values
+   evaluating the raw-x Chebyshev series (coefficients ~1e9, T_k(2000) ~ 1e10) at the data loses digits: max rel err 2.6e-07 ('conversion ... can result in numerically ill defined series', documented)
+ok   fit(window=[0,1]) / fit(domain=[]) ('[] -> class domain'): recorded and values still the LS polynomial
+ok   Polynomial.fit(full=True) returns (series, [resid, rank, sv, rcond]) with rcond = len(x)*eps
+   fit(deg=[0,1,3]) coef on the window [250.7142857142801, 378.6712609366825, 0.0, 142.6067364282853]
+ok   Polynomial.fit(deg=[0,1,3]): the window-space coefficient of x^2 is exactly 0 (fit restricted to those terms)
+ ** On entry to DLASCL parameter number  4 had an illegal value
+ok   Polynomial.fit with constant x: 1.x maps through a zero-length domain (NaN) and raises LinAlgError; 2.x widens the domain -> informational on 1.x  (LinAlgError: SVD did not converge in Linear Least Squares)
+ok   arithmetic between series with different domains raises TypeError ('Domains differ'); different windows too; different types too
+ok   Chebyshev class: +, -, *, //, %, divmod, ** exact vs Fraction (converted back to power form)
+ok   scalar arithmetic: 2 + p, p * 3, p - 1, 4 - p, p / 2 (true division by a scalar only; by a series raises TypeError)
+ok   p(q) with a series argument composes: (1 + x^2)(2 + 3x) = 5 + 12x + 9x^2
+ok   __pow__ above maxpower (100) raises ValueError; ** 0 gives [1]
+ok   linspace(n=5): x = linspace(domain[0], domain[1], 5), y = p(x); domain= overrides
+ok   degree() = len(coef) - 1 without trimming (documented); trim().degree() drops trailing zeros; trim(tol)
+ok   cutdeg(1) / truncate(2) keep the two lowest coefficients; cutdeg above the degree returns a copy; truncate(0) raises ValueError
+ok   has_samedomain / has_samewindow / has_sametype / has_samecoef
+ok   copy() is equal but independent (new coefficient array)
+ok   == compares coefficients, domain, window (and symbol); != is its negation; trailing zeros are not ignored
+ok   Polynomial.basis(3) = x^3; basis(3, domain=[0,2]) evaluates to u^3 with u the mapped variable
+ok   identity(domain): p(x) == x for all x (documented) on both Polynomial and Chebyshev
+ok   fromroots([1,2,3], domain=[0,10]): roots() gives 1,2,3 and convert().coef is the exact monic expansion [-6, 11, -6, 1]
+ok   fromroots default domain [] -> class domain [-1,1]; domain=None -> [min root, max root]
+ok   Polynomial.cast(Chebyshev([1,2,3])) = 1 + 2 T1 + 3 T2 in the power basis = [-2, 2, 6]
+ok   iteration and len give the coefficients / their count
+ok   negation / unary plus
+ok   set_default_printstyle('unicode'): str(Polynomial([1,2,3])) = '1.0 + 2.0·x + 3.0·x²', Chebyshev -> '1.0 + 2.0·T₁(x) + 3.0·T₂(x)' (documented examples of this version)  ('1.0 + 2.0·x + 3.0·x²', '1.0 + 2.0·T₁(x) + 3.0·T₂(x)')
+ok   set_default_printstyle('ascii'): '1.0 + 2.0 x + 3.0 x**2' and '1.0 + 2.0 T_1(x) + 3.0 T_2(x)'  ('1.0 + 2.0 x + 3.0 x**2', '1.0 + 2.0 T_1(x) + 3.0 T_2(x)')
+ok   format(p, 'unicode') / format(p, 'ascii') independent of the default; negative coefficients print as ' - '; unknown style raises ValueError
+ok   str of a series with a non-default domain is '1.0 + 1.0 x' (pre-2.0, per the 2.0 release note)  ('1.0 + 1.0 x'; the 2.0 release-note example reads '1.0 + 1.0 (-3.0000000000000004 + 20.0 x)')
+ok   Legendre([0, 1]) prints its basis symbol P₁ / P_1  ('0.0 + 1.0·P₁(x)')
+ok   Hermite([0, 1]) prints its basis symbol H₁ / H_1  ('0.0 + 1.0·H₁(x)')
+ok   HermiteE([0, 1]) prints its basis symbol He₁ / He_1  ('0.0 + 1.0·He₁(x)')
+ok   Laguerre([0, 1]) prints its basis symbol L₁ / L_1  ('0.0 + 1.0·L₁(x)')
+ok   repr: "Polynomial([1., 2., 3.], domain=[-1,  1], window=[-1,  1], symbol='x')" (symbol shown from 1.24; float domain/window from 2.0)  ("Polynomial([1., 2., 3.], domain=[-1,  1], window=[-1,  1], symbol='x')")
+ok   symbol='t' (1.24+): used in str, part of equality, propagated by arithmetic; mixing symbols raises ValueError
+#### legacy API: np.poly1d and friends
+ok   poly1d([1,2,3]) is x^2 + 2x + 3: coefficients highest power first via .c / .coef / .coeffs / .coefficients; order 2 (.o); p(0.5) = 4.25
+ok   poly1d indexing p[k] = coefficient of x^k (documented; p.c[-(k+1)]); p[k > order] = 0
+ok   poly1d __setitem__ beyond the order extends the polynomial (p[4] = 5 -> 5x^4 + x^2 + 2x + 3)
+ok   poly1d strips leading zero coefficients: poly1d([0,0,1,2]).order == 1, .c == [1,2]; poly1d([0]) is the zero polynomial of order 0
+ok   poly1d([1,2,3], r=True) builds from roots: x^3 - 6x^2 + 11x - 6 (exact); .r / .roots recovers them
+ok   poly1d variable: default 'x'; variable='z' used in str; str layout matches the documented example  ('   2\n1 z + 2 z + 3')
+ok   poly1d arithmetic: p + q, p - q, p * q, p ** 2 exact (Fraction)
+ok   poly1d p / q returns (quotient, remainder) poly1d pair with p = q*quotient + remainder exactly  (quotient [0.5, 1.25], remainder [4.25])
+ok   poly1d scalar arithmetic: 2*p, p + 1, p / 2, 1 - p; equality compares coefficients
+ok   poly1d(poly1d) copies (variable kept); np.asarray(p) gives the coefficient array; iteration over coefficients
+ok   poly1d.deriv(m) exact: (x^2+2x+3)' = 2x + 2, '' = 2, ''' = 0 (order-0 zero polynomial)
+ok   poly1d.integ(3, k=[6,5,3]): P''(0) = 6, P'(0) = 5, P(0) = 3 ('constants of the highest-order terms come first'): exact  ([0.016666666666666666, 0.08333333333333333, 0.5, 3.0, 5.0, 3.0])
+ok   poly1d.integ(k=scalar) for m=1 and default k=0; deriv(integ(p)) == p
+ok   np.polyval: p[0] x^(N-1) + ... + p[N-1] evaluated by Horner's scheme -- bit-identical to the plain Python Horner loop from the highest coefficient
+ok   np.polyval keeps the shape of x, returns a poly1d for a poly1d x (composition p(q(t)))
+ok   np.polyval of a scalar x with a poly1d p equals p(x); polyval([], x) = 0
+ok   np.roots: leading zeros are stripped ([0,0,1,-3,2] -> roots 1, 2)
+ok   np.roots: trailing zeros give exact zero roots ([1,-3,2,0,0] -> 0, 0, 1, 2), appended after the eigenvalues
+ok   np.roots degree 0 / 1 / empty / all-zero: [5] -> [], [2,-4] -> [2], [] -> [], [0,0] -> []
+ok   np.roots returns real dtype when all roots are real, complex otherwise; x^2 + 1 -> +-i
+ok   np.roots raises ValueError for a 2-D input
+   np.roots of the degree-20 Wilkinson polynomial (exact float coefficients up to 20! ~ 2.4e18): max abs root error 8.524e-02 (informational; the docs promise nothing beyond 'may have large errors')
+   np.roots of (x-1)^3 (x-3): triple-root error 9.47e-06 (eps^(1/3) ~ 6.0e-06), simple root error 6.22e-15 (informational)
+ok   np.polyder([1,2,3,4], m) exact: [3,4,3], [6,4], [6]; poly1d in -> poly1d out with the documented poly1d([0]) for m = 4
+FAIL np.polyder(sequence, m > degree) is the zero polynomial [0] like the poly1d input (docstring: 'The fourth-order derivative of a 3rd-order polynomial is zero')  (returned array([], dtype=int64); np.polyval of it is array(0.))
+FAIL np.polyder(sequence) return type is poly1d as documented ('Returns: der : poly1d')  (returned ndarray; the docstring examples only show poly1d input)
+ok   np.polyder raises ValueError for m < 0
+ok   np.polyint(p, 3, k=[6,5,3]): P^(j)(0) = k[m-j-1] -> P = int^3 p + 6/2! x^2 + 5 x + 3 (documented example, exact); ndarray for a sequence input, poly1d for poly1d input
+ok   np.polyint(p, k=scalar) for m=1; k=None -> zeros; len(k) != m raises ValueError
+ok   np.polyint(p, 2, k=[1]): a length-1 list is broadcast to all m constants (source: 'len(k) == 1 and m > 1'; undocumented convenience)
+ok   np.polymul exact convolution: (x^2+2x+3)(2x-1) = 2x^3 + 3x^2 + 4x - 3; poly1d in -> poly1d out
+ok   np.polydiv: (3x^2 + 5x + 2)/(2x + 1) = 1.5x + 1.75 remainder 0.25 (documented example, exact)
+ok   np.polydiv exact division: (x^3 - 1)/(x - 1) = x^2 + x + 1 remainder [0]
+ok   np.polydiv with a lower-degree dividend: quotient [0], remainder the dividend; scalar (0-d) operands work
+ok   np.polyadd / np.polysub of different lengths align at the constant term: [1,2,3] + [1] = [1,2,4], [1] - [1,2,3] = [-1,-2,-2]
+ok   np.poly from roots (0,0,0) = [1,0,0,0]; from (-1/2, 0, 1/2) = [1, 0, -1/4, 0] (documented examples, exact)
+ok   np.poly with complex-conjugate roots returns a REAL array (x^2 - 2x + 2); a non-conjugate complex root keeps complex dtype
+ok   np.poly(square matrix) = coefficients of the characteristic polynomial det(tI - A) (Faddeev-LeVerrier, exact)  ([1.0, -9.0, 23.999999999999996, -17.999999999999993])
+ok   np.poly([]) = 1.0; np.poly raises ValueError for a non-square 2-D input
+#### np.polyfit beyond n2
+ok   np.polyfit(deg=0, cov=True): coefficient = mean(y); cov = RSS/(n-1) / n (documented chi2/dof scaling, dof = M - (deg+1))  (cov 5103.12 exact 5103.12)
+ok   np.polyfit(deg=0, cov='unscaled'): cov = (A^T A)^-1 = 1/n
+ok   np.polyfit(cov=True) raises ValueError when the number of points does not exceed the order
+   np.polyfit(years 2000-2020, deg=5): RankWarning raised = True; exact LS coefficients (highest first) [-1.4151057360102991e-06, 0.01407109290404485, -55.81712277268207, 110404.90336166951, -108880658.93746123, 42824583697.76848]
+   returned coefficients [-4.529353851916965e-08, 0.0003044716609235685, -0.47543570366588284, -831.2937652827712, 2910788.7455400326, -2115070142.3401709]; relative errors per coefficient ['9.7e-01', '9.8e-01', '9.9e-01', '1.0e+00', '1.0e+00', '1.0e+00']; fitted-value error 9.71e-06 relative to max|y| (informational)
+   full=True: rank 5 of 6, singular values [2.4494573303959988, 0.012601030061456636, 2.4712301305933372e-05, 2.8453882622439415e-08, 2.07167405995158e-11, 8.835966618956166e-15], rcond 4.663e-15 = len(x)*eps = 4.663e-15
+ok   np.polyfit(full=True) returns (coef, residuals, rank, singular_values, rcond) with rcond = len(x)*eps and residuals = sum of squared residuals of ITS fit
+ok   np.polyfit issues RankWarning exactly when full=False and rank < order (rank from full=True: 5)
+ok   np.polyfit degree 5 on the centred years (x - 2010): coefficients equal the exact LS to 1e-9 relative (the documented remedy)  (max rel err 9.9e-13)
+ok   np.polyfit with complex y (real x): coefficients = LS(real y) + i LS(imag y), complex dtype
+ok   np.polyfit with int y: float64 output equal to the exact fit (interpolating 1 + x + x^2)
+ok   np.polyfit(w=): 'w[i] applies to the unsquared residual' -> minimises sum (w_i (y_i - p(x_i)))^2, i.e. w = 1/sigma, not 1/sigma^2  (max rel err 1.5e-11)
+ok   np.polyfit(w=) with a weight vector of the wrong length raises TypeError; deg < 0 ValueError; x 2-D TypeError
+ok   np.polyfit with 2-D y: 'coefficients for the k-th data set are in p[:, k]'
+ok   numpy.polynomial.polynomial.polyfit returns low -> high, np.polyfit high -> low: reversed arrays
+   degree-20 fit of cos(3u), u=(x-2010)/10, 200 points: Chebyshev.fit rank 21 cond 2.86e+00 max resid 3.6e-14; Polynomial.fit rank 21 cond 9.08e+06 max resid 3.8e-14; raw np.polyfit rank 6 cond 6.97e+16 max resid 4.6e-02 (RankWarning True)
+ok   Chebyshev.fit at degree 20 on years 2000-2020 is full rank (21) and reproduces the smooth data to 1e-8 ('better conditioned', documented)
+ok   Chebyshev.fit degree 20: the Chebyshev coefficients decay (|c_20| < 1e-10 |c_0|) as a smooth function's should (informational threshold)
+---- done
