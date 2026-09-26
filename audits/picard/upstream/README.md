@@ -1,10 +1,13 @@
 # Picard upstream filing kit
 
 _Default branch: **`master`** (PRs go against it). Prepared 2026-09-24 against
-`broadinstitute/picard` `master` @ `c2a483d` (htsjdk 5.0.0). **Nothing filed, nothing pushed.** The
-three fixes are single commits (fix + TestNG regression test) on local branches of the audit clone,
-`git am`-able from the patches in this directory against `c2a483d`; they need a fork of
-`broadinstitute/picard` under `cindykrafft` to be pushed._
+`broadinstitute/picard` `master` @ `c2a483d` (htsjdk 5.0.0). **Nothing filed.** The three fixes are single commits (fix +
+TestNG regression test) on `c2a483d`, pushed to the fork `cindykrafft/picard` on 2026-09-26
+(`fix/rnaseq-coverage-last-base` @ `50959b5b`, `fix/hsmetrics-zero-cvg-denominator` @ `0305ec69`,
+`fix/alignment-summary-bisulfite-ref-index` @ `3b443b78`). The original local clone was lost in a
+container restart, so the branches were rebuilt with `git am` from the patches in this directory:
+same author, date, message and diff; only the committer date and therefore the SHAs differ from the
+`From` lines of the patches. `broadinstitute/picard` `master` is still `c2a483d`._
 
 Filing tier (README step 5): **now** for P1 and P2 — both change numbers that reach QC tables
 under default settings (`CollectRnaSeqMetrics` coverage statistics; `CollectHsMetrics`
@@ -82,9 +85,9 @@ Picard's own tests (TestNG, Temurin 17, `./gradlew test -x barclayTest --tests <
 
 | branch | commit | test class | result |
 |---|---|---|---|
-| `fix/rnaseq-coverage-last-base` | `35f8617d` | `CollectRnaSeqMetricsTest` | 12 / 12 pass with both parsers; the new test fails on `master`; `testBiasEndBiasAdjust`'s expected values, taken from the tool's output with the off-by-one, are replaced by the values derived from the read layout (1.6 / 2.466667 / 1.666667 / 0.675676) |
-| `fix/hsmetrics-zero-cvg-denominator` | `eba097ba` | `CollectHsMetricsTest` | 15 / 15 pass with both parsers; the new test fails on `master` (0.5) |
-| `fix/alignment-summary-bisulfite-ref-index` | `a01cc321` | `CollectAlignmentSummaryMetricsTest` | 17 / 17 pass with both parsers; the new test fails on `master` (exception); the existing bisulfite test is unchanged (its reads sit at contig position 1, where offset and position coincide) |
+| `fix/rnaseq-coverage-last-base` | `50959b5b` (was `35f8617d`) | `CollectRnaSeqMetricsTest` | 12 / 12 pass with both parsers; the new test fails on `master`; `testBiasEndBiasAdjust`'s expected values, taken from the tool's output with the off-by-one, are replaced by the values derived from the read layout (1.6 / 2.466667 / 1.666667 / 0.675676) |
+| `fix/hsmetrics-zero-cvg-denominator` | `0305ec69` (was `eba097ba`) | `CollectHsMetricsTest` | 15 / 15 pass with both parsers; the new test fails on `master` (0.5) |
+| `fix/alignment-summary-bisulfite-ref-index` | `3b443b78` (was `a01cc321`) | `CollectAlignmentSummaryMetricsTest` | 17 / 17 pass with both parsers; the new test fails on `master` (exception); the existing bisulfite test is unchanged (its reads sit at contig position 1, where offset and position coincide) |
 
 ## Version scope (executed)
 
@@ -97,7 +100,7 @@ Picard's own tests (TestNG, Temurin 17, `./gradlew test -x barclayTest --tests <
 
 ## Order of operations
 
-1. Fork `broadinstitute/picard`; tell the session; the three branches are pushed.
+1. ~~Fork `broadinstitute/picard`; tell the session; the three branches are pushed.~~ Done 2026-09-26.
 2. Open the P1 issue from `issue-p1-rnaseq-coverage-last-base.md`, then the PR from
    `fix/rnaseq-coverage-last-base` with the body from `pr-bodies.md` § PR 1 (issue number in the
    first line). Same for P2 (`fix/hsmetrics-zero-cvg-denominator`, § PR 2).

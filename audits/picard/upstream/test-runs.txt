@@ -20,3 +20,11 @@ fix/alignment-summary-bisulfite-ref-index  (a01cc321)
    where the read offset and the aligned position coincide)
 
 On unmodified master the three new tests fail (CV 0.031639; ZERO_CVG_TARGETS_PCT 0.5; ArrayIndexOutOfBoundsException).
+
+2026-09-26: branches rebuilt with `git am` from the kit patches on the same base (c2a483d; broadinstitute/picard
+master unchanged) after the original clone was lost, pushed to cindykrafft/picard, and re-run on Temurin 17.0.20.1
+(-Porg.gradle.java.installations.paths), both parsers:
+fix/rnaseq-coverage-last-base  (50959b5b)              CollectRnaSeqMetricsTest            test 12/12  barclayTest 12/12
+fix/hsmetrics-zero-cvg-denominator  (0305ec69)         CollectHsMetricsTest                test 15/15  barclayTest 15/15
+fix/alignment-summary-bisulfite-ref-index  (3b443b78)  CollectAlignmentSummaryMetricsTest  test 17/17  barclayTest 17/17
+GitHub Actions are not enabled on the fork (workflow dispatch returns 404), so upstream CI runs on the PRs.
