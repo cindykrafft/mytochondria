@@ -108,3 +108,7 @@ Picard's own tests (TestNG, Temurin 17, `./gradlew test -x barclayTest --tests <
    and the #1278 comment.
 4. Record issue and PR numbers and every maintainer response in `../README.md` and the top-level
    status table.
+
+## Replies
+
+- 2026-09-26 12:52 UTC, #2060, tfenne (COLLABORATOR; read in full 18:47 through a helper session, artifact "Mytochondria threads picard 2060", one comment, no linked PR): "a fix is unlikely to happen due to the limited support for Picard. If you need a more correct implementation I might suggest you check out the `rna` command in [riker](https://github.com/fulcrumgenomics/riker) which started as a 1-to-1 port of Picard's CollectRnaSeqMetrics but is now a significantly more fully featured RNA qc tool, and does not have this same issue." Consequence: the P1 PR is not opened unasked; P2 and P3 are held; the reply `comment-pk1-2060-reply.md` offers the ready branch and asks whether it would be merged. Lesson for the method: Picard is in limited-support mode, so a filing there is a report for the record unless a maintainer says otherwise.

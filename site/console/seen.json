@@ -1,5 +1,5 @@
 {
- "taken": "2026-09-26T12:50:00Z",
+ "taken": "2026-09-26T18:55:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
   {
@@ -1336,10 +1336,10 @@
    "kind": "issue",
    "state": "open",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-09-26T00:02:57Z",
+   "comments": 1,
+   "updated": "2026-09-26T12:52:23Z",
    "title": "CollectRnaSeqMetrics never counts the last base of an alignment block in transcript coverage (MEDIAN_CV_COVERAGE, 5'/3' bias, normalized_coverage histogram)",
-   "note": "P1 issue filed by the owner 2026-09-26 00:02; PR from fix/rnaseq-coverage-last-base not yet opened"
+   "note": "P1 issue; tfenne (COLLABORATOR) 12:52: fix unlikely, limited Picard support, suggests fulcrumgenomics/riker rna. PR held; reply PK1 drafted for the owner"
   }
  ],
  "merge_checked": [
