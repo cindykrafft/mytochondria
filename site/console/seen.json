@@ -1,5 +1,5 @@
 {
- "taken": "2026-09-25T18:55:00Z",
+ "taken": "2026-09-26T00:50:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
   {
@@ -1090,11 +1090,11 @@
    "repo": "MouseLand/Kilosort",
    "number": 1043,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
+   "state": "closed",
+   "merged": true,
    "comments": 3,
-   "updated": "2026-09-24T16:05:31Z",
-   "note": "3 comments, all by kvnloo (author_association NONE, not a maintainer) and the submitter: kvnloo 07:18 tested the fix and asked for a two-level regression test; reply + tests pushed as eabed49 (14:22); kvnloo 16:05 re-ran the unchanged tests/test_swarmsplitter.py from eabed49, all four pass, confirms the two expected failures with the base swarmsplitter.py; no question asked, no reply needed; still no maintainer response on any Kilosort filing"
+   "updated": "2026-09-25T23:54:42Z",
+   "note": "3 comments, all by kvnloo (author_association NONE, not a maintainer) and the submitter: kvnloo 07:18 tested the fix and asked for a two-level regression test; reply + tests pushed as eabed49 (14:22); kvnloo 16:05 re-ran the unchanged tests/test_swarmsplitter.py from eabed49, all four pass, confirms the two expected failures with the base swarmsplitter.py; no question asked, no reply needed; still no maintainer response on any Kilosort filing; MERGED 2026-09-25 23:54"
   },
   {
    "repo": "thelovelab/DESeq2",
@@ -1329,6 +1329,17 @@
    "updated": "2026-09-24T19:36:29Z",
    "title": "Document that transform and transformAsync propagate exceptions thrown by the function",
    "note": "not a Mytochondria filing; closed 2026-09-24 19:36"
+  },
+  {
+   "repo": "broadinstitute/picard",
+   "number": 2060,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-09-26T00:02:57Z",
+   "title": "CollectRnaSeqMetrics never counts the last base of an alignment block in transcript coverage (MEDIAN_CV_COVERAGE, 5'/3' bias, normalized_coverage histogram)",
+   "note": "P1 issue filed by the owner 2026-09-26 00:02; PR from fix/rnaseq-coverage-last-base not yet opened"
   }
  ],
  "merge_checked": [

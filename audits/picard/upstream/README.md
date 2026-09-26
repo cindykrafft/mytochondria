@@ -1,7 +1,7 @@
 # Picard upstream filing kit
 
 _Default branch: **`master`** (PRs go against it). Prepared 2026-09-24 against
-`broadinstitute/picard` `master` @ `c2a483d` (htsjdk 5.0.0). **Nothing filed.** The three fixes are single commits (fix +
+`broadinstitute/picard` `master` @ `c2a483d` (htsjdk 5.0.0). **P1 issue filed** as broadinstitute/picard#2060 (2026-09-26 00:02 UTC, by the owner); its PR is next. The three fixes are single commits (fix +
 TestNG regression test) on `c2a483d`, pushed to the fork `cindykrafft/picard` on 2026-09-26
 (`fix/rnaseq-coverage-last-base` @ `50959b5b`, `fix/hsmetrics-zero-cvg-denominator` @ `0305ec69`,
 `fix/alignment-summary-bisulfite-ref-index` @ `3b443b78`). The original local clone was lost in a

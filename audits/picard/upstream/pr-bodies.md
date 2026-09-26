@@ -10,7 +10,7 @@ tree). Rebase on the current `master` before opening; CI runs the TestNG suite o
 
 ### Description
 
-Fixes #NNN.
+Fixes #2060.
 
 `Gene.Transcript.addCoverageCounts()` looped over `genomeStart <= i < genomeEnd`, but its only
 caller, `RnaSeqMetricsCollector`, passes `CoordMath.getEnd(blockStart, blockLength)`, the inclusive
