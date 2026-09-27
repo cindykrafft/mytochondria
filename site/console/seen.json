@@ -1,5 +1,5 @@
 {
- "taken": "2026-09-26T18:55:00Z",
+ "taken": "2026-09-27T00:55:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
   {
@@ -543,11 +543,11 @@
    "repo": "google/guava",
    "number": 8692,
    "kind": "pr",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 7,
-   "updated": "2026-09-25T15:56:46Z",
-   "note": "not a Mytochondria filing (the owner's other work). cpovirk 2026-09-25 13:45-15:56: found the entrySet() override himself, 'everything is looking correct', reworked the change as google/guava#8699 (copybara, commit authored by Cindy Krafft, all 22 checks green, 'Fixes #8692'); the drafted answer to his 12:57 question is superseded and was not posted"
+   "updated": "2026-09-26T23:44:34Z",
+   "note": "not a Mytochondria filing (the owner's other work). cpovirk 2026-09-25 13:45-15:56: found the entrySet() override himself, 'everything is looking correct', reworked the change as google/guava#8699 (copybara, commit authored by Cindy Krafft, all 22 checks green, 'Fixes #8692'); the drafted answer to his 12:57 question is superseded and was not posted; closed 2026-09-26 23:44 when cpovirk's rework google/guava#8699 (commit authored by Cindy Krafft) was MERGED"
   },
   {
    "repo": "google/guava",
@@ -832,7 +832,8 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-08T16:51:12Z"
+   "updated": "2026-09-26T19:32:09Z",
+   "note": "updated_at moved by a push to master (f725ca85, bbolker, 19:32:06); no comment, review, label or event; mergeable true (read in full 2026-09-27 00:48 via a helper)"
   },
   {
    "repo": "deeptools/deepTools",
