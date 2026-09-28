@@ -59,6 +59,15 @@ Order: post the comment on #696 first, then open the PR against `develop` with t
 from `pr-bodies.md` rewritten in your own words, keeping `Fixes #696` and the
 `Assisted-by:` line; the two commits are already signed off.
 
+**Reply 2026-09-28.** jkbonfield (CONTRIBUTOR) on PR #2388, 08:19 UTC (edited 08:38; read in full via the helper
+artifact "Mytochondria threads samtools 2388"): TLEN 0 is the SAM "unknown" value, so insert-size statistics
+should exclude it "in both numerator and denominator" rather than include it in the SD. Prepared locally, NOT
+pushed: `0004-stats-leave-pairs-with-insert-size-0-out-of-the-mean-and-SD.patch` (commit 96bb7e6 on 1776b17,
+replacing 47d3376): the isize-0 bin is subtracted from the denominator, the SD loop stays at 1 as on develop;
+`23.stats.expected` becomes 323.8 / 18.0 (the eight known TLENs: mean 323.75, population SD 17.98); `make test`
+1011 passed / 0 failed / 32 expected failures. It carries the `Assisted-by:` trailer and no sign-off. Reply
+drafted as `comment-str1-2388-reply.md`; after it is posted and signed off, force-push over 47d3376.
+
 Filing tier (README step 5): **now** for ST1 — it changes a number that reaches papers
 (`samtools stats` `COV` coverage distribution and the `-t`/`-g` "percentage of target
 genome with coverage > N", 117.77 % on a simulated gene) under default settings, on the

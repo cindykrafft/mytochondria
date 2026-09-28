@@ -1,5 +1,5 @@
 {
- "taken": "2026-09-28T06:50:00Z",
+ "taken": "2026-09-28T14:09:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
   {
@@ -585,9 +585,9 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-09-23T19:51:11Z",
-   "note": "BC1 PR (fix/mwu-biasz-int64, one signed-off commit 83b7888 on develop edf7fd9), filed 2026-09-23 19:50; the fork's five CI workflows (Linux, macOS, Windows, VMs, Containers) green on 83b7888; merges clean"
+   "comments": 2,
+   "updated": "2026-09-28T10:33:36Z",
+   "note": "BC1 PR (fix/mwu-biasz-int64, one signed-off commit 83b7888 on develop edf7fd9), filed 2026-09-23 19:50; the fork's five CI workflows (Linux, macOS, Windows, VMs, Containers) green on 83b7888; merges clean; jkbonfield 2026-09-28 10:18/10:33: asked for the MCVE script, posted a no-cube refactor; verified here, reply BCR1 drafted (not posted)"
   },
   {
    "repo": "fieldtrip/fieldtrip",
@@ -1249,32 +1249,32 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-09-24T16:51:00Z",
+   "comments": 1,
+   "updated": "2026-09-28T08:38:04Z",
    "title": "stats: count duplicates for the same records as \"sequences\"; include isize 0 in the SD",
-   "note": "ST3 PR filed 2026-09-24; head 47d3376 after the test.pl mode fix; fork CI green"
+   "note": "ST3 PR filed 2026-09-24; head 47d3376 after the test.pl mode fix; fork CI green; jkbonfield 2026-09-28 08:19 (edited 08:38): exclude isize 0 from the mean and SD; reworked commit prepared locally (not pushed), reply STR1 drafted"
   },
   {
    "repo": "usadellab/Trimmomatic",
    "number": 90,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
-   "comments": 1,
-   "updated": "2026-09-25T06:55:17Z",
+   "comments": 2,
+   "updated": "2026-09-28T07:03:41Z",
    "title": "ILLUMINACLIP palindrome mode charges int(Q/10) per mismatch instead of Q/10 (integer division), unlike simple mode and the README",
-   "note": "TM1 issue filed by the owner 2026-09-24; sebeier (collaborator) 2026-09-25 06:55: good catch, palindrome mode should charge Q/10, fix planned for 0.42, change requested on PR #91"
+   "note": "TM1 issue filed by the owner 2026-09-24; sebeier (collaborator) 2026-09-25 06:55: good catch, palindrome mode should charge Q/10, fix planned for 0.42, change requested on PR #91; closed as completed 2026-09-28 07:03: \"Merged to branch V0.42 and scheduled for the next update.\""
   },
   {
    "repo": "usadellab/Trimmomatic",
    "number": 91,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
+   "state": "closed",
+   "merged": true,
    "comments": 2,
-   "updated": "2026-09-25T13:35:11Z",
+   "updated": "2026-09-28T07:01:40Z",
    "title": "Charge Q/10 per mismatch in ILLUMINACLIP palindrome mode",
-   "note": "TM1 PR; base V0.42, head 54af058 (1 commit, mergeable clean). sebeier 06:52 asked for the retarget; owner's TMR1 reply posted 13:35. Waiting on sebeier. CI only runs on PRs to main"
+   "note": "TM1 PR MERGED into V0.42 by sebeier 2026-09-28 07:01 (fast-forward 54af058, plus his versionHistory commit ecbfd516)"
   },
   {
    "repo": "alexdobin/STAR",

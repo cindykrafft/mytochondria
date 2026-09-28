@@ -112,3 +112,18 @@ not touch the Z-scores at counts below 1,291).
    `develop` with the body from `pr-bodies.md` rewritten likewise.
 3. Record issue and PR numbers, and every maintainer response, in `../README.md` and
    the top-level status table. The six notes stay held until the maintainers respond.
+
+## Replies
+
+- **2026-09-28, jkbonfield (CONTRIBUTOR) on PR #2595** (10:18 and 10:33 UTC; read in full via the helper artifact
+  "Mytochondria threads bcftools 2595"): asked for `mcve_mpileup_mqbz_overflow.sh` (named in the issue, never
+  attached); his own reproduction changed BQBZ between depth 1292 and 1293 but not MQBZ; noted int64 still
+  overflows at 2^21 reads per bin; posted a Claude-generated refactor that accumulates N³ − Σp³ as 3·S·p·(S+p)
+  in double. Checked the same day on scratch builds (develop edf7fd96, PR 83b78889, PR + refactor; HTSlib
+  develop 7c5e3e7): his perl never resets `$seq`/`$qual`, so from read 2 on every read is `C` at `i` and one BQ
+  bin holds d−2 reads (reaches 1291 at d=1293), while MQ splits ~640/654 — the same one-bin condition. The
+  refactor: `make test` 2488/0; MCVE −36.5924 / −36.4555; audit harness 31 ok; identical to the PR on his
+  reproduction up to d=2,097,152 and right at 2,097,160 (1448.16 vs the PR's 1.73206); max relative
+  difference 9.7e-12 from the int64 version over 1.9M random histograms. Reply drafted as
+  `comment-bcr1-2595-reply.md` (pastes the script, explains his threshold, offers to switch the PR to his
+  version or close it; asks how to attribute). Branch unchanged until he answers.

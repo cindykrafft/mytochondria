@@ -29,6 +29,13 @@ Release branches `V0.42` and `V0.43` exist beside `main`; `MaximumInformationTri
 rewritten on `V0.42` (+148/-104), so TM2 is re-verified there before its patch is rebuilt (the
 `0002` patch here is still the `main`-based one and also carries the stray POM change).
 
+**Merged 2026-09-28.** sebeier merged PR #91 into `V0.42` at 07:01 UTC (fast-forward on `54af058`) and
+added his own `versionHistory.txt` entry `ecbfd516` ("Fix: ILLUMINACLIP palindrome mismatch penalty is now
+Q/10"); at 07:03 he closed #90 as completed: "Merged to branch V0.42 and scheduled for the next update."
+(Threads read in full 2026-09-28 via the helper artifact "Mytochondria threads trimmomatic 90 91".) With TM1
+answered, the repository has no unanswered filing, so TM2 is next; it is re-verified on `V0.42` (MAXINFO
+rewritten there) and its issue text and branch rebuilt against `V0.42` before it is offered.
+
 Ranking under the two-unanswered-filings cap: **TM1 goes first** (default settings,
 silent, every version since 0.32), **TM2 second** (settings the cohort does not use;
 loud when it hits — every read to one base). Both are new issues; no comment drafts.
