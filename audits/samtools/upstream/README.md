@@ -67,6 +67,8 @@ replacing 47d3376): the isize-0 bin is subtracted from the denominator, the SD l
 `23.stats.expected` becomes 323.8 / 18.0 (the eight known TLENs: mean 323.75, population SD 17.98); `make test`
 1011 passed / 0 failed / 32 expected failures. It carries the `Assisted-by:` trailer and no sign-off. Reply
 drafted as `comment-str1-2388-reply.md`; after it is posted and signed off, force-push over 47d3376.
+Posted by the owner 2026-09-28 14:22 as written; no maintainer answer yet (read 18:50). The PR body still
+cites the pre-mode-fix SHAs 99c2244/723af0e and describes the old SD change, so update it after the push.
 
 Filing tier (README step 5): **now** for ST1 — it changes a number that reaches papers
 (`samtools stats` `COV` coverage distribution and the `-t`/`-g` "percentage of target

@@ -127,3 +127,9 @@ not touch the Z-scores at counts below 1,291).
   difference 9.7e-12 from the int64 version over 1.9M random histograms. Reply drafted as
   `comment-bcr1-2595-reply.md` (pastes the script, explains his threshold, offers to switch the PR to his
   version or close it; asks how to attribute). Branch unchanged until he answers.
+- **2026-09-28 14:22** the owner posted `comment-bcr1-2595-reply.md` as written. **15:33, jkbonfield:** his
+  script had a bug (ALT-only bar the first reads) but "the buggy one will do for validation purposes"; the
+  refactor "is probably better (although harder to analyse and see what actually changed, unlike the original
+  type change)"; they "don't really want to commit AI generated code without first understanding the impact of
+  each line. A human needs to sign off on those changes basically, in order to fulfil our policies." No question
+  to us, so no reply drafted; the branch stays at 83b78889 (the easy-to-review type change) unless he asks.

@@ -1,5 +1,5 @@
 {
- "taken": "2026-09-28T14:09:00Z",
+ "taken": "2026-09-28T18:52:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
   {
@@ -585,9 +585,9 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 2,
-   "updated": "2026-09-28T10:33:36Z",
-   "note": "BC1 PR (fix/mwu-biasz-int64, one signed-off commit 83b7888 on develop edf7fd9), filed 2026-09-23 19:50; the fork's five CI workflows (Linux, macOS, Windows, VMs, Containers) green on 83b7888; merges clean; jkbonfield 2026-09-28 10:18/10:33: asked for the MCVE script, posted a no-cube refactor; verified here, reply BCR1 drafted (not posted)"
+   "comments": 4,
+   "updated": "2026-09-28T15:33:36Z",
+   "note": "BC1 PR (fix/mwu-biasz-int64, one signed-off commit 83b7888 on develop edf7fd9), filed 2026-09-23 19:50; the fork's five CI workflows (Linux, macOS, Windows, VMs, Containers) green on 83b7888; merges clean; jkbonfield 2026-09-28 10:18/10:33: asked for the MCVE script, posted a no-cube refactor; verified here, reply BCR1 drafted (not posted); owner posted BCR1 14:22; jkbonfield 15:33: refactor probably better but harder to analyse, a human must understand and sign off each line before they commit AI code; no question to us"
   },
   {
    "repo": "fieldtrip/fieldtrip",
@@ -1249,10 +1249,10 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 1,
-   "updated": "2026-09-28T08:38:04Z",
+   "comments": 2,
+   "updated": "2026-09-28T14:22:42Z",
    "title": "stats: count duplicates for the same records as \"sequences\"; include isize 0 in the SD",
-   "note": "ST3 PR filed 2026-09-24; head 47d3376 after the test.pl mode fix; fork CI green; jkbonfield 2026-09-28 08:19 (edited 08:38): exclude isize 0 from the mean and SD; reworked commit prepared locally (not pushed), reply STR1 drafted"
+   "note": "ST3 PR filed 2026-09-24; head 47d3376 after the test.pl mode fix; fork CI green; jkbonfield 2026-09-28 08:19 (edited 08:38): exclude isize 0 from the mean and SD; reworked commit prepared locally (not pushed), reply STR1 drafted; owner posted STR1 14:22 (rework not pushed yet); no maintainer answer yet"
   },
   {
    "repo": "usadellab/Trimmomatic",
