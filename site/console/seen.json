@@ -1,5 +1,5 @@
 {
- "taken": "2026-09-28T18:52:00Z",
+ "taken": "2026-09-29T00:47:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
   {
@@ -1304,8 +1304,8 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-09-24T18:07:53Z",
+   "comments": 1,
+   "updated": "2026-09-28T21:05:12Z",
    "title": "Fix a few statements in the Fundamentals material",
    "note": "not a Mytochondria filing"
   },
