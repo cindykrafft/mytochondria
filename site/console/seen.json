@@ -1,5 +1,5 @@
 {
- "taken": "2026-09-29T06:47:00Z",
+ "taken": "2026-09-29T18:51:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
  "items": [
   {
@@ -585,9 +585,9 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 4,
-   "updated": "2026-09-28T15:33:36Z",
-   "note": "BC1 PR (fix/mwu-biasz-int64, one signed-off commit 83b7888 on develop edf7fd9), filed 2026-09-23 19:50; the fork's five CI workflows (Linux, macOS, Windows, VMs, Containers) green on 83b7888; merges clean; jkbonfield 2026-09-28 10:18/10:33: asked for the MCVE script, posted a no-cube refactor; verified here, reply BCR1 drafted (not posted); owner posted BCR1 14:22; jkbonfield 15:33: refactor probably better but harder to analyse, a human must understand and sign off each line before they commit AI code; no question to us"
+   "comments": 5,
+   "updated": "2026-09-29T16:27:47Z",
+   "note": "BC1 PR (fix/mwu-biasz-int64, one signed-off commit 83b7888 on develop edf7fd9), filed 2026-09-23 19:50; the fork's five CI workflows (Linux, macOS, Windows, VMs, Containers) green on 83b7888; merges clean; jkbonfield 2026-09-28 10:18/10:33: asked for the MCVE script, posted a no-cube refactor; verified here, reply BCR1 drafted (not posted); owner posted BCR1 14:22; jkbonfield 15:33: refactor probably better but harder to analyse, a human must understand and sign off each line before they commit AI code; no question to us; 2026-09-29 16:27 jkbonfield: replaced by his PR #2598 (our commit intact + his refactor commit), over to pd3; watch #2598 for the merge"
   },
   {
    "repo": "fieldtrip/fieldtrip",

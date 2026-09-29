@@ -19,6 +19,15 @@ posts them.
   every PR branch lives on a fork, so a PR's CI is checked there (the upstream workflow files run
   on push to the fork).
 
+## Threads that carry our fix but are not ours
+
+The author search does not find PRs opened by maintainers that carry our commits. Check these by
+number each round (search `repo:<repo> <number>`), record state changes in the kit README, and drop
+them from this list once merged or closed:
+
+- samtools/bcftools #2598 (jkbonfield, 2026-09-29): replaces our #2595; our commit 83b78889 plus his
+  refactor. When it merges, #2594 closes and BC1 is done.
+
 ## One check-in
 
 1. Search again, diff against `seen.json`. Report to the owner only: a state change (merged,

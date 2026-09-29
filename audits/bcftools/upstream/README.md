@@ -133,3 +133,10 @@ not touch the Z-scores at counts below 1,291).
   type change)"; they "don't really want to commit AI generated code without first understanding the impact of
   each line. A human needs to sign off on those changes basically, in order to fulfil our policies." No question
   to us, so no reply drafted; the branch stays at 83b78889 (the easy-to-review type change) unless he asks.
+- **2026-09-29 16:26–16:27, jkbonfield:** opened **PR #2598** "Mwu biasz int64" ("A replacement for #2595.
+  Fixes #2594"): our commit 83b78889 unchanged, then his refactor as a second commit, "left in place to reflect
+  the same authorship ... but also because the earlier commit is perhaps easier to understand as an interim
+  solution". On #2595: "I decided in the end to just create a new PR which contains this one with the commit
+  intact, and a follow up one ... Thanks for raising the issue and providing a fix. Over to you @pd3." No
+  question to us; no reply drafted. Watch #2598 (not ours, so not in the author search) for the merge; #2595
+  is expected to be closed as superseded.
