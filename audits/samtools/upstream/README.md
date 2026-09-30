@@ -69,6 +69,8 @@ replacing 47d3376): the isize-0 bin is subtracted from the denominator, the SD l
 drafted as `comment-str1-2388-reply.md`; after it is posted and signed off, force-push over 47d3376.
 Posted by the owner 2026-09-28 14:22 as written; no maintainer answer yet (read 18:50). The PR body still
 cites the pre-mode-fix SHAs 99c2244/723af0e and describes the old SD change, so update it after the push.
+2026-09-30 13:24: daviesrob assigned the PR to jkbonfield (the only event since the reply; no review, no
+comment; read via the helper artifact "Mytochondria threads samtools 2388 c"). The head is still 47d3376.
 
 Filing tier (README step 5): **now** for ST1 — it changes a number that reaches papers
 (`samtools stats` `COV` coverage distribution and the `-t`/`-g` "percentage of target
