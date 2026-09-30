@@ -140,3 +140,9 @@ not touch the Z-scores at counts below 1,291).
   intact, and a follow up one ... Thanks for raising the issue and providing a fix. Over to you @pd3." No
   question to us; no reply drafted. Watch #2598 (not ours, so not in the author search) for the merge; #2595
   is expected to be closed as superseded.
+- **2026-09-30 12:39, MERGED.** pd3 (MEMBER) merged #2598 into `develop` ("Thank you"): our commit is
+  `041c66cf` (author Cindy Krafft, message, trailer and sign-off unchanged; committer pd3), followed by
+  jkbonfield's `3dce5733` "Further refactored the calc_mwu_biasZ function" (the no-cube version verified
+  here on 2026-09-28; it also recompresses the test BAM, 4943 -> 3731 bytes). pd3 closed #2595 ("Thank you
+  for this. This was merged via #2598") and #2594 as completed ("It was fixed via #2598"). Read in full via the
+  helper artifact "Mytochondria threads bcftools 2598 merge". BC1 is done; BCFtools has no unanswered filing.

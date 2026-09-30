@@ -25,8 +25,7 @@ The author search does not find PRs opened by maintainers that carry our commits
 number each round (search `repo:<repo> <number>`), record state changes in the kit README, and drop
 them from this list once merged or closed:
 
-- samtools/bcftools #2598 (jkbonfield, 2026-09-29): replaces our #2595; our commit 83b78889 plus his
-  refactor. When it merges, #2594 closes and BC1 is done.
+(none at present; samtools/bcftools #2598 merged 2026-09-30)
 
 ## One check-in
 
