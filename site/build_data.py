@@ -5,6 +5,7 @@ attached to an audit through the repository map in audits.json. Repositories the
 (forks, this repository). Needs GITHUB_TOKEN in the environment (the Actions token is enough).
 """
 import json, os, sys, time, urllib.request, urllib.parse
+import ledger
 from datetime import datetime, timezone
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -72,7 +73,22 @@ for kind in ("issue", "pr"):
         s["audit"] = repo_to_audit.get(repo.lower())
         items.append(s)
 items.sort(key=lambda x: x["created"])
+
+# Ledger statuses: each thread read in full and classified in console/seen.json, rolled up to findings
+# (an issue and the PRs that fix it are one finding). Filings not read yet are counted as unread.
+seen = json.load(open(os.path.join(HERE, "console", "seen.json")))
+classified = ledger.threads(seen, skip_owners=EXCLUDE | {AUTHOR.lower()})
+status = {(x["repo"].lower(), x["number"]): x for x in classified}
+for s in items:
+    x = status.get((s["repo"].lower(), s["number"]))
+    s["ledger"] = x["status"] if x else None
+findings = [dict(repo=g[0]["repo"], status=st, whose_move=mv, threads=[[t["kind"], t["number"]] for t in g])
+            for st, mv, g in ledger.rollup(classified)]
+read = max((x.get("status_checked") or "" for x in classified), default=None)
+ledger_out = dict(read=read, findings=findings,
+                  unread=[[s["repo"], s["number"]] for s in items if s["ledger"] is None])
 out = {"generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "author": AUTHOR, "since": SINCE,
-       "audits": cfg["audits"], "audit_repo": cfg["audit_repo"], "declines_topic": TOPIC, "items": items, "unmapped_repos": sorted(unmapped)}
+       "audits": cfg["audits"], "audit_repo": cfg["audit_repo"], "declines_topic": TOPIC, "items": items, "unmapped_repos": sorted(unmapped),
+       "ledger": ledger_out}
 json.dump(out, open(os.path.join(HERE, "data.json"), "w"), indent=1)
 print(f"{len(items)} items across {len({i['repo'] for i in items})} repositories; unmapped: {sorted(unmapped)}", file=sys.stderr)

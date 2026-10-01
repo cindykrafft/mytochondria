@@ -27,6 +27,8 @@ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 .tile .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .tile .v{font:500 28px/1.1 "IBM Plex Mono",ui-monospace,monospace;margin-top:4px;font-variant-numeric:tabular-nums}
 .tile .s{font-size:12.5px;color:var(--muted);margin-top:2px}
+.tile.st-resolved{border-left:3px solid var(--good)}.tile.st-progress{border-left:3px solid var(--open)}
+.tile.st-unanswered{border-left:3px solid var(--wait)}.tile.st-rejected{border-left:3px solid var(--bad)}
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
 table{border-collapse:collapse;width:100%;min-width:900px}
 th,td{padding:7px 8px;font-size:14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
@@ -67,6 +69,8 @@ ul.items li{display:grid;grid-template-columns:100px minmax(0,1fr) auto auto;gap
   <dl class="foot">
     <dt>How to read the columns</dt>
     <dd>Papers: papers in the survey cohort (six journals, 2021 to 2026) whose methods name the package; lower bounds where the full text could not be read. Attributable: of those, papers whose use can be attributed to the audited repository. For a package whose name is the program this is every paper; for GSEA and UMAP, names that several programs implement, it counts papers that name the audited program (or a package that calls it) and excludes papers that name another implementation or only the method (hover for the split; rules and per-package version checks in survey/scripts/attribute.py and survey/data/attribution.tsv). Findings: confirmed by executing the shipped code, from each package's README. Resolved: issue closed as completed. Declined: issue closed as not planned. Closed: pull request closed without merge. Answered: filings with at least one comment from anyone but the author is not distinguishable here, so this counts filings with any comment.</dd>
+    <dt>The status cards</dt>
+    <dd>Each card counts findings filed upstream, where an issue and the pull requests that fix it are one finding. Every thread is read in full and given a status, with the maintainer's words as evidence: resolved (closed as fixed, merged, or a fix landed upstream), in progress (a maintainer has engaged and the next move is theirs or ours), unanswered (no maintainer has replied), rejected (a maintainer declined) or withdrawn (closed by the project). A finding takes the best status of its threads. Statuses are re-read when a thread changes; filings newer than the last read are counted as not read yet.</dd>
     <dt>Declines AI contributions</dt>
     <dd>Some maintainers have said they do not want AI-generated issues or pull requests. That decision is recorded as a topic on the project's fork of their repository, this page reads it from there, and nothing further is filed, commented or pushed for that repository; what is already open is left to the maintainers. The project itself stays published in the project repository.</dd>
     <dt>Where the numbers come from</dt>
@@ -100,10 +104,22 @@ function render(D){
   }
   // repos with filings but no package entry
   for(const repo of Object.keys(byRepo)) if(!D.audits.some(a=>a.repos.includes(repo))) rows.push({a:{name:"(unmapped)",dir:null,papers:null,findings:null},repo,items:byRepo[repo],c:null});
-  document.getElementById("totals").innerHTML=[
-    ["Packages",T.audits,"read line by line"],["Findings",T.findings,"verified by execution"],["Issues filed",T.issues,`${T.resolved} resolved · ${T.declined} declined`],
-    ["PRs filed",T.prs,`${T.merged} merged · ${T.closed} closed unmerged`],["Awaiting maintainers",T.open,"open right now"],["Answered",T.answered,"filings with a reply"]
-  ].map(([k,v,s])=>`<div class="tile"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join("");
+  const tiles=[["Packages",T.audits,"read line by line"],["Findings",T.findings,"verified by execution"]];
+  const L=D.ledger;
+  if(L){
+    // ledger statuses, per finding filed upstream (an issue and the PRs that fix it count once)
+    const F=L.findings, by=st=>F.filter(f=>f.status===st), th=F.flatMap(f=>f.threads), kind=k=>th.filter(t=>t[0]===k).length;
+    const prog=by("in progress"), them=prog.filter(f=>f.whose_move==="them").length, wd=by("withdrawn").length;
+    if(L.read)document.getElementById("stamp").textContent+=` · statuses read ${L.read}`;
+    tiles.push(
+      ["Filed upstream",F.length,`${kind("issue")} issues · ${kind("pr")} PRs · ${kind("comment")} comments`+(L.unread.length?` · ${L.unread.length} new, not read yet`:"")],
+      ["Resolved",by("resolved").length,"fixed upstream or merged","st-resolved"],
+      ["In progress",prog.length,`next move: ${them} maintainers · ${prog.length-them} us`,"st-progress"],
+      ["Unanswered",by("unanswered").length,"no reply from a maintainer yet","st-unanswered"],
+      ["Rejected",by("rejected").length,"declined by a maintainer"+(wd?` · ${wd} withdrawn by us`:""),"st-rejected"]);
+  }
+  document.getElementById("totals").innerHTML=tiles
+    .map(([k,v,s,c])=>`<div class="tile${c?" "+c:""}"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join("");
   const tb=document.querySelector("#ledger tbody"); tb.innerHTML="";
   for(const r of rows){
     const c=r.c||{}; const has=r.items.length>0;

@@ -364,29 +364,13 @@ for k,r in repos.items():
 
 # ---- ledger (2026-10-01): thread statuses from seen.json, rolled up to findings (an issue and the PRs that fix it are one finding)
 _seen=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"seen.json")))
-_items=[x for x in _seen["items"] if isinstance(x,dict) and x.get("status") and x["status"]!="internal"]
-_by={(x["repo"],x["number"]):x for x in _items}
-_used=set(); findings=[]
-for x in sorted(_items,key=lambda x:(x["repo"],x["number"])):
-    if x["kind"]=="pr": continue
-    k=(x["repo"],x["number"]); grp=[x]+[p for p in _items if p["kind"]=="pr" and p["repo"]==x["repo"] and x["number"] in (p.get("fixes") or [])]
-    for g in grp: _used.add((g["repo"],g["number"]))
-    findings.append(grp)
-for p in _items:
-    if (p["repo"],p["number"]) not in _used: findings.append([p])
-def _roll(grp):
-    st=[g["status"] for g in grp]
-    if "resolved" in st: return "resolved"
-    if "in progress" in st: return "in progress"
-    if "rejected" in st: return "rejected"
-    if all(s=="withdrawn" for s in st): return "withdrawn"
-    if "unanswered" in st: return "unanswered"
-    return "withdrawn"
+import sys
+sys.path.insert(0,os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import ledger as _ledger
+_items=_ledger.threads(_seen)
 LEDGER=[]
-for grp in findings:
-    s=_roll(grp)
+for s,mv,grp in _ledger.rollup(_items):
     lead=next((g for g in grp if g["status"]==s), grp[0])
-    mv=("us" if any(g.get("whose_move")=="us" for g in grp) else "them") if s=="in progress" else None
     LEDGER.append(dict(repo=grp[0]["repo"], status=s, whose_move=mv,
         threads=[dict(number=g["number"],kind=g["kind"],title=g.get("title") or "",status=g["status"],state=g.get("state"),merged=g.get("merged")) for g in grp],
         evidence=lead.get("evidence"), fixed_by=lead.get("fixed_by"), checked=lead.get("status_checked")))
