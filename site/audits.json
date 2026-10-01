@@ -428,7 +428,7 @@
    "repos": [
     "BenLangmead/bowtie2"
    ],
-   "fork": null,
+   "fork": "cindykrafft/bowtie2",
    "attributed": null,
    "attributed_note": "survey cohort of 477 papers; 4 confirmed on master and five release binaries (mate-2 MAPQ length slip on master, XS:i missing on unpaired mates, --no-mixed suppresses discordant alignments, spurious insertions just above -X), 3 notes; scoring, MAPQ port, pair classification and the alignment summary held up",
    "versions_stated": 89,
