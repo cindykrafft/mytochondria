@@ -1,0 +1,74 @@
+cohort: 240
+full text: 0   survey-cache fallback: 240   ({'offline': 240})
+
+FEATURES (papers; lower bounds where source=survey_cache):
+  Matplotlib named                                 240
+  SciPy also used                                  121
+  NumPy also used                                  119
+  pandas also used                                 62
+  seaborn also used                                61
+  Matplotlib version stated                        41
+  heatmap / colormap / colour scale                35
+  custom code stated                               22
+  histogram                                        14
+  3D plotting                                      13
+  violin plot / KDE                                10
+  scatter / line plots                             9
+  box plot                                         8
+  contour                                          5
+  error bars / mean +- SEM                         5
+  log / symlog scale                               4
+  spectrogram / PSD / spectral                     3
+  pie / stacked plots                              2
+  hexbin / 2D density                              1
+
+VERSION FAMILY: {'3.5': 15, '3.7': 14, '3.8': 10, '3.4': 10, '3.3': 10, '3.6': 7, '3.2': 6, '3.1': 4, '3.10': 3, '3.0': 3, '2.0': 2, '10.5281': 1, '3.9': 1, '1.0': 1, '2.9': 1}
+VERSIONS (top 20): {'3.7.1': 8, '3.5.2': 6, '3.5.1': 6, '3.3.2': 5, '3.4.3': 5, '3.2.1': 5, '3.7.2': 4, '3.4.2': 4, '3.8.2': 3, '3.8.0': 3, '3.6.1': 3, '3.8.4': 2, '3.10': 2, '3.3.4': 2, '3.5.3': 2, '3.1.3': 2, '3.6.2': 2, '3.0.3': 2, '3.3.3': 2, '3.10.0': 1}
+
+bin counts: {'3': 1}
+percentiles named: {'25': 1, '75': 1}
+polynomial degrees: {}
+resample counts: {'000': 2, '100': 2, '25': 1, '50': 1}
+Python versions: {'3.7': 15, '3.9': 7, '3.6': 7, '3.8': 5, '3.11': 4, '3.10': 4, '3.0': 2, '7.34': 1, '0.24': 1, '3.12': 1}
+
+CO-PACKAGES (top 40):
+  SciPy                    136
+  NumPy                    135
+  Python                   117
+  seaborn                  96
+  R                        71
+  scikit-learn             59
+  UMAP                     48
+  ImageJ                   45
+  Scanpy                   36
+  ggplot2                  31
+  statsmodels              28
+  SAMtools                 27
+  AlphaFold                27
+  DESeq2                   26
+  Seurat                   25
+  Jupyter                  23
+  STAR                     22
+  AnnData                  21
+  ChimeraX                 21
+  PyMOL                    19
+  tidyverse                18
+  PHENIX                   18
+  MACS2                    16
+  scikit-image             16
+  GSEA                     15
+  BLAST                    14
+  Bowtie2                  13
+  pheatmap                 13
+  PyTorch                  12
+  scDblFinder              12
+  GROMACS                  12
+  pandas                   12
+  Cutadapt                 11
+  QuPath                   11
+  ggpubr                   11
+  featureCounts            11
+  Cytoscape                11
+  NetworkX                 11
+  GATK                     10
+  MAFFT                    10
