@@ -78,8 +78,8 @@ arguably should not enter the mean either (asks pd3); IS rows stay. Reworked loc
 75.6), `make test` 1012 / 0 / 32 expected. Not pushed, not signed off. Reply drafted: `comment-str2-2388-reply.md`.
 2026-10-01: signed off at the owner's instruction (`git commit --amend -s`, Cindy Krafft <cynthiacondra@gmail.com>),
 now **96b359b** on 1776b17; `make test` re-run on that commit: 1012 passed, 0 failed. Patch 0004 regenerated from it.
-The force-push over 47d3376 was refused by the session's permission check, so it waits for the owner (command
-below). `pr-bodies.md` § PR 2 now holds the updated PR description and title for after the push.
+The first force-push attempt was refused by the session's permission check; at the owner's instruction ("push
+please") it was force-pushed 2026-10-01 with `--force-with-lease` (47d3376 -> 96b359b; command below). `pr-bodies.md` § PR 2 now holds the updated PR description and title for after the push.
 
     git push --force-with-lease=fix/stats-dup-supplementary-isize-sd:47d3376 origin 96b359b:fix/stats-dup-supplementary-isize-sd
 
