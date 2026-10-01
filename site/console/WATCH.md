@@ -9,7 +9,7 @@ posts them.
 
 - `seen.json`: the last snapshot of every issue and PR filed by the author since `since` in
   `../audits.json` (repo, number, kind, state, merged, comment count, updated). Taken with the
-  GitHub search API (`author:<author> is:issue|is:pr created:>=<since>`), which works for any
+  GitHub search API (`author:<author> is:issue|is:pr created:>=<since> -org:google`), which works for any
   public repository from the session; comment bodies on repositories the author does not own do
   not, so a changed comment count is a signal to ask the owner for the text, not something the
   watcher can read.
@@ -26,6 +26,12 @@ number each round (search `repo:<repo> <number>`), record state changes in the k
 them from this list once merged or closed:
 
 (none at present; samtools/bcftools #2598 merged 2026-09-30)
+
+Scope: only the scientific-software audit. The author's other open-source work (the `google`
+organisation: googletest, gson, guava, filament, comprehensive-rust, ...) is not part of it and is
+neither searched nor recorded; `google-deepmind/alphafold3` is a different organisation and is in
+scope. Anything else the search returns from a repository outside `../audits.json` is left out
+of `seen.json` and the report.
 
 ## One check-in
 

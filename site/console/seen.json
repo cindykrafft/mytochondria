@@ -1,27 +1,7 @@
 {
  "taken": "2026-10-01T13:15:00Z",
- "query": "author:cindykrafft created:>=2026-08-01 (search_issues + search_pull_requests)",
+ "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
-  {
-   "repo": "google/googletest",
-   "number": 5105,
-   "kind": "issue",
-   "state": "open",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-24T03:23:19Z",
-   "note": "not a Mytochondria filing (the owner's other work on google/* repositories); recorded so the diff stays quiet"
-  },
-  {
-   "repo": "google/gson",
-   "number": 3128,
-   "kind": "issue",
-   "state": "open",
-   "merged": false,
-   "comments": 2,
-   "updated": "2026-09-24T03:19:45Z",
-   "note": "not a Mytochondria filing (the owner's other work on google/* repositories); recorded so the diff stays quiet"
-  },
   {
    "repo": "samtools/bcftools",
    "number": 2594,
@@ -518,66 +498,6 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-08-28T13:25:00Z"
-  },
-  {
-   "repo": "google/gson",
-   "number": 3127,
-   "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 1,
-   "updated": "2026-09-24T03:24:04Z",
-   "note": "not a Mytochondria filing (the owner's other work on google/* repositories); recorded so the diff stays quiet"
-  },
-  {
-   "repo": "google/gson",
-   "number": 3129,
-   "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-24T03:19:04Z",
-   "note": "not a Mytochondria filing (the owner's other work on google/* repositories); recorded so the diff stays quiet"
-  },
-  {
-   "repo": "google/guava",
-   "number": 8692,
-   "kind": "pr",
-   "state": "closed",
-   "merged": false,
-   "comments": 7,
-   "updated": "2026-09-26T23:44:34Z",
-   "note": "not a Mytochondria filing (the owner's other work). cpovirk 2026-09-25 13:45-15:56: found the entrySet() override himself, 'everything is looking correct', reworked the change as google/guava#8699 (copybara, commit authored by Cindy Krafft, all 22 checks green, 'Fixes #8692'); the drafted answer to his 12:57 question is superseded and was not posted; closed 2026-09-26 23:44 when cpovirk's rework google/guava#8699 (commit authored by Cindy Krafft) was MERGED"
-  },
-  {
-   "repo": "google/guava",
-   "number": 8691,
-   "kind": "pr",
-   "state": "closed",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-24T13:33:53Z",
-   "note": "not a Mytochondria filing (the owner's other work on google/* repositories); recorded so the diff stays quiet"
-  },
-  {
-   "repo": "google/googletest",
-   "number": 5104,
-   "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-23T22:04:22Z",
-   "note": "not a Mytochondria filing (the owner's other work on google/* repositories); recorded so the diff stays quiet"
-  },
-  {
-   "repo": "google/googletest",
-   "number": 5103,
-   "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 1,
-   "updated": "2026-09-23T21:09:00Z",
-   "note": "not a Mytochondria filing (the owner's other work on google/* repositories); recorded so the diff stays quiet"
   },
   {
    "repo": "samtools/bcftools",
@@ -1286,50 +1206,6 @@
    "updated": "2026-09-24T18:30:59Z",
    "title": "Treat transcripts with undefined GTF strand ('.') as '+' in Aligned.toTranscriptome.out.bam and count them from both strands in STARsolo",
    "note": "STA1 PR filed by the owner 2026-09-24"
-  },
-  {
-   "repo": "google/filament",
-   "number": 10470,
-   "kind": "issue",
-   "state": "closed",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-29T06:44:02Z",
-   "title": "math::fast::qadd/qsub give wrong results on AArch64 (signed intrinsics)",
-   "note": "not a Mytochondria filing"
-  },
-  {
-   "repo": "google/comprehensive-rust",
-   "number": 3288,
-   "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 1,
-   "updated": "2026-09-28T21:05:12Z",
-   "title": "Fix a few statements in the Fundamentals material",
-   "note": "not a Mytochondria filing"
-  },
-  {
-   "repo": "google/comprehensive-rust",
-   "number": 3287,
-   "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-24T18:06:28Z",
-   "title": "Fix course pages that render incorrectly",
-   "note": "not a Mytochondria filing"
-  },
-  {
-   "repo": "google/guava",
-   "number": 8696,
-   "kind": "pr",
-   "state": "closed",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-24T19:36:29Z",
-   "title": "Document that transform and transformAsync propagate exceptions thrown by the function",
-   "note": "not a Mytochondria filing; closed 2026-09-24 19:36"
   },
   {
    "repo": "broadinstitute/picard",
