@@ -348,6 +348,17 @@ WAITING=[
  ("umap third fix, IQ-TREE third fix", "PR #1288 / PR #210 answered"),
  ("HTSeq HC1/HC2, FreeSurfer #1358", "never: the maintainers decline AI-generated contributions"),
 ]
+# every issue in Do next that has a prepared PR gets the PR card right after it (unless listed by hand)
+_have={(a["kind"],a.get("key"),a.get("id")) for a in ACTIONS}
+_acts=[]
+for a in ACTIONS:
+    _acts.append(a)
+    if a["kind"]!="issue": continue
+    for p in repos.get(a["key"],{}).get("prs",[]):
+        if p.get("needs")==a["id"] and ("pr",a["key"],p["id"]) not in _have:
+            _acts.append(dict(kind="pr", key=a["key"], id=p["id"], why=f"the PR for {a['id']}, branch {p['branch']}: open it right after the issue, with the issue number in the body"))
+            _have.add(("pr",a["key"],p["id"]))
+ACTIONS=_acts
 json.dump(dict(actions=ACTIONS, waiting=WAITING), open(os.path.join(OUT,"actions.json"),"w"), indent=1)
 print("issue fixes:", [(f["pkg"], f["issue"], f["forked"]) for f in fixes])
 for k,msg in {}.items():
