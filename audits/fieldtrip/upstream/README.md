@@ -61,3 +61,14 @@ Verification behind every filing is in `../verify/` and quoted in
 running the corresponding script against the patched tree.
   - 2026-09-23 (read 18:51Z via a helper session): #2614's fifth comment is the owner's survey comment (posted 16:12Z, as drafted); #2621 has no comments; PR #2622 has the github-actions bot's suggested-tests comment (test_bug2269, test_ft_fetch_data, test_issue1292 outside the DCCN; test_bug3379, test_pull810, test_bug1667 inside) and a red "Check for spelling errors" check. The two failing suggested tests stopped in test/private/ft_fetch_data.m, a third copy with the same addOptional declarations: fixed as 99b4c3c on the branch, all three suggested tests pass under Octave (verify/octave_survey/octave_survey_fixed4_raw.tsv). Codespell run locally with .codespellrc: the only hit is the variable `eary` in plotting/private/outline_shape.m:21, on master too (since 9c4a3af), so the check is red on the base branch; a .codespellrc line is proposed in the reply, not pushed. Reply drafted: `reply-2622-tests-and-codespell.md`.
   - 2026-09-24 (read 00:50Z via a helper session): PR #2622 now has three comments: the bot's suggested-tests comment twice (16:11 and 18:57, after 99b4c3c) and the owner's reply of 19:39 (as drafted). No maintainer comment on #2621, #2622 or #2614. Codespell still red on 99b4c3c for the same pre-existing reason. Nothing to answer.
+  - 2026-10-01 (read via the helper artifact "Mytochondria threads fieldtrip 2622"): schoffelen (MEMBER) commented twice on
+    PR #2622 (see the reply's header for the content). **Correction owed:** the 2026-09-23 comment reported the three
+    suggested tests passing on the branch without saying the runs had the survey's stand-ins (`verify/shims`: istable,
+    convertStringsToChars, ...) on the path; without them the tests stop at `istable` / `convertStringsToChars` on
+    master and branch alike (re-run 2026-10-01 on Octave 8.4.0 and 10.3.0, conda-forge). Lesson: any test result
+    posted upstream names every non-repository file that was on the path. Also found: change 1 is on master as
+    f46a32c (#2618, 2026-09-24), so #2621 is fixed there; startsWith/endsWith are built into Octave >= 7 and handle
+    cell patterns, but the compat shims shadow them because Octave's `which` ignores `-all`; `contains` and `istable`
+    are unimplemented in every Octave. His mergestruct error was not reproduced. Reply drafted:
+    `issue-ft18-reply-2622-octave-versions.md` (correction, history, an octave<7 compat folder, drop the ft_fetch_data
+    commits, ask before reworking). Nothing pushed.

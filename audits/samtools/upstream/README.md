@@ -71,6 +71,11 @@ Posted by the owner 2026-09-28 14:22 as written; no maintainer answer yet (read 
 cites the pre-mode-fix SHAs 99c2244/723af0e and describes the old SD change, so update it after the push.
 2026-09-30 13:24: daviesrob assigned the PR to jkbonfield (the only event since the reply; no review, no
 comment; read via the helper artifact "Mytochondria threads samtools 2388 c"). The head is still 47d3376.
+2026-10-01 11:01: jkbonfield answered STR1: `-m` should ignore isize 0 too; the capped last bin (>= `--insert-size`)
+arguably should not enter the mean either (asks pd3); IS rows stay. Reworked locally as d29f760 on 1776b17 (patch
+`0004-stats-leave-pairs-with-insert-size-0-out-of-the-insert-size-statistics.patch`, replaces the earlier 0004 and
+96bb7e6): the `-m` loop skips bin 0, new test stat/24 (`-m 0.65` on the same file, 315.0 / 9.6; develop 222.9 /
+75.6), `make test` 1012 / 0 / 32 expected. Not pushed, not signed off. Reply drafted: `comment-str2-2388-reply.md`.
 
 Filing tier (README step 5): **now** for ST1 — it changes a number that reaches papers
 (`samtools stats` `COV` coverage distribution and the `-t`/`-g` "percentage of target
