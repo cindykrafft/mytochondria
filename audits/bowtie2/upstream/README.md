@@ -2,9 +2,9 @@
 
 _Default branch: **`master`** (PRs go against it). Prepared 2026-09-24 against
 `BenLangmead/bowtie2` `master` @ `58e34bf` (VERSION 2.5.5, unreleased; last release 2.5.4).
-**Nothing filed, nothing pushed.** The two fixes are single commits on local branches of the
-audit clone, `git am`-able from the patches here against `58e34bf`; they need a fork of
-`BenLangmead/bowtie2` under `cindykrafft` to be pushed._
+**Nothing filed.** The two fixes are single commits, `git am`-able from the patches here
+against `58e34bf`, pushed 2026-10-01 to the fork `cindykrafft/bowtie2`:
+`fix/mate2-mapq-opposite-length` (`42888a7`) and `fix/xs-for-unpaired-mates` (`649d1d9`)._
 
 Filing tier (README step 5): **now** for BW1 (a master-only regression from 2026-09-14 that
 would ship with 2.5.5; one-token fix) and BW2 (every version; six-line fix). **BW3 and BW4

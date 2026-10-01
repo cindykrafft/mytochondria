@@ -21,3 +21,9 @@ master.
 
 Logs: simple_tests_{patched,patched2,src}.log in the session scratchpad (32,706 lines each;
 identical apart from paths and timings).
+
+2026-10-01, before pushing to cindykrafft/bowtie2 (patches applied with git am on 58e34bf; release,
+-debug and -sanitized aligners and bowtie2-build-s built with NO_TBB=1 from each branch):
+
+fix/mate2-mapq-opposite-length  42888a7   small-index pass complete, no failing case   large-index pass not run (bowtie2-build-l not built)
+fix/xs-for-unpaired-mates       649d1d9   small-index pass complete, no failing case   same
