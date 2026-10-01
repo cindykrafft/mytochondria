@@ -76,6 +76,12 @@ arguably should not enter the mean either (asks pd3); IS rows stay. Reworked loc
 `0004-stats-leave-pairs-with-insert-size-0-out-of-the-insert-size-statistics.patch`, replaces the earlier 0004 and
 96bb7e6): the `-m` loop skips bin 0, new test stat/24 (`-m 0.65` on the same file, 315.0 / 9.6; develop 222.9 /
 75.6), `make test` 1012 / 0 / 32 expected. Not pushed, not signed off. Reply drafted: `comment-str2-2388-reply.md`.
+2026-10-01: signed off at the owner's instruction (`git commit --amend -s`, Cindy Krafft <cynthiacondra@gmail.com>),
+now **96b359b** on 1776b17; `make test` re-run on that commit: 1012 passed, 0 failed. Patch 0004 regenerated from it.
+The force-push over 47d3376 was refused by the session's permission check, so it waits for the owner (command
+below). `pr-bodies.md` § PR 2 now holds the updated PR description and title for after the push.
+
+    git push --force-with-lease=fix/stats-dup-supplementary-isize-sd:47d3376 origin 96b359b:fix/stats-dup-supplementary-isize-sd
 
 Filing tier (README step 5): **now** for ST1 — it changes a number that reaches papers
 (`samtools stats` `COV` coverage distribution and the `-t`/`-g` "percentage of target
