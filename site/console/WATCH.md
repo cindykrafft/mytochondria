@@ -32,7 +32,8 @@ Scope: only the scientific-software audit. The author's other open-source work (
 organisation: googletest, gson, guava, filament, comprehensive-rust, ...) is not part of it and is
 neither searched nor recorded; `google-deepmind/alphafold3` is a different organisation and is in
 scope. Anything else the search returns from a repository outside `../audits.json` is left out
-of `seen.json` and the report.
+of `seen.json` and the report. The public status page applies the same rule through
+`exclude_owners` in `../audits.json`; add an owner there too when one is excluded here.
 
 ## Ledger statuses (since 2026-10-01)
 
