@@ -184,7 +184,7 @@ function render(){
     else { const r=D[a.key]; if(!r) return ""; const it=(a.kind==="issue"?r.issues:r.prs).find(x=>x.id===a.id); if(!it) return ""; taken.add(a.kind+"|"+a.key+"|"+a.id); inner=(a.kind==="issue"?issueCard(r,a.key,it):prCard(r,a.key,it)); }
     return `<li class="action"><p class="eyebrow tier">${n+1} · ${esc(a.why)}</p><ol class="steps">${inner}</ol></li>`;
   }).join("");
-  const waiting=ACT.waiting.map(([what,until])=>`<li><strong>${esc(what)}</strong> — until ${esc(until)}</li>`).join("");
+  const waiting=ACT.waiting.map(w=>Array.isArray(w)?`<li><strong>${esc(w[0])}</strong> — until ${esc(w[1])}</li>`:`<li>${esc(w)}</li>`).join("");
   const top=document.createElement("section");
   top.innerHTML=`<h2 class="repo">Do next <span class="eyebrow">in order · ${ACT.actions.length}</span></h2><div class="guide"><span class="eyebrow">how this list is made</span><br>One fix per repository at a time; a second only where the first was accepted. Nothing new on a repository with two unanswered filings, nothing at all where the maintainers decline AI-generated contributions, and comments on threads the maintainers keep open are exempt from the cap.</div><ol class="steps actions">${actionCards}</ol><details class="tier-held" open><summary>Waiting for a signal · ${ACT.waiting.length}</summary><ul class="waiting">${waiting}</ul></details>`;
   root.appendChild(top);
