@@ -25,13 +25,38 @@ The author search does not find PRs opened by maintainers that carry our commits
 number each round (search `repo:<repo> <number>`), record state changes in the kit README, and drop
 them from this list once merged or closed:
 
-(none at present; samtools/bcftools #2598 merged 2026-09-30)
+- Our comments on maintainer-opened issues, kept in `seen.json` as kind `comment`: samtools/samtools #696
+  (ST3), arq5x/bedtools2 #1142 (BT2), deeptools/deepTools #1108 (DT1) and #1118 (DT4).
 
 Scope: only the scientific-software audit. The author's other open-source work (the `google`
 organisation: googletest, gson, guava, filament, comprehensive-rust, ...) is not part of it and is
 neither searched nor recorded; `google-deepmind/alphafold3` is a different organisation and is in
 scope. Anything else the search returns from a repository outside `../audits.json` is left out
 of `seen.json` and the report.
+
+## Ledger statuses (since 2026-10-01)
+
+Every thread in `seen.json` carries a `status`, set only after the thread was read in full:
+
+- `resolved`: fixed upstream by any route (our PR merged, or the maintainers fixed it their own way;
+  `fixed_by` names the merge, commit or PR).
+- `rejected`: a maintainer declined, whether or not they closed the thread.
+- `withdrawn`: we closed or retracted it ourselves.
+- `in progress`: a maintainer or reviewer engaged and nothing is settled; `whose_move` is `us` when the
+  last substantive human message asks us something or asks for a change, else `them`.
+- `unanswered`: no human but us has said or done anything (bots and our own posts do not count).
+- `internal`: a PR on one of our own repositories; not a filing.
+
+Each status has `evidence` (the decisive human quote or action, verbatim, with author, date and URL)
+and `status_checked` (the date of that full read). PRs list the issues they fix in `fixes`; an issue
+and its PRs are one finding, and `build.py` rolls the threads up into `out/ledger.json` and the
+console's Ledger section. The two-unanswered cap counts findings whose status is `unanswered`.
+
+On a check-in, any thread whose state, comment count or update time changed is re-read in full and
+re-classified before anything else is done with it. Read it through a helper session opened on that
+thread's own repository; a helper can read only its source repository, so open one session per
+repository. Update `status`, `whose_move`, `evidence` and `status_checked` from that read. A new filing
+starts as `unanswered`. Never change a status from counts alone.
 
 ## One check-in
 

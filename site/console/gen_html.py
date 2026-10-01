@@ -1,7 +1,7 @@
 import json, html
 import os
 OUT=os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
-D=json.load(open(os.path.join(OUT,"data.json"))); FX=json.load(open(os.path.join(OUT,"fixes.json"))); ACT=json.load(open(os.path.join(OUT,"actions.json")))
+D=json.load(open(os.path.join(OUT,"data.json"))); FX=json.load(open(os.path.join(OUT,"fixes.json"))); ACT=json.load(open(os.path.join(OUT,"actions.json"))); LG=json.load(open(os.path.join(OUT,"ledger.json")))
 order=["alphafold3","gsea","bcftools","star","trimmomatic","limma","samtools","lme4","edger","clusterprofiler","enrichit","featurecounts","fieldtrip","plink","htseq","deeptools","bedtools","fastp","cutadapt","umap","cellphonedb","scanpy","iqtree"]
 order+=[k for k in D if k not in order]  # any repo the builder adds later still renders
 labels={"alphafold3":"AlphaFold 3","gsea":"GSEA (desktop)","bcftools":"BCFtools","star":"STAR","trimmomatic":"Trimmomatic","limma":"limma","plink":"PLINK 1.9","htseq":"HTSeq","deeptools":"deepTools","bedtools":"BEDTools","fastp":"fastp","cutadapt":"Cutadapt","umap":"umap-learn","cellphonedb":"CellPhoneDB","scanpy":"Scanpy (Scrublet port)","iqtree":"IQ-TREE 3","fieldtrip":"FieldTrip","samtools":"samtools","lme4":"lme4","edger":"edgeR","clusterprofiler":"clusterProfiler","enrichit":"enrichit (clusterProfiler engine)","featurecounts":"featureCounts (Subread)"}
@@ -51,7 +51,7 @@ ol.actions>li.action{list-style:none}ol.actions>li.action>.eyebrow.tier{margin:1
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
-const D = __DATA__; const FX = __FIXES__; const ACT = __ACTIONS__;
+const D = __DATA__; const FX = __FIXES__; const ACT = __ACTIONS__; const LG = __LEDGER__;
 const ORDER = __ORDER__; const LABELS = __LABELS__;
 const LIMIT = 6800;
 const state = load();
@@ -145,6 +145,35 @@ function fixCard(f){
     <details><summary>Show the PR body</summary><div class="field"><pre class="body">${esc(f.body)}</pre></div></details>
     ${f.comment?`<details><summary>Show the issue comment</summary><div class="field"><pre class="body">${esc(f.comment)}</pre></div></details>`:""}`);
 }
+function threadLink(repo,t){ const path=t.kind==="pr"?"pull":"issues"; const lab=(t.kind==="pr"?"PR ":t.kind==="comment"?"comment on ":"issue ")+"#"+t.number; return `<a href="https://github.com/${repo}/${path}/${t.number}" target="_blank" rel="noopener">${esc(lab)}</a>`; }
+function ledgerCard(f){
+  const ev=f.evidence||{}; const t0=f.threads[0];
+  const links=f.threads.map(t=>threadLink(f.repo,t)+(f.threads.length>1?` <span class="mono">(${esc(t.status)})</span>`:"")).join(" · ");
+  const q=ev.quote&&ev.quote!=="no human response"?`“${esc(ev.quote)}”`:"no response from the maintainers";
+  const who=ev.author?` — ${esc(ev.author)}`:""; const when=ev.date?`, ${esc(String(ev.date).slice(0,10))}`:"";
+  const src=ev.url?` <a href="${esc(ev.url)}" target="_blank" rel="noopener">source ↗</a>`:"";
+  const fix=f.fixed_by?`<p class="hint">fixed by ${esc(f.fixed_by)}</p>`:"";
+  return `<li class="card"><header><h3>${esc(f.repo)} · ${esc(t0.title||"")}</h3><span class="eyebrow">${links}</span></header><p class="hint">${f.status==="unanswered"?"last post by us"+when+" · no human response yet":q+who+when+src}</p>${fix}</li>`;
+}
+function ledgerSection(){
+  const F=LG.findings; const by=s=>F.filter(f=>f.status===s);
+  const ip=by("in progress"), us=ip.filter(f=>f.whose_move==="us"), them=ip.filter(f=>f.whose_move!=="us");
+  const un=by("unanswered").sort((a,b)=>String((a.evidence||{}).date).localeCompare(String((b.evidence||{}).date)));
+  const groups=[["In progress — your move",us,true,"A maintainer asked something or asked for a change; the next step is ours."],
+    ["In progress — waiting on the maintainers",them,true,"A maintainer engaged; the last word is ours or theirs is pending."],
+    ["Unanswered",un,true,"No human response yet (bots and our own posts do not count). Oldest first."],
+    ["Resolved",by("resolved"),false,"Fixed upstream by any route: our PR merged, or the maintainers fixed it their own way."],
+    ["Rejected",by("rejected"),false,"A maintainer declined, closed or not."],
+    ["Withdrawn",by("withdrawn"),false,"We closed or retracted it ourselves."]];
+  const cap=Object.entries(LG.unanswered_per_repo).filter(([r,n])=>n>=2).sort((a,b)=>b[1]-a[1]).map(([r,n])=>`${esc(r)} (${n})`).join(", ");
+  let h=`<h2 class="repo">Ledger <span class="eyebrow">${F.length} findings · ${LG.threads} threads · every thread read in full</span></h2>`;
+  h+=`<div class="guide"><span class="eyebrow">statuses</span><br>An issue and the PR that fixes it count as one finding; its status is the best of its threads (resolved, then in progress, rejected, unanswered). Each card quotes the decisive human comment or action. In progress: your move ${us.length}, theirs ${them.length} · unanswered ${un.length} · resolved ${by("resolved").length} · rejected ${by("rejected").length} · withdrawn ${by("withdrawn").length}.</div>`;
+  if (cap) h+=`<div class="note"><strong>At or over the two-unanswered cap:</strong> ${cap}. Nothing new is filed there until a maintainer answers.</div>`;
+  for (const [label,items,open,why] of groups){ if(!items.length) continue;
+    const inner=`<p class="hint" style="margin:0 0 8px">${esc(why)}</p><ol class="steps">${items.map(ledgerCard).join("")}</ol>`;
+    h+= open?`<div class="tier-block"><p class="eyebrow tier">${esc(label)} · ${items.length}</p>${inner}</div>`:`<details class="tier-held"><summary>${esc(label)} · ${items.length} — click to expand</summary>${inner}</details>`; }
+  const sec=document.createElement("section"); sec.innerHTML=h; return sec;
+}
 function render(){
   const root=document.getElementById("root"); root.innerHTML="";
   const taken=new Set();
@@ -159,6 +188,7 @@ function render(){
   const top=document.createElement("section");
   top.innerHTML=`<h2 class="repo">Do next <span class="eyebrow">in order · ${ACT.actions.length}</span></h2><div class="guide"><span class="eyebrow">how this list is made</span><br>One fix per repository at a time; a second only where the first was accepted. Nothing new on a repository with two unanswered filings, nothing at all where the maintainers decline AI-generated contributions, and comments on threads the maintainers keep open are exempt from the cap.</div><ol class="steps actions">${actionCards}</ol><details class="tier-held" open><summary>Waiting for a signal · ${ACT.waiting.length}</summary><ul class="waiting">${waiting}</ul></details>`;
   root.appendChild(top);
+  root.appendChild(ledgerSection());
   const FXrest=FX.filter(f=>!taken.has("fix|"+f.pkg+"|"+f.issue));
   if (FXrest.length){
     const sec=document.createElement("section");
@@ -194,5 +224,5 @@ function render(){
 render();
 </script>
 '''
-page=page.replace("__DATA__", json.dumps(D).replace("</","<\\/")).replace("__ORDER__", json.dumps(order)).replace("__FIXES__", json.dumps(FX).replace("</","<\\/")).replace("__LABELS__", json.dumps(labels)).replace("__ACTIONS__", json.dumps(ACT).replace("</","<\\/"))
+page=page.replace("__DATA__", json.dumps(D).replace("</","<\\/")).replace("__ORDER__", json.dumps(order)).replace("__FIXES__", json.dumps(FX).replace("</","<\\/")).replace("__LABELS__", json.dumps(labels)).replace("__ACTIONS__", json.dumps(ACT).replace("</","<\\/")).replace("__LEDGER__", json.dumps(LG).replace("</","<\\/"))
 open(os.path.join(OUT,"filing-console.html"),"w").write(page); print(len(page),"bytes")

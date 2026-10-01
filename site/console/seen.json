@@ -10,7 +10,18 @@
    "merged": false,
    "comments": 1,
    "updated": "2026-09-30T12:40:13Z",
-   "note": "BC1 issue (Mann-Whitney bias Z-scores wrap at 1291 reads per bin), filed 2026-09-23 19:45; closed as completed by pd3 2026-09-30: fixed via #2598"
+   "note": "BC1 issue (Mann-Whitney bias Z-scores wrap at 1291 reads per bin), filed 2026-09-23 19:45; closed as completed by pd3 2026-09-30: fixed via #2598",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thank you for this. It was fixed via https://github.com/samtools/bcftools/pull/2598",
+    "author": "pd3",
+    "date": "2026-09-30T12:40:13Z",
+    "url": "https://github.com/samtools/bcftools/issues/2594#issuecomment-5911487659"
+   },
+   "fixed_by": "PR #2598 (merged by pd3 2026-09-30T12:39:18Z, merge commit 3dce573375c68cc8828480e500c24962d989df83)",
+   "status_checked": "2026-10-01",
+   "title": "mpileup: INFO/MQBZ, BQBZ, RPBZ, SCBZ, MQSBZ, NMBZ shrink towards zero once a quality bin holds 1291 or more reads (32-bit overflow of the tie correction)"
   },
   {
    "repo": "google-deepmind/alphafold3",
@@ -20,7 +31,17 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-23T16:13:38Z",
-   "note": "AF2 issue (chain_ids per token), filed 2026-09-23 16:13"
+   "note": "AF2 issue (chain_ids per token), filed 2026-09-23 16:13",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-23T16:13:38Z",
+    "url": "https://github.com/google-deepmind/alphafold3/issues/746"
+   },
+   "status_checked": "2026-10-01",
+   "title": "`chain_ids` in `summary_confidences.json` has one entry per token, not one per chain as documented"
   },
   {
    "repo": "fieldtrip/fieldtrip",
@@ -30,7 +51,17 @@
    "merged": false,
    "comments": 5,
    "updated": "2026-09-23T16:12:37Z",
-   "note": "fifth comment 2026-09-23 16:12 is the owner's Octave survey results comment (read in full); waiting on schoffelen"
+   "note": "fifth comment 2026-09-23 16:12 is the owner's Octave survey results comment (read in full); waiting on schoffelen",
+   "status": "in progress",
+   "whose_move": "them",
+   "evidence": {
+    "quote": "Re FAQ: yes please proceed. Note that this should ideally be contributed as a PR (for a new page) in https://github.com/fieldtrip/website",
+    "author": "schoffelen",
+    "date": "2026-09-16T14:46:15Z",
+    "url": "https://github.com/fieldtrip/fieldtrip/issues/2614#issuecomment-5699406823"
+   },
+   "status_checked": "2026-10-01",
+   "title": "ft_specest_mtmfft: taper='dpss' fails through external/signal/dpss_hack (one-output dpss), so the no-toolbox route and Octave cannot use multitapers"
   },
   {
    "repo": "fieldtrip/fieldtrip",
@@ -40,7 +71,18 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-23T16:10:33Z",
-   "note": "FT17 issue (external/stats path regression since 55ee593), filed 2026-09-23 16:10"
+   "note": "FT17 issue (external/stats path regression since 55ee593), filed 2026-09-23 16:10",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "FIX #2618 - thanks to @korbinian90",
+    "author": "robertoostenveld",
+    "date": "2026-09-24T06:45:09Z",
+    "url": "https://github.com/fieldtrip/fieldtrip/commit/f46a32c5a3744e9bbac6d7dcd26e3ec273366a20"
+   },
+   "fixed_by": "f46a32c5a3744e9bbac6d7dcd26e3ec273366a20 (fixes issue #2618)",
+   "status_checked": "2026-10-01",
+   "title": "`external/stats` is no longer added to the path since 55ee593: `nanmean` etc. undefined without the Statistics Toolbox (and under Octave); `test_external_stats` fails on master"
   },
   {
    "repo": "google-deepmind/alphafold3",
@@ -50,7 +92,17 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-22T22:26:15Z",
-   "note": "AF1 issue, filed 2026-09-22"
+   "note": "AF1 issue, filed 2026-09-22",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-22T22:26:15Z",
+    "url": "https://github.com/google-deepmind/alphafold3/issues/744"
+   },
+   "status_checked": "2026-10-01",
+   "title": "`Input.to_json()` reorders chains when identical chains are separated by a different chain, so `<name>_data.json` does not describe the run that produced it"
   },
   {
    "repo": "afni/afni",
@@ -60,7 +112,18 @@
    "merged": false,
    "comments": 1,
    "updated": "2026-09-22T21:33:28Z",
-   "note": "closed 2026-09-22 21:33 (its fixes are on master via PR #960's commits)"
+   "note": "closed 2026-09-22 21:33 (its fixes are on master via PR #960's commits)",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thanks for the suggestions! Fixes are in and pushed to master.",
+    "author": "afni-gangc",
+    "date": "2026-09-22T18:21:32Z",
+    "url": "https://github.com/afni/afni/pull/960#pullrequestreview-5281977722"
+   },
+   "fixed_by": "94211003e77568ad996c8d9599c8027a971f1632, cb91276aaa4ca10c45127d921f83d1f89fb949ca, d4e4951bc95916253769927f0fe405be6a789274 (afni-gangc, master, 2026-09-22)",
+   "status_checked": "2026-10-01",
+   "title": "R group programs: 3dMEMA missing-data DF errors; 3dLMEr GLT+GLF stat-type mis-stamping; 3dMVM -robust z understated (fixes available)"
   },
   {
    "repo": "afni/afni",
@@ -70,7 +133,17 @@
    "merged": false,
    "comments": 2,
    "updated": "2026-09-22T21:20:59Z",
-   "note": "2026-09-22 21:20: second comment, presumably the owner's reply (the drafted +-13 answer); waiting on afni-dglen"
+   "note": "2026-09-22 21:20: second comment, presumably the owner's reply (the drafted +-13 answer); waiting on afni-dglen",
+   "status": "in progress",
+   "whose_move": "them",
+   "evidence": {
+    "quote": "It's not really clear what the best behavior is here. The function is undefined at +/-1.0, so the result is somewhat arbitrary.",
+    "author": "afni-dglen",
+    "date": "2026-09-18T22:29:40Z",
+    "url": "https://github.com/afni/afni/issues/967#issuecomment-5736957742"
+   },
+   "status_checked": "2026-10-01",
+   "title": "3dcalc atanh(±1) returns ±1: Fisher-z pipelines silently underestimate z at |r|=1"
   },
   {
    "repo": "deeptools/deepTools",
@@ -80,7 +153,18 @@
    "merged": false,
    "comments": 1,
    "updated": "2026-09-18T18:30:34Z",
-   "note": "WardDeb 2026-09-18: 'Superseded by #1472'; #1472 (merged 2026-09-18, 0604617) makes samples-as-observations the only plotPCA layout and removes --transpose/--rowCenter, which fixes the reported bug; nothing to do"
+   "note": "WardDeb 2026-09-18: 'Superseded by #1472'; #1472 (merged 2026-09-18, 0604617) makes samples-as-observations the only plotPCA layout and removes --transpose/--rowCenter, which fixes the reported bug; nothing to do",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Superseded by #1472",
+    "author": "WardDeb",
+    "date": "2026-09-18T18:30:34Z",
+    "url": "https://github.com/deeptools/deepTools/issues/1459#issuecomment-5734462452"
+   },
+   "fixed_by": "#1472",
+   "status_checked": "2026-10-01",
+   "title": "plotPCA (4.0.0 re-implementation): the default table and plot hold the PC scores of the first bins, not the loadings of the samples"
   },
   {
    "repo": "afni/afni",
@@ -90,7 +174,18 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-18T18:08:26Z",
-   "note": "closed completed with PR #962"
+   "note": "closed completed with PR #962",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thanks!",
+    "author": "afni-rickr",
+    "date": "2026-09-18T18:08:15Z",
+    "url": "https://github.com/afni/afni/pull/962#issuecomment-5734186776"
+   },
+   "fixed_by": "PR #962 (merge 6a889c57d22dcc7fcb51b952760e409157f0765f, merged by afni-rickr 2026-09-18)",
+   "status_checked": "2026-10-01",
+   "title": "3dROIstats -sigma/-nzsigma: Bessel correction is an integer-division no-op — reported SDs are population SDs (fix available)"
   },
   {
    "repo": "afni/afni",
@@ -100,7 +195,18 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-18T18:06:55Z",
-   "note": "closed completed with PR #958"
+   "note": "closed completed with PR #958",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Great, thanks!",
+    "author": "afni-rickr",
+    "date": "2026-09-18T18:06:48Z",
+    "url": "https://github.com/afni/afni/pull/958#issuecomment-5734170151"
+   },
+   "fixed_by": "PR #958 (merge 322124671200033243f346b7a3d9171b5626297f, merged by afni-rickr 2026-09-18)",
+   "status_checked": "2026-10-01",
+   "title": "3dTshift -no_detrend: second voxel of each pair is shifted without demeaning (copy-paste bug, fix available)"
   },
   {
    "repo": "GSEA-MSigDB/gsea-desktop",
@@ -109,7 +215,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-14T17:10:17Z"
+   "updated": "2026-09-14T17:10:17Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-14T17:10:17Z",
+    "url": "https://github.com/GSEA-MSigDB/gsea-desktop/issues/74"
+   },
+   "status_checked": "2026-10-01",
+   "title": "A gene set whose members all have ranking score 0 is reported with a spurious ES, NES and p-value under the weighted scoring scheme (NaN hit weight)"
   },
   {
    "repo": "samtools/samtools",
@@ -119,7 +235,18 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-24T15:35:22Z",
-   "note": "closed completed 2026-09-24 with the merge of PR #2379"
+   "note": "closed completed 2026-09-24 with the merge of PR #2379",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Looks OK, thanks.  I've confirmed that the results match those from the original code when modified to start with a buffer that doesn't need to be resized.",
+    "author": "daviesrob",
+    "date": "2026-09-24T15:35:11Z",
+    "url": "https://github.com/samtools/samtools/pull/2379#issuecomment-5817205518"
+   },
+   "fixed_by": "PR #2379 (merge commit de749a608d004aa779e1d010669412e8f3308d08, merged by daviesrob)",
+   "status_checked": "2026-10-01",
+   "title": "stats: coverage distribution (COV, -t/-g target percentage) wraps around a fixed ring buffer for spliced alignments and drops counts on buffer reallocation"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -128,7 +255,17 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-08T01:06:24Z"
+   "updated": "2026-09-08T01:06:24Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:06:24Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1471#issuecomment-5577515614"
+   },
+   "status_checked": "2026-10-01",
+   "title": "mri_aparc2aseg: voxels whose surface candidates are all rejected inherit the previous voxel's ROI and hemisphere (uninitialized annotid)"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -137,7 +274,17 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-08T01:05:10Z"
+   "updated": "2026-09-08T01:05:10Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:05:10Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1469#issuecomment-5577505389"
+   },
+   "status_checked": "2026-10-01",
+   "title": "mris_anatomical_stats -i <low> <high> is a silent no-op — prints that it filtered thickness, but never does"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -146,7 +293,17 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-08T01:04:04Z"
+   "updated": "2026-09-08T01:04:04Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:04:04Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1467#issuecomment-5577496788"
+   },
+   "status_checked": "2026-10-01",
+   "title": "GCSAreclassifyLabel compares Gibbs log-likelihoods as ints — annotation islands absorbed by adjacency order, not likelihood"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -155,7 +312,17 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-08T01:03:17Z"
+   "updated": "2026-09-08T01:03:17Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:03:17Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1465#issuecomment-5577490291"
+   },
+   "status_checked": "2026-10-01",
+   "title": "mri_vol2surf --projfrac-avg silently drops the deepest sample for common (min,max,delta) values; same in mri_surf2vol --fill-projfrac"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -164,7 +331,17 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-08T01:02:44Z"
+   "updated": "2026-09-08T01:02:44Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:02:44Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1463#issuecomment-5577485967"
+   },
+   "status_checked": "2026-10-01",
+   "title": "GLMtestFFx: multi-row (F) contrast p-values inflated ~J-fold (Wald statistic passed to the F CDF without dividing by J)"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -173,7 +350,17 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-08T01:02:20Z"
+   "updated": "2026-09-08T01:02:20Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:02:20Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1462#issuecomment-5577482834"
+   },
+   "status_checked": "2026-10-01",
+   "title": "mri_aparc2aseg reads ASeg with MRIneighbors while the parallel loop rewrites ASeg in place (scan-order dependence + OpenMP race)"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -182,7 +369,17 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-08T01:01:46Z"
+   "updated": "2026-09-08T01:01:46Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:01:46Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1461#issuecomment-5577478338"
+   },
+   "status_checked": "2026-10-01",
+   "title": "mris_anatomical_stats per-ROI thickness includes zero-thickness medial-wall vertices for annotations not constrained by cortex.label"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -191,7 +388,17 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-08T01:01:20Z"
+   "updated": "2026-09-08T01:01:20Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:01:20Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1460#issuecomment-5577474741"
+   },
+   "status_checked": "2026-10-01",
+   "title": "CSD p-values use nover/nreps with strict '>' rather than the exact permutation convention; env-var fix is not the default"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -200,7 +407,17 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-08T01:00:36Z"
+   "updated": "2026-09-08T01:00:36Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:00:36Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1459#issuecomment-5577468632"
+   },
+   "status_checked": "2026-10-01",
+   "title": "Volume-based cluster correction: null CSD uses 6-connectivity while mri_glmfit-sim clusters the data with --allowdiag (releases <= 7.4)"
   },
   {
    "repo": "fieldtrip/fieldtrip",
@@ -209,7 +426,17 @@
    "state": "open",
    "merged": false,
    "comments": 2,
-   "updated": "2026-09-05T18:13:36Z"
+   "updated": "2026-09-05T18:13:36Z",
+   "status": "in progress",
+   "whose_move": "them",
+   "evidence": {
+    "quote": "I guess that the overall question up for discussion would be whether or not we would accept the (end-nbin):end bins to contain (correct) data - as per the suggested fix - or whether we would NaN those bins to begin with due to incomplete data to integrate across.",
+    "author": "schoffelen",
+    "date": "2026-09-03T11:21:15Z",
+    "url": "https://github.com/fieldtrip/fieldtrip/issues/2609#issuecomment-5524930361"
+   },
+   "status_checked": "2026-10-01",
+   "title": "ft_connectivity_psi: the last nbin+1 frequency bins include the raw top-bin coherency, and are -Inf with normalize='yes'"
   },
   {
    "repo": "deeptools/deepTools",
@@ -218,7 +445,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-05T15:09:06Z"
+   "updated": "2026-09-05T15:09:06Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-05T15:09:06Z",
+    "url": "https://github.com/deeptools/deepTools/issues/1457"
+   },
+   "status_checked": "2026-10-01",
+   "title": "bamCompare (4.0.0 Rust backend): --operation first/second/add/mean write the log2 ratio, and reciprocal_ratio is inverted"
   },
   {
    "repo": "lmcinnes/umap",
@@ -227,7 +464,18 @@
    "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-05T05:22:39Z"
+   "updated": "2026-09-05T05:22:39Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "(no text: the decisive action carries no comment body) Closed as completed by lmcinnes at 2026-09-05T05:22:39Z, one second after merging PR #1287, whose body says \"Fixes #1286.\"",
+    "author": "lmcinnes",
+    "date": "2026-09-05T05:22:39Z",
+    "url": "https://github.com/lmcinnes/umap/issues/1286"
+   },
+   "fixed_by": "PR #1287 (merge commit 30bd533e3c8567c3049b51853c73443610e0fa2d)",
+   "status_checked": "2026-10-01",
+   "title": "`smooth_knn_dist` returns sigma = inf for any point with a disconnected neighbour, so all its remaining edges get membership strength 1.0"
   },
   {
    "repo": "chrchang/plink-ng",
@@ -236,7 +484,18 @@
    "state": "closed",
    "merged": false,
    "comments": 2,
-   "updated": "2026-09-03T21:49:59Z"
+   "updated": "2026-09-03T21:49:59Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thanks for reporting this; it should be fixed by 1fe42e5 .  Updated prebuilt binaries will be posted later today.",
+    "author": "chrchang",
+    "date": "2026-09-03T14:37:18Z",
+    "url": "https://github.com/chrchang/plink-ng/issues/380#issuecomment-5527395201"
+   },
+   "fixed_by": "1fe42e5b11ec0709bbbb8179e0ba69d015e9b6e8",
+   "status_checked": "2026-10-01",
+   "title": "PLINK 1.9: --hwe removes variants with 2 or 3 heterozygotes whose exact p-value is above the threshold (SNPHWE_t skips the last tail comparison)"
   },
   {
    "repo": "htseq/htseq",
@@ -245,7 +504,17 @@
    "state": "closed",
    "merged": false,
    "comments": 3,
-   "updated": "2026-09-03T15:29:11Z"
+   "updated": "2026-09-03T15:29:11Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Sorry, unfortunately I'm too busy for AI-generated summaries ATM but might reopen if I have more time in the future.",
+    "author": "iosonofabio",
+    "date": "2026-09-03T15:29:11Z",
+    "url": "https://github.com/htseq/htseq/issues/109#issuecomment-5528050544"
+   },
+   "status_checked": "2026-10-01",
+   "title": "htseq-count discards a read pair as `__too_low_aQual` because of the MAPQ of its unmapped mate"
   },
   {
    "repo": "ventolab/CellphoneDB",
@@ -254,7 +523,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-03T02:26:20Z"
+   "updated": "2026-09-03T02:26:20Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-03T02:26:03Z",
+    "url": "https://github.com/ventolab/CellphoneDB/issues/231"
+   },
+   "status_checked": "2026-10-01",
+   "title": "The permutation workers draw identical shuffles, so `iterations` is effectively divided by `threads`"
   },
   {
    "repo": "marcelm/cutadapt",
@@ -263,7 +542,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-03T02:21:09Z"
+   "updated": "2026-09-03T02:21:09Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-03T02:21:09Z",
+    "url": "https://github.com/marcelm/cutadapt/issues/892"
+   },
+   "status_checked": "2026-10-01",
+   "title": "Absolute number of errors (`-e N`) is one too small for some adapter lengths (e.g. `-e 1` allows 0 errors for a 49 nt adapter)"
   },
   {
    "repo": "scverse/scanpy",
@@ -272,7 +561,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-02T23:26:04Z"
+   "updated": "2026-09-02T23:26:04Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-02T23:27:05Z",
+    "url": "https://github.com/scverse/scanpy/issues/4336"
+   },
+   "status_checked": "2026-10-01",
+   "title": "`rank_genes_groups(method=\"t-test\", mean_in_log_space=False)` runs the t-test on exponentiated values"
   },
   {
    "repo": "spm/spm",
@@ -281,7 +580,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-02T17:23:22Z"
+   "updated": "2026-09-02T17:23:22Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-02T17:23:22Z",
+    "url": "https://github.com/spm/spm/issues/167"
+   },
+   "status_checked": "2026-10-01",
+   "title": "spm_design_contrasts: parametric-modulation padding ignores basis-function expansion"
   },
   {
    "repo": "spm/spm",
@@ -290,7 +599,18 @@
    "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-02T09:28:12Z"
+   "updated": "2026-09-02T09:28:12Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "[timeline event] vlitvak merged PR #165 (4e20e07c95bfac1391b4e233ab468dcf1d352f55), which says 'Fixes #164 .'; issue closed by vlitvak as completed",
+    "author": "vlitvak",
+    "date": "2026-09-02T09:28:12Z",
+    "url": "https://github.com/spm/spm/pull/165"
+   },
+   "fixed_by": "PR #165 (4e20e07c95bfac1391b4e233ab468dcf1d352f55)",
+   "status_checked": "2026-10-01",
+   "title": "spm_eeg_downsample: output stamped with requested rather than achieved sampling rate"
   },
   {
    "repo": "spm/spm",
@@ -299,7 +619,18 @@
    "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-02T09:27:46Z"
+   "updated": "2026-09-02T09:27:46Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "[timeline event] vlitvak merged PR #163 (cf67a251e981be52662614870a4f6595362d1cb4), which says 'Fixes #162.'; issue closed by vlitvak as completed",
+    "author": "vlitvak",
+    "date": "2026-09-02T09:27:46Z",
+    "url": "https://github.com/spm/spm/pull/163"
+   },
+   "fixed_by": "PR #163 (cf67a251e981be52662614870a4f6595362d1cb4)",
+   "status_checked": "2026-10-01",
+   "title": "@meeg/badsamples: peristimulus timeOnset double-counted when mapping artefact events to samples"
   },
   {
    "repo": "MouseLand/suite2p",
@@ -308,7 +639,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-02T00:48:57Z"
+   "updated": "2026-09-02T00:48:57Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-02T00:48:57Z",
+    "url": "https://github.com/MouseLand/suite2p/issues/1270"
+   },
+   "status_checked": "2026-10-01",
+   "title": "anatomical.select_rois applies the spatial high-pass twice (duplicated line since v1.0.0.1)"
   },
   {
    "repo": "MouseLand/suite2p",
@@ -317,7 +658,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-02T00:48:40Z"
+   "updated": "2026-09-02T00:48:40Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-02T00:48:40Z",
+    "url": "https://github.com/MouseLand/suite2p/issues/1269"
+   },
+   "status_checked": "2026-10-01",
+   "title": "baseline='constant' subtracts the minimum over all neurons rather than a per-trace constant"
   },
   {
    "repo": "MouseLand/suite2p",
@@ -326,7 +677,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-02T00:47:28Z"
+   "updated": "2026-09-02T00:47:28Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-02T00:47:28Z",
+    "url": "https://github.com/MouseLand/suite2p/issues/1265"
+   },
+   "status_checked": "2026-10-01",
+   "title": "BUG: bidiphase correction corrupts odd scan lines since the torch registration path (v1.0.0.1)"
   },
   {
    "repo": "fieldtrip/fieldtrip",
@@ -335,7 +696,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-01T22:45:03Z"
+   "updated": "2026-09-01T22:45:03Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-01T22:45:03Z",
+    "url": "https://github.com/fieldtrip/fieldtrip/issues/2607"
+   },
+   "status_checked": "2026-10-01",
+   "title": "Permutation p-values use strict > and exclude ties: p = 0 with numrandomization='all', anti-conservative maxsize clusters"
   },
   {
    "repo": "MouseLand/Kilosort",
@@ -344,7 +715,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-01T22:00:54Z"
+   "updated": "2026-09-01T22:00:54Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-01T22:00:54Z",
+    "url": "https://github.com/MouseLand/Kilosort/issues/1047"
+   },
+   "status_checked": "2026-10-01",
+   "title": "DOC: Kilosort 2.5/3 rezToPhy writes a scaled identity as whitening_mat.npy (KS2.0 wrote the real Wrot)"
   },
   {
    "repo": "MouseLand/Kilosort",
@@ -353,7 +734,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-01T22:00:37Z"
+   "updated": "2026-09-01T22:00:37Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-01T22:00:37Z",
+    "url": "https://github.com/MouseLand/Kilosort/issues/1046"
+   },
+   "status_checked": "2026-10-01",
+   "title": "BUG (KS2/2.5/3): get_whitening_matrix normalizes covariance by ceil((Nbatch-1)/nSkipCov) but accumulates floor(..)+1 batches"
   },
   {
    "repo": "MouseLand/Kilosort",
@@ -362,7 +753,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-01T21:59:22Z"
+   "updated": "2026-09-01T21:59:22Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-01T21:59:22Z",
+    "url": "https://github.com/MouseLand/Kilosort/issues/1044"
+   },
+   "status_checked": "2026-10-01",
+   "title": "BUG: clusters with <=10 spikes export ContamPct = 0.0, the best possible score"
   },
   {
    "repo": "thelovelab/DESeq2",
@@ -371,7 +772,17 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-01T18:10:29Z"
+   "updated": "2026-09-01T18:10:29Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "This change was documented in NEWS",
+    "author": "mikelove",
+    "date": "2026-09-01T18:10:29Z",
+    "url": "https://github.com/thelovelab/DESeq2/issues/130#issuecomment-5498302365"
+   },
+   "status_checked": "2026-10-01",
+   "title": "Request: NEWS/erratum entry for the results(contrast=) weights misalignment fixed in abe5994 (affected releases 1.16.0–1.49.x)"
   },
   {
    "repo": "thelovelab/DESeq2",
@@ -380,7 +791,17 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-01T18:08:57Z"
+   "updated": "2026-09-01T18:08:57Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "This change will not be taken up for the same reason as the other issue posted.",
+    "author": "mikelove",
+    "date": "2026-09-01T18:08:57Z",
+    "url": "https://github.com/thelovelab/DESeq2/issues/131#issuecomment-5498284353"
+   },
+   "status_checked": "2026-10-01",
+   "title": "replaceOutliers: replacement counts are truncated, not rounded (systematic -0.5 bias)"
   },
   {
    "repo": "thelovelab/DESeq2",
@@ -389,7 +810,17 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-01T18:08:24Z"
+   "updated": "2026-09-01T18:08:24Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "This change is already documented in NEWS",
+    "author": "mikelove",
+    "date": "2026-09-01T18:08:24Z",
+    "url": "https://github.com/thelovelab/DESeq2/issues/133#issuecomment-5498277894"
+   },
+   "status_checked": "2026-10-01",
+   "title": "Docs/NEWS request: make the v1.44 change of the default lfcThreshold test more visible (p-values differ up to 2x across the version boundary)"
   },
   {
    "repo": "spm/spm",
@@ -398,7 +829,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-31T21:13:42Z"
+   "updated": "2026-08-31T21:13:42Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-08-31T21:13:42Z",
+    "url": "https://github.com/spm/spm/issues/160"
+   },
+   "status_checked": "2026-10-01",
+   "title": "spm_nlsi_GN: free-energy log-det term overcounted by a factor of nq"
   },
   {
    "repo": "spm/spm",
@@ -407,7 +848,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-31T21:11:45Z"
+   "updated": "2026-08-31T21:11:45Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-08-31T21:11:45Z",
+    "url": "https://github.com/spm/spm/issues/158"
+   },
+   "status_checked": "2026-10-01",
+   "title": "spm_ECdensity: chi-squared EC densities use the wrong power of t at dimensions 2 and 3"
   },
   {
    "repo": "afni/afni",
@@ -416,7 +867,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-31T21:08:19Z"
+   "updated": "2026-08-31T21:08:19Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-08-31T21:08:19Z",
+    "url": "https://github.com/afni/afni/issues/968"
+   },
+   "status_checked": "2026-10-01",
+   "title": "ACF-based \"effective FWHM\" is √2 larger than kernel FWHM by construction; 3dBlurToFWHM -acf stops at ~G/√2 of kernel-equivalent smoothing"
   },
   {
    "repo": "afni/afni",
@@ -425,7 +886,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-31T21:05:18Z"
+   "updated": "2026-08-31T21:05:18Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-08-31T21:05:18Z",
+    "url": "https://github.com/afni/afni/issues/965"
+   },
+   "status_checked": "2026-10-01",
+   "title": "Five small correctness bugs: armacor abs(), 3dXClustSim realloc, RGB→gray luma, 3dpc labels, 3dDWItoDT zero-gradient NaN (fixes available)"
   },
   {
    "repo": "afni/afni",
@@ -434,7 +905,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-31T21:03:56Z"
+   "updated": "2026-08-31T21:03:56Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-08-31T21:03:56Z",
+    "url": "https://github.com/afni/afni/issues/963"
+   },
+   "status_checked": "2026-10-01",
+   "title": "Out-of-bounds reads at extreme percentiles in 3dmaskave -perc and mri_percents/mri_quantile (fix available)"
   },
   {
    "repo": "afni/afni",
@@ -443,7 +924,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-31T20:57:35Z"
+   "updated": "2026-08-31T20:57:35Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-08-31T20:57:35Z",
+    "url": "https://github.com/afni/afni/issues/955"
+   },
+   "status_checked": "2026-10-01",
+   "title": "3dBrickStat: -automask silently truncates the voxel scan; -absolute truncates values to integers (fixes available)"
   },
   {
    "repo": "afni/afni",
@@ -452,7 +943,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-28T22:26:47Z"
+   "updated": "2026-08-28T22:26:47Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-08-28T22:26:47Z",
+    "url": "https://github.com/afni/afni/issues/954"
+   },
+   "status_checked": "2026-10-01",
+   "title": "3dTstat: -DW collapses to 0 on non-demeaned data; -tdiff detrends the wrong line; -nzmean writes NaN (fixes available)"
   },
   {
    "repo": "afni/afni",
@@ -461,7 +962,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-28T22:23:14Z"
+   "updated": "2026-08-28T22:23:14Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-08-28T22:23:14Z",
+    "url": "https://github.com/afni/afni/issues/952"
+   },
+   "status_checked": "2026-10-01",
+   "title": "3dttest++: -paired -zskip silently zeroes voxels; -BminusA sign error with -nomeans; t-to-z saturates at 13 (fixes available)"
   },
   {
    "repo": "afni/afni",
@@ -470,7 +981,18 @@
    "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-28T13:53:29Z"
+   "updated": "2026-08-28T13:53:29Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Yes, agreed, this had assumed a mapping of time series values to ranks, which had not been added. Thanks!",
+    "author": "mrneont",
+    "date": "2026-08-28T13:53:22Z",
+    "url": "https://github.com/afni/afni/pull/944#issuecomment-5453363742"
+   },
+   "fixed_by": "PR#944 (merge a0a95308dc749008efc65cb8e1bb79bf13f976d5)",
+   "status_checked": "2026-10-01",
+   "title": "3dReHo: tie detection truncates float data to int, biasing Kendall’s W on scaled data (fix available)"
   },
   {
    "repo": "afni/afni",
@@ -479,7 +1001,18 @@
    "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-28T13:50:33Z"
+   "updated": "2026-08-28T13:50:33Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Oh my.  I guess no one uses the seq_dec sequence, as we've never had a complaint.  Thanks!",
+    "author": "afni-rickr",
+    "date": "2026-08-28T13:50:21Z",
+    "url": "https://github.com/afni/afni/pull/947#issuecomment-5453333253"
+   },
+   "fixed_by": "PR#947 (merge 16a5c32162c07574814ee8528afa444b902693f6)",
+   "status_checked": "2026-10-01",
+   "title": "NIFTI sequential-descending slice timing is discarded on read, making 3dTshift a silent no-op (fix available)"
   },
   {
    "repo": "afni/afni",
@@ -488,7 +1021,18 @@
    "state": "closed",
    "merged": false,
    "comments": 2,
-   "updated": "2026-08-28T13:26:07Z"
+   "updated": "2026-08-28T13:26:07Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thanks!",
+    "author": "afni-rickr",
+    "date": "2026-08-28T13:25:57Z",
+    "url": "https://github.com/afni/afni/pull/928#issuecomment-5453080888"
+   },
+   "fixed_by": "PR#928 (merge ba95601fc84a083dd98c83fc8db301870fbbe652)",
+   "status_checked": "2026-10-01",
+   "title": "tests: non-zero exit codes are never detected (async executor returns None)"
   },
   {
    "repo": "afni/afni",
@@ -497,7 +1041,18 @@
    "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-28T13:25:00Z"
+   "updated": "2026-08-28T13:25:00Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "[action, no comment] Merged PR #926 (\"Fixes #925\") and closed this issue as completed.",
+    "author": "afni-rickr",
+    "date": "2026-08-28T13:25:01Z",
+    "url": "https://github.com/afni/afni/pull/926"
+   },
+   "fixed_by": "PR#926 (merge d513902a9c4a4bc944423d2585556c53690e84dc)",
+   "status_checked": "2026-10-01",
+   "title": "tests: test_3dttest++ never executes 3dttest++ (OutputDiffer constructed but never run)"
   },
   {
    "repo": "samtools/bcftools",
@@ -507,7 +1062,22 @@
    "merged": false,
    "comments": 6,
    "updated": "2026-09-30T12:39:51Z",
-   "note": "BC1 PR (fix/mwu-biasz-int64, one signed-off commit 83b7888 on develop edf7fd9), filed 2026-09-23 19:50; the fork's five CI workflows (Linux, macOS, Windows, VMs, Containers) green on 83b7888; merges clean; jkbonfield 2026-09-28 10:18/10:33: asked for the MCVE script, posted a no-cube refactor; verified here, reply BCR1 drafted (not posted); owner posted BCR1 14:22; jkbonfield 15:33: refactor probably better but harder to analyse, a human must understand and sign off each line before they commit AI code; no question to us; 2026-09-29 16:27 jkbonfield: replaced by his PR #2598 (our commit intact + his refactor commit), over to pd3; watch #2598 for the merge; closed by pd3 2026-09-30 12:39: merged via #2598 (our commit 041c66cf on develop)"
+   "note": "BC1 PR (fix/mwu-biasz-int64, one signed-off commit 83b7888 on develop edf7fd9), filed 2026-09-23 19:50; the fork's five CI workflows (Linux, macOS, Windows, VMs, Containers) green on 83b7888; merges clean; jkbonfield 2026-09-28 10:18/10:33: asked for the MCVE script, posted a no-cube refactor; verified here, reply BCR1 drafted (not posted); owner posted BCR1 14:22; jkbonfield 15:33: refactor probably better but harder to analyse, a human must understand and sign off each line before they commit AI code; no question to us; 2026-09-29 16:27 jkbonfield: replaced by his PR #2598 (our commit intact + his refactor commit), over to pd3; watch #2598 for the merge; closed by pd3 2026-09-30 12:39: merged via #2598 (our commit 041c66cf on develop)",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thank you for this. This was merged via https://github.com/samtools/bcftools/pull/2598",
+    "author": "pd3",
+    "date": "2026-09-30T12:39:50Z",
+    "url": "https://github.com/samtools/bcftools/pull/2595#issuecomment-5911481628"
+   },
+   "fixed_by": "PR #2598 (merged by pd3; carries this PR's commit 83b788894b53d1768bc895f4939c9d4f59c9ea05 unchanged, authored by Cindy Krafft)",
+   "superseded_by": "#2598",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    2594
+   ],
+   "title": "mpileup: use 64-bit accumulators in the Mann-Whitney bias Z scores"
   },
   {
    "repo": "fieldtrip/fieldtrip",
@@ -515,9 +1085,22 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 5,
+   "comments": 6,
    "updated": "2026-10-01T09:14:47Z",
-   "note": "FT17 PR, four commits (head 99b4c3c); comments: the bot's suggested-tests comment twice (after each push) and the owner's reply of 2026-09-23 19:39 (tests run, third copy fixed, codespell explained); read in full 2026-09-24; no maintainer comment yet; codespell red is the variable eary on master too; schoffelen 2026-10-01 08:59 and 09:12: Octave 10.3 results differ, history question, reluctant about changes outside compat/octave; FT18 drafted (includes a correction about the stand-in functions)"
+   "note": "FT17 PR, four commits (head 99b4c3c); comments: the bot's suggested-tests comment twice (after each push) and the owner's reply of 2026-09-23 19:39 (tests run, third copy fixed, codespell explained); read in full 2026-09-24; no maintainer comment yet; codespell red is the variable eary on master too; schoffelen 2026-10-01 08:59 and 09:12: Octave 10.3 results differ, history question, reluctant about changes outside compat/octave; FT18 drafted (includes a correction about the stand-in functions); schoffelen 2026-10-01 x2; FT18 posted 2026-10-01",
+   "status": "in progress",
+   "whose_move": "them",
+   "evidence": {
+    "quote": "All in all,  my interim conclusion is that there is too much discrepancy between different octave versions to take the current PR at face value",
+    "author": "schoffelen",
+    "date": "2026-10-01T08:59:47Z",
+    "url": "https://github.com/fieldtrip/fieldtrip/pull/2622#issuecomment-5928165848"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    2621
+   ],
+   "title": "Fix/octave compat survey"
   },
   {
    "repo": "google-deepmind/alphafold3",
@@ -527,7 +1110,20 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-23T16:14:04Z",
-   "note": "AF2 PR (fix/summary-confidences-chain-ids, one line), filed 2026-09-23 16:14; CLA check to watch; merges clean into main a66cc52"
+   "note": "AF2 PR (fix/summary-confidences-chain-ids, one line), filed 2026-09-23 16:14; CLA check to watch; merges clean into main a66cc52",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-23T16:14:04Z",
+    "url": "https://github.com/google-deepmind/alphafold3/pull/747"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    746
+   ],
+   "title": "Make summary_confidences chain_ids one entry per chain"
   },
   {
    "repo": "fieldtrip/website",
@@ -537,7 +1133,18 @@
    "merged": true,
    "comments": 1,
    "updated": "2026-09-23T06:26:43Z",
-   "note": "the dpss FAQ page: merged 2026-09-23 06:26 UTC by robertoostenveld after his own title/links edit; comment 'thanks!' (read in full 2026-09-23); nothing to do"
+   "note": "the dpss FAQ page: merged 2026-09-23 06:26 UTC by robertoostenveld after his own title/links edit; comment 'thanks!' (read in full 2026-09-23); nothing to do",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "thanks!",
+    "author": "robertoostenveld",
+    "date": "2026-09-23T06:26:43Z",
+    "url": "https://github.com/fieldtrip/website/pull/958#issuecomment-5790149619"
+   },
+   "fixed_by": "PR#958 (merge commit fdbc513748556343ed09d06d33f532a7bd0e6857)",
+   "status_checked": "2026-10-01",
+   "title": "FAQ: dpss errors without the Signal Processing Toolbox"
   },
   {
    "repo": "google-deepmind/alphafold3",
@@ -547,7 +1154,20 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-22T22:26:41Z",
-   "note": "AF1 PR (fix/to-json-preserves-chain-order, fix + regression test), filed 2026-09-22; CLA check to watch; merges clean into main a66cc52"
+   "note": "AF1 PR (fix/to-json-preserves-chain-order, fix + regression test), filed 2026-09-22; CLA check to watch; merges clean into main a66cc52",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-22T22:26:41Z",
+    "url": "https://github.com/google-deepmind/alphafold3/pull/745"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    744
+   ],
+   "title": "Keep chain order stable across a to_json / from_json round trip"
   },
   {
    "repo": "afni/afni",
@@ -557,7 +1177,21 @@
    "merged": false,
    "comments": 2,
    "updated": "2026-09-22T21:32:18Z",
-   "note": "closed 2026-09-22 21:32 with the closing note (fixes on master as 94211003e, cb91276aa, d4e4951bc)"
+   "note": "closed 2026-09-22 21:32 with the closing note (fixes on master as 94211003e, cb91276aa, d4e4951bc)",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thanks for the suggestions! Fixes are in and pushed to master.",
+    "author": "afni-gangc",
+    "date": "2026-09-22T18:21:32Z",
+    "url": "https://github.com/afni/afni/pull/960#pullrequestreview-5281977722"
+   },
+   "fixed_by": "94211003e77568ad996c8d9599c8027a971f1632, cb91276aaa4ca10c45127d921f83d1f89fb949ca, d4e4951bc95916253769927f0fe405be6a789274 (afni-gangc, master, 2026-09-22)",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    959
+   ],
+   "title": "3dMEMA/3dLMEr/3dMVM: fix missing-data DF bookkeeping and p-to-stat conversions"
   },
   {
    "repo": "afni/afni",
@@ -567,7 +1201,20 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-22T16:39:34Z",
-   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC"
+   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-08-28T22:22:37Z",
+    "url": "https://github.com/afni/afni/pull/951"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    952
+   ],
+   "title": "3dttest++/3dGroupInCorr: fix paired-zskip zeroing, BminusA negation slots, and t-to-z roundoff saturation"
   },
   {
    "repo": "afni/afni",
@@ -577,7 +1224,20 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-22T16:39:34Z",
-   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC"
+   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-08-28T22:26:05Z",
+    "url": "https://github.com/afni/afni/pull/953"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    954
+   ],
+   "title": "3dTstat: fix -DW denominator, -tdiff detrend conventions, -nzmean NaN"
   },
   {
    "repo": "afni/afni",
@@ -587,7 +1247,20 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-22T16:39:34Z",
-   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC"
+   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-08-31T20:58:35Z",
+    "url": "https://github.com/afni/afni/pull/956"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    955
+   ],
+   "title": "3dBrickStat: fix -automask voxel-scan truncation and -absolute integer truncation"
   },
   {
    "repo": "afni/afni",
@@ -597,7 +1270,20 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-22T16:39:33Z",
-   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC"
+   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-08-31T21:04:26Z",
+    "url": "https://github.com/afni/afni/pull/964"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    963
+   ],
+   "title": "3dmaskave/mri_percents: fix one-past-end reads at extreme percentiles"
   },
   {
    "repo": "afni/afni",
@@ -607,7 +1293,20 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-22T16:39:33Z",
-   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC"
+   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-08-31T21:06:07Z",
+    "url": "https://github.com/afni/afni/pull/966"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    965
+   ],
+   "title": "Assorted one-line correctness fixes (armacor, 3dXClustSim, edt_coerce, 3dpc, 3dDWItoDT)"
   },
   {
    "repo": "afni/afni",
@@ -617,7 +1316,20 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-22T16:39:33Z",
-   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC"
+   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-04T17:39:25Z",
+    "url": "https://github.com/afni/afni/pull/974"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    73
+   ],
+   "title": "NIfTI read: keep the time axis consistent with the sub-bricks present; 3dvolreg: exit non-zero when a write fails (#73)"
   },
   {
    "repo": "google-deepmind/alphafold3",
@@ -627,7 +1339,18 @@
    "merged": false,
    "comments": 2,
    "updated": "2026-09-21T16:15:27Z",
-   "note": "Augustin-Zidek 2026-09-21: 'thanks for the PR and for catching this bug. I submitted a fix in 3485995 and I will make sure to mention you in the release notes for the next version!' (first comment was the google-cla bot: CLA not signed); nothing to do"
+   "note": "Augustin-Zidek 2026-09-21: 'thanks for the PR and for catching this bug. I submitted a fix in 3485995 and I will make sure to mention you in the release notes for the next version!' (first comment was the google-cla bot: CLA not signed); nothing to do",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Hi, thanks for the PR and for catching this bug.\r\n\r\nI submitted a fix in https://github.com/google-deepmind/alphafold3/commit/348599597ad21c07a8f693c03717660214cea33b",
+    "author": "Augustin-Zidek",
+    "date": "2026-09-21T16:15:26Z",
+    "url": "https://github.com/google-deepmind/alphafold3/pull/734#issuecomment-5763728165"
+   },
+   "fixed_by": "348599597ad21c07a8f693c03717660214cea33b",
+   "status_checked": "2026-10-01",
+   "title": "Do not let a user CCD mutate the shared cached CCD dictionary"
   },
   {
    "repo": "deeptools/deepTools",
@@ -637,7 +1360,21 @@
    "merged": false,
    "comments": 1,
    "updated": "2026-09-18T18:30:07Z",
-   "note": "WardDeb 2026-09-18: 'Thanks for flagging this, the bug is correct. We did decide to simplify this and only retain scores, dropping transpose+center (#1472).' Closed, not merged; fix landed via #1472; nothing to do"
+   "note": "WardDeb 2026-09-18: 'Thanks for flagging this, the bug is correct. We did decide to simplify this and only retain scores, dropping transpose+center (#1472).' Closed, not merged; fix landed via #1472; nothing to do",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thanks for flagging this, the bug is correct. We did decide to simplify this and only retain scores, dropping transpose+center (#1472).",
+    "author": "WardDeb",
+    "date": "2026-09-18T18:30:06Z",
+    "url": "https://github.com/deeptools/deepTools/pull/1460#issuecomment-5734456915"
+   },
+   "fixed_by": "#1472",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1459
+   ],
+   "title": "plotPCA: write and plot the per-sample loadings in the untransposed layout"
   },
   {
    "repo": "afni/afni",
@@ -647,7 +1384,21 @@
    "merged": true,
    "comments": 1,
    "updated": "2026-09-18T18:08:25Z",
-   "note": "afni-rickr 2026-09-18: 'Thanks!' (merged); nothing to do"
+   "note": "afni-rickr 2026-09-18: 'Thanks!' (merged); nothing to do",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thanks!",
+    "author": "afni-rickr",
+    "date": "2026-09-18T18:08:15Z",
+    "url": "https://github.com/afni/afni/pull/962#issuecomment-5734186776"
+   },
+   "fixed_by": "PR #962 merged as 6a889c57d22dcc7fcb51b952760e409157f0765f",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    961
+   ],
+   "title": "3dROIstats: force the Bessel factor into floating point in -sigma/-nzsigma"
   },
   {
    "repo": "afni/afni",
@@ -657,7 +1408,21 @@
    "merged": true,
    "comments": 1,
    "updated": "2026-09-18T18:06:54Z",
-   "note": "afni-rickr 2026-09-18: 'Great, thanks!' (merged); nothing to do"
+   "note": "afni-rickr 2026-09-18: 'Great, thanks!' (merged); nothing to do",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Great, thanks!",
+    "author": "afni-rickr",
+    "date": "2026-09-18T18:06:48Z",
+    "url": "https://github.com/afni/afni/pull/958#issuecomment-5734170151"
+   },
+   "fixed_by": "PR #958 merged as 322124671200033243f346b7a3d9171b5626297f",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    957
+   ],
+   "title": "3dTshift: -no_detrend demeaned the wrong array for the second voxel of each pair"
   },
   {
    "repo": "macs3-project/MACS",
@@ -667,7 +1432,21 @@
    "merged": true,
    "comments": 0,
    "updated": "2026-09-18T16:32:55Z",
-   "note": "merged by Tao Liu 2026-09-18 16:32 UTC (26f6709), no comment"
+   "note": "merged by Tao Liu 2026-09-18 16:32 UTC (26f6709), no comment",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thanks for the fixes!",
+    "author": "taoliu",
+    "date": "2026-09-18T16:32:45Z",
+    "url": "https://github.com/macs3-project/MACS/pull/739#pullrequestreview-5250169254"
+   },
+   "fixed_by": "PR#739 (merge commit 26f6709ede9d69e7a4091c7e89fb0639006a6f8e)",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    715
+   ],
+   "title": "bdgdiff: do not truncate region scores to integers (fixes #715)"
   },
   {
    "repo": "marcelm/cutadapt",
@@ -677,7 +1456,20 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-15T00:51:58Z",
-   "note": "2026-09-15: black-26 blank-line fix af04ca9 pushed to the fork branch after upstream pinned black 26.5.1; tests pass locally"
+   "note": "2026-09-15: black-26 blank-line fix af04ca9 pushed to the fork branch after upstream pinned black 26.5.1; tests pass locally",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-03T02:22:03Z",
+    "url": "https://github.com/marcelm/cutadapt/pull/893"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    892
+   ],
+   "title": "Honour an absolute number of errors (-e N) for every adapter length"
   },
   {
    "repo": "marcelm/cutadapt",
@@ -687,7 +1479,20 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-14T20:53:52Z",
-   "note": "updated 2026-09-14 20:53 UTC, both at the same second, no new comment and no push to the fork branch; upstream main moved 33 commits (Ruff, tox) the same day"
+   "note": "updated 2026-09-14 20:53 UTC, both at the same second, no new comment and no push to the fork branch; upstream main moved 33 commits (Ruff, tox) the same day",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-04T17:51:57Z",
+    "url": "https://github.com/marcelm/cutadapt/pull/894"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    518
+   ],
+   "title": "Make info file offsets refer to the original read"
   },
   {
    "repo": "GSEA-MSigDB/gsea-desktop",
@@ -696,7 +1501,20 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-14T17:12:59Z"
+   "updated": "2026-09-14T17:12:59Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-14T17:12:59Z",
+    "url": "https://github.com/GSEA-MSigDB/gsea-desktop/pull/75"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    74
+   ],
+   "title": "Give equal hit weights to a gene set whose members all have a ranking score of 0"
   },
   {
    "repo": "iqtree/iqtree3",
@@ -706,7 +1524,20 @@
    "merged": false,
    "comments": 1,
    "updated": "2026-09-14T16:42:17Z",
-   "note": "bqminh review CHANGES_REQUESTED 2026-09-10 06:25 (remove the CI additions); done and answered 2026-09-10 14:56 by the owner (the console's 'reply drafted' action was stale); requested reviewer bqminh; CI green on 04f81848; the 2026-09-14 16:42 update carries no comment or review (a re-request of review is the likely cause); waiting on bqminh"
+   "note": "bqminh review CHANGES_REQUESTED 2026-09-10 06:25 (remove the CI additions); done and answered 2026-09-10 14:56 by the owner (the console's 'reply drafted' action was stale); requested reviewer bqminh; CI green on 04f81848; the 2026-09-14 16:42 update carries no comment or review (a re-request of review is the likely cause); waiting on bqminh",
+   "status": "in progress",
+   "whose_move": "them",
+   "evidence": {
+    "quote": "Can you remove the CI stuffs? This is not really the intension of the CI.",
+    "author": "bqminh",
+    "date": "2026-09-10T06:25:18Z",
+    "url": "https://github.com/iqtree/iqtree3/pull/214#pullrequestreview-5163433539"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    198
+   ],
+   "title": "SH-aLRT: draw RELL replicates as bootstrap samples whatever -j/-J selected (#198)"
   },
   {
    "repo": "lmcinnes/umap",
@@ -715,7 +1546,20 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-13T14:21:01Z"
+   "updated": "2026-09-13T14:21:01Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-13T14:21:01Z",
+    "url": "https://github.com/lmcinnes/umap/pull/1290"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1277
+   ],
+   "title": "Fix spectral init being non-deterministic under random_state on a regular graph component"
   },
   {
    "repo": "lmcinnes/umap",
@@ -724,7 +1568,21 @@
    "state": "closed",
    "merged": true,
    "comments": 0,
-   "updated": "2026-09-13T05:06:34Z"
+   "updated": "2026-09-13T05:06:34Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "(no text: the decisive action carries no comment body) APPROVED review (empty body) at 05:06:26Z, then merged by lmcinnes at 2026-09-13T05:06:34Z as 3fe6476.",
+    "author": "lmcinnes",
+    "date": "2026-09-13T05:06:34Z",
+    "url": "https://github.com/lmcinnes/umap/pull/1288#pullrequestreview-5189601365"
+   },
+   "fixed_by": "PR #1288 merged (merge commit 3fe64760a008db47a786c82a84640c91bf1317ee)",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1194
+   ],
+   "title": "Fix transform() refusing precomputed distances when fit used the NN-descent path"
   },
   {
    "repo": "samtools/samtools",
@@ -734,7 +1592,21 @@
    "merged": true,
    "comments": 1,
    "updated": "2026-09-24T15:35:21Z",
-   "note": "merged (rebase, de749a6 on develop) 2026-09-24 15:35 by daviesrob; his comment: results match the original code once it starts with a buffer that does not need resizing"
+   "note": "merged (rebase, de749a6 on develop) 2026-09-24 15:35 by daviesrob; his comment: results match the original code once it starts with a buffer that does not need resizing",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Looks OK, thanks.  I've confirmed that the results match those from the original code when modified to start with a buffer that doesn't need to be resized.",
+    "author": "daviesrob",
+    "date": "2026-09-24T15:35:11Z",
+    "url": "https://github.com/samtools/samtools/pull/2379#issuecomment-5817205518"
+   },
+   "fixed_by": "merged as de749a608d004aa779e1d010669412e8f3308d08",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    2378
+   ],
+   "title": "stats: grow the coverage ring buffer instead of wrapping around"
   },
   {
    "repo": "iqtree/iqtree3",
@@ -743,7 +1615,21 @@
    "state": "closed",
    "merged": true,
    "comments": 0,
-   "updated": "2026-09-09T08:16:03Z"
+   "updated": "2026-09-09T08:16:03Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "looks good, thank you",
+    "author": "bqminh",
+    "date": "2026-09-09T08:15:49Z",
+    "url": "https://github.com/iqtree/iqtree3/pull/210#pullrequestreview-5151557803"
+   },
+   "fixed_by": "PR#210 (merge commit 6799c7fa2eda187645dcb028e693d4ccbc94d2bc)",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    192
+   ],
+   "title": "Honour user-defined codon frequencies (+FU) for GY-type models"
   },
   {
    "repo": "lme4/lme4",
@@ -753,7 +1639,20 @@
    "merged": false,
    "comments": 0,
    "updated": "2026-09-26T19:32:09Z",
-   "note": "updated_at moved by a push to master (f725ca85, bbolker, 19:32:06); no comment, review, label or event; mergeable true (read in full 2026-09-27 00:48 via a helper)"
+   "note": "updated_at moved by a push to master (f725ca85, bbolker, 19:32:06); no comment, review, label or event; mergeable true (read in full 2026-09-27 00:48 via a helper)",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-08T16:49:59Z",
+    "url": "https://github.com/lme4/lme4/pull/1000"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    867
+   ],
+   "title": "vcov(): fall back to RX when the Hessian-based standard errors are implausible"
   },
   {
    "repo": "deeptools/deepTools",
@@ -762,7 +1661,20 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-08T14:20:42Z"
+   "updated": "2026-09-08T14:20:42Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-08T14:20:42Z",
+    "url": "https://github.com/deeptools/deepTools/pull/1466"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1118
+   ],
+   "title": "bamCoverage --MNase: three centre bases for odd fragment lengths"
   },
   {
    "repo": "iqtree/iqtree3",
@@ -771,7 +1683,22 @@
    "state": "closed",
    "merged": true,
    "comments": 0,
-   "updated": "2026-09-08T07:49:42Z"
+   "updated": "2026-09-08T07:49:42Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "this is a great PR, solving several issues reported. Thanks a lot!",
+    "author": "bqminh",
+    "date": "2026-09-08T07:49:33Z",
+    "url": "https://github.com/iqtree/iqtree3/pull/207#pullrequestreview-5138840426"
+   },
+   "fixed_by": "PR#207 (merge commit bb52da94e56b66e6f86d3f37f23033dc441ce56f)",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    89,
+    203
+   ],
+   "title": "Fix setRootNode() assertion when the -o outgroup is absent from a partition tree or a quartet tree (#203, #89)"
   },
   {
    "repo": "fieldtrip/fieldtrip",
@@ -780,7 +1707,20 @@
    "state": "open",
    "merged": false,
    "comments": 15,
-   "updated": "2026-09-07T17:07:30Z"
+   "updated": "2026-09-07T17:07:30Z",
+   "status": "in progress",
+   "whose_move": "them",
+   "evidence": {
+    "quote": "OK, we're almost ready to merge this one I think.",
+    "author": "schoffelen",
+    "date": "2026-09-07T07:24:38Z",
+    "url": "https://github.com/fieldtrip/fieldtrip/pull/2610#issuecomment-5566751380"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    2609
+   ],
+   "title": "ft_connectivity_psi: exclude the last frequency bin from the slope window"
   },
   {
    "repo": "arq5x/bedtools2",
@@ -789,7 +1729,21 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-05T17:05:26Z"
+   "updated": "2026-09-05T17:05:26Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-05T17:05:26Z",
+    "url": "https://github.com/arq5x/bedtools2/pull/1144"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1141,
+    1142
+   ],
+   "title": "intersect: apply -F and -r to each database record under -split"
   },
   {
    "repo": "chrchang/plink-ng",
@@ -798,7 +1752,20 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-05T15:36:47Z"
+   "updated": "2026-09-05T15:36:47Z",
+   "status": "withdrawn",
+   "whose_move": null,
+   "evidence": {
+    "quote": "never mind, closing this after reviewing the issue comments.",
+    "author": "cindykrafft",
+    "date": "2026-09-05T15:36:46Z",
+    "url": "https://github.com/chrchang/plink-ng/pull/387#issuecomment-5552875338"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    140
+   ],
+   "title": "1.9: --bmerge duplicate-ID reporting (issue #140)"
   },
   {
    "repo": "deeptools/deepTools",
@@ -807,7 +1774,20 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-05T15:11:33Z"
+   "updated": "2026-09-05T15:11:33Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-05T15:11:33Z",
+    "url": "https://github.com/deeptools/deepTools/pull/1458"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1457
+   ],
+   "title": "bamCompare: compute --operation first/second/add/mean and orient reciprocal_ratio as documented"
   },
   {
    "repo": "deeptools/deepTools",
@@ -816,7 +1796,21 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-05T06:38:44Z"
+   "updated": "2026-09-05T06:38:44Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Adressed in #1452",
+    "author": "WardDeb",
+    "date": "2026-09-05T06:38:44Z",
+    "url": "https://github.com/deeptools/deepTools/pull/1449#issuecomment-5550028193"
+   },
+   "fixed_by": "#1452",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1108
+   ],
+   "title": "bamCompare: keep bin coordinates after a --skipZeroOverZero gap"
   },
   {
    "repo": "deeptools/deepTools",
@@ -825,7 +1819,21 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-05T06:38:22Z"
+   "updated": "2026-09-05T06:38:22Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thanks for the work, this was adressed in #1452",
+    "author": "WardDeb",
+    "date": "2026-09-05T06:38:22Z",
+    "url": "https://github.com/deeptools/deepTools/pull/1451#issuecomment-5550026254"
+   },
+   "fixed_by": "#1452",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1423
+   ],
+   "title": "computeMatrix: decode gzipped BED lines in sortMatrix (fixes #1423)"
   },
   {
    "repo": "lmcinnes/umap",
@@ -834,7 +1842,21 @@
    "state": "closed",
    "merged": true,
    "comments": 0,
-   "updated": "2026-09-05T05:22:38Z"
+   "updated": "2026-09-05T05:22:38Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "(no text: the decisive action carries no comment body) APPROVED review (empty body) at 05:22:29Z, then merged by lmcinnes at 2026-09-05T05:22:38Z as 30bd533.",
+    "author": "lmcinnes",
+    "date": "2026-09-05T05:22:38Z",
+    "url": "https://github.com/lmcinnes/umap/pull/1287#pullrequestreview-5119920655"
+   },
+   "fixed_by": "PR #1287 merged (merge commit 30bd533e3c8567c3049b51853c73443610e0fa2d)",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1286
+   ],
+   "title": "Fix smooth_knn_dist giving sigma = inf for points with a disconnected neighbour"
   },
   {
    "repo": "OpenGene/fastp",
@@ -843,7 +1865,21 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-04T17:58:34Z"
+   "updated": "2026-09-04T17:58:34Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-04T17:58:34Z",
+    "url": "https://github.com/OpenGene/fastp/pull/715"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    528,
+    638
+   ],
+   "title": "Count reads dropped by --dedup as duplicates instead of \"passed filter\" (#638, #528)"
   },
   {
    "repo": "ventolab/CellphoneDB",
@@ -852,7 +1888,20 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-04T17:45:43Z"
+   "updated": "2026-09-04T17:45:43Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-04T17:45:43Z",
+    "url": "https://github.com/ventolab/CellphoneDB/pull/232"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    224
+   ],
+   "title": "fix: build the database when a uniprot_N column of complex_input.csv is unused"
   },
   {
    "repo": "arq5x/bedtools2",
@@ -861,7 +1910,21 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-04T17:42:30Z"
+   "updated": "2026-09-04T17:42:30Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-04T17:42:30Z",
+    "url": "https://github.com/arq5x/bedtools2/pull/1143"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1057,
+    1123
+   ],
+   "title": "flank: with -s, treat records without a \"-\" strand as forward instead of dropping them"
   },
   {
    "repo": "fieldtrip/fieldtrip",
@@ -870,7 +1933,18 @@
    "state": "closed",
    "merged": true,
    "comments": 2,
-   "updated": "2026-09-04T14:30:43Z"
+   "updated": "2026-09-04T14:30:43Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Looks good to me. Thanks.",
+    "author": "schoffelen",
+    "date": "2026-09-04T14:30:27Z",
+    "url": "https://github.com/fieldtrip/fieldtrip/pull/2613#issuecomment-5541926222"
+   },
+   "fixed_by": "merge 5a645ccf1cdc6384d18c4d6a40ce58359a96f44c (PR #2613)",
+   "status_checked": "2026-10-01",
+   "title": "Warn about uncorrected two-sided testing for any alpha"
   },
   {
    "repo": "htseq/htseq",
@@ -879,7 +1953,20 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-03T15:30:02Z"
+   "updated": "2026-09-03T15:30:02Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "See linked issue for why this can't be merged at present, thanks anyway.",
+    "author": "iosonofabio",
+    "date": "2026-09-03T15:30:01Z",
+    "url": "https://github.com/htseq/htseq/pull/110#issuecomment-5528062843"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    109
+   ],
+   "title": "Apply the -a MAPQ cutoff to aligned mates only in htseq-count"
   },
   {
    "repo": "chrchang/plink-ng",
@@ -888,7 +1975,21 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-03T14:38:41Z"
+   "updated": "2026-09-03T14:38:41Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thanks for reporting this; it should be fixed by 1fe42e5 .  Updated prebuilt binaries will be posted later today.",
+    "author": "chrchang",
+    "date": "2026-09-03T14:37:18Z",
+    "url": "https://github.com/chrchang/plink-ng/issues/380#issuecomment-5527395201"
+   },
+   "fixed_by": "1fe42e5b11ec0709bbbb8179e0ba69d015e9b6e8",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    380
+   ],
+   "title": "PLINK 1.9: --hwe keeps variants whose exact p is at or above the threshold when the observed tail is complete before the other tail is walked"
   },
   {
    "repo": "scverse/scanpy",
@@ -897,7 +1998,20 @@
    "state": "open",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-02T23:42:34Z"
+   "updated": "2026-09-02T23:42:34Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-02T23:30:00Z",
+    "url": "https://github.com/scverse/scanpy/pull/4337"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    4336
+   ],
+   "title": "fix: run t-test on log values regardless of `mean_in_log_space`"
   },
   {
    "repo": "cindykrafft/mytochondria",
@@ -906,7 +2020,11 @@
    "state": "closed",
    "merged": true,
    "comments": 0,
-   "updated": "2026-09-02T21:30:59Z"
+   "updated": "2026-09-02T21:30:59Z",
+   "status": "internal",
+   "whose_move": null,
+   "evidence": null,
+   "status_checked": "2026-10-01"
   },
   {
    "repo": "spm/spm",
@@ -915,7 +2033,20 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-02T17:23:43Z"
+   "updated": "2026-09-02T17:23:43Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-02T17:23:43Z",
+    "url": "https://github.com/spm/spm/pull/168"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    167
+   ],
+   "title": "Account for basis functions when padding parametric-modulation columns"
   },
   {
    "repo": "spm/spm",
@@ -924,7 +2055,21 @@
    "state": "closed",
    "merged": true,
    "comments": 3,
-   "updated": "2026-09-02T09:28:19Z"
+   "updated": "2026-09-02T09:28:19Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "[timeline event, no comment] vlitvak merged the PR",
+    "author": "vlitvak",
+    "date": "2026-09-02T09:28:11Z",
+    "url": "https://github.com/spm/spm/pull/165"
+   },
+   "fixed_by": "PR #165 merge 4e20e07c95bfac1391b4e233ab468dcf1d352f55",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    164
+   ],
+   "title": "Stamp downsampled dataset with achieved, not requested, sampling rate"
   },
   {
    "repo": "spm/spm",
@@ -933,7 +2078,21 @@
    "state": "closed",
    "merged": true,
    "comments": 3,
-   "updated": "2026-09-02T09:27:45Z"
+   "updated": "2026-09-02T09:27:45Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Looks good, thanks!",
+    "author": "vlitvak",
+    "date": "2026-09-02T08:42:11Z",
+    "url": "https://github.com/spm/spm/pull/163#pullrequestreview-5087463085"
+   },
+   "fixed_by": "PR #163 merge cf67a251e981be52662614870a4f6595362d1cb4",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    162
+   ],
+   "title": "Fix baseline double-counting when mapping artefact events to samples"
   },
   {
    "repo": "spm/spm",
@@ -942,7 +2101,20 @@
    "state": "open",
    "merged": false,
    "comments": 3,
-   "updated": "2026-09-02T08:19:12Z"
+   "updated": "2026-09-02T08:19:12Z",
+   "status": "in progress",
+   "whose_move": "them",
+   "evidence": {
+    "quote": "[timeline event, no comment] vlitvak assigned tierneytim",
+    "author": "vlitvak",
+    "date": "2026-09-02T08:19:12Z",
+    "url": "https://github.com/spm/spm/pull/159"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    158
+   ],
+   "title": "Fix chi-squared EC densities (wrong power of t at dimensions 2 and 3)"
   },
   {
    "repo": "MouseLand/suite2p",
@@ -951,7 +2123,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-02T00:48:26Z"
+   "updated": "2026-09-02T00:48:26Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-02T00:48:26Z",
+    "url": "https://github.com/MouseLand/suite2p/pull/1268"
+   },
+   "status_checked": "2026-10-01",
+   "title": "extract_traces: build sparse-mask indices as integer tensors"
   },
   {
    "repo": "MouseLand/suite2p",
@@ -960,7 +2142,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-02T00:48:13Z"
+   "updated": "2026-09-02T00:48:13Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-02T00:48:13Z",
+    "url": "https://github.com/MouseLand/suite2p/pull/1267"
+   },
+   "status_checked": "2026-10-01",
+   "title": "Classifier: keep feature values at the training minimum in the first bin"
   },
   {
    "repo": "MouseLand/suite2p",
@@ -969,7 +2161,20 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-02T00:47:54Z"
+   "updated": "2026-09-02T00:47:54Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-02T00:47:54Z",
+    "url": "https://github.com/MouseLand/suite2p/pull/1266"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1265
+   ],
+   "title": "bidiphase.shift: copy the source slice before the overlapping in-place assignment"
   },
   {
    "repo": "fieldtrip/fieldtrip",
@@ -978,7 +2183,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-02T00:17:46Z"
+   "updated": "2026-09-02T00:17:46Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-02T00:17:46Z",
+    "url": "https://github.com/fieldtrip/fieldtrip/pull/2612"
+   },
+   "status_checked": "2026-10-01",
+   "title": "ft_statfun_depsamplesregrT: fix undefined variable in the cvar branch"
   },
   {
    "repo": "fieldtrip/fieldtrip",
@@ -987,7 +2202,17 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-02T00:17:21Z"
+   "updated": "2026-09-02T00:17:21Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-02T00:17:21Z",
+    "url": "https://github.com/fieldtrip/fieldtrip/pull/2611"
+   },
+   "status_checked": "2026-10-01",
+   "title": "ft_statfun_correlationT: use n-2 degrees of freedom"
   },
   {
    "repo": "fieldtrip/fieldtrip",
@@ -996,7 +2221,20 @@
    "state": "open",
    "merged": false,
    "comments": 3,
-   "updated": "2026-09-02T00:14:02Z"
+   "updated": "2026-09-02T00:14:02Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-02T00:14:02Z",
+    "url": "https://github.com/fieldtrip/fieldtrip/pull/2608"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    2607
+   ],
+   "title": "Count ties when computing Monte Carlo p-values (>= instead of >)"
   },
   {
    "repo": "MouseLand/Kilosort",
@@ -1005,7 +2243,20 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-01T22:01:51Z"
+   "updated": "2026-09-01T22:01:51Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-01T21:59:59Z",
+    "url": "https://github.com/MouseLand/Kilosort/pull/1045"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1044
+   ],
+   "title": "Report unevaluable clusters as fully contaminated, not ContamPct 0"
   },
   {
    "repo": "MouseLand/Kilosort",
@@ -1015,7 +2266,21 @@
    "merged": true,
    "comments": 3,
    "updated": "2026-09-25T23:54:42Z",
-   "note": "3 comments, all by kvnloo (author_association NONE, not a maintainer) and the submitter: kvnloo 07:18 tested the fix and asked for a two-level regression test; reply + tests pushed as eabed49 (14:22); kvnloo 16:05 re-ran the unchanged tests/test_swarmsplitter.py from eabed49, all four pass, confirms the two expected failures with the base swarmsplitter.py; no question asked, no reply needed; still no maintainer response on any Kilosort filing; MERGED 2026-09-25 23:54"
+   "note": "3 comments, all by kvnloo (author_association NONE, not a maintainer) and the submitter: kvnloo 07:18 tested the fix and asked for a two-level regression test; reply + tests pushed as eabed49 (14:22); kvnloo 16:05 re-ran the unchanged tests/test_swarmsplitter.py from eabed49, all four pass, confirms the two expected failures with the base swarmsplitter.py; no question asked, no reply needed; still no maintainer response on any Kilosort filing; MERGED 2026-09-25 23:54",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "[merge event, no comment] marius10p merged PR #1043 into main as 0e07514c16fc1162f6470ecbad25be9c7e256306",
+    "author": "marius10p",
+    "date": "2026-09-25T23:54:42Z",
+    "url": "https://github.com/MouseLand/Kilosort/pull/1043"
+   },
+   "fixed_by": "PR#1043 (merge 0e07514c16fc1162f6470ecbad25be9c7e256306)",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1042
+   ],
+   "title": "Fix disabled refractoriness gate in swarmsplitter.check_CCG"
   },
   {
    "repo": "thelovelab/DESeq2",
@@ -1024,7 +2289,20 @@
    "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-01T18:05:50Z"
+   "updated": "2026-09-01T18:05:50Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "This PR would change DESeq2 results and so won't be taken on.",
+    "author": "mikelove",
+    "date": "2026-09-01T18:05:50Z",
+    "url": "https://github.com/thelovelab/DESeq2/pull/132#issuecomment-5498247054"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    131
+   ],
+   "title": "replaceOutliers: round replacement counts instead of truncating"
   },
   {
    "repo": "spm/spm",
@@ -1033,7 +2311,20 @@
    "state": "open",
    "merged": false,
    "comments": 3,
-   "updated": "2026-09-01T16:00:27Z"
+   "updated": "2026-09-01T16:00:27Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-09-01T16:00:10Z",
+    "url": "https://github.com/spm/spm/pull/161#issuecomment-5496736106"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    160
+   ],
+   "title": "Fix free-energy log-det term overcounted by factor nq in spm_nlsi_GN"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -1042,7 +2333,20 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-30T22:40:30Z"
+   "updated": "2026-08-30T22:40:30Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:06:24Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1471"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1471
+   ],
+   "title": "mri_aparc2aseg: reset winner-selection state for every voxel"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -1051,7 +2355,20 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-30T22:39:15Z"
+   "updated": "2026-08-30T22:39:15Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:05:10Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1469"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1469
+   ],
+   "title": "mris_anatomical_stats: make the -i thickness range actually filter"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -1060,7 +2377,20 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-30T22:37:37Z"
+   "updated": "2026-08-30T22:37:37Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:04:04Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1467"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1467
+   ],
+   "title": "gcsa: compare island-relabeling log-likelihoods as doubles"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -1069,7 +2399,20 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-30T22:35:35Z"
+   "updated": "2026-08-30T22:35:35Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:03:17Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1465"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1465
+   ],
+   "title": "mri_vol2surf, mri_surf2vol: do not drop the final projection sample"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -1078,7 +2421,20 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-30T22:34:28Z"
+   "updated": "2026-08-30T22:34:28Z",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Please do not file the output from code analysis tools as de-facto issues.  We can run code analysis tools and it is not clear that code deficiencies are worth updating or patching in older releases dating back to 6.0.0.",
+    "author": "buildqa",
+    "date": "2026-09-08T01:02:44Z",
+    "url": "https://github.com/freesurfer/freesurfer/issues/1463"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    1463
+   ],
+   "title": "fsglm: divide FFx multi-row contrast statistic by J before the F CDF"
   },
   {
    "repo": "afni/afni",
@@ -1087,7 +2443,21 @@
    "state": "closed",
    "merged": true,
    "comments": 1,
-   "updated": "2026-08-28T13:53:28Z"
+   "updated": "2026-08-28T13:53:28Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Yes, agreed, this had assumed a mapping of time series values to ranks, which had not been added. Thanks!",
+    "author": "mrneont",
+    "date": "2026-08-28T13:53:22Z",
+    "url": "https://github.com/afni/afni/pull/944#issuecomment-5453363742"
+   },
+   "fixed_by": "PR#944 (merge a0a95308dc749008efc65cb8e1bb79bf13f976d5)",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    945
+   ],
+   "title": "3dReHo: fix tie handling in CalcRanksForReHo"
   },
   {
    "repo": "afni/afni",
@@ -1096,7 +2466,21 @@
    "state": "closed",
    "merged": true,
    "comments": 1,
-   "updated": "2026-08-28T13:50:32Z"
+   "updated": "2026-08-28T13:50:32Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Oh my.  I guess no one uses the seq_dec sequence, as we've never had a complaint.  Thanks!",
+    "author": "afni-rickr",
+    "date": "2026-08-28T13:50:21Z",
+    "url": "https://github.com/afni/afni/pull/947#issuecomment-5453333253"
+   },
+   "fixed_by": "PR#947 (merge 16a5c32162c07574814ee8528afa444b902693f6)",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    946
+   ],
+   "title": "NIFTI read: fix SEQ_DEC slice-timing loop so descending slice times are kept"
   },
   {
    "repo": "afni/afni",
@@ -1105,7 +2489,21 @@
    "state": "closed",
    "merged": true,
    "comments": 1,
-   "updated": "2026-08-28T13:26:06Z"
+   "updated": "2026-08-28T13:26:06Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thanks!",
+    "author": "afni-rickr",
+    "date": "2026-08-28T13:25:57Z",
+    "url": "https://github.com/afni/afni/pull/928#issuecomment-5453080888"
+   },
+   "fixed_by": "PR#928 (merge ba95601fc84a083dd98c83fc8db301870fbbe652)",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    927
+   ],
+   "title": "Return the exit code from asynchronous command execution"
   },
   {
    "repo": "afni/afni",
@@ -1114,7 +2512,21 @@
    "state": "closed",
    "merged": true,
    "comments": 0,
-   "updated": "2026-08-28T13:24:59Z"
+   "updated": "2026-08-28T13:24:59Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "[action, no comment] Merged PR #926 into master.",
+    "author": "afni-rickr",
+    "date": "2026-08-28T13:24:59Z",
+    "url": "https://github.com/afni/afni/pull/926"
+   },
+   "fixed_by": "PR#926 (merge d513902a9c4a4bc944423d2585556c53690e84dc)",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    925
+   ],
+   "title": "Fix test_3dttest++ never executing 3dttest++"
   },
   {
    "repo": "cindykrafft/afni",
@@ -1123,7 +2535,11 @@
    "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-28T05:20:33Z"
+   "updated": "2026-08-28T05:20:33Z",
+   "status": "internal",
+   "whose_move": null,
+   "evidence": null,
+   "status_checked": "2026-10-01"
   },
   {
    "repo": "cindykrafft/afni",
@@ -1132,7 +2548,11 @@
    "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-28T00:14:22Z"
+   "updated": "2026-08-28T00:14:22Z",
+   "status": "internal",
+   "whose_move": null,
+   "evidence": null,
+   "status_checked": "2026-10-01"
   },
   {
    "repo": "lme4/lme4",
@@ -1141,16 +2561,37 @@
    "state": "open",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-08T16:50:46Z"
+   "updated": "2026-09-08T16:50:46Z",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-08T16:49:29Z",
+    "url": "https://github.com/lme4/lme4/issues/867#issuecomment-5588717766"
+   },
+   "status_checked": "2026-10-01",
+   "title": "revisit use.hess default"
   },
   {
    "repo": "YuLab-SMU/clusterProfiler",
    "number": 819,
    "kind": "issue-watch",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 6,
-   "updated": "2026-07-08T17:41:42Z"
+   "updated": "2026-07-08T17:41:42Z",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Addressed in enrichit commit 4822fa1 (\"align multilevel gsea rank with fgsea and exclude zero-overlap gene sets\"), which closed the gap between clusterProfiler versions by aligning the multilevel ranking with fgsea and dropping zero-overlap gene sets.",
+    "author": "GuangchuangYu",
+    "date": "2026-09-22T14:06:32Z",
+    "url": "https://github.com/YuLab-SMU/clusterProfiler/issues/819#issuecomment-5777988654"
+   },
+   "fixed_by": "YuLab-SMU/enrichit@4822fa1 (cited by maintainer; not independently fetched, enrichit is outside this session's repository scope)",
+   "status_checked": "2026-10-01",
+   "title": "Big differences in enricher results between clusterProfiler 4.16.0 and clusterProfiler 4.20.0"
   },
   {
    "repo": "alexdobin/STAR",
@@ -1161,7 +2602,16 @@
    "comments": 0,
    "updated": "2026-09-24T18:23:25Z",
    "title": "Transcripts with undefined GTF strand ('.') get inverted strand flags and reverse-complemented sequences in Aligned.toTranscriptome.out.bam, and lose their sense reads in STARsolo --soloStrand Forward",
-   "note": "STA1 issue filed by the owner 2026-09-24; PR waits for a fork of alexdobin/STAR"
+   "note": "STA1 issue filed by the owner 2026-09-24; PR waits for a fork of alexdobin/STAR",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-24T18:23:25Z",
+    "url": "https://github.com/alexdobin/STAR/issues/2707"
+   },
+   "status_checked": "2026-10-01"
   },
   {
    "repo": "samtools/samtools",
@@ -1169,10 +2619,22 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 3,
+   "comments": 4,
    "updated": "2026-10-01T11:01:59Z",
    "title": "stats: count duplicates for the same records as \"sequences\"; include isize 0 in the SD",
-   "note": "ST3 PR filed 2026-09-24; head 47d3376 after the test.pl mode fix; fork CI green; jkbonfield 2026-09-28 08:19 (edited 08:38): exclude isize 0 from the mean and SD; reworked commit prepared locally (not pushed), reply STR1 drafted; owner posted STR1 14:22 (rework not pushed yet); no maintainer answer yet; 2026-09-30 13:24 daviesrob assigned jkbonfield (no comment); jkbonfield 2026-10-01 11:01 answered STR1 (-m ignore isize 0; capped last bin question to pd3); STR2 drafted"
+   "note": "ST3 PR filed 2026-09-24; head 47d3376 after the test.pl mode fix; fork CI green; jkbonfield 2026-09-28 08:19 (edited 08:38): exclude isize 0 from the mean and SD; reworked commit prepared locally (not pushed), reply STR1 drafted; owner posted STR1 14:22 (rework not pushed yet); no maintainer answer yet; 2026-09-30 13:24 daviesrob assigned jkbonfield (no comment); jkbonfield 2026-10-01 11:01 answered STR1 (-m ignore isize 0; capped last bin question to pd3); STR2 drafted; STR2 posted 2026-10-01; 96b359b pushed",
+   "status": "in progress",
+   "whose_move": "them",
+   "evidence": {
+    "quote": "I think for consistencies sake, the -m option should ignore isize 0 too.",
+    "author": "jkbonfield",
+    "date": "2026-10-01T11:01:22Z",
+    "url": "https://github.com/samtools/samtools/pull/2388#issuecomment-5929995017"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    696
+   ]
   },
   {
    "repo": "usadellab/Trimmomatic",
@@ -1183,7 +2645,17 @@
    "comments": 2,
    "updated": "2026-09-28T07:03:41Z",
    "title": "ILLUMINACLIP palindrome mode charges int(Q/10) per mismatch instead of Q/10 (integer division), unlike simple mode and the README",
-   "note": "TM1 issue filed by the owner 2026-09-24; sebeier (collaborator) 2026-09-25 06:55: good catch, palindrome mode should charge Q/10, fix planned for 0.42, change requested on PR #91; closed as completed 2026-09-28 07:03: \"Merged to branch V0.42 and scheduled for the next update.\""
+   "note": "TM1 issue filed by the owner 2026-09-24; sebeier (collaborator) 2026-09-25 06:55: good catch, palindrome mode should charge Q/10, fix planned for 0.42, change requested on PR #91; closed as completed 2026-09-28 07:03: \"Merged to branch V0.42 and scheduled for the next update.\"",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Merged to branch V0.42 and scheduled for the next update.",
+    "author": "sebeier",
+    "date": "2026-09-28T07:03:41Z",
+    "url": "https://github.com/usadellab/Trimmomatic/issues/90#issuecomment-5865090078"
+   },
+   "fixed_by": "PR#91 / 54af0580bee7c9fa5978ef6964a11c487f91ef4d",
+   "status_checked": "2026-10-01"
   },
   {
    "repo": "usadellab/Trimmomatic",
@@ -1194,7 +2666,20 @@
    "comments": 2,
    "updated": "2026-09-28T07:01:40Z",
    "title": "Charge Q/10 per mismatch in ILLUMINACLIP palindrome mode",
-   "note": "TM1 PR MERGED into V0.42 by sebeier 2026-09-28 07:01 (fast-forward 54af058, plus his versionHistory commit ecbfd516)"
+   "note": "TM1 PR MERGED into V0.42 by sebeier 2026-09-28 07:01 (fast-forward 54af058, plus his versionHistory commit ecbfd516)",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Merged to branch V0.42 and scheduled for the next update.",
+    "author": "sebeier",
+    "date": "2026-09-28T07:03:41Z",
+    "url": "https://github.com/usadellab/Trimmomatic/issues/90#issuecomment-5865090078"
+   },
+   "fixed_by": "PR#91 / 54af0580bee7c9fa5978ef6964a11c487f91ef4d",
+   "status_checked": "2026-10-01",
+   "fixes": [
+    90
+   ]
   },
   {
    "repo": "alexdobin/STAR",
@@ -1205,7 +2690,19 @@
    "comments": 0,
    "updated": "2026-09-24T18:30:59Z",
    "title": "Treat transcripts with undefined GTF strand ('.') as '+' in Aligned.toTranscriptome.out.bam and count them from both strands in STARsolo",
-   "note": "STA1 PR filed by the owner 2026-09-24"
+   "note": "STA1 PR filed by the owner 2026-09-24",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-24T18:30:59Z",
+    "url": "https://github.com/alexdobin/STAR/pull/2708"
+   },
+   "status_checked": "2026-10-01",
+   "fixes": [
+    2707
+   ]
   },
   {
    "repo": "broadinstitute/picard",
@@ -1216,7 +2713,97 @@
    "comments": 1,
    "updated": "2026-09-26T12:52:23Z",
    "title": "CollectRnaSeqMetrics never counts the last base of an alignment block in transcript coverage (MEDIAN_CV_COVERAGE, 5'/3' bias, normalized_coverage histogram)",
-   "note": "P1 issue; tfenne (COLLABORATOR) 12:52: fix unlikely, limited Picard support, suggests fulcrumgenomics/riker rna. PR held; reply PK1 drafted for the owner"
+   "note": "P1 issue; tfenne (COLLABORATOR) 12:52: fix unlikely, limited Picard support, suggests fulcrumgenomics/riker rna. PR held; reply PK1 drafted for the owner",
+   "status": "rejected",
+   "whose_move": null,
+   "evidence": {
+    "quote": "a fix is unlikely to happen due to the limited support for Picard.",
+    "author": "tfenne",
+    "date": "2026-09-26T12:52:23Z",
+    "url": "https://github.com/broadinstitute/picard/issues/2060#issuecomment-5846421443"
+   },
+   "status_checked": "2026-10-01"
+  },
+  {
+   "repo": "samtools/samtools",
+   "number": 696,
+   "kind": "comment",
+   "state": "open",
+   "merged": false,
+   "comments": null,
+   "updated": null,
+   "title": "Should stats exclude supplementary alignments when counting duplicates?",
+   "note": "our comment on a maintainer-opened issue: ST3 (our comment with the reproduction; PR #2388 fixes it); not returned by the author search, checked by number (WATCH.md)",
+   "status": "in progress",
+   "whose_move": "them",
+   "evidence": {
+    "quote": "What are your thoughts @pd3, given you raised the original query that this PR applies to and also I think wrote the original code.",
+    "author": "jkbonfield",
+    "date": "2026-10-01T11:01:22Z",
+    "url": "https://github.com/samtools/samtools/pull/2388#issuecomment-5929995017"
+   },
+   "status_checked": "2026-10-01"
+  },
+  {
+   "repo": "arq5x/bedtools2",
+   "number": 1142,
+   "kind": "comment",
+   "state": "open",
+   "merged": false,
+   "comments": null,
+   "updated": null,
+   "title": "bedtools intersect --split -r -f drops or wrongly accepts pairs when more than one -b record overlaps the same -a record",
+   "note": "our comment on a maintainer-opened issue: BT2 (our comment; PR #1144); not returned by the author search, checked by number (WATCH.md)",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-05T17:06:09Z",
+    "url": "https://github.com/arq5x/bedtools2/issues/1142#issuecomment-5553402909"
+   },
+   "status_checked": "2026-10-01"
+  },
+  {
+   "repo": "deeptools/deepTools",
+   "number": 1108,
+   "kind": "comment",
+   "state": "closed",
+   "merged": false,
+   "comments": null,
+   "updated": null,
+   "title": "`bamCompare --skipZeroOverZero` has incorrect coordinates",
+   "note": "our comment on a maintainer-opened issue: DT1 (our comment; fixed by the maintainers in #1452); not returned by the author search, checked by number (WATCH.md)",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Adressed in #1452",
+    "author": "WardDeb",
+    "date": "2026-09-05T06:38:44Z",
+    "url": "https://github.com/deeptools/deepTools/pull/1449#issuecomment-5550028193"
+   },
+   "fixed_by": "#1452",
+   "status_checked": "2026-10-01"
+  },
+  {
+   "repo": "deeptools/deepTools",
+   "number": 1118,
+   "kind": "comment",
+   "state": "open",
+   "merged": false,
+   "comments": null,
+   "updated": null,
+   "title": "bamCoverage taking four nucleotides instead of three when --MNase is used",
+   "note": "our comment on a maintainer-opened issue: DT4 (our comment; PR #1466); not returned by the author search, checked by number (WATCH.md)",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": "cindykrafft",
+    "date": "2026-09-08T14:21:21Z",
+    "url": "https://github.com/deeptools/deepTools/issues/1118#issuecomment-5586637194"
+   },
+   "status_checked": "2026-10-01"
   }
  ],
  "merge_checked": [
@@ -1240,5 +2827,19 @@
   "google-deepmind/alphafold3#747 (clean 2026-09-23, base a66cc52, head 07505f9)",
   "fieldtrip/fieldtrip#2622 (clean 2026-09-23, base 9a10401, head ce18267)",
   "samtools/bcftools#2595 (clean 2026-09-24, base edf7fd9, head 83b7888)"
- ]
+ ],
+ "status_schema": {
+  "status": [
+   "resolved",
+   "rejected",
+   "withdrawn",
+   "in progress",
+   "unanswered",
+   "internal"
+  ],
+  "whose_move": "us|them, only for in progress",
+  "evidence": "the decisive human quote or action (verbatim, author, date, url)",
+  "fixes": "issues this PR says it fixes; an issue and its PR count as one finding",
+  "status_checked": "date the thread was last read in full"
+ }
 }

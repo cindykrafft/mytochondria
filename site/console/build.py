@@ -226,9 +226,9 @@ r2("alphafold3","google-deepmind","alphafold3","main",None,
    order_note="Sign the CLA first. Then AF1 issue + PR (to_json reorders interleaved identical chains, so the two-stage _data.json workflow runs a different complex; regression test on the branch), then AF2 issue + PR (summary_confidences chain_ids is per token, 150 entries against 2 chains on the shipped test output). That is the two-filing cap; the other twelve branches (audits/alphafold3/upstream/README.md) wait for a reply, and the two model-behaviour findings (cross-attention key mask, MSA pairing sort order) go as issues without PRs when their turn comes.")
 
 # ---- triage (2026-09-03): file only findings that change published numbers under default/common settings; at most two per repo until a maintainer responds
-TIER={"filed":{"P1":"issue #2060 (2026-09-26); PR held: tfenne says a fix is unlikely (limited Picard support)","TMR1":"reply on PR #91 posted 2026-09-25 13:35; PR merged 2026-09-28","BC1":"#2594 / PR #2595 (2026-09-23); MERGED 2026-09-30 via #2598 (our commit 041c66cf + jkbonfield's refactor)","BCR1":"reply on PR #2595 posted 2026-09-28 14:22","AF2":"#746 / PR #747 (2026-09-23)","FT17":"#2621 / PR #2622 (2026-09-23)","FT12W":"fieldtrip/website PR #958 (dpss FAQ page), merged 2026-09-23","AF1":"#744 / PR #745 (2026-09-22)","DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460 (closed 2026-09-18: WardDeb confirmed the bug and fixed it differently in #1472, merged the same day)","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05; schoffelen 2026-09-16: FAQ wanted as a fieldtrip/website PR, Octave survey welcome; the FAQ PR fieldtrip/website#958 was merged 2026-09-23)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)","FT15":"posted on PR #2610 (2026-09-07, per the comment count)","FT16":"posted on #2614 (2026-09-07, per the comment count)","PL1":"#380 / PR #381 (closed 2026-09-03: the maintainer applied his own equivalent fix, 1fe42e5)","DT4":"comment on #1118 / PR #1466 (2026-09-08)","ST1":"#2378 / PR #2379 (2026-09-08; merged 2026-09-24)","STA1":"#2707 / PR #2708 (2026-09-24)","TM1":"#90 / PR #91 (2026-09-24; merged into V0.42 2026-09-28, scheduled for 0.42)","ST3":"comment on #696 / PR #2388 (2026-09-24; fork CI green on 47d3376; jkbonfield 2026-09-28: exclude isize 0; STR1 reply posted 14:22, reworked commit awaits your sign-off)","STR1":"reply on PR #2388 posted 2026-09-28 14:22 (says the rework is not pushed yet)","LM2":"comment on #867 / PR #1000 (2026-09-08)","GS3":"#74 / PR #75 (2026-09-14)"},
+TIER={"filed":{"P1":"issue #2060 (2026-09-26); PR held: tfenne says a fix is unlikely (limited Picard support)","TMR1":"reply on PR #91 posted 2026-09-25 13:35; PR merged 2026-09-28","BC1":"#2594 / PR #2595 (2026-09-23); MERGED 2026-09-30 via #2598 (our commit 041c66cf + jkbonfield's refactor)","BCR1":"reply on PR #2595 posted 2026-09-28 14:22","AF2":"#746 / PR #747 (2026-09-23)","FT17":"#2621 / PR #2622 (2026-09-23)","FT12W":"fieldtrip/website PR #958 (dpss FAQ page), merged 2026-09-23","AF1":"#744 / PR #745 (2026-09-22)","DT1":"comment on #1108 (closed 2026-09-05)","CA1":"#892 / PR #893","U1":"#1286 / PR #1287 (merged 2026-09-05)","CPDB1":"#231","DTN1":"#1457 / PR #1458","DTN2":"#1459 / PR #1460 (closed 2026-09-18: WardDeb confirmed the bug and fixed it differently in #1472, merged the same day)","BT2":"comment on #1142 / PR #1144 (2026-09-05)","FT12":"#2614 (2026-09-05; schoffelen 2026-09-16: FAQ wanted as a fieldtrip/website PR, Octave survey welcome; the FAQ PR fieldtrip/website#958 was merged 2026-09-23)","FT13":"posted on PR #2610 (2026-09-05)","FT14":"posted on #2609 (2026-09-05)","FT15":"posted on PR #2610 (2026-09-07, per the comment count)","FT16":"posted on #2614 (2026-09-07, per the comment count)","PL1":"#380 / PR #381 (closed 2026-09-03: the maintainer applied his own equivalent fix, 1fe42e5)","DT4":"comment on #1118 / PR #1466 (2026-09-08)","ST1":"#2378 / PR #2379 (2026-09-08; merged 2026-09-24)","STA1":"#2707 / PR #2708 (2026-09-24)","TM1":"#90 / PR #91 (2026-09-24; merged into V0.42 2026-09-28, scheduled for 0.42)","ST3":"comment on #696 / PR #2388 (2026-09-24; fork CI green on 47d3376; jkbonfield 2026-09-28: exclude isize 0; STR1 reply posted 14:22, reworked commit awaits your sign-off)","STR1":"reply on PR #2388 posted 2026-09-28 14:22","STR2":"reply on PR #2388 posted 2026-10-01 (rework 96b359b pushed the same day)","FT18":"reply on PR #2622 posted 2026-10-01 (correction, Octave history, narrowed-PR proposal)","LM2":"comment on #867 / PR #1000 (2026-09-08)","GS3":"#74 / PR #75 (2026-09-14)"},
       "now":["BW1","BW2","FQ1","FQ2","VT1","VT2","SD1","SD2","SK1","SK2","NP3","NP5","HC2","EG3","GS3","LI1"],
-      "comment":["FT18","STR2","PK1"]}
+      "comment":["PK1"]}
 def tier_of(i):
     if i in TIER["filed"]: return "filed"
     if i in TIER["now"]: return "now"
@@ -294,8 +294,6 @@ def note(path):
     t=re.sub(r"\A\s*Title:[^\n]*\n+", "", t)
     return t.strip()+"\n"
 ACTIONS=[
- dict(kind="issue", key="fieldtrip", id="FT18", why="schoffelen (MEMBER) on PR #2622, 2026-10-01: on Octave 10.3 the built-in startsWith takes cell arrays; asks for Octave's version history and suggests a matlablt-style strategy; reluctant to accept changes outside compat/octave untested in MATLAB; the suggested tests fail for him at istable and mergestruct; interim conclusion: too much version discrepancy. Checked: our 09-23 test table depended on stand-in functions we did not mention (the reply corrects that first); startsWith/endsWith built in since Octave 7, contains/istable never; the shims shadow the built-ins because Octave's which ignores -all; results identical on 8.4 and 10.3; his mergestruct error not reproduced; change 1 already on master (f46a32c). The reply proposes the narrowed PR and asks before reworking"),
- dict(kind="issue", key="samtools", id="STR2", why="jkbonfield (CONTRIBUTOR, assigned) on PR #2388, 2026-10-01 11:01: -m should ignore isize 0 too; argues the capped last bin (>= --insert-size) should also stay out of the mean, with a 4-record example whose average swings 460/710/4210/50210 with --insert-size, and asks pd3; IS rows stay. Checked and implemented locally (96b359b, signed off, patch 0004: -m skips bin 0, new -m 0.65 test, make test 1012/0). The reply reports this and leaves the last bin to pd3. Signed off and pushed (96b359b, 2026-10-01); still to do: the PR-body edit"),
  dict(kind="issue", key="picard", id="PK1", why="tfenne (COLLABORATOR) on #2060, 2026-09-26 12:52: thanks, but a fix is unlikely due to limited support for Picard; suggests the rna command of fulcrumgenomics/riker, which does not have the issue. This reply thanks him, offers the ready one-line PR (branch on cindykrafft/picard, tests pass) and asks whether it would be merged; the PR is not opened unasked and P2/P3 are held until he answers"),
  dict(kind="issue", key="bowtie2", id="BW1", why="master-only regression (41ee86b, 2026-09-14, unreleased): reportHits computes mate 2's MAPQ with mate 2's own length as the opposite mate's, so mates of unequal length get different MAPQs for the same concordant pair (40/23 for a 150/50-bp pair with 3+2 mismatches; 6/30 for a perfect 150/60-bp pair in a repeat); releases 2.3.5.1-2.5.4 give both mates the same value; one-token fix on the branch (PR card goes live once BenLangmead/bowtie2 is forked)"),
  dict(kind="issue", key="bowtie2", id="BW2", why="every version: a mate reported as an unpaired alignment (YT:Z:UP) never carries XS:i even when it has a second-best alignment, MAPQ 0/1 and the summary counts it under 'aligned >1 times' (30/30 in the harness); the 'no XS = uniquely mapped' recipe keeps those multi-mappers; six-line fix on the branch"),
@@ -363,3 +361,37 @@ for k,r in repos.items():
         else: n=len(enc(i["title"]))+len(enc(i["body"]))
         print(f"{k:12} {i['id']:6} prefill length ~{n+80}")
     for p in r["prs"]: print(f"{k:12} PR {p['id']:5} ~{len(enc(p['title']))+len(enc(p['body']))+80}")
+
+# ---- ledger (2026-10-01): thread statuses from seen.json, rolled up to findings (an issue and the PRs that fix it are one finding)
+_seen=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"seen.json")))
+_items=[x for x in _seen["items"] if isinstance(x,dict) and x.get("status") and x["status"]!="internal"]
+_by={(x["repo"],x["number"]):x for x in _items}
+_used=set(); findings=[]
+for x in sorted(_items,key=lambda x:(x["repo"],x["number"])):
+    if x["kind"]=="pr": continue
+    k=(x["repo"],x["number"]); grp=[x]+[p for p in _items if p["kind"]=="pr" and p["repo"]==x["repo"] and x["number"] in (p.get("fixes") or [])]
+    for g in grp: _used.add((g["repo"],g["number"]))
+    findings.append(grp)
+for p in _items:
+    if (p["repo"],p["number"]) not in _used: findings.append([p])
+def _roll(grp):
+    st=[g["status"] for g in grp]
+    if "resolved" in st: return "resolved"
+    if "in progress" in st: return "in progress"
+    if "rejected" in st: return "rejected"
+    if all(s=="withdrawn" for s in st): return "withdrawn"
+    if "unanswered" in st: return "unanswered"
+    return "withdrawn"
+LEDGER=[]
+for grp in findings:
+    s=_roll(grp)
+    lead=next((g for g in grp if g["status"]==s), grp[0])
+    mv=("us" if any(g.get("whose_move")=="us" for g in grp) else "them") if s=="in progress" else None
+    LEDGER.append(dict(repo=grp[0]["repo"], status=s, whose_move=mv,
+        threads=[dict(number=g["number"],kind=g["kind"],title=g.get("title") or "",status=g["status"],state=g.get("state"),merged=g.get("merged")) for g in grp],
+        evidence=lead.get("evidence"), fixed_by=lead.get("fixed_by"), checked=lead.get("status_checked")))
+_cap={}
+for f in LEDGER:
+    if f["status"]=="unanswered": _cap[f["repo"]]=_cap.get(f["repo"],0)+1
+json.dump(dict(findings=LEDGER, unanswered_per_repo=_cap, threads=len(_items)), open(os.path.join(OUT,"ledger.json"),"w"), indent=1)
+print("ledger:", len(LEDGER), "findings from", len(_items), "threads;", {s:sum(1 for f in LEDGER if f["status"]==s) for s in ("in progress","unanswered","resolved","rejected","withdrawn")})

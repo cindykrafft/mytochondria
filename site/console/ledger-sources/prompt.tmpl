@@ -1,0 +1,42 @@
+Read-only task. Do not post, comment, react, label, close, push or change anything on GitHub.
+
+GitHub user cindykrafft (Cindy Krafft) filed the issues and pull requests listed below as part of a research-software audit. I need each thread's current status, backed by the verbatim thread text.
+
+THREADS (batch "{NAME}"):
+{THREADS}
+
+For every thread, fetch the full record, verbatim:
+- Metadata: title, state, state_reason, merged, merged_by, closed_by, created/closed/merged times, labels, assignees.
+- Every comment: author, author_association, created_at, id, html_url, full body.
+- For PRs, every review (author, state, body) and every inline review comment (path, line, body).
+- Timeline events: closed, reopened, merged, referenced, cross-referenced, connected, labeled, assigned, each with actor and time.
+- Any PR or commit that a comment or the timeline says fixed, replaced or superseded the thread: number or sha, title, state/merged, and author.
+
+Use whatever read access works: the GitHub tools in this session, the public REST API (api.github.com) with curl, or the github.com pages. If a repository or thread cannot be read, say so explicitly for that thread. Do not guess.
+
+Then classify each thread with exactly one STATUS:
+- resolved: the problem is fixed upstream, by any route. A PR counts as resolved when merged, or when it was closed because the same fix landed another way (a maintainer's own commit, a replacement PR). Cite the merge, commit or PR. An issue counts as resolved when it was closed as fixed or a fix for it was merged.
+- rejected: a maintainer declined, whether or not they closed the thread. Examples: "won't fix", "not a bug", "out of scope", "a fix is unlikely", or closed without a fix for a reason other than our withdrawal.
+- withdrawn: cindykrafft herself closed it or retracted it because the report was wrong or no longer applied. If she closed a PR only to replace it with another of her own PRs, mark it withdrawn and fill superseded_by.
+- in progress: a maintainer or other human reviewer engaged (comment, review, label, assignment, confirmation) and nothing is settled yet.
+- unanswered: no human other than cindykrafft has said or done anything. Bots (github-actions, codecov, dependabot, CLA bots, etc.) and cindykrafft's own comments do not count.
+
+For in progress, also give WHOSE_MOVE:
+- us: the last substantive human message asks cindykrafft something or asks for a change, and she has not answered or done it.
+- them: otherwise.
+
+Give the human's author_association, but do not rely on it alone. Some core developers show as CONTRIBUTOR. A person who merges, closes, labels, assigns or reviews counts as a maintainer.
+
+EVIDENCE: the single most decisive human action or quote. Copy the quote exactly (one or two sentences, verbatim, at most 300 characters), with its author, date and html_url. For unanswered, the evidence is "no human response", plus the date of cindykrafft's last post.
+
+Publish ONE private HTML artifact titled "Mytochondria ledger {NAME}" containing:
+1. At the top, a summary table: thread, status, whose_move, evidence (quote, author, date), confidence (high or low), one-line reason.
+2. A <script type="application/json" id="ledger"> element with an array of objects:
+   {"repo","number","kind":"issue|pr","title","state","state_reason","merged","status","whose_move":"us|them|null","evidence":{"quote","author","association","date","url"},"fixed_by":"PR#/sha or null","superseded_by":"#n or null","confidence":"high|low","reason"}
+3. A <script type="application/json" id="threads"> element with the raw fetched data for every thread: metadata, the full comments array (author, association, created_at, url, body), reviews, review comments, and timeline events, with nothing shortened.
+4. A readable verbatim transcript of every thread, every body in full and HTML-escaped.
+5. A count-check table comparing the comments, reviews and review comments shown against the API counts for each thread.
+
+Mark the classification low confidence whenever the text is ambiguous: for example a maintainer comment that is neither a yes nor a no, or a close with no comment.
+
+Reply with the artifact URL only.
