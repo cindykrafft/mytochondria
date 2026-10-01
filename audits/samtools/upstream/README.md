@@ -79,7 +79,8 @@ arguably should not enter the mean either (asks pd3); IS rows stay. Reworked loc
 2026-10-01: signed off at the owner's instruction (`git commit --amend -s`, Cindy Krafft <cynthiacondra@gmail.com>),
 now **96b359b** on 1776b17; `make test` re-run on that commit: 1012 passed, 0 failed. Patch 0004 regenerated from it.
 The first force-push attempt was refused by the session's permission check; at the owner's instruction ("push
-please") it was force-pushed 2026-10-01 with `--force-with-lease` (47d3376 -> 96b359b; command below). `pr-bodies.md` § PR 2 now holds the updated PR description and title for after the push.
+please") it was force-pushed 2026-10-01 with `--force-with-lease` (47d3376 -> 96b359b; command below). Fork CI on
+96b359b: all five workflows green (Linux, macOS, VMs, Containers, Windows/MinGW; 2026-10-01 14:45-14:55). `pr-bodies.md` § PR 2 now holds the updated PR description and title for after the push.
 
     git push --force-with-lease=fix/stats-dup-supplementary-isize-sd:47d3376 origin 96b359b:fix/stats-dup-supplementary-isize-sd
 
