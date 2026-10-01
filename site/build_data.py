@@ -12,6 +12,7 @@ cfg = json.load(open(os.path.join(HERE, "audits.json")))
 AUTHOR, SINCE = cfg["author"], cfg["since"]
 repo_to_audit = {r.lower(): a["dir"] for a in cfg["audits"] for r in a["repos"]}
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
+EXCLUDE = {o.lower() for o in cfg.get("exclude_owners", [])}   # owners outside the audit (exact match: google, not google-deepmind)
 
 def get(url):
     req = urllib.request.Request(url, headers={"Accept": "application/vnd.github+json", "User-Agent": "mytochondria-site",
@@ -64,7 +65,8 @@ unmapped = set()
 for kind in ("issue", "pr"):
     for it in search(kind):
         repo = it["repository_url"].split("/repos/")[1]
-        if repo.split("/")[0].lower() == AUTHOR.lower(): continue
+        owner = repo.split("/")[0].lower()
+        if owner == AUTHOR.lower() or owner in EXCLUDE: continue
         s = slim(it, kind)
         if repo.lower() not in repo_to_audit: unmapped.add(repo)
         s["audit"] = repo_to_audit.get(repo.lower())
