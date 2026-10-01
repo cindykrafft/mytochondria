@@ -24,3 +24,11 @@ Package test suite (tests/testthat, 4 files, 17 expectations, testthat::test_dir
 
 None of the suite's tests covers the origin labels, the stats table with factor labels or the "dbr"
 method; the harness runs above are the behavioural checks.
+
+2026-10-01, before pushing to cindykrafft/scDblFinder (devel 050c9da, 1.27.8; installed here: 1.16.0).
+  SD1: the fork-head getArtificialDoublets.R functions are identical to 1.16.0's; with the branch's versions
+       swapped into the namespace and the package environment, d2 6/6 ok (0.0 % mislabelled) and d1 22/23 ok
+       (the one FAIL is the dbr threshold, SD3, not on this branch).
+  SD2: the fork's scDblFinder() needs helpers newer than 1.16.0, so the branch's one-line change was applied to
+       1.16.0's scDblFinder(); d4 4/4 ok (factor labels FAIL without it).
+  Both changed files parse under R 4.3.3. testthat on devel not run here (devel's dependencies do not install).

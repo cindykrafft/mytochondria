@@ -14,3 +14,16 @@ FastQC has no test suite. Verification of fix/per-sequence-quality-mean-rounding
   per-base content, N content, length distribution, encoding) give the same results on both
   builds. The rounding is Java's Math.round (half up); the harness compares against
   floor(x + 0.5).
+
+2026-10-01, before pushing b22cfa5 to cindykrafft/FastQC. The repository now carries JUnit tests (test/unit,
+test/integration; .github/workflows/pr.yml runs `ant clean build unit-test integration-test`). Run here with
+OpenJDK 11 and the JUnit console launcher 1.10.0 (ant's junitlauncher would not start in this environment):
+  unit tests            master 87fb336: 8/8 pass       branch b22cfa5: 8/8 pass
+  FileContentsTest data FastQC run on test/data/minimal.fastq and complex.fastq: fastqc_data.txt is identical
+                        on master and the branch; both differ from the approved files by the same three Basic
+                        Statistics lines (Mean/Median Length present, "Sequences flagged as poor quality"
+                        absent), so that mismatch is on master, not from this change. The test reads have
+                        integer mean qualities, so rounding and truncation agree; the approved files need no
+                        update for this fix.
+  The integration tests' own FastQC launches could not run here (their classpath lacks commons-compress, and
+  the process hangs after the NoClassDefFoundError); CI on the PR will run them.

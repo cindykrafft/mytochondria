@@ -52,3 +52,11 @@ subread:fix/splitonly-singleton-fragments
 subread:fix/read-type-filter
 bowtie2:fix/mate2-mapq-opposite-length
 bowtie2:fix/xs-for-unpaired-mates
+FastQC:fix/per-sequence-quality-mean-rounding
+vcftools:fix/tmpname-buffer-size
+vcftools:fix/relatedness2-missing-genotypes
+scDblFinder:fix/artificial-doublet-order
+scDblFinder:fix/factor-cluster-labels
+scikit-learn:fix/pca-covariance-eigh-centering
+scikit-learn:fix/nmf-reconstruction-err-docstring
+numpy:fix/unique-hash-nat-complex-nan

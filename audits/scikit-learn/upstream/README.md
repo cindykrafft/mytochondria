@@ -1,5 +1,10 @@
 # scikit-learn upstream filing kit
 
+_Update 2026-10-01: fork `cindykrafft/scikit-learn`; `fix/pca-covariance-eigh-centering` (`a0d6f7b07c`) and
+`fix/nmf-reconstruction-err-docstring` (`0ea3d61343`) pushed: the commits tested in the audit, on `857849927d`.
+Nothing filed; the SK1 PR still waits for the Needs Triage label to come off the issue, and the issue and PR
+prose stays yours (repository AI policy)._
+
 _Default branch: **`main`** (PRs go against it). Prepared 2026-09-25 against `scikit-learn/scikit-learn`
 `main` @ `857849927d` (1.9.1 released; 1.10.dev0). **Nothing filed, nothing pushed.** The two changes
 are single commits on local branches of the audit clone, `git am`-able from the patches in this

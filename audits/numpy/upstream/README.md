@@ -1,5 +1,9 @@
 # NumPy upstream notes
 
+_Update 2026-10-01: fork `cindykrafft/numpy`; `fix/unique-hash-nat-complex-nan` (`1005ffc88f`) pushed: the
+commit tested in the audit, on `55511445dc`. Nothing filed; the issue and PR text stays yours (NumPy AI policy),
+with the AI disclosure in the PR._
+
 _Prepared 2026-09-25 against `numpy/numpy` `main` @ `55511445dc`. **Nothing filed, nothing
 pushed.**_
 

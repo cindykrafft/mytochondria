@@ -25,3 +25,11 @@ master (1f87a83, control)                     v1 12 ok + --012 abort; v2 7 ok + 
 
 Outputs: ../verify/*.patched.out (0001), *.patched2.out (0002), *.out (master), *.v0.1.16.out,
 *.v0.1.13.out, *.vapt0.1.16-3.out.
+
+2026-10-01, before pushing to cindykrafft/vcftools (builds of 1f87a83 and both branches here):
+  harnesses v1/v2/v3   master: v2 FAIL on --relatedness2 with missing calls (VT2), v3 two FAILs (held notes)
+                       fix/tmpname-buffer-size: same as master
+                       fix/relatedness2-missing-genotypes: v2 10/10 ok; v3 the same two held FAILs
+  VT1 with -fsanitize=address on examples/cmp-test-a.vcf: --012, --geno-r2, --plink, --hap-r2 abort on master
+                       (exit 134); on the branch --012/--geno-r2/--plink exit 0 and --hap-r2 exits 1 as on any
+                       build (the example is unphased). This toolchain's plain fortified build does not abort.

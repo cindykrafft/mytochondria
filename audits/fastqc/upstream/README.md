@@ -1,5 +1,8 @@
 # FastQC upstream filing kit
 
+_Update 2026-10-01: fork `cindykrafft/FastQC`; `fix/per-sequence-quality-mean-rounding` pushed
+(`b22cfa5`, the patch on `87fb336`). Nothing filed._
+
 _Default branch: **`master`** (PRs go against it). Prepared 2026-09-24 against
 `s-andrews/FastQC` `master` @ `87fb336` (2026-07-20; unreleased commits on top of 0.12.1).
 **Nothing filed, nothing pushed.** The FQ2 fix is a single commit on a local branch of the

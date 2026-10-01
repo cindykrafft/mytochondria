@@ -1,5 +1,9 @@
 # scDblFinder upstream filing kit
 
+_Update 2026-10-01: fork `cindykrafft/scDblFinder` (devel at `050c9da`, 1.27.8); the patches applied
+cleanly there and `fix/artificial-doublet-order` (`4b34ffb`) and `fix/factor-cluster-labels` (`fcb135d`) are
+pushed. SD3's branch is not pushed (held). Nothing filed._
+
 _Default branch: **`devel`** (PRs go against it). Prepared 2026-09-24 against `plger/scDblFinder`
 `devel` @ `2d0e5e4` (1.27.6). **Nothing filed, nothing pushed.** The three fixes are single commits on
 local branches of the audit clone, `git am`-able from the patches in this directory against `2d0e5e4`;

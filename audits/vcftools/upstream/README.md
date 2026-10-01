@@ -1,5 +1,8 @@
 # VCFtools upstream filing kit
 
+_Update 2026-10-01: fork `cindykrafft/vcftools`; `fix/tmpname-buffer-size` (`ba23831`) and
+`fix/relatedness2-missing-genotypes` (`311cebd`) pushed, the patches on `1f87a83`. Nothing filed._
+
 _Default branch: **`master`** (PRs go against it). Prepared 2026-09-24 against `vcftools/vcftools`
 `master` @ `1f87a83` (0.1.18 unreleased). **Nothing filed, nothing pushed.** The two fixes are single
 commits on local branches of the audit clone, `git am`-able from the patches in this directory against

@@ -442,7 +442,7 @@
    "repos": [
     "s-andrews/FastQC"
    ],
-   "fork": null,
+   "fork": "cindykrafft/FastQC",
    "attributed": null,
    "attributed_note": "survey cohort of 322 papers; 3 confirmed on master and three release archives (encoding misdetection when no quality is below 31, per-read mean quality truncated, GC module truncates reads to 100 bases), 4 notes; the other modules held up",
    "versions_stated": 85,
@@ -456,7 +456,7 @@
    "repos": [
     "vcftools/vcftools"
    ],
-   "fork": null,
+   "fork": "cindykrafft/vcftools",
    "attributed": null,
    "attributed_note": "survey cohort of 112 papers; 3 confirmed on master, v0.1.16, v0.1.13 and the Ubuntu package (every temporary-file output mode aborts on a fortified source build, --relatedness2 underestimates kinship with missing genotypes, --max-missing-count counts alleles not genotypes), 3 notes; the diversity, Fst, LD, HWE and filter code held up",
    "versions_stated": 20,
@@ -470,7 +470,7 @@
    "repos": [
     "plger/scDblFinder"
    ],
-   "fork": null,
+   "fork": "cindykrafft/scDblFinder",
    "attributed": null,
    "attributed_note": "survey cohort of 179 papers; 3 confirmed on the 1.16.0 release and 1.4.0/1.8.0/1.12.0 builds, devel read (artificial-doublet origins mislabelled with the default size adjustment so mostLikelyOrigin is mostly wrong, factor cluster labels empty the per-combination stats, the dbr threshold is NaN without artificial doublets), 2 notes; the doublet calls, expected-doublet arithmetic, cxds2 and thresholding rules held up",
    "versions_stated": 6,
@@ -484,7 +484,7 @@
    "repos": [
     "numpy/numpy"
    ],
-   "fork": null,
+   "fork": "cindykrafft/numpy",
    "attributed": null,
    "attributed_note": "survey cohort of 253 papers; 0 confirmed on 2.4.6 and 1.23.5/1.24.4/1.26.4 (no wrong number for a documented definition), 5 notes (float32 slow-axis reductions, open upstream as #22956/#8869; closest_observation ties fixed in 2.1.0; non-PSD multivariate_normal; float32 FFT precision; round-half-even at 2.675); quantiles, histograms, polyfit, linalg, FFT and the generators held up; full inspection (2026-09-25): 14 bugs on 2.4.6 still on main, 5 already reported upstream, 2 to file (np.unique NaT with equal_nan=False on the hash path, fix verified; np.select wrapping Python ints), the rest queued",
    "versions_stated": 26,
@@ -498,7 +498,7 @@
    "repos": [
     "scikit-learn/scikit-learn"
    ],
-   "fork": null,
+   "fork": "cindykrafft/scikit-learn",
    "attributed": null,
    "attributed_note": "survey cohort of 322 papers; 2 confirmed on 1.9.1 and 1.5.2, main read (PCA's covariance_eigh solver, the auto choice for tall dense data since 1.5, loses the variance of offset features: 33 % off for float32 values around 100; NMF.reconstruction_err_ is sqrt(2 D_beta), not the divergence), 1 note open upstream (#31210 euclidean_distances precision) + 4 notes; every metric, PCA(full/arpack/randomized), the scalers, KMeans, GaussianMixture, the splitters and the linear models held up; full inspection (2026-09-25): 26 more findings on 1.9.1, 6 already reported upstream, 5 with fixes on branches, the rest queued behind the two round-6 filings",
    "versions_stated": 31,
