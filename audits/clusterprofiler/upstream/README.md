@@ -7,6 +7,11 @@ _Prepared 2026-09-08 against clusterProfiler `devel` @ `93835a3` and enrichit `d
 Nothing filed, nothing pushed. No project fork of these repositories exists yet; `site/audits.json`
 has no entry for them, so the `upstream-declines-ai-contributions` check is moot._
 
+_Update 2026-10-01: the forks `cindykrafft/clusterProfiler` and `cindykrafft/enrichit` exist and
+`site/audits.json` maps both repositories. The enrichit fork carries `fix/gsea-sign-conditioned-pvalue`
+(patch 0001, for CP4). Nothing is prepared for a clusterProfiler PR: CP1 is held (fixed upstream).
+Nothing filed._
+
 ## Tiers (README step 5)
 
 | item | tier | why |

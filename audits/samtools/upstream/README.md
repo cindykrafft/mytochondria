@@ -130,6 +130,8 @@ patch (same function family, same test file convention). The six notes are **hel
   restriction, `-d`/`-p` coverage output), #875 (closed: `-t` segfault), #2201 (open:
   stats for long inserts). For the notes: N1 nearest #1036/#986 (`mpileup` overlap
   detection, open); N5 nearest #2234 (closed, `coverage --rf 256`).
+- Update 2026-10-01: `cindykrafft/samtools` and `cindykrafft/htslib` both exist. Nothing is
+  prepared for HTSlib (the bcftools note N4 on `mpileup -d` is HTSlib documentation, held).
 - `site/audits.json` in this repository has no `samtools` entry and no fork of
   `samtools/samtools` under `cindykrafft` is recorded; GitHub's repository API is not
   reachable from this session, so the `upstream-declines-ai-contributions` topic could

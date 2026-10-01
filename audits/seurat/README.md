@@ -187,6 +187,8 @@ Out of scope: `R/visualization.R` (10,013 lines; plots, not numbers), `mixscape.
 
 - Seurat's README: bug reports and feature requests as GitHub issues; analysis
   questions to Discussions; "PRs are welcome".
+- Fork: `cindykrafft/seurat` made 2026-10-01; nothing pushed. SE1 has no branch yet: the
+  comments on #9346 have to be read first.
 - Wiki **Contributor's Guide**: fork, branch `fix/*` from `upstream/main`, regenerate
   roxygen docs, tests encouraged but not mandatory — a PR without tests must include
   a small reproducible example on `pbmc_small` or a `SeuratData` set; request review

@@ -48,3 +48,5 @@ Trimmomatic:fix/maxinfo-normalisation
 picard:fix/rnaseq-coverage-last-base
 picard:fix/hsmetrics-zero-cvg-denominator
 picard:fix/alignment-summary-bisulfite-ref-index
+subread:fix/splitonly-singleton-fragments
+subread:fix/read-type-filter

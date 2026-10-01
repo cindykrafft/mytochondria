@@ -22,9 +22,12 @@ and `github.com` HTML is blocked. A code comment cites the Subread Google Group
 (`readSummary.c:3311`, `groups.google.com/forum/#!topic/subread/...`) as a user
 forum, and Rsubread users are directed to the Bioconductor support site.
 
-Branches (in the scratchpad clone, not pushed): `fix/splitonly-singleton-fragments`
-(`3ad59a3`, patch 0001) and `fix/read-type-filter` (`2c28bce`, patch 0002), each one
-commit on top of `55dc154`.
+Branches, pushed 2026-10-01 to the fork `cindykrafft/subread`:
+`fix/splitonly-singleton-fragments` (`e0055d5`, patch 0001) and `fix/read-type-filter`
+(`3f02485`, patch 0002), each one commit on top of `55dc154`, authored as Cindy Krafft.
+Built from each branch, `test_corner_cases.sh` and `featureCounts-test.sh` pass 88/88,
+including the new case; the SPLITONLY case fails on a build without patch 0001. Pushing
+the branches files nothing: both findings stay held as above.
 
 ## What was read before preparing this (step 4 of the method)
 
