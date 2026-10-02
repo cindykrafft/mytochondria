@@ -20,3 +20,4 @@ bowtie2:532:pr:533:open
 vcftools:231:pr:232:open
 scdblfinder:145:pr:146:merged
 fastqc:212:issue:212:open
+macs2:752:pr:753:open

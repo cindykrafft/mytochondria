@@ -60,3 +60,5 @@ scDblFinder:fix/factor-cluster-labels
 scikit-learn:fix/pca-covariance-eigh-centering
 scikit-learn:fix/nmf-reconstruction-err-docstring
 numpy:fix/unique-hash-nat-complex-nan
+MACS:fix/keepdup-auto-control-threshold
+MACS:fix/poisson-lower-tail-init

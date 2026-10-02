@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-02T14:40:00Z",
+ "taken": "2026-10-02T18:50:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -2957,6 +2957,49 @@
     "url": "https://github.com/deeptools/deepTools/issues/1118#issuecomment-5586637194"
    },
    "status_checked": "2026-10-01"
+  },
+  {
+   "repo": "macs3-project/MACS",
+   "number": 752,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-02T14:40:18Z",
+   "note": "MC1 issue (--keep-dup auto filters the control at the treatment's threshold), filed 2026-10-02",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-10-02T14:40:18Z",
+    "url": "https://github.com/macs3-project/MACS/issues/752"
+   },
+   "status_checked": "2026-10-02",
+   "title": "Bug: --keep-dup auto filters the control with the treatment's duplicate threshold (control_max_dup_tags is computed and logged, never used)"
+  },
+  {
+   "repo": "macs3-project/MACS",
+   "number": 753,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-02T14:40:39Z",
+   "note": "MC1 PR from cindykrafft:MACS fix/keepdup-auto-control-threshold (ed436c1); fork CI green on ed436c1 (x64, macOS, non-x64, Sphinx)",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-10-02T14:40:39Z",
+    "url": "https://github.com/macs3-project/MACS/pull/753"
+   },
+   "status_checked": "2026-10-02",
+   "title": "callpeak: filter the control with its own duplicate threshold",
+   "fixes": [
+    752
+   ]
   }
  ],
  "merge_checked": [
