@@ -1,5 +1,7 @@
 # FastQC upstream filing kit
 
+_Update 2026-10-02: FQ1 filed 2026-10-01 as #212 (issue only). s-andrews (OWNER) replied 2026-10-02 07:10 UTC (issuecomment-5947171884): the bug is "a known limitation of quality value detection"; his fix is (1) stop autodetecting, default to Phred+33, (2) warn on ASCII >= 80, (3) a `--phred64` option, (4) an error if `--phred64` meets incompatible values. Thread read in full the same day through a helper session (transcript https://claude.ai/code/artifact/371dd757-fc21-45a4-aea0-566f4ae06dfb); no linked PR. Reply `comment-fqr1-212-reply.md` drafted for the owner: accepts the plan, PR to follow, asks where the warning should appear and how to sequence against PR #210 (ewels). No code written yet._
+
 _Update 2026-10-01: fork `cindykrafft/FastQC`; `fix/per-sequence-quality-mean-rounding` pushed
 (`b22cfa5`, the patch on `87fb336`). Nothing filed._
 

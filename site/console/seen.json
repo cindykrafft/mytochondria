@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-02T06:50:00Z",
+ "taken": "2026-10-02T07:50:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -8,16 +8,16 @@
    "kind": "issue",
    "state": "open",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-10-01T23:07:59Z",
-   "note": "FQ1 issue (Phred+33 read as Illumina 1.5 when min quality >= 31; follows up #147), filed 2026-10-01",
-   "status": "unanswered",
-   "whose_move": null,
+   "comments": 1,
+   "updated": "2026-10-02T07:10:49Z",
+   "note": "FQ1 issue (Phred+33 read as Illumina 1.5 when min quality >= 31; follows up #147), filed 2026-10-01; s-andrews (OWNER) 2026-10-02 07:10 confirms and sets the fix (default Phred+33, warn >= ASCII 80, --phred64, error on incompatible values); thread read in full 2026-10-02; reply FQR1 drafted",
+   "status": "in progress",
+   "whose_move": "us",
    "evidence": {
-    "quote": "no human response",
-    "author": null,
-    "date": "2026-10-01T23:07:59Z",
-    "url": "https://github.com/s-andrews/FastQC/issues/212"
+    "quote": "Realistically these days files using Phred64 are extremely rare so the realistic fix here is: 1. Stop autodetecting the format, and default to Phred32 2. Warn if any base has an ASCII value which would imply an unrealistically high Phred score (ASCII >= 80 for example) 3. Provide a --phred64 command line option for people to manually switch if they need it 4. Throw an error if --phred64 is selected and the file uses values which are incompatible with this.",
+    "author": "s-andrews",
+    "date": "2026-10-02T07:10:49Z",
+    "url": "https://github.com/s-andrews/FastQC/issues/212#issuecomment-5947171884"
    },
    "status_checked": "2026-10-02",
    "title": "A Phred+33 file whose lowest quality is 31 or more is reported as Illumina 1.5 and every quality is shifted down by 31 (follow-up to #147, with a proposed default)"
