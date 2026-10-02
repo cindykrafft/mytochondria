@@ -6,21 +6,22 @@
    "repo": "s-andrews/FastQC",
    "number": 212,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-10-02T07:10:49Z",
-   "note": "FQ1 issue (Phred+33 read as Illumina 1.5 when min quality >= 31; follows up #147), filed 2026-10-01; s-andrews (OWNER) 2026-10-02 07:10 confirms and sets the fix (default Phred+33, warn >= ASCII 80, --phred64, error on incompatible values); thread read in full 2026-10-02; reply FQR1 drafted",
-   "status": "in progress",
-   "whose_move": "us",
+   "updated": "2026-10-02T09:59:58Z",
+   "note": "FQ1 issue (Phred+33 read as Illumina 1.5 when min quality >= 31; follows up #147), filed 2026-10-01; s-andrews (OWNER) 2026-10-02 07:10 confirms and sets the fix (default Phred+33, warn >= ASCII 80, --phred64, error on incompatible values); thread read in full 2026-10-02; reply FQR1 drafted, then dropped unposted: s-andrews implemented his plan himself in 0bfbd87 and closed the issue at 09:59",
+   "status": "resolved",
+   "whose_move": null,
    "evidence": {
-    "quote": "Realistically these days files using Phred64 are extremely rare so the realistic fix here is: 1. Stop autodetecting the format, and default to Phred32 2. Warn if any base has an ASCII value which would imply an unrealistically high Phred score (ASCII >= 80 for example) 3. Provide a --phred64 command line option for people to manually switch if they need it 4. Throw an error if --phred64 is selected and the file uses values which are incompatible with this.",
+    "quote": "Make Phred32 the default. Only use phred64 if users specify --phred64 to avoid mis-identification of universally high quality base call samples. Fixes #212",
     "author": "s-andrews",
-    "date": "2026-10-02T07:10:49Z",
-    "url": "https://github.com/s-andrews/FastQC/issues/212#issuecomment-5947171884"
+    "date": "2026-10-02T09:59:52Z",
+    "url": "https://github.com/s-andrews/FastQC/commit/0bfbd871c05415308d4ce38d28f42839ecc338ce"
    },
    "status_checked": "2026-10-02",
-   "title": "A Phred+33 file whose lowest quality is 31 or more is reported as Illumina 1.5 and every quality is shifted down by 31 (follow-up to #147, with a proposed default)"
+   "title": "A Phred+33 file whose lowest quality is 31 or more is reported as Illumina 1.5 and every quality is shifted down by 31 (follow-up to #147, with a proposed default)",
+   "fixed_by": "commit 0bfbd87 on master by s-andrews, 2026-10-02 09:59 UTC ('Make Phred32 the default ... Fixes #212'): Phred+33 unless --phred64; --phred64 errors on chars below 64; stderr warning when the lowest char is >= 64; version bumped to 0.13.0 (da2674c) the same day"
   },
   {
    "repo": "plger/scDblFinder",
