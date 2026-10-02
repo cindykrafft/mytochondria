@@ -1,5 +1,7 @@
 # Picard upstream filing kit
 
+_Update 2026-10-02: PK1 (`comment-pk1-2060-reply.md`) was posted by the owner on #2060 on 2026-10-01 19:23 UTC (issuecomment-5938884693). The thread was re-read in full on 2026-10-02 through a helper session (transcript: https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU): two comments, tfenne's decline of 2026-09-26 and our reply; no answer yet, no PR or other thread references the issue. The PR stays held until tfenne says he would merge it._
+
 _Default branch: **`master`** (PRs go against it). Prepared 2026-09-24 against
 `broadinstitute/picard` `master` @ `c2a483d` (htsjdk 5.0.0). **P1 issue filed** as broadinstitute/picard#2060 (2026-09-26 00:02 UTC, by the owner); its PR is next. The three fixes are single commits (fix +
 TestNG regression test) on `c2a483d`, pushed to the fork `cindykrafft/picard` on 2026-09-26

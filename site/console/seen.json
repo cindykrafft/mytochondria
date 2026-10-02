@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-02T00:55:00Z",
+ "taken": "2026-10-02T06:50:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -2863,7 +2863,7 @@
    "comments": 2,
    "updated": "2026-10-01T19:23:13Z",
    "title": "CollectRnaSeqMetrics never counts the last base of an alignment block in transcript coverage (MEDIAN_CV_COVERAGE, 5'/3' bias, normalized_coverage histogram)",
-   "note": "P1 issue; tfenne (COLLABORATOR) 12:52: fix unlikely, limited Picard support, suggests fulcrumgenomics/riker rna. PR held; reply PK1 drafted for the owner; 2026-10-01 19:23: a second comment (probably the owner's PK1 reply, not yet confirmed); thread re-read pending (helper session 2026-10-02 had not started), status unchanged",
+   "note": "P1 issue; tfenne (COLLABORATOR) 2026-09-26 12:52: fix unlikely, limited Picard support, suggests fulcrumgenomics/riker rna. PK1 reply posted by the owner 2026-10-01 19:23 (issuecomment-5938884693: offers to open the PR if they'd merge it, else leaves the issue for others); no answer yet. Thread re-read in full 2026-10-02 (transcript https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU); no PR or other thread references it",
    "status": "rejected",
    "whose_move": null,
    "evidence": {
@@ -2872,7 +2872,7 @@
     "date": "2026-09-26T12:52:23Z",
     "url": "https://github.com/broadinstitute/picard/issues/2060#issuecomment-5846421443"
    },
-   "status_checked": "2026-10-01"
+   "status_checked": "2026-10-02"
   },
   {
    "repo": "samtools/samtools",
