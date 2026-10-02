@@ -1,10 +1,12 @@
 # scanpy #3809 — `.obsp["distances"]` holds `n_neighbors` instead of `n_neighbors - 1` neighbors per cell
 
+_Update 2026-10-02: the thread is read. flying-sheep (MEMBER, 2026-07-27): "Since the default is “smart” choice between brute-force and PyNNDescent based on number of cell, we should definitely bring this in line. Maybe we can sniff out if there’s a self-column by checking if it’s uniform 0?" maltekuehl (CONTRIBUTOR, 2025-09-22) offered to write the PR "once a way forward is decided"; jpintar (reporter) wants it "consistent and documented". No PR fixes it: draft PR #3807 (for #3014, connectivities under knn=True; flying-sheep 2026-07-27: "I'll add it as part of scanpy 2") does not touch how distances are built. `comment.md` is rewritten to answer the maintainer's suggestion and to defer to maltekuehl if he has work in progress. scanpy main is now fc4dbec; the 15 commits since ec374022 do not touch src/scanpy/neighbors or tests/test_neighbors.py, so the branch and the reproduction stand as they are. Ready: comment + PR (in the console's Do next)._
+
 _Prepared 2026-09-03 against `scverse/scanpy` `main` @ `ec374022` ("ci: fix autofix workflow (#4342)"), Python 3.12 venv with the clone installed editable plus `scikit-misc igraph leidenalg pytest pytest-mock pytest-xdist pytest-rerunfailures pooch` (the project's recipe). Nothing was pushed, filed or posted._
 
 ## The issue
 
-- **#3809** — "Unexpected number of non-zero distances when running `sc.pp.neighbors` with `transformer="pynndescent"`" — https://github.com/scverse/scanpy/issues/3809 — opened 2025-09-21, open, 6 comments (not readable from this session), no assignee, label `Area - Topology`. No open PR references it (searched `pynndescent distances 3809` and the open-PR list, 91 PRs).
+- **#3809** — "Unexpected number of non-zero distances when running `sc.pp.neighbors` with `transformer="pynndescent"`" — https://github.com/scverse/scanpy/issues/3809 — opened 2025-09-21, open, 6 comments (API count; 5 visible, one probably deleted), read in full on 2026-10-02 through a helper session (transcript: https://claude.ai/artifact/T4uV6UdDfjMKrYDu9Did4Y), together with #3014, draft PR #3807 and #3806, no assignee, label `Area - Topology`. No open PR references it (searched `pynndescent distances 3809` and the open-PR list, 91 PRs).
 - **Reporter's claim:** the docs say each row of `adata.obsp["distances"]` has `k - 1` non-zero entries after `sc.pp.neighbors(n_neighbors=k)`; with `transformer="sklearn"` (and `rapids_singlecell` brute force) that holds, with `transformer="pynndescent"` there are `k` entries. Reproduction in the body on a random 5000 × 10000 sparse matrix, PCA, `k = 30`.
 
 ## Diagnosis (`ec374022`)
