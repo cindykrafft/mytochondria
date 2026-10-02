@@ -1,7 +1,156 @@
 {
- "taken": "2026-10-01T18:50:00Z",
+ "taken": "2026-10-02T00:55:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
+  {
+   "repo": "s-andrews/FastQC",
+   "number": 212,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-01T23:07:59Z",
+   "note": "FQ1 issue (Phred+33 read as Illumina 1.5 when min quality >= 31; follows up #147), filed 2026-10-01",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-10-01T23:07:59Z",
+    "url": "https://github.com/s-andrews/FastQC/issues/212"
+   },
+   "status_checked": "2026-10-02",
+   "title": "A Phred+33 file whose lowest quality is 31 or more is reported as Illumina 1.5 and every quality is shifted down by 31 (follow-up to #147, with a proposed default)"
+  },
+  {
+   "repo": "plger/scDblFinder",
+   "number": 146,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-01T23:17:56Z",
+   "note": "SD1 PR from cindykrafft:scDblFinder fix/artificial-doublet-order; fork has no Actions runs",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-10-01T23:17:56Z",
+    "url": "https://github.com/plger/scDblFinder/pull/146"
+   },
+   "status_checked": "2026-10-02",
+   "title": "createDoublets: keep the input pair order when adjusting library sizes",
+   "fixes": [
+    145
+   ]
+  },
+  {
+   "repo": "plger/scDblFinder",
+   "number": 145,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-01T23:17:26Z",
+   "note": "SD1 issue (artificial doublet origin labels misaligned), filed 2026-10-01",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-10-01T23:17:26Z",
+    "url": "https://github.com/plger/scDblFinder/issues/145"
+   },
+   "status_checked": "2026-10-02",
+   "title": "With the default `adjustSize`, artificial doublets get another pair's origin label, so `scDblFinder.mostLikelyOrigin` is mostly wrong"
+  },
+  {
+   "repo": "vcftools/vcftools",
+   "number": 232,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-01T23:16:28Z",
+   "note": "VT1 PR from cindykrafft:vcftools fix/tmpname-buffer-size; no CI in the repo",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-10-01T23:16:28Z",
+    "url": "https://github.com/vcftools/vcftools/pull/232"
+   },
+   "status_checked": "2026-10-02",
+   "title": "Size the temporary-file name buffers for the terminating NUL",
+   "fixes": [
+    231
+   ]
+  },
+  {
+   "repo": "vcftools/vcftools",
+   "number": 231,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-01T23:16:02Z",
+   "note": "VT1 issue (temporary-file name buffers overflow under fortify), filed 2026-10-01",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-10-01T23:16:02Z",
+    "url": "https://github.com/vcftools/vcftools/issues/231"
+   },
+   "status_checked": "2026-10-02",
+   "title": "`--012`, `--plink`, `--hap-r2`, `--geno-r2` (every temporary-file output) abort with \"buffer overflow detected\" when built with a fortifying compiler"
+  },
+  {
+   "repo": "BenLangmead/bowtie2",
+   "number": 533,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-01T22:32:52Z",
+   "note": "BW1 PR from cindykrafft:bowtie2 fix/mate2-mapq-opposite-length; fork has no Actions runs",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-10-01T22:32:52Z",
+    "url": "https://github.com/BenLangmead/bowtie2/pull/533"
+   },
+   "status_checked": "2026-10-02",
+   "title": "Use the opposite mate's length when computing mate 2's MAPQ",
+   "fixes": [
+    532
+   ]
+  },
+  {
+   "repo": "BenLangmead/bowtie2",
+   "number": 532,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-01T19:24:53Z",
+   "note": "BW1 issue (mate 2 MAPQ computed with its own length), filed 2026-10-01",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-10-01T19:24:53Z",
+    "url": "https://github.com/BenLangmead/bowtie2/issues/532"
+   },
+   "status_checked": "2026-10-02",
+   "title": "Since 41ee86b (MQ:i support) mate 2's MAPQ is computed with its own length in place of mate 1's, so mates of unequal length get different MAPQs for the same concordant pair"
+  },
   {
    "repo": "samtools/bcftools",
    "number": 2594,
@@ -1041,7 +1190,7 @@
    "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-28T13:25:00Z",
+   "updated": "2026-08-28T13:24:59Z",
    "status": "resolved",
    "whose_move": null,
    "evidence": {
@@ -2352,10 +2501,10 @@
    "repo": "freesurfer/freesurfer",
    "number": 1470,
    "kind": "pr",
-   "state": "open",
+   "state": "closed",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-08-30T22:39:15Z",
+   "comments": 1,
+   "updated": "2026-10-01T21:33:08Z",
    "status": "rejected",
    "whose_move": null,
    "evidence": {
@@ -2368,7 +2517,8 @@
    "fixes": [
     1469
    ],
-   "title": "mris_anatomical_stats: make the -i thickness range actually filter"
+   "title": "mris_anatomical_stats: make the -i thickness range actually filter",
+   "note": "closed unmerged 2026-10-01T21:21:31Z (search API), 1 comment added by 21:33; repo declines AI, state recorded only, comment not read (helper session 2026-10-02 did not publish a transcript)"
   },
   {
    "repo": "freesurfer/freesurfer",
@@ -2710,10 +2860,10 @@
    "kind": "issue",
    "state": "open",
    "merged": false,
-   "comments": 1,
-   "updated": "2026-09-26T12:52:23Z",
+   "comments": 2,
+   "updated": "2026-10-01T19:23:13Z",
    "title": "CollectRnaSeqMetrics never counts the last base of an alignment block in transcript coverage (MEDIAN_CV_COVERAGE, 5'/3' bias, normalized_coverage histogram)",
-   "note": "P1 issue; tfenne (COLLABORATOR) 12:52: fix unlikely, limited Picard support, suggests fulcrumgenomics/riker rna. PR held; reply PK1 drafted for the owner",
+   "note": "P1 issue; tfenne (COLLABORATOR) 12:52: fix unlikely, limited Picard support, suggests fulcrumgenomics/riker rna. PR held; reply PK1 drafted for the owner; 2026-10-01 19:23: a second comment (probably the owner's PK1 reply, not yet confirmed); thread re-read pending (helper session 2026-10-02 had not started), status unchanged",
    "status": "rejected",
    "whose_move": null,
    "evidence": {

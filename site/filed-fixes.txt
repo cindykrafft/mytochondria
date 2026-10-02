@@ -16,3 +16,7 @@ umap:1277:pr:1290:open
 star:2707:pr:2708:open
 trimmomatic:90:pr:91:merged
 samtools:696:pr:2388:open
+bowtie2:532:pr:533:open
+vcftools:231:pr:232:open
+scdblfinder:145:pr:146:open
+fastqc:212:issue:212:open
