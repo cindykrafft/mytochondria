@@ -35,10 +35,10 @@
    "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "Merge pull request #146 from cindykrafft/fix/artificial-doublet-order",
+    "quote": "Excellent catch, thanks a lot for this. I've been struggling with doublet origins but somehow never even considered that there might be a bug in there... will merge and push to Bioc once the checks are done.",
     "author": "plger",
-    "date": "2026-10-02T10:42:05Z",
-    "url": "https://github.com/plger/scDblFinder/pull/146"
+    "date": "2026-10-02T10:28:04Z",
+    "url": "https://github.com/plger/scDblFinder/issues/145#issuecomment-5950371542"
    },
    "status_checked": "2026-10-02",
    "title": "createDoublets: keep the input pair order when adjusting library sizes",
@@ -55,14 +55,14 @@
    "merged": false,
    "comments": 1,
    "updated": "2026-10-02T10:42:07Z",
-   "note": "SD1 issue (artificial doublet origin labels misaligned), filed 2026-10-01; closed by the merge of #146 at 10:42 with one comment (not yet read: helper session awaiting the owner's publish approval)",
+   "note": "SD1 issue (artificial doublet origin labels misaligned), filed 2026-10-01; closed by the merge of #146 at 10:42: plger (OWNER) 10:28 'Excellent catch ... will merge and push to Bioc once the checks are done'; thread read in full 2026-10-02 (transcript https://claude.ai/artifact/ASgKyZcEQ2afhngboadjkS)",
    "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "Merge pull request #146 from cindykrafft/fix/artificial-doublet-order",
+    "quote": "Excellent catch, thanks a lot for this. I've been struggling with doublet origins but somehow never even considered that there might be a bug in there... will merge and push to Bioc once the checks are done.",
     "author": "plger",
-    "date": "2026-10-02T10:42:05Z",
-    "url": "https://github.com/plger/scDblFinder/pull/146"
+    "date": "2026-10-02T10:28:04Z",
+    "url": "https://github.com/plger/scDblFinder/issues/145#issuecomment-5950371542"
    },
    "status_checked": "2026-10-02",
    "title": "With the default `adjustSize`, artificial doublets get another pair's origin label, so `scDblFinder.mostLikelyOrigin` is mostly wrong",

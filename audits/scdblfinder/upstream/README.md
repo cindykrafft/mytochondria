@@ -1,5 +1,7 @@
 # scDblFinder upstream filing kit
 
+_Update 2026-10-02: **SD1 merged.** plger (OWNER) on #145, 10:28 UTC: "Excellent catch, thanks a lot for this. I've been struggling with doublet origins but somehow never even considered that there might be a bug in there... will merge and push to Bioc once the checks are done." He merged PR #146 into `devel` at 10:42 (ac01262, our commit 4b34ffb unchanged) and closed #145. No reviews or requested changes. Thread read in full the same day (transcript https://claude.ai/artifact/ASgKyZcEQ2afhngboadjkS). The filed issue still carries the kit's placeholder `[submitter: paste sessionInfo() of the environment the MRE was run in]` in its Session info section; nobody remarked on it, but later filings should fill or drop that line. scDblFinder now has no unanswered filing: SD2 (factor `clusters` argument) is next._
+
 _Update 2026-10-01: fork `cindykrafft/scDblFinder` (devel at `050c9da`, 1.27.8); the patches applied
 cleanly there and `fix/artificial-doublet-order` (`4b34ffb`) and `fix/factor-cluster-labels` (`fcb135d`) are
 pushed. SD3's branch is not pushed (held). Nothing filed._
