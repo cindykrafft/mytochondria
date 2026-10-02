@@ -1,5 +1,7 @@
 # lme4 upstream filing kit
 
+_Update 2026-10-02: LM1 moved to Do next (the ledger counts the #867 comment and PR #1000 as one unanswered finding, so the two-finding cap has room). `fix/gamma-loglik-phi` rebased onto master 67d71b0 (NEWS conflict with the GH #998 entry resolved by keeping both) and force-pushed (`fd72146`); patch 0002 regenerated. Re-verified on builds of 67d71b0 with and without the change (reformulas 0.4.5 and Rcpp 1.1.2.4 from GitHub): `verify/gamma_glmm_loglik.R` gives logLik(fit) -591.62 against an exact -593.95 on master and -594.06 with the change, as on 69588fa; `test-gamma_glmm_bias.R` fails 1 of 2 on master and passes 2 of 2 with it._
+
 _Prepared 2026-09-08 against `lme4/lme4` `master` @ `69588fa` (2026-09-07, version
 string 2.1-0). **Default branch: `master`.** Nothing filed, nothing pushed; no fork of
 `lme4/lme4` exists under `github.com/cindykrafft` (checked 2026-09-08), so the

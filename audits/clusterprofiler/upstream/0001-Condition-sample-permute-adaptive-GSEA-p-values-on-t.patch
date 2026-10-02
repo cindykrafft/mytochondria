@@ -1,5 +1,5 @@
-From 8a491bf2a09683e4ef79f3e0e56e5e727f35d842 Mon Sep 17 00:00:00 2001
-From: Mytochondria audit <cynthiacondra@gmail.com>
+From 217a8391ff57a7eb362284f7821dc602ed86839b Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
 Date: Tue, 8 Sep 2026 15:44:39 +0000
 Subject: [PATCH] Condition sample/permute/adaptive GSEA p-values on the sign
  of the permutation ES
@@ -26,17 +26,17 @@ Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
  3 files changed, 65 insertions(+), 10 deletions(-)
 
 diff --git a/NEWS.md b/NEWS.md
-index 3c807bc..7f49870 100644
+index 9265f8a..3ff54fa 100644
 --- a/NEWS.md
 +++ b/NEWS.md
 @@ -1,3 +1,7 @@
-+# enrichit 0.2.2.001
++# enrichit 0.2.5.001
 +
 ++ `gsea(method = "sample" | "permute")` and `adaptive = TRUE` now compute the nominal p-value against the permutation ES of the same sign as the observed ES (the GSEA convention used by `method = "multilevel"`, fgsea and DOSE); previously the denominator counted all permutations, so these p-values were about half of the multilevel ones. The observed ES of the "sample" path is now compared through the same routine that scores the permutations, so a gene set lying entirely at one end of the list (ES = ±1) is no longer reported at the permutation floor (2026-09-08, Tue)
 +
- # enrichit 0.2.2
+ # enrichit 0.2.5
  
- + align `gsea_gson()` p-value filtering with the historical clusterProfiler/DOSE behavior: `pvalueCutoff` now requires both the raw p-value and the adjusted p-value (`p.adjust`) to pass the cutoff (previously only the raw p-value was filtered), restoring significant-pathway counts comparable to clusterProfiler <= 4.18.x (2026-08-14, Fri)
+ - ORA results now carry an **`oddsRatio`** column (Fisher's exact 2x2 odds ratio, placed next to `FoldEnrichment`). `FoldEnrichment` is a ratio of proportions, whereas the odds ratio is the effect size that the hypergeometric/Fisher test is built on; note it is the plain cross-product odds ratio and differs slightly from `fisher.test()$estimate`, which reports the conditional MLE (2026-09-22, Tue)
 diff --git a/src/gsea.cpp b/src/gsea.cpp
 index 1e4118a..2670483 100644
 --- a/src/gsea.cpp
@@ -129,12 +129,12 @@ index 1e4118a..2670483 100644
          
          if (obs_es > 0) {
 diff --git a/tests/testthat/test-gsea.R b/tests/testthat/test-gsea.R
-index 609565a..6f6ab45 100644
+index 252a8f5..f73b595 100644
 --- a/tests/testthat/test-gsea.R
 +++ b/tests/testthat/test-gsea.R
-@@ -348,3 +348,31 @@ test_that("gsea_gson pvalueCutoff filters on both pvalue and p.adjust", {
-     }
-   }
+@@ -400,3 +400,31 @@ test_that("gseaScores() rejects non-finite statistics instead of crashing", {
+     # used to be "missing value where TRUE/FALSE needed"
+     expect_error(gseaScores(gl_inf, c("a", "c", "e")), "finite")
  })
 +
 +test_that("sample/permute/adaptive p-values use the same-sign permutation null (GSEA convention)", {

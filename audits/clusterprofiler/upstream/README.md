@@ -1,5 +1,7 @@
 # clusterProfiler / enrichit upstream filing kit
 
+_Update 2026-10-02: CP4 goes to enrichit directly (owner's go-ahead) and is in Do next. `fix/gsea-sign-conditioned-pvalue` rebased onto enrichit devel 23f64ce (0.2.5; NEWS and test-file conflicts resolved by keeping both sides, the NEWS entry now under 0.2.5.001), re-authored as Cindy Krafft and force-pushed (`217a839`); patch 0001 regenerated. Re-verified on builds of 23f64ce with and without it (yulab.utils and gson from GitHub): the exact-enumeration test fails on devel and passes with the change; the whole testthat suite is 52 tests, 1 failure + 1 error on devel and 0 failures + the same 1 error with the change (`bayes_enrich candidate modes`, an environment error on both)._
+
 Default branches: `YuLab-SMU/clusterProfiler` **`devel`**, `YuLab-SMU/enrichit` **`devel`**,
 `YuLab-SMU/DOSE` `devel`, `ctlab/fgsea` `master` (development at `alserglab/fgsea`).
 

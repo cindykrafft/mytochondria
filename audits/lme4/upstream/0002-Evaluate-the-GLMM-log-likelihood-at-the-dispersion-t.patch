@@ -1,4 +1,4 @@
-From 87ffeaad6a58181c4258d38ef2f901f8be2a3e87 Mon Sep 17 00:00:00 2001
+From fd72146b86f430a41610fb4a8ee20a5fdfb305de Mon Sep 17 00:00:00 2001
 From: Cynthia Condra <cynthiacondra@gmail.com>
 Date: Tue, 8 Sep 2026 15:30:58 +0000
 Subject: [PATCH] Evaluate the GLMM log-likelihood at the dispersion the fit
@@ -30,13 +30,13 @@ Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
  3 files changed, 74 insertions(+), 17 deletions(-)
 
 diff --git a/inst/NEWS.Rd b/inst/NEWS.Rd
-index 946d9845..9ac18f94 100644
+index 97585c9..b79e101 100644
 --- a/inst/NEWS.Rd
 +++ b/inst/NEWS.Rd
-@@ -44,6 +44,16 @@
-   } % user-visible changes
-   \subsection{BUG FIXES}{
-     \itemize{
+@@ -53,6 +53,16 @@
+ 	  covariance matrices (and hence standard errors) will generally change slightly. 
+ 	  Large changes in standard errors are likely to be improvements 
+ 	  (GH #998, #289, @tylermorganwall).
 +      \item the log-likelihood (hence \code{AIC}, \code{BIC},
 +      \code{anova}) of GLMMs with an estimated dispersion parameter is
 +      now evaluated at the same dispersion that the fit uses and that
@@ -51,7 +51,7 @@ index 946d9845..9ac18f94 100644
        variances (making correlation unidentifiable) now return
        \code{NA} with a warning rather than throwing an error;
 diff --git a/src/respModule.cpp b/src/respModule.cpp
-index 14a98183..82e251f2 100644
+index 14a9818..82e251f 100644
 --- a/src/respModule.cpp
 +++ b/src/respModule.cpp
 @@ -174,7 +174,42 @@ namespace lme4 {
@@ -99,7 +99,7 @@ index 14a98183..82e251f2 100644
          return ans;
      }
 diff --git a/tests/testthat/test-gamma_glmm_bias.R b/tests/testthat/test-gamma_glmm_bias.R
-index 38649966..1bf68ff4 100644
+index 3864996..1bf68ff 100644
 --- a/tests/testthat/test-gamma_glmm_bias.R
 +++ b/tests/testthat/test-gamma_glmm_bias.R
 @@ -77,6 +77,16 @@ if (testLevel > 1) {

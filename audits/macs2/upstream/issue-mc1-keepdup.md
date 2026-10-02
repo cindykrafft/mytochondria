@@ -1,49 +1,74 @@
-TITLE: --keep-dup auto: control is filtered with the treatment's duplicate threshold (control_max_dup_tags computed, logged, never used)
+Title: Bug: --keep-dup auto filters the control with the treatment's duplicate threshold (control_max_dup_tags is computed and logged, never used)
 
-**Summary.** In `callpeak_cmd.py`, when `--keep-dup auto` is used with a control,
-the control-specific binomial threshold is computed and printed —
-`control_max_dup_tags = cal_max_dup_tags(options.gsize, c0)` (current main:
-line 133) — but the filtering call on line 142 uses the treatment's value:
+**Describe the bug**
+With `--keep-dup auto` and a control, `callpeak` computes the control's own binomial duplicate threshold and logs it, but filters the control with the treatment's threshold. In `MACS3/Commands/callpeak_cmd.py` on current `main` (c544319, 3.0.5):
 
 ```python
+# line 133
+control_max_dup_tags = cal_max_dup_tags(options.gsize, c0)
+info("#1  max_dup_tags based on binomial = %d" % (control_max_dup_tags))
+...
+# line 142
 control.filter_dup(treatment_max_dup_tags)
 ```
 
-`control_max_dup_tags` is never used. The two log lines above it and the two
-xls-header `tagsinfo` lines below also report `treatment_max_dup_tags` for the
-control. The same code is in MACS2 2.1.x (`separate_dups(treatment_max_dup_tags)`)
-and 2.2.x, so this spans every release with `--keep-dup auto` + control.
+`control_max_dup_tags` is never used after it is logged. The two log lines at 139/141 and the two xls-header lines at 149/151 also print `treatment_max_dup_tags` for the control. MACS2 2.1.x (`separate_dups(treatment_max_dup_tags)`) and 2.2.x have the same code, so every release with `--keep-dup auto` and a control behaves this way.
 
-**Reproduction** (script: `keepdup_demo.py` in
-https://github.com/cindykrafft/mytochondria/tree/main/audits/macs2/verify —
-synthetic BEDs with treatment threshold 1 and control threshold 3, run on
-MACS3 3.0.4):
+**To Reproduce**
+A script that writes two synthetic BED files and runs callpeak: the treatment has 2,000 reads, so its binomial threshold is 1; the control has 60,000 reads, 5,000 positions of which carry exactly 3 identical reads, so its threshold is 3.
+
+```python
+import random, subprocess
+random.seed(5)
+with open("t.bed", "w") as f:
+    for i in range(2000):
+        p = random.randrange(0, 900000)
+        f.write(f"chr1\t{p}\t{p+50}\t.\t0\t+\n")
+with open("c.bed", "w") as f:
+    n = 0
+    for i in range(5000):
+        p = random.randrange(0, 900000)
+        for _ in range(3):
+            f.write(f"chr1\t{p}\t{p+50}\t.\t0\t+\n"); n += 1
+    while n < 60000:
+        p = random.randrange(0, 900000)
+        f.write(f"chr1\t{p}\t{p+50}\t.\t0\t+\n"); n += 1
+subprocess.run(["macs3", "callpeak", "-t", "t.bed", "-c", "c.bed", "-g", "1000000", "-n", "kd",
+                "--keep-dup", "auto", "--nomodel", "--extsize", "150", "--outdir", "kd_out"])
+```
+
+Log on 3.0.5:
 
 ```
-#1  max_dup_tags based on binomial = 3          <- control's own threshold, logged
-#1  tags after filtering in control: 48636      <- but filtered at 1
+#1  total tags in treatment: 2000
+#1  max_dup_tags based on binomial = 1
+#1  tags after filtering in treatment: 1998
+#1  total tags in control: 60000
+#1  max_dup_tags based on binomial = 3
+#1  tags after filtering in control: 48636
 ```
 
-With the one-line fix applied to the same install, the identical run keeps
-**59,706** of 60,000 control reads (only cross-position collisions removed at
-threshold 3) instead of **48,636**.
+The control's threshold is logged as 3, but 48,636 reads are kept: 60,000 minus 2 × 5,000 duplicates minus random collisions, which is filtering at 1.
 
-**When it matters.** The binomial threshold grows only logarithmically with
-depth (1 at 5–10M reads, 2 at 20–100M, 3 at ~200M for gsize 2.7e9), so the two
-thresholds differ only when treatment and control depths differ by roughly
-5–10× — e.g. a shallow ChIP against a deep merged input. In that regime,
-duplicated control positions lose real reads, so the local lambda is
-underestimated at exactly the high-duplication loci (repeat-adjacent regions),
-i.e. anticonservative there; the mirrored deep-treatment case over-retains
-control duplicates instead. `--keep-dup all` and explicit numeric values are
-unaffected (both thresholds are equal).
+**Expected behavior**
+The control filtered at its own threshold, 3: with the one-line change below applied to the same install, the same run keeps **59,706** control reads (only the random cross-position collisions removed) instead of **48,636**.
 
-A one-line PR (plus the four log/header lines) follows.
+Shrinking the example showed the effect needs only that the two thresholds differ; it does not depend on peak calling at all (the counts above are printed before any peak is called).
 
-Found during a source audit of MACS against 475 papers using it in six
-high-impact journals (2021–2026). The project's broader outcome was positive —
-the shift/extsize arithmetic, the local-lambda model, and the pileup algorithm
-all verified clean.
+**When it matters.** The binomial threshold grows only logarithmically with depth (1 at 5-10M reads, 2 at 20-100M, 3 at about 200M for a gsize of 2.7e9), so the two thresholds differ only when treatment and control depths differ by roughly 5-10x, as with a shallow ChIP against a deep merged input. There, duplicated control positions lose real reads, so the local lambda is underestimated exactly at high-duplication loci (repeat-adjacent regions), which makes peaks there easier to call; in the mirrored case (deep treatment, shallow control) control duplicates are over-retained. `--keep-dup all` and numeric values are unaffected (both thresholds are equal).
+
+A PR with the fix (use `control_max_dup_tags` in the filter call and in the four log/header lines) follows.
+
+**System:**
+ - OS: Linux (Ubuntu 24.04), x86_64
+ - Python version 3.12.3
+ - Numpy version 2.5.3
+ - MACS Version 3.0.5 (`macs3 --version`; built from main c544319)
+
+**Additional context**
+`python -m pytest test` gives 117 passed, 4 skipped both on main and with the fix.
+
+Found in Mytochondria, a volunteer project that checks the numerical core of research software and verifies every finding by execution (methods and harnesses: https://github.com/cindykrafft/mytochondria/tree/main/audits/macs2)
 
 ---
 _Generated by [Claude Code](https://claude.ai/code)_

@@ -1,6 +1,6 @@
-From caed2c0b95dda6a5f65bff2c52f8f5127edb6849 Mon Sep 17 00:00:00 2001
-From: Cindy Krafft <cindy.krafft@gmail.com>
-Date: Tue, 1 Sep 2026 18:13:44 +0000
+From ed436c188cfc1e8baa5dd4467444048629c9f261 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 1 Oct 2026 23:45:23 +0000
 Subject: [PATCH] callpeak: filter the control with its own duplicate threshold
 
 With --keep-dup auto, cal_max_dup_tags() is called separately for the

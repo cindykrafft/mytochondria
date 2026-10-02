@@ -1,6 +1,6 @@
-From 72edf8ec538407fed4bb204138b6482c35c2e72b Mon Sep 17 00:00:00 2001
-From: Cindy Krafft <cindy.krafft@gmail.com>
-Date: Tue, 1 Sep 2026 18:13:45 +0000
+From 41daed546b2aec8ddc8429b146daf5fc3aa253a8 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Thu, 1 Oct 2026 23:45:23 +0000
 Subject: [PATCH] Prob: restore the k=0 term in the large-lambda lower-tail
  Poisson CDF
 

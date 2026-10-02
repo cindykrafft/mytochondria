@@ -1,4 +1,4 @@
-TITLE: __poisson_cdf_large_lambda drops the k=0 term (was summed from uninitialized memory in the MACS2 2.x releases)
+Title: __poisson_cdf_large_lambda drops the k=0 term (was summed from uninitialized memory in the MACS2 2.x releases)
 
 **Summary.** In `MACS3/Signal/Prob.py`, `__poisson_cdf_large_lambda`
 accumulates the lower-tail CDF in a loop starting at i=1; the i=0 term is

@@ -1,4 +1,4 @@
-TITLE: Documentation request: MACS p-values are P(X > t), one probability atom below the standard discrete p-value P(X >= t)
+Title: Documentation request: MACS p-values are P(X > t), one probability atom below the standard discrete p-value P(X >= t)
 
 **Summary — not a regression report.** Every MACS version since 1.4 (2008)
 computes the per-position score as the strictly-greater Poisson tail:

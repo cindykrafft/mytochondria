@@ -1,5 +1,7 @@
 # Upstream filing kit — MACS
 
+_Update 2026-10-02: both fix branches rebased onto `main` c544319 (3.0.5; the touched files had not changed) and force-pushed to `cindykrafft/MACS` as `fix/keepdup-auto-control-threshold` (`ed436c1`) and `fix/poisson-lower-tail-init` (`41daed5`), authored as Cindy Krafft; the patches here are regenerated from them. Re-verified on a build of c544319: `verify/keepdup_demo.py` keeps 48,636 of 60,000 control reads on main and 59,706 with the MC1 change; `python -m pytest test` gives 117 passed, 4 skipped on both. The issue and PR texts now follow the bug template and CONTRIBUTING.md (rewritten 2026-09-24; no AI policy): `issue-mc1-keepdup.md`, `pr-bodies.md` (PR 1 = MC1, PR 2 = MC3); the old `pr-mc1-keepdup.md` / `pr-mc3-poisson-init.md` are folded into it. Tracker searched again (two phrasings): nearest #163 (2016, "Error with --keep-dup", a different error), #14, #268; no prior report. Filing order now: MC1 issue + PR first (in the console's Do next); MC3 and MC2 after a reply on MC1._
+
 Ready-to-file material for the MACS audit findings (`../README.md`, review in
 `../component-reviews/callpeak-core.md`). MACS lives at
 `macs3-project/MACS` on GitHub with issues and PRs open.
