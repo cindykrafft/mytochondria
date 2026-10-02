@@ -18,5 +18,5 @@ trimmomatic:90:pr:91:merged
 samtools:696:pr:2388:open
 bowtie2:532:pr:533:open
 vcftools:231:pr:232:open
-scdblfinder:145:pr:146:open
+scdblfinder:145:pr:146:merged
 fastqc:212:issue:212:open

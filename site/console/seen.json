@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-02T07:50:00Z",
+ "taken": "2026-10-02T12:55:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -27,44 +27,46 @@
    "repo": "plger/scDblFinder",
    "number": 146,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
+   "state": "closed",
+   "merged": true,
    "comments": 0,
-   "updated": "2026-10-01T23:17:56Z",
+   "updated": "2026-10-02T10:42:06Z",
    "note": "SD1 PR from cindykrafft:scDblFinder fix/artificial-doublet-order; fork has no Actions runs",
-   "status": "unanswered",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": null,
-    "date": "2026-10-01T23:17:56Z",
+    "quote": "Merge pull request #146 from cindykrafft/fix/artificial-doublet-order",
+    "author": "plger",
+    "date": "2026-10-02T10:42:05Z",
     "url": "https://github.com/plger/scDblFinder/pull/146"
    },
    "status_checked": "2026-10-02",
    "title": "createDoublets: keep the input pair order when adjusting library sizes",
    "fixes": [
     145
-   ]
+   ],
+   "fixed_by": "merged by plger 2026-10-02 10:42 UTC, merge commit ac01262 into devel; our commit 4b34ffb unchanged"
   },
   {
    "repo": "plger/scDblFinder",
    "number": 145,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-10-01T23:17:26Z",
-   "note": "SD1 issue (artificial doublet origin labels misaligned), filed 2026-10-01",
-   "status": "unanswered",
+   "comments": 1,
+   "updated": "2026-10-02T10:42:07Z",
+   "note": "SD1 issue (artificial doublet origin labels misaligned), filed 2026-10-01; closed by the merge of #146 at 10:42 with one comment (not yet read: helper session awaiting the owner's publish approval)",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": null,
-    "date": "2026-10-01T23:17:26Z",
-    "url": "https://github.com/plger/scDblFinder/issues/145"
+    "quote": "Merge pull request #146 from cindykrafft/fix/artificial-doublet-order",
+    "author": "plger",
+    "date": "2026-10-02T10:42:05Z",
+    "url": "https://github.com/plger/scDblFinder/pull/146"
    },
    "status_checked": "2026-10-02",
-   "title": "With the default `adjustSize`, artificial doublets get another pair's origin label, so `scDblFinder.mostLikelyOrigin` is mostly wrong"
+   "title": "With the default `adjustSize`, artificial doublets get another pair's origin label, so `scDblFinder.mostLikelyOrigin` is mostly wrong",
+   "fixed_by": "PR #146 (merge ac01262)"
   },
   {
    "repo": "vcftools/vcftools",
@@ -180,8 +182,8 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-23T16:13:38Z",
-   "note": "AF2 issue (chain_ids per token), filed 2026-09-23 16:13",
+   "updated": "2026-10-02T11:20:05Z",
+   "note": "AF2 issue (chain_ids per token), filed 2026-09-23 16:13; updated 2026-10-02 ~11:20 with no new comment (labels, assignment or a cross-reference?); re-read pending, status unchanged",
    "status": "unanswered",
    "whose_move": null,
    "evidence": {
@@ -241,8 +243,8 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-22T22:26:15Z",
-   "note": "AF1 issue, filed 2026-09-22",
+   "updated": "2026-10-02T11:19:54Z",
+   "note": "AF1 issue, filed 2026-09-22; updated 2026-10-02 ~11:20 with no new comment (labels, assignment or a cross-reference?); re-read pending, status unchanged",
    "status": "unanswered",
    "whose_move": null,
    "evidence": {
