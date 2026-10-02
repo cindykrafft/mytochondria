@@ -1,0 +1,356 @@
+matplotlib 3.7.1  numpy 1.26.4  (no scipy)  python 3.11.15
+# windows
+ok   window_hanning(ones(2)) = 'Hanning (or Hann) window' 0.5-0.5cos(2 pi n/(M-1))
+ok   window_hanning(ones(7)) = 'Hanning (or Hann) window' 0.5-0.5cos(2 pi n/(M-1))
+ok   window_hanning(ones(8)) = 'Hanning (or Hann) window' 0.5-0.5cos(2 pi n/(M-1))
+ok   window_hanning(ones(256)) = 'Hanning (or Hann) window' 0.5-0.5cos(2 pi n/(M-1))
+ok   window_hanning(x) = 'x times the Hanning window of len(x)'
+ok   window_none(x) returns x unchanged ('simply return x')
+# detrend helpers
+ok   detrend_mean(int list) = x - mean(x) (Fraction)
+ok   detrend_mean(2-D, axis=0) = column means removed
+ok   detrend_mean(2-D, axis=1) = row means removed
+ok   detrend_mean(2-D, axis=None) = global mean removed ('see numpy.mean')
+ok   detrend_mean(1-D, axis=1) -> ValueError (axis out of bounds)
+ok   detrend_linear(ints) = x minus least-squares line (Fraction)
+ok   detrend_linear(exact line 3+2.5i) = 0
+ok   detrend_linear(constant) = 0
+ok   detrend_linear(two points) = 0 (line through both)
+   detrend_linear([5.0]) -> [nan]
+FAIL detrend_linear(single value) = 0 ('x minus best fit line'; a line fits one point exactly)  got [nan]
+ok   detrend_linear(0-D) = 0
+   detrend_linear((1+2i) + (0.5-3i) n): max |residual| 3.300e+01
+FAIL detrend_linear(complex exact line) = 0 (psd/csd accept complex input with detrend='linear')  max |residual| 3.300e+01
+FAIL detrend_linear(complex) = x minus least-squares complex line  maxabsdiff 7.009e-01 (scale 1.187e+00)
+   maxabsdiff 7.009e-01  scale 1.187e+00
+ok   detrend_linear(2-D) -> ValueError ('0-D or 1-D')
+ok   detrend_none returns its input ('no detrending')
+ok   detrend(x, key=None) = detrend_mean
+ok   detrend(x, key='default') = detrend_mean
+ok   detrend(x, key='constant') = detrend_mean
+ok   detrend(x, key='mean') = detrend_mean
+ok   detrend(x, 'linear') = detrend_linear
+ok   detrend(x, 'none') = x
+ok   detrend(x, callable) uses the callable
+ok   detrend(2-D, 'linear', axis=0) = per-column least-squares (Fraction)
+ok   detrend(2-D, 'mean', axis=1) = row means removed
+ok   detrend(x, 'bogus') -> ValueError
+# psd against plain-numpy Welch (explicit DFT)
+ok   psd defaults (NFFT 256, Fs 2, Hann, onesided, density): Pxx
+   maxabsdiff 1.847e-13  scale 3.778e+01
+ok   psd defaults (NFFT 256, Fs 2, Hann, onesided, density): freqs
+ok   psd NFFT=255 (odd): Pxx
+   maxabsdiff 2.478e-13  scale 3.800e+01
+ok   psd NFFT=255 (odd): freqs
+ok   psd NFFT=128 noverlap=64 Fs=1000: Pxx
+   maxabsdiff 6.072e-17  scale 3.793e-02
+ok   psd NFFT=128 noverlap=64 Fs=1000: freqs
+ok   psd NFFT=100 noverlap=99 (maximum overlap): Pxx
+   maxabsdiff 1.599e-14  scale 1.438e+01
+ok   psd NFFT=100 noverlap=99 (maximum overlap): freqs
+ok   psd NFFT=100 pad_to=128 (even/even): Pxx
+   maxabsdiff 3.419e-14  scale 2.467e+01
+ok   psd NFFT=100 pad_to=128 (even/even): freqs
+ok   psd NFFT=99 pad_to=101 (odd/odd): Pxx
+   maxabsdiff 5.063e-14  scale 1.971e+01
+ok   psd NFFT=99 pad_to=101 (odd/odd): freqs
+FAIL psd NFFT=99 pad_to=128 (odd NFFT, even pad_to: Nyquist bin present): Pxx  maxabsdiff 3.530e+00 (scale 2.404e+01)
+   maxabsdiff 3.530e+00  scale 2.404e+01
+ok   psd NFFT=99 pad_to=128 (odd NFFT, even pad_to: Nyquist bin present): freqs
+FAIL psd NFFT=100 pad_to=101 (even NFFT, odd pad_to: no Nyquist bin): Pxx  maxabsdiff 3.478e+00 (scale 2.058e+01)
+   maxabsdiff 3.478e+00  scale 2.058e+01
+ok   psd NFFT=100 pad_to=101 (even NFFT, odd pad_to: no Nyquist bin): freqs
+FAIL psd NFFT=63 pad_to=64 Fs=10 scale_by_freq=False: Pxx  maxabsdiff 1.214e-01 (scale 6.313e-01)
+   maxabsdiff 1.214e-01  scale 6.313e-01
+ok   psd NFFT=63 pad_to=64 Fs=10 scale_by_freq=False: freqs
+ok   psd scale_by_freq=False ('/ sum(w)^2'): Pxx
+   maxabsdiff 1.152e-15  scale 5.268e-01
+ok   psd scale_by_freq=False ('/ sum(w)^2'): freqs
+ok   psd scale_by_freq=None (= True, documented default): Pxx
+   maxabsdiff 4.885e-14  scale 2.230e+01
+ok   psd scale_by_freq=None (= True, documented default): freqs
+ok   psd detrend='mean': Pxx
+   maxabsdiff 4.441e-14  scale 7.847e+00
+ok   psd detrend='mean': freqs
+ok   psd detrend='linear': Pxx
+   maxabsdiff 4.530e-14  scale 7.847e+00
+ok   psd detrend='linear': freqs
+ok   psd detrend=mlab.detrend_linear (function): Pxx
+   maxabsdiff 4.530e-14  scale 7.847e+00
+ok   psd detrend=mlab.detrend_linear (function): freqs
+ok   psd detrend=custom callable: Pxx
+   maxabsdiff 1.581e-13  scale 1.706e+02
+ok   psd detrend=custom callable: freqs
+ok   psd window=window_none: Pxx
+   maxabsdiff 4.441e-14  scale 2.986e+01
+ok   psd window=window_none: freqs
+ok   psd window=array (triangle, NFFT=50): Pxx
+   maxabsdiff 9.770e-15  scale 9.910e+00
+ok   psd window=array (triangle, NFFT=50): freqs
+ok   psd window=array with negative values, density: Pxx
+   maxabsdiff 1.332e-14  scale 1.388e+01
+ok   psd window=array with negative values, density: freqs
+ok   psd window=array with negative values, scale_by_freq=False: Pxx
+   maxabsdiff 1.332e-15  scale 1.415e+00
+ok   psd window=array with negative values, scale_by_freq=False: freqs
+ok   psd sides='twosided' on real input: Pxx
+   maxabsdiff 7.372e-14  scale 2.230e+01
+ok   psd sides='twosided' on real input: freqs
+ok   psd sides='twosided' odd NFFT=127: Pxx
+   maxabsdiff 2.158e-13  scale 2.214e+01
+ok   psd sides='twosided' odd NFFT=127: freqs
+ok   psd sides='default' (= onesided for real): Pxx
+   maxabsdiff 4.885e-14  scale 2.230e+01
+ok   psd sides='default' (= onesided for real): freqs
+# psd input kinds / edge cases
+ok   psd integer input
+   maxabsdiff 1.492e-13  scale 5.519e+01
+ok   psd float32 input (Hann; truth on the float32 values)
+   maxabsdiff 5.063e-14  scale 2.230e+01
+   dtype float64
+ok   psd float32 input, window_none (rel 1e-5: single precision accepted)
+   maxabsdiff 4.441e-14  scale 2.986e+01
+   dtype float64
+ok   psd len(x)=100 < NFFT=256 ('zero padded to NFFT')
+   maxabsdiff 2.531e-14  scale 6.090e+00
+ok   psd len(x) < NFFT: 129 bins
+ok   psd complex input: default two-sided ('default' is two-sided for complex)
+   maxabsdiff 1.282e-14  scale 9.072e-01
+ok   psd complex input: freqs ascending -Fs/2..Fs/2-df
+ok   psd complex input odd NFFT=127
+   maxabsdiff 1.776e-14  scale 9.572e-01
+ok   psd complex input odd NFFT=127: freqs
+ok   psd complex input sides='onesided' (forced)
+   maxabsdiff 2.398e-14  scale 4.548e+00
+FAIL psd complex input detrend='linear'  maxabsdiff 3.159e-01 (scale 2.319e+00)
+   maxabsdiff 3.159e-01  scale 2.319e+00
+ok   psd(empty) = zero-padded to NFFT -> all zeros, 9 bins  got [0. 0. 0. 0. 0. 0. 0. 0. 0.]
+   psd([3.0], NFFT=1) -> [4.5] freqs [0.0]
+ok   psd single value NFFT=1: Pxx = 9 / Fs = 4.5 (Parseval: 4.5 * Fs/1 = 9)
+ok   psd constant input with detrend='mean' = 0  max 0.000e+00
+ok   psd constant input, no detrend, boxcar: all power in DC = c^2 NFFT / Fs
+   maxabsdiff 0.000e+00  scale 3.364e+03
+ok   psd large offset 1e8 + noise, detrend='mean' (rel 1e-6)
+   maxabsdiff 1.222e-12  scale 7.366e+01
+ok   psd noverlap = NFFT -> ValueError  ValueError: noverlap must be less than n
+ok   psd window length != NFFT -> ValueError
+ok   psd sides='threesided' -> ValueError
+   info: one NaN in x -> NaN bins: 65/65 (NaN handling undocumented)
+   info: masked input: mask ignored (psd(masked) == psd(data)): True (undocumented)
+   info: pad_to=100 < NFFT=128 -> 51 bins; no error (pad_to < NFFT undocumented; fft truncates the windowed segment)
+# Parseval: sum(Pxx) * Fs / pad_to = variance (detrend='mean', boxcar, one segment)
+   NFFT=64 pad_to=64: sum*df = 25.900146484375  variance = 25.900146484375
+ok   Parseval one-sided NFFT=64 pad_to=64  sum*df 25.9001464844 vs var 25.9001464844 (ratio 1.000000)
+   NFFT=64 pad_to=128: sum*df = 28.1240234375  variance = 28.1240234375
+ok   Parseval one-sided NFFT=64 pad_to=128  sum*df 28.1240234375 vs var 28.1240234375 (ratio 1.000000)
+   NFFT=64 pad_to=65: sum*df = 24.6139069313139  variance = 24.640380859375
+FAIL Parseval one-sided NFFT=64 pad_to=65  sum*df 24.6139069313 vs var 24.6403808594 (ratio 0.998926)
+   NFFT=64 pad_to=127: sum*df = 24.5565579474389  variance = 24.566162109375
+FAIL Parseval one-sided NFFT=64 pad_to=127  sum*df 24.5565579474 vs var 24.5661621094 (ratio 0.999609)
+   NFFT=63 pad_to=63: sum*df = 28.8621819098009  variance = 28.862181909801
+ok   Parseval one-sided NFFT=63 pad_to=63  sum*df 28.8621819098 vs var 28.8621819098 (ratio 1.000000)
+   NFFT=63 pad_to=64: sum*df = 32.3148870512344  variance = 31.9627110103301
+FAIL Parseval one-sided NFFT=63 pad_to=64  sum*df 32.3148870512 vs var 31.9627110103 (ratio 1.011018)
+   NFFT=63 pad_to=128: sum*df = 29.0800309541806  variance = 29.0748299319728
+FAIL Parseval one-sided NFFT=63 pad_to=128  sum*df 29.0800309542 vs var 29.074829932 (ratio 1.000179)
+   NFFT=63 pad_to=101: sum*df = 28.1864449483497  variance = 28.1864449483497
+ok   Parseval one-sided NFFT=63 pad_to=101  sum*df 28.1864449483 vs var 28.1864449483 (ratio 1.000000)
+ok   Parseval two-sided real NFFT=64 pad_to=96
+ok   Parseval complex two-sided: sum*df = mean |x|^2
+# closed forms
+   psd peak 4.5 at f=5.0; rest max 1.032e-30
+ok   psd of A cos at bin k0, boxcar, scale_by_freq=False: one-sided peak = A^2/2 (power of the tone)
+ok   psd of A cos: no power off bin k0
+   magnitude_spectrum one-sided peak 1.5 (A = 3.0)
+ok   magnitude_spectrum one-sided peak = A/2 (|DFT|/sum(w); no one-sided doubling)
+ok   magnitude_spectrum two-sided peaks = A/2 at +-f0
+ok   complex_spectrum at k0 = (A/2) exp(i phi)
+ok   angle_spectrum at k0 = phi
+   white noise sigma=1.5, Fs=100.0: mean one-sided level 0.0449107, 2 sigma^2/Fs = 0.045 (ratio 0.99802)
+ok   white noise one-sided density level = 2 sigma^2 / Fs (within 2%)
+   two-sided mean level 0.0224532 vs sigma^2/Fs 0.0225
+ok   white noise two-sided density level = sigma^2 / Fs (within 2%)
+   integral of PSD 2.24532 vs sample variance 2.24594
+ok   white noise: integral of one-sided PSD = variance (within 2%)
+   scale_by_freq=False level 0.026418 vs 2 sigma^2 sum(w^2)/sum(w)^2 = 0.0264706
+ok   white noise scale_by_freq=False level = 2 sigma^2 sum(w^2)/sum(w)^2 (within 2%)
+   Pxx(False)/Pxx(True) = 0.11811 (Fs = 10; sum(w)^2/sum(w^2)/Fs-free ratio = 84.6667)
+FAIL scale_by_freq docs: 'Whether the resulting density values should be divided by the sampling frequency' -> Pxx(False) = Fs * Pxx(True)  ratio 0.11811, not Fs = 10 (the window normalisation also changes from sum(w^2) to sum(w)^2)
+ok   boxcar window: Pxx(False)/Pxx(True) = Fs sum(w^2)/sum(w)^2 = Fs/NFFT
+# csd
+ok   csd defaults: Pxy = mean conj(X) Y scaled
+   maxabsdiff 1.401e-13  scale 2.400e+01
+ok   csd defaults: freqs
+ok   csd NFFT=100 noverlap=50 pad_to=128 Fs=7: Pxy = mean conj(X) Y scaled
+   maxabsdiff 4.603e-15  scale 2.978e+00
+ok   csd NFFT=100 noverlap=50 pad_to=128 Fs=7: freqs
+FAIL csd NFFT=99 pad_to=128: Pxy = mean conj(X) Y scaled  maxabsdiff 7.830e-02 (scale 1.319e+01)
+   maxabsdiff 7.830e-02  scale 1.319e+01
+ok   csd NFFT=99 pad_to=128: freqs
+ok   csd detrend='linear' scale_by_freq=False: Pxy = mean conj(X) Y scaled
+   maxabsdiff 7.814e-16  scale 1.419e-01
+ok   csd detrend='linear' scale_by_freq=False: freqs
+ok   csd sides='twosided': Pxy = mean conj(X) Y scaled
+   maxabsdiff 4.833e-14  scale 1.357e+01
+ok   csd sides='twosided': freqs
+ok   csd x (170) and y (150) shorter than NFFT=200 ('they will be zero padded to NFFT')
+   maxabsdiff 2.108e-13  scale 1.919e+01
+   info: csd(len(x)=1000, len(y)=150, NFFT=200) -> no error, shape (101,): the single zero-padded y segment is paired with all 5 x segments (unequal lengths undocumented)
+   info: csd(len(x)=1000, len(y)=900, NFFT=200) -> ValueError: operands could not be broadcast together with shapes (101,5) (101,4) 
+ok   csd complex inputs (two-sided)
+   maxabsdiff 2.631e-14  scale 1.157e+00
+   csd dtype complex128, max |imag| 5.134e+00
+FAIL mlab.csd docstring 'Pxy ... (real valued)': returned Pxy is real  dtype complex128, max|imag| 5.134e+00
+# cohere
+ok   cohere = |Pxy|^2/(Pxx Pyy) (reference Welch)
+   maxabsdiff 3.331e-15  scale 9.603e-01
+   min 0.00338 max 0.9603
+ok   cohere in [0, 1]
+ok   cohere NFFT=99 pad_to=128 (positional args)
+   maxabsdiff 3.386e-15  scale 9.581e-01
+ok   cohere(x, -2.5 x) = 1 at every bin  maxdiff 8.882e-16
+   independent noise, 64 segments: mean coherence 0.0147 (expected about 1/K = 0.0156)
+ok   cohere of independent noise ~ 1/K (K=64 segments; mean within [0.5/K, 2/K])
+   info: cohere(len(x) < 2*NFFT) -> ValueError: Coherence is calculated by averaging over *NFFT* length segments.  Your signal is too short for your choice of *NFFT*. (not in the docstring)
+ok   cohere complex input, y = (1+2i) x -> 1 at every two-sided bin
+# specgram
+ok   specgram NFFT=128 noverlap=64 Fs=50 psd: spectrum columns
+   maxabsdiff 2.748e-15  scale 9.543e-01
+ok   specgram NFFT=128 noverlap=64 Fs=50 psd: freqs
+ok   specgram NFFT=128 noverlap=64 Fs=50 psd: t = segment midpoints (start + NFFT/2)/Fs
+ok   specgram defaults (NFFT 256, noverlap 128, Fs 2): spectrum columns
+   maxabsdiff 1.457e-13  scale 3.143e+01
+ok   specgram defaults (NFFT 256, noverlap 128, Fs 2): freqs
+ok   specgram defaults (NFFT 256, noverlap 128, Fs 2): t = segment midpoints (start + NFFT/2)/Fs
+FAIL specgram NFFT=129 noverlap=0 pad_to=256 detrend='linear' scale_by_freq=False: spectrum columns  maxabsdiff 2.412e-02 (scale 3.891e-01)
+   maxabsdiff 2.412e-02  scale 3.891e-01
+ok   specgram NFFT=129 noverlap=0 pad_to=256 detrend='linear' scale_by_freq=False: freqs
+ok   specgram NFFT=129 noverlap=0 pad_to=256 detrend='linear' scale_by_freq=False: t = segment midpoints (start + NFFT/2)/Fs
+ok   specgram NFFT=100 noverlap=30 sides='twosided': spectrum columns
+   maxabsdiff 7.283e-14  scale 1.087e+01
+ok   specgram NFFT=100 noverlap=30 sides='twosided': freqs
+ok   specgram NFFT=100 noverlap=30 sides='twosided': t = segment midpoints (start + NFFT/2)/Fs
+ok   specgram mode='magnitude': spectrum columns
+   maxabsdiff 1.901e-15  scale 4.450e-01
+ok   specgram mode='magnitude': freqs
+ok   specgram mode='magnitude': t = segment midpoints (start + NFFT/2)/Fs
+ok   specgram mode='complex': spectrum columns
+   maxabsdiff 3.882e-15  scale 4.450e-01
+ok   specgram mode='complex': freqs
+ok   specgram mode='complex': t = segment midpoints (start + NFFT/2)/Fs
+ok   specgram mode='angle': spectrum columns (mod 2 pi)  max 2.285e-13
+   max wrapped diff 2.285e-13; raw diffs of 2 pi at 5 entries (+pi vs -pi)
+ok   specgram mode='angle': freqs
+ok   specgram mode='angle': t = segment midpoints (start + NFFT/2)/Fs
+ok   specgram mode='magnitude' scale_by_freq=True (ignored per Notes): spectrum columns
+   maxabsdiff 1.901e-15  scale 4.450e-01
+ok   specgram mode='magnitude' scale_by_freq=True (ignored per Notes): freqs
+ok   specgram mode='magnitude' scale_by_freq=True (ignored per Notes): t = segment midpoints (start + NFFT/2)/Fs
+ok   specgram mode='phase' = angle + 2 pi k ('phase spectrum with unwrapping')
+ok   specgram mode='phase': |successive differences along freq| <= pi
+   magnitude DC bin, first segment: got 0.0392532; without detrend 39.9387; with detrend 0.0392532
+FAIL specgram Notes: 'detrend ... only appl[ies] when mode is psd' -> mode='magnitude', detrend='mean' equals no detrend  maxabsdiff 4.011e+01 (scale 4.024e+01)
+   maxabsdiff 4.011e+01  scale 4.024e+01
+ok   specgram len(x)=200 < NFFT=256: one zero-padded segment
+   maxabsdiff 2.096e-13  scale 2.544e+01
+ok   specgram len(x) < NFFT: t = [NFFT/2/Fs]
+ok   specgram len(x) <= NFFT warns ('Only one segment')
+ok   specgram complex input (two-sided)
+   maxabsdiff 4.485e-14  scale 6.919e+00
+ok   specgram complex input: freqs
+   info: specgram(x, NFFT=64) with default noverlap -> ValueError: noverlap must be less than n
+# complex / magnitude / angle / phase spectrum
+ok   complex_spectrum complex default (Hann, onesided)
+ok   complex_spectrum default (Hann, onesided): freqs
+ok   complex_spectrum complex pad_to=512 Fs=8
+ok   complex_spectrum pad_to=512 Fs=8: freqs
+ok   complex_spectrum complex sides='twosided' window_none
+ok   complex_spectrum sides='twosided' window_none: freqs
+ok   complex_spectrum complex pad_to=400 (even pad_to, odd len)
+ok   complex_spectrum pad_to=400 (even pad_to, odd len): freqs
+ok   magnitude_spectrum magnitude default (Hann, onesided)
+ok   magnitude_spectrum default (Hann, onesided): freqs
+ok   magnitude_spectrum magnitude pad_to=512 Fs=8
+ok   magnitude_spectrum pad_to=512 Fs=8: freqs
+ok   magnitude_spectrum magnitude sides='twosided' window_none
+ok   magnitude_spectrum sides='twosided' window_none: freqs
+ok   magnitude_spectrum magnitude pad_to=400 (even pad_to, odd len)
+ok   magnitude_spectrum pad_to=400 (even pad_to, odd len): freqs
+ok   angle_spectrum angle default (Hann, onesided)
+ok   angle_spectrum default (Hann, onesided): freqs
+ok   angle_spectrum angle pad_to=512 Fs=8
+ok   angle_spectrum pad_to=512 Fs=8: freqs
+ok   angle_spectrum angle sides='twosided' window_none
+ok   angle_spectrum sides='twosided' window_none: freqs
+ok   angle_spectrum angle pad_to=400 (even pad_to, odd len)
+ok   angle_spectrum pad_to=400 (even pad_to, odd len): freqs
+ok   phase_spectrum phase default (Hann, onesided)
+ok   phase_spectrum default (Hann, onesided): freqs
+ok   phase_spectrum phase pad_to=512 Fs=8
+ok   phase_spectrum pad_to=512 Fs=8: freqs
+ok   phase_spectrum phase sides='twosided' window_none
+ok   phase_spectrum sides='twosided' window_none: freqs
+ok   phase_spectrum phase pad_to=400 (even pad_to, odd len)
+ok   phase_spectrum pad_to=400 (even pad_to, odd len): freqs
+ok   magnitude_spectrum complex input (two-sided default)
+# scipy not installed: scipy cross-checks skipped
+# Axes wrappers
+   Axes.psd has Funits: False
+ok   Axes.psd(return_line=True) returns (Pxx, freqs, line)
+   type of returned line: list
+FAIL Axes.psd returned 'line : Line2D' is a Line2D  got list
+ok   Axes.psd returned Pxx is the linear density ('Pxx itself is returned')
+ok   Axes.psd returned freqs = k Fs/NFFT + Fc
+ok   Axes.psd line xdata = freqs + Fc
+ok   Axes.psd line ydata = 10 log10(Pxx) ('plotted as 10 log10(Pxx)')
+ok   Axes.psd default return_line -> (Pxx, freqs)
+ok   Axes.psd return_line=False -> (Pxx, freqs)
+FAIL Axes.psd NFFT=99 pad_to=128 scale_by_freq=False: Pxx  maxabsdiff 1.081e-01 (scale 7.358e-01)
+ok   Axes.psd NFFT=99 pad_to=128: ydata = 10 log10(Pxx)
+ok   Axes.psd complex input: two-sided Pxx
+ok   Axes.psd complex input: freqs = Fc - Fs/2 .. Fc + Fs/2 - df (ascending)
+ok   Axes.psd complex input: line ydata = 10 log10(Pxx)
+FAIL Axes.csd returned 'line : Line2D' is a Line2D  got list
+ok   Axes.csd returned Pxy (complex) = reference
+ok   Axes.csd Pxy documented '(complex valued)'
+ok   Axes.csd freqs = k Fs/NFFT + Fc
+ok   Axes.csd line ydata = 10 log10 |Pxy|
+ok   Axes.magnitude_spectrum scale=None: returned spectrum is linear magnitude
+ok   Axes.magnitude_spectrum scale=None: ydata (linear)
+ok   Axes.magnitude_spectrum scale=None: xdata = freqs + Fc
+ok   Axes.magnitude_spectrum scale='linear': returned spectrum is linear magnitude
+ok   Axes.magnitude_spectrum scale='linear': ydata (linear)
+ok   Axes.magnitude_spectrum scale='linear': xdata = freqs + Fc
+ok   Axes.magnitude_spectrum scale='dB': returned spectrum is linear magnitude
+ok   Axes.magnitude_spectrum scale='dB': ydata (20 log10)
+ok   Axes.magnitude_spectrum scale='dB': xdata = freqs + Fc
+ok   Axes.angle_spectrum returned spectrum
+ok   Axes.angle_spectrum ydata
+ok   Axes.angle_spectrum xdata = freqs + Fc
+ok   Axes.phase_spectrum returned spectrum
+ok   Axes.phase_spectrum ydata
+ok   Axes.phase_spectrum xdata = freqs + Fc
+ok   Axes.cohere returned Cxy
+ok   Axes.cohere freqs = k Fs/NFFT + Fc
+ok   Axes.cohere line ydata = Cxy, xdata = freqs
+ok   Axes.specgram mode=psd scale=None: returned spectrum
+ok   Axes.specgram mode=psd scale=None: image array = flipud(dB)
+ok   Axes.specgram returned freqs = freqs + Fc
+ok   Axes.specgram returned t = segment midpoints
+   extent [0.64, 39.04, 7.0, 32.0]; first/last freqs 7.0, 32.0; first/last row centres 7.19231, 31.8077
+ok   Axes.specgram image column centres = t ('xmin left border of the first bin')
+FAIL Axes.specgram image row centres = freqs (rows of spectrum)  maxabsdiff 1.923e-01 (scale 3.200e+01)
+   maxabsdiff 1.923e-01  scale 3.200e+01
+ok   Axes.specgram mode=psd scale=linear: returned spectrum
+ok   Axes.specgram mode=psd scale=linear: image array = flipud(linear)
+ok   Axes.specgram mode=magnitude scale=None: returned spectrum
+ok   Axes.specgram mode=magnitude scale=None: image array = flipud(dB)
+ok   Axes.specgram mode=magnitude scale=linear: returned spectrum
+ok   Axes.specgram mode=magnitude scale=linear: image array = flipud(linear)
+ok   Axes.specgram mode=angle scale=None: returned spectrum (mod 2 pi)  max 2.558e-13
+ok   Axes.specgram mode=angle scale=None: image array = flipud(linear) (mod 2 pi)  max 2.558e-13
+ok   Axes.specgram mode=phase scale=None: returned spectrum
+ok   Axes.specgram mode=phase scale=None: image array = flipud(linear)
+ok   Axes.specgram mode='complex' -> ValueError ('Cannot plot a complex specgram')
+ok   Axes.specgram mode='angle' scale='dB' -> ValueError (documented 'must be linear')
+done

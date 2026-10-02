@@ -1,0 +1,191 @@
+matplotlib 3.5.2  numpy 1.23.5  (no scipy)  python 3.10.20
+#### boxplot_stats: quartiles, IQR, whiskers, fliers, notch on odd / even / ties / n=1 / n=2 / negative / int / float32 / offset
+ok   odd n=7 with ties and negatives: mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch 
+   odd n=7 with ties and negatives: q1=1.25 med=2.0 q3=5.25 whis=[-1.25, 9.75] notch=[-0.3736168904979471, 4.3736168904979476] fliers=[]
+ok   odd n=7 with ties and negatives: fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [] vs []
+ok   even n=8 with outlier: mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch 
+   even n=8 with outlier: q1=3.5 med=5.0 q3=8.5 whis=[1.0, 10.0] notch=[2.224605883842801, 7.775394116157199] fliers=[30.0]
+ok   even n=8 with outlier: fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [30.0] vs [30.0]
+ok   n=1: mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch 
+   n=1: q1=4.25 med=4.25 q3=4.25 whis=[4.25, 4.25] notch=[4.25, 4.25] fliers=[]
+ok   n=1: fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [] vs []
+ok   n=2: mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch 
+   n=2: q1=1.5 med=2.0 q3=2.5 whis=[1.0, 3.0] notch=[0.8898423535371205, 3.1101576464628797] fliers=[]
+ok   n=2: fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [] vs []
+ok   n=3: mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch 
+   n=3: q1=-2.5 med=2.0 q3=6.5 whis=[-7.0, 11.0] notch=[-6.157959303649413, 10.157959303649413] fliers=[]
+ok   n=3: fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [] vs []
+ok   negative values, both-side outliers: mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch 
+   negative values, both-side outliers: q1=-2.625 med=-1.5 q3=-0.75 whis=[-3.0, 0.0] notch=[-2.5407727935589497, -0.4592272064410503] fliers=[-100.0, 50.0]
+ok   negative values, both-side outliers: fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [-100.0, 50.0] vs [-100.0, 50.0]
+ok   random n=101 normal + 3 outliers: mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch 
+   random n=101 normal + 3 outliers: q1=-0.6606070963896791 med=0.135506752025417 q3=0.7335199363508903 whis=[-1.5823803260286453, 2.049203439977303] notch=[-0.07912073033348788, 0.3501342343843219] fliers=[-8.5, -3.7573765995841257, -2.7639992484923868, 9.0, 12.25]
+ok   random n=101 normal + 3 outliers: fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [-8.5, -3.7573765995841257, -2.7639992484923868, 9.0, 12.25] vs [-8.5, -3.7573765995841257, -2.7639992484923868, 9.0, 12.25]
+ok   large offset 1e9 + small spread: mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch 
+   large offset 1e9 + small spread: q1=999999999.6638862 med=1000000000.1618267 q3=1000000000.5992981 whis=[999999999.0124979, 1000000000.9032079] notch=[999999999.9324704, 1000000000.391183] fliers=[1000000025.0]
+ok   large offset 1e9 + small spread: fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [1000000025.0] vs [1000000025.0]
+ok   integer input int64 n=11: mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch 
+   integer input int64 n=11: q1=2.5 med=4.0 q3=5.0 whis=[1.0, 6.0] notch=[2.816567972532278, 5.183432027467722] fliers=[9.0]
+ok   integer input int64 n=11: fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [9.0] vs [9.0]
+ok   integer input: quartiles returned as floating values (2.5 is not truncated)  q1=2.5
+ok   float32 input n=58 (truth on the exact float32 values): mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch 
+   float32 input n=58 (truth on the exact float32 values): q1=1.929653823375702 med=2.7615238428115845 q3=3.981277823448181 whis=[-0.9166278839111328, 6.641756534576416] notch=[2.338579299251892, 3.184468386371277] fliers=[7.548967361450195, 7.974069118499756, 25.0]
+ok   float32 input n=58 (truth on the exact float32 values): fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [7.548967361450195, 7.974069118499756, 25.0] vs [7.548967361450195, 7.974069118499756, 25.0]
+ok   float32 input: whislo / whishi are actual data values (exact, no float32 round-trip error)
+   dtypes returned for float32 input: mean:float32, q1:float64, cilo:float64, whishi:float32
+   n=8 [1..8]: boxplot_stats q1=2.75 (H&F-7 2.75; Tukey's lower hinge would be 2.5)
+#### whisker rule at the fences, the Q3 clamp, whis options
+FAIL datum exactly on the upper fence: 'the upper whisker at the highest datum below Q3 + whis*(Q3-Q1)' (strict 'below' -> whishi=3, 6 a flier)  whishi=6.0 fliers=[]
+FAIL datum exactly on the lower fence: 'the lower whisker is at the lowest datum above Q1 - whis*(Q3-Q1)' (strict 'above' -> whislo=1, -2 a flier)  whislo=-2.0
+ok   same data, Axes.boxplot wording 'farthest data point lying within 1.5x the IQR from the box' (inclusive -> whiskers -2 and 6, no fliers)
+FAIL upper whisker is a datum: 'the upper whisker at the highest datum below Q3 + whis*(Q3-Q1)' ([0]*6+[10,10]: highest datum <= 6.25 is 0)  whishi=2.5 (Q3=2.5); fliers=[10.0, 10.0]
+ok   same data: fliers are the two 10s
+FAIL whis=0.25 (float: fences Q1/Q3 -+ whis*IQR): mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch whislo: 3.5 vs 4.0, whishi: 8.5 vs 8.0
+   whis=0.25 (float: fences Q1/Q3 -+ whis*IQR): q1=3.5 med=5.0 q3=8.5 whis=[3.5, 8.5] notch=[2.224605883842801, 7.775394116157199] fliers=[1.0, 2.0, 10.0, 30.0]
+ok   whis=0.25 (float: fences Q1/Q3 -+ whis*IQR): fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [1.0, 2.0, 10.0, 30.0] vs [1.0, 2.0, 10.0, 30.0]
+ok   whis=3.0 (float: fences Q1/Q3 -+ whis*IQR): mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch 
+   whis=3.0 (float: fences Q1/Q3 -+ whis*IQR): q1=3.5 med=5.0 q3=8.5 whis=[1.0, 10.0] notch=[2.224605883842801, 7.775394116157199] fliers=[30.0]
+ok   whis=3.0 (float: fences Q1/Q3 -+ whis*IQR): fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [30.0] vs [30.0]
+ok   whis=5.0 (float: fences Q1/Q3 -+ whis*IQR): mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch 
+   whis=5.0 (float: fences Q1/Q3 -+ whis*IQR): q1=3.5 med=5.0 q3=8.5 whis=[1.0, 30.0] notch=[2.224605883842801, 7.775394116157199] fliers=[]
+ok   whis=5.0 (float: fences Q1/Q3 -+ whis*IQR): fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [] vs []
+ok   whis=inf (np.isreal path; fences at +-inf -> min/max, no fliers): mean/q1/med/q3/iqr/whislo/whishi/cilo/cihi = documented definitions (H&F-7 quartiles, inclusive 1.5*IQR fences, med+-1.57*IQR/sqrt(N))  mismatch 
+   whis=inf (np.isreal path; fences at +-inf -> min/max, no fliers): q1=-0.6606070963896791 med=0.135506752025417 q3=0.7335199363508903 whis=[-8.5, 12.25] notch=[-0.07912073033348788, 0.3501342343843219] fliers=[]
+ok   whis=inf (np.isreal path; fences at +-inf -> min/max, no fliers): fliers are exactly the data beyond the whiskers ('Beyond the whiskers, data are considered outliers')  [] vs []
+   whis='range' (removed string option): ValueError: whis must be a float or list of percentiles
+ok   whis='range' is rejected (string option not documented on this build)  ValueError: whis must be a float or list of percentiles
+ok   whis=(0, 100): 'whiskers covering the whole range of the data' (1 and 20, no fliers)  1.0, 20.0
+FAIL whis=(5, 95) on 1..20: 'they indicate the percentiles at which to draw the whiskers' (whiskers at P5=1.95, P95=19.05)  whiskers 2.0, 19.0 vs 1.95, 19.05
+ok   whis=(5, 95) on 1..20: whiskers at the most extreme data inside [P5, P95] (2 and 19); fliers 1 and 20
+ok   whis=(10, 90): whiskers are the most extreme data inside [P10, P90], fliers outside them
+ok   whis=(2.5, 97.5): whiskers are the most extreme data inside [P2.5, P97.5], fliers outside them
+#### autorange when Q1 == Q3
+ok   ties [5]*6+[1,9], autorange=False: Q1=Q3=5, IQR=0, whiskers 5/5, fliers 1 and 9  {'mean': 5.0, 'iqr': 0.0, 'cilo': 5.0, 'cihi': 5.0, 'whishi': 5.0, 'whislo': 5.0, 'fliers': array([1., 9.]), 'q1': 5.0, 'med': 5.0, 'q3': 5.0}
+ok   autorange=True: 'whis is set to (0, 100) such that the whisker ends are at the minimum and maximum' (1 and 9, no fliers)  1.0, 9.0
+ok   autorange=True with two datasets: only the IQR==0 one is reset; the other keeps whis=1.5 (30 still a flier)  10.0
+#### notch: med +- 1.57*IQR/sqrt(N); bootstrap percentile CI of the median
+ok   n=5: cilo/cihi = med -+ 1.57*IQR/sqrt(N) (documented Notes formula)  [8.362555171272824, 12.687997102715912] vs [8.362555171272824, 12.687997102715912]
+ok   n=16: cilo/cihi = med -+ 1.57*IQR/sqrt(N) (documented Notes formula)  [8.315810937500144, 12.284985064935222] vs [8.315810937500144, 12.284985064935222]
+ok   n=401: cilo/cihi = med -+ 1.57*IQR/sqrt(N) (documented Notes formula)  [9.649085839359081, 10.29198636121112] vs [9.649085839359081, 10.29198636121112]
+ok   bootstrap=500 (seed 1): cilo/cihi = 2.5th/97.5th percentiles of 500 resampled medians ('95% confidence intervals', 'percentile method')  [-0.294, 0.926] vs [-0.294, 0.926]
+ok   bootstrap=2000 (seed 77): cilo/cihi = 2.5th/97.5th percentiles of 2000 resampled medians ('95% confidence intervals', 'percentile method')  [-0.35, 0.926] vs [-0.35, 0.926]
+ok   bootstrap is reproducible under np.random.seed (it draws from the global RNG)
+   bootstrap advances numpy's global RNG state (side effect): True
+   n=25: asymptotic notch [-0.4615, 0.6155]  bootstrap(2000) notch [-0.3500, 0.9260]
+#### multiple datasets, 2D arrays, labels, empty input, masked arrays, NaN / inf
+ok   list of 4 datasets of different lengths -> 4 dicts in order
+ok     dataset 0 (n=7) of the list: stats equal its own documented stats
+ok     dataset 1 (n=8) of the list: stats equal its own documented stats
+ok     dataset 2 (n=1) of the list: stats equal its own documented stats
+ok     dataset 3 (n=2) of the list: stats equal its own documented stats
+ok   labels=['a','b','c','d'] -> stats['label'] per dataset
+ok   labels of the wrong length -> ValueError ('Length must be compatible with dimensions of X')  ValueError: Dimensions of labels and X must be compatible
+ok   2D array (9, 3) -> 3 dicts, one per COLUMN, each equal to that column's documented stats
+FAIL empty input []: one dict, every documented key present (incl. 'iqr'), stats NaN, fliers empty  keys=['cihi', 'cilo', 'fliers', 'mean', 'med', 'q1', 'q3', 'whishi', 'whislo']
+FAIL empty input np.array([]): one dict, every documented key present (incl. 'iqr'), stats NaN, fliers empty  keys=['cihi', 'cilo', 'fliers', 'mean', 'med', 'q1', 'q3', 'whishi', 'whislo']
+ok   one empty dataset among two: the other is unaffected, the empty one is all-NaN
+   masked arrays before 3.9 (not ignored; 3.9 note): med=6.0 (unmasked-only would be 5.0); fliers=[-1000.0, 30.0, 1000.0]
+   NaN in the data (no documented rule in boxplot_stats/Axes.boxplot): mean=nan, q1=nan, med=nan, q3=nan, whislo=nan, whishi=nan, fliers=[]
+ok   +inf as the 9th of 9 values (Q3 index 6, not next to inf): Q3=7, IQR=4, whishi=8, +inf a flier  {'mean': inf, 'iqr': 4.0, 'cilo': 2.9066666666666667, 'cihi': 7.093333333333334, 'whishi': 8.0, 'whislo': 1.0, 'fliers': array([inf]), 'q1': 3.0, 'med': 5.0, 'q3': 7.0}
+FAIL +inf as the 5th of 5 values: Q3 = 4 (H&F-7 index exactly 3, weight 0 on the inf), whishi = 4, +inf a flier  q3=nan iqr=nan whishi=nan fliers=[1.0] (np.percentile([1,2,3,4,inf],75)=nan)
+#### Axes.boxplot / bxp: drawn lines equal the documented statistics
+ok   medians: y = [med, med] for each box
+ok   boxes: y = [q1, q1, q3, q3, q1] (box from Q1 to Q3)
+ok   whiskers: [q1 -> whislo] and [q3 -> whishi]
+ok   caps at whislo and whishi
+ok   fliers: drawn y = the data beyond the whiskers
+ok   fliers drawn at x = box position (default positions 1..N)
+ok   showmeans=True: mean marker at y = arithmetic mean
+ok   boxes centred on the default positions range(1, N+1)
+ok   notch=True: box outline passes through cilo, med, cihi = med -+ 1.57*IQR/sqrt(N)
+ok   meanline=True: mean line y = [mean, mean]
+ok   positions=[2,5,9]: medians centred on the given positions
+ok   positions=[2,5,9]: fliers drawn at x = the given position
+ok   usermedians=[None, 1.75, None]: 'forces the value of the median' of box 2, others computed
+ok   conf_intervals=(2.0, 6.5) for box 3: notch drawn at cilo=2.0, cihi=6.5  [2.5, 2.5, 2.0, 4.0, 6.5, 5.0, 5.0, 6.5, 4.0, 2.0, 2.5]
+   usermedians box: notch y = cilo -0.3736168904979471, cihi 4.3736168904979476 (still centred on the computed median 2.0, not on 1.75)
+ok   horizontal boxplot: medians / whiskers / fliers carry the statistics on x
+ok   Axes.boxplot(bootstrap=1000, notch=True): notch at the percentile-bootstrap CI of the median  [-0.573, 0.145] vs [-0.573, 0.145]
+ok   Axes.boxplot(autorange=True) on Q1==Q3 data: whiskers to min and max, no fliers
+ok   Axes.boxplot(whis=(0, 100)): whiskers at min and max
+#### mlab.GaussianKDE: bandwidth factors, covariance (ddof), evaluation vs a direct sum of Gaussians
+ok   n=7, default bw: factor = Scott n**(-1/5)  0.677610913400481 vs 0.677610913400481
+ok   n=7: covariance = sample variance with ddof=1 times factor**2 (as scipy.stats.gaussian_kde)  1.4477055190931944 vs ddof1 1.4477055190931944 / ddof0 1.2408904449370237
+ok   n=7: evaluate(100 points) = (1/(n h sqrt(2 pi))) sum exp(-((t-x_i)/h)^2/2), h = factor*sd (data-loop branch)  maxrel=4.66e-16
+ok   n=7, bw_method='silverman': factor = (n*(d+2)/4)**(-1/(d+4)) = (3n/4)**(-1/5)  0.7177416344286515 vs 0.7177416344286515
+ok   n=7, silverman: evaluate = direct sum with h = factor*sd
+ok   n=7: the estimated pdf integrates to 1 (trapezoid on a wide fine grid)  1.0
+ok   n=40, default bw: factor = Scott n**(-1/5)  0.47817624989501845 vs 0.47817624989501845
+ok   n=40: covariance = sample variance with ddof=1 times factor**2 (as scipy.stats.gaussian_kde)  0.7555320990020629 vs ddof1 0.7555320990020628 / ddof0 0.7366437965270112
+ok   n=40: evaluate(100 points) = (1/(n h sqrt(2 pi))) sum exp(-((t-x_i)/h)^2/2), h = factor*sd (data-loop branch)  maxrel=1.33e-15
+ok   n=40, bw_method='silverman': factor = (n*(d+2)/4)**(-1/(d+4)) = (3n/4)**(-1/5)  0.5064956841121182 vs 0.5064956841121182
+ok   n=40, silverman: evaluate = direct sum with h = factor*sd
+ok   n=40: the estimated pdf integrates to 1 (trapezoid on a wide fine grid)  1.0000000000000002
+ok   n=300, default bw: factor = Scott n**(-1/5)  0.3195771718380609 vs 0.3195771718380609
+ok   n=300: covariance = sample variance with ddof=1 times factor**2 (as scipy.stats.gaussian_kde)  0.2361698015810696 vs ddof1 0.2361698015810696 / ddof0 0.2353825689091327
+ok   n=300: evaluate(100 points) = (1/(n h sqrt(2 pi))) sum exp(-((t-x_i)/h)^2/2), h = factor*sd (points-loop branch)  maxrel=1.80e-15
+ok   n=300, bw_method='silverman': factor = (n*(d+2)/4)**(-1/(d+4)) = (3n/4)**(-1/5)  0.33850375946582717 vs 0.33850375946582717
+ok   n=300, silverman: evaluate = direct sum with h = factor*sd
+ok   n=300: the estimated pdf integrates to 1 (trapezoid on a wide fine grid)  0.9999999999999999
+ok   bw_method=0.3 (scalar): 'used directly as kde.factor'; h = 0.3*sd
+ok   bw_method=1 (scalar): 'used directly as kde.factor'; h = 1*sd
+ok   bw_method=2.5 (scalar): 'used directly as kde.factor'; h = 2.5*sd
+ok   bw_method=callable(kde) -> factor = its return value (0.5 * n**(-1/5))
+ok   bw_method='scot' (invalid string) -> ValueError  ValueError: `bw_method` should be 'scott', 'silverman', a scalar or a callable
+ok   float32 dataset: evaluate = direct sum on the float32 values (rel 1e-6)
+ok   offset 1e6 + data: evaluate = direct sum (rel 1e-7; cancellation in x - mean)
+ok   2-D: factor = Scott n**(-1/(d+4)) with d=2
+ok   2-D: covariance = sample covariance matrix (ddof=1) * factor**2
+ok   2-D: evaluate = direct sum of bivariate Gaussians with covariance factor**2 * Sigma
+ok   3-D, silverman: factor = (n*(d+2)/4)**(-1/(d+4)) = (50*5/4)**(-1/7)
+   GaussianKDE(n=1): ValueError: `dataset` input should have multiple elements.
+   GaussianKDE(constant data): LinAlgError: Singular matrix
+   GaussianKDE signature: (self, dataset, bw_method=None)  (no weights parameter on this build)
+#### cbook.violin_stats: grid, KDE values, mean / median / min / max / quantiles
+ok   A n=23: coords = linspace(min, max, points)
+ok   A n=23: vals = Gaussian KDE (direct sum) at coords  maxrel=1.21e-15
+ok   A n=23: mean / median / min / max exact  mean=5.077962983615713/5.077962983615713, median=4.549184731171519/4.549184731171519, min=1.0221294351092993/1.0221294351092993, max=8.819890377125358/8.819890377125358
+ok   A n=23: quantiles = H&F-7 percentiles (np.percentile 'linear')  [3.3846739289959396, 4.549184731171519, 7.050761096792228] vs [3.3846739289959396, 4.549184731171519, 7.050761096792228]
+ok   B n=150 (points-loop): coords = linspace(min, max, points)
+ok   B n=150 (points-loop): vals = Gaussian KDE (direct sum) at coords  maxrel=3.52e-15
+ok   B n=150 (points-loop): mean / median / min / max exact  mean=1.0312371294389462/1.0312371294389462, median=0.6980951031689457/0.6980951031689457, min=0.0006888738447033056/0.0006888738447033056, max=5.6712121748699325/5.6712121748699325
+ok   B n=150 (points-loop): quantiles = H&F-7 percentiles (np.percentile 'linear')  [0.24540164328948927, 1.4301083563571213] vs [0.24540164328948927, 1.4301083563571213]
+ok   C n=2: coords = linspace(min, max, points)
+ok   C n=2: vals = Gaussian KDE (direct sum) at coords  maxrel=4.06e-16
+ok   C n=2: mean / median / min / max exact  mean=2.5/2.5, median=2.5/2.5, min=1.0/1.0, max=4.0/4.0
+ok   C n=2: quantiles = H&F-7 percentiles (np.percentile 'linear')  [1.21] vs [1.21]
+ok   A, silverman, points=7: coords = linspace(min, max, points)
+ok   A, silverman, points=7: vals = Gaussian KDE (direct sum) at coords  maxrel=7.01e-16
+ok   A, silverman, points=7: mean / median / min / max exact  mean=5.077962983615713/5.077962983615713, median=4.549184731171519/4.549184731171519, min=1.0221294351092993/1.0221294351092993, max=8.819890377125358/8.819890377125358
+ok   A, bw=0.25: coords = linspace(min, max, points)
+ok   A, bw=0.25: vals = Gaussian KDE (direct sum) at coords  maxrel=2.38e-15
+ok   A, bw=0.25: mean / median / min / max exact  mean=5.077962983615713/5.077962983615713, median=4.549184731171519/4.549184731171519, min=1.0221294351092993/1.0221294351092993, max=8.819890377125358/8.819890377125358
+ok   integer input n=11: coords = linspace(min, max, points)
+ok   integer input n=11: vals = Gaussian KDE (direct sum) at coords  maxrel=7.34e-16
+ok   integer input n=11: mean / median / min / max exact  mean=4.0/4.0, median=4.0/4.0, min=1.0/1.0, max=9.0/9.0
+ok   integer input n=11: quantiles = H&F-7 percentiles (np.percentile 'linear')  [4.0] vs [4.0]
+ok   2D array (12, 2): one violin per column, each column's mean/min/max
+ok   violin_stats(method=callable(data, coords)): vals are what the callable returns at the 5 coords
+ok   constant data [2.5]*6: no exception; mean = median = min = max = the value; vals finite  2.5, 2.5, 2.5
+   constant data [2.5]*6: coords [2.5] vals [1.] (indicator fallback, not a density)
+ok   n=1 [7.0]: no exception; mean = median = min = max = the value; vals finite  7.0, 7.0, 7.0
+   n=1 [7.0]: coords [7.] vals [1.] (indicator fallback, not a density)
+   NaN/inf before 3.11 (not ignored): min=nan
+   masked array before 3.11: min=-2.8620539918219623 max=1.5265869454134247 mean=-0.20792728723665793 median=0.04030224405126073 quantiles=[-0.9020736906638209, 0.5389883578231349] (unmasked-only: -2.8620539918219623, 1.5265869454134247, -0.207927287236658, 0.03517946967528861, [-0.9008415394557848, 0.40499042454150475]); vals masked: 100/100
+   Axes.violinplot(masked) before 3.11: max line at 1.5265869454134247, mean line at -0.20792728723665793
+#### Axes.violinplot / violin: stat lines and body widths
+ok   cmeans: horizontal segment at y = mean, x from pos - widths/4 to pos + widths/4  [[[0.875, 5.077962983615713], [1.125, 5.077962983615713]]]
+ok   cmedians: horizontal segment at y = median, x from pos - widths/4 to pos + widths/4  [[[0.875, 4.549184731171519], [1.125, 4.549184731171519]]]
+ok   cmins: horizontal segment at y = min, x from pos - widths/4 to pos + widths/4  [[[0.875, 1.0221294351092993], [1.125, 1.0221294351092993]]]
+ok   cmaxes: horizontal segment at y = max, x from pos - widths/4 to pos + widths/4  [[[0.875, 8.819890377125358], [1.125, 8.819890377125358]]]
+ok   cbars: vertical segment at x = pos from min to max
+ok   cquantiles: one segment per requested quantile at its H&F-7 value, widths repeated per violin
+ok   body 0: outline at pos -+ 0.5*widths*kde/max(kde) for every coord (KDE truth); max full width = widths=0.5  worst vertex distance 1.79e-15, full width 0.5
+ok   body 1: outline at pos -+ 0.5*widths*kde/max(kde) for every coord (KDE truth); max full width = widths=1.2  worst vertex distance 8.88e-16, full width 1.2000000000000002
+ok   body 2: outline at pos -+ 0.5*widths*kde/max(kde) for every coord (KDE truth); max full width = widths=0.8  worst vertex distance 4.44e-16, full width 0.8000000000000007
+ok   horizontal violin: body outline mirrored onto x (coords) / y (density); mean line at x = mean  worst 1.79e-15
+ok   violinplot(bw_method='silverman'): body shape from the Silverman-factor KDE  worst 1.78e-15
+ok   violinplot(bw_method=0.2, points=31): body shape from h = 0.2*sd on a 31-point grid  worst 1.79e-15
+ok   violinplot of constant data and of n=1: no exception  None
+ok   constant / n=1 violins: mean, min and max lines at the value
+done

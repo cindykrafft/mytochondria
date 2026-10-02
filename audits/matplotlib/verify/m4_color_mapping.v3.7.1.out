@@ -1,0 +1,257 @@
+matplotlib 3.7.1  numpy 1.26.4  (no scipy)  python 3.11.15
+   matplotlib.colors from /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/matplotlib/venv-v3.7.1/lib/python3.11/site-packages/matplotlib/colors.py
+#### Normalize
+ok   Normalize docstring example: Normalize(-1,1)([-2..2]) = [-0.5,0,0.5,1,1.5]  [-0.5, 0.0, 0.5, 1.0, 1.5]
+ok   Normalize docstring example clip=True -> [0,0,0.5,1,1]  [0.0, 0.0, 0.5, 1.0, 1.0]
+ok   Normalize maps "[vmin, vmax] linearly to [0, 1]": 400 random (v-vmin)/(vmax-vmin) vs Fraction  0 off
+   max abs error 1.11e-16
+ok   Normalize: "If vmin == vmax, input data will be mapped to 0"  [0.0, 0.0, 0.0]
+ok   Normalize vmin > vmax raises ValueError
+ok   Normalize(): vmin/vmax "default to the minimum and maximum values of the input"  3.0,7.0
+ok   Normalize autoscale on masked array ignores masked values (vmin=3, vmax=7)  3.0,7.0
+ok   Normalize keeps the input mask (masked -> masked)
+   Normalize()([3, nan, 7]) direct call: vmin=nan vmax=nan result=[nan, nan, nan]
+FAIL Normalize() autoscale on plain ndarray with NaN: vmin/vmax = min/max of the numeric values  vmin=nan vmax=nan
+ok   Normalize: NaN stays NaN (-> colormap "bad")
+ok   Normalize.inverse(norm(x)) == x
+ok   Normalize.inverse(0.25) = vmin + 0.25*(vmax-vmin)
+ok   Normalize.inverse unscaled raises ValueError
+ok   Normalize int8 input -> float32 ("process_value" Notes) and exact values  float32 [0.0, 0.25, 1.0]
+ok   Normalize int16 input -> float32 ("process_value" Notes) and exact values  float32 [0.0, 0.25, 1.0]
+ok   Normalize uint8 input -> float32 ("process_value" Notes) and exact values  float32 [0.0, 0.25, 1.0]
+ok   Normalize int32 input -> float64 ("process_value" Notes) and exact values  float64 [0.0, 0.25, 1.0]
+ok   Normalize int64 input -> float64 ("process_value" Notes) and exact values  float64 [0.0, 0.25, 1.0]
+ok   Normalize float32 input -> float32 ("process_value" Notes) and exact values  float32 [0.0, 0.25, 1.0]
+ok   Normalize float64 input -> float64 ("process_value" Notes) and exact values  float64 [0.0, 0.25, 1.0]
+ok   Normalize large offset float64 (1e6 + k)/256 exact
+ok   Normalize large offset float32 data (1e6 + k)/256 exact  [0.0, 0.00390625, 0.5, 0.99609375, 1.0]
+ok   Normalize autoscale int64 with offset 2**40: [0, 0.5, 1]  [0.0, 0.5, 1.0]
+ok   Normalize(0,1)(+inf) = +inf and (-inf) = -inf (-> over / under)  inf -inf
+ok   Normalize scalar in -> scalar out
+#### LogNorm
+ok   LogNorm(1,1000) = log10(x/vmin)/log10(vmax/vmin) incl. out of range  maxdiff 0.0e+00
+ok   LogNorm(0.02, 7.5) closed form  maxdiff 1.1e-16
+ok   LogNorm: non-positive values are masked (-> "bad" colour)
+ok   LogNorm autoscale ignores non-positive values: vmin=2, vmax=200  2.0,200.0
+ok   LogNorm autoscaled values [x, x, 0, 0.5, 1]
+ok   LogNorm autoscale with NaN: vmin=1, vmax=100, NaN masked  1.0,100.0
+ok   LogNorm autoscale on masked array ignores masked values  1.0,10.0
+ok   LogNorm clip=True: below vmin -> 0, above vmax -> 1  [0.0, 1.0, 0.5]
+   LogNorm(1,100,clip=True)(-3) = 0.0 masked=False (clip doc: below vmin -> 0)
+ok   LogNorm.inverse(norm(x)) == x
+ok   LogNorm vmin == vmax -> 0  [0.0, 0.0]
+#### SymLogNorm (documented: linscale = decades used by each half of the linear range)
+FAIL SymLogNorm(linthresh=1, linscale=1, base=10) vs documented "1 decade(s) for each half of the linear range"  maxdiff 0.0119
+   vals [0.0, 0.3214, 0.5, 0.6786, 0.8393, 1.0] doc [0.0, 0.3333, 0.5, 0.6667, 0.8333, 1.0]
+     colour-range share: linear half (0..linthresh) 0.1786, one decade 0.1607, ratio 1.1111 (documented ratio 1)
+FAIL SymLogNorm(linthresh=1, linscale=1, base=2) vs documented "1 decade(s) for each half of the linear range"  maxdiff 0.0536
+   vals [0.0, 0.375, 0.5, 0.625, 0.6875, 1.0] doc [0.0, 0.4286, 0.5, 0.5714, 0.6429, 1.0]
+     colour-range share: linear half (0..linthresh) 0.1250, one decade 0.0625, ratio 2.0000 (documented ratio 1)
+FAIL SymLogNorm(linthresh=0.5, linscale=2, base=10) vs documented "2 decade(s) for each half of the linear range"  maxdiff 0.0189
+   vals [0.0, 0.3649, 0.6105, 0.8562, 0.9667, 1.0] doc [0.0, 0.3837, 0.6163, 0.8488, 0.965, 1.0]
+     colour-range share: linear half (0..linthresh) 0.2456, one decade 0.1105, ratio 2.2222 (documented ratio 2)
+FAIL SymLogNorm(linthresh=2, linscale=0.5, base=2.718) vs documented "0.5 decade(s) for each half of the linear range"  maxdiff 0.0320
+   vals [0.0, 0.3118, 0.3885, 0.4651, 0.562, 1.0] doc [0.0, 0.3305, 0.3818, 0.4331, 0.5358, 1.0]
+     colour-range share: linear half (0..linthresh) 0.0766, one decade 0.0969, ratio 0.7910 (documented ratio 0.5)
+ok   SymLogNorm is linear inside (-linthresh, linthresh) ("the plot is linear")
+ok   SymLogNorm log region: each factor of base adds the same colour step
+ok   SymLogNorm with vmin = -vmax is antisymmetric: norm(-x) = 1 - norm(x)
+ok   SymLogNorm.inverse(norm(x)) == x
+ok   SymLogNorm clip=True -> [0, 1]  [0.0, 1.0]
+#### AsinhNorm / FuncNorm
+ok   AsinhNorm(linear_width=1.0) = documented a0*asinh(a/a0) rescaled  maxdiff 0.0e+00
+ok   AsinhNorm(linear_width=0.1) = documented a0*asinh(a/a0) rescaled  maxdiff 0.0e+00
+ok   AsinhNorm(linear_width=25.0) = documented a0*asinh(a/a0) rescaled  maxdiff 0.0e+00
+ok   AsinhNorm.inverse(norm(x)) == x
+ok   FuncNorm((sqrt, square), 0, 16) = (sqrt(x)-0)/(4-0)  [0.0, 0.25, 0.5, 0.75, 1.0, 1.25]
+ok   FuncNorm.inverse(norm(x)) == x
+ok   FuncNorm autoscale: vmin/vmax from data
+   FuncNorm(sqrt)(-4) -> masked=True (outside the function domain)
+#### PowerNorm
+ok   PowerNorm(gamma=2) = ((x-vmin)/(vmax-vmin))**gamma (Notes formula)
+ok   PowerNorm(gamma=0.5) closed form
+ok   PowerNorm above vmax, clip=False: ((7-1)/4)**2 = 2.25 (> 1 -> over)  2.25
+ok   PowerNorm below vmin, clip=False: pre-3.9 behaviour maps to 0 (api_changes_3.9.0 "PowerNorm no longer clips values below vmin")  [0.0, 0.0]
+ok   PowerNorm clip=True: [0, 0.25, 1]  [0.0, 0.25, 1.0]
+ok   PowerNorm.inverse(norm(x)) == x
+ok   PowerNorm autoscale ignores masked, keeps mask
+ok   PowerNorm vmin == vmax -> 0
+#### TwoSlopeNorm
+ok   TwoSlopeNorm docstring example -> [0, .25, .5, .625, .75, .875, 1]  [0.0, 0.25, 0.5, 0.625, 0.75, 0.875, 1.0]
+ok   TwoSlopeNorm: vcenter -> 0.5 and each side linear (200 random vs Fraction)  0 off
+ok   TwoSlopeNorm out of range -> -inf / +inf (under / over)  [-inf, inf]
+ok   TwoSlopeNorm autoscale, data above vcenter: pre-3.8 "clip at vcenter" -> vmin=0 (api_changes_3.8.0 "TwoSlopeNorm now auto-expands")  0.0,3.0
+ok   TwoSlopeNorm autoscale, data below vcenter: pre-3.8 vmax clipped to vcenter (10)  -5.0,10.0
+ok   TwoSlopeNorm(vcenter >= vmax) raises ValueError
+ok   TwoSlopeNorm keeps the mask
+ok   TwoSlopeNorm.inverse(norm(x)) == x
+#### CenteredNorm
+ok   CenteredNorm docstring example: halfrange=4 -> [0.25, 0.5, 1]  [0.25, 0.5, 1.0]
+ok   CenteredNorm autoscale: halfrange = max |A - vcenter| = 3, vmin=-2, vmax=4  3.0 -2.0 4.0
+ok   CenteredNorm autoscaled values (x+2)/6  [0.16666666666666666, 0.4166666666666667, 1.0]
+ok   CenteredNorm autoscale ignores masked values (halfrange 2)  2.0
+ok   CenteredNorm clip=True -> [0, 1]
+ok   CenteredNorm: changing vcenter keeps halfrange: norm([-1, 1, 3]) = [0, 0.5, 1]  [0.0, 0.5, 1.0] vmin=-1.0 vmax=3.0
+#### BoundaryNorm
+ok   BoundaryNorm(b=[0, 1, 2.5, 4, 10], ncolors=4) on values incl. exactly on boundaries (left-closed bins)  got [-1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4] doc [-1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4]
+ok   BoundaryNorm(b=[0, 1, 2.5, 4, 10], ncolors=5) on values incl. exactly on boundaries (left-closed bins)  got [-1, 0, 0, 1, 1, 2, 2, 4, 4, 5, 5] doc [-1, 0, 0, 1, 1, 2, 2, 4, 4, 5, 5]
+ok   BoundaryNorm(b=[0, 1, 2.5, 4, 10], ncolors=7) on values incl. exactly on boundaries (left-closed bins)  got [-1, 0, 0, 2, 2, 4, 4, 6, 6, 7, 7] doc [-1, 0, 0, 2, 2, 4, 4, 6, 6, 7, 7]
+ok   BoundaryNorm(b=[0, 1, 2.5, 4, 10], ncolors=16) on values incl. exactly on boundaries (left-closed bins)  got [-1, 0, 0, 5, 5, 10, 10, 15, 15, 16, 16] doc [-1, 0, 0, 5, 5, 10, 10, 15, 15, 16, 16]
+ok   BoundaryNorm(b=[0, 1, 2.5, 4, 10], ncolors=256) on values incl. exactly on boundaries (left-closed bins)  got [-1, 0, 0, 85, 85, 170, 170, 255, 255, 256, 256] doc [-1, 0, 0, 85, 85, 170, 170, 255, 255, 256, 256]
+ok   BoundaryNorm extend='min', ncolors=6  got [-1, 1, 1, 2, 2, 3, 3, 5, 5, 6, 6] doc [-1, 1, 1, 2, 2, 3, 3, 5, 5, 6, 6]
+ok   BoundaryNorm extend='min', ncolors=9  got [-1, 2, 2, 4, 4, 6, 6, 8, 8, 9, 9] doc [-1, 2, 2, 4, 4, 6, 6, 8, 8, 9, 9]
+ok   BoundaryNorm extend='min', ncolors=256  got [-1, 63, 63, 127, 127, 191, 191, 255, 255, 256, 256] doc [-1, 63, 63, 127, 127, 191, 191, 255, 255, 256, 256]
+ok   BoundaryNorm extend='max', ncolors=6  got [-1, 0, 0, 1, 1, 2, 2, 3, 3, 6, 6] doc [-1, 0, 0, 1, 1, 2, 2, 3, 3, 6, 6]
+ok   BoundaryNorm extend='max', ncolors=9  got [-1, 0, 0, 2, 2, 4, 4, 6, 6, 9, 9] doc [-1, 0, 0, 2, 2, 4, 4, 6, 6, 9, 9]
+ok   BoundaryNorm extend='max', ncolors=256  got [-1, 0, 0, 63, 63, 127, 127, 191, 191, 256, 256] doc [-1, 0, 0, 63, 63, 127, 127, 191, 191, 256, 256]
+ok   BoundaryNorm extend='both', ncolors=6  got [-1, 1, 1, 2, 2, 3, 3, 4, 4, 6, 6] doc [-1, 1, 1, 2, 2, 3, 3, 4, 4, 6, 6]
+ok   BoundaryNorm extend='both', ncolors=9  got [-1, 1, 1, 3, 3, 4, 4, 6, 6, 9, 9] doc [-1, 1, 1, 3, 3, 4, 4, 6, 6, 9, 9]
+ok   BoundaryNorm extend='both', ncolors=256  got [-1, 51, 51, 102, 102, 153, 153, 204, 204, 256, 256] doc [-1, 51, 51, 102, 102, 153, 153, 204, 204, 256, 256]
+ok   BoundaryNorm clip=True: below -> 0, >= last boundary -> ncolors-1  got [0, 0, 0, 1, 1, 2, 2, 3, 3, 3, 3]
+ok   BoundaryNorm clip=True with ncolors > bins  got [0, 0, 0, 3, 3, 6, 6, 9, 9, 9, 9] doc [0, 0, 0, 3, 3, 6, 6, 9, 9, 9, 9]
+ok   BoundaryNorm single bin, ncolors=9 -> middle colour 4  [-1, 4, 4, 9]
+ok   BoundaryNorm ncolors < number of bins raises ValueError
+ok   BoundaryNorm extend=both needs ncolors >= bins+2 (ValueError)
+ok   BoundaryNorm clip=True with extend raises ValueError
+FAIL BoundaryNorm ncolors>bins: every bin index = documented linear map [0,nbins-1]->[0,ncolors-1] (2<=ncolors<200, 2<=bins<60)  266 of the (ncolors, bins) pairs differ
+FAIL BoundaryNorm ncolors>bins: the last bin gets the last colour ncolors-1 (same grid)  233 pairs give ncolors-2, e.g. [(16, 12, 14), (16, 14, 14), (27, 24, 25), (30, 26, 28)]
+   first mismatching (ncolors, bins): [(16, 12), (16, 14), (27, 24), (30, 26), (31, 12), (31, 14), (31, 23), (31, 27)]
+   BoundaryNorm(arange(27) [26 bins], 256)(25.5) = 254 (documented last colour 255)
+   BoundaryNorm(arange(13) [12 bins], 16)(11.5) = 14 (documented last colour 15)
+ok   BoundaryNorm keeps the mask
+FAIL cmap(BoundaryNorm(NaN)) is the "bad" colour ("invalid values (NaN or masked)")  got (1.0, 1.0, 0.0, 1.0), idx 4
+ok   BoundaryNorm scalar in -> Python int out  2
+FAIL BoundaryNorm with ncolors=40000 (> int16) gives the documented indices  got [0, -25537, -25536] doc [0, 39999, 40000]
+#### NoNorm
+ok   NoNorm passes values through unchanged
+ok   NoNorm scalar passthrough
+ok   ListedColormap(ints from NoNorm) indexes directly; 8 -> over, -1 -> under
+#### Colormap.__call__
+ok   ListedColormap N=1: float x -> colour floor(x*N), x == 1.0 -> N-1
+ok   ListedColormap N=2: float x -> colour floor(x*N), x == 1.0 -> N-1
+ok   ListedColormap N=5: float x -> colour floor(x*N), x == 1.0 -> N-1
+ok   ListedColormap N=8: float x -> colour floor(x*N), x == 1.0 -> N-1
+ok   ListedColormap N=256: float x -> colour floor(x*N), x == 1.0 -> N-1
+ok   Colormap: x<0 -> under, -0.0 -> first, 1.0 -> last, 1+ulp -> over, inf -> over, -inf -> under, NaN -> bad
+ok   Colormap.with_extremes: under / first / last / last / over / bad  [8, 0, 4, 4, 9, 10]
+ok   Colormap: masked value -> bad colour
+FAIL Colormap: NaN inside a masked array that has a masked element -> bad colour ("NaN or masked")  [0, 8, 10]
+ok   Colormap: NaN inside a masked array with no masked element -> bad colour
+ok   Colormap int input: index 0..N-1 direct; N -> over; -1 -> under; 255 -> over  [0, 4, 9, 8, 9]
+ok   Colormap uint8 input: 5 -> over, 200 -> over
+ok   Colormap float32 input: floor(x*N)
+ok   Colormap alpha=0.3 sets alpha; NaN stays fully transparent
+ok   Colormap scalar -> tuple
+ok   Colormap bytes=True returns uint8 and hex #kkkkkk -> byte k for all 256 k
+   bytes=True for float colour (0.5, 0.2, 0.998): (127, 51, 254, 255) (x*255 = 127.5, 51.0, 254.49; truncation gives 127/51/254)
+FAIL Colormap bytes=True: float channel c -> nearest uint8 round(255*c) (as to_hex does)  got (254, 178, 0) nearest (255, 179, 0) (255*c = [254.745, 178.5, 0.484])
+   to_hex(0.999, 0.7, 0.0019) = #ffb200
+   viridis bytes=True vs nearest: 379 of 768 channels are 1 lower
+ok   viridis (N=256): 0 -> colors[0], 0.5 -> colors[128], 1.0 -> colors[255]
+#### LinearSegmentedColormap vs documented segmentdata semantics
+ok   LinearSegmentedColormap docstring example N=2 gamma=1.0: entry i = f((i/(N-1))**gamma)  maxdiff 0
+ok   LinearSegmentedColormap docstring example N=2 gamma=2.0: entry i = f((i/(N-1))**gamma)  maxdiff 0
+ok   LinearSegmentedColormap docstring example N=2 gamma=0.5: entry i = f((i/(N-1))**gamma)  maxdiff 0
+ok   LinearSegmentedColormap docstring example N=5 gamma=1.0: entry i = f((i/(N-1))**gamma)  maxdiff 0
+ok   LinearSegmentedColormap docstring example N=5 gamma=2.0: entry i = f((i/(N-1))**gamma)  maxdiff 0
+ok   LinearSegmentedColormap docstring example N=5 gamma=0.5: entry i = f((i/(N-1))**gamma)  maxdiff 0
+ok   LinearSegmentedColormap docstring example N=11 gamma=1.0: entry i = f((i/(N-1))**gamma)  maxdiff 2.22e-16
+ok   LinearSegmentedColormap docstring example N=11 gamma=2.0: entry i = f((i/(N-1))**gamma)  maxdiff 3.33e-16
+ok   LinearSegmentedColormap docstring example N=11 gamma=0.5: entry i = f((i/(N-1))**gamma)  maxdiff 2.64e-16
+ok   LinearSegmentedColormap docstring example N=256 gamma=1.0: entry i = f((i/(N-1))**gamma)  maxdiff 2.22e-16
+ok   LinearSegmentedColormap docstring example N=256 gamma=2.0: entry i = f((i/(N-1))**gamma)  maxdiff 3.33e-16
+ok   LinearSegmentedColormap docstring example N=256 gamma=0.5: entry i = f((i/(N-1))**gamma)  maxdiff 3.33e-16
+ok   LinearSegmentedColormap discontinuous N=2 gamma=1.0: entry i = f((i/(N-1))**gamma)  maxdiff 0
+ok   LinearSegmentedColormap discontinuous N=2 gamma=2.0: entry i = f((i/(N-1))**gamma)  maxdiff 0
+ok   LinearSegmentedColormap discontinuous N=2 gamma=0.5: entry i = f((i/(N-1))**gamma)  maxdiff 0
+ok   LinearSegmentedColormap discontinuous N=5 gamma=1.0: entry i = f((i/(N-1))**gamma)  maxdiff 5.55e-17
+ok   LinearSegmentedColormap discontinuous N=5 gamma=2.0: entry i = f((i/(N-1))**gamma)  maxdiff 1.11e-16
+ok   LinearSegmentedColormap discontinuous N=5 gamma=0.5: entry i = f((i/(N-1))**gamma)  maxdiff 1.11e-16
+ok   LinearSegmentedColormap discontinuous N=11 gamma=1.0: entry i = f((i/(N-1))**gamma)  maxdiff 1.11e-16
+ok   LinearSegmentedColormap discontinuous N=11 gamma=2.0: entry i = f((i/(N-1))**gamma)  maxdiff 2.22e-16
+ok   LinearSegmentedColormap discontinuous N=11 gamma=0.5: entry i = f((i/(N-1))**gamma)  maxdiff 2.22e-16
+ok   LinearSegmentedColormap discontinuous N=256 gamma=1.0: entry i = f((i/(N-1))**gamma)  maxdiff 1.67e-16
+ok   LinearSegmentedColormap discontinuous N=256 gamma=2.0: entry i = f((i/(N-1))**gamma)  maxdiff 3.33e-16
+ok   LinearSegmentedColormap discontinuous N=256 gamma=0.5: entry i = f((i/(N-1))**gamma)  maxdiff 2.22e-16
+   discontinuous red at x=0.5 sample (N=3): 0.767; green row x=0.5 has y0=0.0, y1=1.0 -> uses y0
+ok   LinearSegmentedColormap.from_list(2 colours, N=5): equal steps
+ok   LinearSegmentedColormap.from_list with (value, colour) anchors  maxdiff 2.2e-16
+#### reversed() / resampled()
+ok   LinearSegmentedColormap.reversed(): entry i == original entry N-1-i
+FAIL LinearSegmentedColormap(gamma=2).reversed(): reversed colour sequence == original read backwards  maxdiff 0.984
+   reversed(gamma=2) equals f(1 - (i/(N-1))**2) (same gamma applied to the reversed data): maxdiff 5e-16
+FAIL LinearSegmentedColormap(gamma=2).resampled(8) keeps gamma: entry i = f((i/7)**2)  maxdiff 0.490
+   resampled gamma attr: 1.0
+ok   LinearSegmentedColormap.resampled(8): entry i = f(i/7)
+ok   ListedColormap(5).resampled(3): entry j = original colour at x=j/(k-1)  got [0, 2, 4] exp [0, 2, 4]
+ok   ListedColormap(5).resampled(5): entry j = original colour at x=j/(k-1)  got [0, 1, 2, 3, 4] exp [0, 1, 2, 3, 4]
+ok   ListedColormap(5).resampled(9): entry j = original colour at x=j/(k-1)  got [0, 0, 1, 1, 2, 3, 3, 4, 4] exp [0, 0, 1, 1, 2, 3, 3, 4, 4]
+ok   ListedColormap(5).resampled(12): entry j = original colour at x=j/(k-1)  got [0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 4] exp [0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 4]
+ok   ListedColormap.resampled keeps under/over/bad
+ok   ListedColormap.reversed(): colours reversed, under<->over swapped, bad kept  [4, 3, 2, 1, 0, 9, 8, 10]
+ok   LinearSegmentedColormap.reversed(): under<->over swapped
+#### ScalarMappable / imshow: is value v drawn in the colour the colorbar shows for v?
+FAIL ScalarMappable.to_rgba(Normalize(0,8), 8 colours): edges left-closed, 8 -> last, >8 over, <0 under, NaN/masked bad  [0, 0, 1, 7, 7, 9, 8, 8, 10]
+FAIL ScalarMappable.to_rgba(BoundaryNorm) on plain ndarray with NaN -> bad colour  [0, 9, 3]
+ok   imshow float64, 20px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float64 offset 1e6, 20px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float32, 20px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float32 offset 1024, 20px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float64 offset 1e12, 20px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float64, 5px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float64 offset 1e6, 5px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float32, 5px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float32 offset 1024, 5px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float64 offset 1e12, 5px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float64, 2px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float64 offset 1e6, 2px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float32, 2px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float32 offset 1024, 2px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+ok   imshow float64 offset 1e12, 2px/cell, Normalize(vmin,vmin+8), 8 colours: values on edges -> upper band, vmax -> last  got [0, 0, 1, 2, 3, 3, 4, 5, 6, 7, 7, 7, 9, 8]
+FAIL imshow BoundaryNorm (offset 0, 20px/cell): value == boundary[i] -> colour i; 1 ulp below -> i-1  got [0, 1, 2, 2, 3, 5, 6, 7, 1, 3, 'over']
+ok   imshow BoundaryNorm (offset 1000, 20px/cell): value == boundary[i] -> colour i; 1 ulp below -> i-1  got [0, 1, 2, 3, 4, 5, 6, 7, 0, 3, 'over']
+FAIL imshow BoundaryNorm (offset 0, 2px/cell): value == boundary[i] -> colour i; 1 ulp below -> i-1  got [0, 1, 2, 2, 3, 5, 6, 7, 1, 3, 'over']
+ok   imshow BoundaryNorm (offset 1000, 2px/cell): value == boundary[i] -> colour i; 1 ulp below -> i-1  got [0, 1, 2, 3, 4, 5, 6, 7, 0, 3, 'over']
+ok   imshow: NaN and masked cells are drawn transparent ("bad" default)  [1, 'transparent', 3, 'transparent', 'transparent', 'transparent']
+FAIL imshow: +inf cell -> "over" colour, -inf -> "under" ("bad" is for NaN or masked)  [1, 'transparent', 3, 'transparent', 'transparent', 'transparent']
+   imshow stores +/-inf as masked: mask = [False, True, False, True, True, True]
+#### colorbar bands vs the norm
+ok   colorbar(BoundaryNorm): band edges == boundaries  [0.0, 1.0, 3.0, 4.0, 10.0, 11.0]
+ok   colorbar(BoundaryNorm): band i colour == documented colour of bin i
+ok   colorbar(BoundaryNorm): ticks at the boundaries  [0, 1, 3, 4, 10, 11]
+ok   colorbar(BoundaryNorm, 256 colours, extend=both): band colours == documented stretched indices
+ok   colorbar(Normalize(-1,4), 5 colours): band edges vmin + k*(vmax-vmin)/N  [-1.0, 0.0, 1.0, 2.0000000000000004, 3.0, 4.0]
+ok   colorbar(Normalize): band k colour == data colour for values in [edge_k, edge_k+1)
+ok   colorbar(LogNorm(1,1000), 3 colours): band edges 1, 10, 100, 1000  [1.0, 10.0, 100.0, 1000.0]
+#### contour / contourf
+   this build's contour docstring promises at most n+1 levels
+FAIL contourf(Z, n) automatic levels: "no more than n+1" levels between min(Z) and max(Z) (300 random ranges + 48 round ranges)  15 exceed, e.g. (n, inside, total) [(1, 3, 3), (1, 3, 3), (1, 3, 3), (2, 4, 4)]
+   total number of levels returned minus n (incl. the levels just outside the data): {-3: 1, -2: 1, -1: 7, 0: 17, 1: 57, 2: 124, 3: 93}
+ok   contourf automatic levels span the data: levels[0] <= min(Z), levels[-1] >= max(Z)  []
+ok   contourf automatic levels are evenly spaced (MaxNLocator "Place evenly spaced ticks")  []
+FAIL contourf automatic levels are integer multiples of the step ("acceptable tick multiples")  34 of 300, e.g. [[-10000.0, -9985.0, -9970.0, -9955.0], [999850.0, 1000000.0, 1000150.0, 1000300.0]]
+   step mantissas seen: [1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, 8.0] (MaxNLocator default steps are not stated in its docstring)
+   n+2 levels returned in 43 of 66 (n, span) grid cases
+   contourf default levels for Z in [0, 0.95]: [0.0, 0.15000000000000002, 0.30000000000000004, 0.45000000000000007, 0.6000000000000001, 0.7500000000000001, 0.9000000000000001, 1.0500000000000003]
+ok   contourf on Z = x: band i covers exactly x in [levels[i], levels[i+1]]  [(0.0, 1.0), (1.0, 2.5), (2.5, 6.0), (6.0, 10.0)]
+ok   contourf band colour with ListedColormap = colour at the layer midpoint (Normalize(levels[0], levels[-1]))  got [0, 0, 1, 3] doc [0, 0, 1, 3]
+   levels [0, 1, 2.5, 6, 10] with 4 listed colours -> band colours [0, 0, 1, 3] (colour 2 unused, bands 0/1 share colour 0)
+ok   colorbar(contourf): band edges == contour levels  [0.0, 1.0, 2.5, 6.0, 10.0]
+ok   colorbar(contourf): band colours == contourf band colours
+ok   contourf 5 equal bands, 5-colour ListedColormap: band i -> colour i
+ok   contourf colors=3 colours, 5 bands: "the sequence is cycled ... repeated" -> 0,1,2,0,1  [0, 1, 2, 0, 1]
+ok   contourf extend=both: below/above bands use the colormap under/over colours  [8, 0, 1, 2, 9]
+ok   contourf extend=both: under band covers x in [0,2], over band x in [8,10]  [(0.0, 2.0), (2.0, 4.0), (4.0, 6.0), (6.0, 8.0), (8.0, 10.0)]
+ok   contourf colors= with len == bands+2 and extend=both: first/last colours for under/over  [0, 1, 2, 3, 4]
+ok   contourf extend=neither: "values outside the levels range are not colored" (fill only x in [2,8])  [(2.0, 4.0), (4.0, 6.0), (6.0, 8.0)]
+ok   contourf fill rule "z1 < Z <= z2": plateau Z == 1 with levels [0,1,2] lies in band [0,1]  [True, False]
+ok   contourf: plateau at Z == min(Z) == levels[0] is filled ("lowest interval ... closed on both sides")  [True, False]
+FAIL contourf: plateau Z == levels[0] when min(Z) < levels[0] is filled in the lowest band ("closed on both sides (i.e. it includes the lowest value)")  [False, False]
+   same plateau with extend='min': membership (under, [0,1], [1,2]) = [True, False, False]; under colour = 8
+ok   contourf: plateau Z == levels[-1] lies in the top band (closed at the top)  [False, True]
+   auto levels n=5 for Z in [0.3, 9.6]: neither [0.0, 2.0, 4.0, 6.0, 8.0, 10.0], extend=both [2.0, 4.0, 6.0, 8.0]
+ok   contourf extend=both auto levels lie inside [min Z, max Z] (data beyond go to the extensions)  [2.0, 4.0, 6.0, 8.0]
+   contourf(constant 5): levels [4.999999999999451, 4.9999999999996, 4.999999999999751, 4.9999999999999005, 5.000000000000051, 5.000000000000201, 5.000000000000351, 5.000000000000501]
+ok   contourf with NaN in Z: automatic levels span the finite values [0, 7]  [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0]
+ok   contour line colours = colormap at Normalize(levels[0], levels[-1])(level)  got [0, 1, 2, 3, 3] doc [0, 1, 2, 3, 3]
+done

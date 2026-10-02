@@ -1,0 +1,216 @@
+matplotlib 3.11.2  numpy 2.5.3  scipy 1.18.1  python 3.12.3
+#### Axes.hist: counts against the documented half-open bins (last bin closed)
+ok   hist(bins=1): edges = linspace(min, max, 1+1) ('the number of equal-width bins in the range'; range defaults to (x.min(), x.max()))  maxdiff 0
+ok   hist(bins=1): n equals the plain-Python count with [e_i, e_i+1) and the last bin closed  [np.float64(997.0)] vs [997.0]
+ok   hist(bins=1): sum(n) == len(x) (min and max both counted)
+ok   hist(bins=1): n dtype is float ('will always be float even if no weighting')  float64
+ok   hist(bins=7): edges = linspace(min, max, 7+1) ('the number of equal-width bins in the range'; range defaults to (x.min(), x.max()))  maxdiff 6.66e-16
+ok   hist(bins=7): n equals the plain-Python count with [e_i, e_i+1) and the last bin closed  [np.float64(2.0), np.float64(27.0), np.float64(141.0), np.float64(304.0), np.float64(321.0), np.float64(168.0)] vs [2.0, 27.0, 141.0, 304.0, 321.0, 168.0]
+ok   hist(bins=7): sum(n) == len(x) (min and max both counted)
+ok   hist(bins=7): n dtype is float ('will always be float even if no weighting')  float64
+ok   hist(bins=10): edges = linspace(min, max, 10+1) ('the number of equal-width bins in the range'; range defaults to (x.min(), x.max()))  maxdiff 4.44e-16
+ok   hist(bins=10): n equals the plain-Python count with [e_i, e_i+1) and the last bin closed  [np.float64(2.0), np.float64(2.0), np.float64(28.0), np.float64(93.0), np.float64(180.0), np.float64(240.0)] vs [2.0, 2.0, 28.0, 93.0, 180.0, 240.0]
+ok   hist(bins=10): sum(n) == len(x) (min and max both counted)
+ok   hist(bins=10): n dtype is float ('will always be float even if no weighting')  float64
+ok   hist(bins=64): edges = linspace(min, max, 64+1) ('the number of equal-width bins in the range'; range defaults to (x.min(), x.max()))  maxdiff 8.88e-16
+ok   hist(bins=64): n equals the plain-Python count with [e_i, e_i+1) and the last bin closed  [np.float64(1.0), np.float64(0.0), np.float64(0.0), np.float64(0.0), np.float64(1.0), np.float64(0.0)] vs [1.0, 0.0, 0.0, 0.0, 1.0, 0.0]
+ok   hist(bins=64): sum(n) == len(x) (min and max both counted)
+ok   hist(bins=64): n dtype is float ('will always be float even if no weighting')  float64
+   integer data [0, 1, 1, 2, 3, 3, 3, 4, 5, 5], bins=5: edges [np.float64(0.0), np.float64(1.0), np.float64(2.0), np.float64(3.0), np.float64(4.0), np.float64(5.0)] n [np.float64(1.0), np.float64(2.0), np.float64(1.0), np.float64(3.0), np.float64(3.0)]
+ok   hist(integer data, bins=5): values on interior edges go to the right-hand bin, max goes to the closed last bin -> [1, 2, 1, 3, 3]  [np.float64(1.0), np.float64(2.0), np.float64(1.0), np.float64(3.0), np.float64(3.0)]
+ok   hist(bins=[0..5] sequence): the docstring example rule '[1, 2) ... last bin [3, 4] includes 4' -> [1, 2, 1, 3, 3]  [np.float64(1.0), np.float64(2.0), np.float64(1.0), np.float64(3.0), np.float64(3.0)]
+ok   hist(unequal bin sequence): n = exact counts, bins returned unchanged
+ok   hist(bins=sequence, range=...): 'Range has no effect if bins is a sequence'
+ok   hist(bins=8, range=(-1, 2)): edges linspace(-1, 2, 9), 'Lower and upper outliers are ignored'  [np.float64(110.0), np.float64(124.0), np.float64(146.0), np.float64(138.0), np.float64(112.0), np.float64(93.0), np.float64(61.0), np.float64(23.0)]
+ok   hist(bins='sturges'): 11 bins (closed form for N=997) spanning [min, max], counts exact  11 bins
+ok   hist(bins='sqrt'): 32 bins (closed form for N=997) spanning [min, max], counts exact  32 bins
+ok   hist(bins='rice'): 20 bins (closed form for N=997) spanning [min, max], counts exact  20 bins
+ok   hist(bins='auto'): returned edges are equal-width over [min, max], counts exact (number of bins delegated to numpy)  23 bins
+#### hist: density, weights, cumulative
+ok   hist(density=True): n = counts / (sum(counts) * diff(bins)) (docstring formula)  maxdiff 2.8e-17
+ok   hist(density=True): sum(n * diff(bins)) == 1
+ok   hist(density=True, unequal bins): divides by each bin's own width
+ok   hist(weights=w): n = sum of weights per bin (exact)
+ok   hist(weights, density=True): 'the weights are normalized, so that the integral of the density over the range remains 1'
+ok   hist(cumulative=True): 'each bin gives the counts in that bin plus all bins for smaller values', last bin = N  [np.float64(952.0), np.float64(984.0), np.float64(997.0)]
+ok   hist(cumulative=-1): 'the direction of accumulation is reversed' (first bin = N)
+   2 of 997 values lie outside the edges [-3, 3.5] and are ignored
+ok   hist(cumulative=True, density=True, unequal bins): cumulative fraction of the in-range values, 'normalized such that the last bin equals 1'  [np.float64(0.16482412060301507), np.float64(0.4), np.float64(0.4904522613065327), np.float64(0.685427135678392), np.float64(0.9969849246231156), np.float64(1.0)]
+ok   hist(cumulative=-1, density=True): 'normalized such that the first bin equals 1'
+ok   hist(cumulative=True, weights): last bin = sum of weights
+   cumulative=True with range=(-1, 2): last bin 807.0 of N=997 (outliers ignored; the cumulative text says 'The last bin gives the total number of datapoints')
+#### hist: several datasets, stacked, 2-D input, empty
+ok   hist([d1, d2, d3]) different lengths: one bins array over the combined range ('Always a single array')
+ok   hist([d1, d2, d3]): each n_k equals its own exact count on the shared bins
+ok   hist([d1, d2, d3], density=True, not stacked): each dataset normalised separately (integral 1 each)
+ok   hist(stacked=True): n_k is the running sum of datasets 0..k (stacked tops)  top [np.float64(37.0), np.float64(32.0), np.float64(44.0), np.float64(52.0), np.float64(74.0), np.float64(71.0), np.float64(65.0), np.float64(43.0), np.float64(40.0)]
+ok   hist(stacked=True, density=True, unequal bins): 'the sum of the histograms is normalized to 1' (top integrates to 1, lower layers to their share)  integrals [0.657205, 0.984716, 1.0]
+ok   hist(stacked, density, cumulative): top layer's last bin equals 1  np.float64(1.0)
+ok   hist(2-D ndarray (40, 3)): 3 datasets, one per column ('each column is a dataset')
+ok   hist([d, []]): the empty dataset gives zeros, the other its exact counts
+   hist([]) -> n [np.float64(0.0), np.float64(0.0), np.float64(0.0), np.float64(0.0)] bins [np.float64(0.0), np.float64(0.25), np.float64(0.5), np.float64(0.75), np.float64(1.0)] (numpy's default range (0, 1); the docstring is silent)
+ok   hist([]): all-zero n of length 4
+ok   hist([d1, d3], weights=[w1, w3]): per-dataset weighted counts on the combined range
+#### hist: NaN, inf, constant, float32, large offsets
+ok   hist(data with NaN): NaN values are dropped and the range comes from the finite values  [np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0)]
+ok   hist([with NaN, with NaN]): NaN dropped in both datasets
+   hist([1, 2, 2.5, inf], bins=3) -> ValueError: supplied range of [1.0, inf] is not finite  (the docstring says nothing about inf)
+ok   hist(data with inf, explicit range=(1, 3), bins=3): inf is an upper outlier and is ignored -> [1, 1, 1]  [np.float64(1.0), np.float64(1.0), np.float64(1.0)]
+   hist(all-NaN) -> ValueError: autodetected range of [nan, nan] is not finite
+   hist([3, 3, 3], bins=3) -> n [np.float64(0.0), np.float64(3.0), np.float64(0.0)] bins [np.float64(2.5), np.float64(2.8333333333333335), np.float64(3.1666666666666665), np.float64(3.5)] (degenerate range widened by numpy to +-0.5)
+ok   hist(constant data): all three values counted once
+ok   hist(float32): counts exact against the returned edges, sum = N
+   hist(float32): returned bins dtype float64 (the docstring only says 'array'; 3.6+ casts to float64)
+ok   hist(1e9 + 0.001k, k=0..40, bins=4): counts [10, 10, 10, 11] by the closed form (0.01-wide bins)  [np.float64(10.0), np.float64(10.0), np.float64(10.0), np.float64(11.0)]
+ok   hist(int8 data): edges 0..5, counts [1, 1, 1, 1, 3]  [np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(3.0)]
+#### hist: drawn geometry equals n (bar, barstacked, step, stepfilled, bottom, log)
+ok   hist(histtype='step'): the outline has a horizontal segment (e_i, e_i+1) at height n_i for every bin  22 vertices
+ok   hist(histtype='step', stacked): the second polygon's top is at the stacked n_1
+ok   hist(histtype='stepfilled'): the outline has a horizontal segment (e_i, e_i+1) at height n_i for every bin  41 vertices
+ok   hist(histtype='stepfilled', stacked): the second polygon's top is at the stacked n_1
+ok   hist(histtype='step', bottom=5): outline at n_i + 5
+ok   hist(histtype='bar'): bar i spans [e_i, e_i+1] with height n_i
+ok   hist(histtype='barstacked'): layer k bars have bottom n_{k-1} and top n_k
+ok   hist(log=True): y axis is log-scaled, n unchanged, bar heights = n
+ok   hist(log=True, histtype='step'): y axis is log-scaled
+ok   hist(orientation='horizontal', 'step'): vertical outline segments at x = n_i
+#### Axes.stairs
+ok   stairs(values, edges): a horizontal segment (e_i, e_i+1) at values_i for each i  [[0.0, 0.0], [0.0, 3.0], [1.0, 3.0], [1.0, 0.0]]
+ok   stairs(): path starts and ends at the baseline 0
+ok   stairs(values) with edges=None: edges are 0..len(values)
+ok   stairs(baseline=None): unclosed path, first point (e_0, v_0), last (e_n, v_last)  [[0.0, 3.0], [0.0, 3.0], [1.0, 3.0], [1.0, 0.0], [1.5, 0.0], [1.5, 2.5], [4.0, 2.5], [4.0, -1.0], [5.0, -1.0], [5.0, 4.0], [7.0, 4.0], [7.0, 4.0]]
+ok   stairs(*np.histogram(x)): drawn steps equal the counts
+#### Axes.hist2d
+ok   hist2d(bins=(4, 5)): x edges linspace(min, max, 5), y edges linspace(min, max, 6)
+ok   hist2d: h[i, j] counts x in x-bin i and y in y-bin j ('Values in x are histogrammed along the first dimension'), last bins closed  corner 23.0 23.0
+ok   hist2d(density=True): count / (N * dx * dy), integrates to 1
+ok   hist2d(bins=[x edges, y edges], weights): weighted sums per cell
+ok   hist2d(range=[[1, 3], [-0.5, 0.5]]): outliers not tallied
+ok   hist2d(cmin=14): exactly the cells with count < cmin are NaN ('count less than cmin'); count == cmin kept  1 cells with count == cmin
+ok   hist2d(cmax=24): exactly the cells with count > cmax are NaN  2 cells with count == cmax
+ok   hist2d: the QuadMesh array is h.T (masked where NaN)
+   hist2d(density=True, cmin=14): 20 of 20 cells NaN; densities range all NaN
+FAIL hist2d(density=True, cmin=14): 'All bins that has count less than cmin will not be displayed' -> NaN pattern follows the counts  20 NaN vs 1 expected
+   hist2d with NaN in x and no range -> ValueError: autodetected range of [nan, nan] is not finite
+#### Axes.hexbin: grid, counts vs the drawn hexagons, conservation
+ok   hexbin(gridsize=5): two interleaved lattices, (nx+1)(ny+1) + nx*ny centres with ny = int(nx/sqrt(3)) = 2  28 centres, 11 columns, 5 rows
+ok   hexbin(gridsize=5): the hexagon columns span [min(x), max(x)] (to the 1e-9 padding)
+ok   hexbin(gridsize=5): hexagon vertices (+-sx/2, +-sy/6), (0, +-sy/3) (regular in axes units when nx/ny ~ sqrt(3))
+ok   hexbin(gridsize=5): each hexagon's value = the number of points inside that drawn hexagon; all N points counted  0 boundary points, 0 outside all drawn hexagons, sum 600.0 of 600
+ok   hexbin(gridsize=8): two interleaved lattices, (nx+1)(ny+1) + nx*ny centres with ny = int(nx/sqrt(3)) = 4  77 centres, 17 columns, 9 rows
+ok   hexbin(gridsize=8): the hexagon columns span [min(x), max(x)] (to the 1e-9 padding)
+ok   hexbin(gridsize=8): hexagon vertices (+-sx/2, +-sy/6), (0, +-sy/3) (regular in axes units when nx/ny ~ sqrt(3))
+ok   hexbin(gridsize=8): each hexagon's value = the number of points inside that drawn hexagon; all N points counted  0 boundary points, 0 outside all drawn hexagons, sum 600.0 of 600
+ok   hexbin(gridsize=(6, 4)): two interleaved lattices, (nx+1)(ny+1) + nx*ny centres with ny = given = 4  59 centres, 13 columns, 9 rows
+ok   hexbin(gridsize=(6, 4)): the hexagon columns span [min(x), max(x)] (to the 1e-9 padding)
+ok   hexbin(gridsize=(6, 4)): each hexagon's value = the number of points inside that drawn hexagon; all N points counted  0 boundary points, 0 outside all drawn hexagons, sum 600.0 of 600
+ok   hexbin: total count conservation sum(get_array()) == N (default extent)
+ok   hexbin(C=None, mincnt=None): every centre is returned, empty hexagons have value 0
+ok   hexbin(grid-aligned points, many on centres / near edges): counts consistent with the drawn hexagons, each point counted once  0 boundary points, 0 outside all drawn hexagons, sum 32.0 of 32
+ok   hexbin(extent=(-1, 1, -2, 2)): points inside a drawn hexagon are counted there, the rest dropped  0 boundary points, 292 outside all drawn hexagons, sum 308.0 of 600
+   extent=(-1, 1, -2, 2): sum 308.0 of 600 (points just outside the extent but inside an edge hexagon are counted)
+ok   hexbin(x/y with NaN and inf): non-finite points dropped (cbook.delete_masked_points), finite total conserved  sum 50.0
+ok   hexbin(constant data): all 5 points in one hexagon (singular extent expanded)
+ok   hexbin(float32): total conserved
+ok   hexbin(x offset by 1e9): counts consistent with the drawn hexagons  0 boundary points, 0 outside all drawn hexagons, sum 600.0 of 600
+#### hexbin: C and reduce_C_function, mincnt
+ok   hexbin(C, reduce_C_function=np.mean (default)): each shown hexagon's value is the reduction over the C values of the points inside it; empty hexagons omitted  0 boundary points; 34 hexagons vs 34 occupied
+ok   hexbin(C, reduce_C_function=np.sum): each shown hexagon's value is the reduction over the C values of the points inside it; empty hexagons omitted  0 boundary points; 34 hexagons vs 34 occupied
+ok   hexbin(C, reduce_C_function=np.max): each shown hexagon's value is the reduction over the C values of the points inside it; empty hexagons omitted  0 boundary points; 34 hexagons vs 34 occupied
+   mincnt docstring in this build: 'int >= 0, default: *None*     If not *None*, only display cells with at least *mincnt*     number of points in'
+ok   hexbin(C=None, mincnt=2): shown cells follow this build's docstring (at least mincnt points)  27 shown vs 27; 1 cells have exactly 2
+ok   hexbin(C=ones, np.sum, mincnt=2): shown cells follow this build's docstring  27 shown vs 27
+ok   hexbin(mincnt=2): C=None and C=ones/np.sum show the same cells (3.8.0 note: 'now inclusive of mincnt in both cases')
+ok   hexbin(C=None, mincnt=3): shown cells follow this build's docstring (at least mincnt points)  26 shown vs 26; 5 cells have exactly 3
+ok   hexbin(C=ones, np.sum, mincnt=3): shown cells follow this build's docstring  26 shown vs 26
+ok   hexbin(mincnt=3): C=None and C=ones/np.sum show the same cells (3.8.0 note: 'now inclusive of mincnt in both cases')
+ok   hexbin(C given, mincnt=None): cells with >= 1 point are shown (3.8.1 note: default requires at least 1 point)
+ok   hexbin(C=None, mincnt=0): all hexagons shown, including zeros
+ok   hexbin(C, mincnt=0): 'if set to 0 will pass empty input to the reduction function' (all hexagons reduced)
+#### hexbin: bins='log', integer and sequence bins
+   bins='log' docstring in this build: log10(i) / LogNorm; array min 0.0 max 77.0; norm LogNorm
+ok   hexbin(bins='log'): colour position = (log10 i - log10 min)/(log10 max - log10 min) ('equivalent to norm=LogNorm()'), zero counts 'bad'  12 bad cells, 12 zero-count cells
+ok   hexbin(bins='log'): get_array() still holds the raw counts
+   bins=3: counts [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 9.0, 12.0, 15.0, 16.0, 17.0, 20.0, 21.0, 23.0, 29.0, 37.0, 50.0, 57.0, 67.0, 68.0, 77.0] -> classes [0, 1, 2]; per-class counts [7, 22, 5] vs equal-width [26, 4, 4]
+FAIL hexbin(bins=3): 'divide the counts in the specified number of bins' -> equal-width classes over [min, max] (last closed)  min count 1 alone in class 0: 7 cells, 7 with the min count
+   bins=[1, 4, 8]: count -> class {1: 0, 2: 1, 3: 1, 4: 1, 5: 2, 6: 2, 8: 2, 9: 3, 12: 3, 15: 3, 16: 3, 17: 3, 20: 3, 21: 3, 23: 3, 29: 3, 37: 3, 50: 3, 57: 3, 67: 3, 68: 3, 77: 3}
+FAIL hexbin(bins=[1, 4, 8]): 'the values of the lower bound of the bins' -> counts 4..7 share a class, a count of 4 does not share with 3  a count equal to a lower bound is put in the bin below
+#### hexbin: xscale / yscale = 'log', get_offsets, marginals
+ok   hexbin(xscale='log'): counts = nearest-centre assignment on the grid in log10(x) (multiset of all cell counts), total conserved  max 18
+FAIL hexbin(xscale='log').get_offsets(): 'the x, y positions of the M hexagon centers in data coordinates'  shape (46, 2) vs (46, 2); first rows [[0.005821909300683488, 0.0056647904993228915], [0.005821909300683488, 1.656779180660108]] vs [(1.0134956973556237, 0.0056647904993228915), (1.0134956973556237, 1.656779180660108)]
+ok   hexbin(yscale='log', extent=(0, 5, 0, 3)) ('limits are expected to be the exponent'): counts match the log10(y) grid  sum 400.0 vs 400
+ok   hexbin(xscale='log') with x <= 0: ValueError  ValueError: x contains non-positive values, so cannot be log-scaled
+ok   hexbin(linear): counts equal the plain-Python nearest-centre port in the same cell order
+   marginals (C=None): hbar values [1.0, 1.0, 1.0, 1.0, 1.0, 1.0] ; x counts per column [21, 89, 196, 184, 90, 20]
+FAIL hexbin(marginals=True, C=None): 'plot the marginal density' -> hbar values proportional to the number of points per x-bin  [1.0, 1.0, 1.0, 1.0, 1.0, 1.0] vs counts [21, 89, 196, 184, 90, 20]
+FAIL hexbin(marginals=True, C=None): vbar values proportional to the number of points per y-bin  [1.0, 1.0, 1.0, 1.0, 1.0, 1.0] vs counts [3, 27, 146, 250, 143, 30]
+ok   hexbin(marginals=True, C, np.sum): hbar = sum of C per x-bin  [ 22.15947173  96.2833676  181.89836662] vs [22.15947172784823, 96.28336759954676, 181.89836662100387]
+ok   hexbin(marginals=True, C, default np.mean): hbar = mean of C per x-bin
+#### Axes.acorr / xcorr
+ok   xcorr(normed=False, maxlags=6): lag vector -6..6 and c_k = sum_n x[n+k] y[n] (exact)  [ 0.75    8.9375 19.125 ]
+ok   xcorr(normed=True default): c / sqrt(dot(x,x) dot(y,y)) ('input vectors are normalised to unit length')
+ok   acorr(x): default maxlags=10 -> 21 lags, c[0 lag] == 1, symmetric
+ok   acorr(maxlags=None): all 2N-1 lags, equal to the exact normalised sums
+ok   acorr(maxlags=N): ValueError ('strictly positive < N')  ValueError: maxlags must be None or strictly positive < 23
+ok   acorr(detrend=mlab.detrend_mean): autocorrelation of x - mean, normalised
+ok   acorr(detrend=mlab.detrend_linear): autocorrelation of the least-squares residual (exact)
+ok   acorr(usevlines=False): same numbers
+ok   xcorr(complex, normed=False): sum_n x[n+k] conj(y[n]) (docstring formula)
+FAIL acorr-by-xcorr(complex, normed=True): zero-lag value 1 ('normalised to unit length' = divide by ||x|| ||y||)  c[0 lag] = (1.3419689119170986-2.300518134715026j), |x|^2 = 111.0
+FAIL acorr(int16 samples, e.g. audio): equals the float result (zero lag 1)  [nan nan nan nan] vs [0.611498137832566, 0.8106050912265798, 0.9454070222113049, 1.0]
+FAIL acorr(int16 samples, normed=False): exact sums of products  [ 22302    -97 -14889  22590] vs [5035415326.0, 6674972575.0, 7785006551.0, 8234555454.0]
+ok   acorr(int64 array of small values, normed=True default): exact normalised sums
+ok   acorr(list of ints, normed=False): exact sums
+#### Axes.stackplot baselines
+ok   stackplot(baseline='zero'): layer k spans [g0 + sum_<k, g0 + sum_<=k] (thicknesses preserved)
+ok   stackplot('zero'): 'Constant zero baseline'
+ok   stackplot(baseline='sym'): layer k spans [g0 + sum_<k, g0 + sum_<=k] (thicknesses preserved)
+ok   stackplot('sym'): 'Symmetric around zero' -> g0 = -sum(f)/2 (ThemeRiver)
+ok   stackplot(baseline='wiggle'): layer k spans [g0 + sum_<k, g0 + sum_<=k] (thicknesses preserved)
+ok   stackplot('wiggle'): 'Minimizes the sum of the squared slopes' of the layer midlines -> g0 = -(1/m) sum_i (m - i - 1/2) f_i  [np.float64(-1.6666666666666667), np.float64(-2.0), np.float64(-3.3333333333333335)]
+   Byron & Wattenberg's boundary-curve wiggle -1/(n+1) sum (n-i+1) f_i would give [-1.75, -2.0, -3.25, -5.0] (vs [np.float64(-1.6666666666666667), np.float64(-2.0), np.float64(-3.3333333333333335), np.float64(-5.166666666666667)]); the docstring does not say which curves
+ok   stackplot(baseline='weighted_wiggle'): layer k spans [g0 + sum_<k, g0 + sum_<=k] (thicknesses preserved)
+   weighted_wiggle g0 ['-2.0000', '-1.6250', '-2.3750', '-3.7639', '-4.0972', '-4.7222', '-6.0000']
+   minimiser of sum_i f_i (midline slope_i)^2 ['-2.0000', '-2.3750', '-3.6250', '-5.2361', '-4.9028', '-3.2778', '-3.0000'] ; same objective with the layer order reversed ['-2.0000', '-1.6250', '-2.3750', '-3.7639', '-4.0972', '-4.7222', '-6.0000']
+   weighted squared midline slopes: matplotlib 84.3542, minimiser 13.8819
+FAIL stackplot('weighted_wiggle', float layers): 'Does the same but weights to account for size of each layer' (Byron & Wattenberg) -> minimises sum_i f_i * (midline slope_i)^2  matplotlib -1.6250 at x=1 vs -2.3750; equals the reversed-order minimiser: True
+   weighted_wiggle with the same layers as int64: ['-2.0000', '-2.0000', '-4.0000', '-7.0000', '-7.0000', '-6.0000', '-7.0000']
+FAIL stackplot('weighted_wiggle', integer layers): same baseline as the same values given as floats  [np.float64(-2.0), np.float64(-2.0), np.float64(-4.0), np.float64(-7.0)] vs [np.float64(-2.0), np.float64(-1.625), np.float64(-2.375), np.float64(-3.7638888888888893)]
+ok   stackplot('sym', integer layers): same baseline as floats
+ok   stackplot('wiggle', integer layers): same baseline as floats
+ok   stackplot('weighted_wiggle', float32 layers): same baseline as float64 (to float32 precision)
+ok   stackplot('weighted_wiggle') with all-zero layers: finite baseline (no division by zero)
+#### Axes.pie
+ok   pie([1, 2, 3], autopct='%.9f'): labels = fmt % (100 * x / sum(x)) ('fractional area x/sum(x)')  ['16.666666667', '33.333333333', '50.000000000']
+ok   pie([1, 2, 3]): percentages sum to 100 (to label rounding), wedge spans 360 * x/sum(x) degrees
+ok   pie([0.1, 0.2, 0.3], autopct='%.9f'): labels = fmt % (100 * x / sum(x)) ('fractional area x/sum(x)')  ['16.666666667', '33.333333333', '50.000000000']
+ok   pie([0.1, 0.2, 0.3]): percentages sum to 100 (to label rounding), wedge spans 360 * x/sum(x) degrees
+ok   pie([7, 0, 13, 0.5], autopct='%.9f'): labels = fmt % (100 * x / sum(x)) ('fractional area x/sum(x)')  ['34.146341463', '0.000000000', '63.414634146', '2.439024390']
+ok   pie([7, 0, 13, 0.5]): percentages sum to 100 (to label rounding), wedge spans 360 * x/sum(x) degrees
+ok   pie([5], autopct='%.9f'): labels = fmt % (100 * x / sum(x)) ('fractional area x/sum(x)')  ['100.000000000']
+ok   pie([5]): percentages sum to 100 (to label rounding), wedge spans 360 * x/sum(x) degrees
+ok   pie([0.001, 0.002, 1], autopct='%.9f'): labels = fmt % (100 * x / sum(x)) ('fractional area x/sum(x)')  ['0.099700897', '0.199401795', '99.700897308']
+ok   pie([0.001, 0.002, 1]): percentages sum to 100 (to label rounding), wedge spans 360 * x/sum(x) degrees
+ok   pie([1, 2, 3, 7, 0.25]): autopct percentages within float32 precision (rel 1e-6) of 100 x/sum(x)  max rel err 1e-13
+ok   pie([0.1, 0.2, 0.3], normalize=False): partial pie, wedges span 36, 72, 108 degrees, labels 10, 20, 30 (sum 60)  ['10.000000', '20.000000', '30.000000']
+ok   pie(sum > 1, normalize=False): ValueError  ValueError: Cannot plot an unnormalized pie with sum(x) > 1
+ok   pie(sum == 1, normalize=False): full pie
+ok   pie(autopct=callable): called with 100 * x/sum(x)  [np.float64(20.0), np.float64(30.0), np.float64(50.0)]
+ok   pie(startangle=90): first wedge 90 -> 180, counterclockwise  [(90.0, np.float64(180.0)), (np.float64(180.0), np.float64(270.0)), (np.float64(270.0), np.float64(450.0))]
+ok   pie(counterclock=False): wedges run clockwise from 0 (spans 90, 90, 180)  [(np.float64(-90.0), 0.0), (np.float64(-180.0), np.float64(-90.0)), (np.float64(-360.0), np.float64(-180.0))]
+   pie([1, -1]) -> ValueError: Wedge sizes 'x' must be non negative values
+   pie([0, 0]) -> ValueError: All wedge sizes are zero
+   pie([1, nan]) -> ValueError: Wedge sizes must be finite numbers
+ok   pie(negative value): ValueError  ValueError: Wedge sizes 'x' must be non negative values
+ok   pie(wedge_labels='{frac:.4%}|{absval:d}') (3.12+): frac = x/sum(x), absval = x  ['12.5000%|1', '25.0000%|2', '62.5000%|5']
+#### Axes.errorbar
+ok   errorbar(yerr=shape(N)): vertical bar i from y-e to y+e  [(np.float64(0.0), np.float64(0.5), np.float64(1.5)), (np.float64(1.0), np.float64(2.75), np.float64(3.25))]
+ok   errorbar(yerr=shape(2, N)): 'First row contains the lower errors, the second row the upper'
+ok   errorbar(xerr=scalar): horizontal bars x +- 0.25 at y
+ok   errorbar(xerr=(2, N), yerr=(N)): both sets of bars
+ok   errorbar(lolims, uplims): 'lolims True means the y-value is a lower limit ... only an upward-pointing arrow' (bar y..y+upper), uplims bar y-lower..y  [(np.float64(0.0), np.float64(1.0), np.float64(2.0)), (np.float64(1.0), np.float64(2.75), np.float64(3.75)), (np.float64(2.0), np.float64(2.0), np.float64(2.0)), (np.float64(3.0), np.float64(3.0), np.float64(5.0)), (np.float64(4.0), np.float64(4.0), np.float64(4.125))] vs [(0.0, 1.0, 2.0), (1, 2.75, 3.75), (2, 2, 2), (3, 3, 5), (4, 4, 4.125)]
+ok   errorbar(xlolims, xuplims): horizontal bars x..x+upper / x-lower..x  [(np.float64(1.0), np.float64(0.0), np.float64(1.0)), (np.float64(2.0), np.float64(2.0), np.float64(2.0)), (np.float64(3.0), np.float64(0.75), np.float64(1.75)), (np.float64(4.0), np.float64(4.0), np.float64(4.125)), (np.float64(5.0), np.float64(1.0), np.float64(3.0))]
+ok   errorbar(yerr with NaN): 'Use NaN if you want to skip a value' -> 4 finite bars, the NaN one not drawn  4 finite
+ok   errorbar(errorevery=2): bars on points 0, 2, 4 only
+ok   errorbar(negative yerr): ValueError ('All values must be >= 0')  ValueError: 'yerr' must not contain negative values
+ok   errorbar(capsize=3): cap markers at y-e and y+e
