@@ -50,6 +50,7 @@ settings on the current release; "held" is a crash, a rare path, a latent table 
 
 ## Thread log
 
+- 2026-10-02: #744, #745, #746, #747 read in full through a helper session (transcript https://claude.ai/artifact/BFzVcD63Yiu3J39yjQyS7W). Both issues were labelled `bug` around 11:20 UTC, 11 s apart; no comments, reviews or assignees on any of the four threads. Both PRs are open with `mergeable_state: unstable` (some status check is not green; the check itself is not readable from here). No commit on `main` since 2026-09-20 touches `to_json`, `chain_ids` or `confidence_types.py` (closest: f43dfb8, 2026-10-01, chain-ID validation regex only). Precedent: #734 was fixed by Augustin-Zidek in his own commit and closed, so the fixes may land the same way. Nothing to answer.
 - 2026-09-22: PR #734 read in full (two comments: CLA bot; Augustin-Zidek's close with the
   commit reference). Nothing to answer.
 - 2026-09-22: #150 read in full (question + one reply, 2024-12-03: "the order should be the same
