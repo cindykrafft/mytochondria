@@ -1,0 +1,17 @@
+### venv-main (3.11.2 + main@44f2e00 overlay)
+matplotlib 3.11.2 numpy 2.5.3
+observed baseline [-1.0, -1.75] wiggle 1.75
+expected baseline [-1.0, -2.25] wiggle 0.75
+  observed == minimiser for the reversed layer order: True
+observed baseline [-2.0, -1.625, -2.375, -3.7639, -4.0972, -4.7222, -6.0] wiggle 84.3542
+expected baseline [-2.0, -2.375, -3.625, -5.2361, -4.9028, -3.2778, -3.0] wiggle 13.8819
+  observed == minimiser for the reversed layer order: True
+
+### venv-rel (3.11.2 release)
+matplotlib 3.11.2 numpy 2.5.3
+observed baseline [-1.0, -1.75] wiggle 1.75
+expected baseline [-1.0, -2.25] wiggle 0.75
+  observed == minimiser for the reversed layer order: True
+observed baseline [-2.0, -1.625, -2.375, -3.7639, -4.0972, -4.7222, -6.0] wiggle 84.3542
+expected baseline [-2.0, -2.375, -3.625, -5.2361, -4.9028, -3.2778, -3.0] wiggle 13.8819
+  observed == minimiser for the reversed layer order: True

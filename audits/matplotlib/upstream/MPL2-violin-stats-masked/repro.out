@@ -1,0 +1,17 @@
+### venv-main (3.11.2 + main@44f2e00 overlay)
+matplotlib 3.11.2 numpy 2.5.3
+min       observed -50.0  expected -2.3250307746388343
+max       observed 50.0  expected 1.4934311452207607
+mean      observed 0.02051693086787936  expected -0.06044429931702975
+median    observed -0.12853466294403426  expected -0.12907414831840186
+quantiles observed [-0.63855154  0.47623806]  expected [-0.630913    0.37410393]
+violinplot max line at 50.0 expected 1.4934311452207607
+
+### venv-rel (3.11.2 release)
+matplotlib 3.11.2 numpy 2.5.3
+min       observed -50.0  expected -2.3250307746388343
+max       observed 50.0  expected 1.4934311452207607
+mean      observed 0.02051693086787936  expected -0.06044429931702975
+median    observed -0.12853466294403426  expected -0.12907414831840186
+quantiles observed [-0.63855154  0.47623806]  expected [-0.630913    0.37410393]
+violinplot max line at 50.0 expected 1.4934311452207607

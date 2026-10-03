@@ -1,0 +1,64 @@
+MPL4: hexbin(marginals=True) with C=None. Tests for fix.patch (axes/_axes.py + tests/test_axes.py) against main @ 44f2e00
+Date: 2026-10-03
+
+Environment (overlay, not a source build)
+- A source build of main @ 44f2e00 is blocked in this session (the SheenBidi download is refused), so
+  nothing here ran on a compiled main. Tests ran on "venv-test", a copy of venv-main: matplotlib 3.11.2
+  wheel (numpy 2.5.3, Python 3.12.3) with main @ 44f2e00's cbook.py, mlab.py, colors.py, colorizer.py,
+  contour.py, stackplot.py and axes/_axes.py copied in (cmp-identical to the clone), plus pytest 9.1.1
+  and pytest-xdist 3.8.0.
+- The installed wheel ships 3.11.2's test files without baseline images. The test modules used below
+  were replaced by main @ 44f2e00's copies (from the worktree, i.e. with the new test), and main's
+  lib/matplotlib/tests/baseline_images/<module>/ directories were copied next to them.
+- Other modules (pyplot.py, image.py, artist.py, colorbar.py, ...) are 3.11.2. Main's test files
+  therefore fail some tests on this overlay whether or not the patch is applied (listed below as
+  "pre-existing"); they come from 3.12 features missing in the 3.11.2 modules (pyplot.pie wedge_labels,
+  BarContainer.widths, multivariate imshow, Artist.set_blend_mode), image tests whose 3.12 baselines
+  differ from 3.11.2 rendering, and two test-data files not copied (test_load_from_url,
+  test_imshow_pil). The comparison that matters is A vs B on the same test files.
+
+Procedure (S = the session scratchpad, M = $S/matplotlib, SP = venv-test site-packages/matplotlib)
+  git -C $M/src worktree add --detach $M/wt-<id> 44f2e00      # no branch, no commit
+  (edit lib + test in $M/wt-<id>; fix.patch = git -C $M/wt-<id> diff)
+  cp $M/wt-<id>/lib/matplotlib/tests/<module>.py $SP/tests/   # new test, both runs
+  # Run A: library as on main (overlay), new tests
+  cd $M/runs/upstream/<id> && $M/venv-test/bin/python -m pytest -q -n 4 -p no:cacheprovider -rfE $SP/tests/<modules>
+  cp $M/wt-<id>/lib/matplotlib/<file> $SP/<file>
+  # Run B: patched library, same tests
+  cd $M/runs/upstream/<id> && $M/venv-test/bin/python -m pytest -q -n 4 -p no:cacheprovider -rfE $SP/tests/<modules>
+  cp $M/src/lib/matplotlib/<file> $SP/<file>                  # restore the overlay
+Lint: uvx ruff check (ruff 0.15.8, the repo's pyproject.toml config) on the changed files: all checks passed.
+git apply --check fix.patch on a clean 44f2e00 checkout: applies.
+
+Modules run: test_axes.py (all hexbin tests, including the two image tests that use marginals:
+test_hexbin_log and test_hexbin_linear).
+Library file swapped for run B: axes/_axes.py
+
+Results
+  Run A (overlay as on main, new test present): 19 failed, 859 passed, 59 skipped
+  Run B (fix.patch applied):                    18 failed, 860 passed, 59 skipped
+
+  Failing only in A (the new test):
+    test_axes.py::test_hexbin_marginals_count_without_C
+    (A: hbar [1.0, 1.0, ...] against expected [4, 40, 200, 206, ...]; 5 of 6 elements differ)
+  Failing only in B: none.
+  Failing in both (pre-existing on this overlay; 18, identical to the unpatched baseline run of
+  test_axes.py): test_sticky_tolerance_contourf, test_grouped_bar_return_value, test_pcolormesh,
+  test_pcolormesh_alpha, 8 x test_pie_*, test_preset_clip_paths, test_bivariate_visualizations,
+  test_multivariate_visualizations, test_bivariate_cmap_shapes, test_multivariate_imshow_norm,
+  test_multivariate_imshow_alpha. Image RMS values identical in A and B.
+  test_hexbin_log[png] and test_hexbin_linear[png] pass in both runs: both already pass
+  reduce_C_function=np.sum with C=None, which is what the patch now does internally, so their
+  baseline images do not change.
+
+Audit harness on the patched library (audits/matplotlib/verify/m3_hist_hexbin_counts.py, venv-test with
+axes/_axes.py swapped in, then restored):
+  committed main overlay output: 165 ok / 11 FAIL;  patched: 166 ok / 10 FAIL.
+  The hbar FAIL line disappears. The vbar FAIL line remains but its content changes from
+  [1.0, 1.0, ...] to [2.0, 27.0, ...] against the harness's y counts [3, 27, ...]: the remaining
+  difference is a separate defect (points with y == min(y) are dropped from vbar, see facts.md,
+  "Side observations"), not the C=None reduction. The new regression test passes an explicit extent
+  so that it does not depend on that second defect.
+
+repro.py on the patched library: hbar [5, 44, 264, 234, 51, 2] and vbar [2, 48, 262, 244, 42, 2] equal
+the per-strip point counts (repro.py passes extent=(-4, 4, -4, 4)).

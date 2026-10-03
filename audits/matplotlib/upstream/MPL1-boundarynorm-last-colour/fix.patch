@@ -1,0 +1,38 @@
+diff --git a/lib/matplotlib/colors.py b/lib/matplotlib/colors.py
+index 51e2d9950..38bb8798b 100644
+--- a/lib/matplotlib/colors.py
++++ b/lib/matplotlib/colors.py
+@@ -3313,8 +3313,9 @@ class BoundaryNorm(Normalize):
+                 iret[iret == 0] = (self.Ncmap - 1) // 2
+             else:
+                 # otherwise linearly remap the values from the region index
+-                # to the color index spaces
+-                iret = (self.Ncmap - 1) / (self._n_regions - 1) * iret
++                # to the color index spaces; integer arithmetic so that the
++                # last region lands exactly on the last color
++                iret = (self.Ncmap - 1) * iret // (self._n_regions - 1)
+         # cast to 16bit integers in all cases
+         iret = iret.astype(np.int16)
+         iret[xx < self.vmin] = -1
+diff --git a/lib/matplotlib/tests/test_colors.py b/lib/matplotlib/tests/test_colors.py
+index 14703a360..acfeee3d5 100644
+--- a/lib/matplotlib/tests/test_colors.py
++++ b/lib/matplotlib/tests/test_colors.py
+@@ -426,6 +426,17 @@ def test_BoundaryNorm():
+     assert_array_equal(cmshould(mynorm(x)), cmref(refnorm(x)))
+ 
+ 
++@pytest.mark.parametrize("ncolors, nbins", [(16, 12), (256, 26), (27, 24), (30, 26)])
++def test_BoundaryNorm_interpolation_reaches_last_color(ncolors, nbins):
++    # Stretching nbins regions over ncolors colors must map the last region to
++    # the last color; float rounding used to give ncolors - 2 for these pairs.
++    boundaries = np.arange(nbins + 1)
++    bn = mcolors.BoundaryNorm(boundaries, ncolors)
++    expected = (ncolors - 1) * np.arange(nbins) // (nbins - 1)
++    assert_array_equal(bn(boundaries[:-1] + 0.5), expected)
++    assert bn(nbins - 0.5) == ncolors - 1
++
++
+ def test_CenteredNorm():
+     np.random.seed(0)
+ 

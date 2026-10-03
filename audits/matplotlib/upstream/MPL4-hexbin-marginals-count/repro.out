@@ -1,0 +1,13 @@
+### venv-main (3.11.2 + main@44f2e00 overlay)
+matplotlib 3.11.2 numpy 2.5.3
+hbar observed: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+hbar expected: [5.0, 44.0, 264.0, 234.0, 51.0, 2.0]
+vbar observed: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+vbar expected: [2.0, 48.0, 262.0, 244.0, 42.0, 2.0]
+
+### venv-rel (3.11.2 release)
+matplotlib 3.11.2 numpy 2.5.3
+hbar observed: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+hbar expected: [5.0, 44.0, 264.0, 234.0, 51.0, 2.0]
+vbar observed: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+vbar expected: [2.0, 48.0, 262.0, 244.0, 42.0, 2.0]

@@ -1,0 +1,38 @@
+diff --git a/lib/matplotlib/axes/_axes.py b/lib/matplotlib/axes/_axes.py
+index 276d7b61b..74b2510b9 100644
+--- a/lib/matplotlib/axes/_axes.py
++++ b/lib/matplotlib/axes/_axes.py
+@@ -5773,7 +5773,9 @@ or pandas.DataFrame
+             accum = np.concatenate([counts1, counts2]).astype(float)
+             if mincnt is not None:
+                 accum[accum < mincnt] = np.nan
++            # Every point has a value of 1, so the marginals count points.
+             C = np.ones(len(x))
++            reduce_C_function = np.sum
+         else:
+             # store the C values in a list per hexagon index
+             Cs_at_i1 = [[] for _ in range(1 + nx1 * ny1)]
+diff --git a/lib/matplotlib/tests/test_axes.py b/lib/matplotlib/tests/test_axes.py
+index 531eae23d..9e6613d29 100644
+--- a/lib/matplotlib/tests/test_axes.py
++++ b/lib/matplotlib/tests/test_axes.py
+@@ -1113,6 +1113,19 @@ def test_hexbin_linear():
+               reduce_C_function=np.sum)
+ 
+ 
++def test_hexbin_marginals_count_without_C():
++    # Without C, every point has a value of 1, so each marginal bar is the
++    # number of points in its strip (not the mean of ones, which is 1).
++    np.random.seed(19680801)
++    x, y = np.clip(np.random.standard_normal((2, 500)), -3.9, 3.9)
++    fig, ax = plt.subplots()
++    h = ax.hexbin(x, y, gridsize=(6, 3), extent=(-4, 4, -4, 4), marginals=True)
++    xcounts, _ = np.histogram(x, bins=6, range=(-4, 4))
++    ycounts, _ = np.histogram(y, bins=6, range=(-4, 4))
++    assert_array_equal(h.hbar.get_array(), xcounts[xcounts > 0])
++    assert_array_equal(h.vbar.get_array(), ycounts[ycounts > 0])
++
++
+ def test_hexbin_log_clim():
+     x, y = np.arange(200).reshape((2, 100))
+     fig, ax = plt.subplots()

@@ -1,0 +1,42 @@
+diff --git a/lib/matplotlib/cbook.py b/lib/matplotlib/cbook.py
+index 3d49c0819..07ddc4345 100644
+--- a/lib/matplotlib/cbook.py
++++ b/lib/matplotlib/cbook.py
+@@ -1588,7 +1588,7 @@ def violin_stats(X, method=("GaussianKDE", "scott"), points=100, quantiles=None)
+ 
+     # Zip x and quantiles
+     for (x, quantile) in zip(X, quantiles):
+-        x = np.asarray(x)
++        x = np.asanyarray(x)  # keep the mask for delete_masked_points
+         x, = delete_masked_points(x)
+ 
+         if len(x) == 0:
+diff --git a/lib/matplotlib/tests/test_cbook.py b/lib/matplotlib/tests/test_cbook.py
+index 2971e419b..27e324f20 100644
+--- a/lib/matplotlib/tests/test_cbook.py
++++ b/lib/matplotlib/tests/test_cbook.py
+@@ -183,6 +183,24 @@ class Test_boxplot_stats:
+         assert_array_almost_equal(bstats_true[0]['fliers'], [])
+ 
+ 
++@pytest.mark.parametrize("shape", ["1d", "list", "2d"])
++def test_violin_stats_ignores_masked(shape):
++    np.random.seed(19680801)
++    clean = np.random.normal(size=40)
++    data = np.ma.masked_array(np.concatenate([clean, [50., -50., 3.3]]),
++                              mask=[False] * 40 + [True] * 3)
++    if shape == "list":
++        data = [data]
++    elif shape == "2d":
++        data = data[:, np.newaxis]
++    stats, = cbook.violin_stats(data, quantiles=[[0.25, 0.75]])
++    expected, = cbook.violin_stats(clean, quantiles=[[0.25, 0.75]])
++    for key in ["min", "max", "mean", "median"]:
++        assert stats[key] == expected[key]
++    for key in ["coords", "vals", "quantiles"]:
++        assert_array_equal(stats[key], expected[key])
++
++
+ class Hashable:
+     def dummy(self): pass
+ 

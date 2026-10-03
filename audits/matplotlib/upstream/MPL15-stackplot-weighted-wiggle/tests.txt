@@ -1,0 +1,78 @@
+MPL15: stackplot weighted_wiggle layer order. Tests for fix.patch (stackplot.py + tests/test_axes.py) against main @ 44f2e00
+Date: 2026-10-03
+
+Environment (overlay, not a source build)
+- A source build of main @ 44f2e00 is blocked in this session (the SheenBidi download is refused), so
+  nothing here ran on a compiled main. Tests ran on "venv-test", a copy of venv-main: matplotlib 3.11.2
+  wheel (numpy 2.5.3, Python 3.12.3) with main @ 44f2e00's cbook.py, mlab.py, colors.py, colorizer.py,
+  contour.py, stackplot.py and axes/_axes.py copied in (cmp-identical to the clone), plus pytest 9.1.1
+  and pytest-xdist 3.8.0.
+- The installed wheel ships 3.11.2's test files without baseline images. The test modules used below
+  were replaced by main @ 44f2e00's copies (from the worktree, i.e. with the new test), and main's
+  lib/matplotlib/tests/baseline_images/<module>/ directories were copied next to them.
+- Other modules (pyplot.py, image.py, artist.py, colorbar.py, ...) are 3.11.2. Main's test files
+  therefore fail some tests on this overlay whether or not the patch is applied (listed below as
+  "pre-existing"); they come from 3.12 features missing in the 3.11.2 modules (pyplot.pie wedge_labels,
+  BarContainer.widths, multivariate imshow, Artist.set_blend_mode), image tests whose 3.12 baselines
+  differ from 3.11.2 rendering, and two test-data files not copied (test_load_from_url,
+  test_imshow_pil). The comparison that matters is A vs B on the same test files.
+
+Procedure (S = the session scratchpad, M = $S/matplotlib, SP = venv-test site-packages/matplotlib)
+  git -C $M/src worktree add --detach $M/wt-<id> 44f2e00      # no branch, no commit
+  (edit lib + test in $M/wt-<id>; fix.patch = git -C $M/wt-<id> diff)
+  cp $M/wt-<id>/lib/matplotlib/tests/<module>.py $SP/tests/   # new test, both runs
+  # Run A: library as on main (overlay), new tests
+  cd $M/runs/upstream/<id> && $M/venv-test/bin/python -m pytest -q -n 4 -p no:cacheprovider -rfE $SP/tests/<modules>
+  cp $M/wt-<id>/lib/matplotlib/<file> $SP/<file>
+  # Run B: patched library, same tests
+  cd $M/runs/upstream/<id> && $M/venv-test/bin/python -m pytest -q -n 4 -p no:cacheprovider -rfE $SP/tests/<modules>
+  cp $M/src/lib/matplotlib/<file> $SP/<file>                  # restore the overlay
+Lint: uvx ruff check (ruff 0.15.8, the repo's pyproject.toml config) on the changed files: all checks passed.
+git apply --check fix.patch on a clean 44f2e00 checkout: applies.
+
+Modules run: test_axes.py (all stackplot tests live there).
+Library file swapped for run B: stackplot.py
+
+Results
+  Run A (overlay as on main, new test present): 19 failed, 859 passed, 59 skipped
+  Run B (fix.patch applied):                    19 failed, 859 passed, 59 skipped
+
+  Failing only in A (the new test):
+    test_axes.py::test_stackplot_weighted_wiggle_baseline
+    (A: baseline [-2, -1.625, -2.375, -3.763889, -4.097222, -4.722222, -6] against
+     [-2, -2.375, -3.625, -5.236111, -4.902778, -3.277778, -3]; 6 of 7 differ, max abs diff 3)
+  Failing only in B (EXPECTED; pins the old output):
+    test_axes.py::test_stackplot_baseline[png]
+    ImageComparisonFailure: images not close (RMS 42.636) against
+    lib/matplotlib/tests/baseline_images/test_axes/stackplot_test_baseline.png.
+    The failed-diff image shows differences only in the bottom-right panel (baseline='weighted_wiggle');
+    the 'zero', 'sym' and 'wiggle' panels are pixel-identical. A PR with this fix has to regenerate
+    that baseline image (only the png is used: the test has no pdf/svg extensions). Nothing was deleted
+    or skipped here.
+  Failing in both (pre-existing on this overlay; 18, identical to the unpatched baseline run of
+  test_axes.py): test_sticky_tolerance_contourf, test_grouped_bar_return_value, test_pcolormesh,
+  test_pcolormesh_alpha, 8 x test_pie_*, test_preset_clip_paths, test_bivariate_visualizations,
+  test_multivariate_visualizations, test_bivariate_cmap_shapes, test_multivariate_imshow_norm,
+  test_multivariate_imshow_alpha. Their image RMS values are identical in A and B.
+  The other stackplot tests (test_stackplot[png], test_stackplot_hatching[png],
+  test_stackplot_facecolor, test_stackplot_subfig_legend) pass in both runs (all stackplot image
+  tests are png-only).
+
+Independent check on the patched library (random_check.py in the scratch run directory, not kept):
+  393 random integer-valued float cases (2-5 layers, 3-8 points, values 0..9, columns with total 0
+  skipped): installed weighted_wiggle baseline == Byron & Wattenberg minimiser (rtol=atol=1e-12) in
+  0/393 before the patch and 393/393 after.
+
+Audit harness (audits/matplotlib/verify/m3b_stackplot_wiggle.py, venv-test with stackplot.py swapped in,
+then restored): committed 40 ok / 8 FAIL; patched 35 ok / 13 FAIL. This harness is not a pass/fail
+check of the fix: its sections 2-6 compare the installed build's *old* formula (a Fraction port of
+stackplot.py l. 116-128) with the minimiser, so they keep failing. Section 1 is the one that reads the
+installed build: patched, the installed baseline now equals the minimiser in all four cases
+([-1, -2.25], [-1, -1.75], [-2, -2.375, -3.625, -5.2361, -4.9028, -3.2778, -3],
+[-4, -3.3182, -4.2557, -5.8271, -8.1271]) and so differs from the port of the old code (4 new FAIL
+lines). The smooth two-layer case now converges to the paper's value: installed g0(1)-g0(0) =
+-1.334386, -1.345327, -1.346449, -1.346561 at n = 11, 101, 1001, 10001 (continuous -1.346574), where
+before it went to the reversed-order -0.653426 (1 new FAIL line, whose expectation was the old
+behaviour).
+
+repro.py on the patched library: observed == expected for both cases (wiggle 0.75 and 13.8819).

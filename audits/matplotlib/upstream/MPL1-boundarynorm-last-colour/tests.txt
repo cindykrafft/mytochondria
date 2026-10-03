@@ -1,0 +1,71 @@
+MPL1: BoundaryNorm last colour. Tests for fix.patch (colors.py + tests/test_colors.py) against main @ 44f2e00
+Date: 2026-10-03
+
+Environment (overlay, not a source build)
+- A source build of main @ 44f2e00 is blocked in this session (the SheenBidi download is refused), so
+  nothing here ran on a compiled main. Tests ran on "venv-test", a copy of venv-main: matplotlib 3.11.2
+  wheel (numpy 2.5.3, Python 3.12.3) with main @ 44f2e00's cbook.py, mlab.py, colors.py, colorizer.py,
+  contour.py, stackplot.py and axes/_axes.py copied in (cmp-identical to the clone), plus pytest 9.1.1
+  and pytest-xdist 3.8.0.
+- The installed wheel ships 3.11.2's test files without baseline images. The test modules used below
+  were replaced by main @ 44f2e00's copies (from the worktree, i.e. with the new test), and main's
+  lib/matplotlib/tests/baseline_images/<module>/ directories were copied next to them.
+- Other modules (pyplot.py, image.py, artist.py, colorbar.py, ...) are 3.11.2. Main's test files
+  therefore fail some tests on this overlay whether or not the patch is applied (listed below as
+  "pre-existing"); they come from 3.12 features missing in the 3.11.2 modules (pyplot.pie wedge_labels,
+  BarContainer.widths, multivariate imshow, Artist.set_blend_mode), image tests whose 3.12 baselines
+  differ from 3.11.2 rendering, and two test-data files not copied (test_load_from_url,
+  test_imshow_pil). The comparison that matters is A vs B on the same test files.
+
+Procedure (S = the session scratchpad, M = $S/matplotlib, SP = venv-test site-packages/matplotlib)
+  git -C $M/src worktree add --detach $M/wt-<id> 44f2e00      # no branch, no commit
+  (edit lib + test in $M/wt-<id>; fix.patch = git -C $M/wt-<id> diff)
+  cp $M/wt-<id>/lib/matplotlib/tests/<module>.py $SP/tests/   # new test, both runs
+  # Run A: library as on main (overlay), new tests
+  cd $M/runs/upstream/<id> && $M/venv-test/bin/python -m pytest -q -n 4 -p no:cacheprovider -rfE $SP/tests/<modules>
+  cp $M/wt-<id>/lib/matplotlib/<file> $SP/<file>
+  # Run B: patched library, same tests
+  cd $M/runs/upstream/<id> && $M/venv-test/bin/python -m pytest -q -n 4 -p no:cacheprovider -rfE $SP/tests/<modules>
+  cp $M/src/lib/matplotlib/<file> $SP/<file>                  # restore the overlay
+Lint: uvx ruff check (ruff 0.15.8, the repo's pyproject.toml config) on the changed files: all checks passed.
+git apply --check fix.patch on a clean 44f2e00 checkout: applies.
+
+Modules run: every test module on 44f2e00 that uses BoundaryNorm (grep), plus test_axes and test_contour:
+  test_colors.py test_colorbar.py test_contour.py test_image.py test_artist.py test_backend_ps.py test_axes.py
+Library file swapped for run B: colors.py
+
+Results
+  Run A (overlay as on main, new test present): 32 failed, 1553 passed, 145 skipped
+  Run B (fix.patch applied):                    28 failed, 1557 passed, 145 skipped
+
+  Failing only in A (the new test, all 4 parameter sets):
+    test_colors.py::test_BoundaryNorm_interpolation_reaches_last_color[16-12]
+    test_colors.py::test_BoundaryNorm_interpolation_reaches_last_color[256-26]
+    test_colors.py::test_BoundaryNorm_interpolation_reaches_last_color[27-24]
+    test_colors.py::test_BoundaryNorm_interpolation_reaches_last_color[30-26]
+  Failing only in B: none.
+  Failing in both (pre-existing on this overlay, unrelated to BoundaryNorm; 28):
+    test_colors.py::test_get_set_clim_raises            (multivariate imshow not in 3.11.2 image.py)
+    test_artist.py::test_set_blend_mode                 (Artist.set_blend_mode is 3.12)
+    test_colorbar.py::test_colorbar_positioning[png-True], [png-False]   (image, RMS 0.304)
+    test_contour.py::test_contour_datetime_axis[png] (RMS 0.175), test_given_colors_levels_and_extends[png]
+      (RMS 0.775), test_hatch_colors[png] (RMS 4.947)
+    test_image.py::test_imshow_pil[png], test_load_from_url (test data not copied),
+      test_invalid_interpolation_stage_multinorm (multivariate)
+    test_axes.py: test_sticky_tolerance_contourf, test_grouped_bar_return_value, test_pcolormesh,
+      test_pcolormesh_alpha, 8 x test_pie_* (wedge_labels / deprecation), test_preset_clip_paths,
+      test_bivariate_visualizations, test_multivariate_visualizations, test_bivariate_cmap_shapes,
+      test_multivariate_imshow_norm, test_multivariate_imshow_alpha
+  The existing test_BoundaryNorm (all its expected arrays), test_boundarynorm_and_colorbarbase,
+  test_negative_boundarynorm, test_format_cursor_data_BoundaryNorm and every BoundaryNorm image test
+  pass unchanged in B: the integer floor differs from the old float product only where the float
+  product fell just below an exact integer.
+
+Audit harness on the patched library (audits/matplotlib/verify/m4_color_mapping.py, run from verify/ with
+venv-test and colors.py swapped in, then restored):
+  committed main overlay output: 190 ok / 18 FAIL;  patched: 192 ok / 16 FAIL.
+  The two FAIL lines that disappear are exactly MPL1 (FAIL 6-7: "every bin index = documented linear map"
+  over 2 <= ncolors < 200, 2 <= bins < 60, and "the last bin gets the last colour"). No new FAIL line.
+  MPL18 (ncolors > 32767, int16 cast) and MPL8 (NaN -> over) still FAIL: this patch does not touch them.
+
+repro.py on the patched library: observed == expected for both cases (top bin 15 of 16, 255 of 256).

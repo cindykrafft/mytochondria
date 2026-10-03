@@ -1,0 +1,46 @@
+diff --git a/lib/matplotlib/stackplot.py b/lib/matplotlib/stackplot.py
+index 25bb2f45a..6a59fe291 100644
+--- a/lib/matplotlib/stackplot.py
++++ b/lib/matplotlib/stackplot.py
+@@ -125,7 +125,9 @@ def stackplot(axes, x, *args,
+         move_up[:, 0] = 0.5
+         center = (move_up - 0.5) * increase
+         center = np.cumsum(center.sum(0))
+-        first_line = center - 0.5 * total
++        # center follows the y-down convention of Byron's Streamgraph code;
++        # flip its sign so that the first layer is the bottom one (y up).
++        first_line = -center - 0.5 * total
+         stack += first_line
+ 
+     # Color between x = 0 and the first array.
+diff --git a/lib/matplotlib/tests/test_axes.py b/lib/matplotlib/tests/test_axes.py
+index 531eae23d..d6354af62 100644
+--- a/lib/matplotlib/tests/test_axes.py
++++ b/lib/matplotlib/tests/test_axes.py
+@@ -3508,6 +3508,26 @@ def test_stackplot_baseline():
+     axs[1, 1].stackplot(range(100), d.T, baseline='weighted_wiggle')
+ 
+ 
++def test_stackplot_weighted_wiggle_baseline():
++    # 'weighted_wiggle' is the Streamgraph layout (Byron & Wattenberg, 2008),
++    # with the first layer at the bottom: at each step the baseline moves by
++    # -sum_i y_i * (dy_i / 2 + sum_{j<i} dy_j) / sum_i y_i.
++    x = np.arange(7)
++    y = np.array([[1, 1, 2, 3, 3, 2, 1],
++                  [1, 2, 3, 5, 4, 2, 2],
++                  [2, 1, 1, 1, 2, 4, 6]], dtype=float)
++    fig, ax = plt.subplots()
++    colls = ax.stackplot(x, y, baseline='weighted_wiggle')
++    baseline = colls[0].get_paths()[0].vertices[1:len(x) + 1, 1]
++    dy = np.diff(y, axis=1)
++    below = np.cumsum(dy, axis=0) - dy
++    steps = -(y[:, 1:] * (dy / 2 + below)).sum(0) / y[:, 1:].sum(0)
++    expected = -y[:, 0].sum() / 2 + np.concatenate([[0], np.cumsum(steps)])
++    assert_allclose(baseline, expected)
++    assert_allclose(baseline,
++                    [-2, -19/8, -29/8, -377/72, -353/72, -59/18, -3])
++
++
+ @check_figures_equal()
+ def test_stackplot_hatching(fig_ref, fig_test):
+     x = np.linspace(0, 10, 10)
