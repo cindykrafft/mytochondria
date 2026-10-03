@@ -11,7 +11,7 @@ MPL31. File:line citations are as the notes give them (44f2e00 for the overlaid 
 
 Cohort: heatmaps / colormaps / colour scales are named in 35 papers, contours in 5, log / symlog scales in 4 (lower
 bounds from the survey cache) — the largest plot-type signal in the profile. Prior reports for every finding:
-search pending (`../prior-reports.md`).
+see `../prior-reports.md` (tracker searched 2026-10-03; one line per finding in the README table).
 
 ## Truths
 

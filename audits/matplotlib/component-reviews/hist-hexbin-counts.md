@@ -8,7 +8,7 @@ SheenBidi download is refused here; every code path in this group lives in the o
 44f2e00 unless a build is named.
 
 Cohort (lower bounds from the survey cache): histograms in 14 papers, error bars / mean ± SEM in 5, pie / stacked
-plots in 2, hexbin / 2-D density in 1. Prior reports for every finding: search pending (`../prior-reports.md`).
+plots in 2, hexbin / 2-D density in 1. Prior reports for every finding: see `../prior-reports.md` (tracker searched 2026-10-03; one line per finding in the README table).
 
 ## Truths
 

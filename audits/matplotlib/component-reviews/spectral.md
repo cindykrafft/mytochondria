@@ -9,7 +9,7 @@ build of `main` is blocked because its SheenBidi download is refused here. On 44
 per build.
 
 Cohort: spectrograms / PSD / spectral methods are named in 3 papers (lower bound from the survey cache). Prior
-reports for every finding: search pending (`../prior-reports.md`); MPL36 has a known fix PR (below).
+reports for every finding: see `../prior-reports.md` (tracker searched 2026-10-03; one line per finding in the README table); MPL36 has a known fix PR (below).
 
 ## Truths
 

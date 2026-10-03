@@ -11,7 +11,7 @@ outputs are line-for-line the same. File:line citations are to 44f2e00 unless a 
 
 Cohort: box plots are named in 8 papers, violin plots / KDE in 10 (lower bounds from the survey cache). seaborn
 ≥ 0.13 calls `cbook.boxplot_stats`, so MPL6 and MPL27–MPL29 reach seaborn box plots too (seaborn itself was not
-run). Prior reports for every finding: search pending (`../prior-reports.md`).
+run). Prior reports for every finding: see `../prior-reports.md` (tracker searched 2026-10-03; one line per finding in the README table).
 
 ## Truths
 
