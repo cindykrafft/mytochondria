@@ -98,7 +98,7 @@ release), **harness expectation** (the harness asked for more than is promised).
 | MPL12 | correlation | `xcorr`/`acorr(normed=True)` on complex input divides by Σx² rather than Σ\|x\|² | bug | zero-lag value 1.342 − 2.301j instead of 1 | all four | confirmed by execution | search pending |
 | MPL13 | spectral | `detrend_linear` fits a conjugated slope to complex data | bug | residual of an exact complex line 33.0 (should be 0); `psd(detrend='linear')` of complex input maxabsdiff 0.3159 on scale 2.319 | all four | confirmed by execution | search pending |
 | MPL14 | stackplot | `weighted_wiggle` with integer layers truncates 1/total to 0 | bug | int64 layers give [−2, −2, −4, −7, …] for the float [−2, −1.625, −2.375, −3.764, …] | all four | confirmed by execution (independent of MPL15) | search pending |
-| MPL15 | stackplot | `weighted_wiggle` minimises the weighted wiggle of the layers in reverse order (per the m3 notes) | bug (as recorded) | weighted squared midline slopes 84.35 against 13.88 for the minimiser | all four | **re-verification pending** (against Byron & Wattenberg 2008) | search pending |
+| MPL15 | stackplot | `weighted_wiggle` minimises the weighted wiggle of the layers in reverse order (sign slip porting Byron's y-down `StreamLayout` to y-up, 24f537f, 2013) | bug | weighted squared midline slopes 84.35 against 13.88 for the minimiser; 0 of 400 random cases match, ratio 1.02–212 (median 5.2) | all four (every release since 1.3.0) | confirmed against Byron & Wattenberg 2008 §5.1 and Byron's reference code ([notes](verify/m3_stackplot_wiggle.notes.md), harness `m3b`) | search pending |
 | MPL16 | spectral | `Axes.specgram` image rows are offset from their frequencies (y extent not padded by half a bin) | bug (display) | row centres up to 0.1923 from `freqs` with df = 0.390625; returned arrays correct | all four | confirmed by execution | search pending |
 | MPL17 | spectral | `detrend_linear` of a single value returns NaN | bug (edge case) | `detrend_linear([5.0])` = [nan], should be [0] | all four | confirmed by execution | search pending |
 | MPL18 | colour mapping | `BoundaryNorm` with `ncolors` > 32767 overflows its int16 index | bug (extreme parameter) | OverflowError on numpy 2.x; silent [0, −25537, −25536] (drawn "under") on numpy 1.x | all four | confirmed by execution | search pending |
@@ -129,7 +129,7 @@ release), **harness expectation** (the harness asked for more than is promised).
 | MPL43 | pie | pie percentages and angles computed in float32 | old-release only; harness expectation (9-digit formats) | '16.666667163' for '16.666666667'; callable receives 20.000000298023224; rel ~1e-7; rel 1e-6 check passes | 3.7.1, 3.5.2 | float64 on 3.11.2 and main | search pending |
 
 **Summary.** On `main` (= 3.11.2 for every path here): 18 bugs (MPL1–MPL18; 17 present in every build back to 3.5.2,
-MPL2 introduced with the 3.11 masked-handling change; MPL15 awaiting re-verification) and 16 documentation gaps
+MPL2 introduced with the 3.11 masked-handling change) and 16 documentation gaps
 (MPL19–MPL34). Nine more (MPL35–MPL43) exist only in 3.7.1 and/or 3.5.2. The heaviest for the cohort are MPL1 and
 MPL7/MPL8 (heatmaps and colour scales, 35 papers), MPL35 on the most-cited version 3.7.1, MPL2/MPL6 (violin / KDE
 in 10 papers, box plots in 8), and MPL3 (spectra, 3).
@@ -166,7 +166,7 @@ interacting on the tracker, and a pull request must carry an AI Disclosure secti
 be **fact sheets** — the reproducer, the measured and documented numbers, the file:line on `main`, and the
 suggested fix — for the owner to write the issue or PR from in their own words; nothing goes to the tracker from
 this session. At most two findings are filed at a time. The order waits for `prior-reports.md` (the parallel
-tracker search) and for the MPL15 re-verification; MPL35–MPL43 are fixed in the current release and are not filed.
+tracker search); MPL35–MPL43 are fixed in the current release and are not filed.
 
 ## Files
 

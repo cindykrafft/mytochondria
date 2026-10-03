@@ -1,0 +1,85 @@
+matplotlib 3.11.2  numpy 2.5.3  scipy 1.18.1  python 3.12.3
+#### 0. Byron's StreamLayout (y-down) ported to y-up equals the B&W 2008 per-step minimiser
+ok   2 layers, bottom grows: Byron StreamLayout bottom (y-up) == B&W minimiser, exactly  [-1, -9/4]
+ok   2 layers, bottom grows: Byron layer tops (y-up) == minimiser + cumulative sums (layer 0 at the bottom)
+ok   2 layers, top grows: Byron StreamLayout bottom (y-up) == B&W minimiser, exactly  [-1, -7/4]
+ok   2 layers, top grows: Byron layer tops (y-up) == minimiser + cumulative sums (layer 0 at the bottom)
+ok   m3 example (3 layers x 7): Byron StreamLayout bottom (y-up) == B&W minimiser, exactly  [-2, -19/8, -29/8, -377/72, -353/72, -59/18, -3]
+ok   m3 example (3 layers x 7): Byron layer tops (y-up) == minimiser + cumulative sums (layer 0 at the bottom)
+ok   4 layers x 5: Byron StreamLayout bottom (y-up) == B&W minimiser, exactly  [-4, -73/22, -749/176, -7179/1232, -50063/6160]
+ok   4 layers x 5: Byron layer tops (y-up) == minimiser + cumulative sums (layer 0 at the bottom)
+#### 1. matplotlib's weighted_wiggle: the Fraction port reproduces the installed build
+ok   2 layers, bottom grows: installed stackplot baseline == Fraction port of stackplot.py l.116-128  [-1.0000, -1.7500]
+ok   2 layers, top grows: installed stackplot baseline == Fraction port of stackplot.py l.116-128  [-1.0000, -2.2500]
+ok   m3 example (3 layers x 7): installed stackplot baseline == Fraction port of stackplot.py l.116-128  [-2.0000, -1.6250, -2.3750, -3.7639, -4.0972, -4.7222, -6.0000]
+ok   4 layers x 5: installed stackplot baseline == Fraction port of stackplot.py l.116-128  [-4.0000, -7.6818, -3.7443, -1.1729, -1.8729]
+#### 2. matplotlib vs the documented / published minimiser
+   2 layers, bottom grows: layers [[1, 3], [1, 1]]
+     B&W minimiser (drawn order)   g0 = [-1, -9/4]  = [-1.0000, -2.2500]
+     matplotlib                    g0 = [-1, -7/4]  = [-1.0000, -1.7500]
+     max |difference|                 = 1/2  (max total thickness 4)
+     weighted wiggle J: matplotlib 7/4 = 1.7500; minimiser 3/4 = 0.7500; ratio 2.3333
+FAIL 2 layers, bottom grows: matplotlib baseline == B&W minimiser ('Does the same but weights ...', B&W 2008 eq. for g0')  J 1.7500 vs 0.7500
+ok   2 layers, bottom grows: [explanation] matplotlib == minimiser for the REVERSED layer order, exactly
+ok   2 layers, bottom grows: [explanation] matplotlib == -(top of Byron's layout), i.e. +center - T/2 instead of -center - T/2
+ok   2 layers, bottom grows: [explanation] J(matplotlib, drawn order) == J(minimiser, reversed order)
+   2 layers, top grows: layers [[1, 1], [1, 3]]
+     B&W minimiser (drawn order)   g0 = [-1, -7/4]  = [-1.0000, -1.7500]
+     matplotlib                    g0 = [-1, -9/4]  = [-1.0000, -2.2500]
+     max |difference|                 = 1/2  (max total thickness 4)
+     weighted wiggle J: matplotlib 7/4 = 1.7500; minimiser 3/4 = 0.7500; ratio 2.3333
+FAIL 2 layers, top grows: matplotlib baseline == B&W minimiser ('Does the same but weights ...', B&W 2008 eq. for g0')  J 1.7500 vs 0.7500
+ok   2 layers, top grows: [explanation] matplotlib == minimiser for the REVERSED layer order, exactly
+ok   2 layers, top grows: [explanation] matplotlib == -(top of Byron's layout), i.e. +center - T/2 instead of -center - T/2
+ok   2 layers, top grows: [explanation] J(matplotlib, drawn order) == J(minimiser, reversed order)
+   m3 example (3 layers x 7): layers [[1, 1, 2, 3, 3, 2, 1], [1, 2, 3, 5, 4, 2, 2], [2, 1, 1, 1, 2, 4, 6]]
+     B&W minimiser (drawn order)   g0 = [-2, -19/8, -29/8, -377/72, -353/72, -59/18, -3]  = [-2.0000, -2.3750, -3.6250, -5.2361, -4.9028, -3.2778, -3.0000]
+     matplotlib                    g0 = [-2, -13/8, -19/8, -271/72, -295/72, -85/18, -6]  = [-2.0000, -1.6250, -2.3750, -3.7639, -4.0972, -4.7222, -6.0000]
+     max |difference|                 = 3  (max total thickness 9)
+     weighted wiggle J: matplotlib 4049/48 = 84.3542; minimiser 1999/144 = 13.8819; ratio 6.0765
+FAIL m3 example (3 layers x 7): matplotlib baseline == B&W minimiser ('Does the same but weights ...', B&W 2008 eq. for g0')  J 84.3542 vs 13.8819
+ok   m3 example (3 layers x 7): [explanation] matplotlib == minimiser for the REVERSED layer order, exactly
+ok   m3 example (3 layers x 7): [explanation] matplotlib == -(top of Byron's layout), i.e. +center - T/2 instead of -center - T/2
+ok   m3 example (3 layers x 7): [explanation] J(matplotlib, drawn order) == J(minimiser, reversed order)
+   4 layers x 5: layers [[5, 1, 0, 2, 7], [1, 1, 4, 4, 0], [0, 3, 3, 1, 2], [2, 6, 1, 0, 1]]
+     B&W minimiser (drawn order)   g0 = [-4, -73/22, -749/176, -7179/1232, -50063/6160]  = [-4.0000, -3.3182, -4.2557, -5.8271, -8.1271]
+     matplotlib                    g0 = [-4, -169/22, -659/176, -1445/1232, -11537/6160]  = [-4.0000, -7.6818, -3.7443, -1.1729, -1.8729]
+     max |difference|                 = 19263/3080  (max total thickness 11)
+     weighted wiggle J: matplotlib 7324139/12320 = 594.4918; minimiser 605767/12320 = 49.1694; ratio 12.0907
+FAIL 4 layers x 5: matplotlib baseline == B&W minimiser ('Does the same but weights ...', B&W 2008 eq. for g0')  J 594.4918 vs 49.1694
+ok   4 layers x 5: [explanation] matplotlib == minimiser for the REVERSED layer order, exactly
+ok   4 layers x 5: [explanation] matplotlib == -(top of Byron's layout), i.e. +center - T/2 instead of -center - T/2
+ok   4 layers x 5: [explanation] J(matplotlib, drawn order) == J(minimiser, reversed order)
+#### 3. two layers, closed form
+ok   f1=1->3, f2=1->1: mpl - minimiser at x1 == (f2*d1 - f1*d2)/T = 1/2  J mpl 7/4 vs min 3/4
+ok   f1=1->1, f2=1->3: mpl - minimiser at x1 == (f2*d1 - f1*d2)/T = -1/2  J mpl 7/4 vs min 3/4
+ok   f1=2->2, f2=1->5: mpl - minimiser at x1 == (f2*d1 - f1*d2)/T = -8/7  J mpl 104/7 vs min 40/7
+ok   f1=4->1, f2=1->4: mpl - minimiser at x1 == (f2*d1 - f1*d2)/T = -3  J mpl 45 vs min 0
+ok   f1=2->4, f2=1->2: mpl - minimiser at x1 == (f2*d1 - f1*d2)/T = 0  J mpl 3 vs min 3
+   so the two agree at a step exactly when f2*d1 == f1*d2, i.e. both layers change in proportion to their thickness
+#### 4. cases where matplotlib is right
+ok   one layer: matplotlib == minimiser (dg0 = -df/2)
+ok   palindromic layer order (L0 == L2): matplotlib == minimiser
+ok   all layers proportional to one profile: matplotlib == minimiser
+#### 5. random small integer layers (exact)
+   400 random cases (2-5 layers, 3-8 points, integers 0..9): matplotlib == minimiser in 0
+   J(matplotlib)/J(minimiser) over the others: min 1.023, median 5.235, 90th pct 17.809, max 212.436
+   largest max|g0_mpl - g0_min| / max total thickness: 0.964
+ok   random cases: matplotlib's J is never below the minimiser's (sanity of the minimiser)  0 below
+FAIL random cases: matplotlib == minimiser in every case  0/400
+#### 6. the gap is not a discretisation choice
+FAIL weights f(x_{k}) choice 'current': matplotlib == minimiser of that discretisation  J_current: mpl 84.3542 vs min 13.8819
+FAIL weights f(x_{k}) choice 'previous': matplotlib == minimiser of that discretisation  J_previous: mpl 83.3528 vs min 12.5833
+FAIL weights f(x_{k}) choice 'average': matplotlib == minimiser of that discretisation  J_average: mpl 83.8535 vs min 13.3100
+   n=11: matplotlib g0(1)-g0(0) = -0.665614 (continuous reversed-order -0.653426); minimiser -1.334386 (continuous -1.346574)
+   n=101: matplotlib g0(1)-g0(0) = -0.654673 (continuous reversed-order -0.653426); minimiser -1.345327 (continuous -1.346574)
+   n=1001: matplotlib g0(1)-g0(0) = -0.653551 (continuous reversed-order -0.653426); minimiser -1.346449 (continuous -1.346574)
+   n=10001: matplotlib g0(1)-g0(0) = -0.653439 (continuous reversed-order -0.653426); minimiser -1.346561 (continuous -1.346574)
+ok   smooth 2-layer case: matplotlib's g0(1)-g0(0) tends to the reversed-order value -1 + ln2/2, not -1 - ln2/2
+#### 7. 'wiggle' (unweighted) is oriented for the drawn order; only 'weighted_wiggle' is reversed
+ok   m3 example (3 layers x 7): 'wiggle' == drawn-order midline minimiser -(1/m) sum (m - i - 1/2) f_i
+ok   m3 example (3 layers x 7): 'wiggle' differs from the reversed-order midline minimiser -(1/m) sum (i + 1/2) f_i
+ok   m3 example (3 layers x 7): integrating the unit-weight per-step minimiser reproduces the 'wiggle' closed form (up to its constant)
+ok   4 layers x 5: 'wiggle' == drawn-order midline minimiser -(1/m) sum (m - i - 1/2) f_i
+ok   4 layers x 5: 'wiggle' differs from the reversed-order midline minimiser -(1/m) sum (i + 1/2) f_i
+ok   4 layers x 5: integrating the unit-weight per-step minimiser reproduces the 'wiggle' closed form (up to its constant)

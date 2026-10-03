@@ -114,16 +114,15 @@ l. 98) but not `inv_total`.
 float64 to float32 precision, and integer 'sym'/'wiggle' match their float results. This check compares integer
 against float input and is independent of MPL15.
 
-### MPL15 (item 14) — `stackplot(baseline='weighted_wiggle')` minimises the weighted wiggle of the layers in reverse order (bug per the m3 notes; **re-verification pending**)
+### MPL15 (item 14) — `stackplot(baseline='weighted_wiggle')` minimises the weighted wiggle of the layers in reverse order (bug; all builds since 1.3.0)
 
-As recorded in the m3 notes (a parallel check against Byron & Wattenberg 2008 is under way; nothing is added
-here): with three float layers over 7 x-values matplotlib's baseline is [−2, −1.625, −2.375, −3.764, −4.097,
+With three float layers over 7 x-values matplotlib's baseline is [−2, −1.625, −2.375, −3.764, −4.097,
 −4.722, −6]; the per-step minimiser of Σᵢ fᵢ·(slope of midline i)² for the stacking as drawn is [−2, −2.375,
 −3.625, −5.236, −4.903, −3.278, −3]; the objective is 84.3542 for matplotlib against 13.8819 for the minimiser,
 and matplotlib's baseline equals the minimiser for the reversed layer order. The notes attribute this to
 `stackplot.py` l. 121–128 keeping `+center` when porting Byron's screen-coordinate (y-down) `StreamLayout` to
 y-up. Documentation: "'weighted_wiggle': Does the same but weights to account for size of each layer. It is also
-called 'Streamgraph'-layout … http://leebyron.com/streamgraph/". Status: re-verification pending.
+called 'Streamgraph'-layout … http://leebyron.com/streamgraph/". Status: confirmed on re-verification (`verify/m3_stackplot_wiggle.notes.md`, harness `verify/m3b_stackplot_wiggle.py`, 40 ok / 8 FAIL on main and 3.11.2): the paper's minimiser (§5.1) and Byron's `StreamLayout.java` agree exactly in Fraction arithmetic; matplotlib's `first_line = center - 0.5 * total` (stackplot.py:128 on 44f2e00) is the minimiser for the reversed order. Two layers [1,3]/[1,1]: correct g0 (−1, −9/4), matplotlib (−1, −7/4). 0 of 400 random integer cases match (ratio 1.02–212, median 5.2). Introduced in 24f537f (2013-01-10), present in every release since 1.3.0; the only test is the image test `test_stackplot_baseline`, which pins the current output.
 
 ### MPL24 (item 1) — `hist2d(density=True, cmin=…)`: the threshold is applied to densities, not counts (documentation gap; all builds)
 
