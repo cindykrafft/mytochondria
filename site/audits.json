@@ -514,7 +514,7 @@
    ],
    "fork": null,
    "attributed": null,
-   "attributed_note": "survey cohort of 240 papers; 18 bugs on main (44f2e00 overlay on 3.11.2) confirmed against exact recomputations, 16 documentation gaps, 9 old-release only; five already open upstream; nothing filed (Matplotlib's policy: no AI-written issue/PR text, the owner writes from fact sheets)",
+   "attributed_note": "survey cohort of 240 papers; 18 bugs on main (44f2e00 overlay on 3.11.2) confirmed against exact recomputations, 16 documentation gaps, 9 old-release only; five already open upstream; held by the owner 2026-10-04: nothing filed (Matplotlib's AI policy rejects AI-written text and contributions spread across several projects)",
    "versions_stated": 41,
    "versions_in_repo": 0
   }

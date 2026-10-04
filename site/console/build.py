@@ -356,6 +356,7 @@ WAITING=[
  ("SPM and AFNI second fixes", "not chosen yet; SPM's first fixes and AFNI's #944/#947/#926/#928, #958 and #962 (merged 2026-09-18) and the R-script fixes of #960 (applied on master by Gang Chen 2026-09-22 with credit; the PR sits open with an empty diff) are in, so they are next to prepare; five AFNI PRs still carry unmerged code"),
  ("umap third fix, IQ-TREE third fix", "PR #1288 / PR #210 answered"),
  ("HTSeq HC1/HC2, FreeSurfer #1358", "never: the maintainers decline AI-generated contributions"),
+ ("Matplotlib MPL1-MPL43 (audit only; kits for MPL1, MPL2, MPL4, MPL15)", "held by you on 2026-10-04: their AI policy rejects AI-written text and contributions spread across several projects"),
 ]
 # every issue in Do next that has a prepared PR gets the PR card right after it (unless listed by hand)
 _have={(a["kind"],a.get("key"),a.get("id")) for a in ACTIONS}

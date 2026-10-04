@@ -163,7 +163,9 @@ position, datetime input to `hist`, the 32-bit stride path, and the statistical 
 
 Nothing is filed. Owner's decision 2026-10-04: one comment on the open docs PR #32428 for MPL2, nothing else. On reading #32428 in full the same day, it does not
 repeat the masked claim (it only adds Notes relating the three violin functions), so the comment is not posted;
-the owner decides again. The other findings stay audit-only. Matplotlib's contribution policy forbids AI-generated issue and pull-request text and AI agents
+the owner decides again. The other findings stay audit-only.
+
+**Held (owner, 2026-10-04): nothing is filed with Matplotlib.** Its AI policy names simultaneous contributions to several projects as unacceptable, and the one comment planned (on PR #32428) turned out to be off-topic. The audit, the fact sheets and the patches stay here as the record. Matplotlib's contribution policy forbids AI-generated issue and pull-request text and AI agents
 interacting on the tracker, and a pull request must carry an AI Disclosure section. The upstream kit will therefore
 be **fact sheets** — the reproducer, the measured and documented numbers, the file:line on `main`, and the
 suggested fix — for the owner to write the issue or PR from in their own words; nothing goes to the tracker from

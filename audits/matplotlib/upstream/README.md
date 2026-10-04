@@ -14,6 +14,8 @@ saying masked values are not ignored (MPL2); no new issues or PRs. Read in full 
 the masked-values sentences (`comment-32428-facts.md`, correction at the top), so nothing is posted and the owner
 decides again. MPL1, MPL4 and MPL15 and the rest stay audit-only.
 
+**Held (owner, 2026-10-04): nothing is filed with Matplotlib.** Its AI policy names simultaneous contributions to several projects as unacceptable, and the one comment planned (on PR #32428) turned out to be off-topic. The audit, the fact sheets and the patches stay here as the record.
+
 | folder | finding | fix (one line) | tests on the overlay env |
 |---|---|---|---|
 | `MPL1-boundarynorm-last-colour/` | BoundaryNorm with more colours than bins never uses the last colour | exact integer index, `colors.py:3317` | 4 new cases fail before, pass after; nothing else changes |
