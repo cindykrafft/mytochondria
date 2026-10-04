@@ -9,6 +9,10 @@ several projects. Instead of spreading your resources, you can provide greater v
 one or two projects." (contribute.rst:219–221). The audit files in many repositories at once, so whether and how to
 file here is the owner's decision before anything else.
 
+**Decision (owner, 2026-10-04):** one comment only, written by the owner, on the open documentation PR #32428
+saying masked values are not ignored (MPL2); no new issues or PRs. Facts for it: `comment-32428-facts.md`. MPL1,
+MPL4 and MPL15 and the rest stay audit-only.
+
 | folder | finding | fix (one line) | tests on the overlay env |
 |---|---|---|---|
 | `MPL1-boundarynorm-last-colour/` | BoundaryNorm with more colours than bins never uses the last colour | exact integer index, `colors.py:3317` | 4 new cases fail before, pass after; nothing else changes |
