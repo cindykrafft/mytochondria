@@ -61,7 +61,9 @@ starts as `unanswered`. Never change a status from counts alone.
 
 ## One check-in
 
-1. Search again, diff against `seen.json`. Report to the owner only: a state change (merged,
+1. Search again, diff against `seen.json`. Diff the full result set (no `updated:` filter), or, if a filter is used to save calls, start it at
+   least a day before the snapshot's `taken`: on 2026-10-02 scDblFinder #147/#148 were filed two minutes before a
+   snapshot and missed by an `updated:>=taken` search until 2026-10-04. Report to the owner only: a state change (merged,
    closed, resolved, declined), a comment count that went up, a new filing that is not yet in
    `filed-fixes.txt` (the owner filed from the console; add the line), or a PR whose CI went red.
 2. For every open PR with a branch on a fork: latest workflow runs on that branch. Red and ours
