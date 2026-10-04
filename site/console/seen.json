@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-04T06:50:00Z",
+ "taken": "2026-10-04T19:00:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -3004,6 +3004,49 @@
    ],
    "fixed_by": "#753 merged 2026-10-03 05:22 by taoliu (merge commit 6dbd9a2; our ed436c1 unchanged)",
    "transcript": "https://claude.ai/artifact/8bDqeoHHostZ2Y9wAf32mm"
+  },
+  {
+   "repo": "plger/scDblFinder",
+   "number": 147,
+   "kind": "issue",
+   "state": "closed",
+   "merged": false,
+   "comments": 1,
+   "updated": "2026-10-04T18:20:46Z",
+   "title": "With `clusters` given as a factor, `scDblFinder.stats` reports 0 observed doublets for every combination and `scDblFinder.cluster` holds the integer codes",
+   "note": "SD2 issue, filed 2026-10-02 14:38 (missed by the watcher until 2026-10-04). plger fixed it his own way on devel (e7a0406, 'fixes #148', 2026-10-04 18:18) and closed PR #148 unmerged; e7a0406 does not work yet (NA_character undefined; the factor re-assignment stores the codes again; verify-e7a0406.R), so the follow-up SDR1 is ours to post. Thread read in full 2026-10-04: https://claude.ai/artifact/H5rJ8rkqqQ9Yh9ok2o5BvQ",
+   "status": "in progress",
+   "whose_move": "us",
+   "evidence": {
+    "quote": "fixed slightly differently from the proposed pr, but thanks again for pointing it out.",
+    "author": "plger",
+    "date": "2026-10-04T18:20:46Z",
+    "url": "https://github.com/plger/scDblFinder/issues/147#issuecomment-5983000109"
+   },
+   "status_checked": "2026-10-04"
+  },
+  {
+   "repo": "plger/scDblFinder",
+   "number": 148,
+   "kind": "pr",
+   "state": "closed",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-04T18:19:06Z",
+   "title": "scDblFinder: keep factor cluster labels as labels in the results table",
+   "note": "SD2 PR from cindykrafft:scDblFinder fix/factor-cluster-labels (fcb135d), closed unmerged. plger fixed it his own way on devel (e7a0406, 'fixes #148', 2026-10-04 18:18) and closed PR #148 unmerged; e7a0406 does not work yet (NA_character undefined; the factor re-assignment stores the codes again; verify-e7a0406.R), so the follow-up SDR1 is ours to post. Thread read in full 2026-10-04: https://claude.ai/artifact/H5rJ8rkqqQ9Yh9ok2o5BvQ",
+   "status": "in progress",
+   "whose_move": "us",
+   "evidence": {
+    "quote": "fixed slightly differently from the proposed pr, but thanks again for pointing it out.",
+    "author": "plger",
+    "date": "2026-10-04T18:20:46Z",
+    "url": "https://github.com/plger/scDblFinder/issues/147#issuecomment-5983000109"
+   },
+   "status_checked": "2026-10-04",
+   "fixes": [
+    147
+   ]
   }
  ],
  "merge_checked": [

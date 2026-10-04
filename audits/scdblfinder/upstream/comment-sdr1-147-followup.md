@@ -1,8 +1,8 @@
 Title: (comment on #147) Follow-up on e7a0406: NA_character, and the factor re-assignment brings the codes back
 
-<!-- _Draft only; the owner posts it. Status: **wait for the full read of #147/#148**. Helper session
-"Read-only: scDblFinder #147 / PR #148 transcript" is waiting on publish approval. If plger's comment on #147
-already mentions either point below, trim the draft to match._
+<!-- _Draft only; the owner posts it. Status: **ready**. #147/#148 read in full 2026-10-04
+(https://claude.ai/artifact/H5rJ8rkqqQ9Yh9ok2o5BvQ). plger's one comment, 18:20: "fixed slightly differently from
+the proposed pr, but thanks again for pointing it out." It covers neither point, so the draft stands._
 
 Where: a comment on #147 (closed by plger 2026-10-04 18:20, with one comment). The fix is
 plger/scDblFinder@e7a0406 ("fixes #148", devel, 2026-10-04 20:18 +0200). PR #148 was closed unmerged at 18:19.
