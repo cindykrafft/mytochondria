@@ -99,7 +99,7 @@ template: "in your own words (no AI please)"). The facts are for writing the iss
   https://github.com/matplotlib/matplotlib/pull/31707. Origin of both the claim and the line. In the
   rendered conversation, no reviewer mentions masked arrays.
 - PR #32428 "DOC: Improve violin/violin_stats/violinplot docs" (timhoffm), open since 2026-10-02:
-  https://github.com/matplotlib/matplotlib/pull/32428. Edits these docstrings now and, per the prior-report
+  https://github.com/matplotlib/matplotlib/pull/32428. **Correction 2026-10-04 (PR #32428 read in full, transcript https://claude.ai/artifact/XNouacZdAvDV4YcbDgqZuv):** the PR does not repeat the masked-values claim. It changes only `axes/_axes.py`, adding "Notes" sections that relate `violinplot`, `violin_stats` and `violin` (Closes #32409, KDE weights). It does not touch `cbook.py` or any line about masked or non-finite values. The existing sentences (`cbook.py:1502`, `_axes.py:9008`) are unchanged context. Nobody in the thread mentions masked arrays. Open, author timhoffm (MEMBER), one review by story645 (MEMBER) with two suggestions. (The earlier summary below, that it edits these docstrings, was wrong.) Earlier note: per the prior-report
   search, repeats the "masked values are ignored" claim. A fix or an issue should mention it. The patch
   touches only code line 1591, not the docstrings, but check for a merge conflict once #32428 lands.
 - PR #13651 "Box plot and violin plot now ignore masked points", open (draft, orphaned) since

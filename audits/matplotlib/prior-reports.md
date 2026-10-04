@@ -127,7 +127,7 @@ Two findings need a qualifier: hexbin marginals was reported earlier and closed 
   dropping NaNs "is the way to go".
 - **Verdict: no prior report** of the masked-array failure. The claim and the bug arrived in the same merged PR
   (#31707), so the report should cite #31707 and its release note. The one-line fix is `np.asanyarray` or no
-  conversion. Mention #32428 so the doc PR does not repeat the claim.
+  conversion. Mention #32428 so the doc PR does not repeat the claim. **Correction 2026-10-04 (PR #32428 read in full, transcript https://claude.ai/artifact/XNouacZdAvDV4YcbDgqZuv):** the PR does not repeat the masked-values claim. It changes only `axes/_axes.py`, adding "Notes" sections that relate `violinplot`, `violin_stats` and `violin` (Closes #32409, KDE weights). It does not touch `cbook.py` or any line about masked or non-finite values. The existing sentences (`cbook.py:1502`, `_axes.py:9008`) are unchanged context. Nobody in the thread mentions masked arrays. Open, author timhoffm (MEMBER), one review by story645 (MEMBER) with two suggestions.
 
 ---
 
