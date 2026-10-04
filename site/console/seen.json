@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-04T19:00:00Z",
+ "taken": "2026-10-04T23:30:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -3011,19 +3011,21 @@
    "kind": "issue",
    "state": "closed",
    "merged": false,
-   "comments": 1,
-   "updated": "2026-10-04T18:20:46Z",
+   "comments": 3,
+   "updated": "2026-10-04T18:40:43Z",
    "title": "With `clusters` given as a factor, `scDblFinder.stats` reports 0 observed doublets for every combination and `scDblFinder.cluster` holds the integer codes",
-   "note": "SD2 issue, filed 2026-10-02 14:38 (missed by the watcher until 2026-10-04). plger fixed it his own way on devel (e7a0406, 'fixes #148', 2026-10-04 18:18) and closed PR #148 unmerged; e7a0406 does not work yet (NA_character undefined; the factor re-assignment stores the codes again; verify-e7a0406.R), so the follow-up SDR1 is ours to post. Thread read in full 2026-10-04: https://claude.ai/artifact/H5rJ8rkqqQ9Yh9ok2o5BvQ",
-   "status": "in progress",
-   "whose_move": "us",
+   "note": "SD2 issue, filed 2026-10-02 14:38 (missed by the watcher until 2026-10-04). Fixed by plger on devel (e7a0406, then 34368ed and 6b3ecdf after our follow-up comment of 18:31); PR #148 closed unmerged.",
+   "status": "resolved",
+   "whose_move": null,
    "evidence": {
-    "quote": "fixed slightly differently from the proposed pr, but thanks again for pointing it out.",
+    "quote": "yes I definitely closed the issue too fast and had typos and all in there, but it's genuinely fixed now :) Thanks again for all this, I'm not sure how this volunteer thing works exactly but it's definitely very useful!",
     "author": "plger",
-    "date": "2026-10-04T18:20:46Z",
-    "url": "https://github.com/plger/scDblFinder/issues/147#issuecomment-5983000109"
+    "date": "2026-10-04T18:40:43Z",
+    "url": "https://github.com/plger/scDblFinder/issues/147#issuecomment-5983164396"
    },
-   "status_checked": "2026-10-04"
+   "status_checked": "2026-10-04",
+   "fixed_by": "plger on devel: e7a0406 + 34368ed + 6b3ecdf (2026-10-04), his own approach after our follow-up; verified verify-6b3ecdf.R",
+   "transcript": "https://claude.ai/artifact/7WSp8z3kZ9unRNTUhggtyr"
   },
   {
    "repo": "plger/scDblFinder",
@@ -3034,19 +3036,21 @@
    "comments": 0,
    "updated": "2026-10-04T18:19:06Z",
    "title": "scDblFinder: keep factor cluster labels as labels in the results table",
-   "note": "SD2 PR from cindykrafft:scDblFinder fix/factor-cluster-labels (fcb135d), closed unmerged. plger fixed it his own way on devel (e7a0406, 'fixes #148', 2026-10-04 18:18) and closed PR #148 unmerged; e7a0406 does not work yet (NA_character undefined; the factor re-assignment stores the codes again; verify-e7a0406.R), so the follow-up SDR1 is ours to post. Thread read in full 2026-10-04: https://claude.ai/artifact/H5rJ8rkqqQ9Yh9ok2o5BvQ",
-   "status": "in progress",
-   "whose_move": "us",
+   "note": "SD2 PR from cindykrafft:scDblFinder fix/factor-cluster-labels (fcb135d), closed unmerged. Fixed by plger on devel (e7a0406, then 34368ed and 6b3ecdf after our follow-up comment of 18:31); PR #148 closed unmerged.",
+   "status": "resolved",
+   "whose_move": null,
    "evidence": {
-    "quote": "fixed slightly differently from the proposed pr, but thanks again for pointing it out.",
+    "quote": "yes I definitely closed the issue too fast and had typos and all in there, but it's genuinely fixed now :) Thanks again for all this, I'm not sure how this volunteer thing works exactly but it's definitely very useful!",
     "author": "plger",
-    "date": "2026-10-04T18:20:46Z",
-    "url": "https://github.com/plger/scDblFinder/issues/147#issuecomment-5983000109"
+    "date": "2026-10-04T18:40:43Z",
+    "url": "https://github.com/plger/scDblFinder/issues/147#issuecomment-5983164396"
    },
    "status_checked": "2026-10-04",
    "fixes": [
     147
-   ]
+   ],
+   "fixed_by": "plger on devel: e7a0406 + 34368ed + 6b3ecdf (2026-10-04), his own approach after our follow-up; verified verify-6b3ecdf.R",
+   "transcript": "https://claude.ai/artifact/7WSp8z3kZ9unRNTUhggtyr"
   }
  ],
  "merge_checked": [
