@@ -1,0 +1,11 @@
+enrichit 0.2.5.9013 
+seed 1 top    ES=+1.0000  exact same-sign p=0.000917  sample p=4.70e-04
+seed 1 bottom ES=-1.0000  exact same-sign p=0.001071  sample p=5.00e-06
+seed 2 top    ES=+1.0000  exact same-sign p=0.000813  sample p=4.70e-04
+seed 2 bottom ES=-1.0000  exact same-sign p=0.001259  sample p=5.00e-06
+seed 3 top    ES=+1.0000  exact same-sign p=0.001227  sample p=4.70e-04
+seed 3 bottom ES=-1.0000  exact same-sign p=0.000827  sample p=5.00e-06
+seed 4 top    ES=+1.0000  exact same-sign p=0.000687  sample p=4.70e-04
+seed 4 bottom ES=-1.0000  exact same-sign p=0.001757  sample p=5.00e-06
+seed 5 top    ES=+1.0000  exact same-sign p=0.000962  sample p=4.70e-04
+seed 5 bottom ES=-1.0000  exact same-sign p=0.001016  sample p=5.00e-06
