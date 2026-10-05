@@ -57,7 +57,7 @@ shape offered) once BW1 or BW2 has a reply, under the two-unanswered-filings cap
 | `issue-bw3-no-mixed-suppresses-discordant.md` | report: manual vs code for `--no-mixed`, 80 discordant pairs → 0, either fix offered |
 | `issue-bw4-maxins-boundary-spurious-insertions.md` | report: the fragment-length scan, the 6,000-pair library, the mechanism (`otherMate` window → gapped rescue alignment → `RedundantAlns` drops the exact one), three fix shapes offered |
 | `0001-Use-the-opposite-mate-s-length-when-computing-mate-2.patch` | BW1 fix (`aln_sink.h`, one token), commit 08b9e93 on `fix/mate2-mapq-opposite-length` |
-| `0001-Report-XS-i-for-mates-aligned-as-unpaired-alignments.patch` | BW2 fix (`sam.cpp`), commit 9d17d42 on `fix/xs-for-unpaired-mates` |
+| `0001-Report-XS-i-for-mates-aligned-as-unpaired-alignments.patch` | BW2 fix (`sam.cpp`), commit 649d1d9 on `fix/xs-for-unpaired-mates` (9d17d42 before the author was corrected; same diff) |
 | `pr-bodies.md` | PR titles and bodies |
 | `test-runs.txt` | Bowtie 2's own `simple_tests.pl` on both branches; the harness runs on the patched builds |
 
@@ -66,7 +66,7 @@ shape offered) once BW1 or BW2 has a reply, under the two-unanswered-filings cap
 | branch | commit | harness on the patched build | project tests |
 |---|---|---|---|
 | `fix/mate2-mapq-opposite-length` | `08b9e93` | `../verify/m1_mapq.patched.out`: 9/9 blocks; all 16 concordant pairs give both mates the port's value (6 differed on master) | see `test-runs.txt` |
-| `fix/xs-for-unpaired-mates` | `9d17d42` | `../verify/a1_summary_arithmetic.patched.out`: `XS:i` on 30/30 `YT:Z:UP` multi-mapping mates (0/30 on master); every other line unchanged | see `test-runs.txt` |
+| `fix/xs-for-unpaired-mates` | `649d1d9` | `../verify/a1_summary_arithmetic.patched.out`: `XS:i` on 30/30 `YT:Z:UP` multi-mapping mates (0/30 on master); every other line unchanged | see `test-runs.txt` |
 
 ## Version scope (executed)
 
