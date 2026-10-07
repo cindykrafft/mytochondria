@@ -1,3 +1,5 @@
+_Update 2026-10-07: #2610 (edge bin of ft_connectivity_psi, with schoffelen's own normalisation commits) squash-merged by schoffelen on 2026-10-07 09:23 UTC as 5566d65, byte-identical to the PR head 9af1fc4; #2609 closed as completed at the same time. No new comments since 2026-09-07; our last comment there offered to rework the normalize option (separate sums) as a follow-up, which is open if he wants it. Thread read in full: https://claude.ai/artifact/8HMkmNtWkUTLJ4YYyAzPtH. The squash commit's author line is the GitHub account's commit email, not one from our commits (those were authored as Claude <noreply@anthropic.com>)._
+
 # FieldTrip upstream filing kit
 
 FieldTrip takes contributions as GitHub pull requests against `master` from a

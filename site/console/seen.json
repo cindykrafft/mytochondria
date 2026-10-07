@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-04T23:30:00Z",
+ "taken": "2026-10-07T15:00:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -575,20 +575,22 @@
    "repo": "fieldtrip/fieldtrip",
    "number": 2609,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 2,
-   "updated": "2026-09-05T18:13:36Z",
-   "status": "in progress",
-   "whose_move": "them",
+   "updated": "2026-10-07T09:23:51Z",
+   "status": "resolved",
+   "whose_move": null,
    "evidence": {
-    "quote": "I guess that the overall question up for discussion would be whether or not we would accept the (end-nbin):end bins to contain (correct) data - as per the suggested fix - or whether we would NaN those bins to begin with due to incomplete data to integrate across.",
+    "quote": "merged by schoffelen (MEMBER) 2026-10-07 09:23 UTC as squash commit 5566d65, identical to the PR head 9af1fc4 (his own normalisation commits included); earlier: \"OK, we're almost ready to merge this one I think.\" (2026-09-07)",
     "author": "schoffelen",
-    "date": "2026-09-03T11:21:15Z",
-    "url": "https://github.com/fieldtrip/fieldtrip/issues/2609#issuecomment-5524930361"
+    "date": "2026-10-07T09:23:49Z",
+    "url": "https://github.com/fieldtrip/fieldtrip/pull/2610"
    },
-   "status_checked": "2026-10-01",
-   "title": "ft_connectivity_psi: the last nbin+1 frequency bins include the raw top-bin coherency, and are -Inf with normalize='yes'"
+   "status_checked": "2026-10-07",
+   "title": "ft_connectivity_psi: the last nbin+1 frequency bins include the raw top-bin coherency, and are -Inf with normalize='yes'",
+   "fixed_by": "PR #2610 squash-merged as 5566d65 by schoffelen 2026-10-07",
+   "transcript": "https://claude.ai/artifact/8HMkmNtWkUTLJ4YYyAzPtH"
   },
   {
    "repo": "deeptools/deepTools",
@@ -1856,23 +1858,25 @@
    "repo": "fieldtrip/fieldtrip",
    "number": 2610,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
+   "state": "closed",
+   "merged": true,
    "comments": 15,
-   "updated": "2026-09-07T17:07:30Z",
-   "status": "in progress",
-   "whose_move": "them",
+   "updated": "2026-10-07T09:23:49Z",
+   "status": "resolved",
+   "whose_move": null,
    "evidence": {
-    "quote": "OK, we're almost ready to merge this one I think.",
+    "quote": "merged by schoffelen (MEMBER) 2026-10-07 09:23 UTC as squash commit 5566d65, identical to the PR head 9af1fc4 (his own normalisation commits included); earlier: \"OK, we're almost ready to merge this one I think.\" (2026-09-07)",
     "author": "schoffelen",
-    "date": "2026-09-07T07:24:38Z",
-    "url": "https://github.com/fieldtrip/fieldtrip/pull/2610#issuecomment-5566751380"
+    "date": "2026-10-07T09:23:49Z",
+    "url": "https://github.com/fieldtrip/fieldtrip/pull/2610"
    },
-   "status_checked": "2026-10-01",
+   "status_checked": "2026-10-07",
    "fixes": [
     2609
    ],
-   "title": "ft_connectivity_psi: exclude the last frequency bin from the slope window"
+   "title": "ft_connectivity_psi: exclude the last frequency bin from the slope window",
+   "fixed_by": "PR #2610 squash-merged as 5566d65 by schoffelen 2026-10-07",
+   "transcript": "https://claude.ai/artifact/8HMkmNtWkUTLJ4YYyAzPtH"
   },
   {
    "repo": "arq5x/bedtools2",
