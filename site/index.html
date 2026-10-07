@@ -73,6 +73,8 @@ ul.items li{display:grid;grid-template-columns:100px minmax(0,1fr) auto auto;gap
     <dd>Each card counts findings filed upstream, where an issue and the pull requests that fix it are one finding. Every thread is read in full and given a status, with the maintainer's words as evidence: resolved (closed as fixed, merged, or a fix landed upstream), in progress (a maintainer has engaged and the next move is theirs or ours), unanswered (no maintainer has replied), rejected (a maintainer declined) or withdrawn (closed by the project). A finding takes the best status of its threads. Statuses are re-read when a thread changes; filings newer than the last read are counted as not read yet.</dd>
     <dt>Declines AI contributions</dt>
     <dd>Some maintainers have said they do not want AI-generated issues or pull requests. That decision is recorded as a topic on the project's fork of their repository, this page reads it from there, and nothing further is filed, commented or pushed for that repository; what is already open is left to the maintainers. The project itself stays published in the project repository.</dd>
+    <dt>Not filed: requires the submitter's own text</dt>
+    <dd>One aim of the project is to automate bug finding. Some projects require issue and pull-request text to be written by the person filing it; the project does not file with those (since 2026-10-07: NumPy, scikit-learn, Matplotlib). Their audits and fact sheets stay published in the project repository.</dd>
     <dt>Where the numbers come from</dt>
     <dd>A GitHub Actions job queries the GitHub search API for everything filed by the project's account since August 2026, four times a day, and publishes this page. Nothing here is edited by hand except the findings count and the repository map.</dd>
   </dl>
@@ -123,13 +125,13 @@ function render(D){
   const tb=document.querySelector("#ledger tbody"); tb.innerHTML="";
   for(const r of rows){
     const c=r.c||{}; const has=r.items.length>0;
-    const name=(r.a.dir?`<a href="${AUDIT_BASE}${r.a.dir}/">${esc(r.a.name)}</a>`:esc(r.a.name))+(r.a.declines_ai?` <span class="pill p-declined" title="The fork carries the topic ${esc(D.declines_topic||"")}: the maintainers do not take AI-generated contributions, so nothing further is filed here">declines AI contributions</span>`:"");
+    const name=(r.a.dir?`<a href="${AUDIT_BASE}${r.a.dir}/">${esc(r.a.name)}</a>`:esc(r.a.name))+(r.a.declines_ai?` <span class="pill p-declined" title="The fork carries the topic ${esc(D.declines_topic||"")}: the maintainers do not take AI-generated contributions, so nothing further is filed here">declines AI contributions</span>`:"")+(r.a.requires_own_text?` <span class="pill p-none" title="${esc(r.a.filing||"")}">not filed: requires the submitter's own text</span>`:"");
     const repo=r.repo?`<a class="mono" href="https://github.com/${r.repo}">${esc(r.repo)}</a>`:`<span class="dim">no GitHub repository</span>`;
     const tr=document.createElement("tr"); tr.className="repo"+(has?"":" none");
     tr.innerHTML=`<td>${name} <span class="dim">·</span> ${repo}</td><td class="n">${r.a.papers?r.a.papers.toLocaleString("en"):'<span class="dim">–</span>'}</td><td class="n"${r.a.attributed_note?` title="${esc(r.a.attributed_note)}"`:""}>${r.a.attributed?r.a.attributed.toLocaleString("en")+(r.a.attributed_note?' <span class="dim">?</span>':''):'<span class="dim">–</span>'}</td><td class="n">${n(r.a.findings)}</td>
       <td class="n">${n(c.issues)}</td><td class="n">${n(c.i_open)}</td><td class="n">${n(c.resolved)}</td><td class="n">${n(c.declined)}</td>
       <td class="n">${n(c.prs)}</td><td class="n">${n(c.p_open)}</td><td class="n">${n(c.merged)}</td><td class="n">${n(c.closed)}</td>
-      <td class="n">${n(c.answered)}</td><td class="${has?"mono ":""}dim">${has?fmt(c.last):esc(r.a.channel||"nothing filed yet")}</td>`;
+      <td class="n">${n(c.answered)}</td><td class="${has?"mono ":""}dim">${has?fmt(c.last):esc(r.a.requires_own_text?"ignored for filing":(r.a.channel||"nothing filed yet"))}</td>`;
     tb.appendChild(tr);
     if(has){
       const d=document.createElement("tr"); d.className="detail";
