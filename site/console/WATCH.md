@@ -122,5 +122,6 @@ One aim of the project is to automate bug finding, so the owner does not file wi
 PR text written by the submitter (NumPy, scikit-learn, Matplotlib). They are flagged `requires_own_text` in
 `../audits.json`, their cards are out of Do next, and the console's waiting list marks them as ignored. Their audits
 and kits stay. Check a new project's contribution policy for this before preparing its kit. Projects already filed
-with that ask for the submitter's own wording (samtools, BCFtools) are not covered by the rule; the owner decides
-those case by case.
+with that ask for the submitter's own wording (samtools, BCFtools) are not covered by the rule: owner's decision
+2026-10-07, they stay as they are, since both have accepted our changes (samtools #2379 merged 2026-09-24; BCFtools
+#2595 merged via #2598 on 2026-09-30).
