@@ -115,3 +115,12 @@ work, and answers the question that actually needs action, is a local merge test
 A PR's `updated_at` moving while its comment count stays put is usually a base-branch push
 recomputing mergeability, or CI re-running; the merge test tells you whether that matters. Only
 a real conflict, or a maintainer comment the owner has read, is work.
+
+## Projects that require the submitter's own text (owner's rule, 2026-10-07)
+
+One aim of the project is to automate bug finding, so the owner does not file with projects that require issue or
+PR text written by the submitter (NumPy, scikit-learn, Matplotlib). They are flagged `requires_own_text` in
+`../audits.json`, their cards are out of Do next, and the console's waiting list marks them as ignored. Their audits
+and kits stay. Check a new project's contribution policy for this before preparing its kit. Projects already filed
+with that ask for the submitter's own wording (samtools, BCFtools) are not covered by the rule; the owner decides
+those case by case.

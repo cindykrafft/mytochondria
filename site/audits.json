@@ -1,5 +1,5 @@
 {
- "_comment": "One entry per audit under audits/. `repos` maps upstream GitHub repositories to the project; `findings` is the count of confirmed findings from the status table in README.md (hand-maintained; update when an audit changes). `channel` explains audits with no GitHub repository. `fork` is the project's fork of the upstream repository; if that fork carries the topic named in `declines_topic`, the maintainers have said they do not take AI-generated contributions and nothing further is filed, commented or pushed for that repository. `declines_ai: true` can also be set here by hand. `exclude_owners` lists GitHub owners whose filings are not part of this audit (the `google` organisation: googletest, gson, guava, filament, comprehensive-rust); they are left off the page. `google-deepmind` (AlphaFold3) is a different owner and stays.",
+ "_comment": "One entry per audit under audits/. `repos` maps upstream GitHub repositories to the project; `findings` is the count of confirmed findings from the status table in README.md (hand-maintained; update when an audit changes). `channel` explains audits with no GitHub repository. `fork` is the project's fork of the upstream repository; if that fork carries the topic named in `declines_topic`, the maintainers have said they do not take AI-generated contributions and nothing further is filed, commented or pushed for that repository. `declines_ai: true` can also be set here by hand. `exclude_owners` lists GitHub owners whose filings are not part of this audit (the `google` organisation: googletest, gson, guava, filament, comprehensive-rust); they are left off the page. `google-deepmind` (AlphaFold3) is a different owner and stays. `requires_own_text`: the project requires issue/PR text written by the submitter; by the owner's rule of 2026-10-07 such projects are ignored for filing when nothing has been filed there yet (audits stay).",
  "audits": [
   {
    "dir": "freesurfer",
@@ -488,7 +488,9 @@
    "attributed": null,
    "attributed_note": "survey cohort of 253 papers; 0 confirmed on 2.4.6 and 1.23.5/1.24.4/1.26.4 (no wrong number for a documented definition), 5 notes (float32 slow-axis reductions, open upstream as #22956/#8869; closest_observation ties fixed in 2.1.0; non-PSD multivariate_normal; float32 FFT precision; round-half-even at 2.675); quantiles, histograms, polyfit, linalg, FFT and the generators held up; full inspection (2026-09-25): 14 bugs on 2.4.6 still on main, 5 already reported upstream, 2 to file (np.unique NaT with equal_nan=False on the hash path, fix verified; np.select wrapping Python ints), the rest queued",
    "versions_stated": 26,
-   "versions_in_repo": 0
+   "versions_in_repo": 0,
+   "requires_own_text": true,
+   "filing": "ignored (owner's rule, 2026-10-07): the project requires issue/PR text written by the submitter, and Mytochondria automates the writing, so nothing is filed there"
   },
   {
    "dir": "scikit-learn",
@@ -502,7 +504,9 @@
    "attributed": null,
    "attributed_note": "survey cohort of 322 papers; 2 confirmed on 1.9.1 and 1.5.2, main read (PCA's covariance_eigh solver, the auto choice for tall dense data since 1.5, loses the variance of offset features: 33 % off for float32 values around 100; NMF.reconstruction_err_ is sqrt(2 D_beta), not the divergence), 1 note open upstream (#31210 euclidean_distances precision) + 4 notes; every metric, PCA(full/arpack/randomized), the scalers, KMeans, GaussianMixture, the splitters and the linear models held up; full inspection (2026-09-25): 26 more findings on 1.9.1, 6 already reported upstream, 5 with fixes on branches, the rest queued behind the two round-6 filings",
    "versions_stated": 31,
-   "versions_in_repo": 0
+   "versions_in_repo": 0,
+   "requires_own_text": true,
+   "filing": "ignored (owner's rule, 2026-10-07): the project requires issue/PR text written by the submitter, and Mytochondria automates the writing, so nothing is filed there"
   },
   {
    "dir": "matplotlib",
@@ -516,7 +520,9 @@
    "attributed": null,
    "attributed_note": "survey cohort of 240 papers; 18 bugs on main (44f2e00 overlay on 3.11.2) confirmed against exact recomputations, 16 documentation gaps, 9 old-release only; five already open upstream; held by the owner 2026-10-04: nothing filed (Matplotlib's AI policy rejects AI-written text and contributions spread across several projects)",
    "versions_stated": 41,
-   "versions_in_repo": 0
+   "versions_in_repo": 0,
+   "requires_own_text": true,
+   "filing": "ignored (owner's rule, 2026-10-07): the project requires issue/PR text written by the submitter, and Mytochondria automates the writing, so nothing is filed there"
   }
  ],
  "author": "cindykrafft",
