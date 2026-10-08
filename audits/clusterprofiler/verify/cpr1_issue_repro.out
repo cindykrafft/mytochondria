@@ -1,0 +1,6 @@
+== enrichit devel 340c21d (0.2.6.9000), R 4.3.3
+          exact          sample sample_adaptive         permute      multilevel 
+       1.07e-03        1.08e-05        2.16e-05        9.42e-04        8.19e-04 
+== same + es_minus1_obs_cmp_340c21d.diff
+          exact          sample sample_adaptive         permute      multilevel 
+       0.001070        0.001110        0.001230        0.000942        0.000819 

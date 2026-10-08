@@ -1,0 +1,52 @@
+--- en-check/src/gsea.cpp	2026-10-07 19:45:06.653134725 +0000
++++ en-patch/src/gsea.cpp	2026-10-08 00:46:33.052630852 +0000
+@@ -312,6 +312,13 @@
+     
+     for (int i = 0; i < n_sets; ++i) {
+         double obs_es = es[i];
++        // compare with the routine that scores the permutations (sample path)
++        double obs_cmp = obs_es;
++        if (method != "permute" && gs_sizes[i] > 0) {
++            std::vector<int> hits;
++            for (int g = 0; g < n_genes; ++g) if (gs_bools[i][g]) hits.push_back(g);
++            obs_cmp = calculate_es_sparse(gene_stats, hits, exponent);
++        }
+         
+         if (gs_sizes[i] == 0) {
+             pvalues[i] = 1.0;
+@@ -328,8 +335,8 @@
+ 
+         for (int p = 0; p < nPerm; ++p) {
+             double pes = perm_es[i][p];
+-            if (pes >= obs_es) count_ge_es++;
+-            if (pes <= obs_es) count_le_es++;
++            if (pes >= obs_cmp) count_ge_es++;
++            if (pes <= obs_cmp) count_le_es++;
+             if (pes >= 0) { sum_pos_es += pes; count_pos++; }
+             else { sum_neg_es += pes; count_neg++; }
+         }
+@@ -451,6 +458,13 @@
+     #endif
+     for (int i = 0; i < n_sets; ++i) {
+         double obs_es = es[i];
++        // compare with the routine that scores the permutations (sample path)
++        double obs_cmp = obs_es;
++        if (method != "permute" && gs_sizes[i] > 0) {
++            std::vector<int> hits;
++            for (int g = 0; g < n_genes; ++g) if (gs_bools[i][g]) hits.push_back(g);
++            obs_cmp = calculate_es_sparse(gene_stats, hits, exponent);
++        }
+         
+         if (gs_sizes[i] == 0) {
+             pvalues[i] = 1.0;
+@@ -504,8 +518,8 @@
+                 }
+                 
+                 // Update counts
+-                if (perm_es >= obs_es) count_ge_es++;
+-                if (perm_es <= obs_es) count_le_es++;
++                if (perm_es >= obs_cmp) count_ge_es++;
++                if (perm_es <= obs_cmp) count_le_es++;
+                 if (perm_es >= 0) { sum_pos_es += perm_es; count_pos++; }
+                 else { sum_neg_es += perm_es; count_neg++; }
+             }
