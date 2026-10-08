@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-07T15:00:00Z",
+ "taken": "2026-10-08T06:50:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {

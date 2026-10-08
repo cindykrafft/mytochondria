@@ -25,7 +25,7 @@ The author search does not find PRs opened by maintainers that carry our commits
 number each round (search `repo:<repo> <number>`), record state changes in the kit README, and drop
 them from this list once merged or closed:
 
-- Threads a pending card depends on but we did not open (2026-10-07: YuLab-SMU/enrichit#3, scverse/scanpy#3809). Check each with its own search (`repo:<owner>/<repo>` plus words from its title); a single search OR-ing several `repo:... <number>` terms returned nothing while enrichit#3 had been closed for a day.
+- Threads a pending card depends on but we did not open (2026-10-07: YuLab-SMU/enrichit#3, scverse/scanpy#3809). Check each with its own search (`repo:<owner>/<repo>` plus words from its title); a single search OR-ing several `repo:... <number>` terms returned nothing while enrichit#3 had been closed for a day. Since 2026-10-08 `search_issues` ranks by meaning, not keywords: scanpy#3809 did not come back for its own title words, so when a thread is missing from the results, read it by number through a helper session; a miss proves nothing.
 - Our comments on maintainer-opened issues, kept in `seen.json` as kind `comment`: samtools/samtools #696
   (ST3), arq5x/bedtools2 #1142 (BT2), deeptools/deepTools #1108 (DT1) and #1118 (DT4).
 
