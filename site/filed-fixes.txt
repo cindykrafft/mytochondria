@@ -22,3 +22,4 @@ scdblfinder:145:pr:146:merged
 fastqc:212:issue:212:open
 macs2:752:pr:753:merged
 scdblfinder:147:pr:148:closed
+alphafold3:744:pr:745:closed
