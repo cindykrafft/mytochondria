@@ -7,3 +7,21 @@ nobs   hess   med.ratio ratio<0.5 ratio>2   any.warn  bad&warn  bad&nowarn
 1000   25     1.014     0         0         0         0         0        
 2500   25     1.014     0         0         0         0         0        
 5000   25     1.015     0         0         0         0         0        
+9990   25     1.014     0         0         0         0         0        
+10010  0      NA        0         0         0         0         0        
+
+The replicates with SE_hess/SE_RX outside [0.5, 2] (SE_default is what summary() prints):
+NULL
+
+Mechanism on one nobs = 9990 replicate: second differences of the deviance at the optimum
+  convergence warnings: none 
+  deviance at optimum 11435.283964 ; nobs 9990
+  delta = 0.0001 Hessian diag (theta, b0, b1) =    1131.74    1024.33    2391.11 -> SE(beta) 0.04454 0.03033
+  delta = 0.001  Hessian diag (theta, b0, b1) =    1131.74    1024.34    2391.11 -> SE(beta) 0.04454 0.03033
+  delta = 0.01   Hessian diag (theta, b0, b1) =    1131.77    1024.34    2391.12 -> SE(beta) 0.04454 0.03033
+  delta = 0.05   Hessian diag (theta, b0, b1) =    1132.65    1024.33    2391.21 -> SE(beta) 0.04454 0.03033
+  RX-based SE(beta): 0.04392 0.02872 
+  repeated evaluations of the deviance at the optimum (should be identical): 0 0 0 0 
+  deviance at optimum +/- 1e-4 in beta0: 5.27995e-06 4.96335e-06 | expected from RX curvature: 5.18e-06 
+
+done

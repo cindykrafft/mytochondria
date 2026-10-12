@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-09T13:30:00Z",
+ "taken": "2026-10-12T19:30:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -1795,22 +1795,23 @@
    "kind": "pr",
    "state": "open",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-09-26T19:32:09Z",
-   "note": "updated_at moved by a push to master (f725ca85, bbolker, 19:32:06); no comment, review, label or event; mergeable true (read in full 2026-09-27 00:48 via a helper)",
-   "status": "unanswered",
-   "whose_move": null,
+   "comments": 1,
+   "updated": "2026-10-12T16:15:50Z",
+   "note": "LM2 PR. bbolker (MEMBER) 2026-10-12 16:15 asked for a re-run on master after #1006 (PIRLS final-factorization refresh, merged 2026-10-01). Re-run the same day on 7eb89fb: 0/150 bad SEs (was 9), 0 warnings (was 10), MCVE fixed; reply drafted (audits/lme4/upstream/comment-lmr1-1000-rerun.md, card LMR1), offers to close. mergeable_state dirty (no conflict work needed if closed)",
+   "status": "in progress",
+   "whose_move": "us",
    "evidence": {
-    "quote": "no human response",
-    "author": "cindykrafft",
-    "date": "2026-09-08T16:49:59Z",
-    "url": "https://github.com/lme4/lme4/pull/1000"
+    "quote": "@cindykrafft can you re-run your tests with the latest master? I suspect that merging https://github.com/lme4/lme4/pull/1006 has resolved most of these issues ...",
+    "author": "bbolker",
+    "date": "2026-10-12T16:15:37Z",
+    "url": "https://github.com/lme4/lme4/pull/1000#issuecomment-6128138775"
    },
-   "status_checked": "2026-10-01",
+   "status_checked": "2026-10-12",
    "fixes": [
     867
    ],
-   "title": "vcov(): fall back to RX when the Hessian-based standard errors are implausible"
+   "title": "vcov(): fall back to RX when the Hessian-based standard errors are implausible",
+   "transcript": "https://claude.ai/artifact/GpSxwLT82ewr5MGJs2PwB2"
   },
   {
    "repo": "deeptools/deepTools",
@@ -2723,16 +2724,17 @@
    "merged": false,
    "comments": 1,
    "updated": "2026-09-08T16:50:46Z",
-   "status": "unanswered",
-   "whose_move": null,
+   "status": "in progress",
+   "whose_move": "us",
    "evidence": {
-    "quote": "no human response",
-    "author": "cindykrafft",
-    "date": "2026-09-08T16:49:29Z",
-    "url": "https://github.com/lme4/lme4/issues/867#issuecomment-5588717766"
+    "quote": "@cindykrafft can you re-run your tests with the latest master? I suspect that merging https://github.com/lme4/lme4/pull/1006 has resolved most of these issues ...",
+    "author": "bbolker",
+    "date": "2026-10-12T16:15:37Z",
+    "url": "https://github.com/lme4/lme4/pull/1000#issuecomment-6128138775"
    },
-   "status_checked": "2026-10-01",
-   "title": "revisit use.hess default"
+   "status_checked": "2026-10-12",
+   "title": "revisit use.hess default",
+   "note": "LM2 comment; no new activity on #867 since 2026-09-08 (read 2026-10-12); the maintainer answered on PR #1000 instead"
   },
   {
    "repo": "YuLab-SMU/clusterProfiler",
