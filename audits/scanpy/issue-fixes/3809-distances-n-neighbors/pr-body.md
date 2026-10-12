@@ -1,12 +1,19 @@
 Title: fix: keep `n_neighbors - 1` neighbors in `distances` for all kNN transformers
 
+<!-- Template updated 2026-10-09 (scanpy 0f9179e, #4407): PRs must disclose LLM use; "Pull requests that skip this section are closed without review". Second box: tick it yourself only after you have read every changed line and run the tests listed below (the scverse AI policy, https://scverse.org/about/ai_policy/, makes the submitter responsible for the code). The template asks for "the model and version": add the version you used if you want; this draft names only the tool. -->
+
+**LLM usage**
+
+- [x] LLM or coding agent used: Claude Code (Anthropic); it found the cause, wrote the fix, the tests and this description
+- [ ] If one was used, I, a human, have reviewed, understood and tested every changed line
+
 <!-- Please check (“- [x]”) and fill in the following boxes -->
 - [x] Closes #3809
 - [x] [Tests][] included or not required because: `test_distances_n_neighbors` (fails on `main`) and `test_distances_all` updated
 - [ ] [Release notes][] not necessary because: included (`docs/release-notes/<PR>.fix.md`)
 
-[tests]: https://scanpy.readthedocs.io/en/stable/dev/testing.html#writing-tests
-[release notes]: https://scanpy.readthedocs.io/en/stable/dev/documentation.html#adding-to-the-docs
+[tests]: https://scanpy.readthedocs.io/page/dev/testing.html#writing-tests
+[release notes]: https://scanpy.readthedocs.io/page/dev/documentation.html#adding-to-the-docs
 
 ### Cause
 
