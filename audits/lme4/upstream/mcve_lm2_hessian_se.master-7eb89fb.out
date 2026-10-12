@@ -1,0 +1,8 @@
+Loading required package: Matrix
+            Estimate Std. Error z value  Pr(>|z|)
+(Intercept)  -0.3859     0.3435  -1.124 2.612e-01
+x             1.2017     0.2314   5.192 2.078e-07
+        (Intercept)      x
+default      0.3435 0.2314
+RX           0.3374 0.2184
+lme4 2.1.0 | R version 4.3.3 (2024-02-29) 

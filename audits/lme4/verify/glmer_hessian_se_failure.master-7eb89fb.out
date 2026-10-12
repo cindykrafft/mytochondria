@@ -1,0 +1,9 @@
+lme4 2.1.0 from /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/rlib-lme4 
+
+25 replicates per size; Bernoulli y ~ x + (1|g), 10 obs per cluster, sd(RE) = 1.2, beta = (-0.5, 1)
+nobs   hess   med.ratio ratio<0.5 ratio>2   any.warn  bad&warn  bad&nowarn
+200    25     1.015     0         0         0         0         0        
+500    25     1.015     0         0         0         0         0        
+1000   25     1.014     0         0         0         0         0        
+2500   25     1.014     0         0         0         0         0        
+5000   25     1.015     0         0         0         0         0        
