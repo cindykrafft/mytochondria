@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-12T22:20:00Z",
+ "taken": "2026-10-14T15:00:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -2782,24 +2782,26 @@
    "repo": "samtools/samtools",
    "number": 2388,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
+   "state": "closed",
+   "merged": true,
    "comments": 4,
-   "updated": "2026-10-01T14:45:33Z",
+   "updated": "2026-10-14T13:52:52Z",
    "title": "stats: count duplicates for the same records as \"sequences\"; include isize 0 in the SD",
-   "note": "ST3 PR filed 2026-09-24; head 47d3376 after the test.pl mode fix; fork CI green; jkbonfield 2026-09-28 08:19 (edited 08:38): exclude isize 0 from the mean and SD; reworked commit prepared locally (not pushed), reply STR1 drafted; owner posted STR1 14:22 (rework not pushed yet); no maintainer answer yet; 2026-09-30 13:24 daviesrob assigned jkbonfield (no comment); jkbonfield 2026-10-01 11:01 answered STR1 (-m ignore isize 0; capped last bin question to pd3); STR2 drafted; STR2 posted 2026-10-01; 96b359b pushed",
-   "status": "in progress",
-   "whose_move": "them",
+   "note": "ST3 PR. jkbonfield (assigned 2026-09-30) asked 2026-09-28 and 2026-10-01 for isize 0 to be left out of the insert-size statistics and of -m; reworked as 96b359b (pushed 2026-10-01, fork CI green). MERGED 2026-10-14 13:52 by jkbonfield as a rebase onto develop: 847e612 + 861e2d4, changed lines identical to our branch, messages, sign-off and Assisted-by kept; no reviews, no further comment. jkbonfield's side question to pd3 about the capped last bin (--insert-size) in -m was not taken up in this PR",
+   "status": "resolved",
+   "whose_move": null,
    "evidence": {
-    "quote": "I think for consistencies sake, the -m option should ignore isize 0 too.",
+    "quote": "merged (rebase) by jkbonfield, 2026-10-14T13:52:52Z; issue #696 closed as completed by jkbonfield at 13:52:54Z",
     "author": "jkbonfield",
-    "date": "2026-10-01T11:01:22Z",
-    "url": "https://github.com/samtools/samtools/pull/2388#issuecomment-5929995017"
+    "date": "2026-10-14T13:52:52Z",
+    "url": "https://github.com/samtools/samtools/pull/2388"
    },
-   "status_checked": "2026-10-01",
+   "status_checked": "2026-10-14",
    "fixes": [
     696
-   ]
+   ],
+   "fixed_by": "samtools develop 847e612 + 861e2d4 (rebase-merge of 1776b17 + 96b359b by jkbonfield, 2026-10-14)",
+   "transcript": "https://claude.ai/artifact/2nZeCYMpe5BAmQk9p2cAKY"
   },
   {
    "repo": "usadellab/Trimmomatic",
@@ -2893,21 +2895,23 @@
    "repo": "samtools/samtools",
    "number": 696,
    "kind": "comment",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-24T16:31:19Z",
+   "updated": "2026-10-14T13:52:54Z",
    "title": "Should stats exclude supplementary alignments when counting duplicates?",
-   "note": "our comment on a maintainer-opened issue: ST3 (our comment with the reproduction; PR #2388 fixes it); not returned by the author search, checked by number (WATCH.md)",
-   "status": "in progress",
-   "whose_move": "them",
+   "note": "ST3 comment on pd3's #696 (2017). #696 closed as completed by jkbonfield 2026-10-14 13:52 when PR #2388 merged",
+   "status": "resolved",
+   "whose_move": null,
    "evidence": {
-    "quote": "What are your thoughts @pd3, given you raised the original query that this PR applies to and also I think wrote the original code.",
+    "quote": "merged (rebase) by jkbonfield, 2026-10-14T13:52:52Z; issue #696 closed as completed by jkbonfield at 13:52:54Z",
     "author": "jkbonfield",
-    "date": "2026-10-01T11:01:22Z",
-    "url": "https://github.com/samtools/samtools/pull/2388#issuecomment-5929995017"
+    "date": "2026-10-14T13:52:52Z",
+    "url": "https://github.com/samtools/samtools/pull/2388"
    },
-   "status_checked": "2026-10-01"
+   "status_checked": "2026-10-14",
+   "fixed_by": "samtools develop 847e612 + 861e2d4 (rebase-merge of 1776b17 + 96b359b by jkbonfield, 2026-10-14)",
+   "transcript": "https://claude.ai/artifact/2nZeCYMpe5BAmQk9p2cAKY"
   },
   {
    "repo": "arq5x/bedtools2",

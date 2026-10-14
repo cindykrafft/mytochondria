@@ -1,3 +1,5 @@
+_Update 2026-10-14: **PR #2388 merged** by jkbonfield at 13:52 UTC as a rebase onto develop: 847e612 (= 1776b17, duplicate counts, "Fixes #696") and 861e2d4 (= 96b359b, isize 0 out of the average, SD and `-m`), patch-ids and messages identical to our branch, sign-off and `Assisted-by:` kept; no reviews and no further comment. #696 (pd3, 2017) closed as completed at 13:52:54. Thread read in full (transcript https://claude.ai/artifact/2nZeCYMpe5BAmQk9p2cAKY). Left open upstream: jkbonfield's question to pd3 on 2026-10-01 whether the capped last bin (`--insert-size`) should count towards `-m` and the mean; our reply offered to do it after pd3 weighs in. Nothing for us to do unless asked. samtools now has two merged PRs (#2379, #2388) and no open filing._
+
 # SAMtools upstream filing kit
 
 _Default branch: **`develop`** (PRs go against it; `master` carries releases).
