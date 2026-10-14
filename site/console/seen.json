@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-14T15:00:00Z",
+ "taken": "2026-10-14T15:30:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -179,21 +179,23 @@
    "repo": "google-deepmind/alphafold3",
    "number": 746,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-10-02T11:20:05Z",
-   "note": "AF2 issue (chain_ids per token), filed 2026-09-23 16:13; 2026-10-02 ~11:20 labelled `bug` (triage); still no comment; thread re-read in full 2026-10-02 (transcript https://claude.ai/artifact/BFzVcD63Yiu3J39yjQyS7W); no fix on main",
-   "status": "in progress",
-   "whose_move": "them",
+   "comments": 1,
+   "updated": "2026-10-14T15:03:38Z",
+   "note": "AF2 issue, filed 2026-09-23; labelled bug 2026-10-02; closed as completed 2026-10-14 15:03 by Augustin-Zidek (COLLABORATOR), fixed in his own commit 97de3b2 (2026-10-12, \"Inspired by .../pull/747, thanks @cindykrafft\"; list(dict.fromkeys(token_chain_ids)), the same expression as our PR). Thread read in full; nothing to answer",
+   "status": "resolved",
+   "whose_move": null,
    "evidence": {
-    "quote": "label `bug` added to both #744 and #746 (updated_at 11:19:54 and 11:20:05; no comment, no assignee)",
-    "author": "a google-deepmind maintainer (the label event's actor is not visible through the API used)",
-    "date": "2026-10-02T11:20:05Z",
+    "quote": "Fixed in https://github.com/google-deepmind/alphafold3/commit/97de3b25ef339a3715123c02503d1750d836b10f, thank you very much for reporting and proposing a fix. I will make sure to mention you in the release notes for the next version.",
+    "author": "Augustin-Zidek",
+    "date": "2026-10-14T15:03:37Z",
     "url": "https://github.com/google-deepmind/alphafold3/issues/746"
    },
-   "status_checked": "2026-10-02",
-   "title": "`chain_ids` in `summary_confidences.json` has one entry per token, not one per chain as documented"
+   "status_checked": "2026-10-14",
+   "title": "`chain_ids` in `summary_confidences.json` has one entry per token, not one per chain as documented",
+   "fixed_by": "97de3b25ef339a3715123c02503d1750d836b10f",
+   "transcript": "https://claude.ai/artifact/FSgmbbuXbYZM8LWyisKKS2"
   },
   {
    "repo": "fieldtrip/fieldtrip",
@@ -1262,24 +1264,26 @@
    "repo": "google-deepmind/alphafold3",
    "number": 747,
    "kind": "pr",
-   "state": "open",
+   "state": "closed",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-09-23T16:14:04Z",
-   "note": "AF2 PR (fix/summary-confidences-chain-ids, one line), filed 2026-09-23 16:14; CLA check to watch; merges clean into main a66cc52; 2026-10-02: still no comment or review; mergeable_state unstable (a status check not green; not readable from here); the issue it fixes was labelled bug",
-   "status": "in progress",
-   "whose_move": "them",
+   "comments": 1,
+   "updated": "2026-10-14T15:03:47Z",
+   "note": "AF2 PR (fix/summary-confidences-chain-ids @ 07505f9); closed unmerged 2026-10-14 15:03 by Augustin-Zidek, who applied the same fix as 97de3b2 with credit and promised a release-notes mention (as #734 and AF1). No reviews, no bot comments",
+   "status": "resolved",
+   "whose_move": null,
    "evidence": {
-    "quote": "label `bug` added to both #744 and #746 (updated_at 11:19:54 and 11:20:05; no comment, no assignee)",
-    "author": "a google-deepmind maintainer (the label event's actor is not visible through the API used)",
-    "date": "2026-10-02T11:20:05Z",
-    "url": "https://github.com/google-deepmind/alphafold3/issues/746"
+    "quote": "Fixed in https://github.com/google-deepmind/alphafold3/commit/97de3b25ef339a3715123c02503d1750d836b10f, thank you very much for reporting and proposing a fix. I will make sure to mention you in the release notes for the next version.",
+    "author": "Augustin-Zidek",
+    "date": "2026-10-14T15:03:46Z",
+    "url": "https://github.com/google-deepmind/alphafold3/pull/747"
    },
-   "status_checked": "2026-10-02",
+   "status_checked": "2026-10-14",
    "fixes": [
     746
    ],
-   "title": "Make summary_confidences chain_ids one entry per chain"
+   "title": "Make summary_confidences chain_ids one entry per chain",
+   "fixed_by": "97de3b25ef339a3715123c02503d1750d836b10f",
+   "transcript": "https://claude.ai/artifact/FSgmbbuXbYZM8LWyisKKS2"
   },
   {
    "repo": "fieldtrip/website",
