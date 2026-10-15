@@ -61,10 +61,10 @@ support site cannot be reached from this session and **must be searched before p
 | file | what |
 |---|---|
 | `issue-li1-arrayweights-reml-convergence.md` | the support-site post for LI1 (Title line + body), example run on 3.68.5 and devel |
-| `0001-arrayWeights-fix-the-convergence-criterion-of-the-pr.patch` | LI1 fix (`src/awreml.c`) + test + changelog/NEWS against `devel` @ `57a8de72` (`git am`-clean) |
+| `0001-arrayWeights-fix-the-convergence-criterion-of-the-pr.patch` | LI1 fix (`src/awreml.c`) + test + changelog/NEWS against `devel` @ `02a9dbd` (3.99.2; refreshed 2026-10-15: only the R file's "Last revised" comment conflicted, and the changelog bullet moved under a new "15 Oct 2026: limma 3.99.3" heading above 3.99.1; `git am`-clean; the new test fails on unpatched 3.99.2 and passes with the patch, see `../verify/li1_test.devel-3.99.2.out`) |
 | `0001-arrayWeights-fix-the-convergence-criterion.RELEASE_3_23.patch` | LI1 fix (`R/arrayWeightsPrWtsREML.R`) + test + changelog against `RELEASE_3_23` @ `825d1c83` (CRLF branch: `git am --keep-cr`) |
 | `issue-li2-voom-offset-double-count.md` | the support-site post for LI2 |
-| `0002-voom-give-an-edgeR-style-offset-precedence-over-lib.size.patch` | LI2 change (`R/voom.R`, `man/voom.Rd`) + test + changelog/NEWS against `devel`, on top of 0001 |
+| `0002-voom-give-an-edgeR-style-offset-precedence-over-lib.size.patch` | LI2 change (`R/voom.R`, `man/voom.Rd`) + test + changelog/NEWS against `devel`, on top of 0001. **2026-10-15: stale on 3.99.2**: devel's `voom()` now prints "voomLmFit is now recommended over voom" (3.99.1, 8 Oct), so the header comment and changelog conflict; refresh before sending, and weigh LI2 against the deprecation. |
 | `pr-bodies.md` | the notes accompanying the patches, in the kit's fixed PR-body format |
 
 ## Verification of the patches

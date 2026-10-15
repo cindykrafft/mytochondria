@@ -1,0 +1,7 @@
+# tests/arrayweights-reml.R on limma devel 3.99.2 (02a9dbd), R 4.3.3, 2026-10-15
+## base (unpatched)
+Error: isTRUE(all.equal(w0, w1, tolerance = 1e-10, check.attributes = FALSE)) is not TRUE
+Execution halted
+exit status: 1
+## pat (with 0001 refreshed on 02a9dbd)
+exit status: 0
