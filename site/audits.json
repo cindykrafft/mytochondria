@@ -530,6 +530,9 @@
  "audit_repo": "cindykrafft/mytochondria",
  "declines_topic": "upstream-declines-ai-contributions",
  "exclude_owners": [
-  "google"
+  "google",
+  "microsoft",
+  "NousResearch",
+  "react"
  ]
 }
