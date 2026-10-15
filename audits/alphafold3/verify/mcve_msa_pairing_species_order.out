@@ -1,0 +1,9 @@
+== main (google-deepmind/alphafold3 main 045ffa4)
+numpy 2.4.6: species_ids.argsort() (the grouping on main) puts the rows of 400 of 400 chain-A species out of MSA order
+paired rows: 2995; chain-A rows paired with a different chain-B row than documented: 2835
+paired chain-A rows from the MSA top 100: 34 (documented pairing: 99)
+== msa (fix/msa-pairing-stable-sort b1a600e)
+numpy 2.4.6: species_ids.argsort() (the grouping on main) puts the rows of 400 of 400 chain-A species out of MSA order
+paired rows: 2995; chain-A rows paired with a different chain-B row than documented: 0
+paired chain-A rows from the MSA top 100: 99 (documented pairing: 99)
+# 2026-10-15; duplicate of PR #761 (YMuskrat, 2026-10-14), not to be filed

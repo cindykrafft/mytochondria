@@ -41,3 +41,17 @@ This de-duplicates `token_chain_ids` keeping first-appearance order, which is th
 **Testing.** No unit test covers `confidence_types.py`; two scripts drive `from_inference_result` directly and check `len(chain_ids) == len(chain_ptm)`: a constructor-driven one (chains A with 3 tokens and B with 2: `['A', 'A', 'A', 'B', 'B']` before, `['A', 'B']` after) and one on `test_data/alphafold_run_outputs/run_alphafold_test_output_bucket_default.pkl` (150 entries before, `['P', 'LL']` after). Both are in the issue. The field is written by `write_outputs` only and nothing in the repository reads it back, so no other output changes. No model run was made for it.
 
 **AI generation.** The analysis, the patch and this description were produced with Claude Code. I have reviewed the diff and run the two scripts above myself before opening this PR.
+
+---
+
+### PR 3 — `docs/performance-rna-z-value-and-continuation` — "Document the RNA Z-value in megabases and fix the example's line continuation"
+
+Two fixes to the sharded-databases section of `docs/performance.md`:
+
+1. The text asks users to save "the total number of nucleic bases in the RNA databases" for the RNA Z-value. Jackhmmer's `-Z` is a number of sequences, but Nhmmer's `-Z` is a database size in megabases ("set database size (Megabases) to <x> for E-value calculations"). The example values on the same page are already in megabases (`--rna_central_z_value=13271.415730` for about 13.3 Gb). #557 shows the same confusion: the answer there says "megabases" and also "the total length of all sequences". Following the prose gives a Z-value a million times too large, which inflates every RNA E-value by that factor, so hits are dropped from the RNA MSA without any warning. The text now asks for megabases and says why the units differ.
+2. The `--rna_central_z_value=13271.415730` line of the example command has no trailing backslash. `run_alphafold.py` therefore starts without the four flags after it (`--jackhmmer_n_cpu`, `--jackhmmer_max_parallel_shards`, `--nhmmer_n_cpu`, `--nhmmer_max_parallel_shards`), and the shell then tries to run those lines as a separate command.
+
+Documentation only; no code or test changes.
+
+**AI generation.** The analysis, the patch and this description were produced with Claude Code. I have reviewed the diff myself before opening this PR.
+

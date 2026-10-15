@@ -1,0 +1,7 @@
+== main (google-deepmind/alphafold3 main 045ffa4)
+98 of 128 key slots padded (zero features, zero pair logits); softmax mass on padded keys per valid query: mean 0.666, max 0.777
+max change in the valid queries' output when only padded keys change: 0.00366
+== mainfix (main 045ffa4 + fix/cross-attention-key-mask (a1544f5))
+98 of 128 key slots padded (zero features, zero pair logits); softmax mass on padded keys per valid query: mean 0.000, max 0.000
+max change in the valid queries' output when only padded keys change: 0
+# jax 0.10.2 haiku 0.0.17 numpy 2.4.6, CPU, 2026-10-15
