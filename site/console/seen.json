@@ -1,7 +1,75 @@
 {
- "taken": "2026-10-14T15:30:00Z",
+ "taken": "2026-10-15T04:45:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
+  {
+   "repo": "macs3-project/MACS",
+   "number": 778,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 1,
+   "updated": "2026-10-15T03:53:55Z",
+   "note": "MC2 documentation request (P(X > t) convention), filed 2026-10-15 01:57; reply MCR1 drafted (agrees, gives the P(X >= n) idiom, offers a one-sentence docs PR or to close)",
+   "status": "in progress",
+   "whose_move": "us",
+   "evidence": {
+    "quote": "I believe from the first version of MACS, we built this `poisson_cdf(n, lam, lower=False)` to mimic the R `ppois(t, lambda,lower.tail = F)`, basically when lower.tail is false, the return is the P(X > t).",
+    "author": "taoliu",
+    "date": "2026-10-15T03:53:55Z",
+    "url": "https://github.com/macs3-project/MACS/issues/778#issuecomment-6184011692"
+   },
+   "status_checked": "2026-10-15",
+   "title": "Documentation request: MACS p-values are P(X > t), one probability atom below the standard discrete p-value P(X >= t)",
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU"
+  },
+  {
+   "repo": "macs3-project/MACS",
+   "number": 777,
+   "kind": "pr",
+   "state": "closed",
+   "merged": true,
+   "comments": 0,
+   "updated": "2026-10-15T03:14:10Z",
+   "note": "MC3 PR from cindykrafft:MACS fix/poisson-lower-tail-init (41daed5); merged without comment or review",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Merge pull request #777 from cindykrafft/fix/poisson-lower-tail-init",
+    "author": "taoliu",
+    "date": "2026-10-15T03:14:10Z",
+    "url": "https://github.com/macs3-project/MACS/pull/777"
+   },
+   "status_checked": "2026-10-15",
+   "title": "Prob: restore the k=0 term in the large-lambda lower-tail Poisson CDF",
+   "fixes": [
+    776
+   ],
+   "fixed_by": "#777 merged 2026-10-15 03:14 by taoliu (merge commit 6ee514d; our 41daed5 unchanged)",
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU"
+  },
+  {
+   "repo": "macs3-project/MACS",
+   "number": 776,
+   "kind": "issue",
+   "state": "closed",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-15T03:14:11Z",
+   "note": "MC3 issue (k=0 term dropped in __poisson_cdf_large_lambda), filed 2026-10-15 01:56; closed by the merge of #777",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Merge pull request #777 from cindykrafft/fix/poisson-lower-tail-init",
+    "author": "taoliu",
+    "date": "2026-10-15T03:14:10Z",
+    "url": "https://github.com/macs3-project/MACS/pull/777"
+   },
+   "status_checked": "2026-10-15",
+   "title": "__poisson_cdf_large_lambda drops the k=0 term (was summed from uninitialized memory in the MACS2 2.x releases)",
+   "fixed_by": "#777 merged 2026-10-15 03:14 by taoliu (merge commit 6ee514d; our 41daed5 unchanged)",
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU"
+  },
   {
    "repo": "s-andrews/FastQC",
    "number": 212,

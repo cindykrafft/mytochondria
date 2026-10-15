@@ -1,5 +1,7 @@
 # Upstream filing kit — MACS
 
+_Update 2026-10-15: MC3 and MC2 filed by the owner 2026-10-15 01:56-01:57 UTC as #776 + PR #777 and #778. **MC3 resolved**: taoliu merged PR #777 at 03:14 (merge commit 6ee514d, our 41daed5 unchanged, no comment or review) and the merge closed #776. **MC2**: taoliu replied on #778 at 03:53 that `poisson_cdf(n, lam, lower=False)` was built to mimic R's `ppois(t, lambda, lower.tail = F)`, i.e. P(X > t). Reply drafted in `comment-mcr1-778-ppois.md` (agrees, gives the P(X >= n) idiom, offers a one-sentence docs PR or to close). Threads read in full the same day: https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU._
+
 _Update 2026-10-04: MC1 resolved. taoliu (maintainer) approved and merged PR #753 on 2026-10-03 05:22 UTC (merge commit 6dbd9a2, our ed436c1 unchanged) and closed #752 ("Thanks for reporting and submitting the PR #753 !", 05:24). Thread read in full: https://claude.ai/artifact/8bDqeoHHostZ2Y9wAf32mm. MC3 (issue + PR) and MC2 move to Do next._
 
 _Update 2026-10-02 18:50: MC1 filed by the owner as #752 with PR #753 (14:40 UTC); fork CI on ed436c1 green (x64, macOS, non-x64, Sphinx). MC3 and MC2 wait for a reply on it._
