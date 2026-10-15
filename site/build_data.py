@@ -68,8 +68,10 @@ for kind in ("issue", "pr"):
         repo = it["repository_url"].split("/repos/")[1]
         owner = repo.split("/")[0].lower()
         if owner == AUTHOR.lower() or owner in EXCLUDE: continue
+        if repo.lower() not in repo_to_audit:
+            # Outside the audit (the author's other open-source work): left out of the page entirely.
+            unmapped.add(repo); continue
         s = slim(it, kind)
-        if repo.lower() not in repo_to_audit: unmapped.add(repo)
         s["audit"] = repo_to_audit.get(repo.lower())
         items.append(s)
 items.sort(key=lambda x: x["created"])
@@ -88,7 +90,7 @@ read = max((x.get("status_checked") or "" for x in classified), default=None)
 ledger_out = dict(read=read, findings=findings,
                   unread=[[s["repo"], s["number"]] for s in items if s["ledger"] is None])
 out = {"generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "author": AUTHOR, "since": SINCE,
-       "audits": cfg["audits"], "audit_repo": cfg["audit_repo"], "declines_topic": TOPIC, "items": items, "unmapped_repos": sorted(unmapped),
+       "audits": cfg["audits"], "audit_repo": cfg["audit_repo"], "declines_topic": TOPIC, "items": items, "unmapped_count": len(unmapped),
        "ledger": ledger_out}
 json.dump(out, open(os.path.join(HERE, "data.json"), "w"), indent=1)
-print(f"{len(items)} items across {len({i['repo'] for i in items})} repositories; unmapped: {sorted(unmapped)}", file=sys.stderr)
+print(f"{len(items)} items across {len({i['repo'] for i in items})} repositories; {len(unmapped)} repositories outside the audit left out", file=sys.stderr)

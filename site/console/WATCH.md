@@ -32,8 +32,9 @@ them from this list once merged or closed:
 Scope: only the scientific-software audit. The author's other open-source work (the `google`
 organisation: googletest, gson, guava, filament, comprehensive-rust, ...) is not part of it and is
 neither searched nor recorded; `google-deepmind/alphafold3` is a different organisation and is in
-scope. Since 2026-10-15 the author also files in microsoft/vscode, react/react and NousResearch/hermes-agent; those
-owners are excluded the same way. Anything else the search returns from a repository outside `../audits.json` is left out
+scope. Since 2026-10-15 the author also files in many other projects (vscode, react, youtube-dl, AutoGPT, ...); `build_data.py`
+now drops every repository that is not in the audit map of `../audits.json`, so a new audit repository must be
+mapped there before its filings appear on the status page. Anything else the search returns from a repository outside `../audits.json` is left out
 of `seen.json` and the report. The public status page applies the same rule through
 `exclude_owners` in `../audits.json`; add an owner there too when one is excluded here.
 
