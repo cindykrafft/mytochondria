@@ -46,7 +46,7 @@ ol.actions>li.action{list-style:none}ol.actions>li.action>.eyebrow.tier{margin:1
 <main>
   <p class="eyebrow">Mytochondria · thirty-one packages · Do-next list updated 2026-09-24 13:10 UTC</p>
   <h1>Mytochondria Filing Console</h1>
-  <p class="lede">The first section is the ordered list of what to do next, then what waits for a maintainer's signal. Below that, one section per repository, newest first. Each section is split into what to file now, comments on issues the maintainers already have open, what is filed, and what is held back until a maintainer gives a positive signal. Where a finding matches an issue that is already open, the card opens that issue and the text is a comment to paste. The Cutadapt, umap-learn and CellPhoneDB sections carry what was filed on 2026-09-03. Each button opens GitHub with the form prefilled where the text fits in a URL; where it does not, the button opens the form with the title only and the Copy button carries the body. Repositories you have not forked yet show their PR steps greyed out: fork them and tell me, and I will push the branches. Scrublet's original repository is skipped as unmaintained (last commit 2020, open issues unanswered).</p>
+  <p class="lede">The first section is the ordered list of what to do next, then what waits for a maintainer's signal. Below that, one section per repository, newest first. Each section is split into what to file now, comments on issues the maintainers already have open, and what is held back until a maintainer gives a positive signal; anything already filed is left out of the cards and followed in the Ledger, and a repository with nothing left to file has no section. Where a finding matches an issue that is already open, the card opens that issue and the text is a comment to paste. Each button opens GitHub with the form prefilled where the text fits in a URL; where it does not, the button opens the form with the title only and the Copy button carries the body. Repositories you have not forked yet show their PR steps greyed out: fork them and tell me, and I will push the branches. Scrublet's original repository is skipped as unmaintained (last commit 2020, open issues unanswered).</p>
   <div id="root"></div>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -177,7 +177,12 @@ function ledgerSection(){
 function render(){
   const root=document.getElementById("root"); root.innerHTML="";
   const taken=new Set();
-  const actionCards=ACT.actions.map((a,n)=>{
+  // Already-filed items are not shown anywhere except the Ledger (owner's request 2026-10-17).
+  const isFiled=a=>{ if(a.kind==="fix"){ const f=FX.find(x=>x.pkg===a.pkg&&x.issue===a.issue); return !f||!!f.filed; }
+    if(a.kind==="note") return false; const r=D[a.key]; if(!r) return true;
+    const it=(a.kind==="issue"?r.issues:r.prs).find(x=>x.id===a.id); return !it||it.tier==="filed"; };
+  const ACTS=ACT.actions.filter(a=>!isFiled(a));
+  const actionCards=ACTS.map((a,n)=>{
     let inner="";
     if (a.kind==="fix"){ const f=FX.find(x=>x.pkg===a.pkg&&x.issue===a.issue); if(!f) return ""; taken.add("fix|"+a.pkg+"|"+a.issue); inner=fixCard(f); }
     else if (a.kind==="note"){ inner=`<li class="card"><header><h3>${esc(a.title)}</h3></header>${a.text?`<div class="actions">${a.link?`<a class="btn primary" href="${esc(a.link)}" target="_blank" rel="noopener">Open thread ↗</a>`:""}<button data-notecopy="${n}">Copy text</button></div><details open><summary>Text to paste</summary><div class="field"><pre class="body">${esc(a.text)}</pre></div></details>`:(a.link?`<div class="actions"><a class="btn primary" href="${esc(a.link)}" target="_blank" rel="noopener">Open ↗</a></div>`:"")}</li>`; }
@@ -186,10 +191,10 @@ function render(){
   }).join("");
   const waiting=ACT.waiting.map(w=>Array.isArray(w)?`<li><strong>${esc(w[0])}</strong> — until ${esc(w[1])}</li>`:`<li>${esc(w)}</li>`).join("");
   const top=document.createElement("section");
-  top.innerHTML=`<h2 class="repo">Do next <span class="eyebrow">in order · ${ACT.actions.length}</span></h2><div class="guide"><span class="eyebrow">how this list is made</span><br>One fix per repository at a time; a second only where the first was accepted. Nothing new on a repository with two unanswered filings, nothing at all where the maintainers decline AI-generated contributions, and comments on threads the maintainers keep open are exempt from the cap.</div><ol class="steps actions">${actionCards}</ol><details class="tier-held" open><summary>Waiting for a signal · ${ACT.waiting.length}</summary><ul class="waiting">${waiting}</ul></details>`;
+  top.innerHTML=`<h2 class="repo">Do next <span class="eyebrow">in order · ${ACTS.length}</span></h2><div class="guide"><span class="eyebrow">how this list is made</span><br>One fix per repository at a time; a second only where the first was accepted. Nothing new on a repository with two unanswered filings, nothing at all where the maintainers decline AI-generated contributions, and comments on threads the maintainers keep open are exempt from the cap.</div><ol class="steps actions">${actionCards}</ol><details class="tier-held" open><summary>Waiting for a signal · ${ACT.waiting.length}</summary><ul class="waiting">${waiting}</ul></details>`;
   root.appendChild(top);
   root.appendChild(ledgerSection());
-  const FXrest=FX.filter(f=>!taken.has("fix|"+f.pkg+"|"+f.issue));
+  const FXrest=FX.filter(f=>!f.filed&&!taken.has("fix|"+f.pkg+"|"+f.issue));
   if (FXrest.length){
     const sec=document.createElement("section");
     sec.innerHTML=`<h2 class="repo">Fixes for the projects' own open issues <span class="eyebrow">README step 6 · ${FXrest.length}</span></h2><div class="guide"><span class="eyebrow">what this is</span><br>Each card answers a bug a user or maintainer already reported: what is filed, what is held, and what cannot be filed. Cards on the Do-next list above are not repeated here.</div><ol class="steps">${FXrest.map(fixCard).join("")}</ol>`;
@@ -205,6 +210,8 @@ function render(){
     for (const i of r.issues){ if(!taken.has("issue|"+key+"|"+i.id)) buckets[i.tier].push(issueCard(r,key,i)); for (const p of r.prs) if (p.needs===i.id && !taken.has("pr|"+key+"|"+p.id)) buckets[p.tier].push(prCard(r,key,p)); }
     for (const p of r.prs) if (!r.issues.some(i=>i.id===p.needs) && !taken.has("pr|"+key+"|"+p.id)) buckets[p.tier].push(prCard(r,key,p));
     for (const d of (r.discussions||[])) buckets[d.tier||"held"].push(discCard(r,key,d));
+    buckets.filed=[];
+    if (!buckets.now.length&&!buckets.comment.length&&!buckets.held.length) continue;
     for (const [t,label,why] of TIERS){
       const items=buckets[t]; if (!items.length) continue;
       const inner=`<p class="eyebrow tier">${esc(label)} · ${items.length}</p>${why?`<p class="hint" style="margin:0 0 8px">${esc(why)}</p>`:""}<ol class="steps">${items.join("")}</ol>`;
@@ -212,7 +219,7 @@ function render(){
     }
     sec.innerHTML=h; root.appendChild(sec);
   }
-  root.querySelectorAll("[data-notecopy]").forEach(b=>b.addEventListener("click",()=>copy(ACT.actions[+b.dataset.notecopy].text)));
+  root.querySelectorAll("[data-notecopy]").forEach(b=>b.addEventListener("click",()=>copy(ACTS[+b.dataset.notecopy].text)));
   root.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>{ const [k,kind,id]=b.dataset.copy.split("|"); const r=D[k];
     if(kind==="issue"){ const i=r.issues.find(x=>x.id===id); copy(i.existing?i.body:issueText(i)); }
     else if(kind==="disc"){ copy(r.discussions.find(x=>x.id===id).body); }
