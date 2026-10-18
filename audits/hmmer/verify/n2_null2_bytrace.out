@@ -1,0 +1,11 @@
+# n2_null2_bytrace on /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/audit-hmmer/hmmer (HMMER 3.5 (July 2026); http://hmmer.org/)
+TEST1 fn3: domains without insert states: 562, SSE != generic in 0 (max |log odds diff| 3.8e-07)
+TEST1 fn3: domains with insert states:    469, SSE != generic in 469 (max |log odds diff| 1.2)
+TEST2 fn3: 25 sequences, 25 with clustered regions, 27 clustered regions re-derived; per-residue null2 scores compared: 2356
+TEST2 fn3: library n2sc == loop as written (residue sqfrom counted outside): 2356/2356 residues (max diff 0)
+TEST2 fn3: library n2sc == stated rule (sqfrom..sqto counted inside):       1444/2356 residues (max diff 0.29)
+TEST1 Pkinase: domains without insert states: 289, SSE != generic in 0 (max |log odds diff| 5.2e-07)
+TEST1 Pkinase: domains with insert states:    784, SSE != generic in 784 (max |log odds diff| 0.81)
+TEST2 Pkinase: 33 sequences, 33 with clustered regions, 34 clustered regions re-derived; per-residue null2 scores compared: 7825
+TEST2 Pkinase: library n2sc == loop as written (residue sqfrom counted outside): 7825/7825 residues (max diff 0)
+TEST2 Pkinase: library n2sc == stated rule (sqfrom..sqto counted inside):       5766/7825 residues (max diff 0.13)

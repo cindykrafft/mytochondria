@@ -2,11 +2,14 @@
 ## with scoreType "pos" (unconditional tail) and "std" (default), and writes p-values and log2err.
 ## Usage: R_LIBS=<fgsea lib>:<deps lib> Rscript v3_dp_tail.R <dir> <label> [reps]
 args <- commandArgs(TRUE); d <- args[1]; label <- args[2]; REPS <- if (length(args) > 2) as.integer(args[3]) else 20
+## optional 4th argument "skipES1": leave out the sets with ES = 1 (fgsea 1.20/1.30 do not return on them, see v6_es1_hang)
+skipES1 <- length(args) > 3 && args[4] == "skipES1"
 suppressPackageStartupMessages({library(fgsea); library(jsonlite); library(BiocParallel)})
 spec <- fromJSON(file.path(d, "v3_spec.json"), simplifyVector = FALSE)
 stats <- setNames(unlist(spec$stats), unlist(spec$names))
 out <- list(version = as.character(packageVersion("fgsea")), reps = REPS, sets = list())
 for (st in spec$sets) {
+    if (skipES1 && abs(st$ES_ref - 1) < 1e-12) next
     pw <- list(P = names(stats)[unlist(st$pos) + 1])
     rec <- list()
     for (typ in c("pos", "std")) {

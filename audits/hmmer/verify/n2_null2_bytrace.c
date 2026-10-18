@@ -65,7 +65,11 @@ main(int argc, char **argv)
 
   setvbuf(stdout, NULL, _IONBF, 0);
   impl_Init();
+#ifdef HM_PRE34   /* 3.3.2 and earlier: three-argument p7_hmmfile_Open() */
+  if (p7_hmmfile_Open(hmmfile, NULL, &hfp) != eslOK) p7_Fail("open %s", hmmfile);
+#else
   if (p7_hmmfile_Open(hmmfile, NULL, &hfp, NULL) != eslOK) p7_Fail("open %s", hmmfile);
+#endif
   if (p7_hmmfile_Read(hfp, &abc, &hmm)           != eslOK) p7_Fail("read %s", hmmfile);
   bg   = p7_bg_Create(abc);  p7_bg_SetLength(bg, L);
   gm   = p7_profile_Create(hmm->M, abc);
@@ -126,7 +130,11 @@ main(int argc, char **argv)
         fwd = p7_omx_Create(hmm->M, Lt, Lt);  bck = p7_omx_Create(hmm->M, Lt, Lt);
         p7_ForwardParser (big->dsq, Lt, om, oxf, &fwdsc);
         p7_BackwardParser(big->dsq, Lt, om, oxf, oxb, NULL);
+#ifdef HM_PRE32   /* 3.1b2: no <ntsq> argument */
+        p7_domaindef_ByPosteriorHeuristics(big, om, oxf, oxb, fwd, bck, ddef, bg, FALSE, NULL, NULL, NULL);
+#else
         p7_domaindef_ByPosteriorHeuristics(big, NULL, om, oxf, oxb, fwd, bck, ddef, bg, FALSE, NULL, NULL, NULL);
+#endif
         nseq++;
         n2_rule = realloc(n2_rule, sizeof(float) * (Lt+1));
         n2_code = realloc(n2_code, sizeof(float) * (Lt+1));
