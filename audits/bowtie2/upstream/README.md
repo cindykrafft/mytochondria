@@ -1,3 +1,5 @@
+_Update 2026-10-18: BW2 filed by the owner 2026-10-17 21:45 UTC as #538 with PR #539 (fix/xs-for-unpaired-mates). With BW1 (#532 / PR #533) that is the two-filing cap; BW3 and BW4 wait for a reply._
+
 # Bowtie 2 upstream filing kit
 
 _Default branch: **`master`** (PRs go against it). Prepared 2026-09-24 against

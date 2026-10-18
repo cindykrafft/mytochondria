@@ -1,7 +1,91 @@
 {
- "taken": "2026-10-17T18:50:00Z",
+ "taken": "2026-10-18T01:05:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
+  {
+   "repo": "BenLangmead/bowtie2",
+   "number": 539,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-17T21:45:37Z",
+   "note": "BW2 PR from cindykrafft:bowtie2 fix/xs-for-unpaired-mates, filed 2026-10-17 21:45; fork has no Actions",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-10-17T21:45:37Z",
+    "url": "https://github.com/BenLangmead/bowtie2/pull/539"
+   },
+   "status_checked": null,
+   "title": "Report XS:i for mates aligned as unpaired alignments",
+   "fixes": [
+    538
+   ]
+  },
+  {
+   "repo": "BenLangmead/bowtie2",
+   "number": 538,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-17T21:45:17Z",
+   "note": "BW2 issue (XS:i missing on YT:Z:UP mates), filed by the owner 2026-10-17 21:45",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-10-17T21:45:17Z",
+    "url": "https://github.com/BenLangmead/bowtie2/issues/538"
+   },
+   "status_checked": null,
+   "title": "XS:i is never printed for a mate reported as an unpaired alignment (YT:Z:UP), even when it has a second-best alignment and MAPQ 0/1"
+  },
+  {
+   "repo": "google-deepmind/alphafold3",
+   "number": 767,
+   "kind": "pr",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-17T21:44:00Z",
+   "note": "AF13 docs PR (RNA Z-value in megabases; missing backslash in the example), branch docs/performance-rna-z-value-and-continuation, filed by the owner 2026-10-17 21:44; no issue",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-10-17T21:44:00Z",
+    "url": "https://github.com/google-deepmind/alphafold3/pull/767"
+   },
+   "status_checked": null,
+   "title": "Document the RNA Z-value in megabases and fix the example's line continuation",
+   "fixes": []
+  },
+  {
+   "repo": "google-deepmind/alphafold3",
+   "number": 768,
+   "kind": "issue",
+   "state": "open",
+   "merged": false,
+   "comments": 0,
+   "updated": "2026-10-17T21:53:29Z",
+   "note": "AF3 issue (cross_attention mask terms multiplied; padded keys unmasked for inputs under 128 atoms), filed by the owner 2026-10-17 21:53; no PR (branch offered)",
+   "status": "unanswered",
+   "whose_move": null,
+   "evidence": {
+    "quote": "no human response",
+    "author": null,
+    "date": "2026-10-17T21:53:29Z",
+    "url": "https://github.com/google-deepmind/alphafold3/issues/768"
+   },
+   "status_checked": null,
+   "title": "`cross_attention` multiplies the query and key mask terms, so padded keys are never masked (inputs with fewer than 128 atoms)"
+  },
   {
    "repo": "macs3-project/MACS",
    "number": 778,
