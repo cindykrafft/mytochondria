@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-18T02:05:00Z",
+ "taken": "2026-10-18T04:40:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -94,20 +94,20 @@
    "kind": "issue",
    "state": "open",
    "merged": false,
-   "comments": 2,
-   "updated": "2026-10-17T21:42:38Z",
-   "note": "MC2 documentation request (P(X > t) convention), filed 2026-10-15 01:57; reply MCR1 posted by the owner 2026-10-17 21:42 (agrees, gives the P(X >= n) idiom, offers a one-sentence docs PR or to close); waiting on taoliu",
+   "comments": 3,
+   "updated": "2026-10-18T04:10:13Z",
+   "note": "MC2 documentation request (P(X > t) convention), filed 2026-10-15 01:57; reply MCR1 posted by the owner 2026-10-17 21:42 (agrees, gives the P(X >= n) idiom, offers a one-sentence docs PR or to close); waiting on taoliu | 2026-10-18 04:10 taoliu invites a docs PR; branch docs/pvalue-tail-convention pushed to the fork, PR body ready (MCD1).",
    "status": "in progress",
-   "whose_move": "them",
+   "whose_move": "us",
    "evidence": {
-    "quote": "I believe from the first version of MACS, we built this `poisson_cdf(n, lam, lower=False)` to mimic the R `ppois(t, lambda,lower.tail = F)`, basically when lower.tail is false, the return is the P(X > t).",
+    "quote": "Sure! To update the document with a clear explanation would be great! Happy to receive a PR from you on this! Thank you in advance!",
     "author": "taoliu",
-    "date": "2026-10-15T03:53:55Z",
-    "url": "https://github.com/macs3-project/MACS/issues/778#issuecomment-6184011692"
+    "date": "2026-10-18T04:10:13Z",
+    "url": "https://github.com/macs3-project/MACS/issues/778#issuecomment-6245514148"
    },
    "status_checked": "2026-10-18",
    "title": "Documentation request: MACS p-values are P(X > t), one probability atom below the standard discrete p-value P(X >= t)",
-   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU"
+   "transcript": "https://claude.ai/code/artifact/371dd757-fc21-45a4-aea0-566f4ae06dfb"
   },
   {
    "repo": "macs3-project/MACS",
