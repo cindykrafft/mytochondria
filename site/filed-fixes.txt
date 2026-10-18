@@ -28,3 +28,4 @@ macs2:776:pr:777:merged
 bowtie2:538:pr:539:open
 alphafold3:768:issue:768:open
 alphafold3:767:pr:767:open
+macs2:778:pr:789:merged

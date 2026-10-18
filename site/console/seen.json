@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-18T04:40:00Z",
+ "taken": "2026-10-18T18:46:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -92,22 +92,22 @@
    "repo": "macs3-project/MACS",
    "number": 778,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 3,
-   "updated": "2026-10-18T04:10:13Z",
-   "note": "MC2 documentation request (P(X > t) convention), filed 2026-10-15 01:57; reply MCR1 posted by the owner 2026-10-17 21:42 (agrees, gives the P(X >= n) idiom, offers a one-sentence docs PR or to close); waiting on taoliu | 2026-10-18 04:10 taoliu invites a docs PR; branch docs/pvalue-tail-convention pushed to the fork, PR body ready (MCD1).",
-   "status": "in progress",
-   "whose_move": "us",
+   "updated": "2026-10-18T05:12:13Z",
+   "note": "MC2 documentation request (P(X > t) convention), filed 2026-10-15 01:57; reply MCR1 posted by the owner 2026-10-17 21:42 (agrees, gives the P(X >= n) idiom, offers a one-sentence docs PR or to close); waiting on taoliu | 2026-10-18 04:10 taoliu invites a docs PR; branch docs/pvalue-tail-convention pushed to the fork, PR body ready (MCD1). | RESOLVED 2026-10-18 05:12: our docs PR #789 merged by taoliu (6039a68, our 3829850 unchanged), #778 closed as completed by the merge.",
+   "status": "resolved",
+   "whose_move": null,
    "evidence": {
-    "quote": "Sure! To update the document with a clear explanation would be great! Happy to receive a PR from you on this! Thank you in advance!",
+    "quote": "Thank you!",
     "author": "taoliu",
-    "date": "2026-10-18T04:10:13Z",
-    "url": "https://github.com/macs3-project/MACS/issues/778#issuecomment-6245514148"
+    "date": "2026-10-18T05:12:16Z",
+    "url": "https://github.com/macs3-project/MACS/pull/789#issuecomment-6245982094"
    },
    "status_checked": "2026-10-18",
    "title": "Documentation request: MACS p-values are P(X > t), one probability atom below the standard discrete p-value P(X >= t)",
-   "transcript": "https://claude.ai/code/artifact/371dd757-fc21-45a4-aea0-566f4ae06dfb"
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU"
   },
   {
    "repo": "macs3-project/MACS",
@@ -3225,6 +3225,27 @@
    ],
    "fixed_by": "plger on devel: e7a0406 + 34368ed + 6b3ecdf (2026-10-04), his own approach after our follow-up; verified verify-6b3ecdf.R",
    "transcript": "https://claude.ai/artifact/7WSp8z3kZ9unRNTUhggtyr"
+  },
+  {
+   "repo": "macs3-project/MACS",
+   "number": 789,
+   "kind": "pr",
+   "state": "closed",
+   "merged": true,
+   "comments": 1,
+   "updated": "2026-10-18T05:12:16Z",
+   "note": "MCD1 docs PR (P(X > n) convention in callpeak.md and bdgcmp.md), opened by the owner 2026-10-18 04:37 at taoliu's invitation on #778; merged 05:12 by taoliu (6039a68, head 3829850 unchanged), closes #778",
+   "status": "resolved",
+   "whose_move": null,
+   "evidence": {
+    "quote": "Thank you!",
+    "author": "taoliu",
+    "date": "2026-10-18T05:12:16Z",
+    "url": "https://github.com/macs3-project/MACS/pull/789#issuecomment-6245982094"
+   },
+   "status_checked": "2026-10-18",
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
+   "fixes": 778
   }
  ],
  "merge_checked": [

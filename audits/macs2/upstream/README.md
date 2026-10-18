@@ -6,6 +6,8 @@ _Update 2026-10-15: MC3 and MC2 filed by the owner 2026-10-15 01:56-01:57 UTC as
 
 _Update 2026-10-04: MC1 resolved. taoliu (maintainer) approved and merged PR #753 on 2026-10-03 05:22 UTC (merge commit 6dbd9a2, our ed436c1 unchanged) and closed #752 ("Thanks for reporting and submitting the PR #753 !", 05:24). Thread read in full: https://claude.ai/artifact/8bDqeoHHostZ2Y9wAf32mm. MC3 (issue + PR) and MC2 move to Do next._
 
+_Update 2026-10-18 (later): PR #789 (the docs branch, opened by the owner 04:37) was merged by taoliu at 05:12 (merge commit 6039a68; our 3829850 unchanged) with "Thank you!", and #778 closed as completed by the merge. Transcript: https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU (read 2026-10-18). MACS has no open filing; MC1, MC3 and MC2 are all resolved._
+
 _Update 2026-10-18: #778 read in full through a helper (transcript https://claude.ai/code/artifact/371dd757-fc21-45a4-aea0-566f4ae06dfb). taoliu, 04:10: "Sure! To update the document with a clear explanation would be great! Happy to receive a PR from you on this!" The docs branch `docs/pvalue-tail-convention` (3829850, on main a595f10; callpeak.md `-p/--pvalue` and bdgcmp.md `ppois`) is on the fork; the PR body is PR 3 in `pr-bodies.md` (console card MCD1). No PR or commit referenced #778 at the time._
 
 _Update 2026-10-02 18:50: MC1 filed by the owner as #752 with PR #753 (14:40 UTC); fork CI on ed436c1 green (x64, macOS, non-x64, Sphinx). MC3 and MC2 wait for a reply on it._
