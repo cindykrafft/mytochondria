@@ -44,7 +44,7 @@ rs1 = rs - (ez->reach_end? ez->mqe_t + 1 : ez->max_t + 1);
 
 | harness | result on 2.17 / 2.24 / 2.26 / 2.31 | patched |
 |---|---|---|
-| `s1_scores_tags.py`, `-x sr` L = 150 and 100, mismatch d = 1..8 bp from the 5'/3' end, forward and reverse reads | AS − port = +8, +6, +4, +2 for d = 1..4 (both ends, both strands), 0 for d ≥ 5 and for interior mismatches, 1–12-bp indels and clean reads; 132/180 records match per block on 2.31 (126/180 on 2.17–2.26, which also miss on N reads, see F1) | 180/180 |
+| `s1_scores_tags.py`, `-x sr` L = 150 and 100, mismatch d = 1..8 bp from the 5'/3' end, forward and reverse reads | AS − port = +8, +6, +4, +2 for d = 1..4 (both ends, both strands), 0 for d ≥ 5 and for interior mismatches, 1–12-bp indels and clean reads; 132/180 records match per block on 2.31 (126/180 at L = 150 and 129/180 at L = 100 on 2.17–2.26, where reads with an N inside the ungapped fill also miss, see F1) | 180/180 |
 | same harness, map-ont 2 kb and `-x splice` 1.5 kb | AS == port 180/180 | unchanged |
 | `r1_as_prevalence.py`, 20,000 2 × 150 bp pairs, SNPs + small indels, Illumina-like 3' error | 2,803/40,000 primary records (7.0 %) above the CIGAR's score, by +2 (650), +4 (685), +6 (704), +8 (758), +10–16 (6); identical counts on all four builds | 0/40,000; no other field (FLAG, POS, MAPQ, CIGAR, TLEN, NM, ms, s1, s2, de) changes |
 | `x1_as_issue_repro.py` (the issue's five reads) | `150M NM:i:1 AS:i:298/296/294/292/290` | `AS:i:290` × 5 |

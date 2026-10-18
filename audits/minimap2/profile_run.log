@@ -1,0 +1,15 @@
+papers: 173
+journals: {'Nature': 86, 'Science': 5, 'PNAS': 71, 'Cell': 11}
+versions: unstated x96, 2.17 x24, 2.24 x16, 2.26 x8, 2.22 x5, 2.20 x4, 2.28 x3, 2.12 x3, 2.15 x2, 2.21 x2, 2.18 x2, 2.23 x1, 2.13 x1, 2.1 x1, 2.11 x1, 2.1.8 x1, 2.10 x1, 2.2.4 x1, 2.9 x1
+  -ax (SAM output)                     27
+  map-ont / nanopore / ONT             27
+  map-pb / map-hifi / PacBio / HiFi    22
+  -x splice / splice                   13
+  -x sr / short-read mode              5
+  asm5/asm10/asm20                     7
+  --secondary=no                       10
+  secondary/supplementary named        12
+  MAPQ / mapping quality               1
+  PAF                                  0
+  cs tag / paftools                    2
+pipeline stages: [('alignment/mapping', 140), (' variant calling', 9), (' read trimming', 8), (' visualisation', 4), ('read trimming', 2), (' dimensionality reduction/clustering', 1)]
