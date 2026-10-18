@@ -107,7 +107,8 @@
    },
    "status_checked": "2026-10-18",
    "title": "Documentation request: MACS p-values are P(X > t), one probability atom below the standard discrete p-value P(X >= t)",
-   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU"
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
+   "fixed_by": "#789 merged 2026-10-18 05:12 by taoliu (merge commit 6039a68; our 3829850 unchanged)"
   },
   {
    "repo": "macs3-project/MACS",
@@ -3245,7 +3246,10 @@
    },
    "status_checked": "2026-10-18",
    "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
-   "fixes": 778
+   "fixes": [
+    778
+   ],
+   "fixed_by": "#789 merged 2026-10-18 05:12 by taoliu (merge commit 6039a68; our 3829850 unchanged)"
   }
  ],
  "merge_checked": [
