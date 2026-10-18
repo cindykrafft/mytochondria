@@ -1,0 +1,14 @@
+papers naming BWA: 418
+version stated: 178    0.7.17 x98, 0.7.15 x21, 0.7.12 x19, 0.7.10 x5, 0.7.18 x4, 0.5.10 x4, 0.7.16 x4, 0.7 x3, 0.6.1 x3, 0.7.13 x2, 0.7.5a x2, 7.12 x2
+bwa mem / BWA-MEM                        230
+aln / samse / sampe / backtrack          27
+paired-end                               29
+single-end                               5
+-M flag                                  7
+MAPQ / mapping quality                   12
+uniquely mapped / XS / XA / multi-map    8
+GATK / HaplotypeCaller / Mutect          26
+ancient DNA                              7
+ChIP-seq / ATAC                          9
+Hi-C                                     10
+pipeline stages: {'alignment/mapping': 378, ' read trimming': 75, ' variant calling': 18, ' quality control': 8, 'read trimming': 5, ' quantification': 4}

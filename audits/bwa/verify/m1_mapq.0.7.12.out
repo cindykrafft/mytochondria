@@ -1,0 +1,126 @@
+bwa 0.7.12-r1039 (0.7.12)  reference 400 kb with 8 two-copy and 1 three-copy 500-bp families
+   2-copy d=0 L=100 0 mm      n= 2 =port(FAC=3)  2 =port(FAC=ln50)  2  e.g. AS=100 XS=100 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=0 L=100 1 mm      n= 2 =port(FAC=3)  2 =port(FAC=ln50)  2  e.g. AS=95 XS=95 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=0 L=100 3 mm      n= 2 =port(FAC=3)  2 =port(FAC=ln50)  2  e.g. AS=85 XS=85 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=0 L=150 0 mm      n= 2 =port(FAC=3)  2 =port(FAC=ln50)  2  e.g. AS=150 XS=150 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=0 L=150 1 mm      n= 2 =port(FAC=3)  2 =port(FAC=ln50)  2  e.g. AS=145 XS=145 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=0 L=150 3 mm      n= 2 =port(FAC=3)  2 =port(FAC=ln50)  2  e.g. AS=135 XS=135 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=0 L=70 0 mm       n= 2 =port(FAC=3)  2 =port(FAC=ln50)  2  e.g. AS=70 XS=70 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=0 L=70 1 mm       n= 2 =port(FAC=3)  2 =port(FAC=ln50)  2  e.g. AS=65 XS=65 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=0 L=70 3 mm       n= 2 =port(FAC=3)  2 =port(FAC=ln50)  2  e.g. AS=55 XS=55 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=1 L=100 0 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=100 XS=100 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=1 L=100 1 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=95 XS=95 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=1 L=100 3 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=85 XS=85 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=1 L=150 0 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=150 XS=150 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=1 L=150 1 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=145 XS=145 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=1 L=150 3 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=135 XS=135 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=1 L=70 0 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=70 XS=70 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=1 L=70 1 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=65 XS=65 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=1 L=70 3 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=55 XS=55 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=12 L=100 0 mm     n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=100 XS=90 sub_n=0 MAPQ=26 port3=26 portln50=43
+   2-copy d=12 L=100 1 mm     n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=95 XS=85 sub_n=0 MAPQ=25 port3=25 portln50=42
+   2-copy d=12 L=100 3 mm     n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=85 XS=80 sub_n=1 MAPQ=8 port3=8 portln50=16
+   2-copy d=12 L=150 0 mm     n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=150 XS=137 sub_n=0 MAPQ=28 port3=28 portln50=48
+   2-copy d=12 L=150 1 mm     n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=145 XS=135 sub_n=0 MAPQ=21 port3=21 portln50=36
+   2-copy d=12 L=150 3 mm     n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=135 XS=125 sub_n=0 MAPQ=20 port3=20 portln50=34
+   2-copy d=12 L=70 0 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=70 XS=70 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=12 L=70 1 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=65 XS=60 sub_n=1 MAPQ=11 port3=11 portln50=21
+   2-copy d=12 L=70 3 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=55 XS=50 sub_n=1 MAPQ=10 port3=10 portln50=18
+   2-copy d=2 L=100 0 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=100 XS=100 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=2 L=100 1 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=95 XS=95 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=2 L=100 3 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=85 XS=80 sub_n=1 MAPQ=8 port3=8 portln50=16
+   2-copy d=2 L=150 0 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=150 XS=150 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=2 L=150 1 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=145 XS=145 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=2 L=150 3 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=135 XS=135 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=2 L=70 0 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=70 XS=65 sub_n=1 MAPQ=12 port3=12 portln50=23
+   2-copy d=2 L=70 1 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=65 XS=65 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=2 L=70 3 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=55 XS=55 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=3 L=100 0 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=100 XS=95 sub_n=1 MAPQ=10 port3=10 portln50=19
+   2-copy d=3 L=100 1 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=95 XS=95 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=3 L=100 3 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=85 XS=80 sub_n=1 MAPQ=8 port3=8 portln50=16
+   2-copy d=3 L=150 0 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=150 XS=150 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=3 L=150 1 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=145 XS=140 sub_n=1 MAPQ=8 port3=8 portln50=15
+   2-copy d=3 L=150 3 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=135 XS=130 sub_n=1 MAPQ=7 port3=7 portln50=14
+   2-copy d=3 L=70 0 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=70 XS=70 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=3 L=70 1 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=65 XS=60 sub_n=1 MAPQ=11 port3=11 portln50=21
+   2-copy d=3 L=70 3 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=55 XS=55 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=5 L=100 0 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=100 XS=95 sub_n=1 MAPQ=10 port3=10 portln50=19
+   2-copy d=5 L=100 1 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=95 XS=90 sub_n=1 MAPQ=9 port3=9 portln50=18
+   2-copy d=5 L=100 3 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=85 XS=85 sub_n=1 MAPQ=0 port3=0 portln50=0
+   2-copy d=5 L=150 0 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=150 XS=140 sub_n=0 MAPQ=22 port3=22 portln50=37
+   2-copy d=5 L=150 1 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=145 XS=140 sub_n=1 MAPQ=8 port3=8 portln50=15
+   2-copy d=5 L=150 3 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=135 XS=130 sub_n=1 MAPQ=7 port3=7 portln50=14
+   2-copy d=5 L=70 0 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=70 XS=65 sub_n=1 MAPQ=12 port3=12 portln50=23
+   2-copy d=5 L=70 1 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=65 XS=60 sub_n=1 MAPQ=11 port3=11 portln50=21
+   2-copy d=5 L=70 3 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=55 XS=50 sub_n=1 MAPQ=10 port3=10 portln50=18
+   2-copy d=8 L=100 0 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=100 XS=85 sub_n=0 MAPQ=38 port3=38 portln50=60
+   2-copy d=8 L=100 1 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=95 XS=80 sub_n=0 MAPQ=37 port3=37 portln50=60
+   2-copy d=8 L=100 3 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=85 XS=80 sub_n=1 MAPQ=8 port3=8 portln50=16
+   2-copy d=8 L=150 0 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=150 XS=149 sub_n=1 MAPQ=0 port3=0 portln50=1
+   2-copy d=8 L=150 1 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=145 XS=120 sub_n=0 MAPQ=53 port3=53 portln50=60
+   2-copy d=8 L=150 3 mm      n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=135 XS=120 sub_n=0 MAPQ=30 port3=30 portln50=51
+   2-copy d=8 L=70 0 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=70 XS=60 sub_n=0 MAPQ=30 port3=30 portln50=51
+   2-copy d=8 L=70 1 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=65 XS=60 sub_n=1 MAPQ=11 port3=11 portln50=21
+   2-copy d=8 L=70 3 mm       n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=55 XS=45 sub_n=0 MAPQ=25 port3=25 portln50=43
+   3-copy exact L=100 0 mm    n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=100 XS=100 sub_n=2 MAPQ=0 port3=0 portln50=0
+   3-copy exact L=100 2 mm    n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=90 XS=90 sub_n=2 MAPQ=0 port3=0 portln50=0
+   3-copy exact L=150 0 mm    n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=150 XS=150 sub_n=2 MAPQ=0 port3=0 portln50=0
+   3-copy exact L=150 2 mm    n= 1 =port(FAC=3)  1 =port(FAC=ln50)  1  e.g. AS=140 XS=140 sub_n=2 MAPQ=0 port3=0 portln50=0
+   unique L=100 0 mm          n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=100 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=100 1 mm          n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=95 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=100 2 mm          n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=90 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=100 4 mm          n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=80 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=100 6 mm          n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=70 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=100 8 mm          n= 3 =port(FAC=3)  3 =port(FAC=ln50)  3  e.g. AS=60 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=150 0 mm          n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=150 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=150 1 mm          n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=145 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=150 2 mm          n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=140 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=150 4 mm          n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=130 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=150 6 mm          n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=120 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=150 8 mm          n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=110 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=50 0 mm           n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=50 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=50 1 mm           n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=45 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=50 2 mm           n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=40 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=50 4 mm           n= 3 =port(FAC=3)  3 =port(FAC=ln50)  0  e.g. AS=31 XS=0 sub_n=0 MAPQ=31 port3=31 portln50=53
+   unique L=75 0 mm           n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=75 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=75 1 mm           n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=70 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=75 2 mm           n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=65 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=75 4 mm           n= 4 =port(FAC=3)  4 =port(FAC=ln50)  4  e.g. AS=55 XS=0 sub_n=0 MAPQ=60 port3=60 portln50=60
+   unique L=75 6 mm           n= 3 =port(FAC=3)  3 =port(FAC=ln50)  1  e.g. AS=45 XS=0 sub_n=0 MAPQ=54 port3=54 portln50=60
+   unique L=75 8 mm           n= 1 =port(FAC=3)  1 =port(FAC=ln50)  0  e.g. AS=36 XS=0 sub_n=0 MAPQ=32 port3=32 portln50=54
+ok   single-end MAPQ equals the port with FAC = 3 (as compiled): 158/158
+FAIL single-end MAPQ equals the port with FAC = ln 50 (as written): 120/158
+   bwa insert-size estimate: mean 348.09 sd 29.15
+   repeat pair p0 TLEN  356 AS 100/100 XS 100/0  MAPQ 40/60  port 40/60 
+   repeat pair p1 TLEN  358 AS 100/100 XS 100/0  MAPQ 40/60  port 40/60 
+   repeat pair p2 TLEN  300 AS 100/100 XS 100/0  MAPQ 40/60  port 40/60 
+   repeat pair p3 TLEN  343 AS 100/100 XS 100/0  MAPQ 40/60  port 40/60 
+   repeat pair p4 TLEN  317 AS 100/100 XS 100/0  MAPQ 40/60  port 40/60 
+   repeat pair p5 TLEN  333 AS 100/100 XS 100/0  MAPQ 40/60  port 40/60 
+ok   paired MAPQ (repeat mate rescued by a unique mate) equals the port: 40/40
+ok   unique perfect pairs get MAPQ 60/60: 360 pairs
+
+   length scan, read from a two-copy segment with one difference (AS = L, XS = L-5):
+      L   AS   XS   MAPQ port FAC=3 port FAC=ln50
+     40   40   35     27         27           27
+     41   41   36     27         27           27
+     42   42   37     27         27           27
+     43   43   38     27         27           27
+     44   44   39     27         27           27
+     45   45   40     27         27           27
+     46   46   41     27         27           27
+     47   47   42     27         27           27
+     48   48   43     27         27           27
+     49   49   44     27         27           27
+     50   50   45     15         15           27
+     51   51   46     15         15           27
+     52   52   47     14         14           27
+     53   53   48     14         14           26
+     54   54   49     14         14           26
+     55   55   50     14         14           26
+     56   56   51     14         14           25
+     57   57   52     14         14           25
+     58   58   53     13         13           25
+     59   59   54     13         13           25
+     60   60   55     13         13           24
+ok   length scan MAPQ equals the port with FAC = 3: 21/21

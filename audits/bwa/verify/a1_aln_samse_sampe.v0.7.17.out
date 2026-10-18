@@ -1,0 +1,32 @@
+bwa 0.7.17-r1188 (v0.7.17)  bwa aln/samse/sampe, reference 300 kb random
+   class               n mapped   POS ok  NM/MD
+   36 bp sub 0        15     15       15     15
+   36 bp sub 1        15     15       15     15
+   36 bp sub 2        15     15       15     15
+   36 bp ins 1        15     15       15     15
+   36 bp ins 2        15     15       15     15
+   36 bp del 1        15     15       15     15
+   36 bp del 2        15     15       15     15
+   50 bp sub 0        15     15       15     15
+   50 bp sub 1        15     15       15     15
+   50 bp sub 2        15     15       15     15
+   50 bp sub 3        12     12       12     12
+   50 bp ins 1        15     15       15     15
+   50 bp ins 2        15     15       15     15
+   50 bp del 1        15     15       15     15
+   50 bp del 2        15     15       15     15
+   75 bp sub 0        15     15       15     15
+   75 bp sub 1        15     15       15     15
+   75 bp sub 2        15     15       15     15
+   75 bp sub 3        14     14       14     14
+   75 bp ins 1        15     15       15     15
+   75 bp ins 2        15     15       15     15
+   75 bp del 1        15     15       15     15
+   75 bp del 2        15     15       15     15
+   4 reads have 3 differences inside the 5' 32-bp seed (default -l 32 -k 2, documented); unmapped: 4
+ok   samse: every planted read within the seed rule mapped: 341/341
+ok   samse: POS/strand at the planted origin: 341/341
+ok   samse: NM/MD equal the recomputation: 341/341
+   sampe insert size printed: 2000 pairs, 250.130 +/- 24.621; true mean of the simulated fragments 250.13
+ok   sampe: TLEN = +/- fragment: 4000/4000
+ok   sampe: flag 0x2 on every record: 4000/4000

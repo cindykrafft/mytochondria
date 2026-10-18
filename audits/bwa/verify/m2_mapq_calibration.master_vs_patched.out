@@ -1,0 +1,123 @@
+bwa 0.7.19-r1273  m2 MAPQ calibration; genome 3 Mb, 91 repeat families, 33.3 % repeat
+
+== single-end 150 bp ==
+   as released (FAC=3): 60000 mapped primaries
+     MAPQ           n   wrong   promised obs/prom
+     0-0         3047    2034    3047.00     0.67
+     1-9         2741      12    1065.95     0.01
+     10-19        221       0       7.73     0.00
+     20-29       2099       0      14.68     0.00
+     30-39       1302       0       0.80     0.00
+     40-49        822       0       0.05     0.00
+     50-59        583       0       0.00     0.00
+     60-60      49185       0       0.05     0.00
+     MAPQ >= 20: 53991 reads, 0 wrong (0.0000 %)
+     MAPQ >= 30: 51892 reads, 0 wrong (0.0000 %)
+     MAPQ 1-59 overall: 7768 reads, 12 wrong, 1089.2 promised, obs/prom 0.01
+   fixed (FAC=ln 50): 60000 mapped primaries
+     MAPQ           n   wrong   promised obs/prom
+     0-0         2752    2023    2752.00     0.74
+     1-9          859      17     161.89     0.11
+     10-19       2200       6     129.07     0.05
+     20-29        107       0       0.35     0.00
+     30-39       1970       0       0.51     0.00
+     40-49        187       0       0.01     0.00
+     50-59       1217       0       0.01     0.00
+     60-60      50708       0       0.05     0.00
+     MAPQ >= 20: 54189 reads, 0 wrong (0.0000 %)
+     MAPQ >= 30: 54082 reads, 0 wrong (0.0000 %)
+     MAPQ 1-59 overall: 6540 reads, 23 wrong, 291.8 promised, obs/prom 0.08
+
+== single-end 100 bp ==
+   as released (FAC=3): 60000 mapped primaries
+     MAPQ           n   wrong   promised obs/prom
+     0-0         4421    3346    4421.00     0.76
+     1-9         3040      36    1113.29     0.03
+     10-19        481       1      42.57     0.02
+     20-29       1933       0       6.39     0.00
+     30-39       1093       0       0.28     0.00
+     40-49        439       0       0.01     0.00
+     50-59        479       0       0.00     0.00
+     60-60      48114       0       0.05     0.00
+     MAPQ >= 20: 52058 reads, 0 wrong (0.0000 %)
+     MAPQ >= 30: 50125 reads, 0 wrong (0.0000 %)
+     MAPQ 1-59 overall: 7465 reads, 37 wrong, 1162.5 promised, obs/prom 0.03
+   fixed (FAC=ln 50): 60000 mapped primaries
+     MAPQ           n   wrong   promised obs/prom
+     0-0         4291    3341    4291.00     0.78
+     1-9          219       8      58.53     0.14
+     10-19       3273      34     140.66     0.24
+     20-29        153       0       0.81     0.00
+     30-39        227       0       0.06     0.00
+     40-49       1694       0       0.09     0.00
+     50-59        193       0       0.00     0.00
+     60-60      49950       0       0.05     0.00
+     MAPQ >= 20: 52217 reads, 0 wrong (0.0000 %)
+     MAPQ >= 30: 52064 reads, 0 wrong (0.0000 %)
+     MAPQ 1-59 overall: 5759 reads, 42 wrong, 200.2 promised, obs/prom 0.21
+
+== single-end 60 bp ==
+   as released (FAC=3): 59987 mapped primaries
+     MAPQ           n   wrong   promised obs/prom
+     0-0         6651    5114    6651.00     0.77
+     1-9         2449      28     664.24     0.04
+     10-19       1268       2      85.55     0.02
+     20-29        410       0       1.26     0.00
+     30-39       1411       0       0.86     0.00
+     40-49        879       0       0.03     0.00
+     50-59        414       0       0.00     0.00
+     60-60      46505       0       0.05     0.00
+     MAPQ >= 20: 49619 reads, 0 wrong (0.0000 %)
+     MAPQ >= 30: 49209 reads, 0 wrong (0.0000 %)
+     MAPQ 1-59 overall: 6831 reads, 30 wrong, 751.9 promised, obs/prom 0.04
+   fixed (FAC=ln 50): 59987 mapped primaries
+     MAPQ           n   wrong   promised obs/prom
+     0-0         6508    5111    6508.00     0.79
+     1-9          232       5      81.77     0.06
+     10-19       2149      23      52.14     0.44
+     20-29       1379       5       8.52     0.59
+     30-39        153       0       0.09     0.00
+     40-49        354       0       0.01     0.00
+     50-59       1160       0       0.00     0.00
+     60-60      48052       0       0.05     0.00
+     MAPQ >= 20: 51098 reads, 5 wrong (0.0098 %)
+     MAPQ >= 30: 49719 reads, 0 wrong (0.0000 %)
+     MAPQ 1-59 overall: 5427 reads, 33 wrong, 142.5 promised, obs/prom 0.23
+
+== paired 2x150 ==
+   as released (FAC=3): 60000 mapped primaries
+     MAPQ           n   wrong   promised obs/prom
+     0-0          665     429     665.00     0.65
+     1-9           33       3      15.74     0.19
+     10-19        352       2       5.81     0.34
+     20-29        934       2       5.28     0.38
+     30-39        106       0       0.04     0.00
+     40-49       3636       0       0.23     0.00
+     50-59        417       0       0.00     0.00
+     60-60      53857       0       0.05     0.00
+     MAPQ >= 20: 58950 reads, 2 wrong (0.0034 %)
+     MAPQ >= 30: 58016 reads, 0 wrong (0.0000 %)
+     MAPQ 1-59 overall: 5478 reads, 7 wrong, 27.1 promised, obs/prom 0.26
+   fixed (FAC=ln 50): 60000 mapped primaries
+     MAPQ           n   wrong   promised obs/prom
+     0-0          665     429     665.00     0.65
+     1-9           31       2      13.21     0.15
+     10-19        354       3       5.96     0.50
+     20-29        933       2       5.27     0.38
+     30-39        107       0       0.04     0.00
+     40-49       1906       0       0.14     0.00
+     50-59       1955       0       0.01     0.00
+     60-60      54049       0       0.05     0.00
+     MAPQ >= 20: 58950 reads, 2 wrong (0.0034 %)
+     MAPQ >= 30: 58017 reads, 0 wrong (0.0000 %)
+     MAPQ 1-59 overall: 5286 reads, 7 wrong, 24.6 promised, obs/prom 0.28
+
+summary (reads passing the filter, wrong among them):
+   single-end 150 bp  as released (FAC=3)    MAPQ>=20:  53991 (   0 wrong)   MAPQ>=30:  51892 (   0 wrong)
+   single-end 150 bp  fixed (FAC=ln 50)      MAPQ>=20:  54189 (   0 wrong)   MAPQ>=30:  54082 (   0 wrong)
+   single-end 100 bp  as released (FAC=3)    MAPQ>=20:  52058 (   0 wrong)   MAPQ>=30:  50125 (   0 wrong)
+   single-end 100 bp  fixed (FAC=ln 50)      MAPQ>=20:  52217 (   0 wrong)   MAPQ>=30:  52064 (   0 wrong)
+   single-end 60 bp   as released (FAC=3)    MAPQ>=20:  49619 (   0 wrong)   MAPQ>=30:  49209 (   0 wrong)
+   single-end 60 bp   fixed (FAC=ln 50)      MAPQ>=20:  51098 (   5 wrong)   MAPQ>=30:  49719 (   0 wrong)
+   paired 2x150       as released (FAC=3)    MAPQ>=20:  58950 (   2 wrong)   MAPQ>=30:  58016 (   0 wrong)
+   paired 2x150       fixed (FAC=ln 50)      MAPQ>=20:  58950 (   2 wrong)   MAPQ>=30:  58017 (   0 wrong)

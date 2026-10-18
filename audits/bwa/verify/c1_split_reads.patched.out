@@ -1,0 +1,29 @@
+bwa 0.7.19-r1273 (patched)  chr1 300 kb + chr2 200 kb random; mate 1 = 90 bp chr1 + 60 bp chr2
+default:
+ok     SA entries equal the records they name: 1200/1200
+ok     split-segment (0x800, or 0x100 under -M) MAPQ <= primary MAPQ: 600/600
+ok     RNEXT/PNEXT/MQ equal the mate's primary record: 1800/1800
+FAIL   MC:Z equals the mate's primary CIGAR: 1501/1800 records
+     supplementary c1 CIGAR 90H60M  MC:Z:12H138M  but the mate's CIGAR is 12S138M
+     supplementary c3 CIGAR 90H60M  MC:Z:12H138M  but the mate's CIGAR is 12S138M
+     supplementary c5 CIGAR 90H60M  MC:Z:12H138M  but the mate's CIGAR is 12S138M
+     supplementary c7 CIGAR 90H60M  MC:Z:12H138M  but the mate's CIGAR is 12S138M
+     (299 supplementary records carry the mate's CIGAR with S rewritten as H)
+   pairs with flag 0x2 on every record: 600/600
+-Y (soft-clip supplementary):
+ok     SA entries equal the records they name: 1200/1200
+ok     split-segment (0x800, or 0x100 under -M) MAPQ <= primary MAPQ: 600/600
+ok     RNEXT/PNEXT/MQ equal the mate's primary record: 1800/1800
+ok     MC:Z equals the mate's primary CIGAR: 1800/1800 records
+   pairs with flag 0x2 on every record: 600/600
+-M (supplementary flagged secondary):
+ok     SA entries equal the records they name: 1200/1200
+ok     split-segment (0x800, or 0x100 under -M) MAPQ <= primary MAPQ: 600/600
+ok     RNEXT/PNEXT/MQ equal the mate's primary record: 1800/1800
+FAIL   MC:Z equals the mate's primary CIGAR: 1501/1800 records
+     supplementary c1 CIGAR 90H60M  MC:Z:12H138M  but the mate's CIGAR is 12S138M
+     supplementary c3 CIGAR 90H60M  MC:Z:12H138M  but the mate's CIGAR is 12S138M
+     supplementary c5 CIGAR 90H60M  MC:Z:12H138M  but the mate's CIGAR is 12S138M
+     supplementary c7 CIGAR 90H60M  MC:Z:12H138M  but the mate's CIGAR is 12S138M
+     (299 supplementary records carry the mate's CIGAR with S rewritten as H)
+   pairs with flag 0x2 on every record: 600/600

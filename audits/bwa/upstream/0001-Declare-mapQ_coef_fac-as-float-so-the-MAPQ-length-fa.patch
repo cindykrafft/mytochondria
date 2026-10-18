@@ -1,0 +1,41 @@
+From 9e57ba884b36aada9290559bf71dbf931e62edcc Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Sun, 18 Oct 2026 02:42:15 +0000
+Subject: [PATCH] Declare mapQ_coef_fac as float so the MAPQ length factor is
+ ln(50)/ln(l)
+
+mem_opt_init() and the -Q handler assign log(mapQ_coef_len) to
+mapQ_coef_fac, but the field is declared int, so ln(50) = 3.912 is
+truncated to 3. mem_approx_mapq_se() multiplies the score difference by
+(mapQ_coef_fac/ln(l))^2 for alignments of 50 bp or longer and by 1 below,
+so the factor is 0.588 instead of 1 at l = 50 and stays 23% too small
+(41% after squaring) at every length above. A read 49 bp long gets MAPQ
+27 and the same read extended to 50 bp gets MAPQ 15 when it has a
+one-mismatch second hit.
+
+Declaring the field float makes the factor continuous at l = 50, as the
+code intends. Only MAPQ changes; every other SAM field is unchanged.
+mem_opt_t keeps its size and layout (int and float are both 4 bytes).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ bwamem.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/bwamem.h b/bwamem.h
+index a518aaf..a30453b 100644
+--- a/bwamem.h
++++ b/bwamem.h
+@@ -76,7 +76,7 @@ typedef struct {
+ 	float XA_drop_ratio;    // when counting hits for the XA tag, ignore alignments with score < XA_drop_ratio * max_score; only effective for the XA tag
+ 	float mask_level_redun;
+ 	float mapQ_coef_len;
+-	int mapQ_coef_fac;
++	float mapQ_coef_fac;
+ 	int max_ins;            // when estimating insert size distribution, skip pairs with insert longer than this value
+ 	int max_matesw;         // perform maximally max_matesw rounds of mate-SW for each end
+ 	int max_XA_hits, max_XA_hits_alt; // if there are max_hits or fewer, output them all
+-- 
+2.43.0
+

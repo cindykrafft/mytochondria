@@ -1,0 +1,53 @@
+bwa 0.7.19-r1273 (patched)  reference 300000 bp random, single-end, defaults
+   note: r120 sub at read pos 0        CIGAR 100M       NM 1 AS 99, score of the printed alignment 95 (documented -L behaviour)
+   note: r121 sub at read pos 0        CIGAR 100M       NM 1 AS 99, score of the printed alignment 95 (documented -L behaviour)
+   note: r122 sub at read pos 0        CIGAR 100M       NM 1 AS 99, score of the printed alignment 95 (documented -L behaviour)
+   note: r123 sub at read pos 0        CIGAR 100M       NM 1 AS 99, score of the printed alignment 95 (documented -L behaviour)
+   note: r124 sub at read pos 0        CIGAR 100M       NM 1 AS 99, score of the printed alignment 95 (documented -L behaviour)
+   note: r125 sub at read pos 0        CIGAR 100M       NM 1 AS 99, score of the printed alignment 95 (documented -L behaviour)
+
+class                         L    n    POS  NM/MD    AS=SW AS!=CIGARsc
+perfect                     100   12     12     12       12          0
+perfect                     150   12     12     12       12          0
+1 subs                      100   12     12     12       12          0
+1 subs                      150   12     12     12       12          0
+2 subs                      100   12     12     12       12          0
+2 subs                      150   12     12     12       12          0
+3 subs                      100   12     12     12       12          0
+3 subs                      150   12     12     12       12          0
+5 subs                      100   12     12     12       12          0
+5 subs                      150   12     12     12       12          0
+sub at read pos 0           100   12     12     12       12         12
+sub at read pos L-1-0       100   12     12     12       12         12
+sub at read pos 1           100   12     12     12       12         12
+sub at read pos L-1-1       100   12     12     12       12         12
+sub at read pos 2           100   12     12     12       12         12
+sub at read pos L-1-2       100   12     12     12       12         12
+sub at read pos 3           100   12     12     12       12         12
+sub at read pos L-1-3       100   12     12     12       12         12
+sub at read pos 4           100   12     12     12       12          0
+sub at read pos L-1-4       100   12     12     12       12          0
+sub at read pos 6           100   12     12     12       12          0
+sub at read pos L-1-6       100   12     12     12       12          0
+2 Ns                        100   12     12     12       12          0
+1-bp insertion mid          100   12     12     12       12          0
+1-bp deletion mid           100   12     12     12       12          0
+1-bp deletion mid           150   12     12     12       12          0
+2-bp insertion mid          100   12     12     12       12          0
+2-bp deletion mid           100   12     12     12       12          0
+2-bp deletion mid           150   12     12     12       12          0
+3-bp insertion mid          100   12     12     12       12          0
+3-bp deletion mid           100   12     12     12       12          0
+3-bp deletion mid           150   12     12     12       12          0
+5-bp insertion mid          100   12     12     12       12          0
+5-bp deletion mid           100   12     12     12       12          0
+5-bp deletion mid           150   12     12     12       12          0
+1-bp insertion at 12        100   12     12     12       12          0
+2-bp deletion at 12         100   12     12     12       12          0
+sub+ins+del                 150   12     12     12       12          0
+
+ok   POS/strand at the planted origin: 456/456
+ok   NM and MD equal the independent recomputation: 456/456
+ok   AS equals the best local SW score (documented): 456/456
+ok   printed CIGAR at least as good as the planted edits: 456/456
+   unclipped records whose AS differs from the score of the printed alignment: 96 (bwa.1 -L documents this)

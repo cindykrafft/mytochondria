@@ -1,0 +1,16 @@
+BWA test runs for the fix branch (2026-10-18, Ubuntu 24.04, gcc 13.3.0, x86-64)
+
+lh3/bwa has no test suite: CI (.github/workflows/ci.yaml) only runs `make` on four platforms.
+
+branch                    commit    build                                    behavioural checks
+fix/mapq-coef-fac-float   9e57ba8   make: OK, 9 warnings (rope.c, bwashm.c   ../verify/m1_mapq.patched.out: MAPQ equals the ln-50 port 158/158,
+(1 commit on d82444c)               unused fread/ftruncate results), the     length scan 21/21 continuous; s1, p1, c1, a1 outputs byte-identical
+                                    same 9 as master                         to master; m1 and m2 SAM identical to master outside column 5
+master (control)          d82444c   make: OK, 9 warnings (same)             harness outputs ../verify/*.master.out
+
+`git am` of 0001-Declare-mapQ_coef_fac-as-float-so-the-MAPQ-length-fa.patch on a fresh clone of
+d82444c: clean; rebuilt with `make -j4`: OK. Not run: the arm64 and macOS CI legs (no such host here).
+
+Release builds used by the harnesses: 0.7.12 (tag 0.7.12, `make`), v0.7.15 and v0.7.17 (`make
+CFLAGS="-g -Wall -Wno-unused-function -O2 -fcommon"`: both fail to link with GCC >= 10 because
+rle.h defines rle_auxtab in a header; no source change).

@@ -1,0 +1,17 @@
+bwa 0.7.19-r1273 (patched)  reference 600 kb random, one exact 500-bp repeat (copies 150 kb apart)
+A. FR library, 3000 pairs (3 % long outliers)
+   bwa : candidates (0, 3000, 0, 0)  (25,50,75) = (274, 301, 330)  mean 299.86 sd 40.19  proper [106, 498]
+   port: candidates 3000          (25,50,75) = (274, 301, 330)  mean 299.86 sd 40.19  proper [106, 498]
+   true fragment mean over the same pairs: 300.91 (bwa's 'mean' is the mean of TLEN - 1)
+ok   insert-size statistics equal the port of mem_pestat on the true fragment lengths
+ok   flag 0x2 set exactly when fragment-1 lies in the port's bounds: 3000/3000
+ok   TLEN = +/- fragment length: 3000/3000
+B. mate rescue: mates with a mismatch every 12 bp
+ok   rescued at the true position with NM 8 and flag 0x2: 200/200
+   MAPQ of the rescued mates: [60]
+C. FF library: candidate pairs (FF, FR, RF, RR) = (2000, 0, 0, 0); FF proper bounds [5, 397]
+   repeat mate  fwd fragment  n= 200  flag 0x2  200  left mate at its true copy  200  its MAPQ: 40 x200
+   repeat mate  rev fragment  n= 200  flag 0x2  100  left mate at its true copy  100  its MAPQ: 0 x200
+   unique       fwd fragment  n=1000  flag 0x2 1000  left mate at its true copy 1000  its MAPQ: 60 x1000
+   unique       rev fragment  n=1000  flag 0x2 1000  left mate at its true copy 1000  its MAPQ: 60 x1000
+FAIL FF library: repeat mates placed, flagged and scored the same on both fragment strands (true copy fwd 200/200, rev 100/200; flag 0x2 fwd 200, rev 100)
