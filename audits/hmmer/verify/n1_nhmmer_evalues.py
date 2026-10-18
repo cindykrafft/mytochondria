@@ -87,5 +87,7 @@ for (chrom, strand, a, b) in truth:
         if not (orient_ok and lo >= a - 5 and hi <= b + 5 and r["sqlen"] == 250000): wrong.append((chrom, strand, a, b, r["af"], r["at"], r["sqlen"]))
 R.check(not wrong, "every insert hit on its own strand has orientation, ali coords inside the insert and sq len right (%d of %d inserts hit)" % (found, len(truth)),
         "wrong: %s" % wrong[:3])
+badenv = [r for r in base if not ((r["ef"] <= r["af"] <= r["at"] <= r["et"]) if r["strand"].strip() == "+" else (r["ef"] >= r["af"] >= r["at"] >= r["et"]))]
+R.check(not badenv, "envelope contains the alignment on both strands (+: envfrom<=alifrom<=alito<=envto; -: reversed) for %d hits" % len(base), "%s" % badenv[:2])
 R.note("MADE1 is a MITE with terminal inverted repeats, so most inserts also give a weaker hit on the opposite strand; not checked")
 R.done()

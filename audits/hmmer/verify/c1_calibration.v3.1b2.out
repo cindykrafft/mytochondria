@@ -1,0 +1,25 @@
+# C1 calibration
+# build: HMMER 3.1b2 (February 2015)  (/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/audit-hmmer/rel/hmmer-3.1b2/src)
+ok    globins4: lambda = log2 + 1.44/(M H) = 0.70957; file 0.70957 (all three)
+ok    globins4: hmmbuild twice with default seed gives identical STATS  | {'MSV': (-9.9014, 0.70957), 'VITERBI': (-10.7224, 0.70957), 'FORWARD': (-4.1637, 0.70957)} / {'MSV': (-9.9014, 0.70957), 'VITERBI': (-10.7224, 0.70957), 'FORWARD': (-4.1637, 0.70957)}
+ok    globins4: entropy weighting hits its target: mean match relent 0.5886 vs max(ere, (esigma - log2(2/(M(M+1))))/M) = 0.5900
+    globins4 STATS: FORWARD -4.1637 0.70957 MSV -9.9014 0.70957 VITERBI -10.7224 0.70957
+ok    fn3: lambda = log2 + 1.44/(M H) = 0.71848; file 0.71848 (all three)
+ok    fn3: hmmbuild twice with default seed gives identical STATS  | {'MSV': (-9.3879, 0.71848), 'VITERBI': (-9.7026, 0.71848), 'FORWARD': (-3.8501, 0.71848)} / {'MSV': (-9.3879, 0.71848), 'VITERBI': (-9.7026, 0.71848), 'FORWARD': (-3.8501, 0.71848)}
+ok    fn3: entropy weighting hits its target: mean match relent 0.6687 vs max(ere, (esigma - log2(2/(M(M+1))))/M) = 0.6687
+    fn3 STATS: FORWARD -3.8501 0.71848 MSV -9.3879 0.71848 VITERBI -9.7026 0.71848
+ok    Pkinase: lambda = log2 + 1.44/(M H) = 0.70238; file 0.70238 (all three)
+ok    Pkinase: hmmbuild twice with default seed gives identical STATS  | {'MSV': (-10.8439, 0.70238), 'VITERBI': (-11.7418, 0.70238), 'FORWARD': (-5.255, 0.70238)} / {'MSV': (-10.8439, 0.70238), 'VITERBI': (-11.7418, 0.70238), 'FORWARD': (-5.255, 0.70238)}
+ok    Pkinase: entropy weighting hits its target: mean match relent 0.5905 vs max(ere, (esigma - log2(2/(M(M+1))))/M) = 0.5900
+    Pkinase STATS: FORWARD -5.2550 0.70238 MSV -10.8439 0.70238 VITERBI -11.7418 0.70238
+ok    MADE1: lambda = log2 + 1.44/(M H) = 0.71855; file 0.71855 (all three)
+ok    MADE1: hmmbuild twice with default seed gives identical STATS  | {'MSV': (-8.7609, 0.71855), 'VITERBI': (-9.5065, 0.71855), 'FORWARD': (-3.4624, 0.71855)} / {'MSV': (-8.7609, 0.71855), 'VITERBI': (-9.5065, 0.71855), 'FORWARD': (-3.4624, 0.71855)}
+ok    MADE1: entropy weighting hits its target: mean match relent 0.7085 vs max(ere, (esigma - log2(2/(M(M+1))))/M) = 0.7083
+    MADE1 STATS: FORWARD -3.4624 0.71855 MSV -8.7609 0.71855 VITERBI -9.5065 0.71855
+ok    globins4 default: null comparisons with P <= 1e-3, 1e-4 within x1.5 of N*p (P<=0.1, 0.01 shown, not judged), L=300, N=100000  | P<=0.1: 15740 (expect 10000); P<=0.01: 934 (expect 1000); P<=0.001: 97 (expect 100); P<=0.0001: 6 (expect 10)
+ok    globins4 --nonull2: null comparisons with P <= 1e-3, 1e-4 within x1.5 of N*p (P<=0.1, 0.01 shown, not judged), L=300, N=100000  | P<=0.1: 16246 (expect 10000); P<=0.01: 967 (expect 1000); P<=0.001: 100 (expect 100); P<=0.0001: 7 (expect 10)
+ok    fn3 default: null comparisons with P <= 1e-3, 1e-4 within x1.5 of N*p (P<=0.1, 0.01 shown, not judged), L=300, N=100000  | P<=0.1: 19038 (expect 10000); P<=0.01: 1189 (expect 1000); P<=0.001: 107 (expect 100); P<=0.0001: 9 (expect 10)
+ok    fn3 --nonull2: null comparisons with P <= 1e-3, 1e-4 within x1.5 of N*p (P<=0.1, 0.01 shown, not judged), L=300, N=100000  | P<=0.1: 19636 (expect 10000); P<=0.01: 1231 (expect 1000); P<=0.001: 115 (expect 100); P<=0.0001: 9 (expect 10)
+ok    Pkinase default: null comparisons with P <= 1e-3, 1e-4 within x1.5 of N*p (P<=0.1, 0.01 shown, not judged), L=300, N=100000  | P<=0.1: 24043 (expect 10000); P<=0.01: 997 (expect 1000); P<=0.001: 94 (expect 100); P<=0.0001: 12 (expect 10)
+ok    Pkinase --nonull2: null comparisons with P <= 1e-3, 1e-4 within x1.5 of N*p (P<=0.1, 0.01 shown, not judged), L=300, N=100000  | P<=0.1: 24797 (expect 10000); P<=0.01: 1025 (expect 1000); P<=0.001: 97 (expect 100); P<=0.0001: 12 (expect 10)
+# 18 checks, 0 failed

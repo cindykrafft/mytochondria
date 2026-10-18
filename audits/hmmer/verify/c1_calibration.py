@@ -8,6 +8,9 @@ Truths:
      fraction of comparisons with P <= p should be ~p in the tail (the user guide quotes a
      +/-15 % precision for tau). Sequences drawn here with Python's RNG; hmmsearch run with
      --max -Z 1 so that the printed E-value is P.
+ (d) --eent effective sequence number: the built model's mean match relative entropy equals the
+     target max(ere, (esigma - log2(2/(M(M+1))))/M), ere = 0.59 (amino) / 0.62 (DNA), esigma = 45
+     (p7_builder.c effective_seqnumber), unless all sequences together stay above it.
  (c) hmmbuild calibration is deterministic for a fixed --seed (default 42) and identical
      across builds for the same input alignment.
 """
@@ -29,6 +32,9 @@ for fam in ("globins4", "fn3", "Pkinase", "MADE1"):
             "%s: lambda = log2 + 1.44/(M H) = %.5f; file %.5f (all three)" % (fam, lam, lam_file))
     R.check(H["stats"] == H2["stats"], "%s: hmmbuild twice with default seed gives identical STATS" % fam,
             "%s / %s" % (H["stats"], H2["stats"]))
+    M = H["M"]; et = max(0.59 if H["alph"] == "amino" else 0.62, (45.0 - math.log2(2.0 / (M * (M + 1)))) / M)
+    R.check(abs(_hm.mean_match_relent(H, bg) - et) < 0.003 or _hm.mean_match_relent(H, bg) > et,
+            "%s: entropy weighting hits its target: mean match relent %.4f vs max(ere, (esigma - log2(2/(M(M+1))))/M) = %.4f" % (fam, _hm.mean_match_relent(H, bg), et))
     R.note("%s STATS: %s" % (fam, " ".join("%s %.4f %.5f" % (k, *v) for k, v in sorted(H["stats"].items()))))
 
 # (b) empirical P-value calibration on i.i.d. null sequences

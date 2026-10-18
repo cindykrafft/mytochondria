@@ -1,0 +1,13 @@
+# A1 domain 'acc' column vs the mean posterior probability of aligned residues
+# build: HMMER 3.3.2 (Nov 2020)  (/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/audit-hmmer/rel/hmmer-3.3.2/src)
+    envelope == alignment: 4 domains; acc within the PP-derived bounds for 4, below them for 0
+       Pkinase Pkinase_019_x2 #2 ali 328-598 env 328-598: acc 0.84, mean PP of aligned residues 0.83 [0.79, 0.87]
+       globins4 globins4_019_x2 #1 ali 23-170 env 23-170: acc 0.90, mean PP of aligned residues 0.89 [0.86, 0.93]
+       fn3 fn3_017_x3 #1 ali 51-136 env 51-136: acc 0.88, mean PP of aligned residues 0.87 [0.83, 0.91]
+    envelope wider than alignment: 218 domains; acc within the PP-derived bounds for 209, below them for 9
+       globins4 globins4_038_x3 #3 ali 496-556 env 489-630: acc 0.68, mean PP of aligned residues 0.88 [0.84, 0.92]
+       fn3 fn3_034_x2 #2 ali 190-249 env 187-275: acc 0.78, mean PP of aligned residues 0.86 [0.82, 0.90]
+       fn3 fn3_034_x2 #3 ali 255-272 env 250-286: acc 0.72, mean PP of aligned residues 0.79 [0.74, 0.84]
+ok    acc agrees with the PP line when the envelope equals the alignment
+FAIL  acc = mean posterior probability of aligned residues (documented) when the envelope is wider  | 9 of 218 domains fall below the bounds
+# 2 checks, 1 failed

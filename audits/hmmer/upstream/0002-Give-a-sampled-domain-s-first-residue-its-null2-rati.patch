@@ -1,0 +1,42 @@
+From 787c2bef8fbe5b13540440c4ac3b1d76d45332d4 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Sun, 18 Oct 2026 02:49:49 +0000
+Subject: [PATCH 2/2] Give a sampled domain's first residue its null2 ratio in
+ region_trace_ensemble()
+
+In region_trace_ensemble() the loop that adds 1.0 for residues outside
+a sampled domain ran up to and including tr->sqfrom[d], the first
+M-emitted residue of the domain, so that residue was counted as
+outside (odds 1.0) instead of with the domain's null2 odds in every
+sampled trace. The comments and p7_trace_Index() define the domain as
+sqfrom..sqto inclusive.
+
+This changes the per-residue null2 scores of every region resolved by
+stochastic traceback clustering. Re-deriving those scores from the same
+200 sampled traces for 25 human fn3-containing proteins, the library's
+n2sc matches the loop as written at 2356/2356 residues and the
+documented rule at 1444/2356 (max difference 0.29 nats); with this
+change it matches the documented rule.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ src/p7_domaindef.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/p7_domaindef.c b/src/p7_domaindef.c
+index 5d61e616..7b859c53 100644
+--- a/src/p7_domaindef.c
++++ b/src/p7_domaindef.c
+@@ -625,7 +625,7 @@ region_trace_ensemble(P7_DOMAINDEF *ddef, const P7_OPROFILE *om, const ESL_DSQ *
+ 	  p7_Null2_ByTrace(om, ddef->tr, ddef->tr->tfrom[d], ddef->tr->tto[d], wrk, null2);
+ 	  
+ 	  /* residues outside domains get bumped +1: because f'(x) = f(x), so f'(x)/f(x) = 1 in these segments */
+-	  for (; pos <= ddef->tr->sqfrom[d]; pos++) ddef->n2sc[ireg+pos-1] += 1.0;
++	  for (; pos <  ddef->tr->sqfrom[d]; pos++) ddef->n2sc[ireg+pos-1] += 1.0;
+ 
+ 	  /* Residues inside domains get bumped by their null2 ratio */
+ 	  for (; pos <= ddef->tr->sqto[d];   pos++) ddef->n2sc[ireg+pos-1] += null2[dsq[ireg+pos-1]];
+-- 
+2.43.0
+

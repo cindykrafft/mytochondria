@@ -1,0 +1,148 @@
+From 80aadea3814e66658ed5ee40dcfde1bebb9dc5ac Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Sun, 18 Oct 2026 02:49:35 +0000
+Subject: [PATCH 1/2] Count insert-state residues as inserts in
+ p7_Null2_ByTrace()
+
+The vector implementations of p7_Null2_ByTrace() (SSE, NEON, VMX)
+added every residue emitted by a model state to the match cell of the
+state's node, so residues emitted by insert states were scored with the
+match emission odds of node k instead of the insert odds (1.0; insert
+emission scores are 0 in a configured profile). The state type was
+computed in 2008 and never used; the 2016 -Wall cleanup commented it
+out as unneeded. The generic p7_GNull2_ByTrace() counts inserts
+separately, and the vector code already sums the I cells with odds 1.0.
+
+p7_Null2_ByTrace() sets the null2 correction for domains in regions
+that go to stochastic traceback clustering, so bit scores, bias columns
+and E-values of those domains and their sequences changed. On 500
+sequences emitted from fn3, the SSE and generic null2 vectors agreed on
+every domain without insert states and differed (up to 1.2 in log
+odds) on all 469 domains with insert states. On human Swiss-Prot
+searched with the tutorial fn3 and Pkinase models, 19 sequence scores
+move by up to 0.7 bits (E-values by up to 1.75-fold).
+
+Adds utest_null2_trace() to the SSE null2 test driver, comparing the
+two implementations on profile-emitted traces; it fails without this
+change.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ src/impl_neon/null2.c |  3 +--
+ src/impl_sse/null2.c  | 57 +++++++++++++++++++++++++++++++++++++++++--
+ src/impl_vmx/null2.c  |  2 +-
+ 3 files changed, 57 insertions(+), 5 deletions(-)
+
+diff --git a/src/impl_neon/null2.c b/src/impl_neon/null2.c
+index 7bc87fe4..d04d5840 100644
+--- a/src/impl_neon/null2.c
++++ b/src/impl_neon/null2.c
+@@ -158,8 +158,7 @@ p7_Null2_ByTrace(const P7_OPROFILE *om, const P7_TRACE *tr, int zstart, int zend
+       Ld++;
+       if (tr->k[z] > 0)	/* must be an M or I */
+ 	{ /* surely there's an easier way? but our workspace is striped, interleaved quads... */
+-	  // s = ( (tr->st[z] == p7T_M) ?  p7X_M : p7X_I);  // We don't need the state type <s>, but this is how you'd get it.
+-	  q = p7X_NSCELLS * ( (tr->k[z] - 1) % Q) + p7X_M;
++	  q = p7X_NSCELLS * ( (tr->k[z] - 1) % Q) + ( (tr->st[z] == p7T_M) ? p7X_M : p7X_I); /* inserts count in the I cell: insert odds 1.0 */
+ 	  r = (tr->k[z] - 1) / Q;
+ 	  u.v            = wrk->dpf[0][q];
+ 	  u.p[r]        += 1.0;	/* all this to increment a count by one! */
+diff --git a/src/impl_sse/null2.c b/src/impl_sse/null2.c
+index 7303f20e..44cc2c59 100644
+--- a/src/impl_sse/null2.c
++++ b/src/impl_sse/null2.c
+@@ -159,8 +159,7 @@ p7_Null2_ByTrace(const P7_OPROFILE *om, const P7_TRACE *tr, int zstart, int zend
+       Ld++;
+       if (tr->k[z] > 0)	/* must be an M or I */
+ 	{ /* surely there's an easier way? but our workspace is striped, interleaved quads... */
+-	  // s = ( (tr->st[z] == p7T_M) ?  p7X_M : p7X_I);  // We don't need the state type <s>, but this is how you'd get it.
+-	  q = p7X_NSCELLS * ( (tr->k[z] - 1) % Q) + p7X_M;
++	  q = p7X_NSCELLS * ( (tr->k[z] - 1) % Q) + ( (tr->st[z] == p7T_M) ? p7X_M : p7X_I); /* inserts count in the I cell: insert odds 1.0 */
+ 	  r = (tr->k[z] - 1) / Q;
+ 	  u.v            = wrk->dpf[0][q];
+ 	  u.p[r]        += 1.0;	/* all this to increment a count by one! */
+@@ -427,6 +426,59 @@ utest_null2_expectation(ESL_RANDOMNESS *r, ESL_ALPHABET *abc, P7_BG *bg, int M,
+   p7_profile_Destroy(gm);
+   p7_hmm_Destroy(hmm);
+ }
++
++/* compare p7_Null2_ByTrace() to p7_GNull2_ByTrace() on traces that
++ * contain insert states: emit sequences from the profile, so each
++ * trace is known, and compare the two null2 vectors for every domain.
++ */
++static void
++utest_null2_trace(ESL_RANDOMNESS *r, ESL_ALPHABET *abc, P7_BG *bg, int M, int L, int N, float tolerance)
++{
++  char        *msg  = "null2 by trace unit test failed";
++  P7_HMM      *hmm  = NULL;
++  P7_PROFILE  *gm   = NULL;
++  P7_OPROFILE *om   = NULL;
++  ESL_SQ      *sq   = esl_sq_CreateDigital(abc);
++  P7_TRACE    *tr   = p7_trace_Create();
++  P7_GMX      *gwrk = p7_gmx_Create(M, L);
++  P7_OMX      *owrk = p7_omx_Create(M, L, L);
++  float       *on2  = malloc(sizeof(float) * abc->Kp);
++  float       *gn2  = malloc(sizeof(float) * abc->Kp);
++  int          d;
++  int          nins  = 0;
++
++  if (!gn2 || !on2) esl_fatal(msg);
++
++  if (p7_oprofile_Sample(r, abc, bg, M, L, &hmm, &gm, &om) != eslOK) esl_fatal(msg);
++  while (N--)
++    {
++      if (p7_ProfileEmit(r, hmm, gm, bg, sq, tr) != eslOK) esl_fatal(msg);
++      if (p7_trace_Index(tr)                     != eslOK) esl_fatal(msg);
++      p7_gmx_GrowTo(gwrk, M, sq->n);
++      p7_omx_GrowTo(owrk, M, sq->n, sq->n);
++      for (d = 0; d < tr->ndom; d++)
++        {
++          int z;
++          for (z = tr->tfrom[d]; z <= tr->tto[d]; z++) if (tr->st[z] == p7T_I) nins++;
++          if (p7_Null2_ByTrace (om, tr, tr->tfrom[d], tr->tto[d], owrk, on2) != eslOK) esl_fatal(msg);
++          if (p7_GNull2_ByTrace(gm, tr, tr->tfrom[d], tr->tto[d], gwrk, gn2) != eslOK) esl_fatal(msg);
++          if (esl_vec_FCompare(gn2, on2, abc->Kp, tolerance)                  != eslOK) esl_fatal(msg);
++        }
++      p7_trace_Reuse(tr);
++      esl_sq_Reuse(sq);
++    }
++  if (nins == 0) esl_fatal("%s: no insert states were sampled", msg);
++
++  p7_gmx_Destroy(gwrk);
++  p7_omx_Destroy(owrk);
++  p7_trace_Destroy(tr);
++  esl_sq_Destroy(sq);
++  free(on2);
++  free(gn2);
++  p7_oprofile_Destroy(om);
++  p7_profile_Destroy(gm);
++  p7_hmm_Destroy(hmm);
++}
+ #endif /*p7NULL2_TESTDRIVE*/
+ /*--------------------- end, unit tests -------------------------*/
+ 
+@@ -480,6 +532,7 @@ main(int argc, char **argv)
+   p7_FLogsumInit();
+ 
+   utest_null2_expectation(r, abc, bg, M, L, N, tol);
++  utest_null2_trace      (r, abc, bg, M, L, 10*N, tol);
+ 
+   esl_getopts_Destroy(go);
+   esl_randomness_Destroy(r);
+diff --git a/src/impl_vmx/null2.c b/src/impl_vmx/null2.c
+index 5897f5f9..ded0573d 100644
+--- a/src/impl_vmx/null2.c
++++ b/src/impl_vmx/null2.c
+@@ -169,7 +169,7 @@ p7_Null2_ByTrace(const P7_OPROFILE *om, const P7_TRACE *tr, int zstart, int zend
+       Ld++;
+       if (tr->k[z] > 0)	/* must be an M or I */
+ 	{ /* surely there's an easier way? but our workspace is striped, interleaved quads... */
+-	  q = p7X_NSCELLS * ( (tr->k[z] - 1) % Q) + p7X_M;
++	  q = p7X_NSCELLS * ( (tr->k[z] - 1) % Q) + ( (tr->st[z] == p7T_M) ? p7X_M : p7X_I); /* inserts count in the I cell: insert odds 1.0 */
+ 	  r = (tr->k[z] - 1) / Q;
+ 	  u.v            = wrk->dpf[0][q];
+ 	  u.p[r]        += 1.0;	/* all this to increment a count by one! */
+-- 
+2.43.0
+

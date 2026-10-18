@@ -1,0 +1,6 @@
+# G1 single-value GA line in a protein alignment
+# build: HMMER 3.1b2 (February 2015)  (/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/audit-hmmer/rel/hmmer-3.1b2/src)
+    hmmbuild writes: []
+    --cut_ga: 99 targets (lowest seq score 24.3), 428 domains, lowest domain scores [0.2, 0.3, 0.4]
+FAIL  --cut_ga applies GA = 24.50 to domains when only one GA value is given  | domains down to 0.2 bits reported (GA2 written as ?)
+# 1 checks, 1 failed

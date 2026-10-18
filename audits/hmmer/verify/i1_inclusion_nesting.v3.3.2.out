@@ -1,0 +1,7 @@
+# I1 inclusion nested in reporting
+# build: HMMER 3.3.2 (Nov 2020)  (/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/audit-hmmer/rel/hmmer-3.3.2/src)
+    -E 1e-20 (default --incE 0.01): 14 targets reported, 39 domains reported (domtblout); tblout sum(rep)=39 sum(inc)=39; -A alignment: 39 domains from 14 targets
+ok    -E 1e-20 (default --incE 0.01): every included target/domain is also reported
+    --domE 1e-12 (default --incdomE 0.01): 40 targets reported, 12 domains reported (domtblout); tblout sum(rep)=12 sum(inc)=79; -A alignment: 79 domains from 40 targets
+FAIL  --domE 1e-12 (default --incdomE 0.01): every included target/domain is also reported  | 79 included domains but only 12 reported
+# 2 checks, 1 failed

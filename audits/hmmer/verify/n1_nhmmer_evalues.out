@@ -16,5 +16,6 @@ ok    --cpu 1 gives the same hits, scores and E-values as the default
 ok    --cpu 4 gives the same hits, scores and E-values as the default
 ok    --block_length 60000 gives the same hits, scores and E-values as the default  | 58 vs 58 hits
 ok    every insert hit on its own strand has orientation, ali coords inside the insert and sq len right (32 of 40 inserts hit)  | wrong: []
+ok    envelope contains the alignment on both strands (+: envfrom<=alifrom<=alito<=envto; -: reversed) for 58 hits  | []
     MADE1 is a MITE with terminal inverted repeats, so most inserts also give a weaker hit on the opposite strand; not checked
-# 14 checks, 0 failed
+# 15 checks, 0 failed

@@ -1,0 +1,12 @@
+# Z1 -Z in hmmscan and nhmmscan
+# build: HMMER 3.4 (Aug 2023)  (/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/audit-hmmer/rel/hmmer-3.4/src)
+ok    hmmscan: -Z 2000 (vs 2 models) scales E by 1000 (5 hits)  | ratios 1000-1000
+    nhmmscan header with -Z 1000: # sequence search space set to:    1000
+    hit 20007-20109: nhmmscan E 3.1e-07 | nhmmscan -Z 1000 E 3.1e-07 | nhmmer E 3.1e-07
+    hit 20109-20007: nhmmscan E 1.6e-07 | nhmmscan -Z 1000 E 1.6e-07 | nhmmer E 1.6e-07
+    hit 40003-40029: nhmmscan E 0.011 | nhmmscan -Z 1000 E 0.011 | nhmmer E 0.011
+    hit 60002-60136: nhmmscan E 4.2e-05 | nhmmscan -Z 1000 E 4.2e-05 | nhmmer E 4.2e-05
+    hit 60136-60002: nhmmscan E 0.0017 | nhmmscan -Z 1000 E 0.0017 | nhmmer E 0.0017
+ok    nhmmscan and nhmmer give the same E-values for the same one-model comparison (5 hits)
+FAIL  nhmmscan: -Z 1000 (vs 1 model) scales E by 1000  | E-values unchanged: ratios [1.0]
+# 3 checks, 1 failed

@@ -1,0 +1,30 @@
+HMMER test-suite runs for the fix branch (2026-10-18, Ubuntu 24.04.4, gcc 13.3.0, x86-64 SSE build)
+
+Suite: "make check" (Easel's testsuite/ then HMMER's testsuite/testsuite.sqc via sqc, levels <= 2),
+as .travis.yml and the INSTALL notes run it. Build: autoconf && ./configure && make, Easel develop
+@ 69efc38 cloned inside the tree.
+
+branch                       commit     Easel exercises    HMMER exercises    notes
+develop (control)            37f7148    102/102 passed     307/307 passed
+fix/null2-bytrace            787c2be    102/102 passed     307/307 passed     exercise 27 [null2] now runs
+                                                                              utest_null2_expectation and the new
+                                                                              utest_null2_trace
+
+Regression check: src/impl_sse/null2_utest with only the one-line insert fix reverted (new test kept)
+fails with "null2 by trace unit test failed" (exit 1); with the fix it passes (exit 0).
+
+The patches (0001, 0002) apply with "git am" on develop @ 37f7148 (checked in a clean worktree).
+
+Behavioural checks on the patched build (../verify):
+  n2_null2_bytrace.patched.out  SSE == generic null2 on every domain with insert states (0/469 fn3,
+                                0/784 Pkinase differ); library n2sc == documented sqfrom..sqto rule at
+                                2356/2356 (fn3) and 7825/7825 (Pkinase) residues
+  x1_null2_effect.out           develop vs HM1-only vs HM2-only vs both, human Swiss-Prot and stress set
+  e1_evalues.patched.out, t1_thresholds.patched.out, h1_consistency.patched.out
+                                every E-value, threshold and consistency check passes unchanged
+
+Not built or run: the NEON (ARM) and VMX (PowerPC) implementations, which receive the same one-line
+change; MPI builds.
+
+Logs: check-develop.log and check-fix.log in the session scratchpad (565 lines each; identical apart
+from paths and timings).

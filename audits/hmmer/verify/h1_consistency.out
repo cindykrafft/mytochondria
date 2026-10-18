@@ -1,0 +1,7 @@
+# H1 consistency: --max vs default, jackhmmer vs hmmsearch on its checkpoint
+# build: HMMER 3.5 (July 2026)  (/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/audit-hmmer/hmmer/src)
+ok    fn3 on human Swiss-Prot: 194 default hits all found under --max with identical E/score (--max adds 62)  | 0 differ
+ok    Pkinase on human Swiss-Prot: 483 default hits all found under --max with identical E/score (--max adds 30)  | 0 differ
+    jackhmmer: 4 rounds; last round 83 targets
+ok    jackhmmer round 4 = hmmsearch with jk-4.hmm: same targets, scores within 0.1 bit, E within two %.2g roundings (x1.11)  | 2 of 83 printed E-values differ in the second digit
+# 3 checks, 0 failed
