@@ -330,3 +330,20 @@ independent of what the papers call. Eighteen harness groups (`scikit-learn/veri
 Channel: NumPy's AI policy also forbids AI-written issue and PR descriptions and AI speaking in threads, so the NumPy
 kit is fact sheets too (`numpy/upstream/issue-np3-…`, `issue-np5-…`, `pr-bodies.md`). Prior-report threads read in full
 through two helper sessions ("Mytochondria threads scikit-learn triage", "Mytochondria threads numpy triage").
+
+## Round 7 (2026-10-18): BWA, minimap2, HMMER, kallisto, fgsea
+
+Five of the survey's most-used tools not yet audited. Kits under `audits/<pkg>/upstream/`, each with a
+duplicate check of 2026-10-18; no fork exists for any of them yet.
+
+| tier | finding | reason |
+|---|---|---|
+| file now (issue; PR on request) | BWA BWA1 | every release since 0.7.6: `mapQ_coef_fac` is an `int`, so ln 50 is stored as 3 and `bwa mem` MAPQ below the cap is about 41 % low for alignments of 50 bp or more (27 → 15 at the 49/50-bp step); MAPQ filters decide which reads a paper counts |
+| file now (issue + PR) | HMMER HM1 + HM2 | since 3.0: the SIMD trace-based null2 scores insert residues with match odds, and each sampled domain's first residue is counted outside it; default options change bit scores (≤ 0.9) and E-values (0.74–2.0×) on 26 of 677 fn3/Pkinase hits in human Swiss-Prot |
+| file now, soft (issue + PR) | minimap2 MM1 | 2.17–2.31: under `-x sr`, `AS:i` exceeds its own CIGAR's score on 7.0 % of records when an extension reaches the read end; reaches papers through AS thresholds and AS-based assignment, not as a reported number |
+| file now, borderline (issue + PR to `devel`) | kallisto KA1 | since 0.48.0, default CMake build without HDF5: `-b N --plaintext -t T>1` runs no bootstraps, prints nothing, and `run_info.json` reports N. Missing output, not a wrong number (precedent VT1) |
+| held | BWA BWA2, BWA3, N1, N2; minimap2 MM2, MM3, N1, N2; HMMER HM3–HM5, N1; kallisto KA2 (comment for #230 drafted), KA4, N1–N3; fgsea FG3 (issue drafted, a question), FG4, FG5 (issue + PR drafted), N1–N4 | small effects, design questions, or waiting on the first filing's reply |
+| duplicate / fixed upstream | minimap2 N3 (#1307), F1, F2; kallisto KA3 (#151 / PR #260), KA5 (#465); fgsea FG1 (#176), FG2 (#151) | not filed |
+
+fgsea has nothing at the "now" tier: the current release reproduced every checked number. Its FG3 also corrects the GSEA
+audit: fgsea's ties warning leaves zeros out, so it is silent on an all-zero set as GSEA is (`gsea/upstream/README.md`).

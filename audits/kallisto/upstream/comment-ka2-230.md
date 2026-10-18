@@ -1,3 +1,5 @@
+Title: (comment on #230) Single-end default: the -l overhang filter drops reads near a target's 3' end, so short targets get low or zero counts
+
 <!-- HELD. Comment for pachterlab/kallisto#230 (open since 2019; two comments, from the reporter and mschilli87; no maintainer reply).
      Thread read in full 2026-10-18 via the public page. It already contains: a read at a transcript's end fails without
      --single-overhang (75-bp read on a 75-bp transcript; a 1,500-bp transcript with a read at 1425), and mschilli87's guess that the

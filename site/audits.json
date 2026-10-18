@@ -523,6 +523,76 @@
    "versions_in_repo": 0,
    "requires_own_text": true,
    "filing": "ignored (owner's rule, 2026-10-07): the project requires issue/PR text written by the submitter, and Mytochondria automates the writing, so nothing is filed there"
+  },
+  {
+   "dir": "bwa",
+   "name": "BWA",
+   "papers": 418,
+   "findings": 5,
+   "repos": [
+    "lh3/bwa"
+   ],
+   "fork": null,
+   "attributed": null,
+   "attributed_note": "survey cohort of 418 papers; 3 confirmed on master and the 0.7.12/0.7.15/0.7.17 builds (MAPQ length factor truncated to an int, about 41 % low for alignments of 50 bp or more; MC:Z on supplementary records; same-strand pairing), 2 notes; scores, NM/MD, insert-size estimate, SA and proper-pair flags held up",
+   "versions_stated": 178,
+   "versions_in_repo": 0
+  },
+  {
+   "dir": "minimap2",
+   "name": "minimap2",
+   "papers": 173,
+   "findings": 5,
+   "repos": [
+    "lh3/minimap2"
+   ],
+   "fork": null,
+   "attributed": null,
+   "attributed_note": "survey cohort of 173 papers; 3 confirmed on 2.17, 2.24, 2.26 and 2.31 (AS:i above its own CIGAR's score under -x sr when an extension reaches the read end; n_sub not reset for the best hit; dv:f right-end slip), 2 notes; one duplicate of #1307, two fixed upstream",
+   "versions_stated": 77,
+   "versions_in_repo": 0
+  },
+  {
+   "dir": "hmmer",
+   "name": "HMMER",
+   "papers": 162,
+   "findings": 6,
+   "repos": [
+    "EddyRivasLab/hmmer"
+   ],
+   "fork": null,
+   "attributed": null,
+   "attributed_note": "survey cohort of 162 papers; 5 confirmed on 3.1b2, 3.3.2, 3.4 and develop (SIMD null2 counts insert residues as match; domain null2 off by one at the envelope start; nhmmscan -Z; domain inclusion not nested in reporting; GA from one value), 1 note; E-values, thresholds and calibration held up",
+   "versions_stated": 52,
+   "versions_in_repo": 0
+  },
+  {
+   "dir": "kallisto",
+   "name": "kallisto",
+   "papers": 125,
+   "findings": 6,
+   "repos": [
+    "pachterlab/kallisto"
+   ],
+   "fork": null,
+   "attributed": null,
+   "attributed_note": "survey cohort of 125 papers; 3 confirmed (default build without HDF5 writes no bootstraps for -b, with no warning; single-end default FLD; --bias effective lengths), 3 notes; one duplicate of #151 and one already reported (#465); est_counts, TPM, EM and effective lengths held up",
+   "versions_stated": 46,
+   "versions_in_repo": 0
+  },
+  {
+   "dir": "fgsea",
+   "name": "fgsea",
+   "papers": 122,
+   "findings": 7,
+   "repos": [
+    "alserglab/fgsea"
+   ],
+   "fork": null,
+   "attributed": null,
+   "attributed_note": "survey cohort of 122 papers; current release holds up against exact enumeration down to p = 1e-72; FG1 and FG2 changed published numbers in the cohort's versions but were reported and fixed upstream (#176, #151); 3 held (all-zero set gets an order-dependent ES with no warning, float comparisons, a test that compares NULL) and 4 notes",
+   "versions_stated": 24,
+   "versions_in_repo": 0
   }
  ],
  "author": "cindykrafft",
