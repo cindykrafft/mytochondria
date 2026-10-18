@@ -1,0 +1,55 @@
+2.17-r941  reference 4000000 bp random, -x sr, 2 x 150 bp
+class          n  0x2 0x2 wrong TLEN wrong mate fields wrong
+  100 FR       6    6         0          0                 0
+  120 FR       6    6         0          0                 0
+  150 FR       6    6         0          0                 0
+  200 FF       6    0         0          0                 0
+  200 FR       6    6         0          0                 0
+  200 RF       6    0         0          0                 0
+  300 FF       6    0         0          0                 0
+  300 FR       6    6         0          0                 0
+  300 RF       6    0         0          0                 0
+  400 FF       6    0         0          0                 0
+  400 FR       6    6         0          0                 0
+  400 RF       6    0         0          0                 0
+  500 FF       6    0         0          0                 0
+  500 FR       6    6         0          0                 0
+  500 RF       6    0         0          0                 0
+  600 FF       6    0         0          0                 0
+  600 FR       6    6         0          0                 0
+  600 RF       6    0         0          0                 0
+  640 FF       6    0         0          0                 0
+  640 FR       6    6         0          0                 0
+  640 RF       6    0         0          0                 0
+  700 FF       6    0         0          0                 0
+  700 FR       6    6         0          0                 0
+  700 RF       6    0         0          0                 0
+  760 FF       6    0         0          0                 0
+  760 FR       6    6         0          0                 0
+  760 RF       6    0         0          0                 0
+  790 FF       6    0         0          0                 0
+  790 FR       6    6         0          0                 0
+  790 RF       6    0         0          0                 0
+  800 FF       6    0         0          0                 0
+  800 FR       6    6         0          0                 0
+  800 RF       6    0         0          0                 0
+  810 FF       6    0         0          0                 0
+  810 FR       6    0         0          0                 0
+  810 RF       6    0         0          0                 0
+  840 FF       6    0         0          0                 0
+  840 FR       6    0         0          0                 0
+  840 RF       6    0         0          0                 0
+  900 FF       6    0         0          0                 0
+  900 FR       6    0         0          0                 0
+  900 RF       6    0         0          0                 0
+ 1000 FF       6    0         0          0                 0
+ 1000 FR       6    0         0          0                 0
+ 1000 RF       6    0         0          0                 0
+ 1200 FF       6    0         0          0                 0
+ 1200 FR       6    0         0          0                 0
+ 1200 RF       6    0         0          0                 0
+rep           80   80         0          0                 0  mate 2 on the copy next to mate 1: 80/80; mate 2 MAPQ >= 20: 80/80 (mean 53.7)
+swap          12   12         0          0                 0
+dovetailed FR pairs (read 2 starts t bp before read 1; not in the totals; lh3/minimap2#1307): t=2: proper 0/6, t=5: proper 0/6, t=10: proper 0/6, t=20: proper 0/6
+missing records: 0
+ok   proper-pair flag, TLEN and mate fields vs the planted fragments (0 discrepancies)

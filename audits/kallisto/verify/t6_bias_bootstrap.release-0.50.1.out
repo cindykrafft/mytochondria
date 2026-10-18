@@ -1,0 +1,42 @@
+kallisto 0.50.1
+
+unbiased library, no --bias: 39998 fragments, 60 bootstraps
+   bootstrap TPM vs est_counts/eff_length formula: worst rel. diff 9.6e-06
+   bootstrap tables carry the point estimate's eff_length: True
+   targets with >= 50 reads: 109; |mean_bs - point| / (sd_bs/sqrt(B)) > 4 for 1; median |z| 0.82
+     g037_t0   point     246.2  bootstrap mean     215.8  (-12.4 %)  sd    50.1  z -4.7
+     g052_t1   point     360.7  bootstrap mean     367.3  (+1.8 %)  sd    18.3  z +2.8
+     g042_t1   point     233.2  bootstrap mean     242.5  (+4.0 %)  sd    26.8  z +2.7
+     g013_t0   point    1415.5  bootstrap mean    1375.8  (-2.8 %)  sd   125.1  z -2.5
+     g013_t3   point     297.6  bootstrap mean     323.1  (+8.6 %)  sd    82.4  z +2.4
+     g056_t0   point     344.8  bootstrap mean     325.9  (-5.5 %)  sd    62.2  z -2.3
+
+GC-biased library, no --bias: 40000 fragments, 60 bootstraps
+   bootstrap TPM vs est_counts/eff_length formula: worst rel. diff 7.6e-06
+   bootstrap tables carry the point estimate's eff_length: True
+   targets with >= 50 reads: 105; |mean_bs - point| / (sd_bs/sqrt(B)) > 4 for 2; median |z| 0.80
+     g019_t2   point     263.9  bootstrap mean     202.0  (-23.5 %)  sd    89.1  z -5.4
+     g019_t0   point     996.3  bootstrap mean    1065.8  (+7.0 %)  sd   103.0  z +5.2
+     g013_t3   point     170.5  bootstrap mean     131.3  (-23.0 %)  sd    81.0  z -3.8
+     g037_t0   point     282.9  bootstrap mean     265.3  (-6.2 %)  sd    45.6  z -3.0
+     g013_t0   point    1441.2  bootstrap mean    1484.1  (+3.0 %)  sd   114.3  z +2.9
+     g037_t3   point     505.4  bootstrap mean     518.5  (+2.6 %)  sd    36.8  z +2.8
+Traceback (most recent call last):
+  File "/home/user/research-software-audit/audits/kallisto/verify/./t6_bias_bootstrap.py", line 74, in <module>
+    out, err = run_quant(idx, d, frags, paired=True, name="bs_%s" % label.replace(" ", "_").replace(",", "").replace("-", ""),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/research-software-audit/audits/kallisto/verify/_sim.py", line 237, in run_quant
+    raise RuntimeError("quant failed: " + p.stderr[-3000:])
+RuntimeError: quant failed: 
+[quant] fragment length distribution will be estimated from the data
+[index] k-mer length: 31
+[index] number of targets: 161
+[index] number of k-mers: 78,186
+[quant] running in paired-end mode
+[quant] will process pair 1: /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/audit-kallisto/runs/kh_3xafrehz/bs_GCbiased_library_bias_1.fq
+                             /tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/audit-kallisto/runs/kh_3xafrehz/bs_GCbiased_library_bias_2.fq
+[quant] finding pseudoalignments for the reads ... done
+[quant] learning parameters for sequence specific bias
+[quant] processed 40,000 reads, 40,000 reads pseudoaligned
+[quant] estimated average fragment length: 248.242
+[   em] quantifying the abundances ...

@@ -1,0 +1,15 @@
+kallisto 0.50.1
+
+(a) bootstraps, -b 8 --plaintext --seed 42
+ok   -t 1: exit 0, bs_abundance files 8 of 8, run_info n_bootstraps 8, identical to -t 1: -; bootstrap messages: 8 lines (last: '[bstrp] running EM for the bootstrap: 8')
+FAIL -t 2: exit 0, bs_abundance files 0 of 8, run_info n_bootstraps 8, identical to -t 1: False; bootstrap messages: 0 lines
+FAIL -t 4: exit 0, bs_abundance files 0 of 8, run_info n_bootstraps 8, identical to -t 1: False; bootstrap messages: 0 lines
+
+(b) determinism, -t 1 vs -t 4
+ok   est_counts max |diff| 0.00e+00; n_processed 20000/20000, n_pseudoaligned 20000/20000, n_unique 6796/6796
+
+(c) run_info with random pairs and substitution errors
+ok   -t 1: n_processed 20000 (pairs 20000), n_pseudoaligned 17986 (<= 17986 non-random), sum est_counts 17986.0, p_pseudoaligned 89.9 (recomputed 89.9)
+ok   -t 4: n_processed 20000 (pairs 20000), n_pseudoaligned 17986 (<= 17986 non-random), sum est_counts 17986.0, p_pseudoaligned 89.9 (recomputed 89.9)
+
+FAILURES: 2

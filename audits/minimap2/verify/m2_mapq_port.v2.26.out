@@ -1,0 +1,9 @@
+2.26-r1175  reference 3000000 bp random
+
+[-x sr] 1500 reads, 797 records; 797 single primaries with s2:i:0
+  MAPQ distribution of the tested records (decades): {0: 121, 10: 123, 20: 73, 30: 59, 40: 44, 50: 29, 60: 348}
+  ok   MAPQ matches the port on 797/797
+
+[map-ont] 1500 reads, 1437 records; 1437 single primaries with s2:i:0
+  MAPQ distribution of the tested records (decades): {0: 27, 10: 31, 20: 27, 30: 26, 40: 45, 50: 37, 60: 1244}
+  ok   MAPQ matches the port on 1437/1437

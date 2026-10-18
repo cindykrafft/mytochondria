@@ -1,0 +1,39 @@
+kallisto 0.52.0
+
+unbiased library, no --bias: 39998 fragments, 60 bootstraps
+   bootstrap TPM vs est_counts/eff_length formula: worst rel. diff 9.6e-06
+   bootstrap tables carry the point estimate's eff_length: True
+   targets with >= 50 reads: 109; |mean_bs - point| / (sd_bs/sqrt(B)) > 4 for 1; median |z| 0.82
+     g037_t0   point     246.2  bootstrap mean     215.8  (-12.4 %)  sd    50.1  z -4.7
+     g052_t1   point     360.7  bootstrap mean     367.3  (+1.8 %)  sd    18.3  z +2.8
+     g042_t1   point     233.2  bootstrap mean     242.5  (+4.0 %)  sd    26.8  z +2.7
+     g013_t0   point    1415.5  bootstrap mean    1375.8  (-2.8 %)  sd   125.1  z -2.5
+     g013_t3   point     297.6  bootstrap mean     323.1  (+8.6 %)  sd    82.4  z +2.4
+     g056_t0   point     344.8  bootstrap mean     325.9  (-5.5 %)  sd    62.2  z -2.3
+
+GC-biased library, no --bias: 40000 fragments, 60 bootstraps
+   bootstrap TPM vs est_counts/eff_length formula: worst rel. diff 7.6e-06
+   bootstrap tables carry the point estimate's eff_length: True
+   targets with >= 50 reads: 105; |mean_bs - point| / (sd_bs/sqrt(B)) > 4 for 2; median |z| 0.80
+     g019_t2   point     263.9  bootstrap mean     202.0  (-23.5 %)  sd    89.1  z -5.4
+     g019_t0   point     996.3  bootstrap mean    1065.8  (+7.0 %)  sd   103.0  z +5.2
+     g013_t3   point     170.5  bootstrap mean     131.3  (-23.0 %)  sd    81.0  z -3.8
+     g037_t0   point     282.9  bootstrap mean     265.3  (-6.2 %)  sd    45.6  z -3.0
+     g013_t0   point    1441.2  bootstrap mean    1484.1  (+3.0 %)  sd   114.3  z +2.9
+     g037_t3   point     505.4  bootstrap mean     518.5  (+2.6 %)  sd    36.8  z +2.8
+
+GC-biased library, --bias: 40000 fragments, 60 bootstraps
+   bootstrap TPM vs est_counts/eff_length formula: worst rel. diff 1.0e-05
+   bootstrap tables carry the point estimate's eff_length: True
+   targets with >= 50 reads: 108; |mean_bs - point| / (sd_bs/sqrt(B)) > 4 for 9; median |z| 1.33
+     g002_t0   point     892.9  bootstrap mean     975.6  (+9.3 %)  sd    64.9  z +9.9
+     g002_t3   point    2088.2  bootstrap mean    2009.3  (-3.8 %)  sd    68.9  z -8.9
+     g003_t3   point     161.9  bootstrap mean     141.3  (-12.7 %)  sd    26.7  z -5.9
+     g039_t3   point     632.4  bootstrap mean     583.3  (-7.8 %)  sd    66.9  z -5.7
+     g039_t2   point     232.4  bootstrap mean     274.9  (+18.3 %)  sd    66.4  z +5.0
+     g003_t2   point     173.1  bootstrap mean     154.5  (-10.8 %)  sd    30.1  z -4.8
+   bias-corrected / plain eff_length: min 0.214 median 1.013 max 1.422
+   bootstrap means: mean |bs_mean - EM(plain eff_length)| 5.04 vs mean |bs_mean - EM(bias eff_length)| 9.20 reads
+
+--bias on an unbiased library (40 single-isoform targets 1.5-3 kb, 200,000 pairs):
+   eff_length - (L - mu + 1), mu = kallisto's FLD mean 249.36: mean -4.15, median -4.36, sd 3.92

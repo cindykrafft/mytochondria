@@ -1,0 +1,20 @@
+# N1 nhmmer E-values, -Z, strands, threads, coordinates
+# build: HMMER 3.1b2 (February 2015)  (/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/audit-hmmer/rel/hmmer-3.1b2/src)
+    database: 8 sequences, 2000000 residues (2.000000 Mb), 40 inserts, W=MAXL=426
+    default: 58 hits
+ok    both strands: E = P(score) * 4000000 / 426 for 58 hits  | 0 mismatches, e.g. []
+ok    both strands: -Z 2.000000 (true size) reproduces the default E-values  | 0 differ, e.g. []
+ok    both strands: -Z 10x true size scales E by 10  | ratios 10.000-10.000
+ok    --toponly: E = P(score) * 2000000 / 426 for 31 hits  | 0 mismatches, e.g. []
+ok    --toponly: -Z 2.000000 (true size) reproduces the default E-values  | 0 differ, e.g. []
+ok    --toponly: -Z 10x true size scales E by 10  | ratios 10.000-10.000
+ok    --bottomonly: E = P(score) * 2000000 / 426 for 27 hits  | 0 mismatches, e.g. []
+ok    --bottomonly: -Z 2.000000 (true size) reproduces the default E-values  | 0 differ, e.g. []
+ok    --bottomonly: -Z 10x true size scales E by 10  | ratios 10.000-10.000
+ok    --cpu 0 gives the same hits, scores and E-values as the default
+ok    --cpu 1 gives the same hits, scores and E-values as the default
+ok    --cpu 4 gives the same hits, scores and E-values as the default
+ok    --block_length 60000 gives the same hits, scores and E-values as the default  | 58 vs 58 hits
+ok    every insert hit on its own strand has orientation, ali coords inside the insert and sq len right (32 of 40 inserts hit)  | wrong: []
+    MADE1 is a MITE with terminal inverted repeats, so most inserts also give a weaker hit on the opposite strand; not checked
+# 14 checks, 0 failed

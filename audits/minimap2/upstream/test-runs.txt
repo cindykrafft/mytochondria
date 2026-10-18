@@ -1,0 +1,36 @@
+# Project-level checks for fix/as-end-to-end-extension (base 3c28777, minimap2 2.31-r1302)
+# lh3/minimap2 has no test suite; CI (.github/workflows/ci.yaml) only compiles with gcc and clang
+# (x86_64), gcc (aarch64) and clang (macOS arm64). Reproduced here: x86_64 gcc and clang builds
+# with the Makefile's -Wall, then the README's example commands on master and on the branch, diffed.
+# Run 2026-10-18T02:41Z
+
+$ make CC=gcc
+index.c:532:17: warning: ignoring return value of 'fread' declared with attribute 'warn_unused_result' [-Wunused-result]
+index.c:535:25: warning: ignoring return value of 'fread' declared with attribute 'warn_unused_result' [-Wunused-result]
+index.c:538:17: warning: ignoring return value of 'fread' declared with attribute 'warn_unused_result' [-Wunused-result]
+index.c:548:17: warning: ignoring return value of 'fread' declared with attribute 'warn_unused_result' [-Wunused-result]
+index.c:550:17: warning: ignoring return value of 'fread' declared with attribute 'warn_unused_result' [-Wunused-result]
+index.c:551:17: warning: ignoring return value of 'fread' declared with attribute 'warn_unused_result' [-Wunused-result]
+index.c:558:25: warning: ignoring return value of 'fread' declared with attribute 'warn_unused_result' [-Wunused-result]
+index.c:566:17: warning: ignoring return value of 'fread' declared with attribute 'warn_unused_result' [-Wunused-result]
+exit=0 (grep exit; 1 = no warnings/errors)
+minimap2: ELF 64-bit LSB pie executable, x86-64
+2.31-r1302
+
+$ make CC=clang
+exit=1 (grep exit; 1 = no warnings/errors)
+minimap2: ELF 64-bit LSB pie executable, x86-64
+2.31-r1302
+
+## README examples and the test/ inputs: master (3c28777) vs branch, outputs diffed (@PG line excluded)
+  1.sam: identical (1 records)
+  2.sam: identical (1 records)
+  3.sam: identical (1 records)
+  4.paf: identical (2 records)
+  5.paf: identical (0 records)
+  6.sam: identical (1 records)
+  commands: -a MT-human MT-orang | -x map-ont -d .mmi then -a | -ax splice x3s-ref x3s-qry | -cx asm5 t-inv q-inv | -cx sr t2 q2 | -ax sr MT-human q2
+
+## Audit harnesses on the branch build
+  ../verify/s1_scores_tags.patched.out: AS == port on 180/180 in every block (sr 150/100, map-ont, splice); NM/MD/cs/de/POS/PAF columns unchanged
+  ../verify/r1_as_prevalence.out: 20,000 Illumina-like pairs; AS changes on 2,803/40,000 records (all to the CIGAR-derived value); no other field changes

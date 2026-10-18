@@ -1,0 +1,2 @@
+2.26-r1175  2 Mb reference; 20,000 pairs 2 x 150 bp; -x sr
+[tested build] 40000 primary mapped records; AS == AS recomputed from the CIGAR on 37197 (92.99 %); AS above it on 2803 (7.01 %), by: {2: 650, 4: 685, 6: 704, 8: 758, 10: 1, 12: 1, 14: 3, 16: 1}

@@ -1,0 +1,31 @@
+kallisto 0.51.1
+
+[S] 150 targets, FLD N(200,30): mean all fragments 200.2 | unique-class fragments 200.2 (first 10,000: 200.8) | kallisto estimate 200.8 (+0.6 vs all)
+   L in [ 1000, 2000):  45 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 1.000, range 1.000-1.000
+   L in [ 2000,100000): 105 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 1.000, range 1.000-1.000
+
+[S] 150 targets, FLD N(300,60): mean all fragments 300.3 | unique-class fragments 300.3 (first 10,000: 300.2) | kallisto estimate 300.2 (-0.1 vs all)
+   L in [ 1000, 2000):  45 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 1.000, range 1.000-1.000
+   L in [ 2000,100000): 105 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 1.000, range 1.000-1.000
+
+[S] 150 targets, FLD N(400,80): mean all fragments 400.2 | unique-class fragments 400.2 (first 10,000: 400.6) | kallisto estimate 400.6 (+0.4 vs all)
+   L in [ 1000, 2000):  45 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 1.000, range 1.000-1.000
+   L in [ 2000,100000): 105 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 1.000, range 1.000-1.000
+
+[M] 470 targets, FLD N(200,30): mean all fragments 200.1 | unique-class fragments 201.2 (first 10,000: 201.0) | kallisto estimate 199.1 (-1.0 vs all)
+   L in [    0,  500):  41 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 0.997, range 0.984-1.004
+   L in [  500, 1000): 193 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 1.000, range 0.999-1.001
+   L in [ 1000, 2000): 220 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 1.001, range 1.001-1.001
+   L in [ 2000,100000):   3 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 1.001, range 1.001-1.001
+
+[M] 470 targets, FLD N(300,60): mean all fragments 300.0 | unique-class fragments 301.2 (first 10,000: 301.9) | kallisto estimate 296.4 (-3.6 vs all)
+   L in [    0,  500):  39 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 0.978, range 0.944-1.598
+   L in [  500, 1000): 187 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 1.000, range 0.990-1.002
+   L in [ 1000, 2000): 217 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 1.004, range 1.002-1.005
+   L in [ 2000,100000):   3 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 1.005, range 1.005-1.005
+
+[M] 470 targets, FLD N(400,80): mean all fragments 398.8 | unique-class fragments 400.4 (first 10,000: 400.6) | kallisto estimate 398.9 (+0.2 vs all)
+   L in [    0,  500):  31 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 0.984, range 0.971-2.694
+   L in [  500, 1000): 185 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 0.996, range 0.981-0.997
+   L in [ 1000, 2000): 219 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 0.997, range 0.997-0.998
+   L in [ 2000,100000):   3 targets, TPM(kallisto eff_length) / TPM(true-FLD eff_length): median 0.998, range 0.998-0.998

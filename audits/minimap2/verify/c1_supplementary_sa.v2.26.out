@@ -1,0 +1,7 @@
+2.26-r1175  reference 5000000 bp random
+
+[map-ont chimeras] reads: 120; both segments placed at their origins: 120; SA RNAME/POS/strand/MAPQ/NM == other record: 240; SA clip lengths == other record: 240
+
+[sr chimeras 80+70] reads: 120; both segments placed at their origins: 120; SA RNAME/POS/strand/MAPQ/NM == other record: 240; SA clip lengths == other record: 240
+
+[map-ont exact 2-copy repeat, PAF] reads: 120; 1 primary + 1 secondary: 120; all MAPQ 0: 120; primary s2 == s1: 120

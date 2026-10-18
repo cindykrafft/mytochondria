@@ -1,0 +1,29 @@
+2.31-r1302  reference 5000000 bp, 108 two-copy repeat families
+
+== long reads, map-ont
+  instrumented: 864 mm_set_parent calls; 432 after alignment; r[0] enters 72 of those with n_sub > 0 carried over from chaining (values: {'r0.n_sub=1': 72})
+  divergence records MAPQ differs  of which placed correctly  position/CIGAR differs  fixed - tested MAPQ
+       0.000      72            0                          0                       0  {}
+       0.002      72            0                          0                       0  {}
+       0.005      72            0                          0                       0  {}
+       0.010      72            0                          0                       0  {}
+       0.020      72            0                          0                       0  {}
+       0.040      72            0                          0                       0  {}
+  total: 432 mapped primary records, MAPQ differs on 0 (0.0 %), 0 of them placed on the copy they came from
+  records whose MAPQ crosses a threshold between the builds: >=1: 0, >=5: 0, >=10: 0, >=20: 0, >=30: 0, >=60: 0
+  tested build: 354 records with MAPQ >= 20, 0 on the wrong copy
+  fixed  build: 354 records with MAPQ >= 20, 0 on the wrong copy
+
+== short pairs, -x sr
+  instrumented: 7200 mm_set_parent calls; 2880 after alignment; r[0] enters 776 of those with n_sub > 0 carried over from chaining (values: {'r0.n_sub=1': 776})
+  divergence records MAPQ differs  of which placed correctly  position/CIGAR differs  fixed - tested MAPQ
+       0.000     480            0                          0                       0  {}
+       0.005     480           33                         33                       0  {1: 23, 2: 10}
+       0.010     480           18                         18                       0  {1: 17, 2: 1}
+       0.020     480            1                          1                       0  {1: 1}
+       0.030     480            0                          0                       0  {}
+       0.050     480            0                          0                       0  {}
+  total: 2880 mapped primary records, MAPQ differs on 52 (1.8 %), 52 of them placed on the copy they came from
+  records whose MAPQ crosses a threshold between the builds: >=1: 0, >=5: 1, >=10: 3, >=20: 1, >=30: 0, >=60: 2
+  tested build: 2102 records with MAPQ >= 20, 0 on the wrong copy
+  fixed  build: 2103 records with MAPQ >= 20, 0 on the wrong copy

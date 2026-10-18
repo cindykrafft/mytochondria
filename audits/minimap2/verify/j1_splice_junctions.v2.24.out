@@ -1,0 +1,49 @@
+2.24-r1122  genome 6000000 bp, 120 planted genes, 600 introns
+
+[-x splice] 720 primary records of 720 reads
+  ONT-like                                      {'N on a planted intron': 824, 'N off a planted intron': 237}
+  ONT-like / AT-AC                              {'exact': 23}
+  ONT-like / GC-AG                              {'exact': 75}
+  ONT-like / GT-AG                              {'exact': 726}
+  ONT-like / off by different                   {'unambiguous': 111, 'slides keep sequence, none canonical': 93}
+  ONT-like / off by same shift                  {'slides keep sequence, none canonical': 26, 'unambiguous': 7}
+  ONT-like / off, planted motif                 {'AT-AC': 101, 'GC-AG': 91, 'GT-AG': 45}
+  exact                                         {'N on a planted intron': 1916, 'N off a planted intron': 379}
+  exact / AT-AC                                 {'exact': 75}
+  exact / GC-AG                                 {'exact': 220}
+  exact / GT-AG                                 {'exact': 1621}
+  exact / off by different                      {'unambiguous': 159, 'slides keep sequence, none canonical': 136}
+  exact / off by same shift                     {'slides keep sequence, none canonical': 69, 'unambiguous': 15}
+  exact / off, planted motif                    {'AT-AC': 183, 'GC-AG': 153, 'GT-AG': 43}
+  ts:A relative to the read: correct 698, wrong 18, absent 4
+   off-intron example (exact read): ('g0_0_sense_exact', (22357, 29758), (0, -2), 'AT-AC', 'unambiguous')
+   off-intron example (exact read): ('g0_1_anti_exact', (22357, 29758), (0, -2), 'AT-AC', 'unambiguous')
+   off-intron example (exact read): ('g0_2_sense_exact', (22357, 29758), (0, -2), 'AT-AC', 'unambiguous')
+   off-intron example (exact read): ('g0_3_anti_exact', (22357, 29758), (0, -2), 'AT-AC', 'unambiguous')
+   off-intron example (exact read): ('g1_0_sense_exact', (51371, 58892), (0, -4), 'GC-AG', 'slides keep sequence, none canonical')
+   off-intron example (exact read): ('g1_1_anti_exact', (51371, 58892), (0, -4), 'GC-AG', 'slides keep sequence, none canonical')
+
+[-x splice:hq] 720 primary records of 720 reads
+  ONT-like                                      {'N on a planted intron': 885, 'N off a planted intron': 176}
+  ONT-like / AT-AC                              {'exact': 49}
+  ONT-like / GC-AG                              {'exact': 112}
+  ONT-like / GT-AG                              {'exact': 724}
+  ONT-like / off by different                   {'unambiguous': 72, 'slides keep sequence, none canonical': 61}
+  ONT-like / off by same shift                  {'slides keep sequence, none canonical': 39, 'unambiguous': 4}
+  ONT-like / off, planted motif                 {'AT-AC': 75, 'GT-AG': 47, 'GC-AG': 54}
+  exact                                         {'N on a planted intron': 2138, 'N off a planted intron': 157}
+  exact / AT-AC                                 {'exact': 133}
+  exact / GC-AG                                 {'exact': 345}
+  exact / GT-AG                                 {'exact': 1660}
+  exact / off by different                      {'unambiguous': 27, 'slides keep sequence, none canonical': 32}
+  exact / off by same shift                     {'slides keep sequence, none canonical': 94, 'unambiguous': 4}
+  exact / off, planted motif                    {'AT-AC': 125, 'GC-AG': 28, 'GT-AG': 4}
+  ts:A relative to the read: correct 700, wrong 18, absent 2
+   off-intron example (exact read): ('g0_0_sense_exact', (22357, 29758), (0, -2), 'AT-AC', 'unambiguous')
+   off-intron example (exact read): ('g0_1_anti_exact', (22357, 29758), (0, -2), 'AT-AC', 'unambiguous')
+   off-intron example (exact read): ('g0_2_sense_exact', (22357, 29758), (0, -2), 'AT-AC', 'unambiguous')
+   off-intron example (exact read): ('g0_3_anti_exact', (22357, 29758), (0, -2), 'AT-AC', 'unambiguous')
+   off-intron example (exact read): ('g9_0_sense_exact', (380966, 381125), (-1, -1), 'AT-AC', 'slides keep sequence, none canonical')
+   off-intron example (exact read): ('g9_1_anti_exact', (380966, 381125), (-1, -1), 'AT-AC', 'slides keep sequence, none canonical')
+
+planted introns by ambiguity: {'slides keep sequence, none canonical': 272, 'unambiguous': 328}

@@ -1,0 +1,197 @@
+2.24-r1122  reference 1500000 bp random
+
+[sr] -x sr  L=150: 180 primary records of 180 reads
+  class                                              n AS==port  AS - port (where different)
+  1 mismatch 1 bp from the read's 3p end             6        0  [8]
+  1 mismatch 1 bp from the read's 5p end             6        0  [8]
+  1 mismatch 2 bp from the read's 3p end             6        0  [6]
+  1 mismatch 2 bp from the read's 5p end             6        0  [6]
+  1 mismatch 3 bp from the read's 3p end             6        0  [4]
+  1 mismatch 3 bp from the read's 5p end             6        0  [4]
+  1 mismatch 4 bp from the read's 3p end             6        0  [2]
+  1 mismatch 4 bp from the read's 5p end             6        0  [2]
+  1 mismatch 5 bp from the read's 3p end             6        6  
+  1 mismatch 5 bp from the read's 5p end             6        6  
+  1 mismatch 6 bp from the read's 3p end             6        6  
+  1 mismatch 6 bp from the read's 5p end             6        6  
+  1 mismatch 7 bp from the read's 3p end             6        6  
+  1 mismatch 7 bp from the read's 5p end             6        6  
+  1 mismatch 8 bp from the read's 3p end             6        6  
+  1 mismatch 8 bp from the read's 5p end             6        6  
+  1 mismatch(es) in the middle                       8        8  
+  1-bp deletion in the middle                        4        4  
+  1-bp insertion in the middle                       4        4  
+  12-bp deletion in the middle                       4        4  
+  12-bp insertion in the middle                      4        4  
+  2 mismatch(es) in the middle                       8        8  
+  2-bp deletion in the middle                        4        4  
+  2-bp insertion in the middle                       4        4  
+  3 mismatch(es) in the middle                       8        8  
+  3-bp deletion in the middle                        4        4  
+  3-bp insertion in the middle                       4        4  
+  5-bp deletion in the middle                        4        4  
+  5-bp insertion in the middle                       4        4  
+  8-bp deletion in the middle                        4        4  
+  8-bp insertion in the middle                       4        4  
+  clean                                              6        6  
+  one N in the middle                                6        0  [2]
+  FAIL AS: 126/180 match the port; first: [('sr_f_5p1_0', '150M', 298, 290), ('sr_f_5p1_1', '150M', 298, 290), ('sr_f_5p1_2', '150M', 298, 290)]
+  ok   NM: 180/180 match the port
+  ok   MD: 180/180 match the port
+  ok   cs: 180/180 match the port
+  ok   de: 180/180 match the port
+  ok   pos: 180/180 match the port
+  ms:i on 48 gapped records matches the max-segment port with gap cost affine: 8/48, flat: 48/48, log: 8/48
+     sr_f_ins2_0            60M2I90M       ms=286 AS=284 port(affine/flat/log)=284/286/285
+     sr_f_del2_0            71M2D77M       ms=282 AS=280 port(affine/flat/log)=280/282/281
+     sr_f_ins2_1            80M2I70M       ms=286 AS=284 port(affine/flat/log)=284/286/285
+     sr_f_del2_1            76M2D72M       ms=282 AS=280 port(affine/flat/log)=280/282/281
+
+[sr] -x sr  L=100: 180 primary records of 180 reads
+  class                                              n AS==port  AS - port (where different)
+  1 mismatch 1 bp from the read's 3p end             6        0  [8]
+  1 mismatch 1 bp from the read's 5p end             6        0  [8]
+  1 mismatch 2 bp from the read's 3p end             6        0  [6]
+  1 mismatch 2 bp from the read's 5p end             6        0  [6]
+  1 mismatch 3 bp from the read's 3p end             6        0  [4]
+  1 mismatch 3 bp from the read's 5p end             6        0  [4]
+  1 mismatch 4 bp from the read's 3p end             6        0  [2]
+  1 mismatch 4 bp from the read's 5p end             6        0  [2]
+  1 mismatch 5 bp from the read's 3p end             6        6  
+  1 mismatch 5 bp from the read's 5p end             6        6  
+  1 mismatch 6 bp from the read's 3p end             6        6  
+  1 mismatch 6 bp from the read's 5p end             6        6  
+  1 mismatch 7 bp from the read's 3p end             6        6  
+  1 mismatch 7 bp from the read's 5p end             6        6  
+  1 mismatch 8 bp from the read's 3p end             6        6  
+  1 mismatch 8 bp from the read's 5p end             6        6  
+  1 mismatch(es) in the middle                       8        8  
+  1-bp deletion in the middle                        4        4  
+  1-bp insertion in the middle                       4        4  
+  12-bp deletion in the middle                       4        4  
+  12-bp insertion in the middle                      4        4  
+  2 mismatch(es) in the middle                       8        8  
+  2-bp deletion in the middle                        4        4  
+  2-bp insertion in the middle                       4        4  
+  3 mismatch(es) in the middle                       8        8  
+  3-bp deletion in the middle                        4        4  
+  3-bp insertion in the middle                       4        4  
+  5-bp deletion in the middle                        4        4  
+  5-bp insertion in the middle                       4        4  
+  8-bp deletion in the middle                        4        4  
+  8-bp insertion in the middle                       4        4  
+  clean                                              6        6  
+  one N in the middle                                6        3  [2]
+  FAIL AS: 129/180 match the port; first: [('sr_f_5p1_0', '100M', 198, 190), ('sr_f_5p1_1', '100M', 198, 190), ('sr_f_5p1_2', '100M', 198, 190)]
+  ok   NM: 180/180 match the port
+  ok   MD: 180/180 match the port
+  ok   cs: 180/180 match the port
+  ok   de: 180/180 match the port
+  ok   pos: 180/180 match the port
+  ms:i on 48 gapped records matches the max-segment port with gap cost affine: 8/48, flat: 48/48, log: 8/48
+     sr_f_ins2_0            43M2I57M       ms=186 AS=184 port(affine/flat/log)=184/186/185
+     sr_f_del2_0            44M2D54M       ms=182 AS=180 port(affine/flat/log)=180/182/181
+     sr_f_ins2_1            58M2I42M       ms=186 AS=184 port(affine/flat/log)=184/186/185
+     sr_f_del2_1            48M2D50M       ms=182 AS=180 port(affine/flat/log)=180/182/181
+
+[map-ont] -x map-ont  L=2000: 180 primary records of 180 reads
+  class                                              n AS==port  AS - port (where different)
+  1 mismatch 1 bp from the read's 3p end             6        6  
+  1 mismatch 1 bp from the read's 5p end             6        6  
+  1 mismatch 2 bp from the read's 3p end             6        6  
+  1 mismatch 2 bp from the read's 5p end             6        6  
+  1 mismatch 3 bp from the read's 3p end             6        6  
+  1 mismatch 3 bp from the read's 5p end             6        6  
+  1 mismatch 4 bp from the read's 3p end             6        6  
+  1 mismatch 4 bp from the read's 5p end             6        6  
+  1 mismatch 5 bp from the read's 3p end             6        6  
+  1 mismatch 5 bp from the read's 5p end             6        6  
+  1 mismatch 6 bp from the read's 3p end             6        6  
+  1 mismatch 6 bp from the read's 5p end             6        6  
+  1 mismatch 7 bp from the read's 3p end             6        6  
+  1 mismatch 7 bp from the read's 5p end             6        6  
+  1 mismatch 8 bp from the read's 3p end             6        6  
+  1 mismatch 8 bp from the read's 5p end             6        6  
+  1 mismatch(es) in the middle                       8        8  
+  1-bp deletion in the middle                        4        4  
+  1-bp insertion in the middle                       4        4  
+  12-bp deletion in the middle                       4        4  
+  12-bp insertion in the middle                      4        4  
+  2 mismatch(es) in the middle                       8        8  
+  2-bp deletion in the middle                        4        4  
+  2-bp insertion in the middle                       4        4  
+  3 mismatch(es) in the middle                       8        8  
+  3-bp deletion in the middle                        4        4  
+  3-bp insertion in the middle                       4        4  
+  5-bp deletion in the middle                        4        4  
+  5-bp insertion in the middle                       4        4  
+  8-bp deletion in the middle                        4        4  
+  8-bp insertion in the middle                       4        4  
+  clean                                              6        6  
+  one N in the middle                                6        6  
+  ok   AS: 180/180 match the port
+  ok   NM: 180/180 match the port
+  ok   MD: 180/180 match the port
+  ok   cs: 180/180 match the port
+  ok   de: 180/180 match the port
+  ok   pos: 180/180 match the port
+  ms:i on 48 gapped records matches the max-segment port with gap cost affine: 8/48, flat: 8/48, log: 48/48
+     map-ont_f_ins2_0       992M2I1008M    ms=3993 AS=3992 port(affine/flat/log)=3992/3994/3993
+     map-ont_f_del2_0       1002M2D996M    ms=3989 AS=3988 port(affine/flat/log)=3988/3990/3989
+     map-ont_f_ins2_1       995M2I1005M    ms=3993 AS=3992 port(affine/flat/log)=3992/3994/3993
+     map-ont_f_del2_1       990M2D1008M    ms=3989 AS=3988 port(affine/flat/log)=3988/3990/3989
+
+[splice] -x splice  L=1500: 180 primary records of 180 reads
+  class                                              n AS==port  AS - port (where different)
+  1 mismatch 1 bp from the read's 3p end             6        6  
+  1 mismatch 1 bp from the read's 5p end             6        6  
+  1 mismatch 2 bp from the read's 3p end             6        6  
+  1 mismatch 2 bp from the read's 5p end             6        6  
+  1 mismatch 3 bp from the read's 3p end             6        6  
+  1 mismatch 3 bp from the read's 5p end             6        6  
+  1 mismatch 4 bp from the read's 3p end             6        6  
+  1 mismatch 4 bp from the read's 5p end             6        6  
+  1 mismatch 5 bp from the read's 3p end             6        6  
+  1 mismatch 5 bp from the read's 5p end             6        6  
+  1 mismatch 6 bp from the read's 3p end             6        6  
+  1 mismatch 6 bp from the read's 5p end             6        6  
+  1 mismatch 7 bp from the read's 3p end             6        6  
+  1 mismatch 7 bp from the read's 5p end             6        6  
+  1 mismatch 8 bp from the read's 3p end             6        6  
+  1 mismatch 8 bp from the read's 5p end             6        6  
+  1 mismatch(es) in the middle                       8        8  
+  1-bp deletion in the middle                        4        4  
+  1-bp insertion in the middle                       4        4  
+  12-bp deletion in the middle                       4        4  
+  12-bp insertion in the middle                      4        4  
+  2 mismatch(es) in the middle                       8        8  
+  2-bp deletion in the middle                        4        4  
+  2-bp insertion in the middle                       4        4  
+  3 mismatch(es) in the middle                       8        8  
+  3-bp deletion in the middle                        4        4  
+  3-bp insertion in the middle                       4        4  
+  5-bp deletion in the middle                        4        4  
+  5-bp insertion in the middle                       4        4  
+  8-bp deletion in the middle                        4        4  
+  8-bp insertion in the middle                       4        4  
+  clean                                              6        6  
+  one N in the middle                                6        6  
+  ok   AS: 180/180 match the port
+  ok   NM: 180/180 match the port
+  ok   MD: 180/180 match the port
+  ok   cs: 180/180 match the port
+  ok   de: 180/180 match the port
+  ok   pos: 180/180 match the port
+  ms:i on 48 gapped records matches the max-segment port with gap cost affine: 16/48, flat: 8/48, log: 48/48
+     splice_f_ins2_0        748M2I752M     ms=1496 AS=1496 port(affine/flat/log)=1496/1497/1496
+     splice_f_del2_0        752M2D746M     ms=1494 AS=1494 port(affine/flat/log)=1494/1495/1494
+     splice_f_ins2_1        746M2I754M     ms=1496 AS=1496 port(affine/flat/log)=1496/1497/1496
+     splice_f_del2_1        742M2D756M     ms=1494 AS=1494 port(affine/flat/log)=1494/1495/1494
+
+[sr PAF] -x sr L=150
+  ok   with -c: cols 3,4,8,9,10,11 equal the SAM-derived values on 180/180
+  without -c (chain-based, documented as approximate): cols 10/11 equal the base-level values on 0/180; col 10 below the true matches on 180; e.g. [('srpaf_f_5p1_0', 138, 138, 149, 150, 4, -8), ('srpaf_f_5p1_1', 135, 135, 149, 150, 10, -5)]
+
+[map-ont PAF] -x map-ont L=2000
+  ok   with -c: cols 3,4,8,9,10,11 equal the SAM-derived values on 180/180
+  without -c (chain-based, documented as approximate): cols 10/11 equal the base-level values on 1/180; col 10 below the true matches on 179; e.g. [('map-ontpaf_f_5p1_0', 1989, 1989, 1999, 1999, 7, -3), ('map-ontpaf_f_5p1_1', 1996, 1996, 1999, 1999, 2, -1)]

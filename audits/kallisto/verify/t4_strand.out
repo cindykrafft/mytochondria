@@ -1,0 +1,23 @@
+kallisto 0.52.0
+
+paired fr-stranded: 30000 fragments; exact stranded class = {source} for 30000
+ok     unstranded     n_pseudoaligned  30000 (exact  30000), n_unique  23606 (exact  23606); sum |est - simulated source counts| = 169.0
+ok     --fr-stranded  n_pseudoaligned  30000 (exact  30000), n_unique  30000 (exact  30000); sum |est - simulated source counts| = 0.0
+ok     --rf-stranded  n_pseudoaligned   6394 (exact   6394), n_unique   6394 (exact   6394); sum |est - simulated source counts| = 30028.0
+
+paired rf-stranded: 30000 fragments; exact stranded class = {source} for 30000
+ok     unstranded     n_pseudoaligned  30000 (exact  30000), n_unique  23592 (exact  23592); sum |est - simulated source counts| = 162.3
+ok     --fr-stranded  n_pseudoaligned   6408 (exact   6408), n_unique   6408 (exact   6408); sum |est - simulated source counts| = 30106.0
+ok     --rf-stranded  n_pseudoaligned  30000 (exact  30000), n_unique  30000 (exact  30000); sum |est - simulated source counts| = 0.0
+
+single fr-stranded: 30000 fragments; exact stranded class = {source} for 30000
+ok     unstranded     n_pseudoaligned  30000 (exact  30000), n_unique  18690 (exact  18690); sum |est - simulated source counts| = 317.1
+ok     --fr-stranded  n_pseudoaligned  30000 (exact  30000), n_unique  30000 (exact  30000); sum |est - simulated source counts| = 0.0
+ok     --rf-stranded  n_pseudoaligned  11310 (exact  11310), n_unique  11310 (exact  11310); sum |est - simulated source counts| = 30798.0
+
+single rf-stranded: 30000 fragments; exact stranded class = {source} for 30000
+ok     unstranded     n_pseudoaligned  30000 (exact  30000), n_unique  19007 (exact  19007); sum |est - simulated source counts| = 303.3
+ok     --fr-stranded  n_pseudoaligned  10993 (exact  10993), n_unique  10993 (exact  10993); sum |est - simulated source counts| = 30651.0
+ok     --rf-stranded  n_pseudoaligned  30000 (exact  30000), n_unique  30000 (exact  30000); sum |est - simulated source counts| = 0.0
+
+FAILURES: 0

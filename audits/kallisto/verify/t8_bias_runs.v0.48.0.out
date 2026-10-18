@@ -1,0 +1,5 @@
+kallisto 0.48.0
+paired default  exit    0  abundance.tsv written: True  last stderr line: [   em] the Expectation-Maximization algorithm ran for 87 rounds
+paired --bias   exit    0  abundance.tsv written: True  last stderr line: [   em] the Expectation-Maximization algorithm ran for 168 rounds
+single default  exit    0  abundance.tsv written: True  last stderr line: [   em] the Expectation-Maximization algorithm ran for 64 rounds
+single --bias   exit    0  abundance.tsv written: True  last stderr line: [   em] the Expectation-Maximization algorithm ran for 58 rounds

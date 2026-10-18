@@ -1,0 +1,49 @@
+From bc409e9ed91b89d0892a9280eab87a2216ed5d92 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Sun, 18 Oct 2026 02:42:18 +0000
+Subject: [PATCH] Score extensions that reach the query end by the end-to-end
+ path
+
+When the left or right extension reaches the end of the query
+(ez->reach_end, possible whenever --end-bonus is positive, as in -x sr),
+the CIGAR is backtracked from the query end and scores ez->mqe, but
+mm_align1() added ez->max, the best score anywhere in the extension, to
+dp_score. AS:i was then higher than the score of the reported
+alignment: under -x sr a single mismatch 1, 2, 3 or 4 bases from either
+end of a read gave AS 8, 6, 4 or 2 above the score of its CIGAR (150M
+with one mismatch: AS:i:298 instead of 290). On simulated 2 x 150 bp
+Illumina-like pairs this affected 7.0% of primary records. Add ez->mqe
+in that case; the CIGAR, coordinates, ms:i, MAPQ and pairing (which use
+dp_max) are unchanged.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ align.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/align.c b/align.c
+index 963cd29..6fd2859 100644
+--- a/align.c
++++ b/align.c
+@@ -791,7 +791,7 @@ static void mm_align1(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int
+ 		mm_align_pair(km, opt, qs - qs0, qseq, rs - rs0, tseq, junc, mat, bw, opt->end_bonus, r->split_inv? opt->zdrop_inv : opt->zdrop, ksw_flag|KSW_EZ_EXTZ_ONLY|KSW_EZ_RIGHT|KSW_EZ_REV_CIGAR, ez);
+ 		if (ez->n_cigar > 0) {
+ 			mm_append_cigar(r, ez->n_cigar, ez->cigar);
+-			r->p->dp_score += ez->max;
++			r->p->dp_score += ez->reach_end? ez->mqe : ez->max; // when the extension reaches the query end, the CIGAR ends there and scores mqe
+ 		}
+ 		rs1 = rs - (ez->reach_end? ez->mqe_t + 1 : ez->max_t + 1);
+ 		qs1 = qs - (ez->reach_end? qs - qs0 : ez->max_q + 1);
+@@ -883,7 +883,7 @@ static void mm_align1(void *km, const mm_mapopt_t *opt, const mm_idx_t *mi, int
+ 		mm_align_pair(km, opt, qe0 - qe, qseq, re0 - re, tseq, junc, mat, bw, opt->end_bonus, opt->zdrop, ksw_flag|KSW_EZ_EXTZ_ONLY, ez);
+ 		if (ez->n_cigar > 0) {
+ 			mm_append_cigar(r, ez->n_cigar, ez->cigar);
+-			r->p->dp_score += ez->max;
++			r->p->dp_score += ez->reach_end? ez->mqe : ez->max;
+ 		}
+ 		re1 = re + (ez->reach_end? ez->mqe_t + 1 : ez->max_t + 1);
+ 		qe1 = qe + (ez->reach_end? qe0 - qe : ez->max_q + 1);
+-- 
+2.43.0
+

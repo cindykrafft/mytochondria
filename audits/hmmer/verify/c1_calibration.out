@@ -1,0 +1,21 @@
+# C1 calibration
+# build: HMMER 3.5 (July 2026)  (/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/audit-hmmer/hmmer/src)
+ok    globins4: lambda = log2 + 1.44/(M H) = 0.70955; file 0.70955 (all three)
+ok    globins4: hmmbuild twice with default seed gives identical STATS  | {'MSV': (-9.8664, 0.70955), 'VITERBI': (-10.7223, 0.70955), 'FORWARD': (-4.1641, 0.70955)} / {'MSV': (-9.8664, 0.70955), 'VITERBI': (-10.7223, 0.70955), 'FORWARD': (-4.1641, 0.70955)}
+    globins4 STATS: FORWARD -4.1641 0.70955 MSV -9.8664 0.70955 VITERBI -10.7223 0.70955
+ok    fn3: lambda = log2 + 1.44/(M H) = 0.71848; file 0.71848 (all three)
+ok    fn3: hmmbuild twice with default seed gives identical STATS  | {'MSV': (-9.2761, 0.71848), 'VITERBI': (-9.6475, 0.71848), 'FORWARD': (-3.9087, 0.71848)} / {'MSV': (-9.2761, 0.71848), 'VITERBI': (-9.6475, 0.71848), 'FORWARD': (-3.9087, 0.71848)}
+    fn3 STATS: FORWARD -3.9087 0.71848 MSV -9.2761 0.71848 VITERBI -9.6475 0.71848
+ok    Pkinase: lambda = log2 + 1.44/(M H) = 0.70257; file 0.70257 (all three)
+ok    Pkinase: hmmbuild twice with default seed gives identical STATS  | {'MSV': (-10.9395, 0.70257), 'VITERBI': (-11.676, 0.70257), 'FORWARD': (-5.217, 0.70257)} / {'MSV': (-10.9395, 0.70257), 'VITERBI': (-11.676, 0.70257), 'FORWARD': (-5.217, 0.70257)}
+    Pkinase STATS: FORWARD -5.2170 0.70257 MSV -10.9395 0.70257 VITERBI -11.6760 0.70257
+ok    MADE1: lambda = log2 + 1.44/(M H) = 0.71857; file 0.71857 (all three)
+ok    MADE1: hmmbuild twice with default seed gives identical STATS  | {'MSV': (-8.5634, 0.71857), 'VITERBI': (-9.3577, 0.71857), 'FORWARD': (-3.4626, 0.71857)} / {'MSV': (-8.5634, 0.71857), 'VITERBI': (-9.3577, 0.71857), 'FORWARD': (-3.4626, 0.71857)}
+    MADE1 STATS: FORWARD -3.4626 0.71857 MSV -8.5634 0.71857 VITERBI -9.3577 0.71857
+ok    globins4 default: null comparisons with P <= 1e-3, 1e-4 within x1.5 of N*p (P<=0.1, 0.01 shown, not judged), L=300, N=100000  | P<=0.1: 15770 (expect 10000); P<=0.01: 937 (expect 1000); P<=0.001: 98 (expect 100); P<=0.0001: 6 (expect 10)
+ok    globins4 --nonull2: null comparisons with P <= 1e-3, 1e-4 within x1.5 of N*p (P<=0.1, 0.01 shown, not judged), L=300, N=100000  | P<=0.1: 16274 (expect 10000); P<=0.01: 961 (expect 1000); P<=0.001: 101 (expect 100); P<=0.0001: 7 (expect 10)
+ok    fn3 default: null comparisons with P <= 1e-3, 1e-4 within x1.5 of N*p (P<=0.1, 0.01 shown, not judged), L=300, N=100000  | P<=0.1: 19945 (expect 10000); P<=0.01: 1217 (expect 1000); P<=0.001: 107 (expect 100); P<=0.0001: 11 (expect 10)
+ok    fn3 --nonull2: null comparisons with P <= 1e-3, 1e-4 within x1.5 of N*p (P<=0.1, 0.01 shown, not judged), L=300, N=100000  | P<=0.1: 20578 (expect 10000); P<=0.01: 1277 (expect 1000); P<=0.001: 114 (expect 100); P<=0.0001: 11 (expect 10)
+ok    Pkinase default: null comparisons with P <= 1e-3, 1e-4 within x1.5 of N*p (P<=0.1, 0.01 shown, not judged), L=300, N=100000  | P<=0.1: 22959 (expect 10000); P<=0.01: 976 (expect 1000); P<=0.001: 93 (expect 100); P<=0.0001: 12 (expect 10)
+ok    Pkinase --nonull2: null comparisons with P <= 1e-3, 1e-4 within x1.5 of N*p (P<=0.1, 0.01 shown, not judged), L=300, N=100000  | P<=0.1: 23672 (expect 10000); P<=0.01: 1006 (expect 1000); P<=0.001: 97 (expect 100); P<=0.0001: 13 (expect 10)
+# 14 checks, 0 failed

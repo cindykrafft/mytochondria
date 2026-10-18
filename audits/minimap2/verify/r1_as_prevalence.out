@@ -1,0 +1,4 @@
+2.31-r1302  2 Mb reference; 20,000 pairs 2 x 150 bp; -x sr
+[tested build] 40000 primary mapped records; AS == AS recomputed from the CIGAR on 37197 (92.99 %); AS above it on 2803 (7.01 %), by: {2: 650, 4: 685, 6: 704, 8: 758, 10: 1, 12: 1, 14: 3, 16: 1}
+[fixed build] 40000 primary mapped records; AS == AS recomputed from the CIGAR on 40000 (100.00 %); AS above it on 0 (0.00 %), by: {}
+[tested vs fixed] AS changed on 2803 records; any other field (FLAG, POS, MAPQ, CIGAR, TLEN, tags) changed on 0 of 40000

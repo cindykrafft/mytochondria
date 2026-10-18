@@ -1,0 +1,36 @@
+# E1 E-values and search-space scaling
+# build: HMMER 3.3.2 (Nov 2020)  (/tmp/claude-0/-home-user-research-software-audit/51868b87-edac-5181-aac9-af38332c9ac8/scratchpad/audit-hmmer/rel/hmmer-3.3.2/src)
+ok    globins4 default: full-seq and best-domain E = Z*P(score), Z=1670, 40 targets  | 0 mismatches
+ok    globins4 default: i-Evalue = Z*P, c-Evalue = domZ*P (domZ=40), 79 domains  | 0 i-E, 0 c-E mismatches
+ok    globins4 default: tblout 'rep' equals domtblout rows per target  | 0 differ
+ok    globins4 -Z 1e6 --domZ 50: full-seq and best-domain E = Z*P(score), Z=1e+06, 40 targets  | 0 mismatches
+ok    globins4 -Z 1e6 --domZ 50: i-Evalue = Z*P, c-Evalue = domZ*P (domZ=50), 79 domains  | 0 i-E, 0 c-E mismatches
+ok    globins4 -Z 1e6 --domZ 50: tblout 'rep' equals domtblout rows per target  | 0 differ
+ok    globins4: every target reported under -Z 1e6 has E <= 10  | 0 over
+ok    globins4: --cpu 0, default (2) and --cpu 4 give identical tables
+ok    fn3 default: full-seq and best-domain E = Z*P(score), Z=1670, 40 targets  | 0 mismatches
+ok    fn3 default: i-Evalue = Z*P, c-Evalue = domZ*P (domZ=40), 81 domains  | 0 i-E, 0 c-E mismatches
+ok    fn3 default: tblout 'rep' equals domtblout rows per target  | 0 differ
+ok    fn3 -Z 1e6 --domZ 50: full-seq and best-domain E = Z*P(score), Z=1e+06, 40 targets  | 0 mismatches
+ok    fn3 -Z 1e6 --domZ 50: i-Evalue = Z*P, c-Evalue = domZ*P (domZ=50), 81 domains  | 0 i-E, 0 c-E mismatches
+ok    fn3 -Z 1e6 --domZ 50: tblout 'rep' equals domtblout rows per target  | 0 differ
+ok    fn3: every target reported under -Z 1e6 has E <= 10  | 0 over
+ok    fn3: --cpu 0, default (2) and --cpu 4 give identical tables
+ok    Pkinase default: full-seq and best-domain E = Z*P(score), Z=1670, 30 targets  | 0 mismatches
+ok    Pkinase default: i-Evalue = Z*P, c-Evalue = domZ*P (domZ=30), 62 domains  | 0 i-E, 0 c-E mismatches
+ok    Pkinase default: tblout 'rep' equals domtblout rows per target  | 0 differ
+ok    Pkinase -Z 1e6 --domZ 50: full-seq and best-domain E = Z*P(score), Z=1e+06, 30 targets  | 0 mismatches
+ok    Pkinase -Z 1e6 --domZ 50: i-Evalue = Z*P, c-Evalue = domZ*P (domZ=50), 62 domains  | 0 i-E, 0 c-E mismatches
+ok    Pkinase -Z 1e6 --domZ 50: tblout 'rep' equals domtblout rows per target  | 0 differ
+ok    Pkinase: every target reported under -Z 1e6 has E <= 10  | 0 over
+ok    Pkinase: --cpu 0, default (2) and --cpu 4 give identical tables
+ok    hmmscan fn3_000_x1: E = (#models=4) * P(score), 1 hits  | 0 mismatches
+ok    hmmscan vs hmmsearch bit score for fn3_000_x1 vs fn3  | [50.6] vs [50.6]
+ok    hmmscan fn3_004_x2: E = (#models=4) * P(score), 1 hits  | 0 mismatches
+ok    hmmscan vs hmmsearch bit score for fn3_004_x2 vs fn3  | [73.7] vs [73.7]
+ok    hmmscan Pkinase_002_x3: E = (#models=4) * P(score), 1 hits  | 0 mismatches
+ok    hmmscan vs hmmsearch bit score for Pkinase_002_x3 vs Pkinase  | [270.4] vs [270.4]
+ok    hmmscan globins4_005_x3: E = (#models=4) * P(score), 1 hits  | 0 mismatches
+ok    hmmscan vs hmmsearch bit score for globins4_005_x3 vs globins4  | [142.5] vs [142.5]
+ok    phmmer: E(-Z 1e6)/E(default) = 1e6/N = 598.8 for 1 hits  | range 597.2-597.2
+# 33 checks, 0 failed
