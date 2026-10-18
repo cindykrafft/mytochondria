@@ -1,0 +1,14 @@
+
+=== fgsea 1.39.4 (master) ===
+N24k3 set     20_22_23: ES = -0.904762 (exact -19/21); 6 subsets tie exactly, fgsea's doubles equal for 2; subsets counted as at least as extreme: exact 18, by fgsea's comparison 14
+                       p exact (same sign) = 0.017682; fgsea's own ES values give 0.013752 (x0.778); fgseaSimple 1e6 perms: alone (R path) 0.013902, with a second set (C++ path) 0.011896; fgseaMultilevel 0.017055
+N24k3 set       1_2_12: ES = +0.940243 (exact 89340061/95018039); 1 subsets tie exactly, fgsea's doubles equal for 1; subsets counted as at least as extreme: exact 7, by fgsea's comparison 7
+                       p exact (same sign) = 0.0067502; fgsea's own ES values give 0.0067502 (x1.000); fgseaSimple 1e6 perms: alone (R path) 0.0067433, with a second set (C++ path) 0.0067791; fgseaMultilevel 0.0075704
+N24k3 set     19_21_24: ES = -0.857143 (exact -6/7); 10 subsets tie exactly, fgsea's doubles equal for 2; subsets counted as at least as extreme: exact 46, by fgsea's comparison 38
+                       p exact (same sign) = 0.045187; fgsea's own ES values give 0.037328 (x0.826); fgseaSimple 1e6 perms: alone (R path) 0.03801, with a second set (C++ path) 0.035612; fgseaMultilevel 0.039167
+N60k4 set  40_50_55_58: ES = -0.816788 (exact -529650899/648455703); 1 subsets tie exactly, fgsea's doubles equal for 1; subsets counted as at least as extreme: exact 9523, by fgsea's comparison 9523
+                       p exact (same sign) = 0.04102; fgsea's own ES values give 0.04102 (x1.000); fgseaSimple 1e6 perms: alone (R path) 0.040899, with a second set (C++ path) 0.041295; fgseaMultilevel 0.054806
+N60k4 set  30_45_52_60: ES = -0.728360 (exact -113410353/155706424); 1 subsets tie exactly, fgsea's doubles equal for 1; subsets counted as at least as extreme: exact 29838, by fgsea's comparison 29838
+                       p exact (same sign) = 0.12853; fgsea's own ES values give 0.12853 (x1.000); fgseaSimple 1e6 perms: alone (R path) 0.1285, with a second set (C++ path) 0.12906; fgseaMultilevel 0.10235
+N60k4 set     2_5_9_20: ES = +0.767594 (exact 526696281/686165564); 1 subsets tie exactly, fgsea's doubles equal for 1; subsets counted as at least as extreme: exact 20787, by fgsea's comparison 20787
+                       p exact (same sign) = 0.081126; fgsea's own ES values give 0.081126 (x1.000); fgseaSimple 1e6 perms: alone (R path) 0.081385, with a second set (C++ path) 0.080862; fgseaMultilevel 0.093809

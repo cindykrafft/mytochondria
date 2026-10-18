@@ -1,5 +1,6 @@
 # fgsea testthat suite, R 4.3.3, 2026-10-18
 # command: testthat::test_dir('tests/testthat', package='fgsea', load_package='installed')
+# test files: the fix branch (tests/testthat after 0001) for both builds; 0001 only edits a test, so the master build shows the new test passing on unmodified code
 
 ## build: master (origin/master 570f590)
                  file                     test failed skipped error
@@ -8,3 +9,15 @@
 fgsea 1.39.4 : tests 61  expectations 152  failed 0  skipped 2  errors 0 
 
 ## build: patched (fix/bpparam-repro-test b718c5c = 570f590 + 0001 + 0002)
+                 file                     test failed skipped error
+ test_gsea_analysis.R fgseaLabel example works      0    TRUE FALSE
+      test_pathways.R   reactomePathways works      0    TRUE FALSE
+fgsea 1.39.4 : tests 61  expectations 152  failed 0  skipped 2  errors 0 
+
+## mutation check (old test file): the nproc=2 call seeded with 43 instead of 42
+
+test: fgseaMultilevel is reproducable independent of bpparam settings  expectations 3  failed 0 
+
+## mutation check (new test file): the nproc=2 call seeded with 43 instead of 42
+
+test: fgseaMultilevel is reproducable independent of bpparam settings  expectations 6  failed 2 

@@ -1,0 +1,35 @@
+From b718c5cf04bed39a06a335111c87f0880f3410d7 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Sun, 18 Oct 2026 03:11:45 +0000
+Subject: [PATCH 2/2] Use SerialParam for nproc = 1 as intended
+
+setUpBPPARAM() assigned SerialParam() for nproc == 1 and then
+unconditionally overwrote it with MulticoreParam(workers = 1) (or
+SnowParam on Windows), so nproc = 1 still forked a worker. Make the
+platform branch an else-if. Results do not change: fgsea's random
+streams are seeded before bplapply(), and the output with nproc = 1
+is identical before and after this change.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ R/fgsea.R | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/R/fgsea.R b/R/fgsea.R
+index efc2999..f8547f0 100644
+--- a/R/fgsea.R
++++ b/R/fgsea.R
+@@ -721,8 +721,7 @@ setUpBPPARAM <- function(nproc=0, BPPARAM=NULL){
+         if (nproc != 0) {
+             if (nproc == 1) {
+                 result <- SerialParam(progressbar = TRUE)
+-            }
+-            if (.Platform$OS.type == "windows") {
++            } else if (.Platform$OS.type == "windows") {
+                 # windows doesn't support multicore, using snow instead
+                 result <- SnowParam(workers = nproc, progressbar = TRUE)
+             } else {
+-- 
+2.43.0
+

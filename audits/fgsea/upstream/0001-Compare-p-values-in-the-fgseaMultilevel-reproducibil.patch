@@ -1,0 +1,58 @@
+From eed4184fcf1132117a604f61f22c92d44acdb29c Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Sun, 18 Oct 2026 03:11:45 +0000
+Subject: [PATCH 1/2] Compare p-values in the fgseaMultilevel reproducibility
+ test
+
+The test "fgseaMultilevel is reproducable independent of bpparam
+settings" compared fr$nMoreExtreme between runs, but fgseaMultilevel()
+drops that column from its result, so every expect_equal() compared
+NULL with NULL and passed whatever the p-values were. Compare pval and
+NES instead. With the change the test still passes on master (the
+results are identical across nproc = 1, 0, 2 and the default
+BPPARAM), and it fails if one of the four calls is given a different
+seed, which the old version did not detect.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ tests/testthat/test_gsea_multilevel.R | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/tests/testthat/test_gsea_multilevel.R b/tests/testthat/test_gsea_multilevel.R
+index ce11081..00b6d32 100644
+--- a/tests/testthat/test_gsea_multilevel.R
++++ b/tests/testthat/test_gsea_multilevel.R
+@@ -30,6 +30,7 @@ test_that("fgseaMultilevel is reproducable independent of bpparam settings", {
+     data(exampleRanks)
+     sampleSize <- 50
+ 
++    # fgseaMultilevel() returns no nMoreExtreme column, so compare the p-values and NES
+     set.seed(42)
+     fr <- fgseaMultilevel(examplePathways[1:2], exampleRanks,
+                           sampleSize=sampleSize, maxSize=500, nproc=1)
+@@ -37,15 +38,18 @@ test_that("fgseaMultilevel is reproducable independent of bpparam settings", {
+ 
+     set.seed(42)
+     fr1 <- fgseaMultilevel(examplePathways[1:2], exampleRanks, sampleSize=sampleSize, maxSize=500)
+-    expect_equal(fr1$nMoreExtreme, fr$nMoreExtreme)
++    expect_equal(fr1$pval, fr$pval)
++    expect_equal(fr1$NES, fr$NES)
+ 
+     set.seed(42)
+     fr2 <- fgseaMultilevel(examplePathways[1:2], exampleRanks, sampleSize=sampleSize, maxSize=500, nproc=0)
+-    expect_equal(fr2$nMoreExtreme, fr$nMoreExtreme)
++    expect_equal(fr2$pval, fr$pval)
++    expect_equal(fr2$NES, fr$NES)
+ 
+     set.seed(42)
+     fr3 <- fgseaMultilevel(examplePathways[1:2], exampleRanks, sampleSize=sampleSize, maxSize=500, nproc=2)
+-    expect_equal(fr3$nMoreExtreme, fr$nMoreExtreme)
++    expect_equal(fr3$pval, fr$pval)
++    expect_equal(fr3$NES, fr$NES)
+ })
+ 
+ test_that("fgseaMultilevel is reproducible", {
+-- 
+2.43.0
+

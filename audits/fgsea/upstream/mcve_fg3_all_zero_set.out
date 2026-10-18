@@ -1,0 +1,16 @@
+## fgsea build v1.38.0
+             order         ES       NES         pval
+            <char>      <num>     <num>        <num>
+1:        as given  0.5515578  1.813465 1.583640e-05
+2: set moved first  0.6520603  2.143906 1.391070e-09
+3:  set moved last -0.6444221 -2.111765 2.613403e-09
+4:        shuffled  0.3574372  1.169329 1.232323e-01
+[1] '1.38.0'
+## fgsea build master
+             order         ES       NES         pval
+            <char>      <num>     <num>        <num>
+1:        as given  0.5515578  1.813465 1.583640e-05
+2: set moved first  0.6520603  2.143906 1.391070e-09
+3:  set moved last -0.6444221 -2.111765 2.613403e-09
+4:        shuffled  0.3574372  1.169329 1.232323e-01
+[1] '1.39.4'

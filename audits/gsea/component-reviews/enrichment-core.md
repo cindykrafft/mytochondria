@@ -146,18 +146,19 @@ ES −5/28 = −0.1786 with p and FDR where the classic value is +0.8214
 (`../upstream/mcve_outputs.txt`).
 
 **Exposure.** Default scheme, default settings. The input is a preranked list that scores
-untested genes 0 (DESeq2/edgeR statistics with NA → 0; fgsea's tie warning fires at such
-lists routinely) together with a set of tissue-specific genes that are all unexpressed —
+untested genes 0 (DESeq2/edgeR statistics with NA → 0) together with a set of tissue-specific genes that are all unexpressed —
 a small fraction of sets, but each one is reported as a (usually negative) hit whose sign
 and size are set by where the zeros sit. fgsea 1.39.4 computes the same order-dependent
-number for such a set (ZERO_40 in `note_ties.out`: −0.7095 and −0.7973 in both tools) but
-prints a tie warning. How often the combination occurs in the cohort cannot be told from
+number for such a set (ZERO_40 in `note_ties.out`: −0.7095 and −0.7973 in both tools). fgsea
+prints a tie warning on that list, but only because of its non-zero tie block (39.97 % = the
+1,199 extra genes at 0.3): fgsea leaves zeros out of the ties count, so on a list whose only
+ties are zeros it prints nothing (fgsea audit, FG3, `../../fgsea/upstream/mcve_fg3_all_zero_set.out`). How often the combination occurs in the cohort cannot be told from
 the survey snippets.
 
 **Fix.** Equal scores mean equal weights: return 1/N_H when the total weight is 0 and log a
 warning naming the set (patch 0003, `ZeroWeightGeneSetTest`); or exclude such sets with a
-warning. Either way a general warning about ties in the ranked list (fgsea has one; GSEA
-has none, see N2) would tell users what they are looking at.
+warning. Either way a general warning about ties in the ranked list (fgsea has one, though it
+ignores zeros; GSEA has none, see N2) would tell users what they are looking at.
 
 ### N1 — NOTE (design, verified, small effect): the FDR q-value numerator is a mean of per-permutation fractions, not the pooled fraction of the paper
 

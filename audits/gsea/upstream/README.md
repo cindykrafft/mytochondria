@@ -72,7 +72,7 @@ ties, rank-at-max convention, strict nominal p) are not filed.
 |---|---|
 | `issue-gs1-weighted-p15-negative-scores.md` | GS1 bug report (title + body in CONTRIBUTING's order: description, executable test case, expected/got, fix) |
 | `issue-gs2-set-min-equals-max.md` | GS2 bug report |
-| `issue-gs3-zero-weight-gene-set.md` | GS3 bug report (two fix options offered; the patch implements the first) |
+| `issue-gs3-zero-weight-gene-set.md` | GS3 bug report (two fix options offered; the patch implements the first). Filed as #74. Its aside that fgsea prints a ties warning holds only for non-zero ties: fgsea ignores zeros, so it is silent on an all-zero set too (fgsea FG3) |
 | `mcve_gs1_weighted_p15.sh`, `mcve_gs2_set_min_equals_max.sh`, `mcve_gs3_zero_weight_set.sh`, `mcve_outputs.txt` | the reproductions embedded in the issues and their output on `master` and on the patched builds |
 | `0001-Fixed-the-weighted_p1.5-hit-weight-for-negative-rank.patch` | GS1 fix (one line) + `GeneSetScoringTablesTest` |
 | `0002-Apply-the-gene-set-size-filter-also-when-set_min-equ.patch` | GS2 fix (one hunk) + `GeneSetCohortGeneratorTest` |

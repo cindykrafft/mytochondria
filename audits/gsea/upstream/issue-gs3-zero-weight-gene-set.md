@@ -1,6 +1,9 @@
 Title: A gene set whose members all have ranking score 0 is reported with a spurious ES, NES and p-value under the weighted scoring scheme (NaN hit weight)
 
 <!-- GSEA-MSigDB/gsea-desktop has no issue template; CONTRIBUTING.md asks for a title, a clear description and a code sample / executable test case. -->
+<!-- Filed as #74 on 2026-09-14 (text below as filed). Correction 2026-10-18 from the fgsea audit (FG3): option 2's
+     "a general warning about ties in the ranked list, which fgsea prints" is true of fgsea's general ties warning, but
+     fgsea leaves zeros out of it, so it does not warn for an all-zero set either. If the thread turns to fgsea, say so. -->
 
 **Summary**
 
