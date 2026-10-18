@@ -1,0 +1,69 @@
+From 67b426980365ca461dc80a869b6781aa42a7fed5 Mon Sep 17 00:00:00 2001
+From: Cindy Krafft <cynthiacondra@gmail.com>
+Date: Sun, 18 Oct 2026 03:05:57 +0000
+Subject: [PATCH] Run multi-threaded bootstraps in builds without HDF5
+
+With --threads > 1, kallisto quant constructed the BootstrapThreadPool
+inside #ifdef USE_HDF5, so a build without HDF5 support (the CMake
+default, USE_HDF5=OFF) skipped the bootstrap step entirely when run
+with -b N --plaintext -t T: no bs_abundance_*.tsv files were written,
+nothing was printed, the exit status was 0, and run_info.json still
+reported n_bootstraps N. With -t 1 the same build wrote all N tables.
+
+Construct the pool in every build. Without HDF5, CheckOptionsEM only
+keeps bootstraps when --plaintext is given, and the workers then write
+the plaintext tables themselves, so no HDF5 writer is passed. Also pass
+n_threads, which the preceding warning already caps at the number of
+bootstraps.
+
+Add a functional test that runs quant with -t 2 -b 2 --plaintext and
+checks that both bootstrap tables are written.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TaHntBDKuZJpMAAMenkC44
+---
+ func_tests/runtests.sh |  4 ++++
+ src/main.cpp           | 10 ++++++++--
+ 2 files changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/func_tests/runtests.sh b/func_tests/runtests.sh
+index 7510100..22a1359 100644
+--- a/func_tests/runtests.sh
++++ b/func_tests/runtests.sh
+@@ -287,6 +287,10 @@ checkcmdoutput "cat $test_dir/quantbasicrf/abundance.tsv" 017e8ba77d7e7b39a60bb7
+ cmdexec "$kallisto quant -o $test_dir/quantbasicpaired -i $test_dir/basic7.idx $test_dir/simple_pair1.fastq.gz $test_dir/simple_pair2.fastq.gz"
+ checkcmdoutput "cat $test_dir/quantbasicpaired/abundance.tsv" 1cf9cd508c04eff7cbda6e74cc1e44ea
+ 
++# Test kallisto quant: bootstraps with more than one thread are written (also without HDF5)
++cmdexec "$kallisto quant -o $test_dir/quantbootstrapthreads -t 2 -b 2 --plaintext -i $test_dir/basic7.idx $test_dir/simple_pair1.fastq.gz $test_dir/simple_pair2.fastq.gz"
++cmdexec "test -s $test_dir/quantbootstrapthreads/bs_abundance_0.tsv -a -s $test_dir/quantbootstrapthreads/bs_abundance_1.tsv"
++
+ # Test paired-end small.fastq.gz with multiple pairs of files and with strand-specificity
+ 
+ cmdexec "$kallisto quant -o $test_dir/quantbasicpairedfr -i $test_dir/basic7.idx --fr-stranded $test_dir/simple_pair1.fastq.gz $test_dir/simple_pair2.fastq.gz"
+diff --git a/src/main.cpp b/src/main.cpp
+index 0a54130..7c99b9f 100644
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -2939,10 +2939,16 @@ int main(int argc, char *argv[]) {
+                    << std::endl;
+               n_threads = opt.bootstrap;
+             }
++            // Without HDF5 support, CheckOptionsEM only keeps bootstraps when
++            // --plaintext is given, and the workers then write plaintext
++            // themselves, so no HDF5 writer is needed.
+ #ifdef USE_HDF5
+-            BootstrapThreadPool pool(opt.threads, seeds, collection.counts, index, collection,
+-                                     em.eff_lens_, opt, &writer, fl_means);
++            BootstrapWriter *bswriter = &writer;
++#else
++            BootstrapWriter *bswriter = nullptr;
+ #endif
++            BootstrapThreadPool pool(n_threads, seeds, collection.counts, index, collection,
++                                     em.eff_lens_, opt, bswriter, fl_means);
+           } else {
+             for (auto b = 0; b < B; ++b) {
+               Bootstrap bs(collection.counts, index, collection, em.eff_lens_, seeds[b], fl_means,
+-- 
+2.43.0
+

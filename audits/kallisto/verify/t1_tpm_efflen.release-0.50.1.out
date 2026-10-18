@@ -1,0 +1,142 @@
+kallisto 0.50.1
+ok   --single -l 200 -s 20: eff_length vs L - mu_L + 1 (truncated Gaussian), worst rel. diff 4.22e-06 (len0180)
+       len0040  L=   40  port=     2.968  kallisto=     2.968
+       len0060  L=   60  port=     3.289  kallisto=     3.289
+       len0080  L=   80  port=     3.707  kallisto=     3.707
+       len0100  L=  100  port=     4.267  kallisto=     4.267
+       len0120  L=  120  port=     5.052  kallisto=     5.052
+       len0150  L=  150  port=     7.010  kallisto=     7.010
+       len0180  L=  180  port=    11.108  kallisto=    11.108
+       len0200  L=  200  port=    16.642  kallisto=    16.642
+       len0220  L=  220  port=    26.568  kallisto=    26.569
+       len0250  L=  250  port=    51.331  kallisto=    51.331
+       len0300  L=  300  port=   101.000  kallisto=   101.000
+       len0400  L=  400  port=   201.000  kallisto=   201.000
+       len0600  L=  600  port=   401.000  kallisto=   401.000
+       len0999  L=  999  port=   800.000  kallisto=   800.000
+       len1000  L= 1000  port=   801.000  kallisto=   801.000
+       len1001  L= 1001  port=   802.000  kallisto=   802.000
+       len1500  L= 1500  port=  1301.000  kallisto=  1301.000
+       len3000  L= 3000  port=  2801.000  kallisto=  2801.000
+ok   --single -l 200 -s 20: TPM from est_counts/eff_length matches the formula, worst rel. diff 6.02e-06
+ok   --single -l 180 -s 30: eff_length vs L - mu_L + 1 (truncated Gaussian), worst rel. diff 3.19e-06 (len0120)
+       len0040  L=   40  port=     6.451  kallisto=     6.451
+       len0060  L=   60  port=     7.301  kallisto=     7.301
+       len0080  L=   80  port=     8.376  kallisto=     8.376
+       len0100  L=  100  port=     9.803  kallisto=     9.803
+       len0120  L=  120  port=    11.760  kallisto=    11.760
+       len0150  L=  150  port=    16.357  kallisto=    16.357
+       len0180  L=  180  port=    24.620  kallisto=    24.620
+       len0200  L=  200  port=    33.588  kallisto=    33.588
+       len0220  L=  220  port=    46.278  kallisto=    46.278
+       len0250  L=  250  port=    71.764  kallisto=    71.764
+       len0300  L=  300  port=   121.004  kallisto=   121.004
+       len0400  L=  400  port=   221.000  kallisto=   221.000
+       len0600  L=  600  port=   421.000  kallisto=   421.000
+       len0999  L=  999  port=   820.000  kallisto=   820.000
+       len1000  L= 1000  port=   821.000  kallisto=   821.000
+       len1001  L= 1001  port=   822.000  kallisto=   822.000
+       len1500  L= 1500  port=  1321.000  kallisto=  1321.000
+       len3000  L= 3000  port=  2821.000  kallisto=  2821.000
+ok   --single -l 180 -s 30: TPM from est_counts/eff_length matches the formula, worst rel. diff 5.38e-06
+ok   --single -l 50 -s 20: eff_length vs L - mu_L + 1 (truncated Gaussian), worst rel. diff 3.03e-06 (len0040)
+       len0040  L=   40  port=    12.821  kallisto=    12.821
+       len0060  L=   60  port=    20.537  kallisto=    20.537
+       len0080  L=   80  port=    33.326  kallisto=    33.326
+       len0100  L=  100  port=    51.000  kallisto=    51.000
+       len0120  L=  120  port=    70.685  kallisto=    70.685
+       len0150  L=  150  port=   100.669  kallisto=   100.669
+       len0180  L=  180  port=   130.669  kallisto=   130.669
+       len0200  L=  200  port=   150.669  kallisto=   150.669
+       len0220  L=  220  port=   170.669  kallisto=   170.669
+       len0250  L=  250  port=   200.669  kallisto=   200.669
+       len0300  L=  300  port=   250.669  kallisto=   250.669
+       len0400  L=  400  port=   350.669  kallisto=   350.669
+       len0600  L=  600  port=   550.669  kallisto=   550.669
+       len0999  L=  999  port=   949.669  kallisto=   949.669
+       len1000  L= 1000  port=   950.669  kallisto=   950.669
+       len1001  L= 1001  port=   951.669  kallisto=   951.669
+       len1500  L= 1500  port=  1450.669  kallisto=  1450.670
+       len3000  L= 3000  port=  2950.669  kallisto=  2950.670
+ok   --single -l 50 -s 20: TPM from est_counts/eff_length matches the formula, worst rel. diff 5.60e-06
+ok   --single -l 55 -s 1e-08: eff_length vs L - mu_L + 1 (truncated Gaussian), worst rel. diff 0.00e+00 (None)
+       len0040  L=   40  port=    41.000  kallisto=    41.000
+       len0060  L=   60  port=     6.000  kallisto=     6.000
+       len0080  L=   80  port=    26.000  kallisto=    26.000
+       len0100  L=  100  port=    46.000  kallisto=    46.000
+       len0120  L=  120  port=    66.000  kallisto=    66.000
+       len0150  L=  150  port=    96.000  kallisto=    96.000
+       len0180  L=  180  port=   126.000  kallisto=   126.000
+       len0200  L=  200  port=   146.000  kallisto=   146.000
+       len0220  L=  220  port=   166.000  kallisto=   166.000
+       len0250  L=  250  port=   196.000  kallisto=   196.000
+       len0300  L=  300  port=   246.000  kallisto=   246.000
+       len0400  L=  400  port=   346.000  kallisto=   346.000
+       len0600  L=  600  port=   546.000  kallisto=   546.000
+       len0999  L=  999  port=   945.000  kallisto=   945.000
+       len1000  L= 1000  port=   946.000  kallisto=   946.000
+       len1001  L= 1001  port=   947.000  kallisto=   947.000
+       len1500  L= 1500  port=  1446.000  kallisto=  1446.000
+       len3000  L= 3000  port=  2946.000  kallisto=  2946.000
+ok   --single -l 55 -s 1e-08: TPM from est_counts/eff_length matches the formula, worst rel. diff 4.79e-06
+ok   --single -l 300 -s 80: eff_length vs L - mu_L + 1 (truncated Gaussian), worst rel. diff 4.72e-06 (g011_t1)
+       len0040  L=   40  port=    15.226  kallisto=    15.226
+       len0060  L=   60  port=    19.359  kallisto=    19.359
+       len0080  L=   80  port=    22.469  kallisto=    22.468
+       len0100  L=  100  port=    25.065  kallisto=    25.064
+       len0120  L=  120  port=    27.480  kallisto=    27.480
+       len0150  L=  150  port=    31.212  kallisto=    31.212
+       len0180  L=  180  port=    35.460  kallisto=    35.460
+       len0200  L=  200  port=    38.746  kallisto=    38.746
+       len0220  L=  220  port=    42.505  kallisto=    42.505
+       len0250  L=  250  port=    49.255  kallisto=    49.255
+       len0300  L=  300  port=    64.469  kallisto=    64.469
+       len0400  L=  400  port=   117.161  kallisto=   117.161
+       len0600  L=  600  port=   301.000  kallisto=   301.000
+       len0999  L=  999  port=   699.972  kallisto=   699.972
+       len1000  L= 1000  port=   700.972  kallisto=   700.972
+       len1001  L= 1001  port=   701.972  kallisto=   701.972
+       len1500  L= 1500  port=  1200.972  kallisto=  1200.970
+       len3000  L= 3000  port=  2700.972  kallisto=  2700.970
+ok   --single -l 300 -s 80: TPM from est_counts/eff_length matches the formula, worst rel. diff 6.42e-06
+     paired-end FLD N(250,40): simulated fragments mean 249.42 (all), kallisto 'estimated average fragment length' 247.50
+       len0040  L=   40  eff_length=   41.000  implied mu_L=   0.000  truth mu_L=  33.434
+       len0060  L=   60  eff_length=   61.000  implied mu_L=   0.000  truth mu_L=  52.683
+       len0080  L=   80  eff_length=    8.500  implied mu_L=  72.500  truth mu_L=  71.892
+       len0100  L=  100  eff_length=   14.167  implied mu_L=  86.833  truth mu_L=  90.952
+       len0120  L=  120  eff_length=   27.125  implied mu_L=  93.875  truth mu_L= 109.806
+       len0150  L=  150  eff_length=   18.367  implied mu_L= 132.633  truth mu_L= 137.540
+       len0180  L=  180  eff_length=   17.546  implied mu_L= 163.454  truth mu_L= 164.281
+       len0200  L=  200  eff_length=   19.928  implied mu_L= 181.072  truth mu_L= 181.258
+       len0220  L=  220  eff_length=   24.640  implied mu_L= 196.360  truth mu_L= 197.231
+       len0250  L=  250  eff_length=   33.752  implied mu_L= 217.248  truth mu_L= 218.401
+       len0300  L=  300  eff_length=   60.708  implied mu_L= 240.292  truth mu_L= 241.979
+       len0400  L=  400  eff_length=  153.500  implied mu_L= 247.500  truth mu_L= 249.987
+       len0600  L=  600  eff_length=  353.500  implied mu_L= 247.500  truth mu_L= 250.000
+       len0999  L=  999  eff_length=  752.500  implied mu_L= 247.500  truth mu_L= 250.000
+       len1000  L= 1000  eff_length=  753.500  implied mu_L= 247.500  truth mu_L= 250.000
+       len1001  L= 1001  eff_length=  754.500  implied mu_L= 247.500  truth mu_L= 250.000
+       len1500  L= 1500  eff_length= 1253.500  implied mu_L= 247.500  truth mu_L= 250.000
+       len3000  L= 3000  eff_length= 2753.500  implied mu_L= 247.500  truth mu_L= 250.000
+ok   paired-end N(250,40): TPM from est_counts/eff_length matches the formula, worst rel. diff 5.76e-06
+     paired-end FLD N(180,30): simulated fragments mean 179.75 (all), kallisto 'estimated average fragment length' 178.70
+       len0040  L=   40  eff_length=   41.000  implied mu_L=   0.000  truth mu_L=  34.553
+       len0060  L=   60  eff_length=    6.000  implied mu_L=  55.000  truth mu_L=  53.699
+       len0080  L=   80  eff_length=    9.133  implied mu_L=  71.867  truth mu_L=  72.624
+       len0100  L=  100  eff_length=   14.214  implied mu_L=  86.786  truth mu_L=  91.197
+       len0120  L=  120  eff_length=   14.132  implied mu_L= 106.868  truth mu_L= 109.240
+       len0150  L=  150  eff_length=   17.554  implied mu_L= 133.446  truth mu_L= 134.643
+       len0180  L=  180  eff_length=   25.558  implied mu_L= 155.442  truth mu_L= 156.380
+       len0200  L=  200  eff_length=   34.861  implied mu_L= 166.139  truth mu_L= 167.412
+       len0220  L=  220  eff_length=   47.385  implied mu_L= 173.615  truth mu_L= 174.722
+       len0250  L=  250  eff_length=   72.990  implied mu_L= 178.010  truth mu_L= 179.236
+       len0300  L=  300  eff_length=  122.304  implied mu_L= 178.696  truth mu_L= 179.996
+       len0400  L=  400  eff_length=  222.304  implied mu_L= 178.696  truth mu_L= 180.000
+       len0600  L=  600  eff_length=  422.304  implied mu_L= 178.696  truth mu_L= 180.000
+       len0999  L=  999  eff_length=  821.304  implied mu_L= 178.696  truth mu_L= 180.000
+       len1000  L= 1000  eff_length=  822.304  implied mu_L= 178.696  truth mu_L= 180.000
+       len1001  L= 1001  eff_length=  823.304  implied mu_L= 178.696  truth mu_L= 180.000
+       len1500  L= 1500  eff_length= 1322.300  implied mu_L= 178.700  truth mu_L= 180.000
+       len3000  L= 3000  eff_length= 2822.300  implied mu_L= 178.700  truth mu_L= 180.000
+ok   paired-end N(180,30): TPM from est_counts/eff_length matches the formula, worst rel. diff 7.73e-06
+FAILURES: 0

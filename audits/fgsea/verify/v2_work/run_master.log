@@ -1,0 +1,12 @@
+master N24k3 1_2_12 std p 0.007505 
+master N24k3 8_12_16 std p 0.8779 
+master N24k3 20_22_23 std p 0.01881 
+master N24k3 2_13_23 std p 0.7495 
+master N30k5 1_2_3_4_14 std p 4.648e-05 
+master N30k5 1_2_15_29_30 std p 0.3705 
+master N30k5 3_9_26_28_30 std p 0.3282 
+master N30k5 5_11_17_21_25 std p 0.9908 
+master N32k4t 1_2_5_9 std p 0.02323 
+master N32k4t 14_15_16_17 std p 0.4376 
+master N32k4t 25_28_30_31 std p 0.009663 
+master N32k4t 3_12_20_29 std p 0.9626 

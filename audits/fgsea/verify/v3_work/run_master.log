@@ -7,3 +7,12 @@ master k15_top160 ES 0.8527919 median p(std) 3.345662e-11
 master k15_top250 ES 0.7614213 median p(std) 1.594968e-07 
 master k15_top400 ES 0.6091371 median p(std) 0.0005674839 
 master k15_bottom100 ES -0.9137056 median p(std) 2.47686e-15 
+master k40_top40 ES 1 median p(std) 3.311136e-72 
+master k40_top60 ES 0.9791667 median p(std) 1.835215e-56 
+master k40_top100 ES 0.9375 median p(std) 6.675916e-43 
+master k40_top160 ES 0.875 median p(std) 6.194851e-31 
+master k40_top250 ES 0.78125 median p(std) 3.667376e-20 
+master k40_top400 ES 0.625 median p(std) 3.72216e-10 
+master k40_bottom100 ES -0.9375 median p(std) 7.61644e-43 
+Error: unexpected '}' in "    }"
+Execution halted

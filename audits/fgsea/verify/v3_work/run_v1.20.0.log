@@ -1,0 +1,14 @@
+v1.20.0 k15_top30 ES 0.9847716 median p(std) 5.528323e-25 
+v1.20.0 k15_top40 ES 0.9746193 median p(std) 1.457598e-22 
+v1.20.0 k15_top60 ES 0.9543147 median p(std) 1.801217e-19 
+v1.20.0 k15_top100 ES 0.9137056 median p(std) 2.31179e-15 
+v1.20.0 k15_top160 ES 0.8527919 median p(std) 3.141265e-11 
+v1.20.0 k15_top250 ES 0.7614213 median p(std) 1.486085e-07 
+v1.20.0 k15_top400 ES 0.6091371 median p(std) 0.0004373719 
+v1.20.0 k15_bottom100 ES -0.9137056 median p(std) 1.770574e-15 
+v1.20.0 k40_top60 ES 0.9791667 median p(std) 3.313412e-55 
+v1.20.0 k40_top100 ES 0.9375 median p(std) 5.014517e-43 
+v1.20.0 k40_top160 ES 0.875 median p(std) 5.682983e-31 
+v1.20.0 k40_top250 ES 0.78125 median p(std) 2.758402e-20 
+v1.20.0 k40_top400 ES 0.625 median p(std) 3.643917e-10 
+v1.20.0 k40_bottom100 ES -0.9375 median p(std) 8.076112e-43 

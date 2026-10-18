@@ -3,3 +3,8 @@ v1.30.0 a_g1_pos 300 pathways
 v1.30.0 a_g1_neg 300 pathways
 v1.30.0 a_g0_std 300 pathways
 v1.30.0 a_g2_std 300 pathways
+v1.30.0 b_g1_std 300 pathways
+v1.30.0 b_g1_pos 300 pathways
+v1.30.0 b_g1_neg 300 pathways
+v1.30.0 b_g0_std 300 pathways
+v1.30.0 b_g2_std 300 pathways

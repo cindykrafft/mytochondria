@@ -1,0 +1,72 @@
+
+=== fgsea 1.39.4 (master) ===
+    a_g1_std: 300 sets (130 with ES > 0); max |ES - ref| = 2.20e-07; size mismatches 0; leadingEdge differs in 0
+    a_g1_pos: 300 sets (299 with ES > 0); max |ES - ref| = 2.01e-07; size mismatches 0; leadingEdge differs in 0
+    a_g1_neg: 300 sets (0 with ES > 0); max |ES - ref| = 3.03e-07; size mismatches 0; leadingEdge differs in 0
+    a_g0_std: 300 sets (148 with ES > 0); max |ES - ref| = 5.00e-16; size mismatches 0; leadingEdge differs in 0
+    a_g2_std: 300 sets (103 with ES > 0); max |ES - ref| = 8.11e-07; size mismatches 0; leadingEdge differs in 0
+    b_g1_std: 300 sets (131 with ES > 0); max |ES - ref| = 2.13e-07; size mismatches 0; leadingEdge differs in 0
+    b_g1_pos: 300 sets (299 with ES > 0); max |ES - ref| = 2.03e-07; size mismatches 0; leadingEdge differs in 0
+    b_g1_neg: 300 sets (0 with ES > 0); max |ES - ref| = 2.72e-07; size mismatches 0; leadingEdge differs in 0
+    b_g0_std: 300 sets (152 with ES > 0); max |ES - ref| = 5.00e-16; size mismatches 0; leadingEdge differs in 0
+    b_g2_std: 300 sets (111 with ES > 0); max |ES - ref| = 5.87e-07; size mismatches 0; leadingEdge differs in 0
+
+=== fgsea 1.38.0 (v1.38.0) ===
+    a_g1_std: 300 sets (130 with ES > 0); max |ES - ref| = 2.20e-07; size mismatches 0; leadingEdge differs in 0
+    a_g1_pos: 300 sets (299 with ES > 0); max |ES - ref| = 2.01e-07; size mismatches 0; leadingEdge differs in 0
+    a_g1_neg: 300 sets (0 with ES > 0); max |ES - ref| = 3.03e-07; size mismatches 0; leadingEdge differs in 0
+    a_g0_std: 300 sets (148 with ES > 0); max |ES - ref| = 5.00e-16; size mismatches 0; leadingEdge differs in 0
+    a_g2_std: 300 sets (103 with ES > 0); max |ES - ref| = 8.11e-07; size mismatches 0; leadingEdge differs in 0
+    b_g1_std: 300 sets (131 with ES > 0); max |ES - ref| = 2.13e-07; size mismatches 0; leadingEdge differs in 0
+    b_g1_pos: 300 sets (299 with ES > 0); max |ES - ref| = 2.03e-07; size mismatches 0; leadingEdge differs in 0
+    b_g1_neg: 300 sets (0 with ES > 0); max |ES - ref| = 2.72e-07; size mismatches 0; leadingEdge differs in 0
+    b_g0_std: 300 sets (152 with ES > 0); max |ES - ref| = 5.00e-16; size mismatches 0; leadingEdge differs in 0
+    b_g2_std: 300 sets (111 with ES > 0); max |ES - ref| = 5.87e-07; size mismatches 0; leadingEdge differs in 0
+
+=== fgsea 1.36.2 (v1.36.0) ===
+    a_g1_std: 300 sets (130 with ES > 0); max |ES - ref| = 1.44e-15; size mismatches 0; leadingEdge differs in 0
+    a_g1_pos: 300 sets (299 with ES > 0); max |ES - ref| = 1.44e-15; size mismatches 0; leadingEdge differs in 0
+    a_g1_neg: 300 sets (0 with ES > 0); max |ES - ref| = 1.78e-15; size mismatches 0; leadingEdge differs in 0
+    a_g0_std: 300 sets (148 with ES > 0); max |ES - ref| = 5.00e-16; size mismatches 0; leadingEdge differs in 0
+    a_g2_std: 300 sets (103 with ES > 0); max |ES - ref| = 1.94e-15; size mismatches 0; leadingEdge differs in 0
+    b_g1_std: 300 sets (131 with ES > 0); max |ES - ref| = 1.55e-15; size mismatches 0; leadingEdge differs in 0
+    b_g1_pos: 300 sets (299 with ES > 0); max |ES - ref| = 1.55e-15; size mismatches 0; leadingEdge differs in 0
+    b_g1_neg: 300 sets (0 with ES > 0); max |ES - ref| = 1.89e-15; size mismatches 0; leadingEdge differs in 0
+    b_g0_std: 300 sets (152 with ES > 0); max |ES - ref| = 5.00e-16; size mismatches 0; leadingEdge differs in 0
+    b_g2_std: 300 sets (111 with ES > 0); max |ES - ref| = 1.67e-15; size mismatches 0; leadingEdge differs in 0
+
+=== fgsea 1.30.0 (v1.30.0) ===
+    a_g1_std: 300 sets (130 with ES > 0); max |ES - ref| = 1.44e-15; size mismatches 0; leadingEdge differs in 14 (fgsea minus ref: median +4, range +1..+29 genes; e.g. [('S012', 0.260292695906983, 32, 36), ('S035', 0.228656997616308, 32, 61)])
+    a_g1_pos: 300 sets (299 with ES > 0); max |ES - ref| = 1.44e-15; size mismatches 0; leadingEdge differs in 43 (fgsea minus ref: median +3, range -474..+29 genes; e.g. [('S001', 0.245749929964478, 6, 12), ('S002', 0.075888375828147, 19, 5)])
+    a_g1_neg: 300 sets (0 with ES > 0); max |ES - ref| = 1.78e-15; size mismatches 0; leadingEdge differs in 0
+    a_g0_std: 300 sets (148 with ES > 0); max |ES - ref| = 5.00e-16; size mismatches 0; leadingEdge differs in 0
+    a_g2_std: 300 sets (103 with ES > 0); max |ES - ref| = 1.94e-15; size mismatches 0; leadingEdge differs in 20 (fgsea minus ref: median +2, range +1..+20 genes; e.g. [('S003', 0.321831595365255, 4, 5), ('S008', 0.369908630100905, 13, 18)])
+    b_g1_std: 300 sets (131 with ES > 0); max |ES - ref| = 1.55e-15; size mismatches 0; leadingEdge differs in 14 (fgsea minus ref: median +6, range +1..+36 genes; e.g. [('S007', 0.257137186740091, 19, 20), ('S013', 0.221102179388111, 10, 16)])
+    b_g1_pos: 300 sets (299 with ES > 0); max |ES - ref| = 1.55e-15; size mismatches 0; leadingEdge differs in 34 (fgsea minus ref: median +4, range -474..+36 genes; e.g. [('S001', 0.252916683203457, 6, 12), ('S007', 0.257137186740091, 19, 20)])
+    b_g1_neg: 300 sets (0 with ES > 0); max |ES - ref| = 1.89e-15; size mismatches 0; leadingEdge differs in 0
+    b_g0_std: 300 sets (152 with ES > 0); max |ES - ref| = 5.00e-16; size mismatches 0; leadingEdge differs in 0
+    b_g2_std: 300 sets (111 with ES > 0); max |ES - ref| = 1.67e-15; size mismatches 0; leadingEdge differs in 22 (fgsea minus ref: median +4, range +1..+16 genes; e.g. [('S003', 0.34119030618244, 4, 6), ('S006', 0.369733142828994, 13, 14)])
+
+=== fgsea 1.26.0 (v1.26.0) ===
+    a_g1_std: 300 sets (130 with ES > 0); max |ES - ref| = 1.44e-15; size mismatches 0; leadingEdge differs in 14 (fgsea minus ref: median +4, range +1..+29 genes; e.g. [('S012', 0.260292695906983, 32, 36), ('S035', 0.228656997616308, 32, 61)])
+    a_g1_pos: 300 sets (299 with ES > 0); max |ES - ref| = 1.44e-15; size mismatches 0; leadingEdge differs in 184 (fgsea minus ref: median +7, range -148..+344 genes; e.g. [('S001', 0.245749929964478, 6, 3), ('S002', 0.075888375828147, 19, 7)])
+    a_g1_neg: 300 sets (0 with ES > 0); max |ES - ref| = 1.78e-15; size mismatches 0; leadingEdge differs in 130 (fgsea minus ref: median +8, range -132..+297 genes; e.g. [('S006', -0.176243754349362, 14, 34), ('S007', -0.170231923147295, 5, 21)])
+    a_g0_std: 300 sets (148 with ES > 0); max |ES - ref| = 5.00e-16; size mismatches 0; leadingEdge differs in 0
+    a_g2_std: 300 sets (103 with ES > 0); max |ES - ref| = 1.94e-15; size mismatches 0; leadingEdge differs in 20 (fgsea minus ref: median +2, range +1..+20 genes; e.g. [('S003', 0.321831595365255, 4, 5), ('S008', 0.369908630100905, 13, 18)])
+    b_g1_std: 300 sets (131 with ES > 0); max |ES - ref| = 1.55e-15; size mismatches 0; leadingEdge differs in 14 (fgsea minus ref: median +6, range +1..+36 genes; e.g. [('S007', 0.257137186740091, 19, 20), ('S013', 0.221102179388111, 10, 16)])
+    b_g1_pos: 300 sets (299 with ES > 0); max |ES - ref| = 1.55e-15; size mismatches 0; leadingEdge differs in 183 (fgsea minus ref: median +7, range -179..+326 genes; e.g. [('S001', 0.252916683203457, 6, 3), ('S002', 0.0776023784398614, 5, 7)])
+    b_g1_neg: 300 sets (0 with ES > 0); max |ES - ref| = 1.89e-15; size mismatches 0; leadingEdge differs in 131 (fgsea minus ref: median +9, range -148..+285 genes; e.g. [('S006', -0.153617336793047, 12, 32), ('S007', -0.185230510825694, 11, 20)])
+    b_g0_std: 300 sets (152 with ES > 0); max |ES - ref| = 5.00e-16; size mismatches 0; leadingEdge differs in 0
+    b_g2_std: 300 sets (111 with ES > 0); max |ES - ref| = 1.67e-15; size mismatches 0; leadingEdge differs in 22 (fgsea minus ref: median +4, range +1..+16 genes; e.g. [('S003', 0.34119030618244, 4, 6), ('S006', 0.369733142828994, 13, 14)])
+
+=== fgsea 1.20.0 (v1.20.0) ===
+    a_g1_std: 300 sets (130 with ES > 0); max |ES - ref| = 1.44e-15; size mismatches 0; leadingEdge differs in 14 (fgsea minus ref: median +4, range +1..+29 genes; e.g. [('S012', 0.260292695906983, 32, 36), ('S035', 0.228656997616308, 32, 61)])
+    a_g1_pos: 300 sets (299 with ES > 0); max |ES - ref| = 1.44e-15; size mismatches 0; leadingEdge differs in 184 (fgsea minus ref: median +7, range -148..+344 genes; e.g. [('S001', 0.245749929964478, 6, 3), ('S002', 0.075888375828147, 19, 7)])
+    a_g1_neg: 300 sets (0 with ES > 0); max |ES - ref| = 1.78e-15; size mismatches 0; leadingEdge differs in 130 (fgsea minus ref: median +8, range -132..+297 genes; e.g. [('S006', -0.176243754349362, 14, 34), ('S007', -0.170231923147295, 5, 21)])
+    a_g0_std: 300 sets (148 with ES > 0); max |ES - ref| = 5.00e-16; size mismatches 0; leadingEdge differs in 0
+    a_g2_std: 300 sets (103 with ES > 0); max |ES - ref| = 1.94e-15; size mismatches 0; leadingEdge differs in 20 (fgsea minus ref: median +2, range +1..+20 genes; e.g. [('S003', 0.321831595365255, 4, 5), ('S008', 0.369908630100905, 13, 18)])
+    b_g1_std: 300 sets (131 with ES > 0); max |ES - ref| = 1.55e-15; size mismatches 0; leadingEdge differs in 14 (fgsea minus ref: median +6, range +1..+36 genes; e.g. [('S007', 0.257137186740091, 19, 20), ('S013', 0.221102179388111, 10, 16)])
+    b_g1_pos: 300 sets (299 with ES > 0); max |ES - ref| = 1.55e-15; size mismatches 0; leadingEdge differs in 183 (fgsea minus ref: median +7, range -179..+326 genes; e.g. [('S001', 0.252916683203457, 6, 3), ('S002', 0.0776023784398614, 5, 7)])
+    b_g1_neg: 300 sets (0 with ES > 0); max |ES - ref| = 1.89e-15; size mismatches 0; leadingEdge differs in 131 (fgsea minus ref: median +9, range -148..+285 genes; e.g. [('S006', -0.153617336793047, 12, 32), ('S007', -0.185230510825694, 11, 20)])
+    b_g0_std: 300 sets (152 with ES > 0); max |ES - ref| = 5.00e-16; size mismatches 0; leadingEdge differs in 0
+    b_g2_std: 300 sets (111 with ES > 0); max |ES - ref| = 1.67e-15; size mismatches 0; leadingEdge differs in 22 (fgsea minus ref: median +4, range +1..+16 genes; e.g. [('S003', 0.34119030618244, 4, 6), ('S006', 0.369733142828994, 13, 14)])

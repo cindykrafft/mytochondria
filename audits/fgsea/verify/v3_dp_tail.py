@@ -79,11 +79,14 @@ def compare(d, labels):
         print(f"\n=== fgsea {res['version']} ({lab}); {res['reps']} runs per set, eps = 0, sampleSize = 101 ===")
         print(f"{'set':>14} {'ES':>8} {'type':>4} {'p exact':>10} {'median p':>10} {'gmean p':>10} {'gm/exact':>8} {'min':>9} {'max':>9} {'med log2err':>11} {'|dlog2|<=2err':>13}")
         for st in spec["sets"]:
+            if st["name"] not in res["sets"]:
+                print(f"{st['name']:>14}  not run (ES = 1: fgsea {res['version']} does not return, see v6_es1_hang)")
+                continue
             r = res["sets"][st["name"]]
             for typ, key in (("pos", "p_pos_exact"), ("std", "p_std_exact")):
                 if typ not in r or st.get(key) is None:
                     continue
-                pv = np.array(r[typ]["pval"], dtype=float); le = np.array([np.nan if x is None else x for x in r[typ]["log2err"]], dtype=float)
+                pv = np.array(r[typ]["pval"], dtype=float); le = np.array([np.nan if x in (None, "NA") else x for x in r[typ]["log2err"]], dtype=float)
                 ex = st[key]
                 gm = float(np.exp(np.mean(np.log(pv))))
                 dl = np.abs(np.log2(pv) - math.log2(ex))

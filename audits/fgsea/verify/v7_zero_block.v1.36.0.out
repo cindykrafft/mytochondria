@@ -1,0 +1,10 @@
+fgsea 1.36.2 
+warnings above (if any) are fgsea's; none mentions the 6,000 zero statistics
+              pathway        ES      NES         pval         padj  size
+               <char>     <num>    <num>        <num>        <num> <int>
+1: ALL_ZERO_CLUSTERED 0.5515578 1.792411 1.253868e-05 1.272676e-03   100
+2:    ALL_ZERO_RANDOM 0.3557789 1.156184 1.550388e-01 7.503948e-01   100
+3:      ZERO_PLUS_ONE 0.9910050 3.220494 1.985865e-50 4.031307e-48   100
+200 random 100-gene sets: |ES| median 0.306, max 0.458; min padj 0.23
+ALL_ZERO_CLUSTERED, members first in input order: ES 0.652  NES 2.14  pval 1.01e-09
+ALL_ZERO_CLUSTERED, members last in input order: ES -0.644  NES -2.11  pval 1.97e-09

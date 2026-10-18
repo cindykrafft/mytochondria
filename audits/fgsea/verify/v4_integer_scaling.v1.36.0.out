@@ -1,0 +1,9 @@
+fgsea 1.36.2 
+sign(lfc) * -log10(p), p down to 1e-320 (capped at 320)    gseaParam=1: scale 4261; 5 nonzero stats rounded to 0; max |ES - ref| = 0.00e+00 (median 0.0e+00) over 400 sets
+sign(lfc) * -log10(p), p down to 1e-320 (capped at 320)    gseaParam=2: scale 20; 5717 nonzero stats rounded to 0; max |ES - ref| = 0.00e+00 (median 0.0e+00) over 400 sets
+Wald-like statistic, t(3) tails                            gseaParam=1: scale 2.405e+04; 0 nonzero stats rounded to 0; max |ES - ref| = 0.00e+00 (median 0.0e+00) over 400 sets
+Wald-like statistic, t(3) tails                            gseaParam=2: scale 4315; 75 nonzero stats rounded to 0; max |ES - ref| = 0.00e+00 (median 0.0e+00) over 400 sets
+log2FC (single-cell avg_log2FC-like, many near zero)       gseaParam=1: scale 3.023e+05; 2 nonzero stats rounded to 0; max |ES - ref| = 0.00e+00 (median 0.0e+00) over 400 sets
+log2FC (single-cell avg_log2FC-like, many near zero)       gseaParam=2: scale 1.293e+05; 1450 nonzero stats rounded to 0; max |ES - ref| = 0.00e+00 (median 0.0e+00) over 400 sets
+sign(lfc) * baseMean (sum >> 2^30)                         gseaParam=1: scale 0.1013; 4261 nonzero stats rounded to 0; max |ES - ref| = 0.00e+00 (median 0.0e+00) over 400 sets
+sign(lfc) * baseMean (sum >> 2^30)                         gseaParam=2: scale 2.019e-08; 11783 nonzero stats rounded to 0; max |ES - ref| = 0.00e+00 (median 0.0e+00) over 400 sets

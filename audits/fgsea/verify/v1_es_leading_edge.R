@@ -1,7 +1,7 @@
 ## ES, size and leadingEdge from fgseaMultilevel on a realistic ranked list, for comparison with
 ## the reference (_ref.py) in v1_es_leading_edge.py.  Lists: (a) t-like statistics, distinct;
 ## (b) the same rounded to 2 decimals (ties) with 5 % exact zeros; gseaParam 1 and 0 and 2;
-## scoreType std / pos / neg.  p-values are not looked at here.
+## scoreType std / pos / neg.  p-values are not looked at here (see v2/v3).
 ## Usage: R_LIBS=<fgsea lib>:<deps lib> Rscript v1_es_leading_edge.R <outdir> <label>
 args <- commandArgs(TRUE); d <- args[1]; label <- args[2]
 suppressPackageStartupMessages({library(fgsea); library(jsonlite); library(BiocParallel)})
@@ -29,8 +29,10 @@ out <- list(version = as.character(packageVersion("fgsea")), lists = lapply(list
 for (ln in names(lists)) for (gp in c(1, 0, 2)) for (stype in c("std", "pos", "neg")) {
     if (gp != 1 && stype != "std") next
     set.seed(1)
-    r <- suppressWarnings(fgseaMultilevel(pw, lists[[ln]], minSize = 15, maxSize = 500, gseaParam = gp,
-                                          scoreType = stype, nPermSimple = 200, BPPARAM = SerialParam()))
+    ## fgseaSimple and fgseaMultilevel take ES and leadingEdge from the same calcGseaStat() call
+    ## (R/fgsea.R and R/fgseaMultilevel.R); fgseaSimple with 10 permutations skips the p-value work
+    r <- suppressWarnings(fgseaSimple(pw, lists[[ln]], nperm = 10, minSize = 15, maxSize = 500, gseaParam = gp,
+                                      scoreType = stype, BPPARAM = SerialParam()))
     key <- sprintf("%s_g%g_%s", ln, gp, stype)
     out$runs[[key]] <- list(list = ln, gseaParam = gp, scoreType = stype, pathway = r$pathway, ES = r$ES,
                             size = r$size, leadingEdge = lapply(r$leadingEdge, as.character))

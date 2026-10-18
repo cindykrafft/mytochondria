@@ -1,0 +1,5 @@
+fgsea 1.39.4 
+top 15 scores: 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+exact p = 1 / choose(1000, 15) / P(ES >= 0) = 2.858e-33 (P(ES >= 0) = 0.5084 from v3)
+returned after 2.4 s: ES = 1, pval = 1.1e-32, log2err = 1.48854
+exit status 0 (124 = killed by timeout after 300 s)

@@ -1,0 +1,4 @@
+fgsea 1.30.0 
+top 15 scores: 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
+exact p = 1 / choose(1000, 15) / P(ES >= 0) = 2.858e-33 (P(ES >= 0) = 0.5084 from v3)
+exit status 124 (124 = killed by timeout after 300 s)

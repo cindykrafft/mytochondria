@@ -1,0 +1,11 @@
+fgsea 1.39.4  BiocParallel 1.36.0 
+nproc = 1                          identical pval: TRUE  identical NES: TRUE  max |log2 p ratio| vs serial: 0
+nproc = 2                          identical pval: TRUE  identical NES: TRUE  max |log2 p ratio| vs serial: 0
+nproc = 4                          identical pval: TRUE  identical NES: TRUE  max |log2 p ratio| vs serial: 0
+default bpparam()                  identical pval: TRUE  identical NES: TRUE  max |log2 p ratio| vs serial: 0
+SnowParam(2)                       identical pval: TRUE  identical NES: TRUE  max |log2 p ratio| vs serial: 0
+different seed (43)                identical pval: FALSE  max |log2 p ratio| vs seed 42: 2.51 (median 0.108)
+fgseaSimple nproc = 2 identical: TRUE ; default bpparam identical: TRUE 
+columns of fgseaMultilevel(): pathway, pval, padj, log2err, ES, NES, size, leadingEdge 
+fr$nMoreExtreme is NULL: TRUE  -> expect_equal(NULL, NULL) passes for any p-values
+setUpBPPARAM(nproc = 1) class: MulticoreParam (the SerialParam branch is overwritten)

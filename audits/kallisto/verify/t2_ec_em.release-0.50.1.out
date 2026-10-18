@@ -1,0 +1,37 @@
+kallisto 0.50.1
+
+set 0: 226 targets, 39994 fragments, 358 distinct exact classes
+ok   run_info: n_processed 39994 (sim 39994), n_pseudoaligned 39994 (exact 39994), n_unique 12056 (exact 12056)
+ok   bus --num per-read EC == exact class for 39994/39994 fragments (superset 0, subset 0, unassigned 0)
+     EM to 1e-13 (11829 rounds) vs kallisto est_counts: sum |diff| 27.7 of 39994 reads (0.069 %); targets with >= 10 reads: 142
+       targets off by > 1 %: 4
+       targets off by > 5 %: 2
+       targets off by > 10 %: 2
+       g021_t1    kallisto      17.25  converged EM      11.14  rel 0.548  truth 29.1
+       g034_t4    kallisto      17.56  converged EM      15.24  rel 0.152  truth 16.1
+       g034_t1    kallisto     198.55  converged EM     201.37  rel 0.014  truth 244.2
+       g021_t0    kallisto     460.47  converged EM     466.55  rel 0.013  truth 389.2
+       g049_t0    kallisto     301.19  converged EM     304.13  rel 0.010  truth 275.2
+       g040_t1    kallisto     127.27  converged EM     128.39  rel 0.009  truth 128.2
+     targets at 0 in kallisto with >= 1 read in the converged EM: 0 []
+     mean abs error vs truth per read: kallisto 0.1093, converged EM 0.1097
+     max |TPM kallisto - TPM converged| = 92.2 TPM
+
+set 1: 455 targets, 79993 fragments, 791 distinct exact classes
+ok   run_info: n_processed 79993 (sim 79993), n_pseudoaligned 79993 (exact 79993), n_unique 25453 (exact 25453)
+ok   bus --num per-read EC == exact class for 79993/79993 fragments (superset 0, subset 0, unassigned 0)
+     EM to 1e-13 (11391 rounds) vs kallisto est_counts: sum |diff| 15.5 of 79993 reads (0.019 %); targets with >= 10 reads: 301
+       targets off by > 1 %: 0
+       targets off by > 5 %: 0
+       targets off by > 10 %: 0
+       g123_t4    kallisto      19.19  converged EM      19.01  rel 0.009  truth 26.3
+       g123_t3    kallisto      14.38  converged EM      14.25  rel 0.009  truth 17.4
+       g039_t2    kallisto      65.95  converged EM      65.50  rel 0.007  truth 14.6
+       g119_t3    kallisto     658.89  converged EM     654.97  rel 0.006  truth 853.2
+       g039_t0    kallisto     150.39  converged EM     151.02  rel 0.004  truth 107.5
+       g119_t0    kallisto    2255.69  converged EM    2262.22  rel 0.003  truth 1952.8
+     targets at 0 in kallisto with >= 1 read in the converged EM: 0 []
+     mean abs error vs truth per read: kallisto 0.1081, converged EM 0.1083
+     max |TPM kallisto - TPM converged| = 62.8 TPM
+
+FAILURES: 0

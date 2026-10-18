@@ -1,0 +1,4 @@
+kallisto 0.52.0
+ok   -t 1: h5 est_counts/eff_lengths == tsv: True; TPM from h5 == tsv TPM: True; bootstrap datasets 8 of 8, aux/num_bootstrap 8; identical to -t 1: -
+ok   -t 4: h5 est_counts/eff_lengths == tsv: True; TPM from h5 == tsv TPM: True; bootstrap datasets 8 of 8, aux/num_bootstrap 8; identical to -t 1: True
+FAILURES: 0

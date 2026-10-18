@@ -1,0 +1,9 @@
+fgsea 1.39.4 
+sign(lfc) * -log10(p), p down to 1e-320 (capped at 320)    gseaParam=1: scale 4261; 5 nonzero stats rounded to 0; max |ES - ref| = 7.61e-06 (median 1.4e-07) over 400 sets
+sign(lfc) * -log10(p), p down to 1e-320 (capped at 320)    gseaParam=2: scale 20; 5717 nonzero stats rounded to 0; max |ES - ref| = 4.12e-03 (median 3.2e-07) over 400 sets
+Wald-like statistic, t(3) tails                            gseaParam=1: scale 2.405e+04; 0 nonzero stats rounded to 0; max |ES - ref| = 1.14e-06 (median 1.1e-07) over 400 sets
+Wald-like statistic, t(3) tails                            gseaParam=2: scale 4315; 75 nonzero stats rounded to 0; max |ES - ref| = 1.41e-06 (median 1.3e-07) over 400 sets
+log2FC (single-cell avg_log2FC-like, many near zero)       gseaParam=1: scale 3.023e+05; 2 nonzero stats rounded to 0; max |ES - ref| = 2.95e-06 (median 1.3e-07) over 400 sets
+log2FC (single-cell avg_log2FC-like, many near zero)       gseaParam=2: scale 1.293e+05; 1450 nonzero stats rounded to 0; max |ES - ref| = 7.01e-06 (median 1.7e-07) over 400 sets
+sign(lfc) * baseMean (sum >> 2^30)                         gseaParam=1: scale 0.1013; 4261 nonzero stats rounded to 0; max |ES - ref| = 3.32e-06 (median 2.2e-07) over 400 sets
+sign(lfc) * baseMean (sum >> 2^30)                         gseaParam=2: scale 2.019e-08; 11783 nonzero stats rounded to 0; max |ES - ref| = 1.91e-05 (median 1.2e-07) over 400 sets

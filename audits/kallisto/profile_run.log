@@ -1,0 +1,17 @@
+rows 125, papers 125
+versions: (none) x79, 0.46.1 x11, 0.46.0 x7, 0.44.0 x6, 0.46.2 x6, 0.48.0 x4, 0.50.1 x3, 0.42.5 x2, 0.46 x2, 0.43.1 x2, 0.45.1 x1, 0.43.0 x1, 0.45.0 x1
+bootstrap (-b / bootstrap)               6
+single-end with -l/-s or --single        3
+--single-overhang                        1
+--bias                                   1
+stranded option (--rf/--fr-stranded)     2
+TPM reported                             11
+sleuth downstream                        5
+threads stated                           1
+default parameters stated                5
+  PMC10284704 2023 0.46.2: 71 ) reference transcriptome using kallisto (v0.46.2) with 100 bootstrapped samples and 6 threads.
+  PMC12773779 2026 -: Gene quantification based on the ARAPORT11 transcriptome was performed using kallisto quant (0.46.1) ( 65 ), with -b 100 and estimating -l 50 and -s 20 for single-end libraries.
+  PMC8740685 2022 -: Raw fastq files were filtered with trimmomatic ( 37 ), their quality checked with fastQC ( 38 ), and quantified with kallisto ( 39 ) using default parameters for paired-end reads and parameters -l 55 -s 1e-08 for single-
+  PMC8463897 2021 0.43.1: For quality filtering of the resulting transcriptomes, the trimmed RNA-seq reads were mapped back against the transcriptomes using Kallisto v0.43.1 ( 77 ) with options–bias and–rf-stranded, then transcripts with at least
+  PMC12406974 2025 -: Transcript abundance was estimated using Kallisto with parameters –bootstrap-samples 30 –single-overhang –rf-stranded.
+  PMC10461406 2023 -: RNA-seq analysis Raw bulk RNA-seq reads from knockdown experiments and wild-type chimpanzee and human iPSCs were adapter-trimmed using cutadapt 125 (with option -b AGATCGGAAGAGCACACGTCTGAACTCCAGTCA) and then pseudo-align

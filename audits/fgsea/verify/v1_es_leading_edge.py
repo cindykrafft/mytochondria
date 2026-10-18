@@ -27,6 +27,8 @@ def main(d, labels):
                 es_err.append(abs(ref_es - run["ES"][i]))
                 le_ref = [sorted_names[j] for j in leading_edge(w, mem, n, run["scoreType"])]
                 le_f = run["leadingEdge"][i]
+                if isinstance(le_f, str):      # auto_unbox turns a one-gene leading edge into a scalar
+                    le_f = [le_f]
                 if set(le_ref) != set(le_f):
                     le_bad += 1
                     le_extra.append(len(le_f) - len(le_ref))

@@ -1,0 +1,29 @@
+# kallisto functional tests (func_tests/runtests.sh, run as CI does via make test with -DBUILD_FUNCTESTING=ON)
+# 2026-10-18; bustools d4d7a28 (BUStools/bustools master) on PATH.
+# The stock script stops at its first failure; the runs below use a copy with 'exit 1' replaced by 'true' so
+# every test runs, and the patched branch's runtests.sh (with the new bootstrap check) on every build.
+# master = pachterlab/kallisto master 4e9f29c (v0.52.0); patched = fix/bootstrap-threads-without-hdf5 67b4269
+
+== master-default: 58 OK, 2 failed
+   ^[OK]
+   test -s ./func_tests/quantbootstrapthreads/bs_abundance_0.tsv -a -s ./func_tests/quantbootstrapthreads/bs_abundance_1.tsv
+   ^[Failed]
+   bustools text -p ./func_tests/busdlist/output.bus|cut -f3
+   Read in 5 BUS records
+   ^[Output incorrect! Expected: ce82711968bfe6d3b4a13be3e6b8ea00 Actual: db2d82c814b606ac9deb38634f7659ae]
+== patched-default: 59 OK, 1 failed
+   bustools text -p ./func_tests/busdlist/output.bus|cut -f3
+   Read in 5 BUS records
+   ^[Output incorrect! Expected: ce82711968bfe6d3b4a13be3e6b8ea00 Actual: db2d82c814b606ac9deb38634f7659ae]
+== master-USE_HDF5=ON: 59 OK, 1 failed
+   bustools text -p ./func_tests/busdlist/output.bus|cut -f3
+   Read in 5 BUS records
+   ^[Output incorrect! Expected: ce82711968bfe6d3b4a13be3e6b8ea00 Actual: db2d82c814b606ac9deb38634f7659ae]
+== patched-USE_HDF5=ON: 59 OK, 1 failed
+   bustools text -p ./func_tests/busdlist/output.bus|cut -f3
+   Read in 5 BUS records
+   ^[Output incorrect! Expected: ce82711968bfe6d3b4a13be3e6b8ea00 Actual: db2d82c814b606ac9deb38634f7659ae]
+
+# Stock script on unpatched master (stops at first failure): exits at the same d-list check:
+   Read in 5 BUS records
+   ^[Output incorrect! Expected: ce82711968bfe6d3b4a13be3e6b8ea00 Actual: db2d82c814b606ac9deb38634f7659ae]
