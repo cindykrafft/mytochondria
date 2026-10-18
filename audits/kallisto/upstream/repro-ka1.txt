@@ -1,0 +1,22 @@
+## kallisto 0.52.0 (master 4e9f29c), cmake .. (USE_HDF5=OFF), -t 1
+$ kallisto quant -i t.idx -o out_t1 -b 10 --plaintext -t 1 test/reads_1.fastq.gz test/reads_2.fastq.gz
+exit 0
+
+$ ls out_t1; grep n_bootstraps out_t1/run_info.json
+abundance.tsv bs_abundance_0.tsv bs_abundance_1.tsv bs_abundance_2.tsv bs_abundance_3.tsv bs_abundance_4.tsv bs_abundance_5.tsv bs_abundance_6.tsv bs_abundance_7.tsv bs_abundance_8.tsv bs_abundance_9.tsv run_info.json 
+	"n_bootstraps": 10,
+
+## kallisto 0.52.0 (master 4e9f29c), cmake .. (USE_HDF5=OFF), -t 4
+$ kallisto quant -i t.idx -o out_t4 -b 10 --plaintext -t 4 test/reads_1.fastq.gz test/reads_2.fastq.gz
+exit 0
+$ ls out_t4; grep n_bootstraps out_t4/run_info.json
+abundance.tsv run_info.json 
+	"n_bootstraps": 10,
+
+## patched, cmake .. (USE_HDF5=OFF), -t 4
+$ kallisto-patched quant -i t.idx -o out_p4 -b 10 --plaintext -t 4 test/reads_1.fastq.gz test/reads_2.fastq.gz
+exit 0
+abundance.tsv bs_abundance_0.tsv bs_abundance_1.tsv bs_abundance_2.tsv bs_abundance_3.tsv bs_abundance_4.tsv bs_abundance_5.tsv bs_abundance_6.tsv bs_abundance_7.tsv bs_abundance_8.tsv bs_abundance_9.tsv run_info.json 
+	"n_bootstraps": 10,
+bs_abundance_0.tsv identical to the -t 1 table
+bs_abundance_9.tsv identical to the -t 1 table

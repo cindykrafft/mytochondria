@@ -27,3 +27,11 @@
 # Stock script on unpatched master (stops at first failure): exits at the same d-list check:
    Read in 5 BUS records
    ^[Output incorrect! Expected: ce82711968bfe6d3b4a13be3e6b8ea00 Actual: db2d82c814b606ac9deb38634f7659ae]
+
+# devel @ 34aba49 + the patch (git am -> 7e930af, fix/bootstrap-threads-without-hdf5-devel), cmake .. -DBUILD_FUNCTESTING=ON (no HDF5):
+== devel+patch: 59 OK, 1 failed
+   bustools text -p ./func_tests/busdlist/output.bus|cut -f3
+   Read in 5 BUS records
+   ^[Output incorrect! Expected: ce82711968bfe6d3b4a13be3e6b8ea00 Actual: db2d82c814b606ac9deb38634f7659ae]
+   test -s ./func_tests/quantbootstrapthreads/bs_abundance_0.tsv -a -s ./func_tests/quantbootstrapthreads/bs_abundance_1.tsv
+   ^[OK]
