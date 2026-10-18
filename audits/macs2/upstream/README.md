@@ -1,3 +1,5 @@
+_Update 2026-10-18: MCR1 posted by the owner on #778 at 2026-10-17 21:42 UTC, verbatim from `comment-mcr1-778-ppois.md` (thread re-read in full: https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU). Waiting on taoliu for the docs-PR question._
+
 # Upstream filing kit — MACS
 
 _Update 2026-10-15: MC3 and MC2 filed by the owner 2026-10-15 01:56-01:57 UTC as #776 + PR #777 and #778. **MC3 resolved**: taoliu merged PR #777 at 03:14 (merge commit 6ee514d, our 41daed5 unchanged, no comment or review) and the merge closed #776. **MC2**: taoliu replied on #778 at 03:53 that `poisson_cdf(n, lam, lower=False)` was built to mimic R's `ppois(t, lambda, lower.tail = F)`, i.e. P(X > t). Reply drafted in `comment-mcr1-778-ppois.md` (agrees, gives the P(X >= n) idiom, offers a one-sentence docs PR or to close). Threads read in full the same day: https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU._
