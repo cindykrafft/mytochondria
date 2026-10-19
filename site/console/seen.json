@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-19T18:46:00Z",
+ "taken": "2026-10-19T20:00:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -51,23 +51,24 @@
    "repo": "google-deepmind/alphafold3",
    "number": 767,
    "kind": "pr",
-   "state": "open",
+   "state": "closed",
    "merged": false,
-   "comments": 0,
-   "updated": "2026-10-17T21:44:00Z",
-   "note": "AF13 docs PR (RNA Z-value in megabases; missing backslash in the example), branch docs/performance-rna-z-value-and-continuation, filed by the owner 2026-10-17 21:44; no issue; read 2026-10-18: cla/google success, mergeable (state unstable: other checks skipped), 0 comments, 0 reviews",
-   "status": "unanswered",
+   "comments": 1,
+   "updated": "2026-10-19T14:56:06Z",
+   "note": "AF13 docs PR (RNA Z-value in megabases; missing backslash in the example), branch docs/performance-rna-z-value-and-continuation, filed by the owner 2026-10-17 21:44; no issue; read 2026-10-18: cla/google success, mergeable (state unstable: other checks skipped), 0 comments, 0 reviews | RESOLVED 2026-10-19: Augustin-Zidek landed the same change as 82deea9 (\"From .../pull/767, thanks @cindykrafft\"; adds '(an integer)'/'(a float)', rewrapped; backslash fix identical) and closed the PR; release-notes mention promised.",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": null,
-    "date": "2026-10-17T21:44:00Z",
-    "url": "https://github.com/google-deepmind/alphafold3/pull/767"
+    "quote": "Thanks, fixed in https://github.com/google-deepmind/alphafold3/commit/82deea9e84e04eec0f48c82ea18a9e02ccac29db. I will mention this in the release notes.",
+    "author": "Augustin-Zidek",
+    "date": "2026-10-19T14:56:05Z",
+    "url": "https://github.com/google-deepmind/alphafold3/pull/767#issuecomment-6270228370"
    },
-   "status_checked": "2026-10-18",
+   "status_checked": "2026-10-19",
    "title": "Document the RNA Z-value in megabases and fix the example's line continuation",
    "fixes": [],
-   "transcript": "https://claude.ai/artifact/C9ZLjN2XBKZufF5ePY6cxN"
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
+   "fixed_by": "82deea9e84e04eec0f48c82ea18a9e02ccac29db"
   },
   {
    "repo": "google-deepmind/alphafold3",
@@ -86,7 +87,7 @@
     "date": "2026-10-17T21:53:29Z",
     "url": "https://github.com/google-deepmind/alphafold3/issues/768"
    },
-   "status_checked": "2026-10-18",
+   "status_checked": "2026-10-19",
    "title": "`cross_attention` multiplies the query and key mask terms, so padded keys are never masked (inputs with fewer than 128 atoms)",
    "transcript": "https://claude.ai/artifact/C9ZLjN2XBKZufF5ePY6cxN"
   },
