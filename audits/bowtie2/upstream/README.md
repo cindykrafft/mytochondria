@@ -1,4 +1,5 @@
 _Update 2026-10-18: BW2 filed by the owner 2026-10-17 21:45 UTC as #538 with PR #539 (fix/xs-for-unpaired-mates). With BW1 (#532 / PR #533) that is the two-filing cap; BW3 and BW4 wait for a reply._
+_Update 2026-10-19: PRs #533 (BW1) and #539 (BW2) read in full through a helper (transcript https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU). BenLangmead (OWNER), 2026-10-18 15:44 and 15:52, endorsed both for 2.5.6 after re-verifying them locally and asked ch4rr0 to merge; #539 should get a release-notes line. He also mentions a separate MQ:i bug for YT:Z:UP pairs (#537 item 3.14), not ours. No reply needed; both PRs are clean against master 58e34bf. BW3/BW4 wait until these merge (two-filing cap)._
 
 # Bowtie 2 upstream filing kit
 
