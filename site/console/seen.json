@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-23T18:46:00Z",
+ "taken": "2026-10-24T18:45:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -1985,7 +1985,7 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-08T14:20:42Z",
+   "updated": "2026-10-24T04:28:43Z",
    "status": "unanswered",
    "whose_move": null,
    "evidence": {
@@ -1994,11 +1994,13 @@
     "date": "2026-09-08T14:20:42Z",
     "url": "https://github.com/deeptools/deepTools/pull/1466"
    },
-   "status_checked": "2026-10-01",
+   "status_checked": "2026-10-24",
    "fixes": [
     1118
    ],
-   "title": "bamCoverage --MNase: three centre bases for odd fragment lengths"
+   "title": "bamCoverage --MNase: three centre bases for odd fragment lengths",
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
+   "note": " | 2026-10-24: read in full via helper; no comments, reviews or labels; GitHub recomputed mergeability: now mergeable_state dirty (conflict in pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py with master's September --no_collapse tests, #1476). Merge of master prepared locally (keep both tests), not pushed: awaiting the owner's go-ahead."
   },
   {
    "repo": "iqtree/iqtree3",
@@ -2100,7 +2102,7 @@
    "state": "open",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-05T15:11:33Z",
+   "updated": "2026-10-24T04:28:43Z",
    "status": "unanswered",
    "whose_move": null,
    "evidence": {
@@ -2109,11 +2111,13 @@
     "date": "2026-09-05T15:11:33Z",
     "url": "https://github.com/deeptools/deepTools/pull/1458"
    },
-   "status_checked": "2026-10-01",
+   "status_checked": "2026-10-24",
    "fixes": [
     1457
    ],
-   "title": "bamCompare: compute --operation first/second/add/mean and orient reciprocal_ratio as documented"
+   "title": "bamCompare: compute --operation first/second/add/mean and orient reciprocal_ratio as documented",
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
+   "note": " | 2026-10-24: read in full via helper; no comments, reviews or labels; GitHub recomputed mergeability: now mergeable_state dirty (conflict in pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py with master's September --no_collapse tests, #1476). Merge of master prepared locally (keep both tests), not pushed: awaiting the owner's go-ahead."
   },
   {
    "repo": "deeptools/deepTools",
