@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-24T18:45:00Z",
+ "taken": "2026-10-26T18:45:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -76,9 +76,9 @@
    "kind": "issue",
    "state": "open",
    "merged": false,
-   "comments": 1,
-   "updated": "2026-10-23T10:13:19Z",
-   "note": "AF3 issue (cross_attention mask terms multiplied; padded keys unmasked for inputs under 128 atoms), filed by the owner 2026-10-17 21:53; no PR (branch offered); read 2026-10-18: 0 comments, no labels; posted without the 'read the code path and run the script myself' clause | 2026-10-23 10:13: first comment, from Vedant1521 (NONE, not a maintainer): offers to investigate and write a regression test, asks the maintainers whether they want a test-first fix PR or documentation. No maintainer reply yet; status stays unanswered. No reply from us needed.",
+   "comments": 2,
+   "updated": "2026-10-26T13:59:18Z",
+   "note": "AF3 issue (cross_attention mask terms multiplied; padded keys unmasked for inputs under 128 atoms), filed by the owner 2026-10-17 21:53; no PR (branch offered); read 2026-10-18: 0 comments, no labels; posted without the 'read the code path and run the script myself' clause | 2026-10-23 10:13: first comment, from Vedant1521 (NONE, not a maintainer): offers to investigate and write a regression test, asks the maintainers whether they want a test-first fix PR or documentation. No maintainer reply yet; status stays unanswered. No reply from us needed. | 2026-10-26 13:59: second comment, rhiannonrossi31-max (NONE): a generic explanation of why the additive mask in the proposed fix works; no question. Still no maintainer reply; no reply from us needed.",
    "status": "unanswered",
    "whose_move": null,
    "evidence": {
@@ -87,9 +87,9 @@
     "date": "2026-10-17T21:53:29Z",
     "url": "https://github.com/google-deepmind/alphafold3/issues/768"
    },
-   "status_checked": "2026-10-23",
+   "status_checked": "2026-10-26",
    "title": "`cross_attention` multiplies the query and key mask terms, so padded keys are never masked (inputs with fewer than 128 atoms)",
-   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU"
+   "transcript": "https://claude.ai/artifact/XTafDJHiezqfAkU6A3vaaS"
   },
   {
    "repo": "macs3-project/MACS",
