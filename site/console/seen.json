@@ -1,5 +1,5 @@
 {
- "taken": "2026-10-26T18:45:00Z",
+ "taken": "2026-10-27T00:45:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
@@ -1286,20 +1286,23 @@
    "repo": "afni/afni",
    "number": 952,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-28T22:23:14Z",
-   "status": "unanswered",
+   "updated": "2026-10-26T18:56:58Z",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": "cindykrafft",
-    "date": "2026-08-28T22:23:14Z",
-    "url": "https://github.com/afni/afni/issues/952"
+    "quote": "These look good, thanks.",
+    "author": "mrneont",
+    "date": "2026-10-26T18:56:45Z",
+    "url": "https://github.com/afni/afni/pull/951#issuecomment-6424712705"
    },
-   "status_checked": "2026-10-01",
-   "title": "3dttest++: -paired -zskip silently zeroes voxels; -BminusA sign error with -nomeans; t-to-z saturates at 13 (fixes available)"
+   "status_checked": "2026-10-27",
+   "title": "3dttest++: -paired -zskip silently zeroes voxels; -BminusA sign error with -nomeans; t-to-z saturates at 13 (fixes available)",
+   "transcript": "https://claude.ai/artifact/C8GC3b6NnUHvpmu2q28uGT",
+   "fixed_by": "#951 merged 2026-10-26 18:56 by mrneont (merge commit cedf7de; our 9a492d7 unchanged); follow-up 159230b by mrneont limits the -BminusA negation to 2 slots under -singletonA",
+   "note": " | RESOLVED 2026-10-26: closed as completed by the merge of PR #951 (plus mrneont's singletonA follow-up 159230b)."
   },
   {
    "repo": "afni/afni",
@@ -1528,24 +1531,26 @@
    "repo": "afni/afni",
    "number": 951,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-22T16:39:34Z",
-   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC",
-   "status": "unanswered",
+   "state": "closed",
+   "merged": true,
+   "comments": 1,
+   "updated": "2026-10-26T18:56:57Z",
+   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC | RESOLVED 2026-10-26: merged by mrneont, our commit unchanged; 12 min later he pushed 159230b ('update for singletonA consideration'): with -singletonA only one (effect, statistic) pair exists, so our 2*(mcov+1) negation over-reached when covariates are given. Our fix had that gap; his commit closes it.",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": "cindykrafft",
-    "date": "2026-08-28T22:22:37Z",
-    "url": "https://github.com/afni/afni/pull/951"
+    "quote": "These look good, thanks.",
+    "author": "mrneont",
+    "date": "2026-10-26T18:56:45Z",
+    "url": "https://github.com/afni/afni/pull/951#issuecomment-6424712705"
    },
-   "status_checked": "2026-10-01",
+   "status_checked": "2026-10-27",
    "fixes": [
     952
    ],
-   "title": "3dttest++/3dGroupInCorr: fix paired-zskip zeroing, BminusA negation slots, and t-to-z roundoff saturation"
+   "title": "3dttest++/3dGroupInCorr: fix paired-zskip zeroing, BminusA negation slots, and t-to-z roundoff saturation",
+   "transcript": "https://claude.ai/artifact/C8GC3b6NnUHvpmu2q28uGT",
+   "fixed_by": "#951 merged 2026-10-26 18:56 by mrneont (merge commit cedf7de; our 9a492d7 unchanged); follow-up 159230b by mrneont limits the -BminusA negation to 2 slots under -singletonA"
   },
   {
    "repo": "afni/afni",
