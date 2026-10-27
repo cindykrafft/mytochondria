@@ -84,6 +84,8 @@ scale 1**, 54% at scale 0.5. Two further properties make it more than a rescalin
   statistic becomes partly a measure of BOLD variance. Two simulated groups with
   identical true ReHo and a 25% amplitude difference separate at **Cohen's d ≈ 2.7**.
 
+_Update 2026-10-27: mrneont (Paul Taylor) merged PRs #966 (five one-line fixes), #964 (extreme-percentile reads) and #956 (`3dBrickStat -automask`/`-absolute`) on 2026-10-26 as true merges with our commits unchanged ("These all look good, thanks.", "these guards make sense, thanks.", "This seems valid, thanks."); #965, #963 and #955 closed as completed. PR #951 (`3dttest++`) also merged that evening, being read. Transcript: https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU._
+
 Fixed upstream: **[afni/afni PR #944](https://github.com/afni/afni/pull/944)**,
 merged 2026-08-28 (commit `a0a9530`).
 Harness: `reproductions/reho_tie_sim.py`.

@@ -1201,58 +1201,67 @@
    "repo": "afni/afni",
    "number": 965,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-31T21:05:18Z",
-   "status": "unanswered",
+   "updated": "2026-10-26T14:24:13Z",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": null,
-    "date": "2026-08-31T21:05:18Z",
-    "url": "https://github.com/afni/afni/issues/965"
+    "quote": "These all look good, thanks.",
+    "author": "mrneont",
+    "date": "2026-10-26T14:24:05Z",
+    "url": "https://github.com/afni/afni/pull/966#issuecomment-6418440375"
    },
-   "status_checked": "2026-10-01",
-   "title": "Five small correctness bugs: armacor abs(), 3dXClustSim realloc, RGB→gray luma, 3dpc labels, 3dDWItoDT zero-gradient NaN (fixes available)"
+   "status_checked": "2026-10-27",
+   "title": "Five small correctness bugs: armacor abs(), 3dXClustSim realloc, RGB→gray luma, 3dpc labels, 3dDWItoDT zero-gradient NaN (fixes available)",
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
+   "fixed_by": "#966 merged 2026-10-26 14:24 by mrneont (merge commit 3a125d3)",
+   "note": " | RESOLVED 2026-10-26: closed as completed by the merge of PR #966."
   },
   {
    "repo": "afni/afni",
    "number": 963,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-31T21:03:56Z",
-   "status": "unanswered",
+   "updated": "2026-10-26T14:41:20Z",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": null,
-    "date": "2026-08-31T21:03:56Z",
-    "url": "https://github.com/afni/afni/issues/963"
+    "quote": "these guards make sense, thanks.",
+    "author": "mrneont",
+    "date": "2026-10-26T14:41:13Z",
+    "url": "https://github.com/afni/afni/pull/964#issuecomment-6418826823"
    },
-   "status_checked": "2026-10-01",
-   "title": "Out-of-bounds reads at extreme percentiles in 3dmaskave -perc and mri_percents/mri_quantile (fix available)"
+   "status_checked": "2026-10-27",
+   "title": "Out-of-bounds reads at extreme percentiles in 3dmaskave -perc and mri_percents/mri_quantile (fix available)",
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
+   "fixed_by": "#964 merged 2026-10-26 14:41 by mrneont (merge commit bdc95ab)",
+   "note": " | RESOLVED 2026-10-26: closed as completed by the merge of PR #964."
   },
   {
    "repo": "afni/afni",
    "number": 955,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-31T20:57:35Z",
-   "status": "unanswered",
+   "updated": "2026-10-26T17:26:40Z",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": null,
-    "date": "2026-08-31T20:57:35Z",
-    "url": "https://github.com/afni/afni/issues/955"
+    "quote": "This seems valid, thanks.",
+    "author": "mrneont",
+    "date": "2026-10-26T17:26:35Z",
+    "url": "https://github.com/afni/afni/pull/956#issuecomment-6422828248"
    },
-   "status_checked": "2026-10-01",
-   "title": "3dBrickStat: -automask silently truncates the voxel scan; -absolute truncates values to integers (fixes available)"
+   "status_checked": "2026-10-27",
+   "title": "3dBrickStat: -automask silently truncates the voxel scan; -absolute truncates values to integers (fixes available)",
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
+   "fixed_by": "#956 merged 2026-10-26 17:26 by mrneont (merge commit 1974ff3)",
+   "note": " | RESOLVED 2026-10-26: closed as completed by the merge of PR #956."
   },
   {
    "repo": "afni/afni",
@@ -1565,70 +1574,76 @@
    "repo": "afni/afni",
    "number": 956,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-22T16:39:34Z",
-   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC",
-   "status": "unanswered",
+   "state": "closed",
+   "merged": true,
+   "comments": 1,
+   "updated": "2026-10-26T17:26:39Z",
+   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC | RESOLVED 2026-10-26: merged by mrneont (Paul Taylor) as a true merge, our commit unchanged; closed #955.",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": null,
-    "date": "2026-08-31T20:58:35Z",
-    "url": "https://github.com/afni/afni/pull/956"
+    "quote": "This seems valid, thanks.",
+    "author": "mrneont",
+    "date": "2026-10-26T17:26:35Z",
+    "url": "https://github.com/afni/afni/pull/956#issuecomment-6422828248"
    },
-   "status_checked": "2026-10-01",
+   "status_checked": "2026-10-27",
    "fixes": [
     955
    ],
-   "title": "3dBrickStat: fix -automask voxel-scan truncation and -absolute integer truncation"
+   "title": "3dBrickStat: fix -automask voxel-scan truncation and -absolute integer truncation",
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
+   "fixed_by": "#956 merged 2026-10-26 17:26 by mrneont (merge commit 1974ff3; our commit unchanged)"
   },
   {
    "repo": "afni/afni",
    "number": 964,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-22T16:39:33Z",
-   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC",
-   "status": "unanswered",
+   "state": "closed",
+   "merged": true,
+   "comments": 1,
+   "updated": "2026-10-26T14:41:19Z",
+   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC | RESOLVED 2026-10-26: merged by mrneont (Paul Taylor) as a true merge, our commit unchanged; closed #963.",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": null,
-    "date": "2026-08-31T21:04:26Z",
-    "url": "https://github.com/afni/afni/pull/964"
+    "quote": "these guards make sense, thanks.",
+    "author": "mrneont",
+    "date": "2026-10-26T14:41:13Z",
+    "url": "https://github.com/afni/afni/pull/964#issuecomment-6418826823"
    },
-   "status_checked": "2026-10-01",
+   "status_checked": "2026-10-27",
    "fixes": [
     963
    ],
-   "title": "3dmaskave/mri_percents: fix one-past-end reads at extreme percentiles"
+   "title": "3dmaskave/mri_percents: fix one-past-end reads at extreme percentiles",
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
+   "fixed_by": "#964 merged 2026-10-26 14:41 by mrneont (merge commit bdc95ab; our commit unchanged)"
   },
   {
    "repo": "afni/afni",
    "number": 966,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-22T16:39:33Z",
-   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC",
-   "status": "unanswered",
+   "state": "closed",
+   "merged": true,
+   "comments": 1,
+   "updated": "2026-10-26T14:24:11Z",
+   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC | RESOLVED 2026-10-26: merged by mrneont (Paul Taylor) as a true merge, our commit unchanged; closed #965.",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": null,
-    "date": "2026-08-31T21:06:07Z",
-    "url": "https://github.com/afni/afni/pull/966"
+    "quote": "These all look good, thanks.",
+    "author": "mrneont",
+    "date": "2026-10-26T14:24:05Z",
+    "url": "https://github.com/afni/afni/pull/966#issuecomment-6418440375"
    },
-   "status_checked": "2026-10-01",
+   "status_checked": "2026-10-27",
    "fixes": [
     965
    ],
-   "title": "Assorted one-line correctness fixes (armacor, 3dXClustSim, edt_coerce, 3dpc, 3dDWItoDT)"
+   "title": "Assorted one-line correctness fixes (armacor, 3dXClustSim, edt_coerce, 3dpc, 3dDWItoDT)",
+   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
+   "fixed_by": "#966 merged 2026-10-26 14:24 by mrneont (merge commit 3a125d3; our commit unchanged)"
   },
   {
    "repo": "afni/afni",

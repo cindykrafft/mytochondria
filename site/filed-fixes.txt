@@ -29,3 +29,6 @@ bowtie2:538:pr:539:open
 alphafold3:768:issue:768:open
 alphafold3:767:pr:767:closed
 macs2:778:pr:789:merged
+afni:965:pr:966:merged
+afni:963:pr:964:merged
+afni:955:pr:956:merged
