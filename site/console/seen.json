@@ -1,51 +1,53 @@
 {
- "taken": "2026-10-27T00:45:00Z",
+ "taken": "2026-10-29T02:10:00Z",
  "query": "author:cindykrafft created:>=2026-08-01 -org:google (search_issues + search_pull_requests)",
  "items": [
   {
    "repo": "BenLangmead/bowtie2",
    "number": 539,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
+   "state": "closed",
+   "merged": true,
    "comments": 1,
-   "updated": "2026-10-18T15:52:40Z",
-   "note": "BW2 PR from cindykrafft:bowtie2 fix/xs-for-unpaired-mates, filed 2026-10-17 21:45; fork has no Actions | 2026-10-18 15:52 BenLangmead (OWNER) on PR #539: worth merging; asked ch4rr0; re-verified locally (79 UP records with MAPQ 0/1 now carry XS:i; non-UP output identical on lambda under six option sets); wants a 2.5.6 release-notes mention. No reply needed.",
-   "status": "in progress",
-   "whose_move": "them",
+   "updated": "2026-10-28T14:59:30Z",
+   "note": "BW2 PR from cindykrafft:bowtie2 fix/xs-for-unpaired-mates, filed 2026-10-17 21:45; fork has no Actions | 2026-10-18 15:52 BenLangmead (OWNER) on PR #539: worth merging; asked ch4rr0; re-verified locally (79 UP records with MAPQ 0/1 now carry XS:i; non-UP output identical on lambda under six option sets); wants a 2.5.6 release-notes mention. No reply needed. | RESOLVED 2026-10-28: merged by ch4rr0 as a regular merge, our commit unchanged.",
+   "status": "resolved",
+   "whose_move": null,
    "evidence": {
     "quote": "Thanks @cindykrafft, I think this one is worth merging too.",
     "author": "BenLangmead",
     "date": "2026-10-18T15:52:40Z",
     "url": "https://github.com/BenLangmead/bowtie2/pull/539#issuecomment-6251930326"
    },
-   "status_checked": "2026-10-19",
+   "status_checked": "2026-10-29",
    "title": "Report XS:i for mates aligned as unpaired alignments",
    "fixes": [
     538
    ],
-   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU"
+   "transcript": "https://claude.ai/artifact/6eXge9fbdMrHz51ibboPRs",
+   "fixed_by": "#539 merged 2026-10-28 14:59 by ch4rr0 (merge commit 1ca3213; our 649d1d9 unchanged)"
   },
   {
    "repo": "BenLangmead/bowtie2",
    "number": 538,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-10-17T21:45:17Z",
-   "note": "BW2 issue (XS:i missing on YT:Z:UP mates), filed by the owner 2026-10-17 21:45 | 2026-10-18 15:52 BenLangmead (OWNER) on PR #539: worth merging; asked ch4rr0; re-verified locally (79 UP records with MAPQ 0/1 now carry XS:i; non-UP output identical on lambda under six option sets); wants a 2.5.6 release-notes mention. No reply needed.",
-   "status": "in progress",
-   "whose_move": "them",
+   "updated": "2026-10-28T14:59:31Z",
+   "note": "BW2 issue (XS:i missing on YT:Z:UP mates), filed by the owner 2026-10-17 21:45 | 2026-10-18 15:52 BenLangmead (OWNER) on PR #539: worth merging; asked ch4rr0; re-verified locally (79 UP records with MAPQ 0/1 now carry XS:i; non-UP output identical on lambda under six option sets); wants a 2.5.6 release-notes mention. No reply needed. | RESOLVED 2026-10-28: closed as completed by the merge of PR #539.",
+   "status": "resolved",
+   "whose_move": null,
    "evidence": {
     "quote": "Thanks @cindykrafft, I think this one is worth merging too.",
     "author": "BenLangmead",
     "date": "2026-10-18T15:52:40Z",
     "url": "https://github.com/BenLangmead/bowtie2/pull/539#issuecomment-6251930326"
    },
-   "status_checked": "2026-10-19",
+   "status_checked": "2026-10-29",
    "title": "XS:i is never printed for a mate reported as an unpaired alignment (YT:Z:UP), even when it has a second-best alignment and MAPQ 0/1",
-   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU"
+   "transcript": "https://claude.ai/artifact/6eXge9fbdMrHz51ibboPRs",
+   "fixed_by": "#539 merged 2026-10-28 14:59 by ch4rr0 (merge commit 1ca3213; our 649d1d9 unchanged)"
   },
   {
    "repo": "google-deepmind/alphafold3",
@@ -286,7 +288,7 @@
     "date": "2026-10-18T15:44:05Z",
     "url": "https://github.com/BenLangmead/bowtie2/pull/533#issuecomment-6251843465"
    },
-   "status_checked": "2026-10-19",
+   "status_checked": "2026-10-29",
    "title": "Use the opposite mate's length when computing mate 2's MAPQ",
    "fixes": [
     532
@@ -310,7 +312,7 @@
     "date": "2026-10-18T15:44:05Z",
     "url": "https://github.com/BenLangmead/bowtie2/pull/533#issuecomment-6251843465"
    },
-   "status_checked": "2026-10-19",
+   "status_checked": "2026-10-29",
    "title": "Since 41ee86b (MQ:i support) mate 2's MAPQ is computed with its own length in place of mate 1's, so mates of unequal length get different MAPQs for the same concordant pair",
    "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU"
   },
