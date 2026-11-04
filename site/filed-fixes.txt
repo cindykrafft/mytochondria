@@ -33,3 +33,4 @@ afni:965:pr:966:merged
 afni:963:pr:964:merged
 afni:955:pr:956:merged
 afni:952:pr:951:merged
+afni:954:pr:953:merged

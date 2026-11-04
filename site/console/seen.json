@@ -1269,20 +1269,23 @@
    "repo": "afni/afni",
    "number": 954,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-08-28T22:26:47Z",
-   "status": "unanswered",
+   "updated": "2026-11-03T18:32:13Z",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": null,
-    "date": "2026-08-28T22:26:47Z",
-    "url": "https://github.com/afni/afni/issues/954"
+    "quote": "This looks good, thanks.",
+    "author": "mrneont",
+    "date": "2026-11-03T18:32:05Z",
+    "url": "https://github.com/afni/afni/pull/953#issuecomment-6612265323"
    },
-   "status_checked": "2026-10-01",
-   "title": "3dTstat: -DW collapses to 0 on non-demeaned data; -tdiff detrends the wrong line; -nzmean writes NaN (fixes available)"
+   "status_checked": "2026-11-04",
+   "title": "3dTstat: -DW collapses to 0 on non-demeaned data; -tdiff detrends the wrong line; -nzmean writes NaN (fixes available)",
+   "transcript": "https://claude.ai/artifact/HjzbBKDqLrhpZAiaSAj4YT",
+   "fixed_by": "#953 merged 2026-11-03 18:32 by mrneont (merge commit 4ed319c; our 3c1ab2e unchanged)",
+   "note": "RESOLVED 2026-11-03: closed as completed by the merge of PR #953."
   },
   {
    "repo": "afni/afni",
@@ -1558,24 +1561,26 @@
    "repo": "afni/afni",
    "number": 953,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-09-22T16:39:34Z",
-   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC",
-   "status": "unanswered",
+   "state": "closed",
+   "merged": true,
+   "comments": 1,
+   "updated": "2026-11-03T18:32:12Z",
+   "note": "2026-09-22 16:39 stamp with no comment: base-branch refresh after master commit 515e7d91a at 16:39:21 UTC | RESOLVED 2026-11-03: merged by mrneont (Paul Taylor) as a true merge, our commit unchanged, no follow-up on 3dTstat.c; closed #954.",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": "cindykrafft",
-    "date": "2026-08-28T22:26:05Z",
-    "url": "https://github.com/afni/afni/pull/953"
+    "quote": "This looks good, thanks.",
+    "author": "mrneont",
+    "date": "2026-11-03T18:32:05Z",
+    "url": "https://github.com/afni/afni/pull/953#issuecomment-6612265323"
    },
-   "status_checked": "2026-10-01",
+   "status_checked": "2026-11-04",
    "fixes": [
     954
    ],
-   "title": "3dTstat: fix -DW denominator, -tdiff detrend conventions, -nzmean NaN"
+   "title": "3dTstat: fix -DW denominator, -tdiff detrend conventions, -nzmean NaN",
+   "transcript": "https://claude.ai/artifact/HjzbBKDqLrhpZAiaSAj4YT",
+   "fixed_by": "#953 merged 2026-11-03 18:32 by mrneont (merge commit 4ed319c; our 3c1ab2e unchanged)"
   },
   {
    "repo": "afni/afni",

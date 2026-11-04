@@ -86,6 +86,8 @@ scale 1**, 54% at scale 0.5. Two further properties make it more than a rescalin
 
 _Update 2026-10-27: mrneont (Paul Taylor) merged PRs #966 (five one-line fixes), #964 (extreme-percentile reads) and #956 (`3dBrickStat -automask`/`-absolute`) on 2026-10-26 as true merges with our commits unchanged ("These all look good, thanks.", "these guards make sense, thanks.", "This seems valid, thanks."); #965, #963 and #955 closed as completed. PR #951 (`3dttest++`, #952) also merged that evening (18:56, "These look good, thanks.", our commit unchanged). Twelve minutes later mrneont pushed 159230b "update for singletonA consideration": with `-singletonA` the two-sample region holds one (effect, statistic) pair, so our `2*(mcov+1)`-slot `-BminusA` negation over-reached when covariates are given; he limited it to 2 slots there. That gap was ours (transcript https://claude.ai/artifact/C8GC3b6NnUHvpmu2q28uGT). Still open: PR #953 / #954 (`3dTstat`), PR #974 (#73), #968, #967 (in progress). Transcript: https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU._
 
+_Update 2026-11-04: mrneont merged PR #953 (`3dTstat` `-DW` denominator, `-tdiff` detrend conventions, `-nzmean` NaN) on 2026-11-03 18:32 as a true merge (4ed319c), our commit 3c1ab2e unchanged, no follow-up on `3dTstat.c` ("This looks good, thanks."); #954 closed as completed. Transcript: https://claude.ai/artifact/HjzbBKDqLrhpZAiaSAj4YT._
+
 Fixed upstream: **[afni/afni PR #944](https://github.com/afni/afni/pull/944)**,
 merged 2026-08-28 (commit `a0a9530`).
 Harness: `reproductions/reho_tie_sim.py`.
