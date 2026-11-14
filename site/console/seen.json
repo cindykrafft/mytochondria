@@ -762,20 +762,23 @@
    "repo": "deeptools/deepTools",
    "number": 1457,
    "kind": "issue",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 0,
-   "updated": "2026-09-05T15:09:06Z",
-   "status": "unanswered",
+   "updated": "2026-11-13T20:52:00Z",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": "cindykrafft",
-    "date": "2026-09-05T15:09:06Z",
+    "quote": "closed as completed by the merge of PR #1458 (no comment)",
+    "author": "WardDeb",
+    "date": "2026-11-13T20:52:00Z",
     "url": "https://github.com/deeptools/deepTools/issues/1457"
    },
-   "status_checked": "2026-10-01",
-   "title": "bamCompare (4.0.0 Rust backend): --operation first/second/add/mean write the log2 ratio, and reciprocal_ratio is inverted"
+   "status_checked": "2026-11-14",
+   "title": "bamCompare (4.0.0 Rust backend): --operation first/second/add/mean write the log2 ratio, and reciprocal_ratio is inverted",
+   "transcript": "https://claude.ai/artifact/TJ8EY1QG4e6thTduZsG9xM",
+   "fixed_by": "#1458 squash-merged 2026-11-13 20:51 by WardDeb (eb4d8b6)",
+   "note": "RESOLVED 2026-11-13: closed as completed by WardDeb via PR #1458; zero comments."
   },
   {
    "repo": "lmcinnes/umap",
@@ -2009,25 +2012,26 @@
    "repo": "deeptools/deepTools",
    "number": 1466,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-10-24T04:28:43Z",
-   "status": "unanswered",
+   "state": "closed",
+   "merged": true,
+   "comments": 1,
+   "updated": "2026-11-14T05:46:18Z",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": "cindykrafft",
-    "date": "2026-09-08T14:20:42Z",
+    "quote": "merged by WardDeb (no human comment; the only comment is coderabbitai[bot])",
+    "author": "WardDeb",
+    "date": "2026-11-14T05:46:18Z",
     "url": "https://github.com/deeptools/deepTools/pull/1466"
    },
-   "status_checked": "2026-10-24",
+   "status_checked": "2026-11-14",
    "fixes": [
     1118
    ],
    "title": "bamCoverage --MNase: three centre bases for odd fragment lengths",
-   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
-   "note": " | 2026-10-24: read in full via helper; no comments, reviews or labels; GitHub recomputed mergeability: now mergeable_state dirty (conflict in pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py with master's September --no_collapse tests, #1476). Merge of master prepared locally (keep both tests), not pushed: awaiting the owner's go-ahead."
+   "transcript": "https://claude.ai/artifact/TJ8EY1QG4e6thTduZsG9xM",
+   "note": " | 2026-10-24: read in full via helper; no comments, reviews or labels; GitHub recomputed mergeability: now mergeable_state dirty (conflict in pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py with master's September --no_collapse tests, #1476). Merge of master prepared locally (keep both tests), not pushed: awaiting the owner's go-ahead. | RESOLVED 2026-11-14: WardDeb merged master into our branch himself (2371ab3), then squash-merged as bf813b1; src/filtering.rs and src/tests/test_filtering.rs byte-identical to our commit; the pytest kept (moved, file handle in a with-block); the CHANGES.txt bullet dropped (CHANGES.txt is now CHANGELOG.md, written by release-please); closed #1118 as completed. No human comment. The locally prepared merge is moot.",
+   "fixed_by": "#1466 squash-merged 2026-11-14 05:46 by WardDeb (bf813b1; our c93dfcc code unchanged)"
   },
   {
    "repo": "iqtree/iqtree3",
@@ -2126,25 +2130,26 @@
    "repo": "deeptools/deepTools",
    "number": 1458,
    "kind": "pr",
-   "state": "open",
-   "merged": false,
-   "comments": 0,
-   "updated": "2026-10-24T04:28:43Z",
-   "status": "unanswered",
+   "state": "closed",
+   "merged": true,
+   "comments": 1,
+   "updated": "2026-11-13T20:51:59Z",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": "cindykrafft",
-    "date": "2026-09-05T15:11:33Z",
+    "quote": "merged by WardDeb (no human comment; the only comment and review are coderabbitai[bot])",
+    "author": "WardDeb",
+    "date": "2026-11-13T20:51:58Z",
     "url": "https://github.com/deeptools/deepTools/pull/1458"
    },
-   "status_checked": "2026-10-24",
+   "status_checked": "2026-11-14",
    "fixes": [
     1457
    ],
    "title": "bamCompare: compute --operation first/second/add/mean and orient reciprocal_ratio as documented",
-   "transcript": "https://claude.ai/artifact/7okUsP6xvdEhbXsRUUwWXU",
-   "note": " | 2026-10-24: read in full via helper; no comments, reviews or labels; GitHub recomputed mergeability: now mergeable_state dirty (conflict in pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py with master's September --no_collapse tests, #1476). Merge of master prepared locally (keep both tests), not pushed: awaiting the owner's go-ahead."
+   "transcript": "https://claude.ai/artifact/TJ8EY1QG4e6thTduZsG9xM",
+   "note": " | 2026-10-24: read in full via helper; no comments, reviews or labels; GitHub recomputed mergeability: now mergeable_state dirty (conflict in pydeeptools/deeptools/test/test_bamCoverage_and_bamCompare.py with master's September --no_collapse tests, #1476). Merge of master prepared locally (keep both tests), not pushed: awaiting the owner's go-ahead. | RESOLVED 2026-11-13: WardDeb merged master into our branch himself (a9c3063), dropped the CHANGES bullet (release-please writes the changelog), renamed the pytest, added 8cc9f66 'drop pseudocounts from bamCompare subtract, correct reciprocal_ratio/pseudocount help' (the subtract discrepancy our issue named but left alone), then squash-merged as eb4d8b6; PR head tree == squash tree; closed #1457. No human comment. The locally prepared merge is moot.",
+   "fixed_by": "#1458 squash-merged 2026-11-13 20:51 by WardDeb (eb4d8b6; our 4a03fef plus four maintainer commits)"
   },
   {
    "repo": "deeptools/deepTools",
@@ -3153,21 +3158,23 @@
    "repo": "deeptools/deepTools",
    "number": 1118,
    "kind": "comment",
-   "state": "open",
+   "state": "closed",
    "merged": false,
    "comments": 1,
-   "updated": "2026-09-08T14:21:21Z",
+   "updated": "2026-11-14T05:46:20Z",
    "title": "bamCoverage taking four nucleotides instead of three when --MNase is used",
-   "note": "our comment on a maintainer-opened issue: DT4 (our comment; PR #1466); not returned by the author search, checked by number (WATCH.md)",
-   "status": "unanswered",
+   "note": "our comment on a maintainer-opened issue: DT4 (our comment; PR #1466); not returned by the author search, checked by number (WATCH.md) | RESOLVED 2026-11-14: closed as completed by WardDeb via our PR #1466.",
+   "status": "resolved",
    "whose_move": null,
    "evidence": {
-    "quote": "no human response",
-    "author": "cindykrafft",
-    "date": "2026-09-08T14:21:21Z",
-    "url": "https://github.com/deeptools/deepTools/issues/1118#issuecomment-5586637194"
+    "quote": "closed as completed by the merge of PR #1466 (no maintainer comment)",
+    "author": "WardDeb",
+    "date": "2026-11-14T05:46:20Z",
+    "url": "https://github.com/deeptools/deepTools/issues/1118"
    },
-   "status_checked": "2026-10-01"
+   "status_checked": "2026-11-14",
+   "transcript": "https://claude.ai/artifact/TJ8EY1QG4e6thTduZsG9xM",
+   "fixed_by": "#1466 squash-merged 2026-11-14 05:46 by WardDeb (bf813b1)"
   },
   {
    "repo": "macs3-project/MACS",

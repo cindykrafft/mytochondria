@@ -34,3 +34,5 @@ afni:963:pr:964:merged
 afni:955:pr:956:merged
 afni:952:pr:951:merged
 afni:954:pr:953:merged
+deeptools:1457:pr:1458:merged
+deeptools:1118:pr:1466:merged

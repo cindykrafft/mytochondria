@@ -9,6 +9,8 @@ plotProfile/plotHeatmap summaries, multiBamSummary/multiBigwigSummary, plotCorre
 plotPCA, plotFingerprint metrics, bamPEFragmentSize, plotCoverage, estimateReadFiltering,
 plotEnrichment — verified by executing the shipped code._
 
+_Update 2026-11-14: both open filings are in. WardDeb squash-merged PR #1458 (`bamCompare --operation`, #1457) on 2026-11-13 as eb4d8b6 after merging `master` into the branch himself; he dropped our `CHANGES.txt` bullet (release-please now writes the changelog) and added his own commit that drops the pseudocount from `subtract` and corrects the `reciprocal_ratio`/`--pseudocount` help, the discrepancy our issue named but left alone. He squash-merged PR #1466 (`--MNase`, #1118, open since 2022) on 2026-11-14 as bf813b1 the same way: `src/filtering.rs` and its cargo tests are byte-identical to our commit, the pytest is kept, the changelog bullet is dropped. #1457 and #1118 closed as completed. No human comment on either thread. Transcript: https://claude.ai/artifact/TJ8EY1QG4e6thTduZsG9xM._
+
 ## 4.0.0 (2026-09-04): re-verification of the ten items against the Rust rewrite
 
 _Added 2026-09-05. deepTools squash-merged its 4.0.0 rewrite into `master` as `4db9d816`
